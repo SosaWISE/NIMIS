@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:eh="clr-namespace:SOS.Lib.Core.ErrorHandling;assembly=SOS.Lib.Core">
+
+	<DataTemplate x:Key="ErrorMessageTemplate">
+		<Border x:Name="bdContainer"
+				Style="{StaticResource WarningMessage}"
+				Padding="7"
+				Margin="0,0,0,5">
+			<StackPanel>
+				<TextBox Style="{StaticResource UnTextBox}"
+						 Text="{Binding Header}"
+						 TextWrapping="Wrap"
+						 FontWeight="Bold"/>
+				<TextBox Style="{StaticResource UnTextBox}"
+						 Text="{Binding Message}"
+						 TextWrapping="Wrap"/>
+			</StackPanel>
+		</Border>
+		<DataTemplate.Triggers>
+			<DataTrigger Binding="{Binding Type}">
+				<DataTrigger.Value>
+					<eh:ErrorMessageType>Critical</eh:ErrorMessageType>
+				</DataTrigger.Value>
+				<Setter TargetName="bdContainer"
+						Property="Style"
+						Value="{StaticResource CriticalMessage}" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Type}">
+				<DataTrigger.Value>
+					<eh:ErrorMessageType>Success</eh:ErrorMessageType>
+				</DataTrigger.Value>
+				<Setter TargetName="bdContainer"
+						Property="Style"
+						Value="{StaticResource SuccessMessage}" />
+			</DataTrigger>
+		</DataTemplate.Triggers>
+	</DataTemplate>
+	
+</ResourceDictionary>

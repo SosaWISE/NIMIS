@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8ED7A69A-A258-4D9A-B9B8-06BD00B7D8A1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SOS.FOS.MonitoringStationServices</RootNamespace>
+    <AssemblyName>SOS.FOS.MonitoringStationServices</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HttpServiceLibrary">
+      <HintPath>..\..\Resources\MonitoringStations\AvantGuard\HttpServiceLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="StagesGateway">
+      <HintPath>..\..\Resources\MonitoringStations\AvantGuard\StagesGateway.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AvantGuard\AGEnvelops.cs" />
+    <Compile Include="AvantGuard\AGErrorCodes.cs" />
+    <Compile Include="AvantGuard\AGExceptions.cs" />
+    <Compile Include="AvantGuard\AGOOSTypes.cs" />
+    <Compile Include="AvantGuard\CentralStation.cs" />
+    <Compile Include="AvantGuard\Models\FosAgSignalHistoryItem.cs" />
+    <Compile Include="AvantGuard\Models\FosDeviceTest.cs" />
+    <Compile Include="AvantGuard\Receiver.cs" />
+    <Compile Include="Utilities\Exceptions\CsExceptionInvalidZoneConfiguration.cs" />
+    <Compile Include="Utilities\Exceptions\CsExceptionMissingMetadata.cs" />
+    <Compile Include="Utilities\Exceptions\CsExceptionNoContract.cs" />
+    <Compile Include="Utilities\Exceptions\CsExceptions.cs" />
+    <Compile Include="Contracts\Models\FosResult.cs" />
+    <Compile Include="Contracts\Models\IMonitoringStation.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Monitronics\CentralStation.cs" />
+    <Compile Include="Monitronics\Models\FosMsSignalHistoryItem.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\AGSignalService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AGSiteService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Service References\AGSignalService\receiver.wsdl" />
+    <None Include="Service References\AGSignalService\SOS.FOS.MonitoringStationServices.AGSignalService.Result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AGSiteService\service.wsdl" />
+    <None Include="Service References\AGSiteService\SOS.FOS.MonitoringStationServices.AGSiteService.DataResultOfListOfHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AGSiteService\SOS.FOS.MonitoringStationServices.AGSiteService.DataResultOfListOfSiteCodewords.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AGSiteService\SOS.FOS.MonitoringStationServices.AGSiteService.DataResultOfListOfSiteContacts.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AGSiteService\SOS.FOS.MonitoringStationServices.AGSiteService.DataResultOfListOfTransmitterList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AGSiteService\SOS.FOS.MonitoringStationServices.AGSiteService.Result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\SOS.Data.SosCrm\SOS.Data.SosCrm.csproj">
+      <Project>{23bb4972-325c-40d8-96f6-eb8a60676d63}</Project>
+      <Name>SOS.Data.SosCrm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SOS.Data\SOS.Data.csproj">
+      <Project>{c2776f02-c5e2-42ba-b4b0-147625b90a18}</Project>
+      <Name>SOS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SubSonic\SubSonic.csproj">
+      <Project>{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}</Project>
+      <Name>SubSonic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Core\SOS.Lib.Core.csproj">
+      <Project>{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}</Project>
+      <Name>SOS.Lib.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj">
+      <Project>{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}</Project>
+      <Name>SOS.Lib.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logic\NXS.Logic.MonitoringStations\NXS.Logic.MonitoringStations\NXS.Logic.MonitoringStations.csproj">
+      <Project>{3079255e-a811-4408-a00e-614f11e90e36}</Project>
+      <Name>NXS.Logic.MonitoringStations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NSE.FOS\NSE.FOS.csproj">
+      <Project>{40ba5b01-7d6e-4726-a58a-0cf2bc4e4ccb}</Project>
+      <Name>NSE.FOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SOS.FOS.ReceiverEngineServices\SOS.FOS.ReceiverEngineServices.csproj">
+      <Project>{B13BBD04-84C7-4500-8A67-D7A9B8BCAA85}</Project>
+      <Name>SOS.FOS.ReceiverEngineServices</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AGSignalService\" />
+    <WCFMetadataStorage Include="Service References\AGSiteService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AGSignalService\receiver.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AGSignalService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AGSignalService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AGSignalService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AGSiteService\service.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AGSiteService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AGSiteService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AGSiteService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

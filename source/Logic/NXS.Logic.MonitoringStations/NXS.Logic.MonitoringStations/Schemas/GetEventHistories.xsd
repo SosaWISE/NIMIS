@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="GetEventHistories" targetNamespace="http://tempuri.org/GetEventHistories.xsd" xmlns:mstns="http://tempuri.org/GetEventHistories.xsd" xmlns="http://tempuri.org/GetEventHistories.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="GetEventHistories" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="GetEventHistories" msprop:Generator_UserDSName="GetEventHistories">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Table" msprop:Generator_TableClassName="TableDataTable" msprop:Generator_TableVarName="tableTable" msprop:Generator_TablePropName="Table" msprop:Generator_RowDeletingName="TableRowDeleting" msprop:Generator_RowChangingName="TableRowChanging" msprop:Generator_RowEvHandlerName="TableRowChangeEventHandler" msprop:Generator_RowDeletedName="TableRowDeleted" msprop:Generator_UserTableName="Table" msprop:Generator_RowChangedName="TableRowChanged" msprop:Generator_RowEvArgName="TableRowChangeEvent" msprop:Generator_RowClassName="TableRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cs_no" msprop:Generator_ColumnVarNameInTable="columncs_no" msprop:Generator_ColumnPropNameInRow="cs_no" msprop:Generator_ColumnPropNameInTable="cs_noColumn" msprop:Generator_UserColumnName="cs_no" type="xs:string" minOccurs="0" />
+              <xs:element name="event_date" msprop:Generator_ColumnVarNameInTable="columnevent_date" msprop:Generator_ColumnPropNameInRow="event_date" msprop:Generator_ColumnPropNameInTable="event_dateColumn" msprop:Generator_UserColumnName="event_date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="zone_id" msprop:Generator_ColumnVarNameInTable="columnzone_id" msprop:Generator_ColumnPropNameInRow="zone_id" msprop:Generator_ColumnPropNameInTable="zone_idColumn" msprop:Generator_UserColumnName="zone_id" type="xs:string" minOccurs="0" />
+              <xs:element name="area" msprop:Generator_ColumnVarNameInTable="columnarea" msprop:Generator_ColumnPropNameInRow="area" msprop:Generator_ColumnPropNameInTable="areaColumn" msprop:Generator_UserColumnName="area" type="xs:string" minOccurs="0" />
+              <xs:element name="event_id" msprop:Generator_ColumnVarNameInTable="columnevent_id" msprop:Generator_ColumnPropNameInRow="event_id" msprop:Generator_ColumnPropNameInTable="event_idColumn" msprop:Generator_UserColumnName="event_id" type="xs:string" minOccurs="0" />
+              <xs:element name="user_name" msprop:Generator_ColumnVarNameInTable="columnuser_name" msprop:Generator_ColumnPropNameInRow="user_name" msprop:Generator_ColumnPropNameInTable="user_nameColumn" msprop:Generator_UserColumnName="user_name" type="xs:string" minOccurs="0" />
+              <xs:element name="zonestate_id" msprop:Generator_ColumnVarNameInTable="columnzonestate_id" msprop:Generator_ColumnPropNameInRow="zonestate_id" msprop:Generator_ColumnPropNameInTable="zonestate_idColumn" msprop:Generator_UserColumnName="zonestate_id" type="xs:string" minOccurs="0" />
+              <xs:element name="match" msprop:Generator_ColumnVarNameInTable="columnmatch" msprop:Generator_ColumnPropNameInRow="match" msprop:Generator_ColumnPropNameInTable="matchColumn" msprop:Generator_UserColumnName="match" type="xs:string" minOccurs="0" />
+              <xs:element name="computed" msprop:Generator_ColumnVarNameInTable="columncomputed" msprop:Generator_ColumnPropNameInRow="computed" msprop:Generator_ColumnPropNameInTable="computedColumn" msprop:Generator_UserColumnName="computed" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

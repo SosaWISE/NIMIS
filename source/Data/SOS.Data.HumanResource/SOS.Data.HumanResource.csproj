@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CFF942B5-73BE-42A3-86DE-14EF45BEFCF1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SOS.Data.HumanResource</RootNamespace>
+    <AssemblyName>SOS.Data.HumanResource</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ControllerExtensions\ES_MessageControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RecruiteUserControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RecruitingLineMobileViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RecruitingLineViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RecruitingStructureViewControllerExtension.cs" />
+    <Compile Include="ControllerExtensions\RecruitUserViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_DocStatusControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_MigrationControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_PhoneCellCarrierControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_RecruitControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_RecruitsHistoryControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_RoleLocationControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_SeasonControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_TeamControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_TechnicianControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_TeamLocationControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_TerminationCategoryControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_TerminationControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_TerminationNoteControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_TerminationsWithStatusViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_UserAuthenticationControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_UserControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_UsersCallerIDViewsControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_UsersHistoryControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_UserTypeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_UserTypeTeamTypeControllerExtensions.cs" />
+    <Compile Include="Controllers\IDTextController.cs" />
+    <Compile Include="Controllers\RU_User.cs" />
+    <Compile Include="Controllers\ScannedDocumentController.cs" />
+    <Compile Include="Controllers\SeasonsMapController.cs" />
+    <Compile Include="Controllers\UserDocumentController.cs" />
+    <Compile Include="HumanResourceDataContext.cs" />
+    <Compile Include="Models\Attachment.cs" />
+    <Compile Include="Models\ES_Message.cs" />
+    <Compile Include="Models\ES_MessageRecipient.cs" />
+    <Compile Include="Models\IDText.cs" />
+    <Compile Include="Models\OfficeSearchInfo.cs" />
+    <Compile Include="Models\ScannedDocument.cs" />
+    <Compile Include="Models\SeasonMap.cs" />
+    <Compile Include="Models\TeamSearchInfo.cs" />
+    <Compile Include="Models\TerminationInfo.cs" />
+    <Compile Include="Models\UserDocument.cs" />
+    <Compile Include="Models\UserIDForCompanyIDResults.cs" />
+    <Compile Include="Models\UserIDForUsernameResults.cs" />
+    <Compile Include="Models\UserSearchInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_Generated\Classes.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Classes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="_Generated\Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="_Generated\StoredProcedures.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoredProcedures.tt</DependentUpon>
+    </Compile>
+    <Compile Include="_Generated\Views.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Views.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="_Generated\Classes.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Classes.cs</LastGenOutput>
+    </None>
+    <None Include="_Generated\Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Context.cs</LastGenOutput>
+    </None>
+    <None Include="_Generated\StoredProcedures.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>StoredProcedures.cs</LastGenOutput>
+    </None>
+    <None Include="_Generated\Views.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Views.cs</LastGenOutput>
+    </None>
+    <None Include="_Generated\_Settings.ttinclude" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="_Generated\Templates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Core\SOS.Lib.Core.csproj">
+      <Project>{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}</Project>
+      <Name>SOS.Lib.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj">
+      <Project>{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}</Project>
+      <Name>SOS.Lib.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SOS.Data\SOS.Data.csproj">
+      <Project>{C2776F02-C5E2-42BA-B4B0-147625B90A18}</Project>
+      <Name>SOS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubSonic\SubSonic.csproj">
+      <Project>{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}</Project>
+      <Name>SubSonic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

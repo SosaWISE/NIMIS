@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="NXS.Framework.Wpf.Controls.EditableTextBox"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:cnv="clr-namespace:NXS.Framework.Wpf.Converters"
+			 xmlns:ctrls="clr-namespace:NXS.Framework.Wpf.Controls">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Column="0"
+			  Visibility="{Binding Path=IsEditing, Converter={x:Static cnv:BooleanVisibilityConverter.Instance}, ConverterParameter=false}">
+			<ctrls:ImageButton x:Name="btnEdit"
+							   IconSource="../Themes/GenericAssets/Edit.png"
+							   ToolTip="Edit"
+							   Command="{Binding Path=EditCommand}"
+							   IsEnabled="{Binding Path=CanEdit, Converter={x:Static cnv:BooleanVisibilityConverter.Instance}, ConverterParameter=false}" />
+		</Grid>
+		<StackPanel Grid.Column="1"
+					VerticalAlignment="Center">
+			<TextBox Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}"
+					 HorizontalAlignment="Left"
+					 VerticalAlignment="Center"
+					 Style="{StaticResource UnTextBox}"
+					 Visibility="{Binding Path=IsEditing, Converter={x:Static cnv:BooleanVisibilityConverter.Instance}, ConverterParameter=false}"
+					 GotFocus="txtSelectAll_GotFocus">
+				<TextBox.Background>
+					<MultiBinding Converter="{x:Static cnv:ValidatedInputBrushConverter.Instance}">
+						<Binding Path="IsValid" />
+						<Binding Path="IsDirty" />
+					</MultiBinding>
+				</TextBox.Background>
+			</TextBox>
+			<TextBox x:Name="txtValue"
+					 HorizontalAlignment="Stretch"
+					 VerticalAlignment="Center"
+					 Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}"
+					 Visibility="{Binding Path=IsEditing, Converter={x:Static cnv:BooleanVisibilityConverter.Instance}, ConverterParameter=true}"
+					 LostFocus="txtValue_LostFocus"
+					 KeyDown="txtValue_KeyDown">
+				<TextBox.Background>
+					<MultiBinding Converter="{x:Static cnv:ValidatedInputBrushConverter.Instance}">
+						<Binding Path="IsValid" />
+						<Binding Path="IsDirty" />
+					</MultiBinding>
+				</TextBox.Background>
+			</TextBox>
+		</StackPanel>
+	</Grid>
+</UserControl>

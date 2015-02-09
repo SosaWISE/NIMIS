@@ -1,0 +1,36 @@
+﻿
+SOS.ClientServices.Controller.Namespace('<#= Namespace #>');
+
+// Wrap in a closure, to be called immediately
+(function ($)
+{
+	// Prevent multiple inclusions
+	if (<#= Namespace #>.__included_<#= JsClassName #>)
+		return;
+	<#= Namespace #>.__included_<#= JsClassName #> = true;
+
+	<#= Namespace #>.<#= JsClassName #> = function (sessionId, customErrorHandler)
+	{
+		this._client = new SOS.ClientServices.Controller.serviceClient('$$serviceUrl$$', sessionId, customErrorHandler);
+	};
+
+	// ********************************************************************************
+	// *** Public service methods *****************************************************
+	// ********************************************************************************
+
+    <#= Namespace #>.<#= JsClassName #>.prototype =
+    {
+	// Can be called to change the session id after client construction
+	// the $ is to prevent collision with generated methods
+	$SetSessionId: function(newSessionId)
+	{
+		this._client._sessionId = newSessionId;
+	}
+
+<#= ServiceMethods #>
+    };
+
+//Singleton convenience instance    
+<#= Namespace #>.<#= JsClassName #>.Instance = new <#= Namespace #>.<#= JsClassName #>();
+
+})(jQuery); // end of closure wrapper (called immediately)

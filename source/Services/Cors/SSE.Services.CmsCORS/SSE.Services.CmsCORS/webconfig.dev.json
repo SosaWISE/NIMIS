@@ -1,0 +1,54 @@
+﻿{
+"Comments": "Development Environment", 
+"Access-Control-Allow-Credentials": "true", 
+"Access-Control-Allow-Origin": "http://crm.dev.nexsense.com", 
+"Access-Control-Allow-Methods": "GET,POST,DELETE", 
+"Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept", 
+"Access-Control-Expose-Headers": "Content-Length", 
+"SosCrmConnString": "A+x0QnmJM5Nj2HEFAnPXMjTmyxYTy7w8ppc3B+Ho5mk/sBT2HUFepO0XFiKWB8UdgHxCvmsKPy/+89U7kQueo5okDvdkht+UycfkIFknMdErihUplIgyJ02JL1n6OvW82R+/WQoPclBFK9g0SzaYcbw0Rj3TVx8+UplEytetyonbRpDZH2/A9n28IcKpvzIXJpg2aYmFwdor7h1SSmaY/g+B2qpEvjes", /* Data Source=db1.dev.nexsense.com;Initial Catalog=WISE_CRM;Persist Security Info=True;User ID=devUser;Password=1Filipino!20;Application Name=Nexsense CORS Services */
+"SosAuthControlConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotNUs2u5sjT43nbGIaIwpZu7pcNvuIjngfnsoND48tql6kD2eo2WKU9+WHCRjr43aU6DQPfUJnYk4SE2hGzUl1on7RLEHF+d3FMh5dS2sD9lZ52dK+sIHsasvU0jlZOZJS1pO/VD63g8vuf4bv2MTTKm2IU1Us8OODLmjfpd2SAZHQnIUr3xQ0DJ3C4cfAvtWRcMyrTVhlUoFg==", /* Persist Security Info=True;User ID=devUser;Initial Catalog=WISE_AuthenticationControl;Data Source=db1.dev.nexsense.com;Password=1Filipino!20;Application Name=Nexsense CORS Services */
+"SosLoggingConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotNUs2u5sjT43nbGIaIwpZu7pcNvuIjngfnsoND48tql6p4g3mYiB7t6A+x0QnmJM5Nj2HEFAnPXMjTmyxYTy7w8ppc3B+Ho5mmkGX4QTv6UjbH/MoNKCu2K5rhDz/SiQ20F+2zgR8Avoy/n3/100C0g+6CvQ4P3pQLPrvO+cAxrRxo9mRB2GfuR", /* Persist Security Info=True;User ID=devUser;Initial Catalog=WISE_LOGGING;Data Source=db1.dev.nexsense.com;Password=1Filipino!20;Application Name=Nexsense CORS Services */
+"SosReceiverEngineConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotNUs2u5sjT43nbGIaIwpZu7pcNvuIjngfnsoND48tql6tA5MwzK6V/wq+RSgIXU0lVvFapuoC5wq0jO7f9qva6L9IjDtRfagPDh4w5ZfFBn3DchE3JSdrpC/JnFfI/4x+H2R8hiGYCQQhCcJVhysXgIfQYwL8RVG9oZW8MeLptAIMaX8RvNvuNl", /* Persist Security Info=True;User ID=devUser;Initial Catalog=WISE_Receiver;Data Source=db1.dev.nexsense.com;Password=1Filipino!20;Application Name=Nexsense CORS Services */
+"SosHumanResourceConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotNUs2u5sjT43nbGIaIwpZu7pcNvuIjngfnsoND48tql6mI0sdATRomfn/R8L6I3fGchNoRs1JdaJ+0SxBxfndxTIeXUtrA/ZWednSvrCB7GrL1NI5WTmSUtaTv1Q+t4PL7n+G79jE0yptiFNVLPDjgy5o36XdkgGR0JyFK98UNAydwuHHwL7VkXDMq01YZVKBY=", /* Persist Security Info=True;User ID=devUser;Initial Catalog=WISE_HumanResource;Data Source=db1.dev.nexsense.com;Password=1Filipino!20;Application Name=Nexsense CORS Services */
+"SosGpsTrackingConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotNUs2u5sjT43nbGIaIwpZu7pcNvuIjngfnsoND48tql6sy82MRWZ4sHavNPBvCPNEkVY1KObzaJtW95xCfEcKTbxu6629KO23rcd0nfuEBftUUr2DRLNphxvDRGPdNXHz5SmUTK163KidtGkNkfb8D2fbwhwqm/MhcmmDZpiYXB2ivuHVJKZpj+D4HaqkS+N6w=", /* Persist Security Info=True;User ID=devUser;Initial Catalog=WISE_GPSTRACKING;Data Source=db1.dev.nexsense.com;Password=1Filipino!20;Application Name=Nexsense CORS Services */
+"SseSurveyEngineConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotNUs2u5sjT43nbGIaIwpZu7pcNvuIjngfnsoND48tql6unU0t+H95WVbYNqp6gs4pGQr/FRVQvhqwFui/wk+jSzm7VxdG6Um0UIzgNynsTkFxpNoNmdUg/6OXN2wLozrekYqYde+SD66dUZIiv9t9P5hBWqbGxAFDdD7ZoB8bLELAH2kO1F+YLMfiUoAtguGkI=", /* Persist Security Info=True;User ID=devUser;Initial Catalog=WISE_SurveyEngine;Data Source=db1.dev.nexsense.com;Password=1Filipino!20;Application Name=Nexsense CORS Services */
+"LogSourceID": "8", 
+"FileSourceID": "1", 
+"AddressVerification_Vendor_STRIKEIRON": "t2uPD+cM1piMZDnde5NW4A==", /* STRIKEIRON */
+"AddressVerification_Vendor_INTELSEARCH": "9sIcpiMfQoP/0IAiTithSQ==", /* INTELSEARCH */
+"AddressVerification_Vendor": "0sAzPr0GGJ6Bt8gtPK7XjA==", /* SMARTYSTREET */
+"AddressVerification_StrikeIronUID": "7lLZp3OchcPxabVbbv3cRs61H13mrlsup5dQtae5qF0=", /* securitysciences@strikeiron.com */
+"AddressVerification_StrikeIronPWD": "61n8oD/YqQMLw0vH/gWnIw==", /* SStrial13 */
+"AddressVerification_IntelligentSearchUID": "f/oXEJYSDzc=", /* andres */
+"AddressVerification_IntelligentSearchPWD": "TKQ/unUQnjp+GdVhcWEt6g==", /* Toys */
+"AddressVerification_IntelligentSearchFilePath": "jbiFEouTrIpCAGafw8MM9iAcKj9IijYAla9aOuc1R8rORknU7bz6ww==", /* C:\SOP\IntelligentSearch\{0}_{1}.Txt */
+"AddressVerification_SmartyStreetApiUrl": "BWkvNVtYYSULWkPN/ojaLpJkv3eZMmnfdEkIBZHHjJBw0wT6l11RxCttFrvW5rh+", /* https://api.smartystreets.com/street-address/ */
+"AddressVerification_SmartySAuthID": "L9NTa7Bz5H5eIXib+4N4qpNP4+L7akhfu4+/id3g8dIWka4Bl9Qdfg==", /* d9c082fc-6b01-408e-aa45-c5f60eaa4ce3 */
+"AddressVerification_SmartySAuthToken": "wjKlwW1SD+tpDyAEbvCdkLjDTZ5pnorU+Ch0ZJM5YPTIuaFRZDna9i7foFrsCHRLJQIJ9torAmkIfP0EyCGvN/6oYmO8hfw4NIho+Wf8VRP5Q0lLbiP+FM5KWIWGJEAH5++ecgY5kus=", /* 7qWKIcNbHa%2FpBfWZ3%2BtI3Wlv2I5L8iX5YtEu%2Bbmzm%2Bt2LqYHmGTF9vwZ7n7AaMO7bNgBVxYQr%2FRZQNtvq3glqg%3D%3D */
+"RU_UserImageLocal": "//sse.somwhere.com/ruuserimage/", 
+"ImagePath_LoremPixelUse": "true", 
+"ImagePath_LoremPixelURL_People": "//lorempixel.com/{WIDTH}/{HEIGHT}/people/", 
+"ImagePath_Avatars": "//{DOMAIN}{PORT}/images/Avatar/{UserID}_{WIDTH}x{HEIGHT}.png", 
+"CreditReport_Vendor": "jYGNXsyz8Eo=", /* ABARA */
+"CreditReport_Vendor_MICROBILT": "/h2Ny1TwHl1GBVfw3nmONA==", /* MICROBILT */
+"CreditReport_Vendor_ABARA_TU_ENDPOINT": "3NPGH0+REf0DsZI95Gs1JQkKX16DYMK+FrIlaNJn+/L/v6aoPG6/Rh/F2DfqU2HU0ry4IovBXCyzF0qdXFi3qw==", /* http://testblinkws.abarasoftware.com/TU/TransUnionWS.asmx */
+"CreditReport_Vendor_ABARA_EQ_ENDPOINT": "BWkvNVtYYSUfC4h6bZXatSSW4aFEzW61hdi4OgZ+4rIu1kLmlI6wDicJAy70iIMCoXk4MvJczss=", /* https://testblinkws.abarasoftware.com/EQ/EquifaxWS.asmx */
+"CreditReport_Vendor_ABARA_EX_ENDPOINT": "BWkvNVtYYSUfC4h6bZXatSSW4aFEzW61hdi4OgZ+4rLRwR5ByeQpy5DtW6bCqMlDQHfpsELqnoV+GdVhcWEt6g==", /* https://testblinkws.abarasoftware.com/EX/ExperianWS.asmx */
+"CreditReport_Vendor_ABARA_CRP_UID": "x0pB5s8CNiQSE+RF3Nytcg==", /* hqRezp85AVZ */
+"CreditReport_Vendor_ABARA_CRP_PWD": "DOlvaoTDB2XfruX0JwSDYQ==", /* b7q5XuJQNHm */
+"CreditReport_Vendor_ABARA_WIN_UID": "iAhGDkHFRdVkH/5c1l4MFn4Z1WFxYS3q", /* blinkwstest_user */
+"CreditReport_Vendor_ABARA_WIN_PWD": "UVWj3i6acs4UBSpi/nOJGA==", /* abara123! */
+"CreditReport_Vendor_ABARA_Mock_FALSE": "Something", 
+"CreditService_BureauListOrder": "TU", 
+"AG_USERNAME": "+6CvQ4P3pQJ+GdVhcWEt6g==", /* Nexsense */
+"AG_PASSWORD": "C6ql+hKKm6/l4mFyjo4nHQ==", /* n3xs3ns3$ */
+"AG_GATEWAY_ENDPNT": "BWkvNVtYYSVqTagWkMOp8wuvAt1OjdnoKe6BbbACd0rHVCEAFntvJ/MTiDYO+vSrsPFfOnwKIE+pD2Xpviu4HELwuJljp5g3", /* https://portal.agmonitoring.com/teststagesexternalgateway/gateway.aspx */
+/* "NsqHostname": "127.0.0.1",  */
+"Domain": "4VscJyFYghOxpRh6jYkbzB3h63T9yCYA", /* CORP.NEXSENSE.COM */
+"ADPAth": "Iiv60a5gsqNKoGEZhOTOzX0Zx3t+xJwjfhnVYXFhLeo=", /* LDAP://CORP.NEXSENSE.COM */
+"ADUser": "/f/s9Vld+Bh+GdVhcWEt6g==", /* sosawise */
+"ADPassword": "NEOvHYvqBJ+VJ1ZK+Q/RIw==", /* ******** */
+"ADUsersPath": "YWfBGOs5fMFJiHgyTUnFzH4Z1WFxYS3q", /* OU=CORPNEXSENSE, */
+"MN_USERNAME": "vMQzZrgdJjBni7jb/df0/Q==", /* wsi_828070003 */
+"MN_PASSWORD": "7Z6P30znRDZ+GdVhcWEt6g==", /* password */
+}

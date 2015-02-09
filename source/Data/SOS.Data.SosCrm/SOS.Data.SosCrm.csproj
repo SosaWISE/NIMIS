@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{23BB4972-325C-40D8-96F6-EB8A60676D63}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SOS.Data.SosCrm</RootNamespace>
+    <AssemblyName>SOS.Data.SosCrm</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ControllerExtensions\AE_AgingControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_ContractControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_ContractTemplateControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerAccountControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerAddressControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerCardInfoViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerInformationViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\BE_BarcodeSchemaControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\BE_DocTypeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\BX_BarcodeTypesAMAAndNOCViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\BX_DocumentFiledControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\IE_PackingSlipViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MC_PoliticalTimeZoneControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountDispatchAgencyAssignmentControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountDispatchAgencyAssignmentViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountSiteGeneralDispatchControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_DealerControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_DispatchAgencyControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_EmergencyContactAuthorityControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_EmergencyContactTypeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_EquipmentAccountZoneTypeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_EquipmentAccountZoneTypeEventControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_IndustryAccountNumbersWithReceiverLineInfoViewControllerExtentions.cs" />
+    <Compile Include="ControllerExtensions\MS_MarketControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_ReceiverBlockCellDeviceInfoViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\QL_CreditReportControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\QL_CreditReportTransactionAndTokenControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SAE_BillingHistoryViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SE_TechnicianScheduleBlockViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SE_TechnicianAvailabilityControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SE_ScheduleBlockViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SE_ScheduleTicketControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SE_ScheduleBlockControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SE_ScheduleBlockTicketViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SE_AccountTicketViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SE_TicketViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SE_TicketControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SE_TicketTypeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SE_TicketStatusControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\IE_VendorControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\IE_ProductBarcodeLocationViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\IE_LocationViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\IE_LocationTypeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\IE_WarehouseSiteControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\IE_ProductBarcodeTrackingControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\IE_PackingSlipItemControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\IE_ProductBarcodeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\IE_PackingSlipControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\IE_PurchaseOrderControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerGpsClientsViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerMasterFileGeneralViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerSWINGAddDncControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerSWINGEmergencyContactViewControllerExtension.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerSWINGEquipmentViewControllerExtension.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerSwingFromInterim.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerSWINGPremiseAddressViewControllerExtension.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerSWINGSystemDetailsViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerSWINGViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_CustomerSwungInfoViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_GpsClientToCustomerMasterViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_InvoiceControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_InvoiceItemControllerExtentions.cs" />
+    <Compile Include="ControllerExtensions\AE_InvoiceItemViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_InvoiceMsInstallInfoViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_ItemControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\AE_PaymentFullViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\CA_AppointmentControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\CA_AppointmentTypeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\CA_ReminderDelyTypeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\CA_ReminderMediaTypeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\DC_PhoneNumberControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\GS_AccountControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MC_AccountNoteCat1ControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MC_AccountNoteCat2ControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MC_AccountNoteControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MC_AccountNotesAllInfoViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MC_AddressControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MC_AddressesViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MC_DealerUserControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MC_PoliticalStateControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountAndLeadInfoViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountCellularTypeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountClientDetailsViewExtensions.cs" />
+    <Compile Include="ControllerExtensions\IE_ProductBarcodeTrackingViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountEquipmentControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountMonitorInformationControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountSalesInfosViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\IE_PurchaseOrderItemsViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountSubmitControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_EquipmentsViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountClientViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountCustomerControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountEventViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountPanelTypeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountSystemTypeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountEquipmentsViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountZoneAssignmentControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_EmergencyContactControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_EmergencyContactPhoneTypeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_EmergencyContactRelationshipControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_EquipmentLocationViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_IndustryAccountNumbersViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_IndustryNumberByCallerIdViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_ReceiverLineBlockAlarmComControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_TimeZoneLookupControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_VendorAlarmComAccountControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\QL_AddressControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\QL_LeadBasicInfoViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\QL_LeadControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\QL_LeadDispositionControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\QL_LeadProductOfferControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\QL_LeadProductOfferViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\QL_LeadSearchResultViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\QL_LeadSourceControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\QL_QualifyCustomerInfoViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SAE_BillingHistoryControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SAE_BillingInfoSummaryViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\SAE_CreditReportAbaraControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\TS_TechViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\TS_ServiceTicketSkills_MapControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\TS_ServiceTicketControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\TS_ServiceTicketStatusViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\TS_TechSkills_MapControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\UI_ActionsControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\UI_ApplicationControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\UI_ApplicationMenuViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\UI_ApplicationPermissionControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\UI_ApplicationVersionsViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\UI_MenuItemPermissionControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\UI_MenusCurrentMenusViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\UI_MessageControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\UI_UserSettingsContainerControllerExtensions.cs" />
+    <Compile Include="Controllers\AccountSearchController.cs" />
+    <Compile Include="Controllers\ActionPermissionController.cs" />
+    <Compile Include="Controllers\AE_BillingCustomer.cs" />
+    <Compile Include="Controllers\AE_Contract.cs" />
+    <Compile Include="Controllers\AE_CustomerMasterFile.cs" />
+    <Compile Include="Controllers\CustomerSearchController.cs" />
+    <Compile Include="Controllers\ExistingBarcodeResultController.cs" />
+    <Compile Include="Controllers\MC_AccountNoteCat1.cs" />
+    <Compile Include="Controllers\MC_AddressType.cs" />
+    <Compile Include="Controllers\MC_AddressValidationState.cs" />
+    <Compile Include="Controllers\MC_AddressValidationVendors.cs" />
+    <Compile Include="Controllers\MG_AuthorizeNetConfig.cs" />
+    <Compile Include="Controllers\MS_MonitoringStationOss.cs" />
+    <Compile Include="Models\AccountSearchResult.cs" />
+    <Compile Include="Models\ActionPermission.cs" />
+    <Compile Include="Models\CustomerSearchResult.cs" />
+    <Compile Include="Models\ExistingBarcodeResult.cs" />
+    <Compile Include="Models\MS_Account.cs" />
+    <Compile Include="Models\MS_AccountPanelType.cs" />
+    <Compile Include="Models\MS_AccountSiteType.cs" />
+    <Compile Include="Models\MS_AccountSubmit.cs" />
+    <Compile Include="Models\MS_ReceiverLine.cs" />
+    <Compile Include="Models\Ug.cs" />
+    <Compile Include="Models\UI_Message.cs" />
+    <Compile Include="Models\UI_MessageAction.cs" />
+    <Compile Include="SosCrmDataContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_Generated\Classes.cs">
+      <DependentUpon>Classes.tt</DependentUpon>
+      <SubType>Code</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="_Generated\Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="_Generated\StoredProcedures.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoredProcedures.tt</DependentUpon>
+    </Compile>
+    <Compile Include="_Generated\Views.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Views.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="_Generated\Classes.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Classes.cs</LastGenOutput>
+    </None>
+    <None Include="_Generated\Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Context.cs</LastGenOutput>
+    </None>
+    <None Include="_Generated\StoredProcedures.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>StoredProcedures.cs</LastGenOutput>
+    </None>
+    <None Include="_Generated\Templates\_Settings.ttinclude" />
+    <None Include="_Generated\Templates\_SQLServer.ttinclude" />
+    <None Include="_Generated\Views.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Views.cs</LastGenOutput>
+    </None>
+    <None Include="_Generated\_Settings.ttinclude" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Core\SOS.Lib.Core.csproj">
+      <Project>{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}</Project>
+      <Name>SOS.Lib.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj">
+      <Project>{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}</Project>
+      <Name>SOS.Lib.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SOS.Data\SOS.Data.csproj">
+      <Project>{C2776F02-C5E2-42BA-B4B0-147625B90A18}</Project>
+      <Name>SOS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubSonic\SubSonic.csproj">
+      <Project>{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}</Project>
+      <Name>SubSonic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

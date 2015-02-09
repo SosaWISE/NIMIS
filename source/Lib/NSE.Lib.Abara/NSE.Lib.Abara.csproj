@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9685F421-DAF9-4806-A726-63A58FF4704E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NSE.Lib.Abara</RootNamespace>
+    <AssemblyName>NSE.Lib.Abara</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EX\Bureau.cs" />
+    <Compile Include="EQ\Bureau.cs" />
+    <Compile Include="InqueryResponse.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\com.abarasoftware.blinkws.EQ\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\com.abarasoftware.blinkws.EX\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="TU\Bureau.cs" />
+    <Compile Include="Web References\com.abarasoftware.testblinkws.TU\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\SOS.Data.HumanResource\SOS.Data.HumanResource.csproj">
+      <Project>{cff942b5-73be-42a3-86de-14ef45befcf1}</Project>
+      <Name>SOS.Data.HumanResource</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SOS.Data.Logging\SOS.Data.Logging.csproj">
+      <Project>{b6b1fcf3-f2ba-445e-9041-5100733efd20}</Project>
+      <Name>SOS.Data.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SOS.Data.SosCrm\SOS.Data.SosCrm.csproj">
+      <Project>{23bb4972-325c-40d8-96f6-eb8a60676d63}</Project>
+      <Name>SOS.Data.SosCrm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SOS.Data\SOS.Data.csproj">
+      <Project>{c2776f02-c5e2-42ba-b4b0-147625b90a18}</Project>
+      <Name>SOS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SubSonic\SubSonic.csproj">
+      <Project>{ee4a10e7-92c3-4eac-b6df-5da1c26f4d1d}</Project>
+      <Name>SubSonic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SOS.Lib.Core\SOS.Lib.Core.csproj">
+      <Project>{a4d0820e-3529-4cb9-ba5f-b2824bfeec97}</Project>
+      <Name>SOS.Lib.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SOS.Lib.Util\SOS.Lib.Util.csproj">
+      <Project>{33a1b8c5-b37d-423e-b7fd-83ce1ec1d442}</Project>
+      <Name>SOS.Lib.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\com.abarasoftware.blinkws.EQ\EquifaxWS.wsdl" />
+    <None Include="Service References\com.abarasoftware.blinkws.EQ\NSE.Lib.Abara.com.abarasoftware.blinkws.EQ.GetExistingReportResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\com.abarasoftware.blinkws.EQ\NSE.Lib.Abara.com.abarasoftware.blinkws.EQ.GetNewReportResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\com.abarasoftware.blinkws.EQ\NSE.Lib.Abara.com.abarasoftware.blinkws.EQ.ReportResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\com.abarasoftware.blinkws.EQ\NSE.Lib.Abara.com.abarasoftware.blinkws.EQ.TestConnectivityResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\com.abarasoftware.blinkws.EX\ExperianWS.wsdl" />
+    <None Include="Service References\com.abarasoftware.blinkws.EX\NSE.Lib.Abara.com.abarasoftware.blinkws.EX.GetExistingReportResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\com.abarasoftware.blinkws.EX\NSE.Lib.Abara.com.abarasoftware.blinkws.EX.GetNewReportResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\com.abarasoftware.blinkws.EX\NSE.Lib.Abara.com.abarasoftware.blinkws.EX.ReportResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\com.abarasoftware.blinkws.EX\NSE.Lib.Abara.com.abarasoftware.blinkws.EX.TestConnectivityResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Web References\com.abarasoftware.testblinkws.TU\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\com.abarasoftware.testblinkws.TU\ReportResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\com.abarasoftware.testblinkws.TU\TransUnionWS.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\com.abarasoftware.blinkws.EQ\" />
+    <WCFMetadataStorage Include="Service References\com.abarasoftware.blinkws.EX\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\com.abarasoftware.blinkws.EQ\EquifaxWS.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\com.abarasoftware.blinkws.EQ\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\com.abarasoftware.blinkws.EQ\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\com.abarasoftware.blinkws.EQ\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\com.abarasoftware.blinkws.EX\ExperianWS.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\com.abarasoftware.blinkws.EX\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\com.abarasoftware.blinkws.EX\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\com.abarasoftware.blinkws.EX\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://testblinkws.abarasoftware.com/TU/TransUnionWS.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\com.abarasoftware.testblinkws.TU\</RelPath>
+      <UpdateFromURL>http://testblinkws.abarasoftware.com/TU/TransUnionWS.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NSE_Lib_Abara_com_abarasoftware_testblinkws_TU_TransUnionWS</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\com.abarasoftware.testblinkws.TU\TransUnionWS.disco" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

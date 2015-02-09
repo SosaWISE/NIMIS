@@ -1,0 +1,864 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
+					xmlns:fc="clr-namespace:NXS.Framework.Wpf.Controls">
+
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="BaseStyles.xaml" />
+		<ResourceDictionary Source="ListViewStyle.xaml" />
+		<ResourceDictionary Source="TabControlStyle.xaml" />
+		<ResourceDictionary Source="WorkspaceTabControlStyle.xaml" />
+		<ResourceDictionary Source="RadioButtonList.xaml" />
+		<ResourceDictionary Source="DatePicker.xaml" />
+		<ResourceDictionary Source="UnTextBoxStyle.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+	<!-- TEXTUAL STYLES -->
+	<Style x:Key="MainHeaderText">
+		<Setter Property="Control.FontSize"
+				Value="17" />
+		<Setter Property="Control.FontFamily"
+				Value="Myriad Pro" />
+		<Setter Property="Control.FontWeight"
+				Value="Normal" />
+		<Setter Property="Control.Foreground"
+				Value="#FF000000" />
+	</Style>
+	<Style x:Key="SectionHeaderText">
+		<Setter Property="Control.FontSize"
+				Value="16" />
+		<Setter Property="Control.FontFamily"
+				Value="Myriad Pro" />
+		<Setter Property="Control.FontWeight"
+				Value="Normal" />
+		<Setter Property="Control.Foreground"
+				Value="#FFFFFF" />
+	</Style>
+	<Style x:Key="SectionSubHeaderText">
+		<Setter Property="Control.FontSize"
+				Value="13" />
+		<Setter Property="Control.FontFamily"
+				Value="Myriad Pro" />
+		<Setter Property="Control.FontWeight"
+				Value="Normal" />
+		<Setter Property="Control.Foreground"
+				Value="#FF315BA8" />
+	</Style>
+
+	<Style x:Key="TextSubHeader">
+		<Setter Property="Control.FontWeight"
+				Value="Bold" />
+		<Setter Property="Control.Foreground"
+				Value="#FFF3AF52" />
+	</Style>
+
+	<Style x:Key="WorkspaceHeader">
+		<Setter Property="Control.FontFamily"
+				Value="Segoe UI" />
+		<Setter Property="Control.FontSize"
+				Value="25" />
+		<Setter Property="Control.FontWeight"
+				Value="Bold" />
+		<Setter Property="Control.Foreground"
+				Value="BurlyWood" />
+	</Style>
+
+	<Style x:Key="DialogHeader">
+		<Setter Property="Control.FontFamily"
+				Value="Segoe UI" />
+		<Setter Property="Control.FontSize"
+				Value="18" />
+		<Setter Property="Control.FontWeight"
+				Value="Bold" />
+		<Setter Property="Control.Foreground"
+				Value="BurlyWood" />
+		<Setter Property="Control.VerticalAlignment"
+				Value="Center" />
+	</Style>
+
+	<Style x:Key="ManageSubHeader">
+		<Setter Property="Control.FontWeight"
+				Value="Bold" />
+		<Setter Property="Control.Foreground"
+				Value="Chocolate" />
+		<Setter Property="Control.VerticalAlignment"
+				Value="Center" />
+	</Style>
+
+	<Style x:Key="ManageSubSubHeader">
+		<Setter Property="Control.FontWeight"
+				Value="Bold" />
+		<Setter Property="Control.Foreground"
+				Value="Chocolate" />
+		<Setter Property="Control.FontSize"
+				Value="14" />
+	</Style>
+
+	<Style x:Key="SectionSubheader">
+		<Setter Property="Control.FontWeight"
+				Value="Bold" />
+		<Setter Property="Control.Foreground"
+				Value="BurlyWood" />
+		<Setter Property="Control.FontSize"
+				Value="16" />
+	</Style>
+	
+	<Style x:Key="BigWarning">
+		<Setter Property="Control.FontWeight"
+				Value="Bold" />
+		<Setter Property="Control.Foreground"
+				Value="Red" />
+		<Setter Property="Control.FontSize"
+				Value="14" />
+	</Style>
+
+
+	<!-- BRUSHES -->
+	<LinearGradientBrush x:Key="GradientBurlyWood">
+		<GradientStop Color="BurlyWood"
+					  Offset="0" />
+		<GradientStop Color="Transparent"
+					  Offset="1" />
+	</LinearGradientBrush>
+    <!--OLD PLATINUM COLORS<LinearGradientBrush x:Key="GlowingBlue"
+						 EndPoint="0.5,1"
+						 StartPoint="0.5,0">
+		<GradientStop Color="#FF0097DA"
+					  Offset="0" />
+		<GradientStop Color="#FF005EA1"
+					  Offset="1" />
+	</LinearGradientBrush>-->
+    <LinearGradientBrush x:Key="GlowingBlue"
+						 EndPoint="0.5,1"
+						 StartPoint="0.5,0">
+        <GradientStop Color="#FFC218F4"
+					  Offset="0" />
+        <GradientStop Color="#FFBF0BF4"
+					  Offset="1" />
+	</LinearGradientBrush>
+    <LinearGradientBrush x:Key="MetallicGray"
+						 EndPoint="0.5,1"
+						 StartPoint="0.5,0">
+		<GradientStop Color="#FFD8D5D0"
+					  Offset="0" />
+		<GradientStop Color="#FFACA7A3"
+					  Offset="1" />
+	</LinearGradientBrush>
+	<ImageBrush x:Key="WindowBackground"
+				ImageSource="Assets/BackgroundTile.png"
+				Stretch="None"
+				Viewport="0,0,11,11"
+				ViewportUnits="Absolute"
+				TileMode="Tile" />
+	<DrawingBrush x:Key="MainOutline"
+				  Stretch="Uniform">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Brush="#FFD8D5D0"
+								 Geometry="F1 M 0.666646,209.736L 0.666646,200.835L 0.677327,200.075L 12.8253,200.075C 29.34,200.064 45.9813,193.315 57.1973,181.067L 57.1933,181.08C 110.841,126.272 164.175,72.9387 217.235,19.2467L 217.255,19.2413C 228.472,6.99333 245.112,0.242676 261.628,0.233322L 261.571,0.231979L 271.591,0.231979L 271.591,0.910645L 271.591,211.324L 270.931,211.333L 0.679993,211.333L 0.666646,209.736 Z " />
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<LinearGradientBrush x:Key="ContainerBoxBackground"
+						 EndPoint="0.397,0.514"
+						 StartPoint="-0.07,-0.225">
+		<GradientStop Color="#FFA2A6A9"
+					  Offset="0" />
+		<GradientStop Color="#FFFFFFFF"
+					  Offset="1" />
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="ContainerBoxHeader"
+						 EndPoint="0.5,1"
+						 StartPoint="0.5,0">
+        <GradientStop Color="#FF686868"
+					  Offset="0" />
+		<GradientStop Color="#FF686868"
+					  Offset="0.83" />
+		<GradientStop Color="#FF808080"
+					  Offset="0.366" />
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="ContainerBoxBorder"
+						 EndPoint="0.5,1"
+						 StartPoint="0.5,0">
+		<GradientStop Color="#FF686868"
+					  Offset="0" />
+		<GradientStop Color="#FF606060"
+					  Offset="1" />
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="MockTextBoxBorder"
+						 EndPoint="0,20"
+						 StartPoint="0,0"
+						 MappingMode="Absolute">
+		<GradientStop Color="#ABADB3"
+					  Offset="0.05" />
+		<GradientStop Color="#E2E3EA"
+					  Offset="0.07" />
+		<GradientStop Color="#E3E9EF"
+					  Offset="1" />
+	</LinearGradientBrush>
+
+	<SolidColorBrush x:Key="HyperlinkBlue"
+					 Color="#FF008DD0" />
+	<SolidColorBrush x:Key="HyperlinkHover"
+					 Color="#FFAB4400" />
+	<SolidColorBrush x:Key="HyperlinkDisabled"
+					 Color="#FFA0A0A0" />
+	<SolidColorBrush x:Key="TitleBlue"
+					 Color="#FF0060A3" />
+	<SolidColorBrush x:Key="SectionSeparator"
+					 Color="#FFA7BAC5" />
+
+	<SolidColorBrush x:Key="SuccessMessageBorderBrush"
+					 Color="#FF25C40F" />
+	<SolidColorBrush x:Key="SuccessMessageBackground"
+					 Color="#FFF3FEF1" />
+	<SolidColorBrush x:Key="WarningMessageBorderBrush"
+					 Color="#FFD5D500" />
+	<SolidColorBrush x:Key="WarningMessageBackground"
+					 Color="#FFFFFFE8" />
+	<SolidColorBrush x:Key="CriticalMessageBorderBrush"
+					 Color="#FFF80000" />
+	<SolidColorBrush x:Key="CriticalMessageBackground"
+					 Color="#FFFFF2F2" />
+
+	<SolidColorBrush x:Key="RequiredLabelColor"
+					 Color="#FF9F2409" />
+	<SolidColorBrush x:Key="RequiredFieldBackground"
+					 Color="#FFE8A799" />
+	<SolidColorBrush x:Key="RequiredFieldBorder"
+					 Color="#FFC6180E" />
+
+	<!-- ELEMENT STYLES -->
+	<Style x:Key="DefaultWindowStyle"
+		   TargetType="{x:Type Window}">
+		<Setter Property="Background"
+				Value="{StaticResource WindowBackground}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Window}">
+					<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}">
+						<Grid>
+							<Grid.Background>
+								<LinearGradientBrush EndPoint="0.5,1"
+													 StartPoint="0.5,0">
+									<GradientStop Color="#4D000000"
+												  Offset="0" />
+									<GradientStop Color="#00000000"
+												  Offset="0.888" />
+									<GradientStop Color="#00000000"
+												  Offset="0.228" />
+									<GradientStop Color="#33000000"
+												  Offset="1" />
+									<GradientStop Color="#24000000"
+												  Offset="0.433" />
+									<GradientStop Color="#00000000"
+												  Offset="0.625" />
+								</LinearGradientBrush>
+							</Grid.Background>
+							<ContentPresenter Content="{TemplateBinding Content}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}" />
+							<ResizeGrip HorizontalAlignment="Right"
+										x:Name="WindowResizeGrip"
+										VerticalAlignment="Bottom"
+										IsTabStop="False"
+										Visibility="Collapsed" />
+						</Grid>
+					</Border>
+					<ControlTemplate.Triggers>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="ResizeMode"
+										   Value="CanResizeWithGrip" />
+								<Condition Property="WindowState"
+										   Value="Normal" />
+							</MultiTrigger.Conditions>
+							<Setter Property="Visibility"
+									TargetName="WindowResizeGrip"
+									Value="Visible" />
+						</MultiTrigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="GreyContainerBox"
+		   TargetType="{x:Type fc:ContainerBox}">
+		<Setter Property="BorderBrush"
+				Value="{StaticResource ContainerBoxBorder}" />
+		<Setter Property="Foreground"
+				Value="#FF000000" />
+		<Setter Property="Background"
+				Value="{StaticResource ContainerBoxBackground}" />
+		<Setter Property="HeaderBackground"
+				Value="{StaticResource ContainerBoxHeader}" />
+		<Setter Property="HeaderForeground"
+				Value="#FFFFFFFF" />
+		<Setter Property="HeaderFontSize"
+				Value="15" />
+		<Setter Property="HeaderFontFamily"
+				Value="Segoe UI" />
+		<Setter Property="HeaderFontWeight"
+				Value="Bold" />
+		<Setter Property="HeaderPadding"
+				Value="0,0,0,0" />
+		<Setter Property="HeaderMargin"
+				Value="8,6,8,8" />
+		<Setter Property="SnapsToDevicePixels"
+				Value="True" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type fc:ContainerBox}">
+					<Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+						<Border x:Name="PART_Header"
+								Margin="0,0,0,0"
+								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+								Grid.Row="0"
+								Background="{TemplateBinding HeaderBackground}"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="0,0,0,0"
+								CornerRadius="0,0,0,0"
+								Padding="7,0,7,0">
+							<TextBlock RenderTransformOrigin="0.5,0.5"
+									   Margin="{TemplateBinding HeaderMargin}"
+									   Padding="{TemplateBinding HeaderPadding}"
+									   FontFamily="{TemplateBinding HeaderFontFamily}"
+									   FontSize="{TemplateBinding HeaderFontSize}"
+									   FontStyle="{TemplateBinding HeaderFontStyle}"
+									   FontWeight="{TemplateBinding HeaderFontWeight}"
+									   Foreground="{TemplateBinding HeaderForeground}"><TextBlock.RenderTransform>
+									<TransformGroup>
+										<ScaleTransform ScaleX="1"
+														ScaleY="1" />
+										<SkewTransform AngleX="-5"
+													   AngleY="0" />
+										<RotateTransform Angle="0" />
+										<TranslateTransform X="0"
+															Y="0" />
+									</TransformGroup>
+								</TextBlock.RenderTransform><InlineUIContainer>
+									<ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+													  Content="{TemplateBinding Header}"
+													  ContentSource="Header"
+													  ContentStringFormat="{TemplateBinding HeaderStringFormat}"
+													  RecognizesAccessKey="True" />	
+								</InlineUIContainer></TextBlock>
+						</Border>
+						<Border x:Name="PART_Body"
+								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+								Grid.Column="0"
+								Grid.Row="1"
+								Background="{TemplateBinding Background}"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="7,0,7,15"
+								CornerRadius="0,0,0,0">
+							<ContentPresenter Margin="{TemplateBinding Padding}"
+											  x:Name="contentPresenter"
+											  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+											  Content="{TemplateBinding Content}"
+											  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}" />
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style TargetType="{x:Type fc:ContainerBox}">
+		<Setter Property="BorderBrush"
+				Value="{StaticResource ContainerBoxBorder}" />
+		<Setter Property="Foreground"
+				Value="#FF000000" />
+		<Setter Property="Background"
+				Value="{StaticResource ContainerBoxBackground}" />
+		<Setter Property="HeaderBackground"
+				Value="{StaticResource GlowingBlue}" />
+		<Setter Property="HeaderForeground"
+				Value="#FFFFFFFF" />
+		<Setter Property="HeaderFontSize"
+				Value="14" />
+		<Setter Property="HeaderFontFamily"
+				Value="Segoe UI" />
+		<Setter Property="HeaderFontWeight"
+				Value="Bold" />
+		<Setter Property="HeaderPadding"
+				Value="0,0,0,0" />
+		<Setter Property="HeaderMargin"
+				Value="8,6,8,8" />
+		<Setter Property="SnapsToDevicePixels"
+				Value="True" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type fc:ContainerBox}">
+					<Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+						<Border x:Name="PART_Header"
+								Margin="0,0,0,0"
+								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+								Grid.Row="0"
+								Background="{TemplateBinding HeaderBackground}"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="0,0,0,0"
+								CornerRadius="0,0,0,0"
+								Padding="0,0,0,0">
+							<TextBlock RenderTransformOrigin="0.5,0.5"
+									   Margin="{TemplateBinding HeaderMargin}"
+									   Padding="{TemplateBinding HeaderPadding}"
+									   FontFamily="{TemplateBinding HeaderFontFamily}"
+									   FontSize="{TemplateBinding HeaderFontSize}"
+									   FontStyle="{TemplateBinding HeaderFontStyle}"
+									   FontWeight="{TemplateBinding HeaderFontWeight}"
+									   Foreground="{TemplateBinding HeaderForeground}"><TextBlock.RenderTransform>
+									<TransformGroup>
+										<ScaleTransform ScaleX="1"
+														ScaleY="1" />
+										<SkewTransform AngleX="-5"
+													   AngleY="0" />
+										<RotateTransform Angle="0" />
+										<TranslateTransform X="0"
+															Y="0" />
+									</TransformGroup>
+								</TextBlock.RenderTransform><InlineUIContainer>
+									<ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+													  Content="{TemplateBinding Header}"
+													  ContentSource="Header"
+													  ContentStringFormat="{TemplateBinding HeaderStringFormat}"
+													  RecognizesAccessKey="True" />	
+								</InlineUIContainer></TextBlock>
+						</Border>
+						<Border x:Name="PART_Body"
+								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+								Grid.Column="0"
+								Grid.Row="1"
+								Background="{TemplateBinding Background}"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="0,0,0,3"
+								CornerRadius="0,0,0,0">
+							<ContentPresenter Margin="{TemplateBinding Padding}"
+											  x:Name="contentPresenter"
+											  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+											  Content="{TemplateBinding Content}"
+											  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}" />
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="HeaderMenuButton"
+		   TargetType="{x:Type Button}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Grid>
+						<Border x:Name="BackgroundGlow"
+								Opacity="0">
+							<Border.Background>
+								<RadialGradientBrush>
+									<RadialGradientBrush.RelativeTransform>
+										<TransformGroup>
+											<ScaleTransform CenterX="0.5"
+															CenterY="0.5"
+															ScaleX="1.013"
+															ScaleY="2.301" />
+											<SkewTransform AngleX="0"
+														   AngleY="0"
+														   CenterX="0.5"
+														   CenterY="0.5" />
+											<RotateTransform Angle="0"
+															 CenterX="0.5"
+															 CenterY="0.5" />
+											<TranslateTransform X="-0.002"
+																Y="0.005" />
+										</TransformGroup>
+									</RadialGradientBrush.RelativeTransform>
+									<GradientStop Color="#003C77A9"
+												  Offset="1" />
+									<GradientStop Color="#FF3C77A9"
+												  Offset="0.415" />
+								</RadialGradientBrush>
+							</Border.Background>
+						</Border>
+						<Border x:Name="MainBorder"
+								BorderBrush="#FFFFFFFF"
+								BorderThickness="0,1,0,0"
+								CornerRadius="0,0,0,0"
+								Background="#FF0C0B0E"
+								Margin="8,0,8,0">
+							<Border BorderBrush="#FF98C6EA"
+									BorderThickness="0,1,0,0"
+									CornerRadius="0,0,0,0"
+									x:Name="InnerBorder">
+								<Border.Background>
+									<LinearGradientBrush EndPoint="0.5,1"
+														 StartPoint="0.5,0">
+										<GradientStop Color="#00ADADAD"
+													  Offset="1" />
+										<GradientStop Color="#44FFFFFF"
+													  Offset="0" />
+									</LinearGradientBrush>
+								</Border.Background>
+								<ContentPresenter HorizontalAlignment="Center"
+												  Margin="0,0,0,0"
+												  VerticalAlignment="Center" />
+							</Border>
+						</Border>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsPressed"
+								 Value="True">
+							<Setter Property="Background"
+									TargetName="InnerBorder"
+									Value="#CC000000" />
+						</Trigger>
+						<Trigger Property="IsMouseOver"
+								 Value="True">
+							<Setter Property="Opacity"
+									TargetName="BackgroundGlow"
+									Value="1" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style TargetType="{x:Type Button}">
+		<Setter Property="Foreground"
+				Value="#FFFFFFFF" />
+		<Setter Property="Padding"
+				Value="5,0,5,0" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Border x:Name="MainBorder"
+							BorderBrush="#00FFFFFF"
+							BorderThickness="1,1,1,1"
+							CornerRadius="4,4,4,4">
+						<Border Background="#AF000000"
+								BorderBrush="#FF000000"
+								BorderThickness="1,1,1,1"
+								CornerRadius="4,4,4,4"
+								x:Name="InnerBorder">
+							<Grid x:Name="MainGrid">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="0.5*" />
+									<RowDefinition Height="0.5*" />
+								</Grid.RowDefinitions>
+								<Border Margin="0,0,0,0"
+										x:Name="GlowGradient"
+										Grid.Row="0"
+										Grid.RowSpan="2"
+										CornerRadius="4,4,4,4"
+										Opacity="0">
+									<Border.Background>
+										<RadialGradientBrush>
+											<RadialGradientBrush.RelativeTransform>
+												<TransformGroup>
+													<ScaleTransform CenterX="0.5"
+																	CenterY="0.5"
+																	ScaleX="1.19"
+																	ScaleY="2.22" />
+													<SkewTransform AngleX="0"
+																   AngleY="0"
+																   CenterX="0.5"
+																   CenterY="0.5" />
+													<RotateTransform Angle="0"
+																	 CenterX="0.5"
+																	 CenterY="0.5" />
+													<TranslateTransform X="0.008"
+																		Y="0.481" />
+												</TransformGroup>
+											</RadialGradientBrush.RelativeTransform>
+											<GradientStop Color="#B28D8DFF"
+														  Offset="0" />
+											<GradientStop Color="#008D8DFF"
+														  Offset="1" />
+										</RadialGradientBrush>
+									</Border.Background>
+								</Border>
+								<ContentPresenter HorizontalAlignment="Center"
+												  Margin="{TemplateBinding Padding}"
+												  VerticalAlignment="Center"
+												  Grid.RowSpan="2" />
+								<Border Margin="0,0,0,0"
+										x:Name="ShineGradient"
+										CornerRadius="4,4,0,0">
+									<Border.Background>
+										<LinearGradientBrush EndPoint="0.5,1"
+															 StartPoint="0.5,0">
+											<GradientStop Color="#9AFFFFFF"
+														  Offset="0" />
+											<GradientStop Color="#1EFFFFFF"
+														  Offset="1" />
+										</LinearGradientBrush>
+									</Border.Background>
+								</Border>
+							</Grid>
+						</Border>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsPressed"
+								 Value="True">
+							<Setter Property="Visibility"
+									TargetName="GlowGradient"
+									Value="Hidden" />
+							<Setter Property="Opacity"
+									TargetName="ShineGradient"
+									Value="0.4" />
+							<Setter Property="Background"
+									TargetName="InnerBorder"
+									Value="#CC000000" />
+						</Trigger>
+						<Trigger Property="IsMouseOver"
+								 Value="True">
+							<Setter Property="Opacity"
+									TargetName="GlowGradient"
+									Value="1.0" />
+						</Trigger>
+						<Trigger Property="IsEnabled"
+								 Value="false">
+							<Setter Property="Background"
+									TargetName="MainGrid"
+									Value="#FFAEAEAE" />
+							<Setter Property="BorderBrush"
+									TargetName="InnerBorder"
+									Value="#FFAEAEAE" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="MinimalContainerBox"
+		   TargetType="{x:Type fc:ContainerBox}">
+		<Setter Property="BorderBrush"
+				Value="{StaticResource ContainerBoxBorder}" />
+		<Setter Property="Foreground"
+				Value="#FF000000" />
+		<Setter Property="Background"
+				Value="{StaticResource ContainerBoxBackground}" />
+		<Setter Property="HeaderBackground"
+				Value="{StaticResource ContainerBoxHeader}" />
+		<Setter Property="HeaderForeground"
+				Value="#FFFFFFFF" />
+		<Setter Property="HeaderFontSize"
+				Value="12" />
+		<Setter Property="HeaderFontFamily"
+				Value="Segoe UI" />
+		<Setter Property="HeaderFontWeight"
+				Value="Bold" />
+		<Setter Property="HeaderPadding"
+				Value="0,0,0,0" />
+		<Setter Property="HeaderMargin"
+				Value="2,2,2,3" />
+		<Setter Property="SnapsToDevicePixels"
+				Value="True" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type fc:ContainerBox}">
+					<Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+						<Border Margin="0,0,0,0"
+								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+								Grid.Row="0"
+								Background="{TemplateBinding HeaderBackground}"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="0,0,0,0"
+								CornerRadius="0,0,0,0"
+								Padding="2,0,2,0">
+							<TextBlock RenderTransformOrigin="0.5,0.5"
+									   Margin="{TemplateBinding HeaderMargin}"
+									   Padding="{TemplateBinding HeaderPadding}"
+									   FontFamily="{TemplateBinding HeaderFontFamily}"
+									   FontSize="{TemplateBinding HeaderFontSize}"
+									   FontStyle="{TemplateBinding HeaderFontStyle}"
+									   FontWeight="{TemplateBinding HeaderFontWeight}"
+									   Foreground="{TemplateBinding HeaderForeground}"><TextBlock.RenderTransform>
+									<TransformGroup>
+										<ScaleTransform ScaleX="1"
+														ScaleY="1" />
+										<SkewTransform AngleX="-5"
+													   AngleY="0" />
+										<RotateTransform Angle="0" />
+										<TranslateTransform X="0"
+															Y="0" />
+									</TransformGroup>
+								</TextBlock.RenderTransform><InlineUIContainer>
+									<ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+													  Content="{TemplateBinding Header}"
+													  ContentSource="Header"
+													  ContentStringFormat="{TemplateBinding HeaderStringFormat}"
+													  RecognizesAccessKey="True" />	
+								</InlineUIContainer></TextBlock>
+						</Border>
+						<Border SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+								Grid.Column="0"
+								Grid.Row="1"
+								Background="{TemplateBinding Background}"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="2,0,2,2"
+								CornerRadius="0,0,0,0">
+							<ContentPresenter Margin="{TemplateBinding Padding}"
+											  x:Name="contentPresenter"
+											  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+											  Content="{TemplateBinding Content}"
+											  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}" />
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style TargetType="{x:Type Hyperlink}">
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver"
+					 Value="True">
+				<Setter Property="Foreground"
+						Value="{StaticResource HyperlinkHover}" />
+			</Trigger>
+			<Trigger Property="IsEnabled"
+					 Value="False">
+				<Setter Property="Foreground"
+						Value="{StaticResource HyperlinkDisabled}" />
+			</Trigger>
+		</Style.Triggers>
+		<Setter Property="Foreground"
+				Value="{StaticResource HyperlinkBlue}" />
+	</Style>
+
+	<Style TargetType="{x:Type fc:LinkButton}">
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver"
+					 Value="True">
+				<Setter Property="Foreground"
+						Value="{StaticResource HyperlinkHover}" />
+			</Trigger>
+			<Trigger Property="IsEnabled"
+					 Value="False">
+				<Setter Property="Foreground"
+						Value="{StaticResource HyperlinkDisabled}" />
+			</Trigger>
+		</Style.Triggers>
+		<Setter Property="Foreground"
+				Value="{StaticResource HyperlinkBlue}" />
+	</Style>
+
+	<Style x:Key="SuccessMessage"
+		   TargetType="{x:Type Border}">
+		<Setter Property="BorderBrush"
+				Value="{StaticResource SuccessMessageBorderBrush}" />
+		<Setter Property="BorderThickness"
+				Value="1" />
+		<Setter Property="Background"
+				Value="{StaticResource SuccessMessageBackground}" />
+	</Style>
+
+	<Style x:Key="WarningMessage"
+		   TargetType="{x:Type Border}">
+		<Setter Property="BorderBrush"
+				Value="{StaticResource WarningMessageBorderBrush}" />
+		<Setter Property="BorderThickness"
+				Value="1" />
+		<Setter Property="Background"
+				Value="{StaticResource WarningMessageBackground}" />
+	</Style>
+
+	<Style x:Key="CriticalMessage"
+		   TargetType="{x:Type Border}">
+		<Setter Property="BorderBrush"
+				Value="{StaticResource CriticalMessageBorderBrush}" />
+		<Setter Property="BorderThickness"
+				Value="1" />
+		<Setter Property="Background"
+				Value="{StaticResource CriticalMessageBackground}" />
+	</Style>
+
+	<Style x:Key="LabelRequired"
+		   TargetType="{x:Type TextBlock}">
+		<Setter Property="Foreground"
+				Value="{StaticResource RequiredLabelColor}" />
+		<Setter Property="FontWeight"
+				Value="Bold" />
+	</Style>
+
+	<Style x:Key="Label2Required"
+		   TargetType="{x:Type Control}">
+		<Setter Property="Foreground"
+				Value="{StaticResource RequiredLabelColor}" />
+		<Setter Property="FontWeight"
+				Value="Bold" />
+	</Style>
+	<Style x:Key="GutterRow"
+		   TargetType="{x:Type RowDefinition}">
+		<Setter Property="Height"
+				Value="5" />
+	</Style>
+	<Style x:Key="GutterColumn"
+		   TargetType="{x:Type ColumnDefinition}">
+		<Setter Property="Width"
+				Value="10" />
+	</Style>
+
+	<Style TargetType="{x:Type fc:LoadingAnimation}">
+		<Setter Property="HorizontalAlignment"
+				Value="Center" />
+		<Setter Property="VerticalAlignment"
+				Value="Center" />
+		<Setter Property="Width"
+				Value="100" />
+		<Setter Property="Height"
+				Value="100" />
+		<Setter Property="Foreground"
+				Value="{StaticResource GlowingBlue}" />
+		<Setter Property="Visibility"
+				Value="Hidden" />
+	</Style>
+	
+	<Style TargetType="{x:Type fc:SmallLoadingAnimation}">
+		<Setter Property="HorizontalAlignment"
+				Value="Center" />
+		<Setter Property="VerticalAlignment"
+				Value="Center" />
+		<Setter Property="Width"
+				Value="30" />
+		<Setter Property="Height"
+				Value="30" />
+		<Setter Property="Foreground"
+				Value="{StaticResource GlowingBlue}" />
+		<Setter Property="Visibility"
+				Value="Hidden" />
+	</Style>
+
+	<Style TargetType="{x:Type DatePickerTextBox}">
+		<Setter Property="IsEnabled"
+				Value="false" />
+	</Style>
+</ResourceDictionary>

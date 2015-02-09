@@ -1,0 +1,67 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:fc="clr-namespace:NXS.Framework.Wpf.Controls">
+	<!-- This resource dictionary is for default templates and styles for custom controls in the project -->
+
+	<!-- ContainerBox DEFAULT THEME -->
+	<Style TargetType="{x:Type fc:ContainerBox}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type fc:ContainerBox}">
+					<Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+
+						<Border x:Name="PART_Header"
+								Grid.Row="0"
+								Margin="0,0,0,0"
+								Padding="0,0,0,0"
+								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+								Background="{TemplateBinding HeaderBackground}"
+								CornerRadius="8,8,0,0"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="1,1,1,1">
+							<TextBlock Margin="4,4,4,4"
+									   Padding="{TemplateBinding HeaderPadding}"
+									   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+									   Foreground="{TemplateBinding HeaderForeground}"
+									   FontWeight="{TemplateBinding HeaderFontWeight}"
+									   FontSize="{TemplateBinding HeaderFontSize}"
+									   FontFamily="{TemplateBinding HeaderFontFamily}"
+									   FontStyle="{TemplateBinding HeaderFontStyle}">
+								<ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+												  Content="{TemplateBinding Header}"
+												  ContentSource="Header"
+												  ContentStringFormat="{TemplateBinding HeaderStringFormat}"
+												  ContentTemplate="{TemplateBinding HeaderTemplate}"
+												  RecognizesAccessKey="True" />
+							</TextBlock>
+						</Border>
+
+						<Border x:Name="PART_Body"
+								Grid.Column="0"
+								Grid.Row="1"
+								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+								Background="{TemplateBinding Background}"
+								CornerRadius="0,0,8,8"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="1,0,1,1">
+							<ContentPresenter Margin="{TemplateBinding Padding}"
+											  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+											  Content="{TemplateBinding Content}"
+											  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  x:Name="contentPresenter" />
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

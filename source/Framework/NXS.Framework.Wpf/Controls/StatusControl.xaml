@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="NXS.Framework.Wpf.Controls.StatusControl"
+			 x:Name="UC"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Grid>
+		<Border x:Name="BrdrStatus"
+				Margin="0,0,0,0"
+				BorderBrush="#FF000000"
+				BorderThickness="1,1,1,1"
+				CornerRadius="3,3,3,3"
+				Height="25"
+				VerticalAlignment="Top">
+			<Border CornerRadius="3,3,3,3">
+				<Border.Background>
+					<LinearGradientBrush EndPoint="0.5,1"
+										 StartPoint="0.5,0">
+						<GradientStop Color="#33FFFFFF"
+									  Offset="0" />
+						<GradientStop Color="#26FFFFFF"
+									  Offset="1" />
+						<GradientStop Color="#4CFFFFFF"
+									  Offset="0.469" />
+						<GradientStop Color="#00FFFFFF"
+									  Offset="0.478" />
+					</LinearGradientBrush>
+				</Border.Background>
+				<TextBlock x:Name="TxtBlkStatus"
+						   Width="Auto"
+						   Height="Auto"
+						   Text="{Binding StatusText, ElementName=UC}"
+						   TextWrapping="Wrap"
+						   TextAlignment="Center"
+						   FontWeight="Bold"
+						   FontSize="12"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center" />
+			</Border>
+		</Border>
+	</Grid>
+</UserControl>

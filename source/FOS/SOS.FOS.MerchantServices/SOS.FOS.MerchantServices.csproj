@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FFB66694-40EB-49ED-B8EA-B5C0C76B3C1B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SOS.FOS.MerchantServices</RootNamespace>
+    <AssemblyName>SOS.FOS.MerchantServices</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helper\ErrorCodes.cs" />
+    <Compile Include="Interfaces\IFosInvoicePaymentInfoModel.cs" />
+    <Compile Include="Interfaces\IFosMerchResponseModel.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Models\FosInvoicePaymentInfoModel.cs" />
+    <Compile Include="Models\FosMerchResponseModel.cs" />
+    <Compile Include="Models\FosResultModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\SOS.Data.SosCrm\SOS.Data.SosCrm.csproj">
+      <Project>{23BB4972-325C-40D8-96F6-EB8A60676D63}</Project>
+      <Name>SOS.Data.SosCrm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SOS.Data\SOS.Data.csproj">
+      <Project>{C2776F02-C5E2-42BA-B4B0-147625B90A18}</Project>
+      <Name>SOS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SubSonic\SubSonic.csproj">
+      <Project>{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}</Project>
+      <Name>SubSonic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.AuthorizeNet\SOS.Lib.AuthorizeNet.csproj">
+      <Project>{87534C41-8CE5-44A1-9DFB-8881572D8E95}</Project>
+      <Name>SOS.Lib.AuthorizeNet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Core\SOS.Lib.Core.csproj">
+      <Project>{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}</Project>
+      <Name>SOS.Lib.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj">
+      <Project>{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}</Project>
+      <Name>SOS.Lib.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SSE.Lib.Interfaces\SSE.Lib.Interfaces.csproj">
+      <Project>{049707c3-442a-4e23-bee1-cc379b9d3901}</Project>
+      <Name>SSE.Lib.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Merchants\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

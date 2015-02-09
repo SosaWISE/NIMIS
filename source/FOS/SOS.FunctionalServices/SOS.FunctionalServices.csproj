@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2CE00A6B-C0AC-44AB-B80F-9E58865AD3BD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SOS.FunctionalServices</RootNamespace>
+    <AssemblyName>SOS.FunctionalServices</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HttpServiceLibrary">
+      <HintPath>..\..\Resources\MonitoringStations\AvantGuard\HttpServiceLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Services\Cors\corspackages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StagesGateway">
+      <HintPath>..\..\Resources\MonitoringStations\AvantGuard\StagesGateway.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Device" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuthService.cs" />
+    <Compile Include="Helpers\CustomGeoCoordinate.cs" />
+    <Compile Include="Helpers\DatabaseHelper.cs" />
+    <Compile Include="AuthServiceConfig.cs" />
+    <Compile Include="InsideSalesService.cs" />
+    <Compile Include="Models\CentralStation\FnsMcAddressView.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccountDispatchAgencyAssignmentView.cs" />
+    <Compile Include="Models\CentralStation\FnsMsDispatchAgencyType.cs" />
+    <Compile Include="Models\CentralStation\FnsMsDispatchAgencyView.cs" />
+    <Compile Include="Models\CentralStation\FnsMsEmergencyContactAuthority.cs" />
+    <Compile Include="Models\CentralStation\FnsMsEmergencyContactType.cs" />
+    <Compile Include="Models\CentralStation\FnsMsIndustryAccountNumbersWithReceiverLineInfoView.cs" />
+    <Compile Include="Models\HumanResource\FnsConnextAccountInfo.cs" />
+    <Compile Include="Models\HumanResource\FnsConnextCombinedMonthlySalesDetails.cs" />
+    <Compile Include="Models\HumanResource\FnsSalesSalespersonMonthlyHolds.cs" />
+    <Compile Include="Models\HumanResource\FnsSalesSalespersonMonthlyCommissions.cs" />
+    <Compile Include="Models\HumanResource\FnsSalesSalespersonMonthlyEarnings.cs" />
+    <Compile Include="Models\HumanResource\FnsConnextCustomerInfo.cs" />
+    <Compile Include="Models\HumanResource\FnsConnextMonthlySalesDetails.cs" />
+    <Compile Include="Models\HumanResource\FnsConnextSalesRepExtendedInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\HumanResource\FnsConnextSalesRanking.cs" />
+    <Compile Include="Models\HumanResource\FnsConnextSalesRepInfo.cs" />
+    <Compile Include="Models\HumanResource\FnsRuRecruit.cs" />
+    <Compile Include="Models\HumanResource\FnsRuTeam.cs" />
+    <Compile Include="Models\HumanResource\FnsRuUserPhoto.cs" />
+    <Compile Include="Models\HumanResource\FnsTeamSearchInfo.cs" />
+    <Compile Include="Models\HumanResource\FnsUserSearchInfo.cs" />
+    <Compile Include="Models\HumanResource\FnsRuTechnician.cs" />
+    <Compile Include="Models\QualifyLead\FnsQlQualifyCustomerInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ScheduleEngine\FnsSeScheduleTicket.cs" />
+    <Compile Include="Models\ScheduleEngine\FnsSeScheduleBlock.cs" />
+    <Compile Include="Models\ScheduleEngine\FnsSeTechnicianAvailability.cs" />
+    <Compile Include="Models\ScheduleEngine\FnsSeZipCode.cs" />
+    <Compile Include="Models\ScheduleEngine\FnsSeTicket.cs" />
+    <Compile Include="Models\ScheduleEngine\FnsSeTicketType.cs" />
+    <Compile Include="Models\ScheduleEngine\FnsSeTicketStatusCode.cs" />
+    <Compile Include="Models\TicketService\CloseTicket.cs" />
+    <Compile Include="Models\TicketService\ServiceTicket.cs" />
+    <Compile Include="Models\TicketService\Tech.cs" />
+    <Compile Include="Models\TicketService\TechSkill.cs" />
+    <Compile Include="Models\TicketService\TechWeekDay.cs" />
+    <Compile Include="ScheduleEngineService.cs" />
+    <Compile Include="InventoryEngineService.cs" />
+    <Compile Include="AccountingEngineService.cs" />
+    <Compile Include="AuthenticationService.cs" />
+    <Compile Include="BarcodeService.cs" />
+    <Compile Include="BaseService.cs" />
+    <Compile Include="DoNotCallService.cs" />
+    <Compile Include="CellStationService.cs" />
+    <Compile Include="EmailSupportServices.cs" />
+    <Compile Include="FunctionalServiceBase.cs" />
+    <Compile Include="FunctionalServiceFactory.cs" />
+    <Compile Include="GpsTrackingSerivces.cs" />
+    <Compile Include="Helpers\FieldAssignment.cs" />
+    <Compile Include="HumanResourceService.cs" />
+    <Compile Include="KW621DeviceServices.cs" />
+    <Compile Include="LaipacDeviceServices.cs" />
+    <Compile Include="MainCoreService.cs" />
+    <Compile Include="MerchantService.cs" />
+    <Compile Include="Models\AccountingEngine\FnsAeAging.cs" />
+    <Compile Include="Models\AccountingEngine\FnsAeContractTemplate.cs" />
+    <Compile Include="Models\AccountingEngine\FnsAeCustomerCardInfo.cs" />
+    <Compile Include="Models\AccountingEngine\FnsAeInvoice.cs" />
+    <Compile Include="Models\AccountingEngine\FnsAeInvoiceHeader.cs" />
+    <Compile Include="Models\AccountingEngine\FnsAeInvoiceItemView.cs" />
+    <Compile Include="Models\AccountingEngine\FnsAeInvoiceMsInstallInfo.cs" />
+    <Compile Include="Models\AccountingEngine\FnsAeInvoiceTemplate.cs" />
+    <Compile Include="Models\AccountingEngine\FnsAeItem.cs" />
+    <Compile Include="Models\AccountingEngine\FnsCustomerMasterFileGeneral.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccount.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccountDetails.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccountDslSeizureType.cs" />
+    <Compile Include="Models\CentralStation\FnsMsEquipmentsView.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccountEquipmentsView.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccountEventZoneEventTypes.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccountLeadInfo.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccountPanelType.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccountServiceType.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccountSubmit.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccountZoneType.cs" />
+    <Compile Include="Models\CentralStation\FnsMsEmergencyContact.cs" />
+    <Compile Include="Models\AccountingEngine\FnsSaeBillingHistory.cs" />
+    <Compile Include="Models\AccountingEngine\FnsSaeBillingInfoSummary.cs" />
+    <Compile Include="Models\AccountingEngine\FnsSalesSummaryProperties.cs" />
+    <Compile Include="Models\AuthenticationControl\FnsAcCmsUser.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccountCellularType.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccountClientDetailsView.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccountClientsView.cs" />
+    <Compile Include="Models\CentralStation\FnsMsEmergencyContactPhoneType.cs" />
+    <Compile Include="Models\CentralStation\FnsMsEmergencyContactRelationship.cs" />
+    <Compile Include="Models\CentralStation\FnsMsEquipmentLocation.cs" />
+    <Compile Include="Models\CentralStation\FnsMsIndustryAccount.cs" />
+    <Compile Include="Models\CentralStation\FnsMsAccountSalesInformation.cs" />
+    <Compile Include="Models\CentralStation\FnsMsVendorAlarmComPackage.cs" />
+    <Compile Include="Models\CentralStation\FnsSignalHistoryItemModel.cs" />
+    <Compile Include="Models\Cms\FnsAePaymentInformationCreateAccountModel.cs" />
+    <Compile Include="Models\Cms\FnsCustomerFullDataModel.cs" />
+    <Compile Include="Models\Cms\FnsMcDealerUser.cs" />
+    <Compile Include="Models\Cms\FnsQlDealerLeadModel.cs" />
+    <Compile Include="Models\DocBarcode\FnsBxBarcode.cs" />
+    <Compile Include="Models\DoNotCall\FnsDncPhoneNumber.cs" />
+    <Compile Include="Models\FnsAcGeneralAuthenticationModel.cs" />
+    <Compile Include="Models\FnsAeCustomerGpsClientsViewModel.cs" />
+    <Compile Include="Models\FnsAeGpsClient.cs" />
+    <Compile Include="Models\FnsAEModels.cs" />
+    <Compile Include="Models\AuthenticationModel.cs" />
+    <Compile Include="Models\CentralStation\FnsAGResponseBase.cs" />
+    <Compile Include="Models\CentralStation\FnsLeadSearchResult.cs" />
+    <Compile Include="Models\CentralStation\FnsSessionInfoModel.cs" />
+    <Compile Include="Models\Cms\FnsMcAccountNoteModel.cs" />
+    <Compile Include="Models\Cms\Helper.cs" />
+    <Compile Include="Models\Cms\FnsMcAccountNotesFull.cs" />
+    <Compile Include="Models\FnsCaAppointmentModel.cs" />
+    <Compile Include="Models\FnsOptionItem.cs" />
+    <Compile Include="Models\FnsQlLead.cs" />
+    <Compile Include="Models\FnsResult.cs" />
+    <Compile Include="Models\FnsLeadFullDataModel.cs" />
+    <Compile Include="Models\FnsLeadModel.cs" />
+    <Compile Include="Models\FnsMcModels.cs" />
+    <Compile Include="Models\FnsVerifyAddress.cs" />
+    <Compile Include="Models\GpsTracking\FnsGeoFencesView.cs" />
+    <Compile Include="Models\GpsTracking\FnsGsAccountGeoFenceCircles.cs" />
+    <Compile Include="Models\GpsTracking\FnsGsAccountGeoFencePoints.cs" />
+    <Compile Include="Models\GpsTracking\FnsGsAccountGeoFencePolygons.cs" />
+    <Compile Include="Models\GpsTracking\FnsGsAccountGeoFenceRectangles.cs" />
+    <Compile Include="Models\GpsTracking\FnsGsAccountGeoFenceTypes.cs" />
+    <Compile Include="Models\GpsTracking\FnsGsDeviceEvents.cs" />
+    <Compile Include="Models\GpsTracking\FnsGsEventsView.cs" />
+    <Compile Include="Models\GpsTracking\FnsGsEventTypeView.cs" />
+    <Compile Include="Models\GpsTracking\FnsLpRequest.cs" />
+    <Compile Include="Models\GpsTracking\FnsSsDeviceRequest.cs" />
+    <Compile Include="Models\GpsTracking\KW621\FnsKwRequest.cs" />
+    <Compile Include="Models\HumanResource\FnsSalesRepInfo.cs" />
+    <Compile Include="Models\HumanResource\FnsSeason.cs" />
+    <Compile Include="Models\HumanResource\FnsRuTeamLocation.cs" />
+    <Compile Include="Models\HumanResource\FnsTechInfo.cs" />
+    <Compile Include="Models\InventoryEngine\FnsIeVendor.cs" />
+    <Compile Include="Models\InventoryEngine\FnsIeLocation.cs" />
+    <Compile Include="Models\InventoryEngine\FnsIeLocationType.cs" />
+    <Compile Include="Models\InventoryEngine\FnsIeProductBarcodeLocation.cs" />
+    <Compile Include="Models\InventoryEngine\FnsIeWarehouseSite.cs" />
+    <Compile Include="Models\InventoryEngine\FnsIeProductBarcodeTrackingView.cs" />
+    <Compile Include="Models\InventoryEngine\FnsIeProductBarcodeTracking.cs" />
+    <Compile Include="Models\InventoryEngine\FnsIePackingSlipItem.cs" />
+    <Compile Include="Models\InventoryEngine\FnsIePackingSlip.cs" />
+    <Compile Include="Models\InventoryEngine\FnsIeProductBarcode.cs" />
+    <Compile Include="Models\InventoryEngine\FnsIePurchaseOrderItem.cs" />
+    <Compile Include="Models\InventoryEngine\FnsIePurchaseOrder.cs" />
+    <Compile Include="Models\MainCore\FnsMcAccountNoteCat1.cs" />
+    <Compile Include="Models\MainCore\FnsMcAccountNoteCat2.cs" />
+    <Compile Include="Models\MainCore\FnsMcAccountNoteType.cs" />
+    <Compile Include="Models\MainCore\FnsMcDepartment.cs" />
+    <Compile Include="Models\MainCore\FnsMcNote.cs" />
+    <Compile Include="Models\Merchant\FnsInvoicePaymentInfoModel.cs" />
+    <Compile Include="Models\Merchant\FnsMerchResponseModel.cs" />
+    <Compile Include="Models\QualifyLead\FnsQlAddress.cs" />
+    <Compile Include="Models\QualifyLead\FnsQlCreditReport.cs" />
+    <Compile Include="Models\Receiver\FnsIndustryAccountModel.cs" />
+    <Compile Include="Models\FnsREResult.cs" />
+    <Compile Include="Models\FnsRuModels.cs" />
+    <Compile Include="Models\FnsAcSessionModel.cs" />
+    <Compile Include="Models\FnsSmsGwyTxtEnvModel.cs" />
+    <Compile Include="Models\FnsWiseCrmDealerUserModel.cs" />
+    <Compile Include="Models\SurveyEngine\FnsAnswer.cs" />
+    <Compile Include="Models\SurveyEngine\FnsMapToTokenAnswer.cs" />
+    <Compile Include="Models\SurveyEngine\FnsQuestion.cs" />
+    <Compile Include="Models\SurveyEngine\FnsQuestionMeaning.cs" />
+    <Compile Include="Models\SurveyEngine\FnsQuestionMeaningTokenMap.cs" />
+    <Compile Include="Models\SurveyEngine\FnsQuestionPossibleAnswerMap.cs" />
+    <Compile Include="Models\SurveyEngine\FnsQuestionTranslation.cs" />
+    <Compile Include="Models\SurveyEngine\FnsResult.cs" />
+    <Compile Include="Models\SurveyEngine\FnsResultView.cs" />
+    <Compile Include="Models\SurveyEngine\FnsSurvey.cs" />
+    <Compile Include="Models\SurveyEngine\FnsSurveyPossibleAnswers.cs" />
+    <Compile Include="Models\SurveyEngine\FnsSurveyToken.cs" />
+    <Compile Include="Models\SurveyEngine\FnsSurveyTranslation.cs" />
+    <Compile Include="Models\SurveyEngine\FnsSurveyType.cs" />
+    <Compile Include="Models\Swing\FnsCustomerSwingAddDnc.cs" />
+    <Compile Include="Models\Swing\FnsCustomerSwingEmergencyContact.cs" />
+    <Compile Include="Models\Swing\FnsCustomerSwingEquipmentInfo.cs" />
+    <Compile Include="Models\Swing\FnsCustomerSwingInfo.cs" />
+    <Compile Include="Models\Swing\FnsCustomerSwingInterim.cs" />
+    <Compile Include="Models\Swing\FnsCustomerSwingPremiseAddress.cs" />
+    <Compile Include="Models\Swing\FnsCustomerSwingSystemDetails.cs" />
+    <Compile Include="Models\Swing\FnsCustomerSwungInfo.cs" />
+    <Compile Include="MonitoringStationService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QualifyLeadServices.cs" />
+    <Compile Include="ReceiverEngineService.cs" />
+    <Compile Include="SosServiceEngine.cs" />
+    <Compile Include="SSEGpsDeviceServices.cs" />
+    <Compile Include="SurveyEngineService.cs" />
+    <Compile Include="SwingService.cs" />
+    <Compile Include="TicketService.cs" />
+    <Compile Include="WiseCrmService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\SOS.Data.AuthenticationControl\SOS.Data.AuthenticationControl.csproj">
+      <Project>{ACCE6D59-0AA7-4353-850E-1B78E16B3074}</Project>
+      <Name>SOS.Data.AuthenticationControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SOS.Data.GpsTracking\SOS.Data.GpsTracking.csproj">
+      <Project>{0A865A05-C179-46BA-975E-E360E33CD223}</Project>
+      <Name>SOS.Data.GpsTracking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SOS.Data.HumanResource\SOS.Data.HumanResource.csproj">
+      <Project>{CFF942B5-73BE-42A3-86DE-14EF45BEFCF1}</Project>
+      <Name>SOS.Data.HumanResource</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SOS.Data.Logging\SOS.Data.Logging.csproj">
+      <Project>{B6B1FCF3-F2BA-445E-9041-5100733EFD20}</Project>
+      <Name>SOS.Data.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SOS.Data.ReceiverEngine\SOS.Data.ReceiverEngine.csproj">
+      <Project>{68d5722b-45b2-4b9a-ba7c-bfcfcc001d83}</Project>
+      <Name>SOS.Data.ReceiverEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SOS.Data.SosCrm\SOS.Data.SosCrm.csproj">
+      <Project>{23BB4972-325C-40D8-96F6-EB8A60676D63}</Project>
+      <Name>SOS.Data.SosCrm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SOS.Data\SOS.Data.csproj">
+      <Project>{C2776F02-C5E2-42BA-B4B0-147625B90A18}</Project>
+      <Name>SOS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SSE.Data.SurveyEngine\SSE.Data.SurveyEngine.csproj">
+      <Project>{6db56ba6-5e04-4d12-a424-2b3e5e51aa0c}</Project>
+      <Name>SSE.Data.SurveyEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SubSonic\SubSonic.csproj">
+      <Project>{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}</Project>
+      <Name>SubSonic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\bcrypt\BCrypt.Net\BCrypt.Net.csproj">
+      <Project>{517cbab6-a48c-4068-9042-57db2793bf50}</Project>
+      <Name>BCrypt.Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\NSE.Lib.Abara\NSE.Lib.Abara.csproj">
+      <Project>{9685f421-daf9-4806-a726-63a58ff4704e}</Project>
+      <Name>NSE.Lib.Abara</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\NSE.Lib.Microbilt\NSE.Lib.Microbilt.csproj">
+      <Project>{e4d05580-1bc3-46d5-9db1-573157bed512}</Project>
+      <Name>NSE.Lib.Microbilt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\NXS.Lib.Web\NXS.Lib.Web.csproj">
+      <Project>{c067b3ab-3faf-40d7-98e9-5788768bd315}</Project>
+      <Name>NXS.Lib.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Core\SOS.Lib.Core.csproj">
+      <Project>{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}</Project>
+      <Name>SOS.Lib.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.KW621API\SOS.Lib.KW621API.csproj">
+      <Project>{07704e83-62cd-41e3-b177-15a3a76c2814}</Project>
+      <Name>SOS.Lib.KW621API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.LaipacAPI\SOS.Lib.LaipacAPI.csproj">
+      <Project>{7553C22A-3ABB-495E-BFDA-F3673195A3A2}</Project>
+      <Name>SOS.Lib.LaipacAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj">
+      <Project>{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}</Project>
+      <Name>SOS.Lib.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SSE.Lib.Interfaces\SSE.Lib.Interfaces.csproj">
+      <Project>{049707c3-442a-4e23-bee1-cc379b9d3901}</Project>
+      <Name>SSE.Lib.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SSE.Lib.SseGpsDeviceAPI\SSE.Lib.SseGpsDeviceAPI.csproj">
+      <Project>{d9eb376d-2bea-4ec6-a0fe-79a9cdf0e54a}</Project>
+      <Name>SSE.Lib.SseGpsDeviceAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\Interfaces\SOS.Services.Interfaces\SOS.Services.Interfaces.csproj">
+      <Project>{DCDBF3EE-D932-4713-9A47-2693C0C7BEF4}</Project>
+      <Name>SOS.Services.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NSE.FOS.RunCreditServices\NSE.FOS.RunCreditServices.csproj">
+      <Project>{e25ca946-9dcd-4d2e-9378-dacb77ee82aa}</Project>
+      <Name>NSE.FOS.RunCreditServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NSE.FOS\NSE.FOS.csproj">
+      <Project>{40BA5B01-7D6E-4726-A58A-0CF2BC4E4CCB}</Project>
+      <Name>NSE.FOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SOS.FOS.CellStation\SOS.FOS.CellStation.csproj">
+      <Project>{0992e344-2bb8-4e0d-b9a6-92ca0a9353f4}</Project>
+      <Name>SOS.FOS.CellStation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SOS.FOS.MerchantServices\SOS.FOS.MerchantServices.csproj">
+      <Project>{FFB66694-40EB-49ED-B8EA-B5C0C76B3C1B}</Project>
+      <Name>SOS.FOS.MerchantServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SOS.FOS.MonitoringStationServices\SOS.FOS.MonitoringStationServices.csproj">
+      <Project>{8ed7a69a-a258-4d9a-b9b8-06bd00b7d8a1}</Project>
+      <Name>SOS.FOS.MonitoringStationServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SOS.FOS.ReceiverEngineServices\SOS.FOS.ReceiverEngineServices.csproj">
+      <Project>{b13bbd04-84c7-4500-8a67-d7a9b8bcaa85}</Project>
+      <Name>SOS.FOS.ReceiverEngineServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SOS.FunctionalServices.Contracts\SOS.FunctionalServices.Contracts.csproj">
+      <Project>{4C52F83A-0039-4C8D-94D3-D6547DE9659B}</Project>
+      <Name>SOS.FunctionalServices.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SSE.FOS.AddressVerification\SSE.FOS.AddressVerification.csproj">
+      <Project>{eb0cd70f-7be6-4c74-92f9-2f74a34ff6ed}</Project>
+      <Name>SSE.FOS.AddressVerification</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
+    <Folder Include="bin\Release\" />
+    <Folder Include="obj\Debug\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

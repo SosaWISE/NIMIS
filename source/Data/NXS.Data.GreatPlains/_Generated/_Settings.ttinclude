@@ -1,0 +1,26 @@
+<#+
+
+		const string Namespace = "NXS.Data.GreatPlains";
+		const string ConnectionStringName = "ConnStringGreatPlains";
+		const string DatabaseName = "GreatPlains";
+
+		const string ProviderName = "NxsGreatPlainsProvider";
+
+
+		const string IncludeProcedureList = "^ppCust*";
+		const string ExcludeProcedureList = "";
+
+		const string IncludeTableList = "vwCustomerInvoices,vwCustomerOutstandingInvoices,vwBillingContracts,vwMonitoringContracts,vwOpenPaymentsAndCredits" +
+										",vwCustomerInformation";
+		const string ExcludeTableList = "*";
+
+		const string RegexReplaceExpression = "";
+		const string RegexMatchExpression = "";
+		const string RegexDictionaryReplace = @"^ppCust([A-Z][A-Z][A-Z]?)_,$1\_;^vw([A-Z]{2})_(.*),$1\_$2View;vw(.*),$1View;^VW_(.*),$1View;";
+		const bool RegexIgnoreCase = false;
+
+		const string StripText = "^ppCust_|^ppCust";
+
+		const string EnumTableList = "";
+
+#>

@@ -1,0 +1,1250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ImportSite">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Site" type="tns:Site" />
+            <s:element minOccurs="0" maxOccurs="1" name="Signals" type="tns:Signals" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Site">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Phones" type="tns:ArrayOfPhone" />
+          <s:element minOccurs="0" maxOccurs="1" name="Codewords" type="tns:ArrayOfCodeword" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiteInstructions" type="tns:ArrayOfSiteInstruction" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiteAgencies" type="tns:ArrayOfSiteAgency" />
+          <s:element minOccurs="0" maxOccurs="1" name="Contacts" type="tns:ArrayOfContact" />
+          <s:element minOccurs="0" maxOccurs="1" name="Devices" type="tns:ArrayOfDevice" />
+          <s:element minOccurs="0" maxOccurs="1" name="DispatchTypes" type="tns:ArrayOfDispatchType" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiteAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiteName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiteAddr2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="County" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Latitude" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Longitude" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TimeZoneNum" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CrossStreet" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiteType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Region" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Info" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Directions" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pets" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Map" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MapPage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MapCoordinates" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiteID1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiteID2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Subdivision" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ULCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiteLanguage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LockBoxCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LockBoxLocation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BillingID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiteGroups" type="tns:ArrayOfSiteGroup" />
+          <s:element minOccurs="0" maxOccurs="1" name="UDF" type="tns:ArrayOfUDF" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPhone">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Phone" nillable="true" type="tns:Phone" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Phone">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Extension" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AutoNotifyFlag" nillable="true" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCodeword">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Codeword" nillable="true" type="tns:Codeword" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Codeword">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Codeword" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSiteInstruction">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SiteInstruction" nillable="true" type="tns:SiteInstruction" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SiteInstruction">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SeqNum" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Instruction" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSiteAgency">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SiteAgency" nillable="true" type="tns:SiteAgency" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SiteAgency">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AgencyNum" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="AgencyType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Permit" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AgencyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AgencyPhone" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfContact">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Contact" nillable="true" type="tns:Contact" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Contact">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="OrderNum" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phones" type="tns:ArrayOfPhone" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddresses" type="tns:ArrayOfEmailAddress" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pin" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Authority" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Relation" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="EcvFlag" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="KeysFlag" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeviceUsers" type="tns:ArrayOfDeviceUser" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactList" type="tns:ArrayOfContactListMember" />
+          <s:element minOccurs="1" maxOccurs="1" name="DateOfBirth" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Gender" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HospitalPreference" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PatientComment" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Allergies" type="tns:ArrayOfAllergies" />
+          <s:element minOccurs="0" maxOccurs="1" name="MedicalConditions" type="tns:ArrayOfMedicalConditions" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEmailAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EmailAddress" nillable="true" type="tns:EmailAddress" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EmailAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AutoNotifyFlag" nillable="true" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDeviceUser">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DeviceUser" nillable="true" type="tns:DeviceUser" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DeviceUser">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TransmitterCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfContactListMember">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ContactListMember" nillable="true" type="tns:ContactListMember" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ContactListMember">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ContactListType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderNum" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAllergies">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Allergies" nillable="true" type="tns:Allergies" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Allergies">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AllergyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comment" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMedicalConditions">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MedicalConditions" nillable="true" type="tns:MedicalConditions" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MedicalConditions">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MedicalConditionCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comment" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDevice">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Device" nillable="true" type="tns:Device" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Device">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TransmitterCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeviceType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Points" type="tns:ArrayOfPoint" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReceiverPhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PanelPhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PanelLocation" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TimerTestNum" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TimerTestHours" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TimerTestMinutes" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="FailTimerTestEvent" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrimaryTransmitterCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Info" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="InServiceFlag" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="LineSecurity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CommunicationType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AltDeviceID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ListenInDeviceType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="URLText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="URLTarget" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BillingID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SilentFlag" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OOSStartDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Areas" type="tns:ArrayOfArea" />
+          <s:element minOccurs="0" maxOccurs="1" name="Schedules" type="tns:ArrayOfSchedule" />
+          <s:element minOccurs="0" maxOccurs="1" name="UDF" type="tns:ArrayOfUDF" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPoint">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Point" nillable="true" type="tns:Point" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Point">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Point" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SignalStatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SignalCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EqLoc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EqType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AreaNum" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfArea">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Area" nillable="true" type="tns:Area" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Area">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AreaNum" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OpenEventCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CloseEventCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SchedNum" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSchedule">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Schedule" nillable="true" type="tns:Schedule" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Schedule">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SchedNum" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FailOpenEventCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FailCloseEventCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="EarlyOpenMinutes" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LateOpenMinutes" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="EarlyCloseMinutes" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LateCloseMinutes" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="EarlyOpenEventCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LateOpenEventCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EarlyCloseEventCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LateCloseEventCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MultiAreaOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Details" type="tns:ArrayOfScheduleDetail" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfScheduleDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ScheduleDetail" nillable="true" type="tns:ScheduleDetail" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ScheduleDetail">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="OpenDayOfWeek" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="OpenTime" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CloseDayOfWeek" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CloseTime" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUDF">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UDF" nillable="true" type="tns:UDF" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UDF">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UDFCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UDFValue" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDispatchType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DispatchType" nillable="true" type="tns:DispatchType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DispatchType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DispatchType" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSiteGroup">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SiteGroup" nillable="true" type="tns:SiteGroup" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SiteGroup">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SiteGroupNum" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Signals">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Signals" type="tns:ArrayOfSignal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSignal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Signal" nillable="true" type="tns:Signal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Signal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TransmitterCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SignalFormat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SignalCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Point" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Date" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ANIPhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Longitude" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Latitude" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="URL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VideoType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TestSignalFlag" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ImportSiteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportSiteResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Result">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorNum" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="OnTest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransmitterCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TestCategory" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Hours" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Minutes" nillable="true" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OnTestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OnTestResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClearTest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransmitterCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClearTestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ClearTestResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OutService">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransmitterCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OOSCategory" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="OOSStartDate" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OutServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OutServiceResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InService">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransmitterCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InServiceResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransmitterCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHistoryResult" type="tns:DataResultOfListOfHistory" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DataResultOfListOfHistory">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Result" type="tns:ArrayOfHistory" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfHistory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="History" nillable="true" type="tns:History" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="History">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="HistoryDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="UTCDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransmitterCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiteName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventCodeDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OpAct" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OpActDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SignalCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Point" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PointDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comment" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AlarmNum" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AreaNum" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TestNum" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RawMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FullClearFlag" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Latitude" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Longitude" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSiteCodewords">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransmitterCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSiteCodewordsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSiteCodewordsResult" type="tns:DataResultOfListOfSiteCodewords" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DataResultOfListOfSiteCodewords">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Result" type="tns:ArrayOfSiteCodewords" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfSiteCodewords">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SiteCodewords" nillable="true" type="tns:SiteCodewords" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SiteCodewords">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CodeWord" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSiteContacts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransmitterCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSiteContactsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSiteContactsResult" type="tns:DataResultOfListOfSiteContacts" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DataResultOfListOfSiteContacts">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Result" type="tns:ArrayOfSiteContacts" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfSiteContacts">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SiteContacts" nillable="true" type="tns:SiteContacts" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SiteContacts">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="OrderNum" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Authority" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Relation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Signal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Signals" type="tns:Signals" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SignalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SignalResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TransmitterCodeList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TransmitterCodeListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TransmitterCodeListResult" type="tns:DataResultOfListOfTransmitterList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DataResultOfListOfTransmitterList">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Result" type="tns:ArrayOfTransmitterList" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfTransmitterList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransmitterList" nillable="true" type="tns:TransmitterList" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TransmitterList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TransmitterCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SiteNum" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiteName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateSiteCodewords">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransmitterCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SiteCodewords" type="tns:Codewords" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Codewords">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Codewords" type="tns:ArrayOfCodeword" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateSiteCodewordsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateSiteCodewordsResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateSiteContacts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransmitterCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SiteContacts" type="tns:Contacts" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Contacts">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Contacts" type="tns:ArrayOfContact" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateSiteContactsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateSiteContactsResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Result" nillable="true" type="tns:Result" />
+      <s:element name="DataResultOfListOfSiteCodewords" nillable="true" type="tns:DataResultOfListOfSiteCodewords" />
+      <s:element name="DataResultOfListOfSiteContacts" nillable="true" type="tns:DataResultOfListOfSiteContacts" />
+      <s:element name="DataResultOfListOfTransmitterList" nillable="true" type="tns:DataResultOfListOfTransmitterList" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ImportSiteSoapIn">
+    <wsdl:part name="parameters" element="tns:ImportSite" />
+  </wsdl:message>
+  <wsdl:message name="ImportSiteSoapOut">
+    <wsdl:part name="parameters" element="tns:ImportSiteResponse" />
+  </wsdl:message>
+  <wsdl:message name="OnTestSoapIn">
+    <wsdl:part name="parameters" element="tns:OnTest" />
+  </wsdl:message>
+  <wsdl:message name="OnTestSoapOut">
+    <wsdl:part name="parameters" element="tns:OnTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ClearTestSoapIn">
+    <wsdl:part name="parameters" element="tns:ClearTest" />
+  </wsdl:message>
+  <wsdl:message name="ClearTestSoapOut">
+    <wsdl:part name="parameters" element="tns:ClearTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="OutServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:OutService" />
+  </wsdl:message>
+  <wsdl:message name="OutServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:OutServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="InServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:InService" />
+  </wsdl:message>
+  <wsdl:message name="InServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:InServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHistorySoapIn">
+    <wsdl:part name="parameters" element="tns:GetHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetHistorySoapOut">
+    <wsdl:part name="parameters" element="tns:GetHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteCodewordsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSiteCodewords" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteCodewordsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSiteCodewordsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteContactsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSiteContacts" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteContactsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSiteContactsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SignalSoapIn">
+    <wsdl:part name="parameters" element="tns:Signal" />
+  </wsdl:message>
+  <wsdl:message name="SignalSoapOut">
+    <wsdl:part name="parameters" element="tns:SignalResponse" />
+  </wsdl:message>
+  <wsdl:message name="TransmitterCodeListSoapIn">
+    <wsdl:part name="parameters" element="tns:TransmitterCodeList" />
+  </wsdl:message>
+  <wsdl:message name="TransmitterCodeListSoapOut">
+    <wsdl:part name="parameters" element="tns:TransmitterCodeListResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSiteCodewordsSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateSiteCodewords" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSiteCodewordsSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateSiteCodewordsResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSiteContactsSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateSiteContacts" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSiteContactsSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateSiteContactsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ClearTestHttpGetIn">
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="TransmitterCode" type="s:string" />
+    <wsdl:part name="Comment" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ClearTestHttpGetOut">
+    <wsdl:part name="Body" element="tns:Result" />
+  </wsdl:message>
+  <wsdl:message name="InServiceHttpGetIn">
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="TransmitterCode" type="s:string" />
+    <wsdl:part name="Comment" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InServiceHttpGetOut">
+    <wsdl:part name="Body" element="tns:Result" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteCodewordsHttpGetIn">
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="TransmitterCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteCodewordsHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataResultOfListOfSiteCodewords" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteContactsHttpGetIn">
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="TransmitterCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteContactsHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataResultOfListOfSiteContacts" />
+  </wsdl:message>
+  <wsdl:message name="TransmitterCodeListHttpGetIn">
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TransmitterCodeListHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataResultOfListOfTransmitterList" />
+  </wsdl:message>
+  <wsdl:message name="ClearTestHttpPostIn">
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="TransmitterCode" type="s:string" />
+    <wsdl:part name="Comment" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ClearTestHttpPostOut">
+    <wsdl:part name="Body" element="tns:Result" />
+  </wsdl:message>
+  <wsdl:message name="InServiceHttpPostIn">
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="TransmitterCode" type="s:string" />
+    <wsdl:part name="Comment" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InServiceHttpPostOut">
+    <wsdl:part name="Body" element="tns:Result" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteCodewordsHttpPostIn">
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="TransmitterCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteCodewordsHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataResultOfListOfSiteCodewords" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteContactsHttpPostIn">
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="TransmitterCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteContactsHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataResultOfListOfSiteContacts" />
+  </wsdl:message>
+  <wsdl:message name="TransmitterCodeListHttpPostIn">
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TransmitterCodeListHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataResultOfListOfTransmitterList" />
+  </wsdl:message>
+  <wsdl:portType name="SiteGroupGatewaySoap">
+    <wsdl:operation name="ImportSite">
+      <wsdl:input message="tns:ImportSiteSoapIn" />
+      <wsdl:output message="tns:ImportSiteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OnTest">
+      <wsdl:input message="tns:OnTestSoapIn" />
+      <wsdl:output message="tns:OnTestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ClearTest">
+      <wsdl:input message="tns:ClearTestSoapIn" />
+      <wsdl:output message="tns:ClearTestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OutService">
+      <wsdl:input message="tns:OutServiceSoapIn" />
+      <wsdl:output message="tns:OutServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InService">
+      <wsdl:input message="tns:InServiceSoapIn" />
+      <wsdl:output message="tns:InServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistory">
+      <wsdl:input message="tns:GetHistorySoapIn" />
+      <wsdl:output message="tns:GetHistorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteCodewords">
+      <wsdl:input message="tns:GetSiteCodewordsSoapIn" />
+      <wsdl:output message="tns:GetSiteCodewordsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteContacts">
+      <wsdl:input message="tns:GetSiteContactsSoapIn" />
+      <wsdl:output message="tns:GetSiteContactsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Signal">
+      <wsdl:input message="tns:SignalSoapIn" />
+      <wsdl:output message="tns:SignalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TransmitterCodeList">
+      <wsdl:input message="tns:TransmitterCodeListSoapIn" />
+      <wsdl:output message="tns:TransmitterCodeListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSiteCodewords">
+      <wsdl:input message="tns:UpdateSiteCodewordsSoapIn" />
+      <wsdl:output message="tns:UpdateSiteCodewordsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSiteContacts">
+      <wsdl:input message="tns:UpdateSiteContactsSoapIn" />
+      <wsdl:output message="tns:UpdateSiteContactsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SiteGroupGatewayHttpGet">
+    <wsdl:operation name="ClearTest">
+      <wsdl:input message="tns:ClearTestHttpGetIn" />
+      <wsdl:output message="tns:ClearTestHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InService">
+      <wsdl:input message="tns:InServiceHttpGetIn" />
+      <wsdl:output message="tns:InServiceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteCodewords">
+      <wsdl:input message="tns:GetSiteCodewordsHttpGetIn" />
+      <wsdl:output message="tns:GetSiteCodewordsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteContacts">
+      <wsdl:input message="tns:GetSiteContactsHttpGetIn" />
+      <wsdl:output message="tns:GetSiteContactsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TransmitterCodeList">
+      <wsdl:input message="tns:TransmitterCodeListHttpGetIn" />
+      <wsdl:output message="tns:TransmitterCodeListHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SiteGroupGatewayHttpPost">
+    <wsdl:operation name="ClearTest">
+      <wsdl:input message="tns:ClearTestHttpPostIn" />
+      <wsdl:output message="tns:ClearTestHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InService">
+      <wsdl:input message="tns:InServiceHttpPostIn" />
+      <wsdl:output message="tns:InServiceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteCodewords">
+      <wsdl:input message="tns:GetSiteCodewordsHttpPostIn" />
+      <wsdl:output message="tns:GetSiteCodewordsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteContacts">
+      <wsdl:input message="tns:GetSiteContactsHttpPostIn" />
+      <wsdl:output message="tns:GetSiteContactsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TransmitterCodeList">
+      <wsdl:input message="tns:TransmitterCodeListHttpPostIn" />
+      <wsdl:output message="tns:TransmitterCodeListHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SiteGroupGatewaySoap" type="tns:SiteGroupGatewaySoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ImportSite">
+      <soap:operation soapAction="http://tempuri.org/ImportSite" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnTest">
+      <soap:operation soapAction="http://tempuri.org/OnTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearTest">
+      <soap:operation soapAction="http://tempuri.org/ClearTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OutService">
+      <soap:operation soapAction="http://tempuri.org/OutService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InService">
+      <soap:operation soapAction="http://tempuri.org/InService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistory">
+      <soap:operation soapAction="http://tempuri.org/GetHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteCodewords">
+      <soap:operation soapAction="http://tempuri.org/GetSiteCodewords" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteContacts">
+      <soap:operation soapAction="http://tempuri.org/GetSiteContacts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Signal">
+      <soap:operation soapAction="http://tempuri.org/Signal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransmitterCodeList">
+      <soap:operation soapAction="http://tempuri.org/TransmitterCodeList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSiteCodewords">
+      <soap:operation soapAction="http://tempuri.org/UpdateSiteCodewords" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSiteContacts">
+      <soap:operation soapAction="http://tempuri.org/UpdateSiteContacts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SiteGroupGatewaySoap12" type="tns:SiteGroupGatewaySoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ImportSite">
+      <soap12:operation soapAction="http://tempuri.org/ImportSite" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnTest">
+      <soap12:operation soapAction="http://tempuri.org/OnTest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearTest">
+      <soap12:operation soapAction="http://tempuri.org/ClearTest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OutService">
+      <soap12:operation soapAction="http://tempuri.org/OutService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InService">
+      <soap12:operation soapAction="http://tempuri.org/InService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistory">
+      <soap12:operation soapAction="http://tempuri.org/GetHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteCodewords">
+      <soap12:operation soapAction="http://tempuri.org/GetSiteCodewords" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteContacts">
+      <soap12:operation soapAction="http://tempuri.org/GetSiteContacts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Signal">
+      <soap12:operation soapAction="http://tempuri.org/Signal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransmitterCodeList">
+      <soap12:operation soapAction="http://tempuri.org/TransmitterCodeList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSiteCodewords">
+      <soap12:operation soapAction="http://tempuri.org/UpdateSiteCodewords" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSiteContacts">
+      <soap12:operation soapAction="http://tempuri.org/UpdateSiteContacts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SiteGroupGatewayHttpGet" type="tns:SiteGroupGatewayHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="ClearTest">
+      <http:operation location="/ClearTest" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InService">
+      <http:operation location="/InService" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteCodewords">
+      <http:operation location="/GetSiteCodewords" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteContacts">
+      <http:operation location="/GetSiteContacts" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransmitterCodeList">
+      <http:operation location="/TransmitterCodeList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SiteGroupGatewayHttpPost" type="tns:SiteGroupGatewayHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="ClearTest">
+      <http:operation location="/ClearTest" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InService">
+      <http:operation location="/InService" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteCodewords">
+      <http:operation location="/GetSiteCodewords" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteContacts">
+      <http:operation location="/GetSiteContacts" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransmitterCodeList">
+      <http:operation location="/TransmitterCodeList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SiteGroupGateway">
+    <wsdl:port name="SiteGroupGatewaySoap" binding="tns:SiteGroupGatewaySoap">
+      <soap:address location="https://portal.agmonitoring.com/testsitegroupgateway/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SiteGroupGatewaySoap12" binding="tns:SiteGroupGatewaySoap12">
+      <soap12:address location="https://portal.agmonitoring.com/testsitegroupgateway/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SiteGroupGatewayHttpGet" binding="tns:SiteGroupGatewayHttpGet">
+      <http:address location="https://portal.agmonitoring.com/testsitegroupgateway/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SiteGroupGatewayHttpPost" binding="tns:SiteGroupGatewayHttpPost">
+      <http:address location="https://portal.agmonitoring.com/testsitegroupgateway/service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

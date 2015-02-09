@@ -1,0 +1,34 @@
+<#+
+
+		const string Namespace = "SOS.Data.HumanResource";
+		const string ConnectionStringName = "HumanResourceConnString";
+		const string DatabaseName = "HumanResourceData";
+
+		const string ProviderName = "SosHumanResourceProvider";
+
+		const string IncludeProcedureList = "^cust*";
+		const string ExcludeProcedureList = "^custFx*";
+
+		const string IncludeTableList = "*";
+		const string ExcludeTableList =
+			@"sysdiagrams,dtproperty,MSreplication_objects,MSreplication_subscriptions"
+			+ ",MSsavedforeignkeycolumns,MSsavedforeignkeyextendedproperties,MSsavedforeignkeys"
+			+ ",MSsnapshotdeliveryprogress,MSsubscription_agents,MSsubscription_properties,^temp$";
+
+		const string RegexReplaceExpression = "";
+		const string RegexMatchExpression = "";
+		const string RegexDictionaryReplace = @"^vw_(.*),$1View;^vw([A-Z]{2})_(.*),$1\_$2View;vw(.*),$1View;^VW_(.*),$1View;^cust([A-Z][A-Z][A-Z]?)_,$1\_;^proc_([A-Z][A-Z][A-Z]?)_,$1\_;^([A-Z][A-Z][A-Z]?)_,$1\_";
+		const bool RegexIgnoreCase = false;
+
+		const string StripText = "^cust_|^cust";
+
+		const string EnumTableList = 
+			"APT_ApartmentType,APT_BedType,APT_ContactType,APT_DocumentType,APT_ExpenseType,HS_ComplexCheckType"
+			+ ",HS_ContactInformationAddressType,HS_UnitVacateNoticeSentByType,PR_BackendAccountMappingTypes,PR_BackendAggregateTransactionTypes"
+			+ ",PR_OfficeTransactionTypes,PR_RollingTransactionTypes,PS_ContentTypes,PS_PublishLocationTypes,PS_QuestionTypes,PS_UploadedContentTypes"
+			+ ",RU_DocStatuses,RU_PhoneType,RU_RecruitCohabbitTypes,RU_RoleLocations,RU_TerminationType,RU_UserType,RU_UserTypeTeamTypes"
+			+ ",RU_TerminationStatusCodes,PR_TransactionTypes,PR_BackendTransactionTypes,PR_BackendTransactionCategories,RU_Payscales"
+			+ ",PR_TransactionCategories,PS_ArticleTypes,RU_TerminationsWithStatusView";
+		const string MetaDataTableList = "";
+
+#>

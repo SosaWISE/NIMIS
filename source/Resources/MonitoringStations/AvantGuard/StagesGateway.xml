@@ -1,0 +1,27 @@
+﻿<?xml version="1.0"?>
+<doc><assembly><name>StagesGateway</name></assembly><members><member name="M:Stages.StagesGateway.XtSummary(System.Int32,System.Byte[],System.String)"><summary>Obsolete: Use XtSummaryCount instead
+</summary></member><member name="M:Stages.StagesGateway.XtSummaryDetail(System.Int32,System.Byte[],System.String,System.String,System.Nullable{System.Int32},System.String,System.String)"><summary>Obsolete: use pXtSummaryDetailList instead
+</summary></member><member name="M:Stages.StagesGateway.IVRDealerFaxEmailHistory(System.Int32,System.Byte[],System.String,System.String)"><summary>IVR Dealer FaxEmail History
+</summary></member><member name="M:Stages.StagesGateway.IVRDealerRetrievePoint(System.Int32,System.Byte[],System.String,System.String)"><summary>IVR Dealer Retrieve Point
+</summary></member><member name="M:Stages.StagesGateway.IVRDealerSMSHistory(System.Int32,System.Byte[],System.String,System.String)"><summary>IVR Dealer SMS History
+</summary></member><member name="M:Stages.StagesGateway.IVRDealerXmit(System.Int32,System.Byte[],System.String)"><summary>IVR Dealer Xmit
+</summary></member><member name="M:Stages.StagesGateway.IVRGatewayOffTest(System.Int32,System.Byte[],System.String,System.String,System.Nullable{System.Boolean})"><summary>IVR Gateway Off Test
+</summary></member><member name="M:Stages.StagesGateway.IVRGatewayOnTest(System.Int32,System.Byte[],System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Boolean})"><summary>IVR Gateway On Test
+</summary></member><member name="M:Stages.StagesGateway.IVRGatewayRetrieveHistory(System.Int32,System.Byte[],System.String,System.Nullable{System.DateTime})"><summary>IVR Gateway Retrieve History
+</summary></member><member name="M:Stages.StagesGateway.SiteGroupTransmitters(System.Int32,System.Byte[],System.Nullable{System.Int32})"><summary>SiteGroup Transmitters
+</summary></member><member name="M:Stages.StagesGateway.XtSummaryDetailList(System.Int32,System.Byte[],System.Nullable{System.Int32},System.String)"><summary>Values for DetailType:
+	Sites,
+	NewThisMonth, 
+	AlarmsIn24Hrs,
+	AlarmsThisWeek,
+	AlarmsThisMonth,
+	OnTestCount,
+	OutOfServiceCount,
+	CurrentlyOpenCount,
+	CurrentlyClosedCount
+</summary></member><member name="M:Stages.StagesGateway.IncomingPhoneCallNotify(System.Int32,System.Byte[],System.String,System.String)"><summary>Informs the operator of an incoming phone call, displaying information about the caller
+</summary></member><member name="M:Stages.StagesGateway.IVRDealerLogin(System.String,System.String,System.String,System.String,System.String,System.String)"><summary>IVR Dealer Login
+</summary></member><member name="M:Stages.StagesGateway.PhoneAlarmOperator(System.Int32,System.Byte[],System.String)"><summary>Finds the operator working on the alarm associated with the incoming call, if one exists
+</summary></member><member name="M:Stages.StagesGateway.ScanDocument(System.Int32,System.Byte[],System.String,System.String,System.String,System.Nullable{System.DateTime},System.String)"><summary>Update Stages with Scan Document FilePath etc.
+</summary></member><member name="M:Stages.StagesGateway.XtAck(System.Int32,System.Byte[],System.Nullable{System.Int32})"><summary>Acknowledge a Notification
+</summary></member></members></doc>

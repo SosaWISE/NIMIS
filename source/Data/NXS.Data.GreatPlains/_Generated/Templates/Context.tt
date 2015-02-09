@@ -1,0 +1,93 @@
+<#@ include file="Templates/_SQLServer.ttinclude" #>
+<#
+	var tables = LoadTables();
+	var views = LoadViews();
+#>
+<# //Debugger.Break(); #>
+using System;
+using SubSonic;
+
+namespace <#=Namespace#>
+{
+	public partial class <#=DatabaseName#>Context
+	{
+		#region Internal Instance
+		
+		private static <#=DatabaseName#>Context _contextInstance;
+		private static readonly object _syncRootContextInstance = new object();
+		
+		public static <#=DatabaseName#>Context Instance
+		{
+			get
+			{
+				if (_contextInstance == null)
+				{
+					lock (_syncRootContextInstance)
+					{
+						if (_contextInstance == null)
+						{
+							_contextInstance = new <#=DatabaseName#>Context();
+						}
+					}
+				}
+				return _contextInstance;
+			}
+		}
+		
+		#endregion // Internal Instance
+		
+		#region Controllers Properties
+<#foreach(Table tbl in tables){#>
+<#var pkColumn = tbl.Columns.SingleOrDefault(x => x.IsPK);#>
+<#if(pkColumn != null) {#>
+
+		<#=tbl.ClassName#>Controller _<#=tbl.QueryableName#>;
+		public <#=tbl.ClassName#>Controller <#=tbl.QueryableName#>
+		{
+			get
+			{
+				if (_<#=tbl.QueryableName#> == null) _<#=tbl.QueryableName#> = new <#=tbl.ClassName#>Controller();
+				return _<#=tbl.QueryableName#>;
+			}
+		}
+<#}#>
+<#}#>
+
+		#endregion //Controllers Properties
+		
+		#region View Controllers Properties
+<#foreach(Table tbl in views){#>
+
+		<#=tbl.ClassName#>Controller _<#=tbl.QueryableName#>;
+		public <#=tbl.ClassName#>Controller <#=tbl.QueryableName#>
+		{
+			get
+			{
+				if (_<#=tbl.QueryableName#> == null) _<#=tbl.QueryableName#> = new <#=tbl.ClassName#>Controller();
+				return _<#=tbl.QueryableName#>;
+			}
+		}
+<#}#>
+
+		#endregion //View Controllers Properties
+	}
+	
+	#region Controllers
+	
+<#foreach(Table tbl in tables){#>
+<#var pkColumn = tbl.Columns.SingleOrDefault(x => x.IsPK);#>
+<#if(pkColumn != null) {#>
+	public class <#=tbl.ClassName#>Controller : BaseTableController<<#=tbl.ClassName#>, <#=tbl.ClassName#>Collection> { }
+<#}#>
+<#}#>
+
+	#endregion //Controllers
+	
+	#region View Controllers
+	
+<#foreach(Table tbl in views){#>
+	public class <#=tbl.ClassName#>Controller : BaseViewController<<#=tbl.ClassName#>, <#=tbl.ClassName#>Collection> { }
+<#}#>
+
+	#endregion //View Controllers
+}

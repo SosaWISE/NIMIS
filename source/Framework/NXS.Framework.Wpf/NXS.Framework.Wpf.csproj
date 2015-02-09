@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2E292445-24B8-4747-93DE-3CA22DE67491}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NXS.Framework.Wpf</RootNamespace>
+    <AssemblyName>NXS.Framework.Wpf</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="StructureMap">
+      <HintPath>..\..\Resources\StructureMap\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BindingProxy.cs" />
+    <Compile Include="CommandReference.cs" />
+    <Compile Include="Controls\Bitmap.cs" />
+    <Compile Include="Controls\ColorPicker.xaml.cs">
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ContainerBox.cs" />
+    <Compile Include="Controls\CopyBox.xaml.cs">
+      <DependentUpon>CopyBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DropDownList.xaml.cs">
+      <DependentUpon>DropDownList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EditableTextBox.xaml.cs">
+      <DependentUpon>EditableTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageButton.xaml.cs">
+      <DependentUpon>ImageButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LinkButton.xaml.cs">
+      <DependentUpon>LinkButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LoadingAnimation.xaml.cs">
+      <DependentUpon>LoadingAnimation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MaskedTextBox.cs" />
+    <Compile Include="Controls\NumbersOnlyTextBox.cs" />
+    <Compile Include="Controls\RowEventArgs.cs" />
+    <Compile Include="Controls\SliderButton.xaml.cs">
+      <DependentUpon>SliderButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SmallLoadingAnimation.xaml.cs">
+      <DependentUpon>SmallLoadingAnimation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SortAdorner.cs" />
+    <Compile Include="Controls\StatusControl.xaml.cs">
+      <DependentUpon>StatusControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SuperGridViewColumnHeader.cs" />
+    <Compile Include="Controls\SuperListView.cs" />
+    <Compile Include="Controls\ValueBox.xaml.cs">
+      <DependentUpon>ValueBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\BooleanFlipperConverter.cs" />
+    <Compile Include="Converters\BooleanScrollBarVisibilityConverter.cs" />
+    <Compile Include="Converters\BooleanToStringConverter.cs" />
+    <Compile Include="Converters\BooleanVisibilityConverter.cs" />
+    <Compile Include="Converters\ColorStringBrushConverter.cs" />
+    <Compile Include="Converters\ConverterHelper.cs" />
+    <Compile Include="Converters\EmptyStringVisibilityConverter.cs" />
+    <Compile Include="Converters\IsValidToBrushConverter.cs" />
+    <Compile Include="Converters\ListViewMaxMinConverter.cs" />
+    <Compile Include="Converters\MaskedValidatedInputVisibilityConverter.cs" />
+    <Compile Include="Converters\NonNullValueVisibilityConverter.cs" />
+    <Compile Include="Converters\NullableBooleanVisibilityConverter.cs" />
+    <Compile Include="Converters\NullValueVisibilityConverter.cs" />
+    <Compile Include="Converters\OppositeBooleanConverter.cs" />
+    <Compile Include="Converters\PhoneNumberFormatterConverter.cs" />
+    <Compile Include="Converters\PositiveDecimalBooleanConverter.cs" />
+    <Compile Include="Converters\PositiveDecimalVisibilityConverter.cs" />
+    <Compile Include="Converters\TextIndexConverter.cs" />
+    <Compile Include="Converters\TwoChoiceRadioButtonConverter.cs" />
+    <Compile Include="Converters\ValidatedInputBrushConverter.cs" />
+    <Compile Include="Converters\ValidBrushConverter.cs" />
+    <Compile Include="DragDropHelper.cs" />
+    <Compile Include="DraggedAdorner.cs" />
+    <Compile Include="DWMHelper.cs" />
+    <Compile Include="Extensions\BitExtensions.cs" />
+    <Compile Include="Extensions\WindowExtensions.cs" />
+    <Compile Include="FlowDocumentScrollViewerHelper.cs" />
+    <Compile Include="GlassHelper.cs" />
+    <Compile Include="GlassNavigationWindow.cs" />
+    <Compile Include="GlassWindow.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="IEditableValue.cs" />
+    <Compile Include="InsertionAdorner.cs" />
+    <Compile Include="MouseCliping.cs" />
+    <Compile Include="MouseControling.cs" />
+    <Compile Include="Mvvm\AsyncList`1.cs" />
+    <Compile Include="Mvvm\ExcludableListModelBase.cs" />
+    <Compile Include="Mvvm\IExcludableListModelBaseItem.cs" />
+    <Compile Include="Mvvm\LifetimeEvent.cs" />
+    <Compile Include="Mvvm\Managers\DefaultDialogManager.cs" />
+    <Compile Include="Mvvm\Managers\DefaultMessageBoxManager.cs" />
+    <Compile Include="Mvvm\Managers\DefaultOpenFileManager.cs" />
+    <Compile Include="Mvvm\Managers\DefaultSaveFileManager.cs" />
+    <Compile Include="Mvvm\Managers\IDialogManager.cs" />
+    <Compile Include="Mvvm\Managers\IMessageBoxManager.cs" />
+    <Compile Include="Mvvm\Managers\IOpenFileManager.cs" />
+    <Compile Include="Mvvm\Managers\ISaveFileManager.cs" />
+    <Compile Include="Mvvm\MenuController.cs" />
+    <Compile Include="Mvvm\ModelBase.cs" />
+    <Compile Include="Mvvm\Models\BaseLink.cs" />
+    <Compile Include="Mvvm\Models\GeneralModel.cs" />
+    <Compile Include="Mvvm\Models\LoginModel.cs" />
+    <Compile Include="Mvvm\Models\MenuItem.cs" />
+    <Compile Include="Mvvm\Models\MenuNode.cs" />
+    <Compile Include="Mvvm\ObservableValueContainer.cs" />
+    <Compile Include="Mvvm\PredicateReason.cs" />
+    <Compile Include="Mvvm\PredicateReasonList.cs" />
+    <Compile Include="Mvvm\PropertyObserver.cs" />
+    <Compile Include="Mvvm\ReasonCommand.cs" />
+    <Compile Include="Mvvm\RelayCommand.cs" />
+    <Compile Include="Mvvm\Security\AbstractAction.cs" />
+    <Compile Include="Mvvm\Security\ConcreteCommand.cs" />
+    <Compile Include="Mvvm\Security\ConcreteCommandContainer.cs" />
+    <Compile Include="Mvvm\Security\ConcreteCommandDictionary.cs" />
+    <Compile Include="Mvvm\Security\ExecutionArgs.cs" />
+    <Compile Include="Mvvm\Security\ISecuritySubscriber.cs" />
+    <Compile Include="Mvvm\Security\OverrideResult.cs" />
+    <Compile Include="Mvvm\Security\OwnedAbstractAction.cs" />
+    <Compile Include="Mvvm\Security\Permission.cs" />
+    <Compile Include="Mvvm\Security\SecurityController.cs" />
+    <Compile Include="Mvvm\Security\UserSecurityInfo.cs" />
+    <Compile Include="Mvvm\SelectableList`1.cs" />
+    <Compile Include="Mvvm\SelectorDoubleClickCommandBehavior.cs" />
+    <Compile Include="Mvvm\StandardTemplateSelector.cs" />
+    <Compile Include="Mvvm\UserControlLifetimeEvent.cs" />
+    <Compile Include="Mvvm\ViewModelBase.cs" />
+    <Compile Include="Mvvm\ViewModels\CloseableViewModel.cs" />
+    <Compile Include="Mvvm\ViewModels\CommandViewModel.cs" />
+    <Compile Include="Mvvm\ViewModels\DefaultLoginViewModel.cs" />
+    <Compile Include="Mvvm\ViewModels\ErrorMessageDisplayViewModel.cs" />
+    <Compile Include="Mvvm\ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Mvvm\ViewModels\TreeViewItemViewModel.cs" />
+    <Compile Include="Mvvm\ViewModels\WorkspaceViewModel.cs" />
+    <Compile Include="Mvvm\Views\CloseableViewModelDialog.xaml.cs">
+      <DependentUpon>CloseableViewModelDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Mvvm\Views\DefaultLoginView.xaml.cs">
+      <DependentUpon>DefaultLoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Mvvm\Views\ErrorMessageDisplayView.xaml.cs">
+      <DependentUpon>ErrorMessageDisplayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Mvvm\WindowHelper.cs" />
+    <Compile Include="Mvvm\WorkspaceController.cs" />
+    <Compile Include="ParentChildService\IApplicationChild.cs" />
+    <Compile Include="ParentChildService\IApplicationParent.cs" />
+    <Compile Include="ParentChildService\IChildWindow.cs" />
+    <Compile Include="ParentChildService\InvokeActionArgs.cs" />
+    <Compile Include="ParentChildService\IParentSubscriber.cs" />
+    <Compile Include="ParentChildService\ParameterDictionary.cs" />
+    <Compile Include="ParentChildService\ParentCommunicator.cs" />
+    <Compile Include="ParentChildService\WCFHelper.cs" />
+    <Compile Include="ParentChildService\WindowApplicationChild.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScrollViewerCorrector.cs" />
+    <Compile Include="Settings\UserSettingContainer.cs" />
+    <Compile Include="Validation\ADUserValidator.cs" />
+    <Compile Include="Validation\BarcodeValidator.cs" />
+    <Compile Include="Validation\CompositeValidator.cs" />
+    <Compile Include="Validation\DateStringValidator.cs" />
+    <Compile Include="Validation\DateTimeRangeValidator.cs" />
+    <Compile Include="Validation\DateValidatedInput.cs" />
+    <Compile Include="Validation\DecimalRangeValidator.cs" />
+    <Compile Include="Validation\DecimalStringValidator.cs" />
+    <Compile Include="Validation\DirectValidator.cs" />
+    <Compile Include="Validation\EditableValidatedInput.cs" />
+    <Compile Include="Validation\EmailValidator.cs" />
+    <Compile Include="Validation\ExistingFileValidator.cs" />
+    <Compile Include="Validation\IInputListValidator.cs" />
+    <Compile Include="Validation\IInputValidator.cs" />
+    <Compile Include="Validation\InputGroupMandatoryObjectValidator.cs" />
+    <Compile Include="Validation\IntNumericValidator.cs" />
+    <Compile Include="Validation\IntRangeValidator.cs" />
+    <Compile Include="Validation\IntStringValidator.cs" />
+    <Compile Include="Validation\IStateList.cs" />
+    <Compile Include="Validation\IValidatedInput.cs" />
+    <Compile Include="Validation\LongRangeValidator.cs" />
+    <Compile Include="Validation\MandatoryObjectValidator.cs" />
+    <Compile Include="Validation\MaskedValidatedInput.cs" />
+    <Compile Include="Validation\ModelBaseValidator.cs" />
+    <Compile Include="Validation\PhoneNumberValidator.cs" />
+    <Compile Include="Validation\RegexValidator.cs" />
+    <Compile Include="Validation\ShortRangeValidator.cs" />
+    <Compile Include="Validation\SocialSecurityNumberValidator.cs" />
+    <Compile Include="Validation\StateList.cs" />
+    <Compile Include="Validation\StringLengthValidator.cs" />
+    <Compile Include="Validation\StringToIntConversionValidator.cs" />
+    <Compile Include="Validation\TextBoxValidatedInput.cs" />
+    <Compile Include="Validation\ValidatedInput.cs" />
+    <Compile Include="Validation\ValidatedListInput.cs" />
+    <Compile Include="Validation\ZipCodeValidator.cs" />
+    <Compile Include="ViewHelper.cs" />
+    <Compile Include="Win32Helper.cs" />
+    <Compile Include="WPFUtilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Core\SOS.Lib.Core.csproj">
+      <Project>{a4d0820e-3529-4cb9-ba5f-b2824bfeec97}</Project>
+      <Name>SOS.Lib.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj">
+      <Project>{33a1b8c5-b37d-423e-b7fd-83ce1ec1d442}</Project>
+      <Name>SOS.Lib.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\ColorPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\CopyBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\DropDownList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\EditableTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ImageButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\LinkButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\LoadingAnimation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\SliderButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\SmallLoadingAnimation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\StatusControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ValueBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Mvvm\Models\DataTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Mvvm\Models\DataTemplates\IErrorMessage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Mvvm\Models\DataTemplates\MenuNode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Mvvm\Models\DataTemplates\WorkspacesContainerTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Mvvm\Views\CloseableViewModelDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Mvvm\Views\DefaultLoginView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Mvvm\Views\ErrorMessageDisplayView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Mvvm\Views\ViewModelMappings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Platinum\BaseStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Platinum\DatePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Platinum\ListViewStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Platinum\RadioButtonList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Platinum\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Platinum\TabControlStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Platinum\UnTextBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Platinum\WorkspaceTabControlStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\SharedResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Mvvm\Models\DataTemplates\Assets\CloseTabIcon.png" />
+    <Resource Include="Themes\GenericAssets\Edit.png" />
+    <Resource Include="Themes\GenericAssets\Eraser.png" />
+    <Resource Include="Themes\GenericAssets\Save.png" />
+    <Resource Include="Themes\GenericAssets\SecurityShield.png" />
+    <Resource Include="Themes\GenericAssets\SortAscending.png" />
+    <Resource Include="Themes\GenericAssets\SortDescending.png" />
+    <Resource Include="Themes\Platinum\Assets\BackgroundTile.png" />
+    <Resource Include="Themes\Platinum\Assets\CloseButton.png" />
+    <Resource Include="Themes\Platinum\Assets\CloseButtonSmall.png" />
+    <Resource Include="Themes\Platinum\Assets\CloseTabIcon.png" />
+    <Resource Include="Themes\Platinum\Assets\MaximizeButton.png" />
+    <Resource Include="Themes\Platinum\Assets\MinimizeButton.png" />
+    <Resource Include="Themes\Platinum\Assets\SortAscendingWhite.png" />
+    <Resource Include="Themes\Platinum\Assets\SortDescendingWhite.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

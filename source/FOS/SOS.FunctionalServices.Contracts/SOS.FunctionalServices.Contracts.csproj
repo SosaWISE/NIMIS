@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4C52F83A-0039-4C8D-94D3-D6547DE9659B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SOS.FunctionalServices.Contracts</RootNamespace>
+    <AssemblyName>SOS.FunctionalServices.Contracts</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helper\ErrorCodes.cs" />
+    <Compile Include="IInsideSalesService.cs" />
+    <Compile Include="IScheduleEngineService.cs" />
+    <Compile Include="IInventoryEngineService.cs" />
+    <Compile Include="IAccountingEngineService.cs" />
+    <Compile Include="IAuthenticationService.cs" />
+    <Compile Include="IBarcodeService.cs" />
+    <Compile Include="ICellStationService.cs" />
+    <Compile Include="IDoNotCallService.cs" />
+    <Compile Include="IEmailSupportService.cs" />
+    <Compile Include="IQualifyLeadServices.cs" />
+    <Compile Include="ISwingService.cs" />
+    <Compile Include="Models\AccountingEngine\IFnsAeCustomerCardInfo.cs" />
+    <Compile Include="Models\CentralStation\IFnsMcAddressView.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountDetails.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountDispatchAgencyAssignmentView.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsDispatchAgencyType.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsDispatchAgencyView.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsEmergencyContactAuthority.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsEmergencyContactType.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsEquipmentsView.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountSalesInformation.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsIndustryAccountNumbersWithReceiverLineInfoView.cs" />
+    <Compile Include="Models\CentralStation\IFnsSignalHistoryItemModel.cs" />
+    <Compile Include="Models\Data\IFnsRuTeamLocation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\HumanResource\IFnsSalesSalespersonMonthlyHolds.cs" />
+    <Compile Include="Models\HumanResource\IFnsSalesSalespersonMonthlyCommissions.cs" />
+    <Compile Include="Models\HumanResource\IFnsSalesSalespersonMonthlyEarningsSummary.cs" />
+    <Compile Include="Models\HumanResource\IFnsConnextCombinedMonthlySalesDetails.cs" />
+    <Compile Include="Models\HumanResource\IFnsConnextAccountList.cs" />
+    <Compile Include="Models\HumanResource\IFnsConnextMonthlySalesDetails.cs" />
+    <Compile Include="Models\HumanResource\IFnsConnextSalesRanking.cs" />
+    <Compile Include="Models\HumanResource\IFnsRuTeam.cs" />
+    <Compile Include="Models\HumanResource\IFnsRuUserPhoto.cs" />
+    <Compile Include="Models\DoNotCall\IFnsDncPhoneNumber.cs" />
+    <Compile Include="IHumanResourceService.cs" />
+    <Compile Include="IMainCoreService.cs" />
+    <Compile Include="ISurveyEngineService.cs" />
+    <Compile Include="Models\AccountingEngine\IFnsAeAging.cs" />
+    <Compile Include="Models\AccountingEngine\IFnsAeContractTemplate.cs" />
+    <Compile Include="Models\AccountingEngine\IFnsAeInvoice.cs" />
+    <Compile Include="Models\AccountingEngine\IFnsAeInvoiceHeader.cs" />
+    <Compile Include="Models\AccountingEngine\IFnsAeInvoiceItemView.cs" />
+    <Compile Include="Models\AccountingEngine\IFnsAeInvoiceMsInstallInfo.cs" />
+    <Compile Include="Models\AccountingEngine\IFnsAeInvoiceTemplate.cs" />
+    <Compile Include="Models\AccountingEngine\IFnsAeItem.cs" />
+    <Compile Include="Models\AccountingEngine\IFnsCustomerMasterFileGeneral.cs" />
+    <Compile Include="Models\AccountingEngine\IFnsSaeBillingHistory.cs" />
+    <Compile Include="Models\AccountingEngine\IFnsSaeBillingInfoSummary.cs" />
+    <Compile Include="Models\AccountingEngine\IFnsSalesSummaryProperties.cs" />
+    <Compile Include="Models\AuthenticationControl\IFnsAcCmsUser.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccount.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountCellularType.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountDslSeizureType.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountEquipmentsView.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountEventZoneEventTypes.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountLeadInfo.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountPanelType.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountServiceType.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountSubmit.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountZoneType.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsEmergencyContact.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsEmergencyContactPhoneType.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsEmergencyContactRelationship.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsEquipmentLocation.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsIndustryAccount.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsVendorAlarmComPackage.cs" />
+    <Compile Include="Models\DocBarcode\IFnsBxBarcode.cs" />
+    <Compile Include="Models\HumanResource\IFnsConnextSalesRepExtendedInfo.cs" />
+    <Compile Include="Models\HumanResource\IFnsConnextSalesRepInfo.cs" />
+    <Compile Include="Models\HumanResource\IFnsRuRecruit.cs" />
+    <Compile Include="Models\HumanResource\IFnsSalesRepInfo.cs" />
+    <Compile Include="Models\HumanResource\IFnsSeason.cs" />
+    <Compile Include="Models\HumanResource\IFnsRuTeamLocation.cs" />
+    <Compile Include="Models\HumanResource\IFnsRuTechnician.cs" />
+    <Compile Include="Models\HumanResource\IFnsTechInfo.cs" />
+    <Compile Include="Models\HumanResource\IFnsConnextCustomerInfo.cs" />
+    <Compile Include="Models\InventoryEngine\IFnsIeVendor.cs" />
+    <Compile Include="Models\InventoryEngine\IFnsIeLocation.cs" />
+    <Compile Include="Models\InventoryEngine\IFnsIeLocationType.cs" />
+    <Compile Include="Models\InventoryEngine\IFnsIeProductBarcodeLocation.cs" />
+    <Compile Include="Models\InventoryEngine\IFnsIeWarehouseSite.cs" />
+    <Compile Include="Models\InventoryEngine\IFnsIeProductBarcodeTrackingView.cs" />
+    <Compile Include="Models\InventoryEngine\IFnsIeProductBarcodeTracking.cs" />
+    <Compile Include="Models\InventoryEngine\IFnsIePackingSlipItem.cs" />
+    <Compile Include="Models\InventoryEngine\IFnsIePurchaseOrder.cs" />
+    <Compile Include="Models\InventoryEngine\IFnsIePackingSlip.cs" />
+    <Compile Include="Models\InventoryEngine\IFnsIePurchaseOrderItem.cs" />
+    <Compile Include="Models\InventoryEngine\IFnsIeProductBarcode.cs" />
+    <Compile Include="Models\QualifyLead\IFnsQlAddress.cs" />
+    <Compile Include="Models\QualifyLead\IFnsQlCreditReport.cs" />
+    <Compile Include="Models\QualifyLead\IFnsQlLead.cs" />
+    <Compile Include="Models\IFnsVerifyAddress.cs" />
+    <Compile Include="IFunctionalService.cs" />
+    <Compile Include="IFunctionalServiceBase.cs" />
+    <Compile Include="IFunctionalServiceFactory.cs" />
+    <Compile Include="IGpsTrackingSerivces.cs" />
+    <Compile Include="IKW621DeviceServices.cs" />
+    <Compile Include="ILaipacDeviceServices.cs" />
+    <Compile Include="IMerchantService.cs" />
+    <Compile Include="IMonitoringStationService.cs" />
+    <Compile Include="IParoleeEngineService.cs" />
+    <Compile Include="IReceiverEngineService.cs" />
+    <Compile Include="IServiceEngine.cs" />
+    <Compile Include="ISSEGpsDeviceServices.cs" />
+    <Compile Include="IWiseCrmService.cs" />
+    <Compile Include="Models\CentralStation\IFnsAGResponseBase.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountClientDetailsView.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountClientsView.cs" />
+    <Compile Include="Models\CentralStation\IFnsSessionInfoModel.cs" />
+    <Compile Include="Models\Data\IFnsCustomerAddressModel.cs" />
+    <Compile Include="Models\Data\IFnsCustomerFullDataModel.cs" />
+    <Compile Include="Models\Data\IFnsQlDealerLeadModel.cs" />
+    <Compile Include="Models\GpsTracking\IFnsDeviceInfo.cs" />
+    <Compile Include="Models\GpsTracking\IFnsGeoFencesView.cs" />
+    <Compile Include="Models\GpsTracking\IFnsGsAccountGeoFenceCircles.cs" />
+    <Compile Include="Models\GpsTracking\IFnsGsAccountGeoFencePoints.cs" />
+    <Compile Include="Models\GpsTracking\IFnsGsAccountGeoFencePolygons.cs" />
+    <Compile Include="Models\GpsTracking\IFnsGsAccountGeoFenceRectangles.cs" />
+    <Compile Include="Models\GpsTracking\IFnsGsAccountGeoFenceTypes.cs" />
+    <Compile Include="Models\GpsTracking\IFnsGsDeviceEvents.cs" />
+    <Compile Include="Models\GpsTracking\IFnsGsEventsView.cs" />
+    <Compile Include="Models\GpsTracking\IFnsGsEventTypeView.cs" />
+    <Compile Include="Models\GpsTracking\IFnsLpRequest.cs" />
+    <Compile Include="Models\GpsTracking\IFnsSsDeviceRequest.cs" />
+    <Compile Include="Models\GpsTracking\KW621\IFnsKwRequest.cs" />
+    <Compile Include="Models\IFnsAcGeneralAuthenticationModel.cs" />
+    <Compile Include="Models\IFnsAeCustomerGpsClientsViewModel.cs" />
+    <Compile Include="Models\IFnsAeGpsClient.cs" />
+    <Compile Include="Models\IFnsCaAppointmentModel.cs" />
+    <Compile Include="Models\Data\IFnsAeCustomerType.cs" />
+    <Compile Include="Models\Data\IFnsAeDealer.cs" />
+    <Compile Include="Models\Data\IFnsIndustryAccountModel.cs" />
+    <Compile Include="Models\Data\IFnsLeadAddressModel.cs" />
+    <Compile Include="Models\Data\IFnsLeadFullDataModel.cs" />
+    <Compile Include="Models\Data\IFnsLeadSearchResult.cs" />
+    <Compile Include="Models\Data\IFnsMcLocalization.cs" />
+    <Compile Include="Models\Data\IFnsMcPoliticalCountry.cs" />
+    <Compile Include="Models\Data\IFnsMcPoliticalState.cs" />
+    <Compile Include="Models\Data\IFnsMcPoliticalTimeZone.cs" />
+    <Compile Include="Models\Data\IFnsRuSeason.cs" />
+    <Compile Include="Models\Data\IFnsRuUser.cs" />
+    <Compile Include="Models\IFnsAePaymentFull.cs" />
+    <Compile Include="Models\IFnsAePaymentInformationCreateAccountModel.cs" />
+    <Compile Include="Models\IFnsAcAuthenticationModel.cs" />
+    <Compile Include="Models\IFnsMcDealerUser.cs" />
+    <Compile Include="Models\IFnsOptionItem.cs" />
+    <Compile Include="Models\IFnsResult.cs" />
+    <Compile Include="Models\Data\IFnsLeadModel.cs" />
+    <Compile Include="Models\IFnsMcAccountNotesFull.cs" />
+    <Compile Include="Models\IFnsREResult.cs" />
+    <Compile Include="Models\IFnsAcSessionModel.cs" />
+    <Compile Include="Models\IFnsWiseCrmDealerUserModel.cs" />
+    <Compile Include="Models\MainCore\IFnsMcAccountNoteCat1.cs" />
+    <Compile Include="Models\MainCore\IFnsMcAccountNoteCat2.cs" />
+    <Compile Include="Models\MainCore\IFnsMcAccountNoteType.cs" />
+    <Compile Include="Models\MainCore\IFnsMcDepartment.cs" />
+    <Compile Include="Models\MainCore\IFnsMcNote.cs" />
+    <Compile Include="Models\Merchant\IFnsInvoicePaymentInfoModel.cs" />
+    <Compile Include="Models\Merchant\IFnsMerchResponseModel.cs" />
+    <Compile Include="Models\Parolee\IFnsParoleeOfficer.cs" />
+    <Compile Include="Models\QualifyLead\IFnsQlQualifyCustomerInfo.cs" />
+    <Compile Include="Models\ScheduleEngine\IFnsSeScheduleBlock.cs" />
+    <Compile Include="Models\ScheduleEngine\IFnsSeScheduleTicket.cs" />
+    <Compile Include="Models\ScheduleEngine\IFnsSeTechnicianAvailability.cs" />
+    <Compile Include="Models\ScheduleEngine\IFnsSeZipCode.cs" />
+    <Compile Include="Models\ScheduleEngine\IFnsSeTicket.cs" />
+    <Compile Include="Models\SmsGateways\IFnsSmsGwyTxtEnvModel.cs" />
+    <Compile Include="Models\SurveyEngine\IFnsAnswer.cs" />
+    <Compile Include="Models\SurveyEngine\IFnsMapToTokenAnswer.cs" />
+    <Compile Include="Models\SurveyEngine\IFnsQuestion.cs" />
+    <Compile Include="Models\SurveyEngine\IFnsQuestionMeaning.cs" />
+    <Compile Include="Models\SurveyEngine\IFnsQuestionMeaningTokenMap.cs" />
+    <Compile Include="Models\SurveyEngine\IFnsQuestionPossibleAnswerMap.cs" />
+    <Compile Include="Models\SurveyEngine\IFnsQuestionTranslation.cs" />
+    <Compile Include="Models\SurveyEngine\IFnsResult.cs" />
+    <Compile Include="Models\SurveyEngine\IFnsResultView.cs" />
+    <Compile Include="Models\SurveyEngine\IFnsSurvey.cs" />
+    <Compile Include="Models\SurveyEngine\IFnsSurveyPossibleAnswers.cs" />
+    <Compile Include="Models\SurveyEngine\IFnsSurveyToken.cs" />
+    <Compile Include="Models\SurveyEngine\IFnsSurveyTranslation.cs" />
+    <Compile Include="Models\SurveyEngine\IFnsSurveyType.cs" />
+    <Compile Include="Models\Swing\IFnsCustomerSwingAddDnc.cs" />
+    <Compile Include="Models\Swing\IFnsCustomerSwingEmergencyContact.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Swing\IFnsCustomerSwingEquipmentInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Swing\IFnsCustomerSwingInfo.cs" />
+    <Compile Include="Models\Swing\IFnsCustomerSwingInterim.cs" />
+    <Compile Include="Models\Swing\IFnsCustomerSwingPremiseAddress.cs" />
+    <Compile Include="Models\Swing\IFnsCustomerSwingSystemDetails.cs" />
+    <Compile Include="Models\Swing\IFnsCustomerSwungInfo.cs" />
+    <Compile Include="Models\ScheduleEngine\IFnsSeTicketType.cs" />
+    <Compile Include="Models\ScheduleEngine\IFnsSeTicketStatusCode.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\SOS.FunctionalServices.Contracts.dll" />
+    <Content Include="bin\Debug\SOS.FunctionalServices.Contracts.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Core\SOS.Lib.Core.csproj">
+      <Project>{a4d0820e-3529-4cb9-ba5f-b2824bfeec97}</Project>
+      <Name>SOS.Lib.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

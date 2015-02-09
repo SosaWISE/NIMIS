@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EB0CD70F-7BE6-4C74-92F9-2F74A34FF6ED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SSE.FOS.AddressVerification</RootNamespace>
+    <AssemblyName>SSE.FOS.AddressVerification</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Services\Cors\corspackages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interfaces\IFosAddressVerified.cs" />
+    <Compile Include="Interfaces\IFosAVResult.cs" />
+    <Compile Include="Interfaces\IFosQlAddress.cs" />
+    <Compile Include="Interfaces\IVendor.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Models\FosAddressVerified.cs" />
+    <Compile Include="Models\FosAVResult.cs" />
+    <Compile Include="Models\FosQlAddress.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\IS_CorrectAddress\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\SI_NorthAmericanAddressVerification\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Vendors\IntelligentSearch.cs" />
+    <Compile Include="Vendors\SmartyStreets.cs" />
+    <Compile Include="Vendors\StrikeIron.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\SOS.Data.SosCrm\SOS.Data.SosCrm.csproj">
+      <Project>{23bb4972-325c-40d8-96f6-eb8a60676d63}</Project>
+      <Name>SOS.Data.SosCrm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SOS.Data\SOS.Data.csproj">
+      <Project>{c2776f02-c5e2-42ba-b4b0-147625b90a18}</Project>
+      <Name>SOS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SubSonic\SubSonic.csproj">
+      <Project>{ee4a10e7-92c3-4eac-b6df-5da1c26f4d1d}</Project>
+      <Name>SubSonic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj">
+      <Project>{33a1b8c5-b37d-423e-b7fd-83ce1ec1d442}</Project>
+      <Name>SOS.Lib.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\SSE.Lib.Interfaces\SSE.Lib.Interfaces.csproj">
+      <Project>{049707c3-442a-4e23-bee1-cc379b9d3901}</Project>
+      <Name>SSE.Lib.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Service References\IS_CorrectAddress\CorrectAddressWebService.wsdl" />
+    <None Include="Service References\IS_CorrectAddress\SSE.FOS.AddressVerification.IS_CorrectAddress.WsAccountAccess.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IS_CorrectAddress\SSE.FOS.AddressVerification.IS_CorrectAddress.WsAccountInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IS_CorrectAddress\SSE.FOS.AddressVerification.IS_CorrectAddress.WsCityCounty.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IS_CorrectAddress\SSE.FOS.AddressVerification.IS_CorrectAddress.WsCityState.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IS_CorrectAddress\SSE.FOS.AddressVerification.IS_CorrectAddress.WsCorrectAddress.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IS_CorrectAddress\SSE.FOS.AddressVerification.IS_CorrectAddress.WsPS3553.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IS_CorrectAddress\SSE.FOS.AddressVerification.IS_CorrectAddress.WsStreetSearch.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IS_CorrectAddress\SSE.FOS.AddressVerification.IS_CorrectAddress.WsZipCity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SI_NorthAmericanAddressVerification\NAAddressVerification6.wsdl" />
+    <None Include="Service References\SI_NorthAmericanAddressVerification\SSE.FOS.AddressVerification.SI_NorthAmericanAddressVerification.SIWsOutputOfAddressDistanceResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SI_NorthAmericanAddressVerification\SSE.FOS.AddressVerification.SI_NorthAmericanAddressVerification.SIWsOutputOfMethodStatusRecord.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SI_NorthAmericanAddressVerification\SSE.FOS.AddressVerification.SI_NorthAmericanAddressVerification.SIWsOutputOfNorthAmericanAddress.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SI_NorthAmericanAddressVerification\SSE.FOS.AddressVerification.SI_NorthAmericanAddressVerification.SIWsOutputOfSIWsResultArrayOfAddressDistanceResultWithStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SI_NorthAmericanAddressVerification\SSE.FOS.AddressVerification.SI_NorthAmericanAddressVerification.SIWsOutputOfSIWsResultArrayOfMethodStatusRecord.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SI_NorthAmericanAddressVerification\SSE.FOS.AddressVerification.SI_NorthAmericanAddressVerification.SIWsOutputOfSIWsResultArrayOfNorthAmericanAddressWithStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SI_NorthAmericanAddressVerification\SSE.FOS.AddressVerification.SI_NorthAmericanAddressVerification.SIWsOutputOfSIWsResultArrayOfServiceInfoRecord.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SI_NorthAmericanAddressVerification\SSE.FOS.AddressVerification.SI_NorthAmericanAddressVerification.SubscriptionInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\IS_CorrectAddress\" />
+    <WCFMetadataStorage Include="Service References\SI_NorthAmericanAddressVerification\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SI_NorthAmericanAddressVerification\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SI_NorthAmericanAddressVerification\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SI_NorthAmericanAddressVerification\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\IS_CorrectAddress\CorrectAddressWebService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\IS_CorrectAddress\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\IS_CorrectAddress\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\IS_CorrectAddress\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

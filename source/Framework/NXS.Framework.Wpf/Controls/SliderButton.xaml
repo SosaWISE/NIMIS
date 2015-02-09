@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="NXS.Framework.Wpf.Controls.SliderButton"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:PProC="clr-namespace:NXS.Framework.Wpf.Controls"
+			 xmlns:cnv="clr-namespace:NXS.Framework.Wpf.Converters"
+			 Width="25"
+			 Height="25"
+			 ToolTip="{Binding OpenStateToolTip}">
+	<Grid HorizontalAlignment="Stretch"
+		  VerticalAlignment="Stretch">
+		<Button x:Name="btnClose"
+				Command="{Binding OpenCommand}"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				Template="{StaticResource ChromelessButtonTemplate}"
+				Visibility="{Binding ElementName=btnClose,Path=IsEnabled,Converter={x:Static cnv:BooleanVisibilityConverter.Instance}}">
+			<Button.Content>
+				<PProC:Bitmap x:Name="bmpCloseIcon"
+							  Source="{Binding OpenIconSource}"
+							  HorizontalAlignment="Center"
+							  VerticalAlignment="Center" />
+			</Button.Content>
+		</Button>
+		<Button x:Name="btnOpen"
+				Command="{Binding CloseCommand}"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				Template="{StaticResource ChromelessButtonTemplate}"
+				Visibility="{Binding ElementName=btnOpen,Path=IsEnabled,Converter={x:Static cnv:BooleanVisibilityConverter.Instance}}">
+			<Button.Content>
+				<PProC:Bitmap x:Name="bmpOpenIcon"
+							  Source="{Binding CloseIconSource}"
+							  HorizontalAlignment="Center"
+							  VerticalAlignment="Center" />
+			</Button.Content>
+		</Button>
+	</Grid>
+</UserControl>

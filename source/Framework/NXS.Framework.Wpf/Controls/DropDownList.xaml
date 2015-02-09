@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="NXS.Framework.Wpf.Controls.DropDownList"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:cnv="clr-namespace:NXS.Framework.Wpf.Converters"
+			 xmlns:ctrls="clr-namespace:NXS.Framework.Wpf.Controls">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="5" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
+		<StackPanel Grid.Column="0"
+					VerticalAlignment="Center">
+			<ComboBox ItemsSource="{Binding Path=List, UpdateSourceTrigger=PropertyChanged}"
+					  DisplayMemberPath="{Binding Path=DisplayMemberPath}"
+					  SelectedValuePath="{Binding Path=SelectedValuePath}"
+					  SelectedValue="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}"
+					  VerticalAlignment="Center"
+					  IsEnabled="{Binding Path=IsEnabled}">
+				<ComboBox.Background>
+					<MultiBinding Converter="{x:Static cnv:ValidatedInputBrushConverter.Instance}">
+						<Binding Path="IsValid" />
+						<Binding Path="IsDirty" />
+					</MultiBinding>
+				</ComboBox.Background>
+			</ComboBox>
+		</StackPanel>
+		<Grid Grid.Column="2"
+			  Visibility="{Binding Path=CanClear, Converter={x:Static cnv:BooleanVisibilityConverter.Instance}, ConverterParameter=true}">
+			<ctrls:ImageButton x:Name="btnClear"
+							   IconSource="../Themes/GenericAssets/Eraser.png"
+							   ToolTip="Clear"
+							   Command="{Binding Path=ClearCommand}"
+							   Focusable="False"
+							   IsTabStop="False" />
+		</Grid>
+	</Grid>
+</UserControl>

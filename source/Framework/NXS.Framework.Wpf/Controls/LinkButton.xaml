@@ -1,0 +1,32 @@
+﻿<UserControl x:Name="UC"
+			 x:Class="NXS.Framework.Wpf.Controls.LinkButton"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:ctrls="clr-namespace:NXS.Framework.Wpf.Controls">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="3" />
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
+
+		<ctrls:Bitmap x:Name="bmpIcon"
+					  HorizontalAlignment="Left"
+					  VerticalAlignment="Center"
+					  Source="{Binding IconSource, ElementName=UC}" />
+
+		<ctrls:Bitmap x:Name="securityShield"
+					  HorizontalAlignment="Left"
+					  VerticalAlignment="Center"
+					  Visibility="Collapsed"
+					  Width="13"
+					  Height="16"
+					  Source="../Themes/GenericAssets/SecurityShield.png" />
+
+		<TextBlock x:Name="tbText"
+				   Grid.Column="2"
+				   Text="{Binding Text, ElementName=UC}"
+				   TextDecorations="Underline" />
+	</Grid>
+</UserControl>

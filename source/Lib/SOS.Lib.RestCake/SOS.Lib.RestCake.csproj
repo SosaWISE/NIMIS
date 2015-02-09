@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EDD7540E-B6B0-4FC4-AC04-16A89C187308}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SOS.Lib.RestCake</RootNamespace>
+    <AssemblyName>SOS.Lib.RestCake</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Services\Cors\corspackages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\AuthorizeAttribute.cs" />
+    <Compile Include="Attributes\DeleteAttribute.cs" />
+    <Compile Include="Attributes\GetAttribute.cs" />
+    <Compile Include="Attributes\JsonNetSettings.cs" />
+    <Compile Include="Attributes\PostAttribute.cs" />
+    <Compile Include="Attributes\ProducesAttribute.cs" />
+    <Compile Include="Attributes\PutAttribute.cs" />
+    <Compile Include="Attributes\RestServiceAttribute.cs" />
+    <Compile Include="Attributes\VerbAttributeBase.cs" />
+    <Compile Include="AuthRules\SkipAuthorizationRule.cs" />
+    <Compile Include="AuthRules\SkipAuthorizationRulesConfigSection.cs" />
+    <Compile Include="AuthRules\SkipAuthorizationRulesConfigSectionHandler.cs" />
+    <Compile Include="AuthRules\SkipAuthorizationRulesModule.cs" />
+    <Compile Include="AuthRuleStyle.cs" />
+    <Compile Include="BodyStyle.cs" />
+    <Compile Include="Clients\ClientWriterBase.cs" />
+    <Compile Include="Clients\ClrClientWriter.cs" />
+    <EmbeddedResource Include="Clients\ClrPlain\ClrClientBase.cs" />
+    <Compile Include="Clients\JsClientWriter.cs" />
+    <Compile Include="Clients\RestSharpClientWriter.cs" />
+    <Compile Include="DetectExpiredFormsAuthModule.cs" />
+    <Compile Include="HttpVerb.cs" />
+    <Compile Include="Metadata\AssemblyMetadata.cs" />
+    <Compile Include="Metadata\MethodMetadata.cs" />
+    <Compile Include="Metadata\ServiceMetadata.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestException.cs" />
+    <Compile Include="RestHttpHandler.cs" />
+    <Compile Include="RestValidationException.cs" />
+    <Compile Include="Routing\GenericHandlerRoute.cs" />
+    <Compile Include="Routing\GenericHandlerRouteHandler.cs" />
+    <Compile Include="Routing\RoutedHttpHandler.cs" />
+    <Compile Include="UrlStyle.cs" />
+    <Compile Include="Util\Constants.cs" />
+    <Compile Include="Util\ReflectionHelper.cs" />
+    <Compile Include="Util\RestCakeUtil.cs" />
+    <Compile Include="Util\StringUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Clients\ClrPlain\ClrClient.txt" />
+    <Content Include="Clients\ClrPlain\ServiceMethod.txt" />
+    <Content Include="Clients\ClrPlain\ServiceMethodVoid.txt" />
+    <EmbeddedResource Include="Clients\Js\service-help-page.html" />
+    <EmbeddedResource Include="Clients\Js\ServiceClient.js.txt" />
+    <EmbeddedResource Include="Clients\Js\ServiceMethod.txt" />
+    <EmbeddedResource Include="Clients\Js\WcfClient.js" />
+    <Content Include="Clients\RestSharp\RestClient.txt" />
+    <Content Include="Clients\RestSharp\RestSharpClientBase.txt" />
+    <Content Include="Clients\RestSharp\ServiceMethod.txt" />
+    <Content Include="Clients\RestSharp\ServiceMethodVoid.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

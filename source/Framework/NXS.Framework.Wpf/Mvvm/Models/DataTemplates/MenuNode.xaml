@@ -1,0 +1,108 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:ctrls="clr-namespace:NXS.Framework.Wpf.Controls"
+					xmlns:cnv="clr-namespace:NXS.Framework.Wpf.Converters"
+					xmlns:PM="clr-namespace:NXS.Framework.Wpf.Mvvm.Models">
+
+	<StackPanel x:Key="ShieldIconContainer"
+				Orientation="Horizontal"
+				Margin="4,0,0,0">
+		<ctrls:Bitmap HorizontalAlignment="Left"
+					  VerticalAlignment="Center"
+					  Width="13"
+					  Height="16"
+					  Source="../../../Themes/GenericAssets/SecurityShield.png" />
+	</StackPanel>
+
+	<HierarchicalDataTemplate DataType="{x:Type PM:MenuNode}"
+							  ItemsSource="{Binding Path=Children}">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<StackPanel x:Name="bmpSecurityIcon"
+						Grid.Column="0"
+						Margin="-12,0,14,0"
+						Visibility="Collapsed">
+				<ctrls:Bitmap HorizontalAlignment="Left"
+							  VerticalAlignment="Center"
+							  Width="13"
+							  Height="16"
+							  Source="../../../Themes/GenericAssets/SecurityShield.png" />
+			</StackPanel>
+			<TextBlock x:Name="tbLinkContainer"
+					   Grid.Column="1"
+					   Margin="-12,3,2,3"
+					   FontWeight="Bold">
+					<Hyperlink x:Name="lnkCommand"
+							   CommandParameter="{Binding CommandParameter}"
+							   Command="{Binding Command}"
+							   ToolTip="{Binding ToolTip}">
+						<TextBlock Text="{Binding Path=Label}" />
+					</Hyperlink>
+				</TextBlock>
+			<TextBlock x:Name="tbPlainJane"
+					   Grid.Column="1"
+					   Margin="2,3"
+					   FontWeight="Bold"
+					   FontSize="13"
+					   Text="{Binding Path=Label}"
+					   Visibility="Collapsed" />
+		</Grid>
+		<HierarchicalDataTemplate.Triggers>
+			<DataTrigger Binding="{Binding Path=Command.NeedsOverride}"
+						 Value="true">
+				<Setter TargetName="bmpSecurityIcon"
+						Property="Visibility"
+						Value="Visible" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=Command.NeedsOverride}"
+						 Value="false">
+				<Setter TargetName="bmpSecurityIcon"
+						Property="Visibility"
+						Value="Collapsed" />
+			</DataTrigger>
+			
+			<DataTrigger Binding="{Binding Path=Command}"
+						 Value="{x:Null}">
+				<Setter TargetName="tbLinkContainer"
+						Property="Visibility"
+						Value="Collapsed" />
+				<Setter TargetName="tbPlainJane"
+						Property="Visibility"
+						Value="Visible" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=CanCommandExecute}"
+						 Value="false">
+				<Setter TargetName="lnkCommand"
+						Property="Foreground"
+						Value="#FF797979" />
+				<Setter TargetName="tbLinkContainer"
+						Property="Opacity"
+						Value="0.6" />
+			</DataTrigger>
+		</HierarchicalDataTemplate.Triggers>
+	</HierarchicalDataTemplate>
+
+	<HierarchicalDataTemplate x:Key="ContextMenuNodeTemplate"
+							  DataType="{x:Type PM:MenuNode}"
+							  ItemsSource="{Binding Path=Children}">
+		<TextBlock Text="{Binding Label}" />
+	</HierarchicalDataTemplate>
+	
+	<Style x:Key="ContextMenuNodeContainerStyle"
+		   TargetType="MenuItem">
+		<Setter Property="Command"
+				Value="{Binding Command}" />
+		<Setter Property="CommandParameter"
+				Value="{Binding CommandParameter}" />
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding Command.NeedsOverride}"
+						 Value="true">
+				<Setter Property="Icon"
+						Value="{StaticResource ShieldIconContainer}" />
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+</ResourceDictionary>

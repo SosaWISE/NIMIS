@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DCDBF3EE-D932-4713-9A47-2693C0C7BEF4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SOS.Services.Interfaces</RootNamespace>
+    <AssemblyName>SOS.Services.Interfaces</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\SosErrors.cs" />
+    <Compile Include="IAuthSvc.cs" />
+    <Compile Include="ICmsSvc.cs" />
+    <Compile Include="IExecuteSvc.cs" />
+    <Compile Include="Models\AccountingEngine\AeAging.cs" />
+    <Compile Include="Models\AccountingEngine\AeCustomerCardInfo.cs" />
+    <Compile Include="Models\AccountingEngine\AeCustomerMasterFileGeneral.cs" />
+    <Compile Include="Models\AccountingEngine\AeInvoice.cs" />
+    <Compile Include="Models\AccountingEngine\AeInvoiceHeader.cs" />
+    <Compile Include="Models\AccountingEngine\AeInvoiceItem.cs" />
+    <Compile Include="Models\AccountingEngine\AeInvoiceMsInstallInfo.cs" />
+    <Compile Include="Models\AccountingEngine\AeItem.cs" />
+    <Compile Include="Models\AccountingEngine\ArgsAddBySku.cs" />
+    <Compile Include="Models\AccountingEngine\ArgsCustomerSearch.cs" />
+    <Compile Include="Models\AccountingEngine\SaeBillingHistory.cs" />
+    <Compile Include="Models\AccountingEngine\SaeBillingInfoSummary.cs" />
+    <Compile Include="Models\AccountingEngine\SalesSummaryProperties.cs" />
+    <Compile Include="Models\Authentication\GeneralAuthenticationModel.cs" />
+    <Compile Include="Models\Authentication\GpsClient.cs" />
+    <Compile Include="Models\CaAppointmentModel.cs" />
+    <Compile Include="Models\AeModels.cs" />
+    <Compile Include="Models\CellStation\RegisterPost.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CellStation\SwapModemPost.cs" />
+    <Compile Include="Models\CmsAddress.cs" />
+    <Compile Include="Models\AccountingEngine\AeCustomer.cs" />
+    <Compile Include="Models\AccountingEngine\AeCustomerType.cs" />
+    <Compile Include="Models\AccountingEngine\AeDealer.cs" />
+    <Compile Include="Models\AccountingEngine\AeInvoiceTemplate.cs" />
+    <Compile Include="Models\CmsModels\McAccountNotes.cs" />
+    <Compile Include="Models\CmsModels\McAccountNotesFullInfoView.cs" />
+    <Compile Include="Models\CmsModels\McAddress.cs" />
+    <Compile Include="Models\CmsModels\McAddressStatus.cs" />
+    <Compile Include="Models\CmsModels\McAddressType.cs" />
+    <Compile Include="Models\CmsModels\McAddressValidationVendors.cs" />
+    <Compile Include="Models\CmsModels\McAddressView.cs" />
+    <Compile Include="Models\CmsModels\McLocalization.cs" />
+    <Compile Include="Models\CmsModels\McPoliticalTimeZone.cs" />
+    <Compile Include="Models\DocBarcode\BxBarcode.cs" />
+    <Compile Include="Models\DoNotCall\DncPhoneNumber.cs" />
+    <Compile Include="Models\GpsTracking\GsAccountGeoFence.cs" />
+    <Compile Include="Models\GpsTracking\GsAccountGeoFenceCircles.cs" />
+    <Compile Include="Models\GpsTracking\GsAccountGeoFencePoints.cs" />
+    <Compile Include="Models\GpsTracking\GsAccountGeoFencePolygons.cs" />
+    <Compile Include="Models\GpsTracking\GsAccountGeoFenceRectangles.cs" />
+    <Compile Include="Models\GpsTracking\GsAccountGeoFenceTypes.cs" />
+    <Compile Include="Models\GpsTracking\GsDeviceEvents.cs" />
+    <Compile Include="Models\GpsTracking\GsEventTypeView.cs" />
+    <Compile Include="Models\HumanResources\SAESalesSalespersonMonthlyHolds.cs" />
+    <Compile Include="Models\HumanResources\SAESalesSalespersonMonthlyCommissions.cs" />
+    <Compile Include="Models\HumanResources\SAESalesSalespersonMonthlyEarnings.cs" />
+    <Compile Include="Models\HumanResources\RuTechnician.cs" />
+    <Compile Include="Models\HumanResources\RuTechInfo.cs" />
+    <Compile Include="Models\HumanResources\AECustomersConnextGetCustomerInfo.cs" />
+    <Compile Include="Models\HumanResources\RuUsersConnextGetCombinedStatistics.cs" />
+    <Compile Include="Models\HumanResources\RuUsersConnextGetDetailedStatistics.cs" />
+    <Compile Include="Models\HumanResources\RuUsersConnextAccountList.cs" />
+    <Compile Include="Models\HumanResources\RuUsersConnextSalesRepExtendedInfo.cs" />
+    <Compile Include="Models\HumanResources\RuUsersConnextSalesRepInfo.cs" />
+    <Compile Include="Models\HumanResources\RuUsersConnextSalesRanking.cs" />
+    <Compile Include="Models\InventoryEngine\IeLocation.cs" />
+    <Compile Include="Models\InventoryEngine\IeVendor.cs" />
+    <Compile Include="Models\InventoryEngine\IeLocationType.cs" />
+    <Compile Include="Models\InventoryEngine\IeProductBarcodeLocation.cs" />
+    <Compile Include="Models\InventoryEngine\IeWarehouseSite.cs" />
+    <Compile Include="Models\InventoryEngine\IeProductBarcodeTrackingView.cs" />
+    <Compile Include="Models\InventoryEngine\IeProductBarcodeTracking.cs" />
+    <Compile Include="Models\InventoryEngine\IePackingSlipItem.cs" />
+    <Compile Include="Models\InventoryEngine\IePackingSlip.cs" />
+    <Compile Include="Models\InventoryEngine\IeProductBarcode.cs" />
+    <Compile Include="Models\InventoryEngine\IePurchaseOrder.cs" />
+    <Compile Include="Models\InventoryEngine\IePurchaseOrderItem.cs" />
+    <Compile Include="Models\HumanResources\RuTeamLocation.cs" />
+    <Compile Include="Models\MainCore\McDepartment.cs" />
+    <Compile Include="Models\MonitoringStation\MsEmergencyContactAuthority.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountDispatchAgencyAssignmentView.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountDslSeisureTypes.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountEquipment.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountEventZoneEventTypes.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountPanelType.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountSalesInformation.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountServiceType.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountSubmit.cs" />
+    <Compile Include="Models\MonitoringStation\MsDispatchAgency.cs" />
+    <Compile Include="Models\MonitoringStation\MsDispatchAgencyType.cs" />
+    <Compile Include="Models\MonitoringStation\MsEmergencyContactType.cs" />
+    <Compile Include="Models\MonitoringStation\MsEquipment.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountZoneType.cs" />
+    <Compile Include="Models\MonitoringStation\MsEmergencyContactPhoneType.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountLeadInfo.cs" />
+    <Compile Include="Models\MonitoringStation\MsEmergencyContactRelationship.cs" />
+    <Compile Include="Models\MonitoringStation\MsEquipmentLocation.cs" />
+    <Compile Include="Models\MonitoringStation\MsIndustryAccount.cs" />
+    <Compile Include="Models\MonitoringStation\MsIndustryAccountReq.cs" />
+    <Compile Include="Models\MonitoringStation\MsIndustryAccountWithReceiverLineInfo.cs" />
+    <Compile Include="Models\MonitoringStation\MsSignalHistoryItem.cs" />
+    <Compile Include="Models\QualifyLead\IQlQualifyCustomerInfo.cs" />
+    <Compile Include="Models\QualifyLead\McLead.cs" />
+    <Compile Include="Models\MainCore\McNote.cs" />
+    <Compile Include="Models\MainCore\McNoteCategory1.cs" />
+    <Compile Include="Models\MainCore\McNoteCategory2.cs" />
+    <Compile Include="Models\MainCore\McNoteType.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountClientDetailsView.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountClientsView.cs" />
+    <Compile Include="Models\CmsModels\QlAddress.cs" />
+    <Compile Include="Models\CmsModels\QlHomeOwner.cs" />
+    <Compile Include="Models\CmsModels\QlLeadBasicView.cs" />
+    <Compile Include="Models\CmsModels\QlLeadFullData.cs" />
+    <Compile Include="Models\CmsModels\QlLeadProductOffer.cs" />
+    <Compile Include="Models\CmsModels\QlLeadSearchResultView.cs" />
+    <Compile Include="Models\HumanResources\RuSalesRepInfo.cs" />
+    <Compile Include="Models\HumanResources\RuSeason.cs" />
+    <Compile Include="Models\IServiceResult.cs" />
+    <Compile Include="Models\ISosGeneralAuthenticationInfo.cs" />
+    <Compile Include="Models\ISosSessionInfo.cs" />
+    <Compile Include="Models\ITxtWirePostInfo.cs" />
+    <Compile Include="Models\McModels.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountCellularType.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccounts.cs" />
+    <Compile Include="Models\MonitoringStation\MsEmergencyContact.cs" />
+    <Compile Include="Models\MonitoringStation\MsVendorAlarmComPackage.cs" />
+    <Compile Include="Models\OptionItemModels.cs" />
+    <Compile Include="Models\RuModels.cs" />
+    <Compile Include="Models\ScheduleEngine\SeScheduleBlock.cs" />
+    <Compile Include="Models\ScheduleEngine\SeScheduleTicket.cs" />
+    <Compile Include="Models\ScheduleEngine\SeTechnicianAvailability.cs" />
+    <Compile Include="Models\ScheduleEngine\SeZipCode.cs" />
+    <Compile Include="Models\ScheduleEngine\SeTicket.cs" />
+    <Compile Include="Models\SseRuSalesRep.cs" />
+    <Compile Include="Models\SosCustomer.cs" />
+    <Compile Include="Models\SosGeneralAuthenticationInfo.cs" />
+    <Compile Include="Models\SosResult.cs" />
+    <Compile Include="Models\SosSessionInfo.cs" />
+    <Compile Include="Models\SosUser.cs" />
+    <Compile Include="Models\SseAddress.cs" />
+    <Compile Include="Models\SseCmsUser.cs" />
+    <Compile Include="Models\SurveyEngine\MapToTokenAnswer.cs" />
+    <Compile Include="Models\SurveyEngine\SvAnswer.cs" />
+    <Compile Include="Models\SurveyEngine\SvPossibleAnswer.cs" />
+    <Compile Include="Models\SurveyEngine\SvQuestion.cs" />
+    <Compile Include="Models\SurveyEngine\SvQuestionMeaning.cs" />
+    <Compile Include="Models\SurveyEngine\SvQuestionMeaningTokenMap.cs" />
+    <Compile Include="Models\SurveyEngine\SvQuestionPossibleAnswerMap.cs" />
+    <Compile Include="Models\SurveyEngine\SvQuestionTranslation.cs" />
+    <Compile Include="Models\SurveyEngine\SvResult.cs" />
+    <Compile Include="Models\SurveyEngine\SvResultView.cs" />
+    <Compile Include="Models\SurveyEngine\SvSurvey.cs" />
+    <Compile Include="Models\SurveyEngine\SvSurveyTranslations.cs" />
+    <Compile Include="Models\SurveyEngine\SvSurveyType.cs" />
+    <Compile Include="Models\SurveyEngine\SvToken.cs" />
+    <Compile Include="Models\Swing\CustomerSwingAdd_Dnc.cs" />
+    <Compile Include="Models\Swing\CustomerSwingInterim.cs" />
+    <Compile Include="Models\Swing\CustomerSwingEmergencyContact.cs" />
+    <Compile Include="Models\Swing\CustomerSwingEquipmentInfo.cs" />
+    <Compile Include="Models\Swing\CustomerSwingInfo.cs" />
+    <Compile Include="Models\Swing\CustomerSwingPremiseAddress.cs" />
+    <Compile Include="Models\Swing\CustomerSwingSystemDetails.cs" />
+    <Compile Include="Models\Swing\CustomerSwungInfo.cs" />
+    <Compile Include="Models\ScheduleEngine\SeTicketType.cs" />
+    <Compile Include="Models\ScheduleEngine\SeTicketStatusCode.cs" />
+    <Compile Include="Models\TxtWirePostInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceUrlAttribute.cs" />
+    <Compile Include="ServiceUrls.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataModels\SOS.Services.DataModels\SOS.Services.DataModels.csproj">
+      <Project>{1415CB37-0EDB-4645-AA7E-5CE82DF82721}</Project>
+      <Name>SOS.Services.DataModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

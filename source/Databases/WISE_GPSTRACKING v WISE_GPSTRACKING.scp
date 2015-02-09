@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!--
+SQL Compare
+SQL Compare
+Version:10.3.8.406-->
+<Project version="2" type="SQLComparisonToolsProject">
+  <DataSource1 version="3" type="LiveDatabaseSource">
+    <ServerName>(local)</ServerName>
+    <DatabaseName>WISE_GPSTRACKING</DatabaseName>
+    <Username />
+    <SavePassword>False</SavePassword>
+    <Password />
+    <ScriptFolderLocation />
+    <MigrationsFolderLocation />
+    <IntegratedSecurity>True</IntegratedSecurity>
+  </DataSource1>
+  <DataSource2 version="3" type="LiveDatabaseSource">
+    <ServerName>SSUTSRSTG001</ServerName>
+    <DatabaseName>WISE_GPSTRACKING</DatabaseName>
+    <Username>sa</Username>
+    <SavePassword>True</SavePassword>
+    <Password encrypted="1">lof8lOoJ2pAV+FE+QwydUQ==</Password>
+    <ScriptFolderLocation />
+    <MigrationsFolderLocation />
+    <IntegratedSecurity>False</IntegratedSecurity>
+  </DataSource2>
+  <LastCompared>08/13/2013 11:14:42</LastCompared>
+  <Options>Default, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
+  <InRecycleBin>False</InRecycleBin>
+  <Direction>0</Direction>
+  <ProjectFilter version="1" type="DifferenceFilter">
+    <FilterCaseSensitive>False</FilterCaseSensitive>
+    <Filters version="1">
+      <None version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </None>
+      <Assembly version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </Assembly>
+      <AsymmetricKey version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </AsymmetricKey>
+      <Certificate version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </Certificate>
+      <Contract version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </Contract>
+      <DdlTrigger version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </DdlTrigger>
+      <Default version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </Default>
+      <ExtendedProperty version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </ExtendedProperty>
+      <EventNotification version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </EventNotification>
+      <FullTextCatalog version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </FullTextCatalog>
+      <FullTextStoplist version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </FullTextStoplist>
+      <Function version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </Function>
+      <MessageType version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </MessageType>
+      <PartitionFunction version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </PartitionFunction>
+      <PartitionScheme version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </PartitionScheme>
+      <Queue version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </Queue>
+      <Role version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </Role>
+      <Route version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </Route>
+      <Rule version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </Rule>
+      <Schema version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </Schema>
+      <SearchPropertyList version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </SearchPropertyList>
+      <Sequence version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </Sequence>
+      <Service version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </Service>
+      <ServiceBinding version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </ServiceBinding>
+      <StoredProcedure version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </StoredProcedure>
+      <SymmetricKey version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </SymmetricKey>
+      <Synonym version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </Synonym>
+      <Table version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </Table>
+      <User version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </User>
+      <UserDefinedType version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </UserDefinedType>
+      <View version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </View>
+      <XmlSchemaCollection version="1">
+        <Include>True</Include>
+        <Expression>TRUE</Expression>
+      </XmlSchemaCollection>
+    </Filters>
+  </ProjectFilter>
+  <ProjectFilterName />
+  <UserNote />
+  <SelectedSyncObjects version="1" type="SelectedSyncObjects">
+    <Schemas type="ListString" version="2">
+      <value type="string">ZABiAG8A</value>
+      <value type="string">UgBlAGQARwBhAHQAZQBfAFMAUQBMAEMAbwBtAHAAYQByAGUAXwBEAGUAZgBhAHUAbAB0AF8AUwBjAGgAZQBtAGEA</value>
+    </Schemas>
+    <ZABiAG8A>CY1qUlyZiWcml3W/tnqRiwQCASD7xZKXkS61rrzYIyZNDnACAwF2iz4OZBGl5E32eq910R21AgMBSZWGhZR9FpE8+k9Dz0Qm0gIDAc6MzP7JPTL4BQs/9v00CJYCAwHwGLIx80NEUG+bzCXknizQAgMBBFXUl2aw7x9JwBE5aAGJ2wIDAZ/GjM0KiQv25lyZuUvY/bQCAwHvdpTaO3JpVew0de9OWLsBAgMBl3df0xGmxUAiobS52gEogAIDAVLgCKz2ByzCqwUdbJ4AROYCAwGgvsNFQbnvO50UNOieSfKsAgMBeq7ANk+a5mErrQmUlphAsgIDAd8WK3rsuSnGRM47/8irQ2kCAwFKfCvk/u0m8CoI1XR/gf7rAgMBECzvfJhAYQ2xpEfqJv/I0gIDAXRuCj97N3TiimuF3GkWC50CAwGAqIIV/dEua5qILQxwO4IJAgMByKn1fk0ltJPiKb1YYMLAvwIDAa8O9Frod9tKdi7/IIekWjMCAwGoRFlXoPuTMtUU8RWEReMZAgMBdtgF0FJz5JqngJIFJyoT3wIDAbHh5+6mKfZ24zT23ewU59cCAwGwQhURGTuuX9g0nm52GALxAgMB23nE3N1/4LkyrsWAxzpFHgIDAcOpkv8jIrDK9gNHjG/bCDMCAwGd4uW8xTaI/IZbmWZhd7ylAgMBsBUvm10j2xTvtN6fw/KMGAIDAZ/BI2w/sbLZrghckzTRqXMCAwFL8tOQ13Folt16+2LrhlFPAgMBLpyBdLUdvuNnA9jgn7I2egIDAaPFc4YCtZTKfwG5pe6dS80HAwG/Oq34TbHMK6lS6t6QKGfaBwMBTmILkjCsmhxSid5HXXmRLwcDAQMUxnncpJeU56hyk3VczkEHAwEIpk8zkruTup14agc0mbk1BwMBmheoaoOtLIh7zbySUJ2/6gcDAcAgc+vXYPHXw+Avnbxp4tAEAwG1Y+T+MlrR8b1HV3krw5NrBAMBraEE5Z24WwoWl8ZdnO3jSgQDARobTCpaseGdPQjun8N6r+MDAwHje7I7yQoFL8Rr8FjYgkjdAwMBiWqwMYlsEf5UUL1DCNJeaQMDASQnz5QX+0AWMw4htRLpmToDAwHyqtzS6mGXJCy7p3MQl9imAwMB4u+1VnStAG6kJfhthS436gMDAclyzqpTCtC6zR9FEv114QoDAwHuNwGkdOgx8sIu9F6OzZleAwMBQw5vpp9HvCpLgvXPCAgVEwMDAXSGtgjXbhkZQwnkFHAFOdcDAwFh82ac2wD8l+LM4Fx8yEXMAwMBEQITCasRKg1DYSgsqWOP1wMDAY2gkFO64v7lvsBDpuRMi/cDAwHVOsOkVoFI2srDPkRYaK0gAwMBMi4Is1De4ecs2KRTJDlJtAMDAcW/yN3sEzxtobdEhHsqQagDAwHo9ecz5ImlN2jrXBtx0TJYAwMBhL4Pbss2Y2GMtHxxavWpVgMDAfU858z6hGjNG6a5yXg5u7kDAwFZKehki6tDGJcmWELH6UzqAwMBeQd8LiVgcH+POGGgxRodOAMDATGgCzUn61uopLKwDmmyD+0DAwHJUfRUrY448qbbhLH6t4I0AgMB4WUUOTdVKVN3BcaltcsDhwcDATmts0uu/nyieFWnOIRLVJQHAwEXNJrwBn9ixEoRNBTG6bm4BwMBuAon0D9Gnq21gReVVpiAegcDAZNoBGX9mbuGpWWAxOm+6S4HAwFQDf3FdqpVk6aVzsc0fWsYBAMBVhPGyCtUbrcB75n6Sb1NVwQDAd+BW4W0GSpHFxQ0dQz4/i4DAwFR0w+rPTVXs71rPPmrqxrhAwMB</ZABiAG8A>
+    <UgBlAGQARwBhAHQAZQBfAFMAUQBMAEMAbwBtAHAAYQByAGUAXwBEAGUAZgBhAHUAbAB0AF8AUwBjAGgAZQBtAGEA>7gqJx7Cj67Y4qbSmNVrziQgDAfolfIsenJn8f1aLZ/LamswIAwHkY1qLl1HYxEVdyVWIo+zICAMB56/HiH6l2FL4DM5AHiwUPggDAcrnjfUM6SJst9kCZz8dvj4IAwEzPBp52lBo/ERwQKHasZs9CAMBV4lv1e067I8aKBLHWsq0SQgDAeUQ0mCesTRnxjZlnqq3b+EIAwFp8PGPs3gkX0PI5E6ktK0gCAMBR0j+p8/R0EDD3HXypRAbSwgDAR2NB30eWSSwJuhHtT4MSqAbAwHQCRoP4rIJNNiLRgaE9ZeJGwMB/20HugHl4pgVhpL6SbsIMhsDAe4B97I2fYewUPtUbiaVS5gbAwH6JXyLHpyZ/H9Wi2fy2prMGwMB5GNai5dR2MRFXclViKPsyBsDAeevx4h+pdhS+AzOQB4sFD4bAwHK5431DOkibLfZAmc/Hb4+GwMBMzwaedpQaPxEcECh2rGbPRsDAVeJb9XtOuyPGigSx1rKtEkbAwHlENJgnrE0Z8Y2ZZ6qt2/hGwMBafDxj7N4JF9DyOROpLStIBsDAUdI/qfP0dBAw9x18qUQG0sbAwE_</UgBlAGQARwBhAHQAZQBfAFMAUQBMAEMAbwBtAHAAYQByAGUAXwBEAGUAZgBhAHUAbAB0AF8AUwBjAGgAZQBtAGEA>
+    <Grouping type="ListByte" version="2">
+      <value type="Byte">63</value>
+      <value type="Byte">0</value>
+      <value type="Byte">0</value>
+      <value type="Byte">0</value>
+      <value type="Byte">0</value>
+      <value type="Byte">0</value>
+    </Grouping>
+    <SelectAll>True</SelectAll>
+  </SelectedSyncObjects>
+  <SCGroupingStyle>0</SCGroupingStyle>
+  <SQLOptions>10</SQLOptions>
+  <MappingOptions>82</MappingOptions>
+  <ComparisonOptions>0</ComparisonOptions>
+  <TableActions type="ArrayList" version="1" />
+  <SessionSettings>15</SessionSettings>
+  <DCGroupingStyle>0</DCGroupingStyle>
+</Project>

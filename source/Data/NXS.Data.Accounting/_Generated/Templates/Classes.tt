@@ -1,0 +1,269 @@
+﻿<#@ include file="Templates/_SQLServer.ttinclude" #>
+<#@ import namespace="System.Diagnostics" #>
+<#
+	var tables = LoadTables();
+#>
+<# //Debugger.Break(); #>
+using System;
+using System.ComponentModel;
+using System.Linq;
+using SubSonic;
+using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Serialization;
+using System.Data;
+using System.Data.SqlClient;
+using System.Runtime.Serialization;
+using SOS.Data;
+
+namespace <#=Namespace#>
+{
+<#foreach(Table tbl in tables) {#>
+<#var pkColumn = tbl.Columns.SingleOrDefault(x => x.IsPK);#>
+<#if(true || pkColumn != null) {#>
+	/// <summary>
+	/// Strongly-typed collection for the <#=tbl.ClassName#> class.
+	/// </summary>
+	[DataContract]
+	public partial class <#=tbl.ClassName#>Collection : ActiveList<<#=tbl.ClassName#>, <#=tbl.ClassName#>Collection>
+	{
+		public static <#=tbl.ClassName#>Collection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			<#=tbl.ClassName#>Collection result = new <#=tbl.ClassName#>Collection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+		public string GetInList(string columnName)
+		{
+			return JoinColumnList(columnName, ",");
+		}
+		public string JoinColumnList(string columnName, string seperator)
+		{
+			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
+		}
+		public IEnumerable<object> GetJoinColumnList(string columnName)
+		{
+			foreach (<#=tbl.ClassName#> item in this) {
+				object value = item.GetColumnValue<object>(columnName);
+				if (value != null) {
+					yield return value;
+				}
+			}
+		}
+	}
+	
+	/// <summary>
+	/// This is an ActiveRecord class which wraps the <#=tbl.Name#> table.
+	/// </summary>
+	[DataContract]
+	public partial class <#=tbl.ClassName#> : ActiveRecord<<#=tbl.ClassName#>>, INotifyPropertyChanged
+	{
+<# if(tbl.Enum != null) { #>
+		#region Enum
+		
+		[DataContract]
+		public enum <#=tbl.Enum.EnumName#>Enum : <#=tbl.Enum.BaseClassName#>
+		{
+<#foreach(string key in tbl.Enum.Values.Keys) {#>
+			[EnumMember()] <#=key#> = <#=tbl.Enum.Values[key]#>,
+<#}#>
+		}
+		
+		//[DataMember]
+		//public <#=tbl.Enum.EnumName#>Enum <#=tbl.Enum.EnumName#>Code
+		//{
+		//	get { return (<#=tbl.Enum.EnumName#>Enum)<#=tbl.Enum.IDName#>; }
+		//	set { <#=tbl.Enum.IDName#> = (<#=tbl.Enum.BaseClassName#>)value; }
+		//}
+
+		#endregion //Enum
+<#}#>
+
+<# if(tbl.MetaData != null) { #>
+		#region MetaData
+		[DataContract]
+		public static class MetaData
+		{
+<#foreach(string szKey in tbl.MetaData.Values.Keys) {#>
+			[EnumMember()] public const string <#= tbl.MetaData.Values[szKey].Replace(" ","").Replace("'","_").Replace(",","_").Replace(".","").Replace("-","_").Replace("(","").Replace(")","") + "ID"#> = "<#=szKey#>";
+<#}#>
+		}
+		#endregion MetaData
+<#}#>
+
+		#region Events
+		public event PropertyChangedEventHandler PropertyChanged;
+		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+		{
+			if (PropertyChanged != null)
+				PropertyChanged(this, e);
+		}
+		#endregion Events
+
+		#region .ctors and Default Settings
+
+		public <#=tbl.ClassName#>()
+		{
+			SetSQLProps();InitSetDefaults();MarkNew();
+		}
+		private void InitSetDefaults() { SetDefaults(); }
+		protected static void SetSQLProps() { GetTableSchema(); }
+
+		#endregion
+
+		#region Schema and Query Accessor
+		public static Query CreateQuery() { return new Query(Schema); }
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema() 
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("<#=tbl.Name#>", TableType.Table, DataService.GetInstance("<#=ProviderName#>"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"<#=tbl.Schema#>";
+				//columns
+<#foreach(var col in tbl.Columns) {#>
+<#string varName = "colvar" + col.CleanName;#>
+
+				TableSchema.TableColumn <#=varName #> = new TableSchema.TableColumn(schema);
+				<#=varName #>.ColumnName = "<#=col.Name#>";
+				<#=varName #>.DataType = DbType.<#=col.DbType #>;
+				<#=varName #>.MaxLength = <#=col.MaxLength #>;
+				<#=varName #>.AutoIncrement = <#=col.AutoIncrement.ToString().ToLower() #>;
+				<#=varName #>.IsNullable = <#=col.IsNullable.ToString().ToLower()#>;
+				<#=varName #>.IsPrimaryKey = <#=col.IsPK.ToString().ToLower()#>;
+				<#=varName #>.IsForeignKey = <#=col.IsForeignKey.ToString().ToLower()#>;
+				<#=varName #>.IsReadOnly = <#= col.IsReadOnly.ToString().ToLower() #>;
+<# if (!String.IsNullOrEmpty(col.DefaultSetting)){#>
+				<#=varName#>.DefaultSetting = @"<#= col.DefaultSetting#>";
+<#}#>
+<#else{#>
+				<#=varName#>.DefaultSetting = @"";
+<#}#>
+<#if(col.IsForeignKey) {#>
+				<#=varName #>.ForeignKeyTableName = "<#= col.ForeignKeyTableName #>";
+<#}#>
+<#else{#>
+				<#=varName #>.ForeignKeyTableName = "";
+<#}#>
+				schema.Columns.Add(<#=varName#>);
+<#}#>
+
+				BaseSchema = schema;
+				DataService.Providers["<#=ProviderName#>"].AddSchema("<#=tbl.Name#>",schema);
+			}
+		}
+		#endregion // Schema and Query Accessor
+
+<#if(pkColumn != null) {#>
+		public static <#=tbl.ClassName#> LoadFrom(<#=tbl.ClassName#> item)
+		{
+			<#=tbl.ClassName#> result = new <#=tbl.ClassName#>();
+			if (item.<#=pkColumn.CleanName#> != default(<#=pkColumn.SysType#>)) {
+				result.LoadByKey(item.<#=pkColumn.CleanName#>);
+			}
+			result.CopyFrom(item);
+			return result;
+		}
+<#}#>
+
+		#region Properties
+<# foreach(var col in tbl.Columns) {#>
+		[DataMember]
+		public <#=col.SysType#><#=CheckNullable(col)#> <#=col.CleanName#> { 
+			get { return GetColumnValue<<#=col.SysType#><#=CheckNullable(col)#>>(Columns.<#=col.CleanName#>); }
+			set {
+				SetColumnValue(Columns.<#=col.CleanName#>, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.<#=col.CleanName#>));
+			}
+		}
+<#}#>
+
+		#endregion //Properties
+
+<#if(tbl.SingleFKTables.Count > 0) {#>
+		#region ForeignKey Properties
+<#foreach(FKTable fk2 in tbl.SingleFKTables) {#>
+
+		private <#=fk2.OtherClass #> _<#=fk2.PropName #>;
+		//Relationship: <#=fk2.ConstraintName #>
+		public <#=fk2.OtherClass #> <#=fk2.PropName #>
+		{
+			get
+			{
+				if(_<#=fk2.PropName #> == null) {
+					_<#=fk2.PropName #> = <#=fk2.OtherClass #>.FetchByID(this.<#=fk2.ThisColumn#>);
+				}
+				return _<#=fk2.PropName #>;
+			}
+			set
+			{
+				SetColumnValue("<#=fk2.ThisColumn#>", value.<#=fk2.OtherColumn #>);
+				_<#=fk2.PropName #> = value;
+			}
+		}
+<#}#>
+
+		#endregion //ForeignKey Properties
+<#}#>
+
+<#var currentColumn = tbl.Descriptor;#>
+<# if(currentColumn != null) { #>
+		public override string ToString()
+		{
+<# if(currentColumn.SysType == "string") { #>
+			return <#=tbl.Descriptor.CleanName#>;
+<# } #>
+<# else { #>
+			return <#=tbl.Descriptor.CleanName#>.ToString();
+<# } #>
+		}
+<#}#>
+<#else {#>
+			//No Descriptor Column
+<#}#>
+
+		#region Typed Columns
+
+<#for(int i = 0; i < tbl.Columns.Count; i++){#>
+		public static TableSchema.TableColumn <#=tbl.Columns[i].CleanName#>Column
+		{
+			get { return Schema.Columns[<#=i#>]; }
+		}
+<#}#>
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+<#foreach(var col in tbl.Columns){#>
+			public static readonly string <#=col.CleanName#> = @"<#=col.Name#>";
+<#}#>
+		}
+		#endregion Columns Struct
+		/*
+		public override object PrimaryKeyValue
+		{
+<#if(pkColumn != null) {#>
+			get { return <#=pkColumn.CleanName#>; }
+<#}#>
+<#else{#>
+			get { return null; }
+<#}#>
+		}
+		*/
+	}
+<#}#>
+<#else{#>
+	//<#=tbl.Name#> doesn't have a primary key
+<#}#>
+<#}#>
+}

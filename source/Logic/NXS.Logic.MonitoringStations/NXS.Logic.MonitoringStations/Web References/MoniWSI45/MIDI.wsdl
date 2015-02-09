@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://mimasweb.monitronics.net/MIDI/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="https://mimasweb.monitronics.net/MIDI/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This web service provides methods for performing activites such as putting an account online or updating an account that is already online.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="https://mimasweb.monitronics.net/MIDI/">
+      <s:element name="AccountOnline">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="csNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="creditRequestXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="purchaseInfoXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AccountOnlineResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AccountOnlineResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApplicationIDHeader" type="tns:ApplicationIDHeader" />
+      <s:complexType name="ApplicationIDHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="appID" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="GetData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Entity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CustomerNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="XMLData" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Immediate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Entity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CustomerNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="XMLData" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImmediateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImmediateResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Update">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="reqType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="csNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Partial">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="reqType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="csNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wsiBatchNo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PartialResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PartialResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCreditRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cs" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCreditRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCreditRequestResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCreditRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCreditRequestResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetPurchaseInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cs" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPurchaseInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPurchaseInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePurchaseInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePurchaseInfoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetDealerCMRates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="dealerNumber" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="countryNumber" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDealerCMRatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDealerCMRatesResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTimezoneFromZipcode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="zipcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTimezoneFromZipcodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTimezoneFromZipcodeResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWebServiceVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetWebServiceVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWebServiceVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AccountOnlineSoapIn">
+    <wsdl:part name="parameters" element="tns:AccountOnline" />
+  </wsdl:message>
+  <wsdl:message name="AccountOnlineSoapOut">
+    <wsdl:part name="parameters" element="tns:AccountOnlineResponse" />
+  </wsdl:message>
+  <wsdl:message name="AccountOnlineApplicationIDHeader">
+    <wsdl:part name="ApplicationIDHeader" element="tns:ApplicationIDHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetData" />
+  </wsdl:message>
+  <wsdl:message name="GetDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImmediateSoapIn">
+    <wsdl:part name="parameters" element="tns:Immediate" />
+  </wsdl:message>
+  <wsdl:message name="ImmediateSoapOut">
+    <wsdl:part name="parameters" element="tns:ImmediateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImmediateApplicationIDHeader">
+    <wsdl:part name="ApplicationIDHeader" element="tns:ApplicationIDHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:Update" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateApplicationIDHeader">
+    <wsdl:part name="ApplicationIDHeader" element="tns:ApplicationIDHeader" />
+  </wsdl:message>
+  <wsdl:message name="PartialSoapIn">
+    <wsdl:part name="parameters" element="tns:Partial" />
+  </wsdl:message>
+  <wsdl:message name="PartialSoapOut">
+    <wsdl:part name="parameters" element="tns:PartialResponse" />
+  </wsdl:message>
+  <wsdl:message name="PartialApplicationIDHeader">
+    <wsdl:part name="ApplicationIDHeader" element="tns:ApplicationIDHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCreditRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCreditRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetCreditRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCreditRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCreditRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateCreditRequest" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCreditRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateCreditRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPurchaseInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPurchaseInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetPurchaseInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPurchaseInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePurchaseInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePurchaseInfo" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePurchaseInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePurchaseInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDealerCMRatesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDealerCMRates" />
+  </wsdl:message>
+  <wsdl:message name="GetDealerCMRatesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDealerCMRatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTimezoneFromZipcodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTimezoneFromZipcode" />
+  </wsdl:message>
+  <wsdl:message name="GetTimezoneFromZipcodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTimezoneFromZipcodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWebServiceVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWebServiceVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetWebServiceVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWebServiceVersionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSISoap">
+    <wsdl:operation name="AccountOnline">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method will allow you to put an account online.</wsdl:documentation>
+      <wsdl:input message="tns:AccountOnlineSoapIn" />
+      <wsdl:output message="tns:AccountOnlineSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method will allow you to get information about an account or lookup data.</wsdl:documentation>
+      <wsdl:input message="tns:GetDataSoapIn" />
+      <wsdl:output message="tns:GetDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Immediate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method will allow you to add information to an account.</wsdl:documentation>
+      <wsdl:input message="tns:ImmediateSoapIn" />
+      <wsdl:output message="tns:ImmediateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method will allow you to update information on an account.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateSoapIn" />
+      <wsdl:output message="tns:UpdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Partial">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method is used to handle partial data saves/gets/deletes.</wsdl:documentation>
+      <wsdl:input message="tns:PartialSoapIn" />
+      <wsdl:output message="tns:PartialSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCreditRequest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method will retrieve a pending credit report request for an account (if any).</wsdl:documentation>
+      <wsdl:input message="tns:GetCreditRequestSoapIn" />
+      <wsdl:output message="tns:GetCreditRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCreditRequest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method will update a pending credit report request for an account (if any).</wsdl:documentation>
+      <wsdl:input message="tns:UpdateCreditRequestSoapIn" />
+      <wsdl:output message="tns:UpdateCreditRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchaseInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method will retrieve the saved purchase info for an account (if any).</wsdl:documentation>
+      <wsdl:input message="tns:GetPurchaseInfoSoapIn" />
+      <wsdl:output message="tns:GetPurchaseInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePurchaseInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method will update the saved purchase info for an account (if any).</wsdl:documentation>
+      <wsdl:input message="tns:UpdatePurchaseInfoSoapIn" />
+      <wsdl:output message="tns:UpdatePurchaseInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDealerCMRates">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Internal method for Monitronics use only.</wsdl:documentation>
+      <wsdl:input message="tns:GetDealerCMRatesSoapIn" />
+      <wsdl:output message="tns:GetDealerCMRatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTimezoneFromZipcode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method will return the timezone for a given zipcode.</wsdl:documentation>
+      <wsdl:input message="tns:GetTimezoneFromZipcodeSoapIn" />
+      <wsdl:output message="tns:GetTimezoneFromZipcodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method will return the current version of this web service.</wsdl:documentation>
+      <wsdl:input message="tns:GetWebServiceVersionSoapIn" />
+      <wsdl:output message="tns:GetWebServiceVersionSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSISoap" type="tns:WSISoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AccountOnline">
+      <soap:operation soapAction="https://mimasweb.monitronics.net/MIDI/AccountOnline" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:AccountOnlineApplicationIDHeader" part="ApplicationIDHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <soap:operation soapAction="https://mimasweb.monitronics.net/MIDI/GetData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Immediate">
+      <soap:operation soapAction="https://mimasweb.monitronics.net/MIDI/Immediate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ImmediateApplicationIDHeader" part="ApplicationIDHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <soap:operation soapAction="https://mimasweb.monitronics.net/MIDI/Update" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateApplicationIDHeader" part="ApplicationIDHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Partial">
+      <soap:operation soapAction="https://mimasweb.monitronics.net/MIDI/Partial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:PartialApplicationIDHeader" part="ApplicationIDHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCreditRequest">
+      <soap:operation soapAction="https://mimasweb.monitronics.net/MIDI/GetCreditRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCreditRequest">
+      <soap:operation soapAction="https://mimasweb.monitronics.net/MIDI/UpdateCreditRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchaseInfo">
+      <soap:operation soapAction="https://mimasweb.monitronics.net/MIDI/GetPurchaseInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePurchaseInfo">
+      <soap:operation soapAction="https://mimasweb.monitronics.net/MIDI/UpdatePurchaseInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDealerCMRates">
+      <soap:operation soapAction="https://mimasweb.monitronics.net/MIDI/GetDealerCMRates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTimezoneFromZipcode">
+      <soap:operation soapAction="https://mimasweb.monitronics.net/MIDI/GetTimezoneFromZipcode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceVersion">
+      <soap:operation soapAction="https://mimasweb.monitronics.net/MIDI/GetWebServiceVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSISoap12" type="tns:WSISoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AccountOnline">
+      <soap12:operation soapAction="https://mimasweb.monitronics.net/MIDI/AccountOnline" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:AccountOnlineApplicationIDHeader" part="ApplicationIDHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <soap12:operation soapAction="https://mimasweb.monitronics.net/MIDI/GetData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Immediate">
+      <soap12:operation soapAction="https://mimasweb.monitronics.net/MIDI/Immediate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ImmediateApplicationIDHeader" part="ApplicationIDHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <soap12:operation soapAction="https://mimasweb.monitronics.net/MIDI/Update" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateApplicationIDHeader" part="ApplicationIDHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Partial">
+      <soap12:operation soapAction="https://mimasweb.monitronics.net/MIDI/Partial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:PartialApplicationIDHeader" part="ApplicationIDHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCreditRequest">
+      <soap12:operation soapAction="https://mimasweb.monitronics.net/MIDI/GetCreditRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCreditRequest">
+      <soap12:operation soapAction="https://mimasweb.monitronics.net/MIDI/UpdateCreditRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchaseInfo">
+      <soap12:operation soapAction="https://mimasweb.monitronics.net/MIDI/GetPurchaseInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePurchaseInfo">
+      <soap12:operation soapAction="https://mimasweb.monitronics.net/MIDI/UpdatePurchaseInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDealerCMRates">
+      <soap12:operation soapAction="https://mimasweb.monitronics.net/MIDI/GetDealerCMRates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTimezoneFromZipcode">
+      <soap12:operation soapAction="https://mimasweb.monitronics.net/MIDI/GetTimezoneFromZipcode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceVersion">
+      <soap12:operation soapAction="https://mimasweb.monitronics.net/MIDI/GetWebServiceVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSI">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This web service provides methods for performing activites such as putting an account online or updating an account that is already online.</wsdl:documentation>
+    <wsdl:port name="WSISoap" binding="tns:WSISoap">
+      <soap:address location="https://wstest.monitronics.net/MIDI/MIDI.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSISoap12" binding="tns:WSISoap12">
+      <soap12:address location="https://wstest.monitronics.net/MIDI/MIDI.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

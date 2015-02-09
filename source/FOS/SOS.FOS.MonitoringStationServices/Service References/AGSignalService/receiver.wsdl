@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Signal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PollMessageFlag" nillable="true" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Receiver" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Line" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Account" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SignalFormat" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SignalCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Point" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Date" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="ANIPhone" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Longitude" nillable="true" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="Latitude" nillable="true" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="URL" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VideoType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TestSignalFlag" nillable="true" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SignalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SignalResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Result">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorNum" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SignalSoapIn">
+    <wsdl:part name="parameters" element="tns:Signal" />
+  </wsdl:message>
+  <wsdl:message name="SignalSoapOut">
+    <wsdl:part name="parameters" element="tns:SignalResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ReceiverSoap">
+    <wsdl:operation name="Signal">
+      <wsdl:input message="tns:SignalSoapIn" />
+      <wsdl:output message="tns:SignalSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ReceiverSoap" type="tns:ReceiverSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Signal">
+      <soap:operation soapAction="http://tempuri.org/Signal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ReceiverSoap12" type="tns:ReceiverSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Signal">
+      <soap12:operation soapAction="http://tempuri.org/Signal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Receiver">
+    <wsdl:port name="ReceiverSoap" binding="tns:ReceiverSoap">
+      <soap:address location="https://portal.agmonitoring.com/testsgssignalservice/receiver.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ReceiverSoap12" binding="tns:ReceiverSoap12">
+      <soap12:address location="https://portal.agmonitoring.com/testsgssignalservice/receiver.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

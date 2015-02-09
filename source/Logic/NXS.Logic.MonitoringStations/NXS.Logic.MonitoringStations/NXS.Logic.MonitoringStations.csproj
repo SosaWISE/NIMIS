@@ -1,0 +1,891 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3079255E-A811-4408-A00E-614F11E90E36}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NXS.Logic.MonitoringStations</RootNamespace>
+    <AssemblyName>NXS.Logic.MonitoringStations</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\Utils.cs" />
+    <Compile Include="Models\BadPanels.cs" />
+    <Compile Include="Models\Base.cs" />
+    <Compile Include="Models\ChangeMonType.cs" />
+    <Compile Include="Models\CreditRequest.cs" />
+    <Compile Include="Models\Get\GetAgencies.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Get\GetCellSvcs.cs" />
+    <Compile Include="Models\Get\GetServiceCompanies.cs" />
+    <Compile Include="Models\OnTests.cs" />
+    <Compile Include="Models\OutOfServices.cs" />
+    <Compile Include="Models\TwoWays.cs" />
+    <Compile Include="Schemas\GetServiceCompany.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetServiceCompany.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\ErrorsOnBoardAccount.cs">
+      <DependentUpon>ErrorsOnBoardAccount.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\ErrorsOnBoardAccount.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorsOnBoardAccount.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetAgencies.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetAgencies.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetContacts.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetContacts.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Get\GetPrefixes.cs" />
+    <Compile Include="Models\Get\GetZipCodes.cs" />
+    <Compile Include="Models\RequestTypes.cs" />
+    <Compile Include="Monitronics.cs" />
+    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\SiteAgencyPermit.cs" />
+    <Compile Include="Models\SiteGeneralDispatches.cs" />
+    <Compile Include="Models\SiteOption.cs" />
+    <Compile Include="Models\SiteSystem.cs" />
+    <Compile Include="Models\SiteSystemOption.cs" />
+    <Compile Include="Models\Zone.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\Errors.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Errors.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetAgencyTypes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetAgencyTypes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetAuthorities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetAuthorities.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetBusRules.cs">
+      <DependentUpon>GetBusRules.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Schemas\GetBusRules.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetBusRules.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetCellProviderOptions.cs">
+      <DependentUpon>GetCellProviderOptions.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Schemas\GetCellProviderOptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetCellProviderOptions.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetCellProviders.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetCellProviders.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetConTypes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetConTypes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetEquipEventXref.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetEquipEventXref.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetEquipLocations.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetEquipLocations.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetEquipTypes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetEquipTypes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetEventHistories.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetEventHistories.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetEvents.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetEvents.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetLanguages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetLanguages.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetNamePrefixes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetNamePrefixes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetNameSuffixes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetNameSuffixes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetOosCats.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetOosCats.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetOptions.cs">
+      <DependentUpon>GetOptions.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Schemas\GetOptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetOptions.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetPartialBatches.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetPartialBatches.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetPermitTypes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetPermitTypes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetPhoneTypes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetPhoneTypes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetPrefixes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetPrefixes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetRelations.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetRelations.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetSecGroups.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetSecGroups.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetSiteAgencyPermits.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetSiteAgencyPermits.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetSiteDispatches.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetSiteDispatches.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetSiteErrors.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetSiteErrors.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetSiteGeneralDispatches.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetSiteGeneralDispatches.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetSiteNotes.cs">
+      <DependentUpon>GetSiteNotes.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Schemas\GetSiteNotes.Designer.cs">
+      <DependentUpon>GetSiteNotes.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Schemas\GetSiteOptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetSiteOptions.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetSiteSystemInfo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetSiteSystemInfo.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetSiteSystemOptions.cs">
+      <DependentUpon>GetSiteSystemOptions.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetSiteSystemOptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetSiteSystemOptions.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetSiteSystems.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetSiteSystems.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetSiteTypes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetSiteTypes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetStates.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetStates.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetSysTypes.cs">
+      <DependentUpon>GetSysTypes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetSysTypes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetSysTypes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetSysTypeXref.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetSysTypeXref.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetTestCats.cs">
+      <DependentUpon>GetTestCats.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Schemas\GetTestCats.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetTestCats.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetTwoWays.cs">
+      <DependentUpon>GetTwoWays.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetTwoWays.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetTwoWays.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetZips.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetZips.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\GetZones.Designer.cs">
+      <DependentUpon>GetZones.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Schemas\GetZoneStates.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetZoneStates.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\MoniWSI45\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Schemas\GetServiceCompany.xsc">
+      <DependentUpon>GetServiceCompany.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetServiceCompany.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetServiceCompany.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetServiceCompany.xss">
+      <DependentUpon>GetServiceCompany.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\ErrorsOnBoardAccount.xsc">
+      <DependentUpon>ErrorsOnBoardAccount.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\ErrorsOnBoardAccount.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ErrorsOnBoardAccount.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\ErrorsOnBoardAccount.xss">
+      <DependentUpon>ErrorsOnBoardAccount.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetAgencies.xsc">
+      <DependentUpon>GetAgencies.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetAgencies.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetAgencies.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetAgencies.xss">
+      <DependentUpon>GetAgencies.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetContacts.xsc">
+      <DependentUpon>GetContacts.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetContacts.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetContacts.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetContacts.xss">
+      <DependentUpon>GetContacts.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\Errors.xsc">
+      <DependentUpon>Errors.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\Errors.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Errors.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\Errors.xss">
+      <DependentUpon>Errors.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetAgencyTypes.xsc">
+      <DependentUpon>GetAgencyTypes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetAgencyTypes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetAgencyTypes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetAgencyTypes.xss">
+      <DependentUpon>GetAgencyTypes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetAuthorities.xsc">
+      <DependentUpon>GetAuthorities.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetAuthorities.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetAuthorities.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetAuthorities.xss">
+      <DependentUpon>GetAuthorities.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetBusRules.xsc">
+      <DependentUpon>GetBusRules.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetBusRules.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetBusRules.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetBusRules.xss">
+      <DependentUpon>GetBusRules.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetCellProviderOptions.xsc">
+      <DependentUpon>GetCellProviderOptions.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetCellProviderOptions.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetCellProviderOptions.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetCellProviderOptions.xss">
+      <DependentUpon>GetCellProviderOptions.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetCellProviders.xsc">
+      <DependentUpon>GetCellProviders.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetCellProviders.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetCellProviders.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetCellProviders.xss">
+      <DependentUpon>GetCellProviders.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetConTypes.xsc">
+      <DependentUpon>GetConTypes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetConTypes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetConTypes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetConTypes.xss">
+      <DependentUpon>GetConTypes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetEquipEventXref.xsc">
+      <DependentUpon>GetEquipEventXref.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetEquipEventXref.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetEquipEventXref.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetEquipEventXref.xss">
+      <DependentUpon>GetEquipEventXref.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetEquipLocations.xsc">
+      <DependentUpon>GetEquipLocations.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetEquipLocations.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetEquipLocations.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetEquipLocations.xss">
+      <DependentUpon>GetEquipLocations.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetEquipTypes.xsc">
+      <DependentUpon>GetEquipTypes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetEquipTypes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetEquipTypes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetEquipTypes.xss">
+      <DependentUpon>GetEquipTypes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetEventHistories.xsc">
+      <DependentUpon>GetEventHistories.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetEventHistories.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetEventHistories.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetEventHistories.xss">
+      <DependentUpon>GetEventHistories.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetEvents.xsc">
+      <DependentUpon>GetEvents.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetEvents.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetEvents.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetEvents.xss">
+      <DependentUpon>GetEvents.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetLanguages.xsc">
+      <DependentUpon>GetLanguages.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetLanguages.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetLanguages.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetLanguages.xss">
+      <DependentUpon>GetLanguages.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetNamePrefixes.xsc">
+      <DependentUpon>GetNamePrefixes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetNamePrefixes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetNamePrefixes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetNamePrefixes.xss">
+      <DependentUpon>GetNamePrefixes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetNameSuffixes.xsc">
+      <DependentUpon>GetNameSuffixes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetNameSuffixes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetNameSuffixes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetNameSuffixes.xss">
+      <DependentUpon>GetNameSuffixes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetOosCats.xsc">
+      <DependentUpon>GetOosCats.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetOosCats.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetOosCats.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetOosCats.xss">
+      <DependentUpon>GetOosCats.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetOptions.xsc">
+      <DependentUpon>GetOptions.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetOptions.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetOptions.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetOptions.xss">
+      <DependentUpon>GetOptions.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetPartialBatches.xsc">
+      <DependentUpon>GetPartialBatches.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetPartialBatches.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetPartialBatches.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetPartialBatches.xss">
+      <DependentUpon>GetPartialBatches.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetPermitTypes.xsc">
+      <DependentUpon>GetPermitTypes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetPermitTypes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetPermitTypes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetPermitTypes.xss">
+      <DependentUpon>GetPermitTypes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetPhoneTypes.xsc">
+      <DependentUpon>GetPhoneTypes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetPhoneTypes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetPhoneTypes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetPhoneTypes.xss">
+      <DependentUpon>GetPhoneTypes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetPrefixes.xsc">
+      <DependentUpon>GetPrefixes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetPrefixes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetPrefixes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetPrefixes.xss">
+      <DependentUpon>GetPrefixes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetRelations.xsc">
+      <DependentUpon>GetRelations.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetRelations.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetRelations.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetRelations.xss">
+      <DependentUpon>GetRelations.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSecGroups.xsc">
+      <DependentUpon>GetSecGroups.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSecGroups.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetSecGroups.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetSecGroups.xss">
+      <DependentUpon>GetSecGroups.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteAgencyPermits.xsc">
+      <DependentUpon>GetSiteAgencyPermits.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteAgencyPermits.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetSiteAgencyPermits.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetSiteAgencyPermits.xss">
+      <DependentUpon>GetSiteAgencyPermits.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteDispatches.xsc">
+      <DependentUpon>GetSiteDispatches.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteDispatches.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetSiteDispatches.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetSiteDispatches.xss">
+      <DependentUpon>GetSiteDispatches.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteErrors.xsc">
+      <DependentUpon>GetSiteErrors.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteErrors.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetSiteErrors.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetSiteErrors.xss">
+      <DependentUpon>GetSiteErrors.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteGeneralDispatches.xsc">
+      <DependentUpon>GetSiteGeneralDispatches.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteGeneralDispatches.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetSiteGeneralDispatches.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetSiteGeneralDispatches.xss">
+      <DependentUpon>GetSiteGeneralDispatches.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteNotes.xsc">
+      <DependentUpon>GetSiteNotes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteNotes.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetSiteNotes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetSiteNotes.xss">
+      <DependentUpon>GetSiteNotes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteOptions.xsc">
+      <DependentUpon>GetSiteOptions.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteOptions.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetSiteOptions.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetSiteOptions.xss">
+      <DependentUpon>GetSiteOptions.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteSystemInfo.xsc">
+      <DependentUpon>GetSiteSystemInfo.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteSystemInfo.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetSiteSystemInfo.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetSiteSystemInfo.xss">
+      <DependentUpon>GetSiteSystemInfo.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteSystemOptions.xsc">
+      <DependentUpon>GetSiteSystemOptions.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteSystemOptions.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetSiteSystemOptions.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetSiteSystemOptions.xss">
+      <DependentUpon>GetSiteSystemOptions.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteSystems.xsc">
+      <DependentUpon>GetSiteSystems.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteSystems.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetSiteSystems.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetSiteSystems.xss">
+      <DependentUpon>GetSiteSystems.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteTypes.xsc">
+      <DependentUpon>GetSiteTypes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSiteTypes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetSiteTypes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetSiteTypes.xss">
+      <DependentUpon>GetSiteTypes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetStates.xsc">
+      <DependentUpon>GetStates.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetStates.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetStates.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetStates.xss">
+      <DependentUpon>GetStates.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSysTypes.xsc">
+      <DependentUpon>GetSysTypes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSysTypes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetSysTypes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetSysTypes.xss">
+      <DependentUpon>GetSysTypes.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSysTypeXref.xsc">
+      <DependentUpon>GetSysTypeXref.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetSysTypeXref.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetSysTypeXref.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetSysTypeXref.xss">
+      <DependentUpon>GetSysTypeXref.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetTestCats.xsc">
+      <DependentUpon>GetTestCats.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetTestCats.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetTestCats.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetTestCats.xss">
+      <DependentUpon>GetTestCats.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetTwoWays.xsc">
+      <DependentUpon>GetTwoWays.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetTwoWays.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetTwoWays.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetTwoWays.xss">
+      <DependentUpon>GetTwoWays.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetZips.xsc">
+      <DependentUpon>GetZips.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetZips.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetZips.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetZips.xss">
+      <DependentUpon>GetZips.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetZones.xsc">
+      <DependentUpon>GetZones.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetZones.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetZones.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\GetZones.xss">
+      <DependentUpon>GetZones.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetZoneStates.xsc">
+      <DependentUpon>GetZoneStates.xsd</DependentUpon>
+    </None>
+    <None Include="Schemas\GetZoneStates.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GetZoneStates.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Schemas\GetZoneStates.xss">
+      <DependentUpon>GetZoneStates.xsd</DependentUpon>
+    </None>
+    <None Include="Web References\MoniWSI45\MIDI.wsdl" />
+    <None Include="Web References\MoniWSI45\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://wstest.monitronics.net/MIDI/MIDI.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\MoniWSI45\</RelPath>
+      <UpdateFromURL>https://wstest.monitronics.net/MIDI/MIDI.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NXS_Logic_MonitoringStations_MoniWSI45_WSI</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\MoniWSI45\MIDI.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Data\SOS.Data.SosCrm\SOS.Data.SosCrm.csproj">
+      <Project>{23BB4972-325C-40D8-96F6-EB8A60676D63}</Project>
+      <Name>SOS.Data.SosCrm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Data\SOS.Data\SOS.Data.csproj">
+      <Project>{C2776F02-C5E2-42BA-B4B0-147625B90A18}</Project>
+      <Name>SOS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Data\SubSonic\SubSonic.csproj">
+      <Project>{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}</Project>
+      <Name>SubSonic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

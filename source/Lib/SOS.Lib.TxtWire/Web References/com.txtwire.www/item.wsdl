@@ -1,0 +1,2608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:webservices2_0_0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:webservices2_0_0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:webservices2_0_0">
+      <xsd:complexType name="WSAuthentication">
+        <xsd:all>
+          <xsd:element name="api_key" type="xsd:string" />
+          <xsd:element name="code" type="xsd:string" />
+          <xsd:element name="keyword" type="xsd:string" />
+          <xsd:element name="password" type="xsd:string" />
+          <xsd:element name="username" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSBilling">
+        <xsd:all>
+          <xsd:element name="billing_type" type="xsd:int" />
+          <xsd:element name="expire_date" type="xsd:string" />
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="overage_rate" type="xsd:float" />
+          <xsd:element name="purchase_date" type="xsd:string" />
+          <xsd:element name="rate" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSBillingResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSBilling" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSMetric">
+        <xsd:all>
+          <xsd:element name="allotment" type="xsd:int" />
+          <xsd:element name="allow_overage" type="xsd:int" />
+          <xsd:element name="expire_date" type="xsd:string" />
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="metric_type" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="overage_cap" type="xsd:int" />
+          <xsd:element name="overage_rate" type="xsd:float" />
+          <xsd:element name="purchase_date" type="xsd:string" />
+          <xsd:element name="rate" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSBillingMetricResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSMetric" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSSimpleAuthentication">
+        <xsd:all>
+          <xsd:element name="api_key" type="xsd:string" />
+          <xsd:element name="password" type="xsd:string" />
+          <xsd:element name="username" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSBillingMetricTypeListResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSMetricTypeList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSMetricTypeList">
+        <xsd:all>
+          <xsd:element name="list" type="tns:WSMetricTypeArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSMetricTypeArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSMetricType[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSMetricType">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSBillingMetricListResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSBillingMetricList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSBillingMetricList">
+        <xsd:all>
+          <xsd:element name="list" type="tns:WSMetricArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSMetricArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSMetric[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSFeatureList">
+        <xsd:all>
+          <xsd:element name="featurelist" type="tns:WSFeatureArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSFeatureArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSFeature[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSFeature">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSFeatureListResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSFeatureList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSDivision">
+        <xsd:all>
+          <xsd:element name="address" type="tns:WSAddress" />
+          <xsd:element name="default_code" type="xsd:string" />
+          <xsd:element name="divisions" type="tns:WSDivisionArray" />
+          <xsd:element name="email" type="xsd:string" />
+          <xsd:element name="keyword" type="xsd:string" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="phone" type="xsd:string" />
+          <xsd:element name="subscriptionnodes" type="tns:WSSubscriptionnodeArray" />
+          <xsd:element name="url" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSAddress">
+        <xsd:all>
+          <xsd:element name="city" type="xsd:string" />
+          <xsd:element name="state" type="xsd:string" />
+          <xsd:element name="state_abbr" type="xsd:string" />
+          <xsd:element name="street" type="xsd:string" />
+          <xsd:element name="street2" type="xsd:string" />
+          <xsd:element name="zip" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSDivisionArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSDivision[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSSubscriptionnodeArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSSubscriptionnode[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSSubscriptionnode">
+        <xsd:all>
+          <xsd:element name="default_code" type="xsd:string" />
+          <xsd:element name="ispublic" type="xsd:int" />
+          <xsd:element name="keywords" type="tns:WSKeywordArray" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="stackOrder" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSKeywordArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSKeyword[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSKeyword">
+        <xsd:all>
+          <xsd:element name="active" type="xsd:boolean" />
+          <xsd:element name="app_identifier" type="xsd:string" />
+          <xsd:element name="auto_subscribe" type="xsd:int" />
+          <xsd:element name="callback_url" type="xsd:string" />
+          <xsd:element name="fields" type="tns:WSCustomFieldArray" />
+          <xsd:element name="keyword_type" type="xsd:int" />
+          <xsd:element name="note" type="xsd:string" />
+          <xsd:element name="response" type="xsd:string" />
+          <xsd:element name="subscribed_response" type="xsd:string" />
+          <xsd:element name="word" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSCustomFieldArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSCustomField[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSCustomField">
+        <xsd:all>
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="value" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSCompanyResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSCompany" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSCompany">
+        <xsd:all>
+          <xsd:element name="address" type="tns:WSAddress" />
+          <xsd:element name="default_code" type="xsd:string" />
+          <xsd:element name="divisions" type="tns:WSDivisionArray" />
+          <xsd:element name="email" type="xsd:string" />
+          <xsd:element name="keyword" type="xsd:string" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="phone" type="xsd:string" />
+          <xsd:element name="subscriptionnodes" type="tns:WSSubscriptionnodeArray" />
+          <xsd:element name="url" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSDivisionResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSDivision" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSUser">
+        <xsd:all>
+          <xsd:element name="address" type="tns:WSAddress" />
+          <xsd:element name="carrier" type="xsd:string" />
+          <xsd:element name="email" type="xsd:string" />
+          <xsd:element name="first_name" type="xsd:string" />
+          <xsd:element name="landline" type="xsd:string" />
+          <xsd:element name="last_name" type="xsd:string" />
+          <xsd:element name="password" type="xsd:string" />
+          <xsd:element name="phone" type="xsd:string" />
+          <xsd:element name="role_id" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSKeywordNotificationResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSUserList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSUserList">
+        <xsd:all>
+          <xsd:element name="list" type="tns:WSUserArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSUserArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSUser[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSKeywordResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSKeyword" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSKeywordExistsResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="xsd:boolean" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSTransactionResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSTransactionList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSTransactionList">
+        <xsd:all>
+          <xsd:element name="transactionlist" type="tns:WSTransactionDetailArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSTransactionDetailArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSTransactionDetail[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSTransactionDetail">
+        <xsd:all>
+          <xsd:element name="sendTo" type="xsd:string" />
+          <xsd:element name="status_code" type="xsd:int" />
+          <xsd:element name="status_message" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSRecipientList">
+        <xsd:all>
+          <xsd:element name="recipients" type="tns:WSRecipientArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSRecipientArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSRecipient[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSRecipient">
+        <xsd:all>
+          <xsd:element name="carrier" type="xsd:string" />
+          <xsd:element name="customfields" type="tns:WSCustomFieldArray" />
+          <xsd:element name="sendTo" type="xsd:string" />
+          <xsd:element name="type" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSMessageResponse">
+        <xsd:all>
+          <xsd:element name="custom_ticket" type="xsd:string" />
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="result" type="xsd:boolean" />
+          <xsd:element name="transaction_ticket" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSTemplate">
+        <xsd:all>
+          <xsd:element name="description" type="xsd:string" />
+          <xsd:element name="id" type="xsd:string" />
+          <xsd:element name="subject" type="xsd:string" />
+          <xsd:element name="text" type="xsd:string" />
+          <xsd:element name="title" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportInboundMessagesResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSReportInboundMessagesList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportInboundMessagesList">
+        <xsd:all>
+          <xsd:element name="messagelist" type="tns:WSReportInboundMessageRowArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportInboundMessageRowArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSReportInboundMessageRow[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportInboundMessageRow">
+        <xsd:all>
+          <xsd:element name="code" type="xsd:string" />
+          <xsd:element name="group" type="xsd:string" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="phone" type="xsd:string" />
+          <xsd:element name="timestamp" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportKeywordsResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSReportKeywordsList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportKeywordsList">
+        <xsd:all>
+          <xsd:element name="list" type="tns:WSReportKeywordRowArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportKeywordRowArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSReportKeywordRow[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportKeywordRow">
+        <xsd:all>
+          <xsd:element name="auto_subscribe" type="xsd:string" />
+          <xsd:element name="callback_url" type="xsd:string" />
+          <xsd:element name="group" type="xsd:string" />
+          <xsd:element name="keyword_type" type="xsd:string" />
+          <xsd:element name="notifications" type="xsd:string" />
+          <xsd:element name="response" type="xsd:string" />
+          <xsd:element name="subscribed_response" type="xsd:string" />
+          <xsd:element name="timestamp" type="xsd:string" />
+          <xsd:element name="word" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportSentMessagesResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSReportSentMessagesList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportSentMessagesList">
+        <xsd:all>
+          <xsd:element name="messagelist" type="tns:WSReportSentMessageRowArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportSentMessageRowArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSReportSentMessageRow[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportSentMessageRow">
+        <xsd:all>
+          <xsd:element name="code" type="xsd:string" />
+          <xsd:element name="custom_ticket" type="xsd:string" />
+          <xsd:element name="delivery_method" type="xsd:string" />
+          <xsd:element name="delivery_status" type="xsd:string" />
+          <xsd:element name="group" type="xsd:string" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="phone" type="xsd:string" />
+          <xsd:element name="timestamp" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportMobileSitesResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSReportMobileSitesList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportMobileSitesList">
+        <xsd:all>
+          <xsd:element name="list" type="tns:WSReportMobileSiteRowArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportMobileSiteRowArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSReportMobileSiteRow[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportMobileSiteRow">
+        <xsd:all>
+          <xsd:element name="active" type="xsd:string" />
+          <xsd:element name="group" type="xsd:string" />
+          <xsd:element name="title" type="xsd:string" />
+          <xsd:element name="url" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportPhoneHistoryResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSReportPhoneHistoryList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportPhoneHistoryList">
+        <xsd:all>
+          <xsd:element name="list" type="tns:WSReportPhoneHistoryRowArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportPhoneHistoryRowArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSReportPhoneHistoryRow[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportPhoneHistoryRow">
+        <xsd:all>
+          <xsd:element name="code" type="xsd:string" />
+          <xsd:element name="direction" type="xsd:int" />
+          <xsd:element name="group" type="xsd:string" />
+          <xsd:element name="phone" type="xsd:string" />
+          <xsd:element name="status" type="xsd:string" />
+          <xsd:element name="status_code" type="xsd:int" />
+          <xsd:element name="text" type="xsd:string" />
+          <xsd:element name="timestamp" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportSubscribersResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSReportSubscribersList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportSubscribersList">
+        <xsd:all>
+          <xsd:element name="list" type="tns:WSReportSubscriberRowArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportSubscriberRowArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSReportSubscriberRow[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSReportSubscriberRow">
+        <xsd:all>
+          <xsd:element name="carrier" type="xsd:string" />
+          <xsd:element name="custom_field" type="xsd:string" />
+          <xsd:element name="email" type="xsd:string" />
+          <xsd:element name="first_name" type="xsd:string" />
+          <xsd:element name="group" type="xsd:string" />
+          <xsd:element name="landline" type="xsd:string" />
+          <xsd:element name="last_name" type="xsd:string" />
+          <xsd:element name="optin_date" type="xsd:string" />
+          <xsd:element name="optin_method" type="xsd:string" />
+          <xsd:element name="optout_date" type="xsd:string" />
+          <xsd:element name="phone" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSSubscriberResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSSubscriber" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSSubscriber">
+        <xsd:all>
+          <xsd:element name="created_at" type="xsd:string" />
+          <xsd:element name="custom_field" type="xsd:string" />
+          <xsd:element name="default_keyword" type="xsd:string" />
+          <xsd:element name="email" type="xsd:int" />
+          <xsd:element name="landline" type="xsd:int" />
+          <xsd:element name="mobiletxt" type="xsd:int" />
+          <xsd:element name="mobilevoice" type="xsd:int" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="subscribed_type" type="xsd:int" />
+          <xsd:element name="unsubdate" type="xsd:string" />
+          <xsd:element name="updated_at" type="xsd:string" />
+          <xsd:element name="user" type="tns:WSUser" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSVerificationResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="pin" type="xsd:string" />
+          <xsd:element name="result" type="xsd:boolean" />
+          <xsd:element name="verified" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSSubscriptionsResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSUserSubscriptions" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSUserSubscriptions">
+        <xsd:all>
+          <xsd:element name="subscriptions" type="tns:WSSubscriberArray" />
+          <xsd:element name="user" type="tns:WSUser" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSSubscriberArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSSubscriber[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSSubscriberStatusResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="result" type="xsd:boolean" />
+          <xsd:element name="status" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSUnsubscriberResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSSubscriptionnodeResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSSubscriptionnode" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSSubscriberListResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSSubscriberList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSSubscriberList">
+        <xsd:all>
+          <xsd:element name="subscribers" type="tns:WSSubscriberArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSGenericResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSCarrierPhoneResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSCarrierPhoneList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSCarrierIdPhoneResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSCarrierIdPhoneList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSCarrierPhoneList">
+        <xsd:all>
+          <xsd:element name="list" type="tns:WSCarrierPhoneRowArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSCarrierIdPhoneList">
+        <xsd:all>
+          <xsd:element name="list" type="tns:WSCarrierIdPhoneRowArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSCarrierPhoneRowArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSCarrierPhoneRow[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSCarrierIdPhoneRowArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSCarrierIdPhoneRow[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSCarrierPhoneRow">
+        <xsd:all>
+          <xsd:element name="carrier" type="xsd:string" />
+          <xsd:element name="international" type="xsd:boolean" />
+          <xsd:element name="invalid" type="xsd:boolean" />
+          <xsd:element name="landline" type="xsd:boolean" />
+          <xsd:element name="phone" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSCarrierIdPhoneRow">
+        <xsd:all>
+          <xsd:element name="carrier_id" type="xsd:int" />
+          <xsd:element name="carrier" type="xsd:string" />
+          <xsd:element name="international" type="xsd:boolean" />
+          <xsd:element name="invalid" type="xsd:boolean" />
+          <xsd:element name="landline" type="xsd:boolean" />
+          <xsd:element name="phone" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSTemplateResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSTemplate" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSTemplateListResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSTemplateList" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSTemplateList">
+        <xsd:all>
+          <xsd:element name="templates" type="tns:WSTemplateArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSTemplateArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSTemplate[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSAdminUserResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="xsd:boolean" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSUserResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSUser" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSCompanyListResponse">
+        <xsd:all>
+          <xsd:element name="error_code" type="xsd:int" />
+          <xsd:element name="message" type="xsd:string" />
+          <xsd:element name="response" type="tns:WSCompanyArray" />
+          <xsd:element name="result" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSCompanyArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute wsdl:arrayType="tns:WSCompany[]" ref="SOAP-ENC:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="createBillingRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="bill" type="tns:WSBilling" />
+  </wsdl:message>
+  <wsdl:message name="createBillingResponse">
+    <wsdl:part name="createBillingReturn" type="tns:WSBillingResponse" />
+  </wsdl:message>
+  <wsdl:message name="createMetricRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="metric" type="tns:WSMetric" />
+  </wsdl:message>
+  <wsdl:message name="createMetricResponse">
+    <wsdl:part name="createMetricReturn" type="tns:WSBillingMetricResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMetricTypesRequest">
+    <wsdl:part name="auth" type="tns:WSSimpleAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="getMetricTypesResponse">
+    <wsdl:part name="getMetricTypesReturn" type="tns:WSBillingMetricTypeListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMetricsRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="getMetricsResponse">
+    <wsdl:part name="getMetricsReturn" type="tns:WSBillingMetricListResponse" />
+  </wsdl:message>
+  <wsdl:message name="readBillingRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="bill" type="tns:WSBilling" />
+  </wsdl:message>
+  <wsdl:message name="readBillingResponse">
+    <wsdl:part name="readBillingReturn" type="tns:WSBillingResponse" />
+  </wsdl:message>
+  <wsdl:message name="readMetricRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="metric" type="tns:WSMetric" />
+  </wsdl:message>
+  <wsdl:message name="readMetricResponse">
+    <wsdl:part name="readMetricReturn" type="tns:WSBillingMetricResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateBillingRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="bill" type="tns:WSBilling" />
+  </wsdl:message>
+  <wsdl:message name="updateBillingResponse">
+    <wsdl:part name="updateBillingReturn" type="tns:WSBillingResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateMetricRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="metric" type="tns:WSMetric" />
+  </wsdl:message>
+  <wsdl:message name="updateMetricResponse">
+    <wsdl:part name="updateMetricReturn" type="tns:WSBillingMetricResponse" />
+  </wsdl:message>
+  <wsdl:message name="addCompanyFeatureRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="feature_list" type="tns:WSFeatureList" />
+  </wsdl:message>
+  <wsdl:message name="addCompanyFeatureResponse">
+    <wsdl:part name="addCompanyFeatureReturn" type="tns:WSFeatureListResponse" />
+  </wsdl:message>
+  <wsdl:message name="createCompanyRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="company" type="tns:WSDivision" />
+  </wsdl:message>
+  <wsdl:message name="createCompanyResponse">
+    <wsdl:part name="createCompanyReturn" type="tns:WSCompanyResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteCompanyRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="deleteCompanyResponse">
+    <wsdl:part name="deleteCompanyReturn" type="tns:WSCompanyResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAvailableFeaturesRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="getAvailableFeaturesResponse">
+    <wsdl:part name="getAvailableFeaturesReturn" type="tns:WSFeatureListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getCompanyFeaturesRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="getCompanyFeaturesResponse">
+    <wsdl:part name="getCompanyFeaturesReturn" type="tns:WSFeatureListResponse" />
+  </wsdl:message>
+  <wsdl:message name="readCompanyRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="readCompanyResponse">
+    <wsdl:part name="readCompanyReturn" type="tns:WSCompanyResponse" />
+  </wsdl:message>
+  <wsdl:message name="removeCompanyFeatureRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="feature_list" type="tns:WSFeatureList" />
+  </wsdl:message>
+  <wsdl:message name="removeCompanyFeatureResponse">
+    <wsdl:part name="removeCompanyFeatureReturn" type="tns:WSFeatureListResponse" />
+  </wsdl:message>
+  <wsdl:message name="restoreCompanyRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="restoreCompanyResponse">
+    <wsdl:part name="restoreCompanyReturn" type="tns:WSCompanyResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateCompanyRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="company" type="tns:WSDivision" />
+  </wsdl:message>
+  <wsdl:message name="updateCompanyResponse">
+    <wsdl:part name="updateCompanyReturn" type="tns:WSCompanyResponse" />
+  </wsdl:message>
+  <wsdl:message name="createDivisionRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="division" type="tns:WSDivision" />
+  </wsdl:message>
+  <wsdl:message name="createDivisionResponse">
+    <wsdl:part name="createDivisionReturn" type="tns:WSDivisionResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteDivisionRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="deleteDivisionResponse">
+    <wsdl:part name="deleteDivisionReturn" type="tns:WSDivisionResponse" />
+  </wsdl:message>
+  <wsdl:message name="readAppDivisionRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="app_identifier" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="readAppDivisionResponse">
+    <wsdl:part name="readAppDivisionReturn" type="tns:WSDivisionResponse" />
+  </wsdl:message>
+  <wsdl:message name="readDivisionRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="readDivisionResponse">
+    <wsdl:part name="readDivisionReturn" type="tns:WSDivisionResponse" />
+  </wsdl:message>
+  <wsdl:message name="restoreDivisionRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="restoreDivisionResponse">
+    <wsdl:part name="restoreDivisionReturn" type="tns:WSDivisionResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateDivisionRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="division" type="tns:WSDivision" />
+  </wsdl:message>
+  <wsdl:message name="updateDivisionResponse">
+    <wsdl:part name="updateDivisionReturn" type="tns:WSDivisionResponse" />
+  </wsdl:message>
+  <wsdl:message name="authenticateRequestRequest">
+    <wsdl:part name="params" type="tns:WSAuthentication" />
+    <wsdl:part name="auth_params" type="xsd:anyType" />
+  </wsdl:message>
+  <wsdl:message name="authenticateRequestResponse">
+    <wsdl:part name="authenticateRequestReturn" type="xsd:anyType" />
+  </wsdl:message>
+  <wsdl:message name="flattenArrayRequest">
+    <wsdl:part name="array" type="xsd:anyType" />
+  </wsdl:message>
+  <wsdl:message name="flattenArrayResponse">
+    <wsdl:part name="flattenArrayReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="formatDateRequest">
+    <wsdl:part name="date" type="xsd:string" />
+    <wsdl:part name="format" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="formatDateResponse">
+    <wsdl:part name="formatDateReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getEntityRequest">
+    <wsdl:part name="keyword" type="xsd:string" />
+    <wsdl:part name="code" type="xsd:string" />
+    <wsdl:part name="division_id" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getEntityResponse">
+    <wsdl:part name="getEntityReturn" type="xsd:anyType" />
+  </wsdl:message>
+  <wsdl:message name="getGenericCodeRequest">
+    <wsdl:part name="code" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getGenericCodeResponse">
+    <wsdl:part name="getGenericCodeReturn" type="xsd:anyType" />
+  </wsdl:message>
+  <wsdl:message name="getKeywordRequest">
+    <wsdl:part name="keyword" type="xsd:string" />
+    <wsdl:part name="code" type="xsd:string" />
+    <wsdl:part name="show_inactive" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="getKeywordResponse">
+    <wsdl:part name="getKeywordReturn" type="xsd:anyType" />
+  </wsdl:message>
+  <wsdl:message name="getUserRequest">
+    <wsdl:part name="search" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getUserResponse">
+    <wsdl:part name="getUserReturn" type="tns:WSUser" />
+  </wsdl:message>
+  <wsdl:message name="validateObjectRequest">
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="object" type="xsd:anyType" />
+    <wsdl:part name="required" type="xsd:anyType" />
+  </wsdl:message>
+  <wsdl:message name="validateObjectResponse">
+    <wsdl:part name="validateObjectReturn" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="verifyDivisionKeywordRequest">
+    <wsdl:part name="keyword" type="xsd:string" />
+    <wsdl:part name="code" type="xsd:string" />
+    <wsdl:part name="company_id" type="xsd:int" />
+    <wsdl:part name="hydrate" type="xsd:boolean" />
+    <wsdl:part name="show_inactive" type="xsd:boolean" />
+    <wsdl:part name="show_children" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="verifyDivisionKeywordResponse">
+    <wsdl:part name="verifyDivisionKeywordReturn" type="xsd:anyType" />
+  </wsdl:message>
+  <wsdl:message name="verifyGroupKeywordRequest">
+    <wsdl:part name="keyword" type="xsd:string" />
+    <wsdl:part name="code" type="xsd:string" />
+    <wsdl:part name="company_id" type="xsd:int" />
+    <wsdl:part name="active_group" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="verifyGroupKeywordResponse">
+    <wsdl:part name="verifyGroupKeywordReturn" type="xsd:anyType" />
+  </wsdl:message>
+  <wsdl:message name="addKeywordNotificationRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="notify_list" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="addKeywordNotificationResponse">
+    <wsdl:part name="addKeywordNotificationReturn" type="tns:WSKeywordNotificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="createKeywordRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="new_keyword" type="tns:WSKeyword" />
+  </wsdl:message>
+  <wsdl:message name="createKeywordResponse">
+    <wsdl:part name="createKeywordReturn" type="tns:WSKeywordResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteKeywordRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="deleteKeywordResponse">
+    <wsdl:part name="deleteKeywordReturn" type="tns:WSKeywordResponse" />
+  </wsdl:message>
+  <wsdl:message name="getKeywordNotificationRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="getKeywordNotificationResponse">
+    <wsdl:part name="getKeywordNotificationReturn" type="tns:WSKeywordNotificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="keywordExistsRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="keyword" type="tns:WSKeyword" />
+  </wsdl:message>
+  <wsdl:message name="keywordExistsResponse">
+    <wsdl:part name="keywordExistsReturn" type="tns:WSKeywordExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="readKeywordRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="readKeywordResponse">
+    <wsdl:part name="readKeywordReturn" type="tns:WSKeywordResponse" />
+  </wsdl:message>
+  <wsdl:message name="removeKeywordNotificationRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="search" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="removeKeywordNotificationResponse">
+    <wsdl:part name="removeKeywordNotificationReturn" type="tns:WSKeywordNotificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateKeywordRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="keyword" type="tns:WSKeyword" />
+  </wsdl:message>
+  <wsdl:message name="updateKeywordResponse">
+    <wsdl:part name="updateKeywordReturn" type="tns:WSKeywordResponse" />
+  </wsdl:message>
+  <wsdl:message name="getCustomTransactionStatusRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="custom_ticket" type="xsd:string" />
+    <wsdl:part name="sentTo" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getCustomTransactionStatusResponse">
+    <wsdl:part name="getCustomTransactionStatusReturn" type="tns:WSTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTransactionStatusRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="transaction_ticket_id" type="xsd:string" />
+    <wsdl:part name="sentTo" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getTransactionStatusResponse">
+    <wsdl:part name="getTransactionStatusReturn" type="tns:WSTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="sendMessageRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="message" type="xsd:string" />
+    <wsdl:part name="recipientList" type="tns:WSRecipientList" />
+    <wsdl:part name="custom_ticket" type="xsd:string" />
+    <wsdl:part name="status_url" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendMessageResponse">
+    <wsdl:part name="sendMessageReturn" type="tns:WSMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="sendTemplateMessageRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="template" type="tns:WSTemplate" />
+    <wsdl:part name="recipientList" type="tns:WSRecipientList" />
+    <wsdl:part name="custom_ticket" type="xsd:string" />
+    <wsdl:part name="status_url" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendTemplateMessageResponse">
+    <wsdl:part name="sendTemplateMessageReturn" type="tns:WSMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="inboundMessagesRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="from_date" type="xsd:string" />
+    <wsdl:part name="to_date" type="xsd:string" />
+    <wsdl:part name="timezone" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="inboundMessagesResponse">
+    <wsdl:part name="inboundMessagesReturn" type="tns:WSReportInboundMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="keywordsRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="timezone" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="keywordsResponse">
+    <wsdl:part name="keywordsReturn" type="tns:WSReportKeywordsResponse" />
+  </wsdl:message>
+  <wsdl:message name="messagesSentRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="from_date" type="xsd:string" />
+    <wsdl:part name="to_date" type="xsd:string" />
+    <wsdl:part name="timezone" type="xsd:string" />
+    <wsdl:part name="custom_ticket" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="messagesSentResponse">
+    <wsdl:part name="messagesSentReturn" type="tns:WSReportSentMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="mobileSitesRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="mobileSitesResponse">
+    <wsdl:part name="mobileSitesReturn" type="tns:WSReportMobileSitesResponse" />
+  </wsdl:message>
+  <wsdl:message name="phoneHistoryRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="phone" type="xsd:string" />
+    <wsdl:part name="direction" type="xsd:int" />
+    <wsdl:part name="from_date" type="xsd:string" />
+    <wsdl:part name="to_date" type="xsd:string" />
+    <wsdl:part name="timezone" type="xsd:string" />
+    <wsdl:part name="custom_ticket" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="phoneHistoryResponse">
+    <wsdl:part name="phoneHistoryReturn" type="tns:WSReportPhoneHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="subscribersRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="from_date" type="xsd:string" />
+    <wsdl:part name="to_date" type="xsd:string" />
+    <wsdl:part name="timezone" type="xsd:string" />
+    <wsdl:part name="all" type="xsd:boolean" />
+    <wsdl:part name="unique" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="subscribersResponse">
+    <wsdl:part name="subscribersReturn" type="tns:WSReportSubscribersResponse" />
+  </wsdl:message>
+  <wsdl:message name="batchSubscribeRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="phone_numbers" type="xsd:string" />
+    <wsdl:part name="complete_url" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="batchSubscribeResponse">
+    <wsdl:part name="batchSubscribeReturn" type="tns:WSSubscriberResponse" />
+  </wsdl:message>
+  <wsdl:message name="batchUnsubscribeRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="phone_numbers" type="xsd:string" />
+    <wsdl:part name="complete_url" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="batchUnsubscribeResponse">
+    <wsdl:part name="batchUnsubscribeReturn" type="tns:WSSubscriberResponse" />
+  </wsdl:message>
+  <wsdl:message name="forceVerificationPinRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="phone" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="forceVerificationPinResponse">
+    <wsdl:part name="forceVerificationPinReturn" type="tns:WSVerificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="generateVerificationPinRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="phone" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="generateVerificationPinResponse">
+    <wsdl:part name="generateVerificationPinReturn" type="tns:WSVerificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSubscriberRequest">
+    <wsdl:part name="auth" type="tns:WSSimpleAuthentication" />
+    <wsdl:part name="search" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getSubscriberResponse">
+    <wsdl:part name="getSubscriberReturn" type="tns:WSSubscriptionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="subscribeRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="subscriber" type="tns:WSSubscriber" />
+  </wsdl:message>
+  <wsdl:message name="subscribeResponse">
+    <wsdl:part name="subscribeReturn" type="tns:WSSubscriberResponse" />
+  </wsdl:message>
+  <wsdl:message name="subscriberStatusRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="search" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="subscriberStatusResponse">
+    <wsdl:part name="subscriberStatusReturn" type="tns:WSSubscriberStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="unsubscribeRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="search" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="unsubscribeResponse">
+    <wsdl:part name="unsubscribeReturn" type="tns:WSUnsubscriberResponse" />
+  </wsdl:message>
+  <wsdl:message name="validateVerificationPinRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="phone" type="xsd:string" />
+    <wsdl:part name="pin" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="validateVerificationPinResponse">
+    <wsdl:part name="validateVerificationPinReturn" type="tns:WSVerificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="createSubscriptionnodeRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="group" type="tns:WSSubscriptionnode" />
+  </wsdl:message>
+  <wsdl:message name="createSubscriptionnodeResponse">
+    <wsdl:part name="createSubscriptionnodeReturn" type="tns:WSSubscriptionnodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteSubscriptionnodeRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="deleteSubscriptionnodeResponse">
+    <wsdl:part name="deleteSubscriptionnodeReturn" type="tns:WSSubscriptionnodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="getActiveSubscribersRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="getActiveSubscribersResponse">
+    <wsdl:part name="getActiveSubscribersReturn" type="tns:WSSubscriberListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllSubscribersRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="getAllSubscribersResponse">
+    <wsdl:part name="getAllSubscribersReturn" type="tns:WSSubscriberListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDivisionGroupsRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="getDivisionGroupsResponse">
+    <wsdl:part name="getDivisionGroupsReturn" type="tns:WSDivisionResponse" />
+  </wsdl:message>
+  <wsdl:message name="readSubscriptionnodeRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="readSubscriptionnodeResponse">
+    <wsdl:part name="readSubscriptionnodeReturn" type="tns:WSSubscriptionnodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="restoreSubscriptionnodeRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="restoreSubscriptionnodeResponse">
+    <wsdl:part name="restoreSubscriptionnodeReturn" type="tns:WSSubscriptionnodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateSubscriptionnodeRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="group" type="tns:WSSubscriptionnode" />
+  </wsdl:message>
+  <wsdl:message name="updateSubscriptionnodeResponse">
+    <wsdl:part name="updateSubscriptionnodeReturn" type="tns:WSSubscriptionnodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="authenticationTestRequest">
+    <wsdl:part name="auth" type="tns:WSSimpleAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="authenticationTestResponse">
+    <wsdl:part name="authenticationTestReturn" type="tns:WSGenericResponse" />
+  </wsdl:message>
+  <wsdl:message name="getCellularCarrierRequest">
+    <wsdl:part name="auth" type="tns:WSSimpleAuthentication" />
+    <wsdl:part name="phone_list" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getCellularCarrierResponse">
+    <wsdl:part name="getCellularCarrierReturn" type="tns:WSCarrierPhoneResponse" />
+  </wsdl:message>
+  <wsdl:message name="getCellularCarrierIdRequest">
+    <wsdl:part name="auth" type="tns:WSSimpleAuthentication" />
+    <wsdl:part name="phone_list" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getCellularCarrierIdResponse">
+    <wsdl:part name="getCellularCarrierIdReturn" type="tns:WSCarrierIdPhoneResponse" />
+  </wsdl:message>
+  <wsdl:message name="getOrganizationTreeRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="getOrganizationTreeResponse">
+    <wsdl:part name="getOrganizationTreeReturn" type="tns:WSDivisionResponse" />
+  </wsdl:message>
+  <wsdl:message name="testRequest" />
+  <wsdl:message name="testResponse">
+    <wsdl:part name="testReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="createTemplateRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="template" type="tns:WSTemplate" />
+  </wsdl:message>
+  <wsdl:message name="createTemplateResponse">
+    <wsdl:part name="createTemplateReturn" type="tns:WSTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteTemplateRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="template" type="tns:WSTemplate" />
+  </wsdl:message>
+  <wsdl:message name="deleteTemplateResponse">
+    <wsdl:part name="deleteTemplateReturn" type="tns:WSTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTemplatesRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="getTemplatesResponse">
+    <wsdl:part name="getTemplatesReturn" type="tns:WSTemplateListResponse" />
+  </wsdl:message>
+  <wsdl:message name="readTemplateRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="template" type="tns:WSTemplate" />
+  </wsdl:message>
+  <wsdl:message name="readTemplateResponse">
+    <wsdl:part name="readTemplateReturn" type="tns:WSTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="restoreTemplateRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="template" type="tns:WSTemplate" />
+  </wsdl:message>
+  <wsdl:message name="restoreTemplateResponse">
+    <wsdl:part name="restoreTemplateReturn" type="tns:WSTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateTemplateRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="template" type="tns:WSTemplate" />
+  </wsdl:message>
+  <wsdl:message name="updateTemplateResponse">
+    <wsdl:part name="updateTemplateReturn" type="tns:WSTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="assignUserAdminRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="user" type="tns:WSUser" />
+  </wsdl:message>
+  <wsdl:message name="assignUserAdminResponse">
+    <wsdl:part name="assignUserAdminReturn" type="tns:WSAdminUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="authenticateUserRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="user" type="tns:WSUser" />
+  </wsdl:message>
+  <wsdl:message name="authenticateUserResponse">
+    <wsdl:part name="authenticateUserReturn" type="tns:WSUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="createUserRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="user" type="tns:WSUser" />
+  </wsdl:message>
+  <wsdl:message name="createUserResponse">
+    <wsdl:part name="createUserReturn" type="tns:WSUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="getUserAdminAccessRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="user" type="tns:WSUser" />
+  </wsdl:message>
+  <wsdl:message name="getUserAdminAccessResponse">
+    <wsdl:part name="getUserAdminAccessReturn" type="tns:WSCompanyListResponse" />
+  </wsdl:message>
+  <wsdl:message name="readUserRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="search" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="readUserResponse">
+    <wsdl:part name="readUserReturn" type="tns:WSUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="removeUserAdminRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="user" type="tns:WSUser" />
+  </wsdl:message>
+  <wsdl:message name="removeUserAdminResponse">
+    <wsdl:part name="removeUserAdminReturn" type="tns:WSAdminUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateUserRequest">
+    <wsdl:part name="auth" type="tns:WSAuthentication" />
+    <wsdl:part name="user" type="tns:WSUser" />
+  </wsdl:message>
+  <wsdl:message name="updateUserResponse">
+    <wsdl:part name="updateUserReturn" type="tns:WSUserResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WS_BillingPortType">
+    <wsdl:operation name="createBilling">
+      <wsdl:input message="tns:createBillingRequest" />
+      <wsdl:output message="tns:createBillingResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createMetric">
+      <wsdl:input message="tns:createMetricRequest" />
+      <wsdl:output message="tns:createMetricResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getMetricTypes">
+      <wsdl:input message="tns:getMetricTypesRequest" />
+      <wsdl:output message="tns:getMetricTypesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getMetrics">
+      <wsdl:input message="tns:getMetricsRequest" />
+      <wsdl:output message="tns:getMetricsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="readBilling">
+      <wsdl:input message="tns:readBillingRequest" />
+      <wsdl:output message="tns:readBillingResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="readMetric">
+      <wsdl:input message="tns:readMetricRequest" />
+      <wsdl:output message="tns:readMetricResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateBilling">
+      <wsdl:input message="tns:updateBillingRequest" />
+      <wsdl:output message="tns:updateBillingResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateMetric">
+      <wsdl:input message="tns:updateMetricRequest" />
+      <wsdl:output message="tns:updateMetricResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_CompanyPortType">
+    <wsdl:operation name="addCompanyFeature">
+      <wsdl:input message="tns:addCompanyFeatureRequest" />
+      <wsdl:output message="tns:addCompanyFeatureResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createCompany">
+      <wsdl:input message="tns:createCompanyRequest" />
+      <wsdl:output message="tns:createCompanyResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteCompany">
+      <wsdl:input message="tns:deleteCompanyRequest" />
+      <wsdl:output message="tns:deleteCompanyResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getAvailableFeatures">
+      <wsdl:input message="tns:getAvailableFeaturesRequest" />
+      <wsdl:output message="tns:getAvailableFeaturesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getCompanyFeatures">
+      <wsdl:input message="tns:getCompanyFeaturesRequest" />
+      <wsdl:output message="tns:getCompanyFeaturesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="readCompany">
+      <wsdl:input message="tns:readCompanyRequest" />
+      <wsdl:output message="tns:readCompanyResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="removeCompanyFeature">
+      <wsdl:input message="tns:removeCompanyFeatureRequest" />
+      <wsdl:output message="tns:removeCompanyFeatureResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="restoreCompany">
+      <wsdl:input message="tns:restoreCompanyRequest" />
+      <wsdl:output message="tns:restoreCompanyResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateCompany">
+      <wsdl:input message="tns:updateCompanyRequest" />
+      <wsdl:output message="tns:updateCompanyResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_DivisionPortType">
+    <wsdl:operation name="createDivision">
+      <wsdl:input message="tns:createDivisionRequest" />
+      <wsdl:output message="tns:createDivisionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteDivision">
+      <wsdl:input message="tns:deleteDivisionRequest" />
+      <wsdl:output message="tns:deleteDivisionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="readAppDivision">
+      <wsdl:input message="tns:readAppDivisionRequest" />
+      <wsdl:output message="tns:readAppDivisionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="readDivision">
+      <wsdl:input message="tns:readDivisionRequest" />
+      <wsdl:output message="tns:readDivisionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="restoreDivision">
+      <wsdl:input message="tns:restoreDivisionRequest" />
+      <wsdl:output message="tns:restoreDivisionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateDivision">
+      <wsdl:input message="tns:updateDivisionRequest" />
+      <wsdl:output message="tns:updateDivisionResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_HandlerPortType">
+    <wsdl:operation name="authenticateRequest">
+      <wsdl:input message="tns:authenticateRequestRequest" />
+      <wsdl:output message="tns:authenticateRequestResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="flattenArray">
+      <wsdl:input message="tns:flattenArrayRequest" />
+      <wsdl:output message="tns:flattenArrayResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="formatDate">
+      <wsdl:input message="tns:formatDateRequest" />
+      <wsdl:output message="tns:formatDateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getEntity">
+      <wsdl:input message="tns:getEntityRequest" />
+      <wsdl:output message="tns:getEntityResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getGenericCode">
+      <wsdl:input message="tns:getGenericCodeRequest" />
+      <wsdl:output message="tns:getGenericCodeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getKeyword">
+      <wsdl:input message="tns:getKeywordRequest" />
+      <wsdl:output message="tns:getKeywordResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getUser">
+      <wsdl:input message="tns:getUserRequest" />
+      <wsdl:output message="tns:getUserResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="validateObject">
+      <wsdl:input message="tns:validateObjectRequest" />
+      <wsdl:output message="tns:validateObjectResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="verifyDivisionKeyword">
+      <wsdl:input message="tns:verifyDivisionKeywordRequest" />
+      <wsdl:output message="tns:verifyDivisionKeywordResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="verifyGroupKeyword">
+      <wsdl:input message="tns:verifyGroupKeywordRequest" />
+      <wsdl:output message="tns:verifyGroupKeywordResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_KeywordPortType">
+    <wsdl:operation name="addKeywordNotification">
+      <wsdl:input message="tns:addKeywordNotificationRequest" />
+      <wsdl:output message="tns:addKeywordNotificationResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createKeyword">
+      <wsdl:input message="tns:createKeywordRequest" />
+      <wsdl:output message="tns:createKeywordResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteKeyword">
+      <wsdl:input message="tns:deleteKeywordRequest" />
+      <wsdl:output message="tns:deleteKeywordResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getKeywordNotification">
+      <wsdl:input message="tns:getKeywordNotificationRequest" />
+      <wsdl:output message="tns:getKeywordNotificationResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="keywordExists">
+      <wsdl:input message="tns:keywordExistsRequest" />
+      <wsdl:output message="tns:keywordExistsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="readKeyword">
+      <wsdl:input message="tns:readKeywordRequest" />
+      <wsdl:output message="tns:readKeywordResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="removeKeywordNotification">
+      <wsdl:input message="tns:removeKeywordNotificationRequest" />
+      <wsdl:output message="tns:removeKeywordNotificationResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateKeyword">
+      <wsdl:input message="tns:updateKeywordRequest" />
+      <wsdl:output message="tns:updateKeywordResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_MessagePortType">
+    <wsdl:operation name="getCustomTransactionStatus">
+      <wsdl:input message="tns:getCustomTransactionStatusRequest" />
+      <wsdl:output message="tns:getCustomTransactionStatusResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getTransactionStatus">
+      <wsdl:input message="tns:getTransactionStatusRequest" />
+      <wsdl:output message="tns:getTransactionStatusResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sendMessage">
+      <wsdl:input message="tns:sendMessageRequest" />
+      <wsdl:output message="tns:sendMessageResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sendTemplateMessage">
+      <wsdl:input message="tns:sendTemplateMessageRequest" />
+      <wsdl:output message="tns:sendTemplateMessageResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_ReportPortType">
+    <wsdl:operation name="inboundMessages">
+      <wsdl:input message="tns:inboundMessagesRequest" />
+      <wsdl:output message="tns:inboundMessagesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="keywords">
+      <wsdl:input message="tns:keywordsRequest" />
+      <wsdl:output message="tns:keywordsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="messagesSent">
+      <wsdl:input message="tns:messagesSentRequest" />
+      <wsdl:output message="tns:messagesSentResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="mobileSites">
+      <wsdl:input message="tns:mobileSitesRequest" />
+      <wsdl:output message="tns:mobileSitesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="phoneHistory">
+      <wsdl:input message="tns:phoneHistoryRequest" />
+      <wsdl:output message="tns:phoneHistoryResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="subscribers">
+      <wsdl:input message="tns:subscribersRequest" />
+      <wsdl:output message="tns:subscribersResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_SubscriberPortType">
+    <wsdl:operation name="batchSubscribe">
+      <wsdl:input message="tns:batchSubscribeRequest" />
+      <wsdl:output message="tns:batchSubscribeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="batchUnsubscribe">
+      <wsdl:input message="tns:batchUnsubscribeRequest" />
+      <wsdl:output message="tns:batchUnsubscribeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="forceVerificationPin">
+      <wsdl:input message="tns:forceVerificationPinRequest" />
+      <wsdl:output message="tns:forceVerificationPinResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="generateVerificationPin">
+      <wsdl:input message="tns:generateVerificationPinRequest" />
+      <wsdl:output message="tns:generateVerificationPinResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getSubscriber">
+      <wsdl:input message="tns:getSubscriberRequest" />
+      <wsdl:output message="tns:getSubscriberResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="subscribe">
+      <wsdl:input message="tns:subscribeRequest" />
+      <wsdl:output message="tns:subscribeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="subscriberStatus">
+      <wsdl:input message="tns:subscriberStatusRequest" />
+      <wsdl:output message="tns:subscriberStatusResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="unsubscribe">
+      <wsdl:input message="tns:unsubscribeRequest" />
+      <wsdl:output message="tns:unsubscribeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="validateVerificationPin">
+      <wsdl:input message="tns:validateVerificationPinRequest" />
+      <wsdl:output message="tns:validateVerificationPinResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_SubscriptionnodePortType">
+    <wsdl:operation name="createSubscriptionnode">
+      <wsdl:input message="tns:createSubscriptionnodeRequest" />
+      <wsdl:output message="tns:createSubscriptionnodeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteSubscriptionnode">
+      <wsdl:input message="tns:deleteSubscriptionnodeRequest" />
+      <wsdl:output message="tns:deleteSubscriptionnodeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getActiveSubscribers">
+      <wsdl:input message="tns:getActiveSubscribersRequest" />
+      <wsdl:output message="tns:getActiveSubscribersResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllSubscribers">
+      <wsdl:input message="tns:getAllSubscribersRequest" />
+      <wsdl:output message="tns:getAllSubscribersResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getDivisionGroups">
+      <wsdl:input message="tns:getDivisionGroupsRequest" />
+      <wsdl:output message="tns:getDivisionGroupsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="readSubscriptionnode">
+      <wsdl:input message="tns:readSubscriptionnodeRequest" />
+      <wsdl:output message="tns:readSubscriptionnodeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="restoreSubscriptionnode">
+      <wsdl:input message="tns:restoreSubscriptionnodeRequest" />
+      <wsdl:output message="tns:restoreSubscriptionnodeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateSubscriptionnode">
+      <wsdl:input message="tns:updateSubscriptionnodeRequest" />
+      <wsdl:output message="tns:updateSubscriptionnodeResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_TaskPortType">
+    <wsdl:operation name="authenticationTest">
+      <wsdl:input message="tns:authenticationTestRequest" />
+      <wsdl:output message="tns:authenticationTestResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getCellularCarrier">
+      <wsdl:input message="tns:getCellularCarrierRequest" />
+      <wsdl:output message="tns:getCellularCarrierResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getCellularCarrierId">
+      <wsdl:input message="tns:getCellularCarrierIdRequest" />
+      <wsdl:output message="tns:getCellularCarrierIdResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getOrganizationTree">
+      <wsdl:input message="tns:getOrganizationTreeRequest" />
+      <wsdl:output message="tns:getOrganizationTreeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="test">
+      <wsdl:input message="tns:testRequest" />
+      <wsdl:output message="tns:testResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_TemplatePortType">
+    <wsdl:operation name="createTemplate">
+      <wsdl:input message="tns:createTemplateRequest" />
+      <wsdl:output message="tns:createTemplateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteTemplate">
+      <wsdl:input message="tns:deleteTemplateRequest" />
+      <wsdl:output message="tns:deleteTemplateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getTemplates">
+      <wsdl:input message="tns:getTemplatesRequest" />
+      <wsdl:output message="tns:getTemplatesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="readTemplate">
+      <wsdl:input message="tns:readTemplateRequest" />
+      <wsdl:output message="tns:readTemplateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="restoreTemplate">
+      <wsdl:input message="tns:restoreTemplateRequest" />
+      <wsdl:output message="tns:restoreTemplateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateTemplate">
+      <wsdl:input message="tns:updateTemplateRequest" />
+      <wsdl:output message="tns:updateTemplateResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_UserPortType">
+    <wsdl:operation name="assignUserAdmin">
+      <wsdl:input message="tns:assignUserAdminRequest" />
+      <wsdl:output message="tns:assignUserAdminResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="authenticateUser">
+      <wsdl:input message="tns:authenticateUserRequest" />
+      <wsdl:output message="tns:authenticateUserResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createUser">
+      <wsdl:input message="tns:createUserRequest" />
+      <wsdl:output message="tns:createUserResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getUserAdminAccess">
+      <wsdl:input message="tns:getUserAdminAccessRequest" />
+      <wsdl:output message="tns:getUserAdminAccessResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="readUser">
+      <wsdl:input message="tns:readUserRequest" />
+      <wsdl:output message="tns:readUserResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="removeUserAdmin">
+      <wsdl:input message="tns:removeUserAdminRequest" />
+      <wsdl:output message="tns:removeUserAdminResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateUser">
+      <wsdl:input message="tns:updateUserRequest" />
+      <wsdl:output message="tns:updateUserResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WS_BillingBinding" type="tns:WS_BillingPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="createBilling">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/billing/2.0.0/?method=createBilling" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createMetric">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/billing/2.0.0/?method=createMetric" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMetricTypes">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/billing/2.0.0/?method=getMetricTypes" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMetrics">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/billing/2.0.0/?method=getMetrics" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="readBilling">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/billing/2.0.0/?method=readBilling" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="readMetric">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/billing/2.0.0/?method=readMetric" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateBilling">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/billing/2.0.0/?method=updateBilling" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateMetric">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/billing/2.0.0/?method=updateMetric" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_CompanyBinding" type="tns:WS_CompanyPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="addCompanyFeature">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/company/2.0.0/?method=addCompanyFeature" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createCompany">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/company/2.0.0/?method=createCompany" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteCompany">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/company/2.0.0/?method=deleteCompany" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAvailableFeatures">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/company/2.0.0/?method=getAvailableFeatures" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCompanyFeatures">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/company/2.0.0/?method=getCompanyFeatures" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="readCompany">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/company/2.0.0/?method=readCompany" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeCompanyFeature">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/company/2.0.0/?method=removeCompanyFeature" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="restoreCompany">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/company/2.0.0/?method=restoreCompany" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateCompany">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/company/2.0.0/?method=updateCompany" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_DivisionBinding" type="tns:WS_DivisionPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="createDivision">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/division/2.0.0/?method=createDivision" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteDivision">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/division/2.0.0/?method=deleteDivision" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="readAppDivision">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/division/2.0.0/?method=readAppDivision" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="readDivision">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/division/2.0.0/?method=readDivision" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="restoreDivision">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/division/2.0.0/?method=restoreDivision" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateDivision">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/division/2.0.0/?method=updateDivision" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_HandlerBinding" type="tns:WS_HandlerPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="authenticateRequest">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/handler/2.0.0/?method=authenticateRequest" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="flattenArray">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/handler/2.0.0/?method=flattenArray" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="formatDate">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/handler/2.0.0/?method=formatDate" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEntity">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/handler/2.0.0/?method=getEntity" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGenericCode">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/handler/2.0.0/?method=getGenericCode" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getKeyword">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/handler/2.0.0/?method=getKeyword" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUser">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/handler/2.0.0/?method=getUser" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="validateObject">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/handler/2.0.0/?method=validateObject" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="verifyDivisionKeyword">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/handler/2.0.0/?method=verifyDivisionKeyword" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="verifyGroupKeyword">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/handler/2.0.0/?method=verifyGroupKeyword" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_KeywordBinding" type="tns:WS_KeywordPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="addKeywordNotification">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/keyword/2.0.0/?method=addKeywordNotification" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createKeyword">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/keyword/2.0.0/?method=createKeyword" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteKeyword">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/keyword/2.0.0/?method=deleteKeyword" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getKeywordNotification">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/keyword/2.0.0/?method=getKeywordNotification" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="keywordExists">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/keyword/2.0.0/?method=keywordExists" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="readKeyword">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/keyword/2.0.0/?method=readKeyword" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeKeywordNotification">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/keyword/2.0.0/?method=removeKeywordNotification" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateKeyword">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/keyword/2.0.0/?method=updateKeyword" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_MessageBinding" type="tns:WS_MessagePortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="getCustomTransactionStatus">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/message/2.0.0/?method=getCustomTransactionStatus" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTransactionStatus">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/message/2.0.0/?method=getTransactionStatus" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendMessage">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/message/2.0.0/?method=sendMessage" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendTemplateMessage">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/message/2.0.0/?method=sendTemplateMessage" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_ReportBinding" type="tns:WS_ReportPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="inboundMessages">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/report/2.0.0/?method=inboundMessages" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="keywords">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/report/2.0.0/?method=keywords" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="messagesSent">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/report/2.0.0/?method=messagesSent" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mobileSites">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/report/2.0.0/?method=mobileSites" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="phoneHistory">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/report/2.0.0/?method=phoneHistory" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="subscribers">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/report/2.0.0/?method=subscribers" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_SubscriberBinding" type="tns:WS_SubscriberPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="batchSubscribe">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriber/2.0.0/?method=batchSubscribe" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="batchUnsubscribe">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriber/2.0.0/?method=batchUnsubscribe" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="forceVerificationPin">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriber/2.0.0/?method=forceVerificationPin" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateVerificationPin">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriber/2.0.0/?method=generateVerificationPin" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSubscriber">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriber/2.0.0/?method=getSubscriber" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="subscribe">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriber/2.0.0/?method=subscribe" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="subscriberStatus">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriber/2.0.0/?method=subscriberStatus" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="unsubscribe">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriber/2.0.0/?method=unsubscribe" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="validateVerificationPin">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriber/2.0.0/?method=validateVerificationPin" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_SubscriptionnodeBinding" type="tns:WS_SubscriptionnodePortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="createSubscriptionnode">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriptionnode/2.0.0/?method=createSubscriptionnode" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteSubscriptionnode">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriptionnode/2.0.0/?method=deleteSubscriptionnode" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getActiveSubscribers">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriptionnode/2.0.0/?method=getActiveSubscribers" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllSubscribers">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriptionnode/2.0.0/?method=getAllSubscribers" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDivisionGroups">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriptionnode/2.0.0/?method=getDivisionGroups" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="readSubscriptionnode">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriptionnode/2.0.0/?method=readSubscriptionnode" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="restoreSubscriptionnode">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriptionnode/2.0.0/?method=restoreSubscriptionnode" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateSubscriptionnode">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/subscriptionnode/2.0.0/?method=updateSubscriptionnode" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_TaskBinding" type="tns:WS_TaskPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="authenticationTest">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/task/2.0.0/?method=authenticationTest" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCellularCarrier">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/task/2.0.0/?method=getCellularCarrier" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCellularCarrierId">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/task/2.0.0/?method=getCellularCarrierId" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrganizationTree">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/task/2.0.0/?method=getOrganizationTree" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="test">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/task/2.0.0/?method=test" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_TemplateBinding" type="tns:WS_TemplatePortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="createTemplate">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/template/2.0.0/?method=createTemplate" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteTemplate">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/template/2.0.0/?method=deleteTemplate" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTemplates">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/template/2.0.0/?method=getTemplates" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="readTemplate">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/template/2.0.0/?method=readTemplate" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="restoreTemplate">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/template/2.0.0/?method=restoreTemplate" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateTemplate">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/template/2.0.0/?method=updateTemplate" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_UserBinding" type="tns:WS_UserPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="assignUserAdmin">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/user/2.0.0/?method=assignUserAdmin" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="authenticateUser">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/user/2.0.0/?method=authenticateUser" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createUser">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/user/2.0.0/?method=createUser" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserAdminAccess">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/user/2.0.0/?method=getUserAdminAccess" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="readUser">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/user/2.0.0/?method=readUser" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeUserAdmin">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/user/2.0.0/?method=removeUserAdmin" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUser">
+      <soap:operation soapAction="http://www.txtwire.com/webservices/user/2.0.0/?method=updateUser" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:webservices2_0_0" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WS_Billing">
+    <wsdl:port name="WS_BillingPort" binding="tns:WS_BillingBinding">
+      <soap:address location="http://www.txtwire.com/webservices/billing/2.0.0/" />
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="WS_Company">
+    <wsdl:port name="WS_CompanyPort" binding="tns:WS_CompanyBinding">
+      <soap:address location="http://www.txtwire.com/webservices/company/2.0.0/" />
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="WS_Division">
+    <wsdl:port name="WS_DivisionPort" binding="tns:WS_DivisionBinding">
+      <soap:address location="http://www.txtwire.com/webservices/division/2.0.0/" />
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="WS_Handler">
+    <wsdl:port name="WS_HandlerPort" binding="tns:WS_HandlerBinding">
+      <soap:address location="http://www.txtwire.com/webservices/handler/2.0.0/" />
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="WS_Keyword">
+    <wsdl:port name="WS_KeywordPort" binding="tns:WS_KeywordBinding">
+      <soap:address location="http://www.txtwire.com/webservices/keyword/2.0.0/" />
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="WS_Message">
+    <wsdl:port name="WS_MessagePort" binding="tns:WS_MessageBinding">
+      <soap:address location="http://www.txtwire.com/webservices/message/2.0.0/" />
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="WS_Report">
+    <wsdl:port name="WS_ReportPort" binding="tns:WS_ReportBinding">
+      <soap:address location="http://www.txtwire.com/webservices/report/2.0.0/" />
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="WS_Subscriber">
+    <wsdl:port name="WS_SubscriberPort" binding="tns:WS_SubscriberBinding">
+      <soap:address location="http://www.txtwire.com/webservices/subscriber/2.0.0/" />
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="WS_Subscriptionnode">
+    <wsdl:port name="WS_SubscriptionnodePort" binding="tns:WS_SubscriptionnodeBinding">
+      <soap:address location="http://www.txtwire.com/webservices/subscriptionnode/2.0.0/" />
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="WS_Task">
+    <wsdl:port name="WS_TaskPort" binding="tns:WS_TaskBinding">
+      <soap:address location="http://www.txtwire.com/webservices/task/2.0.0/" />
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="WS_Template">
+    <wsdl:port name="WS_TemplatePort" binding="tns:WS_TemplateBinding">
+      <soap:address location="http://www.txtwire.com/webservices/template/2.0.0/" />
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="WS_User">
+    <wsdl:port name="WS_UserPort" binding="tns:WS_UserBinding">
+      <soap:address location="http://www.txtwire.com/webservices/user/2.0.0/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

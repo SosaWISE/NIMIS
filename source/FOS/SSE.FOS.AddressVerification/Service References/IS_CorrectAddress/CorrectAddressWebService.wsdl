@@ -1,0 +1,1299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.intelligentsearch.com/HostedWebServices/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.intelligentsearch.com/HostedWebServices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.intelligentsearch.com/HostedWebServices/">
+      <s:element name="wsGetAccountInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsGetAccountInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wsGetAccountInfoResult" type="tns:WsAccountInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WsAccountInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SearchesLeft" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="wsGetAccountAccess">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsGetAccountAccessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wsGetAccountAccessResult" type="tns:WsAccountAccess" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WsAccountAccess">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Ca" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Geo" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dpv" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="LACSLink" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="OfficeAddin" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="WebClient" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrentDate" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="wsCreateBatch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="batchname" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsCreateBatchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="wsCreateBatchResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsDeleteBatch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="batchname" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsDeleteBatchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="wsDeleteBatchResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsGetBatchList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsGetBatchListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wsGetBatchListResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="wsGetPS3553form">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="batchname" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsGetPS3553formResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wsGetPS3553formResult" type="tns:WsPS3553" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WsPS3553">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CAdate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Company" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Software" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Configuration" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RecordCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ZipCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AddonCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CRouteCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LOTCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DPCCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LACSCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="EWSCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DPVCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="HDefaultCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="HExactCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RRDefaultCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RRExactCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RDICount" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="wsFindCityState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="zip" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsFindCityStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wsFindCityStateResult" type="tns:ArrayOfWsCityState" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWsCityState">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="WsCityState" nillable="true" type="tns:WsCityState" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="WsCityState">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountyName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SearchLeft" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDesc" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="wsFindCityCounty">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="zip" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsFindCityCountyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wsFindCityCountyResult" type="tns:WsCityCounty" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WsCityCounty">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountyNum" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SearchLeft" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDesc" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="wsFindZipCity">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="state" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsFindZipCityResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wsFindZipCityResult" type="tns:ArrayOfWsZipCity" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWsZipCity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="WsZipCity" nillable="true" type="tns:WsZipCity" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="WsZipCity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SearchLeft" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDesc" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="wsCorrectA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="urbanization" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="delivery_line_1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="delivery_line_2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city_state_zip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ca_codes" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ca_filler" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="batchname" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsCorrectAResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wsCorrectAResult" type="tns:ArrayOfWsCorrectAddress" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWsCorrectAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="WsCorrectAddress" nillable="true" type="tns:WsCorrectAddress" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="WsCorrectAddress">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CorrectAddress" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CorrectAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StreetNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PreDirectional" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetSuffix" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PostDirectional" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SecondaryDesignation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SecondaryNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZipAddon" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Addon" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LOTNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DPCCheckdigit" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecordType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryLine1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryLine2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastLine" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LACS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierRoute" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PMBDesignator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirmRecipient" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Urbanization" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountyNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Filler" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeoTLID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeoMatchFlag" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeoTract" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeoBlock" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeofLat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeotLat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeofLong" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeotLong" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeoAddonEnd" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeoAddonStart" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeoRetCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeoErrCodes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnCodes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorCodes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDesc" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SearchesLeft" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="wsTigerCA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="urbanization" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="delivery_line_1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="delivery_line_2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city_state_zip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ca_codes" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ca_filler" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="batchname" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsTigerCAResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wsTigerCAResult" type="tns:ArrayOfWsCorrectAddress" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsStreetSearch2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="urbanization" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="delivery_line_1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="delivery_line_2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city_state_zip" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsStreetSearch2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wsStreetSearch2Result" type="tns:ArrayOfWsStreetSearch" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWsStreetSearch">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="WsStreetSearch" nillable="true" type="tns:WsStreetSearch" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="WsStreetSearch">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StreetNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PreDirectional" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetSuffix" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PostDirectional" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SecondaryDesignation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SecondaryNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZipAddon" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Addon" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecordType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierRoute" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirmRecipient" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Urbanization" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FinanceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDesc" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SearchesLeft" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Score" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="WsAccountInfo" nillable="true" type="tns:WsAccountInfo" />
+      <s:element name="WsAccountAccess" nillable="true" type="tns:WsAccountAccess" />
+      <s:element name="boolean" type="s:boolean" />
+      <s:element name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
+      <s:element name="WsPS3553" nillable="true" type="tns:WsPS3553" />
+      <s:element name="ArrayOfWsCityState" nillable="true" type="tns:ArrayOfWsCityState" />
+      <s:element name="WsCityCounty" nillable="true" type="tns:WsCityCounty" />
+      <s:element name="ArrayOfWsZipCity" nillable="true" type="tns:ArrayOfWsZipCity" />
+      <s:element name="ArrayOfWsCorrectAddress" nillable="true" type="tns:ArrayOfWsCorrectAddress" />
+      <s:element name="ArrayOfWsStreetSearch" nillable="true" type="tns:ArrayOfWsStreetSearch" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="wsGetAccountInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:wsGetAccountInfo" />
+  </wsdl:message>
+  <wsdl:message name="wsGetAccountInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:wsGetAccountInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsGetAccountAccessSoapIn">
+    <wsdl:part name="parameters" element="tns:wsGetAccountAccess" />
+  </wsdl:message>
+  <wsdl:message name="wsGetAccountAccessSoapOut">
+    <wsdl:part name="parameters" element="tns:wsGetAccountAccessResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsCreateBatchSoapIn">
+    <wsdl:part name="parameters" element="tns:wsCreateBatch" />
+  </wsdl:message>
+  <wsdl:message name="wsCreateBatchSoapOut">
+    <wsdl:part name="parameters" element="tns:wsCreateBatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsDeleteBatchSoapIn">
+    <wsdl:part name="parameters" element="tns:wsDeleteBatch" />
+  </wsdl:message>
+  <wsdl:message name="wsDeleteBatchSoapOut">
+    <wsdl:part name="parameters" element="tns:wsDeleteBatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsGetBatchListSoapIn">
+    <wsdl:part name="parameters" element="tns:wsGetBatchList" />
+  </wsdl:message>
+  <wsdl:message name="wsGetBatchListSoapOut">
+    <wsdl:part name="parameters" element="tns:wsGetBatchListResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsGetPS3553formSoapIn">
+    <wsdl:part name="parameters" element="tns:wsGetPS3553form" />
+  </wsdl:message>
+  <wsdl:message name="wsGetPS3553formSoapOut">
+    <wsdl:part name="parameters" element="tns:wsGetPS3553formResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsFindCityStateSoapIn">
+    <wsdl:part name="parameters" element="tns:wsFindCityState" />
+  </wsdl:message>
+  <wsdl:message name="wsFindCityStateSoapOut">
+    <wsdl:part name="parameters" element="tns:wsFindCityStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsFindCityCountySoapIn">
+    <wsdl:part name="parameters" element="tns:wsFindCityCounty" />
+  </wsdl:message>
+  <wsdl:message name="wsFindCityCountySoapOut">
+    <wsdl:part name="parameters" element="tns:wsFindCityCountyResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsFindZipCitySoapIn">
+    <wsdl:part name="parameters" element="tns:wsFindZipCity" />
+  </wsdl:message>
+  <wsdl:message name="wsFindZipCitySoapOut">
+    <wsdl:part name="parameters" element="tns:wsFindZipCityResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsCorrectASoapIn">
+    <wsdl:part name="parameters" element="tns:wsCorrectA" />
+  </wsdl:message>
+  <wsdl:message name="wsCorrectASoapOut">
+    <wsdl:part name="parameters" element="tns:wsCorrectAResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsTigerCASoapIn">
+    <wsdl:part name="parameters" element="tns:wsTigerCA" />
+  </wsdl:message>
+  <wsdl:message name="wsTigerCASoapOut">
+    <wsdl:part name="parameters" element="tns:wsTigerCAResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsStreetSearch2SoapIn">
+    <wsdl:part name="parameters" element="tns:wsStreetSearch2" />
+  </wsdl:message>
+  <wsdl:message name="wsStreetSearch2SoapOut">
+    <wsdl:part name="parameters" element="tns:wsStreetSearch2Response" />
+  </wsdl:message>
+  <wsdl:message name="wsGetAccountInfoHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsGetAccountInfoHttpGetOut">
+    <wsdl:part name="Body" element="tns:WsAccountInfo" />
+  </wsdl:message>
+  <wsdl:message name="wsGetAccountAccessHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsGetAccountAccessHttpGetOut">
+    <wsdl:part name="Body" element="tns:WsAccountAccess" />
+  </wsdl:message>
+  <wsdl:message name="wsCreateBatchHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="batchname" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsCreateBatchHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="wsDeleteBatchHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="batchname" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsDeleteBatchHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="wsGetBatchListHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsGetBatchListHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="wsGetPS3553formHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="batchname" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsGetPS3553formHttpGetOut">
+    <wsdl:part name="Body" element="tns:WsPS3553" />
+  </wsdl:message>
+  <wsdl:message name="wsFindCityStateHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="zip" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsFindCityStateHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfWsCityState" />
+  </wsdl:message>
+  <wsdl:message name="wsFindCityCountyHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="zip" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsFindCityCountyHttpGetOut">
+    <wsdl:part name="Body" element="tns:WsCityCounty" />
+  </wsdl:message>
+  <wsdl:message name="wsFindZipCityHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="city" type="s:string" />
+    <wsdl:part name="state" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsFindZipCityHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfWsZipCity" />
+  </wsdl:message>
+  <wsdl:message name="wsCorrectAHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="firmname" type="s:string" />
+    <wsdl:part name="urbanization" type="s:string" />
+    <wsdl:part name="delivery_line_1" type="s:string" />
+    <wsdl:part name="delivery_line_2" type="s:string" />
+    <wsdl:part name="city_state_zip" type="s:string" />
+    <wsdl:part name="ca_codes" type="s:string" />
+    <wsdl:part name="ca_filler" type="s:string" />
+    <wsdl:part name="batchname" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsCorrectAHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfWsCorrectAddress" />
+  </wsdl:message>
+  <wsdl:message name="wsTigerCAHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="firmname" type="s:string" />
+    <wsdl:part name="urbanization" type="s:string" />
+    <wsdl:part name="delivery_line_1" type="s:string" />
+    <wsdl:part name="delivery_line_2" type="s:string" />
+    <wsdl:part name="city_state_zip" type="s:string" />
+    <wsdl:part name="ca_codes" type="s:string" />
+    <wsdl:part name="ca_filler" type="s:string" />
+    <wsdl:part name="batchname" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsTigerCAHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfWsCorrectAddress" />
+  </wsdl:message>
+  <wsdl:message name="wsStreetSearch2HttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="firmname" type="s:string" />
+    <wsdl:part name="urbanization" type="s:string" />
+    <wsdl:part name="delivery_line_1" type="s:string" />
+    <wsdl:part name="delivery_line_2" type="s:string" />
+    <wsdl:part name="city_state_zip" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsStreetSearch2HttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfWsStreetSearch" />
+  </wsdl:message>
+  <wsdl:message name="wsGetAccountInfoHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsGetAccountInfoHttpPostOut">
+    <wsdl:part name="Body" element="tns:WsAccountInfo" />
+  </wsdl:message>
+  <wsdl:message name="wsGetAccountAccessHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsGetAccountAccessHttpPostOut">
+    <wsdl:part name="Body" element="tns:WsAccountAccess" />
+  </wsdl:message>
+  <wsdl:message name="wsCreateBatchHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="batchname" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsCreateBatchHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="wsDeleteBatchHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="batchname" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsDeleteBatchHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="wsGetBatchListHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsGetBatchListHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="wsGetPS3553formHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="batchname" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsGetPS3553formHttpPostOut">
+    <wsdl:part name="Body" element="tns:WsPS3553" />
+  </wsdl:message>
+  <wsdl:message name="wsFindCityStateHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="zip" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsFindCityStateHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfWsCityState" />
+  </wsdl:message>
+  <wsdl:message name="wsFindCityCountyHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="zip" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsFindCityCountyHttpPostOut">
+    <wsdl:part name="Body" element="tns:WsCityCounty" />
+  </wsdl:message>
+  <wsdl:message name="wsFindZipCityHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="city" type="s:string" />
+    <wsdl:part name="state" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsFindZipCityHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfWsZipCity" />
+  </wsdl:message>
+  <wsdl:message name="wsCorrectAHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="firmname" type="s:string" />
+    <wsdl:part name="urbanization" type="s:string" />
+    <wsdl:part name="delivery_line_1" type="s:string" />
+    <wsdl:part name="delivery_line_2" type="s:string" />
+    <wsdl:part name="city_state_zip" type="s:string" />
+    <wsdl:part name="ca_codes" type="s:string" />
+    <wsdl:part name="ca_filler" type="s:string" />
+    <wsdl:part name="batchname" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsCorrectAHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfWsCorrectAddress" />
+  </wsdl:message>
+  <wsdl:message name="wsTigerCAHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="firmname" type="s:string" />
+    <wsdl:part name="urbanization" type="s:string" />
+    <wsdl:part name="delivery_line_1" type="s:string" />
+    <wsdl:part name="delivery_line_2" type="s:string" />
+    <wsdl:part name="city_state_zip" type="s:string" />
+    <wsdl:part name="ca_codes" type="s:string" />
+    <wsdl:part name="ca_filler" type="s:string" />
+    <wsdl:part name="batchname" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsTigerCAHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfWsCorrectAddress" />
+  </wsdl:message>
+  <wsdl:message name="wsStreetSearch2HttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="firmname" type="s:string" />
+    <wsdl:part name="urbanization" type="s:string" />
+    <wsdl:part name="delivery_line_1" type="s:string" />
+    <wsdl:part name="delivery_line_2" type="s:string" />
+    <wsdl:part name="city_state_zip" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsStreetSearch2HttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfWsStreetSearch" />
+  </wsdl:message>
+  <wsdl:portType name="CorrectAddressWebServiceSoap">
+    <wsdl:operation name="wsGetAccountInfo">
+      <wsdl:input message="tns:wsGetAccountInfoSoapIn" />
+      <wsdl:output message="tns:wsGetAccountInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsGetAccountAccess">
+      <wsdl:input message="tns:wsGetAccountAccessSoapIn" />
+      <wsdl:output message="tns:wsGetAccountAccessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsCreateBatch">
+      <wsdl:input message="tns:wsCreateBatchSoapIn" />
+      <wsdl:output message="tns:wsCreateBatchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsDeleteBatch">
+      <wsdl:input message="tns:wsDeleteBatchSoapIn" />
+      <wsdl:output message="tns:wsDeleteBatchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsGetBatchList">
+      <wsdl:input message="tns:wsGetBatchListSoapIn" />
+      <wsdl:output message="tns:wsGetBatchListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsGetPS3553form">
+      <wsdl:input message="tns:wsGetPS3553formSoapIn" />
+      <wsdl:output message="tns:wsGetPS3553formSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsFindCityState">
+      <wsdl:input message="tns:wsFindCityStateSoapIn" />
+      <wsdl:output message="tns:wsFindCityStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsFindCityCounty">
+      <wsdl:input message="tns:wsFindCityCountySoapIn" />
+      <wsdl:output message="tns:wsFindCityCountySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsFindZipCity">
+      <wsdl:input message="tns:wsFindZipCitySoapIn" />
+      <wsdl:output message="tns:wsFindZipCitySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsCorrectA">
+      <wsdl:input message="tns:wsCorrectASoapIn" />
+      <wsdl:output message="tns:wsCorrectASoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsTigerCA">
+      <wsdl:input message="tns:wsTigerCASoapIn" />
+      <wsdl:output message="tns:wsTigerCASoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsStreetSearch2">
+      <wsdl:input message="tns:wsStreetSearch2SoapIn" />
+      <wsdl:output message="tns:wsStreetSearch2SoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="CorrectAddressWebServiceHttpGet">
+    <wsdl:operation name="wsGetAccountInfo">
+      <wsdl:input message="tns:wsGetAccountInfoHttpGetIn" />
+      <wsdl:output message="tns:wsGetAccountInfoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsGetAccountAccess">
+      <wsdl:input message="tns:wsGetAccountAccessHttpGetIn" />
+      <wsdl:output message="tns:wsGetAccountAccessHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsCreateBatch">
+      <wsdl:input message="tns:wsCreateBatchHttpGetIn" />
+      <wsdl:output message="tns:wsCreateBatchHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsDeleteBatch">
+      <wsdl:input message="tns:wsDeleteBatchHttpGetIn" />
+      <wsdl:output message="tns:wsDeleteBatchHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsGetBatchList">
+      <wsdl:input message="tns:wsGetBatchListHttpGetIn" />
+      <wsdl:output message="tns:wsGetBatchListHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsGetPS3553form">
+      <wsdl:input message="tns:wsGetPS3553formHttpGetIn" />
+      <wsdl:output message="tns:wsGetPS3553formHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsFindCityState">
+      <wsdl:input message="tns:wsFindCityStateHttpGetIn" />
+      <wsdl:output message="tns:wsFindCityStateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsFindCityCounty">
+      <wsdl:input message="tns:wsFindCityCountyHttpGetIn" />
+      <wsdl:output message="tns:wsFindCityCountyHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsFindZipCity">
+      <wsdl:input message="tns:wsFindZipCityHttpGetIn" />
+      <wsdl:output message="tns:wsFindZipCityHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsCorrectA">
+      <wsdl:input message="tns:wsCorrectAHttpGetIn" />
+      <wsdl:output message="tns:wsCorrectAHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsTigerCA">
+      <wsdl:input message="tns:wsTigerCAHttpGetIn" />
+      <wsdl:output message="tns:wsTigerCAHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsStreetSearch2">
+      <wsdl:input message="tns:wsStreetSearch2HttpGetIn" />
+      <wsdl:output message="tns:wsStreetSearch2HttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="CorrectAddressWebServiceHttpPost">
+    <wsdl:operation name="wsGetAccountInfo">
+      <wsdl:input message="tns:wsGetAccountInfoHttpPostIn" />
+      <wsdl:output message="tns:wsGetAccountInfoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsGetAccountAccess">
+      <wsdl:input message="tns:wsGetAccountAccessHttpPostIn" />
+      <wsdl:output message="tns:wsGetAccountAccessHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsCreateBatch">
+      <wsdl:input message="tns:wsCreateBatchHttpPostIn" />
+      <wsdl:output message="tns:wsCreateBatchHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsDeleteBatch">
+      <wsdl:input message="tns:wsDeleteBatchHttpPostIn" />
+      <wsdl:output message="tns:wsDeleteBatchHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsGetBatchList">
+      <wsdl:input message="tns:wsGetBatchListHttpPostIn" />
+      <wsdl:output message="tns:wsGetBatchListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsGetPS3553form">
+      <wsdl:input message="tns:wsGetPS3553formHttpPostIn" />
+      <wsdl:output message="tns:wsGetPS3553formHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsFindCityState">
+      <wsdl:input message="tns:wsFindCityStateHttpPostIn" />
+      <wsdl:output message="tns:wsFindCityStateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsFindCityCounty">
+      <wsdl:input message="tns:wsFindCityCountyHttpPostIn" />
+      <wsdl:output message="tns:wsFindCityCountyHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsFindZipCity">
+      <wsdl:input message="tns:wsFindZipCityHttpPostIn" />
+      <wsdl:output message="tns:wsFindZipCityHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsCorrectA">
+      <wsdl:input message="tns:wsCorrectAHttpPostIn" />
+      <wsdl:output message="tns:wsCorrectAHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsTigerCA">
+      <wsdl:input message="tns:wsTigerCAHttpPostIn" />
+      <wsdl:output message="tns:wsTigerCAHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsStreetSearch2">
+      <wsdl:input message="tns:wsStreetSearch2HttpPostIn" />
+      <wsdl:output message="tns:wsStreetSearch2HttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CorrectAddressWebServiceSoap" type="tns:CorrectAddressWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="wsGetAccountInfo">
+      <soap:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsGetAccountInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsGetAccountAccess">
+      <soap:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsGetAccountAccess" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsCreateBatch">
+      <soap:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsCreateBatch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsDeleteBatch">
+      <soap:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsDeleteBatch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsGetBatchList">
+      <soap:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsGetBatchList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsGetPS3553form">
+      <soap:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsGetPS3553form" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsFindCityState">
+      <soap:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsFindCityState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsFindCityCounty">
+      <soap:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsFindCityCounty" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsFindZipCity">
+      <soap:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsFindZipCity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsCorrectA">
+      <soap:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsCorrectA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsTigerCA">
+      <soap:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsTigerCA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsStreetSearch2">
+      <soap:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsStreetSearch2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CorrectAddressWebServiceSoap12" type="tns:CorrectAddressWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="wsGetAccountInfo">
+      <soap12:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsGetAccountInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsGetAccountAccess">
+      <soap12:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsGetAccountAccess" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsCreateBatch">
+      <soap12:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsCreateBatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsDeleteBatch">
+      <soap12:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsDeleteBatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsGetBatchList">
+      <soap12:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsGetBatchList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsGetPS3553form">
+      <soap12:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsGetPS3553form" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsFindCityState">
+      <soap12:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsFindCityState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsFindCityCounty">
+      <soap12:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsFindCityCounty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsFindZipCity">
+      <soap12:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsFindZipCity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsCorrectA">
+      <soap12:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsCorrectA" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsTigerCA">
+      <soap12:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsTigerCA" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsStreetSearch2">
+      <soap12:operation soapAction="http://www.intelligentsearch.com/HostedWebServices/wsStreetSearch2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CorrectAddressWebServiceHttpGet" type="tns:CorrectAddressWebServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="wsGetAccountInfo">
+      <http:operation location="/wsGetAccountInfo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsGetAccountAccess">
+      <http:operation location="/wsGetAccountAccess" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsCreateBatch">
+      <http:operation location="/wsCreateBatch" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsDeleteBatch">
+      <http:operation location="/wsDeleteBatch" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsGetBatchList">
+      <http:operation location="/wsGetBatchList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsGetPS3553form">
+      <http:operation location="/wsGetPS3553form" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsFindCityState">
+      <http:operation location="/wsFindCityState" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsFindCityCounty">
+      <http:operation location="/wsFindCityCounty" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsFindZipCity">
+      <http:operation location="/wsFindZipCity" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsCorrectA">
+      <http:operation location="/wsCorrectA" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsTigerCA">
+      <http:operation location="/wsTigerCA" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsStreetSearch2">
+      <http:operation location="/wsStreetSearch2" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CorrectAddressWebServiceHttpPost" type="tns:CorrectAddressWebServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="wsGetAccountInfo">
+      <http:operation location="/wsGetAccountInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsGetAccountAccess">
+      <http:operation location="/wsGetAccountAccess" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsCreateBatch">
+      <http:operation location="/wsCreateBatch" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsDeleteBatch">
+      <http:operation location="/wsDeleteBatch" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsGetBatchList">
+      <http:operation location="/wsGetBatchList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsGetPS3553form">
+      <http:operation location="/wsGetPS3553form" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsFindCityState">
+      <http:operation location="/wsFindCityState" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsFindCityCounty">
+      <http:operation location="/wsFindCityCounty" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsFindZipCity">
+      <http:operation location="/wsFindZipCity" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsCorrectA">
+      <http:operation location="/wsCorrectA" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsTigerCA">
+      <http:operation location="/wsTigerCA" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsStreetSearch2">
+      <http:operation location="/wsStreetSearch2" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CorrectAddressWebService">
+    <wsdl:port name="CorrectAddressWebServiceSoap" binding="tns:CorrectAddressWebServiceSoap">
+      <soap:address location="http://www.intelligentsearch.com/CorrectAddressWS/CorrectAddressWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CorrectAddressWebServiceSoap12" binding="tns:CorrectAddressWebServiceSoap12">
+      <soap12:address location="http://www.intelligentsearch.com/CorrectAddressWS/CorrectAddressWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CorrectAddressWebServiceHttpGet" binding="tns:CorrectAddressWebServiceHttpGet">
+      <http:address location="http://www.intelligentsearch.com/CorrectAddressWS/CorrectAddressWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CorrectAddressWebServiceHttpPost" binding="tns:CorrectAddressWebServiceHttpPost">
+      <http:address location="http://www.intelligentsearch.com/CorrectAddressWS/CorrectAddressWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

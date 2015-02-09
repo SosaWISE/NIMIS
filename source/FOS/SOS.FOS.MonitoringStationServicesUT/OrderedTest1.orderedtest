@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="orderedtest1" storage="c:\codebasesos\trunk\fos\sos.fos.monitoringstationservicesut\orderedtest1.orderedtest" id="effcb9bb-6513-43f1-a5f5-dfd26e18191e" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestLinks>
+    <TestLink id="fa3ad1ce-065e-ad95-0869-f80efab68d25" name="CreateAccountFailure" storage="bin\debug\sos.fos.monitoringstationservicesut.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="8d06fb51-49a4-867e-3bc5-f819fefb4253" name="CreateAccountSuccess" storage="bin\debug\sos.fos.monitoringstationservicesut.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="fbedd146-2f50-f88d-64ca-0a7bfaa97692" name="CreateAccountExisting" storage="bin\debug\sos.fos.monitoringstationservicesut.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>

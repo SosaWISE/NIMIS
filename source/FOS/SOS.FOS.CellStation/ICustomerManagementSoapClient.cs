@@ -1,0 +1,100 @@
+﻿//@NOTE: created interface using "Extract Interface" command on CustomerManagementSoapClient
+using System;
+namespace SOS.FOS.CellStation.AlarmComWebService
+{
+	public interface ICustomerManagementSoapClient
+	{
+		ActivateModemOutput ActivateModem(Authentication Authentication, string modemSerial);
+		AddCustomerLoginOutput AddCustomerLogin(Authentication Authentication, AddCustomerLoginInput input);
+		AddDefaultNotificationsOutput AddDefaultNotifications(Authentication Authentication, AddDefaultNotificationsInput input);
+		AddExistingLoginOutput AddExistingLogins(Authentication Authentication, AddExistingLoginInput input);
+		AddSensorDeviceOutput AddImageSensorDevice(Authentication Authentication, ImageSensorInfo input);
+		AddSensorDeviceOutput AddSensorDevice(Authentication Authentication, AddSensorDeviceInput input);
+		AddSensorDeviceFor2GigOutput AddSensorDeviceFor2Gig(Authentication Authentication, AddSensorDeviceFor2GigInput input);
+		AddSensorGetSensorTypesOutput AddSensorGetSensorTypes(Authentication Authentication, int customerId);
+		AddSensorGetSensorVoiceDescriptorsOutput AddSensorGetSensorVoiceDescriptors(Authentication Authentication, int customerId);
+		AddUserCodeOutput AddUserCode(Authentication Authentication, AddUserCodeInput input);
+		BackupPanelSettingsOutput BackupPanelSettings(Authentication Authentication, BackupPanelSettingsInput input);
+		ChangeServicePlanOutput ChangeServicePlan(Authentication Authentication, int customerId, int newPackageId, AddOnFeatureEnum[] addOnFeatures);
+		CheckPanelSettingsBackupOutput CheckPanelSettingsBackup(Authentication Authentication, CheckPanelSettingsBackupInput input);
+		ConfirmPrimaryEmailOutput ConfirmPrimaryEmail(Authentication Authentication, int customerId, string emailAddress);
+		CreateCustomerOutput CreateCustomer(Authentication Authentication, CreateCustomerInput input);
+		CreateCustomerOutput CreateCustomerForDealer(Authentication Authentication, CreateCustomerInput input, int? dealerId);
+		CreateImageSensorAutoUploadRuleOutput CreateImageSensorAutoUploadRule(Authentication Authentication, int customerId, ImageSensorAutoUploadRule[] rules);
+		CreateNewCustomerWebsiteMessageOutput CreateNewCustomerWebsiteMessage(Authentication Authentication, CreateNewCustomerWebsiteMessageInput input);
+		DeleteCustomerLoginOutput DeleteCustomerLogin(Authentication Authentication, DeleteCustomerLoginInput input);
+		DeleteCustomerWebsiteMessageOutput DeleteCustomerWebsiteMessage(Authentication Authentication, DeleteCustomerWebsiteMessageInput input);
+		DownloadToPanelOutput DownloadToPanel(Authentication Authentication, int customerId, PanelSettingInput[] panelSettings);
+		EditCustomerMasterCodeOutput EditMasterCode(Authentication Authentication, EditCustomerMasterCodeInput input);
+		EditUserCodeOutput EditUserCode(Authentication Authentication, EditUserCodeInput input);
+		TransferAccountOutput[] EmulateTransferAccounts(Authentication Authentication, TransferAccountInput[] inputs);
+		GenerateCustomerLoginTokenOutput GenerateCustomerLoginToken(Authentication Authentication, int customerId);
+		GenerateCustomerLoginTokenOutput GenerateLoginToken(Authentication Authentication, string loginName);
+		GetAllLoginsOutput GetAllLogins(Authentication Authentication, int customerId);
+		GetCustomerEnergyProgramEligibilityOutput GetCustomerEnergyProgramEligibility(Authentication Authentication, EnergyProgramEnum program);
+		CustomerInfo GetCustomerInfo(Authentication Authentication, int customerId);
+		int[] GetCustomerList(Authentication Authentication, bool includeTermed);
+		int[] GetCustomerListByBranchId(Authentication Authentication, int branchId, bool includeTermed);
+		CustomerListWithTroubleConditions[] GetCustomerListWithTroubleConditions(Authentication Authentication, TroubleConditionTypeEnum[] conditions);
+		string GetCustomerListWithTroubleConditionsCsv(Authentication Authentication, TroubleConditionTypeEnum[] conditions);
+		TroubleConditionOutput[] GetCustomerTroubleConditions(Authentication Authentication, int customerId);
+		PanelDevice[] GetDeviceList(Authentication Authentication, int customerId);
+		GetDownloadableSettingsOutput GetDownloadableSettings(Authentication Authentication, int customerId, int deviceId);
+		GetEligibleSensorGroupsOutput GetEligibleSensorGroups(Authentication Authentication, int customerId);
+		GetEligibleSensorNamesOutput GetEligibleSensorNames(Authentication Authentication, int customerId);
+		PanelDevice[] GetFullEquipmentList(Authentication Authentication, int customerId);
+		GetImageSensorInfoOutput GetImageSensorInfo(Authentication Authentication, int customerId, int deviceId);
+		GetLastCsEventDateOutput GetLastCsEventDate(Authentication Authentication, int customerId);
+		GetLastMessageDateOutput GetLastMessageDate(Authentication Authentication, int customerId);
+		GetSecurityQuestionsOutput GetSecurityQuestions(Authentication Authentication, GetSecurityQuestionsInput input);
+		GetSignalStrengthHistoryOutput GetSignalStrengthHistory(Authentication Authentication, int customerId);
+		GetUploadedPanelSettingsOutput GetUploadedPanelSettings(Authentication Authentication, int customerId);
+		InvalidateLoginTokensOutput InvalidateLoginTokens(Authentication Authentication, int customerId, string loginName, string password);
+		bool IsModemActivated(Authentication Authentication, string modemSerial);
+		int LookupCustomerId(Authentication Authentication, string receiverPhoneNumber, string acctNumber);
+		int LookupCustomerIdForDealer(Authentication Authentication, string receiverPhoneNumber, string acctNumber, int dealerId);
+		int LookupCustomerIdFromDealerCustomerId(Authentication Authentication, string dealerCustomerId);
+		int LookupCustomerIdFromModemSerial(Authentication Authentication, string modemSerial);
+		MergeLoginsOutput MergeLogins(Authentication Authentication, MergeLoginsInput input);
+		MergeLoginsByLoginNameOutput MergeLoginsByLoginName(Authentication Authentication, MergeLoginsByLoginNameInput input);
+		RemoveNotificationsOutput[] RemoveNotification(Authentication Authentication, int[] customerId, NotificationRemoval input);
+		RequestFirmwareUpgradeOutput RequestFirmwareUpgrade(Authentication Authentication, int customerId, FirmwareUpgradeEnum newVersion);
+		RequestRoundTripCsTestOutput RequestRoundTripCsTest(Authentication Authentication, int customerId);
+		bool RequestSensorNames(Authentication Authentication, int customerId, bool waitUntilPanelConnects);
+		RequestSignalStrengthOutput RequestSignalStrength(Authentication Authentication, int customerId);
+		RequestUpdatedEquipmentListOutput RequestUpdatedEquipmentList(Authentication Authentication, int customerId, int maxZones);
+		RequestUploadOfPanelSettingsOutput RequestUploadOfPanelSettings(Authentication Authentication, int customerId, int deviceId);
+		RequestZWaveEquipmentListOutput RequestZWaveEquipmentList(Authentication Authentication, int customerId);
+		ResetCustomerPasswordOutput ResetCustomerPassword(Authentication Authentication, ResetCustomerPasswordInput input);
+		RestoreBackedUpPanelSettingsOutput RestoreBackedUpPanelSettings(Authentication Authentication, RestoreBackedUpPanelSettingsInput input);
+		SendEnterpriseNoticeOutput SendEnterpriseNotice(Authentication Authentication, int customerId, int messageId, string[] messageParameters);
+		SetAddonQuantityOutput SetAddOnQuantity(Authentication Authentication, int customerId, AddOnFeatureEnum addOn, int quantity);
+		SetAutoPhoneTestSettingsOutput SetAutoPhoneTestSettings(Authentication Authentication, SetAutoPhoneTestSettingsInput input);
+		SwapModemOutput SwapModem(Authentication Authentication, SwapModemInput input);
+		bool TerminateCustomer(Authentication Authentication, int customerId);
+		TerminateModemOutput TerminateModem(Authentication Authentication, string modemSerial);
+		TransferAccountOutput[] TransferAccounts(Authentication Authentication, TransferAccountInput[] inputs);
+		TurnOffAccessCodeLockOutput TurnOffAccessCodeLock(Authentication Authentication, int customerId, string installerCode);
+		UpdateCameraSettingsOutput UpdateCameraSettings(Authentication Authentication, int customerId, string mac, CameraSettings settings);
+		UpdateCentralStationInfoOutput UpdateCentralStationInfo(Authentication Authentication, int customerId, CentralStationForwardingOptionEnum forwardingOption, bool phoneLinePresent, CentralStationEventGroupEnum[] eventGroupsToForward, string accountNumber, string receiverNumber);
+		UpdateCustomDevicesOutput UpdateCustomDevices(Authentication Authentication, UpdateCustomDevicesInput input);
+		UpdateCustomerAddressOutput UpdateCustomerAddress(Authentication Authentication, UpdateCustomerAddressInput input);
+		UpdateCustomerBranchOutput UpdateCustomerBranch(Authentication Authentication, int customerId, int? destinationBranchId);
+		UpdateCustomerEnergyProgramEnrollmentOutput UpdateCustomerEnergyProgramEnrollment(Authentication Authentication, UpdateCustomerEnergyProgramEnrollmentInput input);
+		UpdateCustomerLoginOutput UpdateCustomerLogin(Authentication Authentication, int customerId, string newLogin);
+		UpdateCustomerPasswordOutput UpdateCustomerPassword(Authentication Authentication, int customerId, string newPassword);
+		UpdateCustomerSecurityQuestionOutput UpdateCustomerSecurityQuestion(Authentication Authentication, UpdateCustomerSecurityQuestionInput input);
+		UpdateDealerCustomerIdOutput UpdateDealerCustomerId(Authentication Authentication, int customerId, string dealerCustomerId);
+		UpdateLoginPasswordOutput UpdateLoginPassword(Authentication Authentication, int customerId, string loginName, string oldPassword, string newPassword);
+		UpdateNotificationsOutput UpdateNotifications(Authentication Authentication, int customerId, NotificationSubscription[] subscriptions);
+		UpdatePrimaryEmailOutput UpdatePrimaryEmail(Authentication Authentication, int customerId, string newEmailAddress);
+		UpdatePrimaryPhoneOutput UpdatePrimaryPhone(Authentication Authentication, int customerId, string newPhone);
+		UpdateRolesOutput UpdateRoles(Authentication Authentication, UpdateRolesInput input);
+		UpdateSensorDeviceOutput UpdateSensorDevice(Authentication Authentication, UpdateSensorDeviceInput input);
+		UpdateUnitDescriptionOutput UpdateUnitDescription(Authentication Authentication, UpdateUnitDescriptionInput input);
+		UpgradeSAVToSecurityAccountOutput UpgradeSAVToSecurityAccount(Authentication Authentication, UpgradeSAVToSecurityAccountInput input);
+		ValidateLoginPasswordOutput ValidateLoginPassword(Authentication Authentication, string loginName, string password);
+	}
+
+	public partial class CustomerManagementSoapClient : ICustomerManagementSoapClient { }
+}

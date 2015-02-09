@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://testblinkws.abarasoftware.com/TU/TransUnionWS.asmx?wsdl" docRef="http://testblinkws.abarasoftware.com/TU/TransUnionWS.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://testblinkws.abarasoftware.com/TU/TransUnionWS.asmx" xmlns:q1="http://blinkws.abarasoftware.com.TU" binding="q1:TransUnionWSSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://testblinkws.abarasoftware.com/TU/TransUnionWS.asmx" xmlns:q2="http://blinkws.abarasoftware.com.TU" binding="q2:TransUnionWSSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

@@ -1,0 +1,28 @@
+<#+
+
+		const string Namespace = "SOS.Data.GpsTracking";
+		const string ConnectionStringName = "GpsTrackingConnString";
+		const string DatabaseName = "GpsTrackingData";
+
+		const string ProviderName = "SosGpsTrackingProvider";
+
+		const string IncludeProcedureList = "^cust*";
+		const string ExcludeProcedureList = "^custFx*";
+
+		const string IncludeTableList = "*";
+		const string ExcludeTableList =
+			@"sysdiagrams,dtproperty,MSreplication_objects,MSreplication_subscriptions"
+			+ ",MSsavedforeignkeycolumns,MSsavedforeignkeyextendedproperties,MSsavedforeignkeys"
+			+ ",MSsnapshotdeliveryprogress,MSsubscription_agents,MSsubscription_properties,^temp$";
+
+		const string RegexReplaceExpression = "";
+		const string RegexMatchExpression = "";
+		const string RegexDictionaryReplace = @"^vw_(.*),$1View;^vw([A-Z]{2})_(.*),$1\_$2View;vw(.*),$1View;^VW_(.*),$1View;^cust([A-Z][A-Z][A-Z]?)_,$1\_;^proc_([A-Z][A-Z][A-Z]?)_,$1\_;^([A-Z][A-Z][A-Z]?)_,$1\_";
+		const bool RegexIgnoreCase = false;
+
+		const string StripText = "^cust_|^cust";
+
+		const string EnumTableList = "";
+		const string MetaDataTableList = "GS_EventTypes,GS_AccountGeoFenceTypes,GS_AccountGeoFenceReportModes,GS_DeviceTypes,LP_CommandTypes,LP_CommandNames,LP_DeviceStatus,LP_EventCodes,LP_AVCFGCodes,SS_CommandMessageNames,SS_CommandMessageTypes";
+
+#>

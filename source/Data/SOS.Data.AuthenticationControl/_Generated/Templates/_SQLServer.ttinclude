@@ -1,0 +1,896 @@
+﻿<#@ include file="_Settings.ttinclude" #>
+<#@ include file="Templates/_Settings.ttinclude" #>
+<#+
+
+		IDataReader GetReader(string sql)
+		{
+			SqlConnection conn = new SqlConnection(ConnectionString);
+			SqlCommand cmd = new SqlCommand(sql, conn);
+			conn.Open();
+			return cmd.ExecuteReader(CommandBehavior.CloseConnection);
+		}
+		SqlCommand GetCommand(string sql)
+		{
+			SqlConnection conn = new SqlConnection(ConnectionString);
+			SqlCommand cmd = new SqlCommand(sql, conn);
+			conn.Open();
+			return cmd;
+		}
+
+		List<SPParam> GetSPParams(string spName)
+		{
+			List<SPParam> result = new List<SPParam>();
+			using (IDataReader rdr = GetSPDataReader(spName)) {
+				while (rdr.Read()) {
+					SPParam par = new SPParam();
+					SetParameter(rdr, par);
+					result.Add(par);
+				}
+				rdr.Close();
+			}
+
+			return result;
+		}
+		DataTable dtParamSql;
+		IDataReader GetSPDataReader(string spName)
+		{
+
+			if (dtParamSql == null) {
+
+				string spParamSqlAll =
+@"SELECT
+	SPECIFIC_SCHEMA AS SPSchema
+	, SPECIFIC_NAME AS SPName
+	, ORDINAL_POSITION AS OrdinalPosition
+	, PARAMETER_MODE AS ParamType
+	, IS_RESULT AS IsResult
+	, PARAMETER_NAME AS Name
+	, DATA_TYPE AS DataType
+	, CHARACTER_MAXIMUM_LENGTH AS DataLength
+	, REPLACE(PARAMETER_NAME, '@', '') AS CleanName
+	, PARAMETER_MODE as [mode]
+	, NUMERIC_PRECISION as NumericPrecision
+	, NUMERIC_SCALE as NumericScale
+FROM INFORMATION_SCHEMA.PARAMETERS";
+
+				using (SqlConnection conn = new SqlConnection(ConnectionString)) {
+
+					conn.Open();
+
+					SqlCommand cmd = new SqlCommand(spParamSqlAll, conn);
+					SqlDataReader reader = cmd.ExecuteReader();
+
+					dtParamSql = new DataTable();
+					dtParamSql.Load(reader);
+
+					conn.Close();
+				}
+			}
+
+			DataView dv = new DataView(dtParamSql)
+			{
+				RowFilter = String.Format("SPName = '{0}'", spName),
+				Sort = "OrdinalPosition"
+			};
+			DataTable dtNew = dv.ToTable();
+			return dtNew.CreateDataReader();
+		}
+		void SetParameter(IDataReader dataReader, SPParam parameter)
+		{
+			string sqlType = dataReader["DataType"].ToString();
+			parameter.DbType = GetDbType(sqlType).ToString();
+			parameter.SysType = GetSysType(sqlType);
+			if (IsNullableDbType(GetDbType(sqlType))) {
+				parameter.SysType += "?";
+			}
+			parameter.Name = dataReader["Name"].ToString();
+			parameter.CleanName = parameter.Name.Replace("@", string.Empty);
+
+			string sMode = dataReader["mode"].ToString();
+			if (sMode == "INOUT") {
+				parameter.Mode = ParameterDirection.InputOutput;
+			}
+			else {
+				parameter.Mode = ParameterDirection.Input;
+			}
+
+			object objPrecision = dataReader["NumericPrecision"];
+			if (objPrecision != null && objPrecision != DBNull.Value) {
+				parameter.Precision = Convert.ToInt32(objPrecision);
+			}
+
+			object objScale = dataReader["NumericScale"];
+			if (objScale != null && objScale != DBNull.Value) {
+				parameter.Scale = Convert.ToInt32(objScale);
+			}
+		}
+		bool IsNullableDbType(DbType dbType)
+		{
+			switch (dbType) {
+				case DbType.AnsiString:
+				case DbType.AnsiStringFixedLength:
+				case DbType.Binary:
+				case DbType.Object:
+				case DbType.String:
+				case DbType.StringFixedLength:
+					return false;
+				default:
+					return true;
+			}
+		}
+		public List<SP> GetSPs()
+		{
+			var result = new List<SP>();
+			//pull the SPs
+
+			DataTable sprocs = null;
+
+			using (SqlConnection conn = new SqlConnection(ConnectionString)) {
+				conn.Open();
+				sprocs = conn.GetSchema("Procedures");
+				conn.Close();
+			}
+
+			foreach (DataRow row in sprocs.Rows) {
+				string spType = row["ROUTINE_TYPE"].ToString();
+				var sp = new SP();
+				sp.Name = row["ROUTINE_NAME"].ToString();
+
+				if (ShouldGenerateSproc(sp.Name)) {
+
+					sp.CleanName = TransformName(sp.Name);
+
+					sp.Parameters = GetSPParams(sp.Name);
+					result.Add(sp);
+				}
+			}
+			return result;
+		}
+
+		public IEnumerable<Table> GetAllTables()
+		{
+			foreach (Table tbl in LoadTables()) {
+				if(tbl.PrimaryKey != null) {
+					yield return tbl;
+				}
+			}
+			foreach (Table tbl in LoadViews()) {
+				yield return tbl;
+			}
+		}
+
+		List<Table> _tables;
+		public List<Table> LoadTables()
+		{
+			if (_tables == null) {
+
+				_tables = new List<Table>();
+
+				#region Sql
+				string sql =
+@"SELECT
+	T.TABLE_CATALOG
+	, T.TABLE_SCHEMA
+	, T.TABLE_NAME
+	, T.TABLE_TYPE
+FROM INFORMATION_SCHEMA.TABLES AS T
+WHERE
+	T.TABLE_TYPE='BASE TABLE'
+ORDER BY
+	T.TABLE_NAME";
+				#endregion //Sql
+
+				using (IDataReader rdr = GetReader(sql)) {
+					while (rdr.Read()) {
+						Table tbl = new Table();
+						tbl.Name = (string)rdr["TABLE_NAME"];
+
+						if (ShouldGenerateTable(tbl.Name)) {
+
+							tbl.Schema = (string)rdr["TABLE_SCHEMA"];
+
+							//set columns below
+
+							tbl.CleanName = TransformName(tbl.Name);
+							tbl.ClassName = Inflector.MakeSingular(tbl.CleanName);
+							tbl.QueryableName = Inflector.MakePlural(tbl.ClassName);
+
+							//set foreign key tables below
+
+							_tables.Add(tbl);
+						}
+					}
+				}
+
+				foreach (Table tbl in _tables) {
+
+					List<Column> columns;
+					if (TableColumnDict.TryGetValue(tbl.Name, out columns)) {
+
+						tbl.Columns = columns;
+
+						Column pkColumn = columns.FirstOrDefault(p => p.IsPK);
+						if (pkColumn != null) {
+							tbl.PrimaryKey = pkColumn.Name;
+							pkColumn.IsPK = true;
+						}
+						else {
+							tbl.PrimaryKey = "";
+						}
+
+						tbl.SingleFKTables = LoadSingleFKTables(tbl.Name);
+						tbl.QueryableFKTables = LoadManyFKTables(tbl.Name);
+
+						tbl.FKTables = LoadFKTables(tbl.Name);
+
+						//loop the FK tables and see if there's a match for our FK columns
+						foreach (Column col in tbl.Columns) {
+							FKTable fkt = tbl.FKTables.FirstOrDefault(
+								x => x.ThisColumn.Equals(col.Name, StringComparison.InvariantCultureIgnoreCase)
+							);
+
+							col.IsForeignKey = !col.IsPK && fkt != null;
+							col.ForeignKeyTableName = (!col.IsPK && fkt != null) ? fkt.OtherTable : "";
+						}
+					}
+					else {
+						throw new Exception(string.Format("No columns for Table: {0}", tbl.Name));
+					}
+
+					if (EnumTables.ContainsKey(tbl.Name)) {
+						//set enum table on table
+						tbl.Enum = GetEnumTable(tbl.Name);
+					}
+
+					// Check to see if this table is a MetaDataTable
+					if (MetaDataTables.ContainsKey(tbl.Name))
+					{
+						// Set MetaData table on table
+						tbl.MetaData = GetMetaDataTable(tbl.Name);
+					}
+				}
+			}
+			return _tables;
+		}
+
+		const string EnumTableSqlFormat = "SELECT * FROM {0}";
+		public EnumTable GetEnumTable(string tableName)
+		{
+			EnumTable result = new EnumTable();
+			result.Values = new Dictionary<string, int>();
+
+			using (IDataReader rdr = GetReader(string.Format(EnumTableSqlFormat, tableName))) {
+
+				string enumName = rdr.GetName(0);
+				result.IDName = enumName;
+				if (enumName.EndsWith("ID", StringComparison.InvariantCultureIgnoreCase)) {
+					enumName = enumName.Substring(0, enumName.Length - 2);
+				}
+				result.EnumName = enumName;
+
+				string baseClassName;
+				Type fType = rdr.GetFieldType(0);
+				if (fType == typeof(int)) {
+					baseClassName = "int";
+				}
+				else if (fType == typeof(short)) {
+					baseClassName = "short";
+				}
+				else if (fType == typeof(long)) {
+					baseClassName = "long";
+				}
+				else {
+					throw new NotSupportedException("Enum type must be int, short or long");
+				}
+				result.BaseClassName = baseClassName;
+
+				while (rdr.Read()) {
+
+					int id = Convert.ToInt32(rdr[0]);
+					string name = (string)rdr[1];
+
+					name = TransformEnumName(name);
+
+					result.Values.Add(name, id);
+				}
+			}
+
+			return result;
+		}
+
+		public MetaDataTable GetMetaDataTable(string szTableName)
+		{
+			// Locals
+			var oResult = new MetaDataTable();
+			oResult.Values = new Dictionary<string, string>();
+
+			// Loop through the result
+			using (IDataReader rdr = GetReader(string.Format(EnumTableSqlFormat, szTableName)))
+			{
+				string szMetaDataName = rdr.GetName(0);
+				oResult.IDName = szMetaDataName;
+				if (szMetaDataName.EndsWith("ID", StringComparison.InvariantCultureIgnoreCase)) {
+					szMetaDataName = szMetaDataName.Substring(0, szMetaDataName.Length - 2);
+				}
+				oResult.MetaDataName = szMetaDataName;
+
+				// Loop through the tables and build the list
+				while(rdr.Read())
+				{
+					// Print to console
+					System.Diagnostics.Debug.WriteLine("What up");
+
+					string szId = (string)rdr[0];
+					string szName = (string)rdr[1];
+					//szName = TransformEnumName(szName);
+
+					// Add to list
+					oResult.Values.Add(szId, szName);
+				}
+			}
+
+			// Return Result
+			return oResult;
+		}
+		public string TransformEnumName(string name)
+		{
+			if (String.IsNullOrEmpty(name))
+				return String.Empty;
+
+			string newName = name;
+			newName = Inflector.ToPascalCase(newName, false);
+			newName = Utility.IsStringNumeric(newName) ? "_" + newName : newName;
+			newName = Utility.StripNonAlphaNumeric(newName);
+			newName = newName.Trim();
+			newName = Utility.KeyWordCheck(newName, String.Empty);
+			return newName;
+		}
+
+		List<Table> _views;
+		public List<Table> LoadViews()
+		{
+			if (_views == null) {
+
+				_views = new List<Table>();
+
+				#region Sql
+				string sql =
+@"SELECT
+	T.TABLE_CATALOG
+	, T.TABLE_SCHEMA
+	, T.TABLE_NAME
+	, T.TABLE_TYPE
+FROM INFORMATION_SCHEMA.TABLES AS T
+WHERE
+	T.TABLE_TYPE='VIEW'
+ORDER BY
+	T.TABLE_NAME";
+				#endregion //Sql
+
+				using (IDataReader rdr = GetReader(sql)) {
+					while (rdr.Read()) {
+						Table tbl = new Table();
+						tbl.Name = (string)rdr["TABLE_NAME"];
+
+						if (ShouldGenerateTable(tbl.Name)) {
+							//if (includeDict.ContainsKey(tbl.Name)) {
+
+							tbl.Schema = (string)rdr["TABLE_SCHEMA"];
+
+							//set columns below
+
+							tbl.CleanName = TransformName(tbl.Name);
+							tbl.ClassName = Inflector.MakeSingular(tbl.CleanName);
+							tbl.QueryableName = Inflector.MakePlural(tbl.ClassName);
+
+							//set foreign key tables below
+
+							_views.Add(tbl);
+						}
+					}
+				}
+
+				foreach (Table tbl in _views) {
+
+					List<Column> columns;
+					if (TableColumnDict.TryGetValue(tbl.Name, out columns)) {
+
+						tbl.Columns = columns;
+
+						Column pkColumn = columns.FirstOrDefault(p => p.IsPK);
+						if (pkColumn != null) {
+							tbl.PrimaryKey = pkColumn.Name;
+							pkColumn.IsPK = true;
+						}
+						else {
+							tbl.PrimaryKey = "";
+						}
+
+						tbl.SingleFKTables = LoadSingleFKTables(tbl.Name);
+						tbl.QueryableFKTables = LoadManyFKTables(tbl.Name);
+
+						tbl.FKTables = LoadFKTables(tbl.Name);
+
+						//loop the FK tables and see if there's a match for our FK columns
+						foreach (Column col in tbl.Columns) {
+							FKTable fkt = tbl.FKTables.FirstOrDefault(
+								x => x.ThisColumn.Equals(col.Name, StringComparison.InvariantCultureIgnoreCase)
+							);
+
+							col.IsForeignKey = !col.IsPK && fkt != null;
+							col.ForeignKeyTableName = (!col.IsPK && fkt != null) ? fkt.OtherTable : "";
+						}
+					}
+					else {
+						throw new Exception(string.Format("No columns for Table: {0}", tbl.Name));
+					}
+				}
+			}
+			return _views;
+		}
+
+		//Key-TableName
+		//Value-List<Column>
+		Dictionary<string, List<Column>> _tableColumnDict;
+		public Dictionary<string, List<Column>> TableColumnDict
+		{
+			get
+			{
+				if (_tableColumnDict == null) {
+					_tableColumnDict = new Dictionary<string, List<Column>>();
+
+					//load
+					var result = new List<Column>();
+
+					#region Sql
+					string sql =
+@"SELECT DISTINCT
+    C.TABLE_NAME AS TableName, 
+    C.TABLE_CATALOG AS [Database],
+    C.TABLE_SCHEMA AS [Owner], 
+    C.COLUMN_NAME AS ColumnName, 
+    C.ORDINAL_POSITION AS OrdinalPosition, 
+    C.COLUMN_DEFAULT AS DefaultSetting, 
+    C.IS_NULLABLE AS IsNullable,
+    C.DATA_TYPE AS DataType, 
+    C.CHARACTER_MAXIMUM_LENGTH AS MaxLength, 
+    C.DATETIME_PRECISION AS DatePrecision,
+    COLUMNPROPERTY(object_id('[' + C.TABLE_SCHEMA + '].[' + C.TABLE_NAME + ']'), C.COLUMN_NAME, 'IsIdentity') AS IsIdentity,
+    COLUMNPROPERTY(object_id('[' + C.TABLE_SCHEMA + '].[' + C.TABLE_NAME + ']'), C.COLUMN_NAME, 'IsComputed') AS IsComputed,
+    PKColumn.IsPK
+FROM INFORMATION_SCHEMA.COLUMNS AS C
+LEFT OUTER JOIN
+(
+	SELECT
+		KCU.COLUMN_NAME AS ColumnName
+		, TC.TABLE_NAME AS TableName
+		, CAST(1 AS BIT) AS IsPK
+	FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KCU
+	JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS TC
+	ON
+		KCU.CONSTRAINT_NAME=TC.CONSTRAINT_NAME
+	WHERE
+		TC.CONSTRAINT_TYPE='PRIMARY KEY'
+) AS PKColumn
+ON
+	(C.COLUMN_NAME = PKColumn.ColumnName)
+	AND (C.TABLE_NAME = PKColumn.TableName)
+ORDER BY
+	TableName,
+	OrdinalPosition ASC";
+					#endregion //Sql
+
+					string currentTableName = null;
+					List<Column> list = null;
+
+					bool canSetPk = true;//only allow one PK per table
+					using (IDataReader rdr = GetReader(sql)) {
+						while (rdr.Read()) {
+
+							string tableName = (string)rdr["TableName"];
+							if (currentTableName != tableName) {
+								currentTableName = tableName;
+								list = new List<Column>();
+								_tableColumnDict.Add(currentTableName, list);
+								canSetPk = true;
+							}
+
+							Column col = new Column();
+							col.Name = (string)rdr["ColumnName"];
+							col.CleanName = TransformName(col.Name);
+							col.DataType = rdr["DataType"].ToString();
+							col.SysType = GetSysType(col.DataType);
+							col.DbType = GetDbType(col.DataType);
+							col.AutoIncrement = Convert.ToBoolean(rdr["IsIdentity"]);
+							object obj = rdr["DefaultSetting"];
+							col.DefaultSetting = Convert.IsDBNull(obj) ? "" : (string)obj;
+							col.IsReadOnly = Convert.ToBoolean(rdr["IsComputed"]);
+							col.IsNullable = rdr["IsNullable"].ToString() == "YES";
+							int.TryParse(rdr["MaxLength"].ToString(), out col.MaxLength);
+							if (canSetPk) {
+								bool.TryParse(rdr["IsPK"].ToString(), out col.IsPK);
+								if (col.IsPK) {
+									canSetPk = false;
+								}
+							}
+
+							//set ColumnAttributeText
+							string columnAttributeTextFormat;
+							string dataTypeText = GetDataTypeText(col.DataType, col.MaxLength, col.IsNullable);
+							if (col.IsPK) {
+								//PK
+								//[Column(Storage="_UserID", AutoSync=AutoSync.OnInsert, DbType="int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+								columnAttributeTextFormat = "[Column(Storage=\"_{0}\", AutoSync=AutoSync.OnInsert, DbType=\"{1} IDENTITY\", IsPrimaryKey=true, IsDbGenerated=true)]";
+							}
+							else if (col.IsComputed) {
+								//Computed
+								//[Column(Storage="_FullName", AutoSync=AutoSync.Always, DbType="nvarchar(101)", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+								columnAttributeTextFormat = "[Column(Storage=\"_{0}\", AutoSync=AutoSync.Always, DbType=\"{1}\", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]";
+							}
+							else {
+								//Other
+								//[Column(Storage="_RecruitedByID", DbType="Int")]
+								columnAttributeTextFormat = "[Column(Storage=\"_{0}\", DbType=\"{1}\")]";
+							}
+							col.ColumnAttributeText = string.Format(columnAttributeTextFormat, col.CleanName, GetDataTypeText(col.DataType, col.MaxLength, col.IsNullable));
+
+							list.Add(col);
+						}
+					}
+				}
+				return _tableColumnDict;
+			}
+		}
+		private string GetDataTypeText(string dataType, int maxLength, bool isNullable)
+		{
+			string notNullableText = isNullable ? "" : " NOT NULL";
+			string maxLengthText = (maxLength == 0) ? "" : "(" + maxLength + ")";
+
+			return string.Format("{0}{1}{2}", dataType, maxLengthText, notNullableText);
+		}
+
+		ForeignKeyRowCollection _foreignKeyRows;
+		public ForeignKeyRowCollection ForeignKeyRows
+		{
+			get
+			{
+				if (_foreignKeyRows == null) {
+
+					//load from db
+
+					_foreignKeyRows = new ForeignKeyRowCollection();
+
+					#region Sql
+					string sql =
+		@"SELECT
+	FK.TABLE_NAME AS ThisTable
+	, KCU.COLUMN_NAME AS ThisColumn
+	
+	, PK.TABLE_NAME AS OtherTable
+	, PT.COLUMN_NAME AS OtherColumn
+	
+	, TC.CONSTRAINT_NAME AS ConstraintName
+	, FK.TABLE_SCHEMA AS [Owner]
+FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS AS TC
+INNER JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS FK
+ON
+	TC.CONSTRAINT_NAME = FK.CONSTRAINT_NAME
+INNER JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS PK
+ON
+	TC.UNIQUE_CONSTRAINT_NAME = PK.CONSTRAINT_NAME
+INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KCU
+ON
+	TC.CONSTRAINT_NAME = KCU.CONSTRAINT_NAME
+INNER JOIN
+(	
+    SELECT
+		TC.TABLE_NAME
+		, KCU.COLUMN_NAME
+    FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS TC
+    INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KCU
+	ON
+		TC.CONSTRAINT_NAME = KCU.CONSTRAINT_NAME
+    WHERE
+		TC.CONSTRAINT_TYPE = 'PRIMARY KEY'
+) AS PT
+ON
+	PK.TABLE_NAME = PT.TABLE_NAME
+ORDER BY
+	ConstraintName";
+					#endregion //Sql
+
+					ForeignKeyRow row;
+					using (IDataReader rdr = GetReader(sql)) {
+
+						while (rdr.Read()) {
+
+							row = new ForeignKeyRow();
+
+							row.ThisTable = (string)rdr["ThisTable"];
+							row.ThisColumn = (string)rdr["ThisColumn"];
+
+							row.OtherTable = (string)rdr["OtherTable"];
+							row.OtherColumn = (string)rdr["OtherColumn"];
+
+							row.ConstraintName = (string)rdr["ConstraintName"];
+							row.Owner = (string)rdr["Owner"];
+
+							_foreignKeyRows.Add(row);
+						}
+					}
+				}
+				return _foreignKeyRows;
+			}
+		}
+
+		public List<FKTable> LoadFKTables(string tableName)
+		{
+			var results = new List<FKTable>();
+
+			foreach (ForeignKeyRow row in ForeignKeyRows) {
+
+				if (string.Compare(row.ThisTable, tableName, StringComparison.InvariantCultureIgnoreCase) == 0
+					|| string.Compare(row.OtherTable, tableName, StringComparison.InvariantCultureIgnoreCase) == 0) {
+
+					FKTable fk = new FKTable();
+
+					if (tableName.ToLower() == row.ThisTable.ToLower()) {
+
+						fk.ThisTable = row.ThisTable;
+						fk.ThisColumn = row.ThisColumn;
+
+						fk.OtherTable = row.OtherTable;
+						fk.OtherColumn = row.OtherColumn;
+					}
+					else {
+
+						fk.ThisTable = row.OtherTable;
+						fk.ThisColumn = row.OtherColumn;
+
+						fk.OtherTable = row.ThisTable;
+						fk.OtherColumn = row.ThisColumn;
+					}
+
+					fk.OtherClass = Inflector.MakeSingular(TransformName(fk.OtherTable));
+					fk.OtherQueryable = Inflector.MakePlural(fk.OtherClass);
+
+					fk.PropName = fk.OtherQueryable;
+
+					fk.ConstraintName = row.ConstraintName;
+
+					results.Add(fk);
+				}
+			}
+
+			return results;
+		}
+
+		public List<FKTable> LoadSingleFKTables(string tableName)
+		{
+			var results = new List<FKTable>();
+
+			var rowCollection = ForeignKeyRows.Where(a =>
+				(string.Compare(a.ThisTable, tableName, StringComparison.InvariantCultureIgnoreCase) == 0)
+				//&& (string.Compare(a.OtherTable, tableName, StringComparison.InvariantCultureIgnoreCase) != 0)//Don't match ThisTable-these are handled by many foreign keys
+			);
+
+			//Dictionary<string, int> propNameCount = new Dictionary<string, int>();
+			Dictionary<string, string> thisColumnUsed = new Dictionary<string, string>();
+			foreach (ForeignKeyRow row in rowCollection) {
+
+				if (!thisColumnUsed.ContainsKey(row.ThisColumn)) {
+					thisColumnUsed.Add(row.ThisColumn, row.ThisColumn);
+
+					FKTable fk = new FKTable();
+
+					fk.ThisTable = row.ThisTable;
+					fk.ThisColumn = row.ThisColumn;
+
+					fk.OtherTable = row.OtherTable;
+					fk.OtherColumn = row.OtherColumn;
+
+					fk.OtherClass = Inflector.MakeSingular(TransformName(fk.OtherTable));
+					fk.OtherQueryable = Inflector.MakePlural(Inflector.MakeSingular(TransformName(fk.ThisTable)));
+
+					//remove ID or add Value
+					if (fk.ThisColumn.EndsWith("ID", StringComparison.InvariantCultureIgnoreCase)) {
+						fk.PropName = fk.ThisColumn.Substring(0, fk.ThisColumn.Length - 2);
+					}
+					else {
+						fk.PropName = fk.ThisColumn + "Value";
+					}
+
+					if (string.Compare(fk.ThisTable, fk.OtherTable, StringComparison.InvariantCultureIgnoreCase) == 0) {
+						fk.OtherQueryable = "Child" + fk.OtherQueryable;
+					}
+
+					////don't allow duplicate prop names
+					//if (!propNameCount.ContainsKey(fk.PropName)) {
+					//    propNameCount.Add(fk.PropName, 1);
+					//}
+					//else {
+					//    propNameCount[fk.PropName]++;
+					//    fk.PropName += propNameCount[fk.PropName].ToString().PadLeft(2, '0');
+					//}
+
+					fk.ConstraintName = row.ConstraintName;
+
+					results.Add(fk);
+				}
+			}
+
+			return results;
+		}
+
+		public List<FKTable> LoadManyFKTables(string tableName)
+		{
+			var results = new List<FKTable>();
+
+			var rowCollection = ForeignKeyRows.Where(a =>
+				(string.Compare(a.OtherTable, tableName, StringComparison.InvariantCultureIgnoreCase) == 0));
+
+			Dictionary<string, int> propNameCount = new Dictionary<string, int>();
+			foreach (ForeignKeyRow row in rowCollection) {
+
+				FKTable fk = new FKTable();
+
+				fk.ThisTable = row.OtherTable;
+				fk.ThisColumn = row.OtherColumn;
+
+				fk.OtherTable = row.ThisTable;
+				fk.OtherColumn = row.ThisColumn;
+
+				fk.OtherClass = Inflector.MakeSingular(TransformName(fk.OtherTable));
+				fk.OtherQueryable = Inflector.MakePlural(fk.OtherClass);
+
+				fk.PropName = fk.OtherQueryable;
+				////remove ID or add Values
+				//if (fk.ThisColumn.EndsWith("ID", StringComparison.InvariantCultureIgnoreCase)) {
+				//    fk.PropName = Inflector.MakePlural(fk.ThisColumn.Substring(0, fk.ThisColumn.Length - 2));
+				//}
+				//else {
+				//    fk.PropName = fk.ThisColumn + "Values";
+				//}
+
+				if (string.Compare(fk.ThisTable, fk.OtherTable, StringComparison.InvariantCultureIgnoreCase) == 0) {
+					fk.PropName = "Child" + fk.PropName;
+				}
+
+				//don't allow duplicate prop names
+				if (!propNameCount.ContainsKey(fk.PropName)) {
+					propNameCount.Add(fk.PropName, 1);
+				}
+				else {
+					propNameCount[fk.PropName]++;
+					fk.PropName += propNameCount[fk.PropName].ToString().PadLeft(2, '0');
+				}
+
+				fk.ConstraintName = row.ConstraintName;
+
+				results.Add(fk);
+			}
+
+			return results;
+		}
+
+		public class ForeignKeyRowCollection : List<ForeignKeyRow>
+		{
+		}
+		public class ForeignKeyRow
+		{
+			public string ThisTable { get; set; }
+			public string ThisColumn { get; set; }
+
+			public string OtherTable { get; set; }
+			public string OtherColumn { get; set; }
+
+			public string ConstraintName { get; set; }
+			public string Owner { get; set; }
+		}
+
+		string GetSysType(string sqlType)
+		{
+			string sysType = "string";
+			switch (sqlType) {
+				case "bigint":
+					sysType = "long";
+					break;
+				case "smallint":
+					sysType = "short";
+					break;
+				case "int":
+					sysType = "int";
+					break;
+				case "uniqueidentifier":
+					sysType = "Guid";
+					break;
+				case "smalldatetime":
+				case "datetime":
+					sysType = "DateTime";
+					break;
+				case "float":
+					sysType = "double";
+					break;
+				case "real":
+				case "numeric":
+				case "smallmoney":
+				case "decimal":
+				case "money":
+					sysType = "decimal";
+					break;
+				case "tinyint":
+					sysType = "byte";
+					break;
+				case "bit":
+					sysType = "bool";
+					break;
+				case "image":
+				case "binary":
+				case "varbinary":
+					sysType = "byte[]";
+					break;
+			}
+			return sysType;
+		}
+		DbType GetDbType(string sqlType)
+		{
+			switch (sqlType) {
+				case "varchar":
+					return DbType.AnsiString;
+				case "nvarchar":
+					return DbType.String;
+				case "int":
+					return DbType.Int32;
+				case "uniqueidentifier":
+					return DbType.Guid;
+				case "datetime":
+					return DbType.DateTime;
+				case "bigint":
+					return DbType.Int64;
+				case "binary":
+					return DbType.Binary;
+				case "bit":
+					return DbType.Boolean;
+				case "char":
+					return DbType.AnsiStringFixedLength;
+				case "decimal":
+					return DbType.Decimal;
+				case "float":
+					return DbType.Double;
+				case "image":
+					return DbType.Binary;
+				case "money":
+					return DbType.Currency;
+				case "nchar":
+					return DbType.String;
+				case "ntext":
+					return DbType.String;
+				case "numeric":
+					return DbType.Decimal;
+				case "real":
+					return DbType.Single;
+				case "smalldatetime":
+					return DbType.DateTime;
+				case "smallint":
+					return DbType.Int16;
+				case "smallmoney":
+					return DbType.Currency;
+				case "sql_variant":
+					return DbType.String;
+				case "sysname":
+					return DbType.String;
+				case "text":
+					return DbType.AnsiString;
+				case "timestamp":
+					return DbType.Binary;
+				case "tinyint":
+					return DbType.Byte;
+				case "varbinary":
+					return DbType.Binary;
+				default:
+					return DbType.AnsiString;
+			}
+		}
+
+
+#>

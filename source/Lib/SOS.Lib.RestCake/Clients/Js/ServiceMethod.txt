@@ -1,0 +1,15 @@
+﻿	,
+	<#= MethodName #><#= jsonp #>: function (<#= MethodArgs #>successCallback, callbackScope)
+	{
+		callbackScope = callbackScope || null;
+		var dataArg = <#= DataArg #>;
+		var xhr = this._client.invoke(<#= MethodUrl #>, 
+			"<#= HttpVerb #>", 
+			dataArg, 
+			successCallback, 
+			callbackScope, 
+			<#= IsWrappedResponse #>, 
+			<#= isJsonp #>,
+			"<#= responseMimeType #>");
+		return xhr;
+	}

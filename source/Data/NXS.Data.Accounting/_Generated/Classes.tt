@@ -1,0 +1,3 @@
+﻿<#@ template debug="False" hostspecific="True"  #>
+<#@ output extension=".cs" #>
+<#@ include file="Templates/Classes.tt" #>

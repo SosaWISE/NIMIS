@@ -1,0 +1,29 @@
+﻿<#@ include file="Templates/_SQLServer.ttinclude" #>
+<#
+	var sps = GetSPs(); 
+	if(sps.Count>0){ 
+#>
+using System;
+using System.Data;
+using SubSonic;
+using SubSonic.Utilities;
+
+namespace <#=Namespace#> {
+	public partial class <#=DatabaseName#>StoredProcedureManager {
+<#  foreach(var sp in sps){#>
+		public static StoredProcedure <#=sp.CleanName#>(<#=sp.ArgList#>) {
+			StoredProcedure sp = new StoredProcedure("<#=sp.Name#>" ,DataService.GetInstance("<#=ProviderName#>"));
+<#      foreach(var par in sp.Parameters){#>
+			<# if(par.Mode == ParameterDirection.InputOutput)
+				{#>
+sp.Command.AddOutputParameter("<#=par.Name#>", DbType.<#=par.DbType#>);
+<#	}else{#>
+sp.Command.AddParameter("<#=par.Name#>", <#=par.CleanName#>, DbType.<#=par.DbType#>);
+<#}#>
+<#}#>
+			return sp;
+		}
+<#}#>
+	}
+}
+<#}#> 

@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="NXS.Framework.Wpf.Controls.ImageButton"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:ctrls="clr-namespace:NXS.Framework.Wpf.Controls"
+			 x:Name="asdf">
+	<Grid ShowGridLines="True">
+		<Border x:Name="border"
+				Grid.Column="0"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<StackPanel x:Name="securityShield"
+							Grid.Column="0"
+							Margin="0,0,3,0"
+							Visibility="Collapsed">
+					<ctrls:Bitmap HorizontalAlignment="Left"
+								  VerticalAlignment="Center"
+								  Width="13"
+								  Height="16"
+								  Source="../Themes/GenericAssets/SecurityShield.png" />
+				</StackPanel>
+				<ctrls:Bitmap x:Name="bmpIcon"
+							  Grid.Column="1"
+							  HorizontalAlignment="Left"
+							  VerticalAlignment="Center" />
+				<TextBlock x:Name="tbText"
+						   Grid.Column="2"
+						   Margin="5,0,0,0"
+						   TextDecorations="Underline" />
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>

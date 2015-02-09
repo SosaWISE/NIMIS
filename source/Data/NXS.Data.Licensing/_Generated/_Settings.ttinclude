@@ -1,0 +1,29 @@
+<#+
+
+		const string Namespace = "NXS.Data.Licensing";
+		const string ConnectionStringName = "LicensingConnString";
+		const string DatabaseName = "LicensingData";
+
+		const string ProviderName = "LicensingProvider";
+
+		const string IncludeProcedureList = "^cust*";
+		const string ExcludeProcedureList = "^custFx*";
+
+		const string IncludeTableList = "*";
+		const string ExcludeTableList =
+			@"sysdiagrams,dtproperty,MSreplication_objects,MSreplication_subscriptions"
+			+ ",MSsavedforeignkeycolumns,MSsavedforeignkeyextendedproperties,MSsavedforeignkeys"
+			+ ",MSsnapshotdeliveryprogress,MSsubscription_agents,MSsubscription_properties,^temp$";
+
+		const string RegexReplaceExpression = "";
+		const string RegexMatchExpression = "";
+		const string RegexDictionaryReplace = @"^vw_(.*),$1View;^vw([A-Z]{2})_(.*),$1\_$2View;vw(.*),$1View;^VW_(.*),$1View;^cust([A-Z][A-Z][A-Z]?)_,$1\_;^proc_([A-Z][A-Z][A-Z]?)_,$1\_;^([A-Z][A-Z][A-Z]?)_,$1\_";
+		const bool RegexIgnoreCase = false;
+
+		const string StripText = "^cust_|^cust";
+
+		const string EnumTableList = "LM_RequirementTypes,LM_NoteTypes,LM_Locks";
+		const string MetaDataTableList = "";
+
+
+#>
