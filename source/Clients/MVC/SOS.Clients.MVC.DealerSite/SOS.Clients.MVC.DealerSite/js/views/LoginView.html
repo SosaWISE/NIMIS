@@ -1,0 +1,58 @@
+<!-- TemplateId: raw LoginView.html -->
+<div id="login-dialog" class="modal-dialog" style="height: 300px">
+	<div class="modal-hdr"><a id="login-form-close" class="modal-close btn btn-close-x"><img src="/img/modal_hdr_btn_close.png" alt="X" /></a></div>
+	<div style="padding-left: 25px; padding-top:7px; padding-right: 17px;"><img src="/img/logo.png" alt="Freedom SOS" alt="Freedom SOS" />
+		<div style="float: right;" class="dealerFld">Session ID: <strong>{SessionId}</strong></div>
+	</div>
+	<div class="modal-drape">
+		<div class="input-form">
+        	<table class="form-hdr" style="width:100%;">
+				<thead class="tbl-head">
+					<tr>
+						<th>Enter Credentials</th>
+						<th style="color:red;">*(Required)</th>
+						<th></th>
+					</tr>
+					<tr>
+						<th colspan="3"><div style="background:white;padding:0;width: 305px;height:1px;margin: -10px 0;"></div></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><div class="dealerFld">Dealer ID: <span style="color:red">*</span></div></td>
+						<td><div class="dealerFld">Username: <span style="color:red">*</span></div></td>
+					</tr>
+					<tr>
+						<td><input type="text" id="dealerId" class="nmlField" maxlength="20"></td>
+						<td colspan="2"><input type="text" id="username" class="nmlFieldExLarge nmlField" maxlength="20"></td>
+					</tr>
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:300px;height:5px;margin:0;"></div></td>
+					</tr>
+					<tr>
+						<td><div class="dealerFld">Password: <span style="color:red">*</span></div></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><input type="password" id="password" class="nmlField" maxlength="20"></td>
+						<td colspan="2"></td>
+					</tr>
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:300px;height:5px;margin:0;"></div></td>
+					</tr>
+					<tr>
+						<td colspan="2">Forgot Password</td>
+						<td style="text-align:right;padding-right:10px"><img id="imgLogin" class="btn-submit" style="vertical-align: middle;" src="/img/icon_submit32x31.png" alt="submit" />
+							<span style="display:inline-block; vertical-align:middle"><a id="aLoginSubmit" class="btn-submit">SUBMIT</a></span></td>
+					</tr>
+				</tbody>
+        	</table>
+        </div>
+	</div>
+
+	<!---->
+	<!---->
+	<!--<input type="text" id="username" maxlength="50">-->
+	<!--<div class="dealerFld">Password:</div>-->
+	<!--<input type="password" id="password" maxlength="20">-->
+</div>

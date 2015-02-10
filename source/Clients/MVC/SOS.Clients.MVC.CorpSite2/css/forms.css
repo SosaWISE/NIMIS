@@ -1,0 +1,53 @@
+input[type="text"],input[type=password],textarea{font-family:Arial, Helvetica, sans-serif;color:#828387;font-size:1em;vertical-align:middle;font-weight:normal;padding:6px 9px;margin:0;background:#f7f7f7;border:1px solid #dfdac9;outline:none;width:290px;}
+
+#search input[type="text"]{margin-bottom:25px;}
+
+fieldset{border:none;padding:0;margin:0;}
+/* Contact form */
+#contact-form{position:relative;vertical-align:top;color:#828282;}
+#contact-form .success{position:absolute;bottom:100%;left:0;display:none;font-weight:bold;color: #CF0C0D;}
+#contact-form .failure{position:absolute;bottom:100%;left:0;display:none;font-weight:bold;color: #CF0C0D;}
+		#contact-form label{padding:0 0 10px;display:block;position:relative;margin:0;}
+			#contact-form .message{padding-bottom:25px}
+			#contact-form textarea{height:126px;overflow:auto;resize:vertical;}
+			#contact-form .error,#contact-form .empty{color:#f00;display:none;position:absolute;top:-2px;right:0;font-size:12px;line-height:1.2em;}
+		#contact-form .btns a {margin-right:27px;}
+
+/* enroll form */
+#enroll-form{position:relative;vertical-align:top;color:#828282;}
+#enroll-form .success{position:absolute;bottom:100%;left:0;display:none;font-weight:bold;color: #CF0C0D;}
+#enroll-form .failure{position:absolute;bottom:100%;left:0;display:none;font-weight:bold;color: #CF0C0D;}
+		#enroll-form label{padding:0 0 10px;display:block;position:relative;margin:0;}
+			#enroll-form .message{padding-bottom:25px}
+			#enroll-form textarea{height:126px;overflow:auto;resize:vertical;}
+			#enroll-form .error,#enroll-form .empty{color:#f00;display:none;position:absolute;top:-2px;right:0;font-size:12px;line-height:1.2em;}
+		#enroll-form .btns a{margin-right:27px;}
+		
+/* Newsletter-form */
+#newsletter-alt-form{position:relative;}
+#newsletter-alt-form fieldset{border:none}
+#newsletter-alt-form label,#newsletter-form label{display:inline-block;vertical-align:middle;position:relative;}
+#newsletter-alt-form .success,#newsletter-form .success{position:absolute;bottom:100%;left:0;display:none;font-weight:bold;}
+#newsletter-alt-form input[type=text]{width:215px;margin-right:12px;}
+#newsletter-alt-form .error,#newsletter-alt-form .empty,#newsletter-form .error,#newsletter-form .empty{color:#f00;display:none;position:absolute;top:100%;left:0;font-size:12px;line-height:1.2em;}
+#newsletter-alt-form a{vertical-align:middle;}
+
+/** Lead form */
+#lead-form{position:relative;vertical-align:top;color:#828282;}
+#lead-form .success{position:absolute;bottom:100%;left:0;display:none;font-weight:bold;color: #CF0C0D;}
+#lead-form .failure{position:absolute;bottom:100%;left:0;display:none;font-weight:bold;color: #CF0C0D;}
+#lead-form label{padding:0 0 10px;display:block;position:relative;margin:0;}
+#lead-form .message{padding-bottom:25px}
+#lead-form textarea{height:126px;overflow:auto;resize:vertical;}
+#lead-form .error,#lead-form .empty{color:#f00;display:none;position:absolute;top:-2px;right:0;font-size:12px;line-height:1.2em;}
+#lead-form .btns a {margin-right:27px;}
+
+/** Dealer form */
+#careers-form{position:relative;vertical-align:top;color:#828282;}
+#careers-form .success{position:absolute;bottom:100%;left:0;display:none;font-weight:bold;color: #CF0C0D;}
+#careers-form .failure{position:absolute;bottom:100%;left:0;display:none;font-weight:bold;color: #CF0C0D;}
+#careers-form label{padding:0 0 10px;display:block;position:relative;margin:0;}
+#careers-form .message{padding-bottom:25px}
+#careers-form textarea{height:126px;overflow:auto;resize:vertical;}
+#careers-form .error,#careers-form .empty{color:#f00;display:none;position:absolute;top:-2px;right:0;font-size:12px;line-height:1.2em;}
+#careers-form .btns a {margin-right:27px;}

@@ -1,0 +1,10 @@
+*+html{overflow:auto;}
+.layouts-nav li a,dl.def-list dt span,#constuction-box,#intro-box,header .links li a span,.jcarousel-next-horizontal,.jcarousel-prev-horizontal{behavior:url(js/PIE.htc)}
+#text_slider div{background:none !important}
+#advanced ul li.trigger_adv > span,dl#accordion dt,.dropcap,.cs-buttons a,.list-1 li span{behavior:url(js/PIE.htc);position:relative}
+div.caption{background:url(../images/body-tail.png) 50% -147px repeat-x #fff;}
+.kwicks li{filter:alpha(opacity=50)}
+.kwicks li.active{filter:alpha(opacity=100)}
+#coin-slider .banner{background:url(../images/banner-bg.jpg) 0 91px no-repeat;}
+.jcarousel-next-horizontal span:first-child+span,.jcarousel-prev-horizontal span:first-child+span{filter:alpha(opacity=0)}
+table thead th{filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#d6cebc', EndColorStr='#cac0a8');}

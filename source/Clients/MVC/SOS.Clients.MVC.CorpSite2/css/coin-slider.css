@@ -1,0 +1,21 @@
+#coin-slider {margin:0 0 0 333px;width:751px;height:445px;background:url(../images/loader.gif) 50% 50% no-repeat;position:relative;}
+#coin-slider img{display:none;}
+#coin-slider img.first{display:block;}
+#coin-slider .banner{position:absolute;left:-333px;top:0;width:460px;height:100%;overflow:hidden;z-index:2;background-color:transparent}
+#coin-slider .banner strong{display:block;position:absolute;overflow:hidden;font-weight:normal;line-height:1.2em;left:0;}
+#coin-slider .banner strong:first-child{color:#cf0c0d;font-size:70px;text-transform:uppercase;top:-84px;}
+#coin-slider .banner strong:first-child+strong{color:#2e2c2b;font-size:50px;letter-spacing:-1px;top:140px;left:-460px}
+#coin-slider .banner strong:first-child+strong+strong{color:#969696;font-size:26px;bottom:-31px;}
+.coin-slider {
+	position: relative;
+	overflow:hidden;
+	margin:0 auto;width:950px;
+}
+.coin-slider a { text-decoration: none; outline: none; border: none; }
+.cs-prev {background:url(../images/prev.png) 0 0 no-repeat; width:28px; height:41px;}
+.cs-next {background:url(../images/next.png) 0 0 no-repeat; width:28px; height:41px;}
+#coin-slider .banner p{margin-bottom:38px;position:relative;padding-top:70px;}
+.cs-buttons {position:absolute;font-size:0;line-height:0;overflow:hidden;bottom:8px;right:-2px;}
+.cs-buttons a {display:inline-block;background:#f7f7f7;width:11px;height:11px;margin:0 2px 0 0;font-size:0;line-height:0;overflow:hidden;border-radius:6px;border:1px solid #d4cab1;}
+.cs-buttons a.cs-active, .cs-buttons a:hover {background:#cf0c0d;}
+.cs-buttons a.cs-active{cursor:default;}

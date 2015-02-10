@@ -1,0 +1,170 @@
+input[type="text"],input[type=password],textarea
+{
+	font-family:Arial, Helvetica, sans-serif;
+	color:#828387;
+	font-size:1em;
+	vertical-align:middle;
+	font-weight:normal;
+	padding:6px 9px;
+	margin:0;
+	background:#f7f7f7;
+	border:1px solid #dfdac9;
+	outline:none;
+	width:290px;
+}
+input[type="text"].nmlField,input[type=password].nmlField,textarea.nmlField {
+	font-family:Arial, Helvetica, sans-serif;
+	color:#828387;
+	font-size:1em;
+	vertical-align:middle;
+	font-weight:normal;
+	padding:2px 0 0 2px;
+	margin:0;
+	background:#f7f7f7;
+	border:1px solid transparent;
+	outline:none;
+	width: 90px;
+}
+input[type="text"].nmlFieldShort{width:20px;}
+input[type="text"].nmlFieldMedium{width:100px;}
+input[type="text"].nmlFieldLarge{width:150px;}
+input[type="text"].nmlFieldExLarge{width:190px;}
+input[type="text"].nmlFieldMegLrge{width:305px;}
+input[type="text"].nmlFieldMaxLrge{width:100%;}
+
+select.nmlField {
+	font-family:Arial, Helvetica, sans-serif;
+	color:#828387;
+	font-size:1em;
+	vertical-align:middle;
+	font-weight:normal;
+	background:#f7f7f7;
+	border:1px solid transparent;
+	outline:none;
+	width: 195px;
+}
+
+input[type="text"].nmlFieldDisabled, select.nmlFieldDisabled {
+	background-color: #DEEBF1;
+}
+
+div.dealerFld, span.dealerFld {
+	color: #04385C;
+}
+
+/** Resizable textarea. */
+.ui-resizable-se {
+	bottom: 17px;
+}
+
+a.btn-submit {
+	color: #04385C;
+	text-decoration: none;
+	vertical-align: middle;
+}
+
+a.btn-submit:hover {
+	text-decoration: underline;
+}
+img.btn-submit {
+	cursor: default;
+}
+img.btn-submit:hover {
+	cursor: pointer;
+}
+
+#search input[type="text"]{margin-bottom:25px;}
+
+/** START JQuery auto complete */
+.ui-combobox {
+	position: relative;
+	display: inline-block;
+}
+.ui-button {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin-left: -1px;
+	padding: 0;
+	/* adjust styles for IE 6/7 */
+	*height: 1.7em;
+	*top: 0.1em;
+}
+.ui-autocomplete-input {
+	margin: 0;
+	padding: 0.3em;
+}
+.ui-button.ui-widget.ui-state-default.ui-button-icon-only.ui-corner-right.ui-button-icon {
+	height: 25px;
+}
+/** END   JQuery auto complete */
+
+fieldset{border:none;padding:0;margin:0;}
+/* Contact form */
+#contact-form{position:relative;vertical-align:top;color:#828282;}
+#contact-form .success{position:absolute;bottom:100%;left:0;display:none;font-weight:bold;}
+		#contact-form label{padding:0 0 10px;display:block;position:relative;margin:0;}
+			#contact-form .message{padding-bottom:25px}
+			#contact-form textarea{height:126px;overflow:auto;resize:vertical;}
+			#contact-form .error,#contact-form .empty{color:#f00;display:none;position:absolute;top:-2px;right:0;font-size:12px;line-height:1.2em;}
+		#contact-form .btns a{margin-right:27px;}
+		
+/* Newsletter-form */
+#newsletter-alt-form{position:relative;}
+#newsletter-alt-form fieldset{border:none}
+#newsletter-alt-form label,#newsletter-form label{display:inline-block;vertical-align:middle;position:relative;}
+#newsletter-alt-form .success,#newsletter-form .success{position:absolute;bottom:100%;left:0;display:none;font-weight:bold;}
+#newsletter-alt-form input[type=text]{width:215px;margin-right:12px;}
+#newsletter-alt-form .error,#newsletter-alt-form .empty,#newsletter-form .error,#newsletter-form .empty{color:#f00;display:none;position:absolute;top:100%;left:0;font-size:12px;line-height:1.2em;}
+#newsletter-alt-form a{vertical-align:middle;}
+
+/** General Message Modal Dialog. */
+#general-message, #confirm-message {
+	/*background-color: #04385C;*/
+	background-color: #000;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	padding: 10px;
+}
+#confirm-message {
+	min-width: 560px;
+}
+h1.popup-title {
+	font-size: 28px;
+	margin: 13px 0 20px 0;
+	line-height: 1.2em;
+	font-weight: normal;
+	letter-spacing: 0px;
+	color: #70badc;
+}
+div.message-body {
+	color: #ffffff;
+}
+div#general-message.error-modal div.modal-main h1.popup-title {
+	color: #70badc;
+	line-height: 1.2em;
+	margin: 0 0 0 60px;
+	font-size: 24px;
+}
+div#general-message.error-modal div.modal-main div.message-body {
+	color: #E6E6E6;
+	padding: 5px 0 10px 60px;
+}
+
+#general-message.error-modal div.modal-main div.error-code ul {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	color: #fff;
+	text-indent: 5px;
+	list-style-position: outside;
+	list-style-image: url(/img/list1-marker.gif);
+	padding-left: 15px;
+}
+
+img.img-btn:hover {
+	cursor: pointer;
+}

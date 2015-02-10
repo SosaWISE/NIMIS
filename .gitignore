@@ -27,26 +27,14 @@ obj/
 _ReSharper*/
 [Tt]est[Rr]esult*
 
+#Mercurial files
 .hg*
 
-source/Clients
-source/Customers
-source/Data/EmployeeOnboarding
-source/Documentation
-source/Meetings
+#Node
+node_modules
+
+#
 source/Production
-source/Resources/Barcode*
-source/Resources/jQuery
-source/Resources/GeographyServices
-source/Resources/WpfRichText.Ex
-source/Samples
-source/Services/Console
-source/Services/Mvc
-source/Services/Wcf
-source/Services/Cors/corspackages
-source/Services/Cors/SSE.Services.CmsCORS/SSE.Services.CmsCORS.IntegrationTests
-source/Services/Cors/SSE.Services.CORS
-source/Services/Cors/SSE.Services.ParoleeCORS
-
+corspackages
+packages
 webenv
-

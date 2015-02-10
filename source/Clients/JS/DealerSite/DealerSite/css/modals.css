@@ -1,0 +1,13 @@
+div.error-modal
+{
+
+}
+div.error-modal .modal-main
+{
+
+}
+
+div.error-modal .modal-footer {
+	text-align: right;
+	padding: 10px;
+}

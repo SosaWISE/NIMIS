@@ -1,0 +1,315 @@
+﻿<UserControl x:Class="NXS.Clients.Wpf.LicensingManager.Views.PurchasedAccountsReportView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:PProC="clr-namespace:NXS.Framework.Wpf.Controls;assembly=NXS.Framework.Wpf"
+			 xmlns:PProCnv="clr-namespace:NXS.Framework.Wpf.Converters;assembly=NXS.Framework.Wpf"
+			 xmlns:WPF="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit">
+	<Grid IsEnabled="{Binding IsLoading.Value,Converter={x:Static PProCnv:OppositeBooleanConverter.Instance}}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Style="{StaticResource GutterRow}" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Style="{StaticResource GutterRow}" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Style="{StaticResource GutterRow}" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Style="{StaticResource GutterColumn}" />
+			<ColumnDefinition Width="170" />
+			<ColumnDefinition Width="25" />
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Style="{StaticResource GutterColumn}" />
+			<ColumnDefinition Width="170" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+
+		<Label HorizontalAlignment="Right"
+			   Style="{StaticResource Label2Required}"
+			   Content="City:" />
+		<TextBox Grid.Column="2"
+				 PreviewKeyDown="UIItem_PreviewKeyDown"
+				 Text="{Binding Model.City.Value, UpdateSourceTrigger=PropertyChanged}">
+			<TextBox.Background>
+				<MultiBinding Converter="{x:Static PProCnv:ValidatedInputBrushConverter.Instance}">
+					<Binding Path="Model.City.IsValid" />
+					<Binding Path="Model.City.IsDirty" />
+				</MultiBinding>
+			</TextBox.Background>
+		</TextBox>
+
+		<Label Grid.Row="2"
+			   HorizontalAlignment="Right"
+			   Style="{StaticResource Label2Required}"
+			   Content="County:" />
+		<TextBox Grid.Row="2"
+				 Grid.Column="2"
+				 PreviewKeyDown="UIItem_PreviewKeyDown"
+				 Text="{Binding Model.County.Value, UpdateSourceTrigger=PropertyChanged}">
+			<TextBox.Background>
+				<MultiBinding Converter="{x:Static PProCnv:ValidatedInputBrushConverter.Instance}">
+					<Binding Path="Model.County.IsValid" />
+					<Binding Path="Model.County.IsDirty" />
+				</MultiBinding>
+			</TextBox.Background>
+		</TextBox>
+
+		<Label Grid.Row="4"
+			   HorizontalAlignment="Right"
+			   Style="{StaticResource Label2Required}"
+			   Content="State:" />
+		<PProC:DropDownList Grid.Row="4"
+							Grid.Column="2"
+							PreviewKeyDown="UIItem_PreviewKeyDown"
+							DataContext="{Binding Model.State}" />
+
+		<TextBlock Grid.Column="4"
+				   VerticalAlignment="Center"
+				   HorizontalAlignment="Right"
+				   Style="{StaticResource LabelRequired}"
+				   Text="Purchase Start Date:" />
+		<WPF:DatePicker Grid.Column="6"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Left"
+						IsTodayHighlighted="True"
+						SelectedDate="{Binding Model.PurchaseStartDate.Value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+			<WPF:DatePicker.Background>
+				<MultiBinding Converter="{x:Static PProCnv:ValidatedInputBrushConverter.Instance}">
+					<Binding Path="Model.PurchaseStartDate.IsValid" />
+					<Binding Path="Model.PurchaseStartDate.IsDirty" />
+				</MultiBinding>
+			</WPF:DatePicker.Background>
+		</WPF:DatePicker>
+
+		<TextBlock Grid.Row="2"
+				   Grid.Column="4"
+				   VerticalAlignment="Center"
+				   HorizontalAlignment="Right"
+				   Style="{StaticResource LabelRequired}"
+				   Text="Purchase End Date:" />
+		<WPF:DatePicker Grid.Row="2"
+						Grid.Column="6"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Left"
+						IsTodayHighlighted="True"
+						SelectedDate="{Binding Model.PurchaseEndDate.Value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+			<WPF:DatePicker.Background>
+				<MultiBinding Converter="{x:Static PProCnv:ValidatedInputBrushConverter.Instance}">
+					<Binding Path="Model.PurchaseEndDate.IsValid" />
+					<Binding Path="Model.PurchaseEndDate.IsDirty" />
+				</MultiBinding>
+			</WPF:DatePicker.Background>
+			<WPF:DatePicker.Triggers>
+				<!--<Trigger Property="IsEnabled"
+						 Value="False">
+					<Setter Property="Background"
+							Value="LightGray" />
+				</Trigger>-->
+			</WPF:DatePicker.Triggers>
+		</WPF:DatePicker>
+
+		<StackPanel Grid.Row="4"
+					Grid.ColumnSpan="8"
+					HorizontalAlignment="Right"
+					Orientation="Horizontal">
+			<Button Margin="0,0,5,0"
+					Command="{Binding LoadReportCommand}"
+					Content="Load Report" />
+			<Button Command="{Binding ExportToExcelCommand}"
+					Content="Export To Excel" />
+			<Button Command="{Binding ClearCommand}"
+					Content="Clear" />
+		</StackPanel>
+
+		<PProC:SuperListView Grid.Row="6"
+							 Grid.ColumnSpan="8"
+							 ItemsSource="{Binding List}"
+							 InitialSortIndex="0"
+							 Width="{Binding RelativeSource={RelativeSource Self}, Path=Parent.ActualWidth}"
+							 Margin="0,10,0,0">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Width="80">
+						<GridViewColumnHeader Content="Account #"
+											  Tag="AccountID.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock ToolTipService.ShowDuration="99999"
+											   Text="{Binding AccountID.Value}">
+										<TextBlock.ToolTip>
+											<PProC:ContainerBox Margin="5,10,5,5"
+																Header="Customer Contact Details"
+																Background="#FFFFFFFF"
+																Style="{StaticResource MinimalContainerBox}">
+												<Grid>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="Auto" />
+														<RowDefinition Style="{StaticResource GutterRow}" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Style="{StaticResource GutterRow}" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Style="{StaticResource GutterRow}" />
+														<RowDefinition Height="Auto" />
+													</Grid.RowDefinitions>
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition Width="Auto" />
+														<ColumnDefinition Style="{StaticResource GutterColumn}" />
+														<ColumnDefinition Width="170" />
+														<ColumnDefinition Width="25" />
+														<ColumnDefinition Width="Auto" />
+														<ColumnDefinition Style="{StaticResource GutterColumn}" />
+														<ColumnDefinition Width="Auto" />
+													</Grid.ColumnDefinitions>
+												
+													<Label HorizontalAlignment="Right"
+														   Style="{StaticResource Label2Required}"
+														   Content="Premise Phone:" />
+													<TextBlock Grid.Column="2"
+															   VerticalAlignment="Center"
+															   Text="{Binding PremisePhone.Value}" />
+												
+													<Label Grid.Row="2"
+														   HorizontalAlignment="Right"
+														   Style="{StaticResource Label2Required}"
+														   Content="Home Phone:" />
+													<TextBlock Grid.Row="2"
+															   Grid.Column="2"
+															   VerticalAlignment="Center"
+															   Text="{Binding HomePhone.Value}" />
+												
+													<Label Grid.Row="4"
+														   HorizontalAlignment="Right"
+														   Style="{StaticResource Label2Required}"
+														   Content="Cell Phone:" />
+													<TextBlock Grid.Row="4"
+															   Grid.Column="2"
+															   VerticalAlignment="Center"
+															   Text="{Binding CellPhone.Value}" />
+												
+													<Label Grid.Column="4"
+														   HorizontalAlignment="Right"
+														   Style="{StaticResource Label2Required}"
+														   Content="Work Phone:" />
+													<TextBlock Grid.Column="6"
+															   Margin="0,0,5,0"
+															   VerticalAlignment="Center"
+															   Text="{Binding WorkPhone.Value}" />
+												
+													<Label Grid.Row="2"
+														   Grid.Column="4"
+														   HorizontalAlignment="Right"
+														   Style="{StaticResource Label2Required}"
+														   Content="Work Phone Ext:" />
+													<TextBlock Grid.Row="2"
+															   Grid.Column="6"
+															   VerticalAlignment="Center"
+															   Text="{Binding WorkPhoneExt.Value}" />
+												</Grid>
+											</PProC:ContainerBox>
+										</TextBlock.ToolTip>
+									</TextBlock>
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="150">
+						<GridViewColumnHeader Content="Customer Name"
+											  Tag="CustomerName.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding CustomerName.Value}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="85">
+						<GridViewColumnHeader Content="Purchaser"
+											  Tag="Purchaser.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding Purchaser.Value}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="85">
+						<GridViewColumnHeader Content="Purchase Date"
+											  Tag="PurchaseDate.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding PurchaseDate.Value, StringFormat='MM/dd/yyyy'}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="225">
+						<GridViewColumnHeader Content="Street Address"
+											  Tag="StreetAddress.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding StreetAddress.Value, StringFormat='MM/dd/yyyy'}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="100">
+						<GridViewColumnHeader Content="City"
+											  Tag="City.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding City.Value, StringFormat='MM/dd/yyyy'}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="100">
+						<GridViewColumnHeader Content="County"
+											  Tag="County.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding County.Value, StringFormat='MM/dd/yyyy'}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="75">
+						<GridViewColumnHeader Content="State"
+											  Tag="State.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding State.Value, StringFormat='MM/dd/yyyy'}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="65">
+						<GridViewColumnHeader Content="Zip"
+											  Tag="Zip.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding Zip.Value, StringFormat='MM/dd/yyyy'}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+				</GridView>
+			</ListView.View>
+		</PProC:SuperListView>
+
+		<PProC:LoadingAnimation Grid.RowSpan="7"
+								Grid.ColumnSpan="8"
+								Visibility="{Binding IsLoading.Value,Converter={x:Static PProCnv:BooleanVisibilityConverter.Instance}}" />
+
+	</Grid>
+</UserControl>

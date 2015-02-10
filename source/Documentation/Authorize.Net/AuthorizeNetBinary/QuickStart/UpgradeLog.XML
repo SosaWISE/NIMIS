@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="QuickStart">
+</Property><Property Name="Solution File" Value="C:\CodeBaseSOS\Trunk\Documentation\Authorize.Net\AuthorizeNetBinary\QuickStart\QuickStart.sln">
+</Property><Property Name="Date" Value="Friday, May 25, 2012">
+</Property><Property Name="Time" Value="13:35 PM">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="QuickStart.sln" Description="File successfully backed up as C:\CodeBaseSOS\Trunk\Documentation\Authorize.Net\AuthorizeNetBinary\QuickStart\Backup\QuickStart.sln">
+</Event><Event ErrorLevel="0" Project="SampleAuthorization" Source="SampleAuthorization\SampleAuthorization.csproj" Description="Project file successfully backed up as C:\CodeBaseSOS\Trunk\Documentation\Authorize.Net\AuthorizeNetBinary\QuickStart\Backup\SampleAuthorization\SampleAuthorization.csproj">
+</Event><Event ErrorLevel="0" Project="SampleAuthorization" Source="SampleAuthorization\Program.cs" Description="File successfully backed up as C:\CodeBaseSOS\Trunk\Documentation\Authorize.Net\AuthorizeNetBinary\QuickStart\Backup\SampleAuthorization\Program.cs">
+</Event><Event ErrorLevel="0" Project="SampleAuthorization" Source="SampleAuthorization\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\CodeBaseSOS\Trunk\Documentation\Authorize.Net\AuthorizeNetBinary\QuickStart\Backup\SampleAuthorization\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="SampleAuthorization" Source="SampleAuthorization\app.config" Description="File successfully backed up as C:\CodeBaseSOS\Trunk\Documentation\Authorize.Net\AuthorizeNetBinary\QuickStart\Backup\SampleAuthorization\app.config">
+</Event><Event ErrorLevel="0" Project="SampleAuthorization" Source="SampleAuthorization\SampleAuthorization.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="SampleAuthorization" Source="SampleAuthorization\SampleAuthorization.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="SampleReporting" Source="SampleReporting\SampleReporting.csproj" Description="Project file successfully backed up as C:\CodeBaseSOS\Trunk\Documentation\Authorize.Net\AuthorizeNetBinary\QuickStart\Backup\SampleReporting\SampleReporting.csproj">
+</Event><Event ErrorLevel="0" Project="SampleReporting" Source="SampleReporting\Program.cs" Description="File successfully backed up as C:\CodeBaseSOS\Trunk\Documentation\Authorize.Net\AuthorizeNetBinary\QuickStart\Backup\SampleReporting\Program.cs">
+</Event><Event ErrorLevel="0" Project="SampleReporting" Source="SampleReporting\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\CodeBaseSOS\Trunk\Documentation\Authorize.Net\AuthorizeNetBinary\QuickStart\Backup\SampleReporting\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="SampleReporting" Source="SampleReporting\SampleReporting.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="SampleReporting" Source="SampleReporting\SampleReporting.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="QuickStart.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="QuickStart.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="SampleReporting" Source="SampleReporting\SampleReporting.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

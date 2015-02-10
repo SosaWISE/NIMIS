@@ -1,0 +1,139 @@
+<!-- TemplateId: ext LeadConvToCust-PaymentInfo.html -->
+<div id="leadConv-PaymentInfo-dialog" class="modal-dialog" style="height:auto;width:auto">
+	<div class="modal-hdr"><a id="leadCu-Personal-close" class="modal-close btn btn-close-x"><img src="/img/modal_hdr_btn_close.png" alt="X" /></a></div>
+	<div style="padding-left: 25px; padding-top:7px; padding-right: 17px;">
+		<img src="/img/credit_cards_48.png" style="width:48px; height:48px; float:left;" alt="Freedom SOS" alt="Freedom SOS" />
+		<div style="padding: 13px 5px 0 5px;font-size: 30px">Payment Information</div>
+		<div style="float: right;" class="dealerFld">ID: <strong>{CompoundLeadId}</strong></div>
+	</div>
+	<div class="modal-input-drape">
+		<div class="input-form">
+			<table class="form-hdr" style="width:100%;">
+				<thead class="tbl-head">
+				<tr>
+					<th>{Title}</th>
+					<th style="color:red;">*(Required)</th>
+					<th></th>
+				</tr>
+				<tr>
+					<th colspan="3"><div style="background:white;padding:0;width: auto;height:1px;margin: -10px 0;"></div></th>
+				</tr>
+				<tr>
+					<td colspan="3" style="padding-left: 5px;"><input id="frmPayMethodOfPayCreditCard" name="frmPayMethodOfPay" type="radio" checked value="CreditCard" /> <span class="dealerFld">Credit Card</span> &nbsp;&nbsp;
+						<input id="frmPayMethodOfPayCheck" name="frmPayMethodOfPay" type="radio" value="Check" /> <span class="dealerFld">Check</span> &nbsp;&nbsp;Payment Method (Choose one)</td>
+				</tr>
+				<tr>
+					<th colspan="3"><div style="background:white;padding:0;width: auto;height:1px;margin: -10px 0;"></div></th>
+				</tr>
+				</thead>
+				<tbody id="frmPayCreditCardFields">
+				<tr>
+					<td><div class="dealerFld">Name on Card: <span style="color:red">*</span></div></td>
+					<td><div class="dealerFld">Expiration Month: <span style="color:red">*</span></div></td>
+					<td><div class="dealerFld"></div></td>
+				</tr>
+				<tr>
+					<td><input type="text" id="frmPayNameOnCard" tabindex="10" class="nmlFieldExLarge nmlField" maxlength="20"></td>
+					<td><select id="frmPayExpMonth" tabindex="40" onkeydown="if (event.keyCode == 13) document.getElementById('frmPayBtnSubmit').click()">
+						<option value="" selected>[Select One]</option>
+						<option value="01">01 - Jan</option>
+						<option value="02">02 - Feb</option>
+						<option value="03">03 - Mar</option>
+						<option value="04">04 - Apr</option>
+						<option value="05">05 - May</option>
+						<option value="06">06 - Jun</option>
+						<option value="07">07 - Jul</option>
+						<option value="08">08 - Aug</option>
+						<option value="09">09 - Sep</option>
+						<option value="10">10 - Oct</option>
+						<option value="11">11 - Nov</option>
+						<option value="12">12 - Dec</option>
+					</select></td>
+					<td style="padding: 0 10px"></td>
+				</tr>
+				<tr><!-- SPACER -->
+					<td colspan="3"><div style="background:transparent;padding:0;width:auto;height:5px;margin:0;"></div></td>
+				</tr>
+				<!-- Start FIRST NAME -->
+				<tr>
+					<td><div class="dealerFld">Card Number: <span style="color:red">*</span></div></td>
+					<td><div class="dealerFld">Expiration Year: <span style="color:red">*</span></div></td>
+					<td><div class="dealerFld"></div></td>
+				</tr>
+				<tr>
+					<td><input type="text" id="frmPayCardNumber" tabindex="20" class="nmlFieldExLarge nmlField" maxlength="50" value="{CardNumber}"></td>
+					<td><select id="frmPayExpYear" tabindex="50" onkeydown="if (event.keyCode == 13) document.getElementById('frmPayBtnSubmit').click()">
+						<option value="" selected>[Select One]</option>
+						<option value="12">2012</option>
+						<option value="13">2013</option>
+						<option value="14">2014</option>
+						<option value="15">2015</option>
+						<option value="16">2016</option>
+						<option value="17">2017</option>
+						<option value="18">2018</option>
+						<option value="19">2019</option>
+						<option value="20">2020</option>
+					</select></td>
+					<td style="padding: 0 10px;"></td>
+				</tr>
+				<!-- End   FIRST NAME -->
+				<tr><!-- SPACER -->
+					<td colspan="3"><div style="background:transparent;padding:0;width:auto;height:5px;margin:0;"></div></td>
+				</tr>
+				<!-- Start MIDDLE NAME -->
+				<tr>
+					<td><div class="dealerFld">CCV: <span style="color:red">*</span></div></td>
+					<td><div class="dealerFld">PO Number:</div></td>
+					<td><div class="dealerFld"></div></td>
+				</tr>
+				<tr>
+					<td><input type="text" id="frmPayCcv" tabindex="30" class="nmlField" maxlength="4"></td>
+					<td><input type="text" id="frmPayPoNumber" tabindex="60" class="nmlFieldExLarge nmlField" maxlength="50"></td>
+					<td style="padding: 0 10px;"></td>
+				</tr>
+				</tbody>
+				<tbody id="frmPayCheckFields" style="display: none;">
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:auto;height:5px;margin:0;"></div></td>
+					</tr>
+					<tr>
+						<td><div class="dealerFld">Routing Number: <span style="color:red">*</span></div></td>
+						<td><div class="dealerFld">Account Number: <span style="color:red">*</span></div></td>
+						<td><div class="dealerFld"></div></td>
+					</tr>
+					<tr>
+						<td><input type="text" id="frmPayRoutingNumber" tabindex="30" class="nmlField" maxlength="9"></td>
+						<td><input type="text" id="frmPayAccountNumber" tabindex="40" class="nmlFieldExLarge nmlField" maxlength="50"></td>
+						<td style="padding: 0 10px;"></td>
+					</tr>
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:auto;height:5px;margin:0;"></div></td>
+					</tr>
+					<tr>
+						<td><div class="dealerFld">Check Number: <span style="color:red">*</span></div></td>
+						<td colspan="2"><div class="dealerFld">PO Number: </div></td>
+					</tr>
+					<tr>
+						<td><input type="text" id="frmPayCheckNumber" tabindex="50" class="nmlField" maxlength="15"></td>
+						<td colspan="2"><input type="text" id="frmPayPoNumber2" tabindex="60" class="nmlFieldExLarge nmlField" maxlength="50"></td>
+					</tr>
+				</tbody>
+				<tfooter>
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:300px;height:5px;margin:0;"></div></td>
+					</tr>
+					<tr>
+						<td style="text-align:left;padding-right:10px"><span style="display:inline-block; vertical-align:middle"><a id="frmPayBtnPrev4" class="btn-submit">PREV</a></span>
+							<img id="frmPayImgPrev4" class="btn-submit" style="vertical-align: middle;" src="/img/icon_rewind_32_hot.png" alt="submit" /></td>
+						<td></td>
+						<td style="text-align:right;padding-right:10px"><img id="frmPayImgSubmit" class="btn-submit" style="vertical-align: middle;" src="/img/icon_submit32x31.png" alt="submit" />
+							<span style="display:inline-block; vertical-align:middle"><a id="frmPayBtnSubmit" class="btn-submit">SUBMIT</a></span></td>
+					</tr>
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:auto;height:5px;margin:0;"></div></td>
+					</tr>
+				</tfooter>
+			</table>
+		</div>
+	</div>
+</div>

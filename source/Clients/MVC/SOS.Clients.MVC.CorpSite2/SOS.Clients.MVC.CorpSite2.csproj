@@ -1,0 +1,477 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D167F1CC-909B-4483-AE78-F8E2252F53F1}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SOS.Clients.MVC.CorpSite2</RootNamespace>
+    <AssemblyName>SOS.Clients.MVC.CorpSite2</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\SOS.Clients.MVC.CorpSite\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AboutUsController.cs" />
+    <Compile Include="Controllers\AuthSrvController.cs" />
+    <Compile Include="Controllers\CareersController.cs" />
+    <Compile Include="Controllers\ClientGpsTrackSrvController.cs" />
+    <Compile Include="Controllers\ContactUsController.cs" />
+    <Compile Include="Controllers\DealersController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\FaqsController.cs" />
+    <Compile Include="Controllers\FleetTrackingController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IAuthSrvController.cs" />
+    <Compile Include="Controllers\PlansController.cs" />
+    <Compile Include="Controllers\SupportController.cs" />
+    <Compile Include="Controllers\TechnologyController.cs" />
+    <Compile Include="Controllers\WhyUsController.cs" />
+    <Compile Include="DownloadBrochure.ashx.cs">
+      <DependentUpon>DownloadBrochure.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\AllowCrossDomain.cs" />
+    <Compile Include="Helpers\Authentication.cs" />
+    <Compile Include="Helpers\ConvertTo.cs" />
+    <Compile Include="Helpers\EmailManager.cs" />
+    <Compile Include="Helpers\IPAddressUtil.cs" />
+    <Compile Include="Helpers\SessionCookie.cs" />
+    <Compile Include="Helpers\SosResultCodes.cs" />
+    <Compile Include="MailHandler.ashx.cs">
+      <DependentUpon>MailHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ISosResult.cs" />
+    <Compile Include="Models\SosResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="css\coin-slider.css" />
+    <Content Include="css\forms.css" />
+    <Content Include="css\galleryfic.css" />
+    <Content Include="css\grid.css" />
+    <Content Include="css\ie.css" />
+    <Content Include="css\kwicks.css" />
+    <Content Include="css\modal.css" />
+    <Content Include="css\prettyPhoto.css" />
+    <Content Include="css\reset.css" />
+    <Content Include="css\skin.css" />
+    <Content Include="css\style.css" />
+    <Content Include="css\superfish.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="images\404.png" />
+    <Content Include="images\AboutUs-Left-Leader.png" />
+    <Content Include="images\arrow-sub.gif" />
+    <Content Include="images\arrow1.gif" />
+    <Content Include="images\arrow2.gif" />
+    <Content Include="images\aside-divider.gif" />
+    <Content Include="images\banner-bg.jpg" />
+    <Content Include="images\body-tail.png" />
+    <Content Include="images\calendar.gif" />
+    <Content Include="images\carousel-buttons.png" />
+    <Content Include="images\CentralStationOperators_590x352.png" />
+    <Content Include="images\ClickHere-DealerInformation.png" />
+    <Content Include="images\ClickHere-SalesInformation.png" />
+    <Content Include="images\close.gif" />
+    <Content Include="images\Coping-Skills-For-The-Elderly1-200x200.png" />
+    <Content Include="images\dash.png" />
+    <Content Include="images\DSCS_SatInSpaceLockheedMartin%29310x245.png" />
+    <Content Include="images\fire_truck.png" />
+    <Content Include="images\FleetTracking\pp01cb268d.png" />
+    <Content Include="images\FleetTracking\pp09751bf5.png" />
+    <Content Include="images\FleetTracking\pp105bafe9.png" />
+    <Content Include="images\FleetTracking\pp11d13d94.png" />
+    <Content Include="images\FleetTracking\pp47dfca5c.png" />
+    <Content Include="images\FleetTracking\pp774da218.jpg" />
+    <Content Include="images\FleetTracking\pp9d792d1d.png" />
+    <Content Include="images\FleetTracking\ppa1169bda.jpg" />
+    <Content Include="images\FleetTracking\ppb1284b8e.png" />
+    <Content Include="images\FleetTracking\ppc2402dc9.jpg" />
+    <Content Include="images\FleetTracking\ppc8008694.png" />
+    <Content Include="images\FleetTracking\ppca8e46e1.png" />
+    <Content Include="images\FleetTracking\ppef11b5da.png" />
+    <Content Include="images\hide.gif" />
+    <Content Include="images\icon-download.png" />
+    <Content Include="images\icon-error.png" />
+    <Content Include="images\icon-info.png" />
+    <Content Include="images\icon-note.png" />
+    <Content Include="images\job_opps.png" />
+    <Content Include="images\job_opps_ladder.png" />
+    <Content Include="images\links-bg.png" />
+    <Content Include="images\links-border.gif" />
+    <Content Include="images\links.png" />
+    <Content Include="images\lins-tail.png" />
+    <Content Include="images\list1-marker.gif" />
+    <Content Include="images\loader.gif" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\LogoV1277x110.png" />
+    <Content Include="images\LogoV1881x350.png" />
+    <Content Include="images\logo_avantguard.png" />
+    <Content Include="images\logo_FreedomSOS_277x110.png" />
+    <Content Include="images\magnify.png" />
+    <Content Include="images\mail.png" />
+    <Content Include="images\map.png" />
+    <Content Include="images\Map_310xYYY.png" />
+    <Content Include="images\menu.gif" />
+    <Content Include="images\menu.png" />
+    <Content Include="images\OurWatch.png" />
+    <Content Include="images\page1-banner1.jpg" />
+    <Content Include="images\page1-banner2.jpg" />
+    <Content Include="images\page1-banner3.jpg" />
+    <Content Include="images\page1-banner4.jpg" />
+    <Content Include="images\page1-banner5.jpg" />
+    <Content Include="images\page1-banner6.jpg" />
+    <Content Include="images\page1-img1-big.jpg" />
+    <Content Include="images\page1-img1.jpg" />
+    <Content Include="images\page1-img2-big.jpg" />
+    <Content Include="images\page1-img2.jpg" />
+    <Content Include="images\page1-img3-big.jpg" />
+    <Content Include="images\page1-img3.jpg" />
+    <Content Include="images\page2-icon1.png" />
+    <Content Include="images\page2-icon10.png" />
+    <Content Include="images\page2-icon11.png" />
+    <Content Include="images\page2-icon2.png" />
+    <Content Include="images\page2-icon3.png" />
+    <Content Include="images\page2-icon4.png" />
+    <Content Include="images\page2-icon5.png" />
+    <Content Include="images\page2-icon6.png" />
+    <Content Include="images\page2-icon7.png" />
+    <Content Include="images\page2-icon8.png" />
+    <Content Include="images\page2-icon9.png" />
+    <Content Include="images\page3-icon1.png" />
+    <Content Include="images\page3-icon2.png" />
+    <Content Include="images\page3-icon3.png" />
+    <Content Include="images\page3-icon4.png" />
+    <Content Include="images\page3-img1-big.jpg" />
+    <Content Include="images\page3-img1.jpg" />
+    <Content Include="images\page3-img2-big.jpg" />
+    <Content Include="images\page3-img2.jpg" />
+    <Content Include="images\page3-img3-big.jpg" />
+    <Content Include="images\page3-img3.jpg" />
+    <Content Include="images\page4-img1-big.jpg" />
+    <Content Include="images\page4-img1.jpg" />
+    <Content Include="images\page5-banner1.jpg" />
+    <Content Include="images\page5-banner2.jpg" />
+    <Content Include="images\page5-banner3.jpg" />
+    <Content Include="images\page5-banner4.jpg" />
+    <Content Include="images\page5-banner5.jpg" />
+    <Content Include="images\page5-img1-big.jpg" />
+    <Content Include="images\page5-img1.jpg" />
+    <Content Include="images\phone.png" />
+    <Content Include="images\Police-Vehicle.png" />
+    <Content Include="images\red-button-signup-sm.jpg" />
+    <Content Include="images\Root_Blob.png" />
+    <Content Include="images\SatelliteOnly.png" />
+    <Content Include="images\senior-playing-golf.png" />
+    <Content Include="images\sick_person.png" />
+    <Content Include="images\skype.png" />
+    <Content Include="images\slide1.jpg" />
+    <Content Include="images\slide1_ambulance.png" />
+    <Content Include="images\slide2.jpg" />
+    <Content Include="images\slide2_Police-Vehicle.png" />
+    <Content Include="images\slide2_Police-Vehicle_OLD.png" />
+    <Content Include="images\slide3.jpg" />
+    <Content Include="images\slide4.jpg" />
+    <Content Include="images\slide4_fire_truck.png" />
+    <Content Include="images\slide5.png" />
+    <Content Include="images\slide5_ambulance.jpg" />
+    <Content Include="images\slide5_fleetTracking.png" />
+    <Content Include="images\slide_Watch-Satellite.png" />
+    <Content Include="images\submenu.png" />
+    <Content Include="images\Technology_splash.png" />
+    <Content Include="images\top.png" />
+    <Content Include="images\WatchOnly.png" />
+    <Content Include="images\WatchOnlyOLD.png" />
+    <Content Include="images\WatchOnly_wBubble.png" />
+    <Content Include="images\whyUs_bottom_left.png" />
+    <Content Include="images\whyus_middle_left.png" />
+    <Content Include="images\whyUs_middle_right.png" />
+    <Content Include="images\whyUs_page2Bot_right.png" />
+    <Content Include="images\whyUs_page2_left.png" />
+    <Content Include="js\Angelina_400.font.js" />
+    <Content Include="js\AppService.js" />
+    <Content Include="js\coin-slider.js" />
+    <Content Include="js\cufon-replace.js" />
+    <Content Include="js\cufon-yui.js" />
+    <Content Include="js\FF-cash.js" />
+    <Content Include="js\flashobject.js" />
+    <Content Include="js\forms.js" />
+    <Content Include="js\html5.js" />
+    <Content Include="js\jquery-1.6.4.min.js" />
+    <Content Include="js\jquery.atooltip.pack.js" />
+    <Content Include="js\jquery.backgroundPosition.js" />
+    <Content Include="js\jquery.color.js" />
+    <Content Include="js\jquery.cycle.all.min.js" />
+    <Content Include="js\jquery.easing.1.3.js" />
+    <Content Include="js\jquery.galleriffic.js" />
+    <Content Include="js\jquery.insetBorderEffect.js" />
+    <Content Include="js\jquery.jcarousel.js" />
+    <Content Include="js\jquery.lwtCountdown-1.0.js" />
+    <Content Include="js\jquery.prettyPhoto.js" />
+    <Content Include="js\jquery.twitter.js" />
+    <Content Include="js\kwicks-1.5.1.pack.js" />
+    <Content Include="js\PIE.htc" />
+    <Content Include="js\script.js" />
+    <Content Include="js\scrollTop.js" />
+    <Content Include="js\superfish.js" />
+    <Content Include="js\tabs.js" />
+    <Content Include="js\Walkway_SemiBold_400.font.js" />
+    <Content Include="under_construction.html" />
+    <Content Include="Views\AboutUs\Index.aspx" />
+    <Content Include="Views\Careers\index.aspx" />
+    <Content Include="Views\ContactUs\Index.aspx" />
+    <Content Include="Views\Dealers\Index.aspx" />
+    <Content Include="Views\Dealers\SignUp.aspx" />
+    <Content Include="Views\Error\PageNotFound.aspx" />
+    <Content Include="Views\Faqs\Index.aspx" />
+    <Content Include="Views\FleetTracking\Index.aspx" />
+    <Content Include="Views\Home\TermsOfUse.aspx" />
+    <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Home\Monitoring.aspx" />
+    <Content Include="Views\Home\PrivacyStatement.aspx" />
+    <Content Include="Views\Plans\Index.aspx" />
+    <Content Include="Views\Support\Index.aspx" />
+    <Content Include="Views\Technology\Index.aspx" />
+    <Content Include="Views\WhyUs\index.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Shared\Error.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Data\SOS.Data.AuthenticationControl\SOS.Data.AuthenticationControl.csproj">
+      <Project>{ACCE6D59-0AA7-4353-850E-1B78E16B3074}</Project>
+      <Name>SOS.Data.AuthenticationControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Data\SOS.Data.HumanResource\SOS.Data.HumanResource.csproj">
+      <Project>{CFF942B5-73BE-42A3-86DE-14EF45BEFCF1}</Project>
+      <Name>SOS.Data.HumanResource</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Data\SOS.Data.Logging\SOS.Data.Logging.csproj">
+      <Project>{B6B1FCF3-F2BA-445E-9041-5100733EFD20}</Project>
+      <Name>SOS.Data.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Data\SOS.Data.SosCrm\SOS.Data.SosCrm.csproj">
+      <Project>{23BB4972-325C-40D8-96F6-EB8A60676D63}</Project>
+      <Name>SOS.Data.SosCrm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Data\SOS.Data\SOS.Data.csproj">
+      <Project>{C2776F02-C5E2-42BA-B4B0-147625B90A18}</Project>
+      <Name>SOS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Data\SubSonic\SubSonic.csproj">
+      <Project>{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}</Project>
+      <Name>SubSonic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\FOS\SOS.FunctionalServices.Contracts\SOS.FunctionalServices.Contracts.csproj">
+      <Project>{4C52F83A-0039-4C8D-94D3-D6547DE9659B}</Project>
+      <Name>SOS.FunctionalServices.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\FOS\SOS.FunctionalServices\SOS.FunctionalServices.csproj">
+      <Project>{2CE00A6B-C0AC-44AB-B80F-9E58865AD3BD}</Project>
+      <Name>SOS.FunctionalServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\SOS.Framework.Mvc\SOS.Framework.Mvc.csproj">
+      <Project>{27827478-D8D8-4D33-BB2F-BE1E23CDDFE5}</Project>
+      <Name>SOS.Framework.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Lib\SOS.Lib.Core\SOS.Lib.Core.csproj">
+      <Project>{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}</Project>
+      <Name>SOS.Lib.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj">
+      <Project>{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}</Project>
+      <Name>SOS.Lib.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Services\DataModels\SOS.Services.DataModels\SOS.Services.DataModels.csproj">
+      <Project>{1415CB37-0EDB-4645-AA7E-5CE82DF82721}</Project>
+      <Name>SOS.Services.DataModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Services\Interfaces\SOS.Services.Interfaces\SOS.Services.Interfaces.csproj">
+      <Project>{DCDBF3EE-D932-4713-9A47-2693C0C7BEF4}</Project>
+      <Name>SOS.Services.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DownloadBrochure.ashx" />
+    <Resource Include="Content\FreedomSOSBrochure.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Content\OppDealerV001.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Content\OppSalesV001.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Content\OppDealerV002.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OppDealerV003.pdf" />
+    <None Include="Content\S-911BraceletLocator--UserManual.pdf" />
+    <None Include="js\PIE.php" />
+    <Content Include="Views\Shared\Root.Master" />
+    <Content Include="Views\Shared\Level1.Master" />
+    <Content Include="MailHandler.ashx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50243</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50243/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

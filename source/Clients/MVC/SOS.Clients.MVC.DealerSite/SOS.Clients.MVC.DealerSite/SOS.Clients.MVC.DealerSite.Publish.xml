@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="C:\PUBLISHED_BUILDS\SOS.Clients.MVC.DealerSite" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="js/views/html/LeadsPanel.html" publishTime="02/11/2012 00:17:28" />
+    <file relUrl="bin/SOS.Clients.MVC.DealerSite.dll" publishTime="05/28/2012 20:14:31" />
+    <file relUrl="HTMLPage1.html" publishTime="02/10/2012 23:24:37" />
+    <file relUrl="bin/SOS.Clients.MVC.DealerSite.pdb" publishTime="05/28/2012 20:14:31" />
+    <file relUrl="index.html" publishTime="02/11/2012 00:33:00" />
+    <file relUrl="Web.config" publishTime="05/28/2012 20:28:50" />
+    <file relUrl="js/views/html/AddressComponent.html" publishTime="02/11/2012 00:16:40" />
+    <file relUrl="js/views/html/form-validation.html" publishTime="02/11/2012 00:17:03" />
+    <file relUrl="js/views/html/LoginView.html" publishTime="02/11/2012 00:17:37" />
+    <file relUrl="Global.asax" publishTime="02/10/2012 23:22:58" />
+    <file relUrl="js/views/html/general-message.html" publishTime="02/11/2012 00:17:17" />
+  </publishProfile>
+</publishData>

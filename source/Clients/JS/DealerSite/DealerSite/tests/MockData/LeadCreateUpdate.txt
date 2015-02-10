@@ -1,0 +1,47 @@
+{
+	"CustomerTypeId":"LEAD"
+	,"DealerId":5000
+	,"TeamLocationId":0
+	,"SeasonId":0
+	,"SalesRepId":"SosaWISE"
+	,"Salutation":"Mrs"
+	,"FirstName":"Food"
+	,"MiddleName":"I"
+	,"LastName":"Insurance"
+	,"Suffix":"IV"
+	,"Gender":"Female"
+	,"SSN":"654-64-5646"
+	,"Email":"food@foodins.com"
+	,"PhoneHome":"(801) 654-6465"
+	,"LocalizationId":"en-us"
+	,"Address":
+	{
+		"DealerId":5000
+		,"StreetAddress":"455 E 500 S"
+		,"City":"West Jordan"
+		,"StateId":"UT"
+		,"PostalCode":"84065"
+		,"PlusFour":"6456"
+		,"CountryId":"USA"
+		,"TimeZoneId":"8"
+	}
+	,"ProductSkwIdList":[{"ProductSkwId":"HSSS001"}]
+}
+
+
+
+img.beveled{
+	position:relative;
+}
+img.beveled:after{
+	position:absolute;
+	left:0;
+	top:0;
+	display:block;
+	content:"\00a0";
+	box-sizing:border-box;
+	width:100%;
+	height:100%;
+	border:5px solid;
+	border-color:rgba(255,255,255,0.4)                 rgba(0,0,0,0.4)                 rgba(0,0,0,0.4)                 rgba(255,255,255,0.4);
+}

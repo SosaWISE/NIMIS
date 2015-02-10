@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldDomination.GeographyServices.Services", "Code\WorldDomination.GeographyServices.Services\WorldDomination.GeographyServices.Services.csproj", "{731C74FD-DD33-41B2-A2B5-8C8E8F0480BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldDomination.GeographyServices.Core", "Code\WorldDomination.GeographyServices.Core\WorldDomination.GeographyServices.Core.csproj", "{63C78A74-93BA-4251-B84D-4D21D315CDF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldDomination.GeographyServices.Tests", "Code\WorldDomination.GeographyServices.Tests\WorldDomination.GeographyServices.Tests.csproj", "{A7442A55-9CC9-49F7-A543-55F977643AE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldDomination.GeographyServices.Web", "Code\WorldDomination.GeographyServices.Web\WorldDomination.GeographyServices.Web.csproj", "{4548699F-F86A-4E9F-B47C-DEC4F21E525E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{731C74FD-DD33-41B2-A2B5-8C8E8F0480BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{731C74FD-DD33-41B2-A2B5-8C8E8F0480BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{731C74FD-DD33-41B2-A2B5-8C8E8F0480BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{731C74FD-DD33-41B2-A2B5-8C8E8F0480BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63C78A74-93BA-4251-B84D-4D21D315CDF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63C78A74-93BA-4251-B84D-4D21D315CDF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63C78A74-93BA-4251-B84D-4D21D315CDF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63C78A74-93BA-4251-B84D-4D21D315CDF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7442A55-9CC9-49F7-A543-55F977643AE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7442A55-9CC9-49F7-A543-55F977643AE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7442A55-9CC9-49F7-A543-55F977643AE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7442A55-9CC9-49F7-A543-55F977643AE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4548699F-F86A-4E9F-B47C-DEC4F21E525E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4548699F-F86A-4E9F-B47C-DEC4F21E525E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4548699F-F86A-4E9F-B47C-DEC4F21E525E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4548699F-F86A-4E9F-B47C-DEC4F21E525E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

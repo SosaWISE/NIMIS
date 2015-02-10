@@ -1,0 +1,55 @@
+<!-- TemplateId: ext LeadCreateUpdateSourceDisposition.html -->
+<div id="leadCu-Source-dialog" class="modal-dialog" style="height:auto;width:auto">
+	<div class="modal-hdr"><a id="leadCu-Personal-close" class="modal-close btn btn-close-x"><img src="/img/modal_hdr_btn_close.png" alt="X" /></a></div>
+	<div style="padding-left: 25px; padding-top:7px; padding-right: 17px;">
+		<img src="/img/accept_document_64.png" style="width:48px; height:48px; float:left;" alt="Freedom SOS" alt="Freedom SOS" />
+		<div style="padding: 10px 5px;font-size: 30px">New Lead -- Source and Disposition</div>
+		<div style="float: right;" class="dealerFld">Lead ID: <strong>{LeadId}</strong></div>
+	</div>
+	<div class="modal-input-drape">
+		<div class="input-form">
+        	<table class="form-hdr" style="width:100%;">
+				<thead class="tbl-head">
+					<tr>
+						<th colspan="3"><div style="float:right;color:red;">*(Required)&nbsp;</div>{Title}</th>
+					</tr>
+					<tr>
+						<th colspan="3"><div style="background:white;padding:0;width: auto;height:1px;margin: -10px 0;"></div></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><div class="dealerFld">Lead Source: <span style="color:red">*</span></div></td>
+						<td><div class="dealerFld">Disposition: <span style="color:red">*</span></div></td>
+						<td><div class="dealerFld">Date Generated: <span style="color:red;">*</span></div></td>
+					</tr>
+					<tr>
+						<td><div class="ui-widget">
+							<select id="frmLeadSource" tabindex="10">
+								<option value="">[Select One]</option>
+							</select>
+						</div></td>
+						<td><div class="ui-widget">
+							<select id="frmLeadDisposition" tabindex="10">
+								<option value="">[Select One]</option>
+							</select>
+						</div></td>
+						<td style="padding: 0 10px"><input type="text" id="frmLeadSourceDateGen" tabindex="30" class="nmlField" maxlength="20"
+								onkeydown="if (event.keyCode == 13) document.getElementById('frmLeadBtnNext0').click()"></td>
+					</tr>
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:auto;height:5px;margin:0;"></div></td>
+					</tr>
+					<tr>
+						<td colspan="2"></td>
+						<td style="text-align:right;padding-right:10px"><img id="frmLeadImgNext0" class="btn-submit" style="vertical-align: middle;" src="/img/icon_next_32_hot.png" alt="submit" />
+							<span style="display:inline-block; vertical-align:middle"><a id="frmLeadBtnNext0" class="btn-submit">NEXT</a></span></td>
+					</tr>
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:auto;height:5px;margin:0;"></div></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

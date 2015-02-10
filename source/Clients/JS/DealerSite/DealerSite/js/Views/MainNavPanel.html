@@ -1,0 +1,34 @@
+<!-- TemplateId: raw MainNavPanel.html -->
+<div style="padding: 0 5px">
+	<header>
+		<div id="status-bar-id" class="status-bar">User: <strong>{UserFullName}</strong>({UID}) | Last Login: <strong>{LastLoginDateTime}</strong> | <a id="aMainLogout" href="#">Logout</a></div>
+		<h1><a href="#">{DealerName}</a></h1>
+		<nav>
+			<ul class="sf-menu">
+				<li class="current"><a id="hlLeadsMain" href="#">leads</a>
+                    <ul>
+                        <li><a id="hlSearchLeads" href="#">Search Leads</a></li>
+                        <li><a id="hlNewLeads" href="#">New Lead</a></li>
+                    </ul>
+                </li>
+				<li><a href="Customers">customers</a>
+					<ul>
+						<li><a id="hlSearchCustomers" href="#">Search Customers</a></li>
+						<li><a id="hlNewCustomer" href="#">New Customer</a></li>
+					</ul>
+				</li>
+				<li><a href="Appointments">appointments</a></li>
+				<li><a href="Orders">orders</a></li>
+				<li><a href="Settings">settings</a></li>
+				<tpl if="IsMasterDealer">
+					<li><a href="Settings">Dlr Contacts</a>
+						<ul>
+							<li><a id="hlDcSearch" href="#">Search</a></li>
+							<li><a id="hlDcNew" href="#">New</a></li>
+						</ul>
+					</li>
+				</tpl>
+			</ul>
+		</nav>
+	</header>
+</div>

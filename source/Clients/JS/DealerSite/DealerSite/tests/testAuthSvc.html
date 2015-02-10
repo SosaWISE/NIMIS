@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+		"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>Test | Authenticate Services</title>
+	<!-- JASMINE -->
+	<link href="/js/lib/jasmine-standalone-1.1.0.rc1/jasmine.css" rel="stylesheet" />
+	<script type="text/javascript" src="/js/lib/jasmine-standalone-1.1.0.rc1/jasmine.js"></script>
+	<script type="text/javascript" src="/js/lib/jasmine-standalone-1.1.0.rc1/jasmine-html.js"></script>
+	<script type="text/javascript" src="/js/lib/jasmine-standalone-1.1.0.rc1/jasmine-console.js"></script>
+
+	<!-- LIBS -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/extjs/ext-all-dev.js"></script>
+	<script type="text/javascript" src="/js/SOSConfig.js"></script>
+	<script type="text/javascript" src="/js/ClientServices/Controller.js"></script>
+	<script type="text/javascript" src="/v01.01/Auth.service/_js?jquery"></script>
+
+	<!-- MODELS -->
+	<script type="text/javascript" src="/js/Models/Popups/Base.js"></script>
+	<script type="text/javascript" src="/js/Models/Popups/GeneralModel.js"></script>
+	<script type="text/javascript" src="/js/Models/BaseModel.js"></script>
+	<script type="text/javascript" src="/js/Models/MessageItem.js"></script>
+	<!-- FRAMEWORK -->
+	<script type="text/javascript" src="/js/Framework/TemplateCache.js"></script>
+	<script type="text/javascript" src="/js/Framework/Popup.js"></script>
+	<!-- CONTROLLERS -->
+	<script type="text/javascript" src="/js/Controllers/LoginController.js"></script>
+	<!-- SERVICES -->
+	<script type="text/javascript" src="/js/ClientServices/AuthServices.js"></script>
+	<!-- SPECS -->
+	<script type="text/javascript" src="/tests/specs/AuthSvc-spec.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			(function() {
+				var jasmineEnv = jasmine.getEnv();
+				jasmineEnv.updateInterval = 1000;
+
+				var trivialReporter = new jasmine.TrivialReporter();
+
+				jasmineEnv.addReporter(trivialReporter);
+
+				jasmineEnv.specFilter = function(spec) {
+					return trivialReporter.specFilter(spec);
+				};
+
+				var currentWindowOnload = window.onload;
+
+				window.onload = function() {
+					if (currentWindowOnload) {
+						currentWindowOnload();
+					}
+					execJasmine();
+				};
+
+				function execJasmine() {
+					jasmineEnv.execute();
+				}
+			})();
+		});
+	</script>
+</head>
+<body>
+
+</body>
+</html>

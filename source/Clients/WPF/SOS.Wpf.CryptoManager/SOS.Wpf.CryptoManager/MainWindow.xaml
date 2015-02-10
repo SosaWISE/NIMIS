@@ -1,0 +1,113 @@
+﻿<Window x:Class="SOS.Wpf.CryptoManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d"
+        Title="Crypto Manager Freedom SOS"
+		Icon="/Assets/AppIcons/world_lock_128.ico"
+		Height="436" Width="690">
+    <Grid>
+        <TabControl Margin="12" x:Name="tabControl1">
+            <TabItem Header="Encryption" x:Name="tabItem1">
+                <Grid>
+                    <Label Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" x:Name="lbEncText" VerticalAlignment="Top" Width="120" Content="Enter Text"/>
+                    <TextBox Height="114" Margin="6,40,6,0" x:Name="tbEncText" VerticalAlignment="Top" TextWrapping="WrapWithOverflow" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+                    <Label HorizontalAlignment="Left" Margin="10,186,0,0" x:Name="lbEncOutput" Width="120" Content="Output Text" Height="28" VerticalAlignment="Top"/>
+                    <TextBox Margin="6,220,6,19" x:Name="tbEncOutput" TextWrapping="WrapWithOverflow" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+                    <Button HorizontalAlignment="Right" Margin="0,160,6,0" x:Name="btnEncrypt" Width="75" Click="BtnEncryptClick" Content="Execute" Height="33" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Decryption" x:Name="tabItem2">
+                <Grid>
+                    <Label Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" x:Name="lbDecText" VerticalAlignment="Top" Width="120" Content="Enter Text"/>
+                    <TextBox AcceptsReturn="True" Height="114" Margin="10,44,2,0" x:Name="tbDecText" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto" />
+                    <Label HorizontalAlignment="Left" Margin="14,190,0,0" x:Name="lbDecOutput" Width="120" Content="Output Text" Height="28" VerticalAlignment="Top"/>
+                    <TextBox AcceptsReturn="True" Margin="10,224,2,15" x:Name="tbDecOutput" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" />
+                    <CheckBox x:Name="cbUseOld" Content="Use OLD Key" Width="89" Margin="0,172,86,0" Height="15" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="0.596,3.6"/>
+                    <Button HorizontalAlignment="Right" Margin="0,164,6,0" x:Name="btnDecrypt" Width="75" Click="BtnDecryptClick" Content="Execute" Height="33" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Auto Generate" x:Name="tabItem3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="251*" />
+                        <RowDefinition Height="32" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*" />
+                        <ColumnDefinition Width=".5*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Server Name -->
+                    <Label x:Name="lbServerName" 
+						Grid.Row="0"
+						Content="Server Name:" />
+                    <TextBox x:Name="tbServerName"
+						Grid.Row="1"
+						Margin="8,0,105,8" 
+						TextWrapping="Wrap"/>
+
+
+                    <!-- Catalg Name -->
+                    <Label x:Name="lbCatalogName" 
+						Grid.Row="2"
+						Content="Catalog Name:" />
+                    <TextBox x:Name="tbCatalogName"
+						Grid.Row="3"
+						Margin="8,0,105,8"/>
+
+                    <!-- Server Name -->
+                    <Label x:Name="lbApplicationName" 
+						Grid.Row="0"
+						Grid.Column="1"
+						Content="Application Name:" />
+                    <TextBox x:Name="tbApplicationName"
+						Grid.Row="1"
+						Grid.Column="1"
+						Margin="8,0,85,6" d:LayoutOverrides="HorizontalAlignment"/>
+
+                    <!-- Environment Comment -->
+                    <Label x:Name="lbEnvironmentComment" 
+						Grid.Row="2"
+						Grid.Column="1"
+						Content="Comments:" />
+                    <TextBox x:Name="tbEnvironmentComment"
+						Grid.Row="3"
+						Grid.Column="1"
+						Margin="8,0,85,6" d:LayoutOverrides="HorizontalAlignment"/>
+
+                    <!-- Result Set -->
+                    <TextBox x:Name="tbResult"
+						Grid.ColumnSpan="2"
+						Grid.Row="4"
+						AcceptsReturn="True" 
+						Height="181"
+						Margin="6,10,6,0" 
+						TextWrapping="WrapWithOverflow" VerticalAlignment="Top"
+						VerticalScrollBarVisibility="Auto" />
+
+                    <!-- Button -->
+                    <Button x:Name="btnGenerate"
+							Grid.Row="5"
+							Grid.Column="1"
+							Width="75" Height="28"
+							HorizontalAlignment="Right" 
+							Margin="0,4,6,0"
+							Click="BtnGenerateClick" Content="Generate"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Properties" x:Name="tabItem4">
+                <Grid>
+                    <Label Content="Encryption Key:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="tbEncryptionKeyOverride" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="596"/>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

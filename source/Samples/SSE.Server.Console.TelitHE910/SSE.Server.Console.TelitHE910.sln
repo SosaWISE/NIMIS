@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSE.Server.Console.TelitHE910", "SSE.Server.Console.TelitHE910\SSE.Server.Console.TelitHE910.csproj", "{8C289685-72D6-4EF6-AF13-BE6D974AAE7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client_Console", "Client_Console", "{FB01CD3E-7CD9-4381-8562-F6E9BA49CAAB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{3D3D2235-2B15-4D89-A2E9-8DAECEDDAD42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOS.Lib.Util", "..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj", "{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C289685-72D6-4EF6-AF13-BE6D974AAE7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C289685-72D6-4EF6-AF13-BE6D974AAE7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C289685-72D6-4EF6-AF13-BE6D974AAE7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C289685-72D6-4EF6-AF13-BE6D974AAE7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8C289685-72D6-4EF6-AF13-BE6D974AAE7F} = {FB01CD3E-7CD9-4381-8562-F6E9BA49CAAB}
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442} = {3D3D2235-2B15-4D89-A2E9-8DAECEDDAD42}
+	EndGlobalSection
+EndGlobal

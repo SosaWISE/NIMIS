@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="C:\PUBLISHED_BUILDS\SOS.Services.Wcf.Signals\" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="ExecuteSvc.svc" publishTime="03/04/2012 00:28:00" />
+    <file relUrl="bin/SOS.FunctionalServices.pdb" publishTime="03/05/2012 14:57:40" />
+    <file relUrl="Global.asax" publishTime="03/04/2012 00:17:37" />
+    <file relUrl="bin/SOS.Services.DataModels.dll" publishTime="03/05/2012 13:10:43" />
+    <file relUrl="bin/SOS.Services.DataModels.pdb" publishTime="03/05/2012 13:10:43" />
+    <file relUrl="bin/SOS.Lib.RestCake.pdb" publishTime="03/05/2012 13:10:43" />
+    <file relUrl="bin/Newtonsoft.Json.pdb" publishTime="12/02/2011 09:24:21" />
+    <file relUrl="bin/SOS.Data.SosCrm.pdb" publishTime="03/05/2012 14:52:30" />
+    <file relUrl="bin/SOS.FunctionalServices.Contracts.dll" publishTime="03/05/2012 14:48:26" />
+    <file relUrl="bin/SOS.FOS.ReceiverEngineServices.dll" publishTime="03/05/2012 14:57:40" />
+    <file relUrl="bin/SOS.Data.ReceiverEngine.pdb" publishTime="03/05/2012 14:55:20" />
+    <file relUrl="bin/SOS.Lib.RazorEngine.dll" publishTime="03/05/2012 13:10:43" />
+    <file relUrl="bin/SOS.Services.Interfaces.dll" publishTime="03/05/2012 13:26:46" />
+    <file relUrl="bin/StagesGateway.xml" publishTime="12/21/2011 15:12:48" />
+    <file relUrl="bin/Newtonsoft.Json.xml" publishTime="12/02/2011 09:24:21" />
+    <file relUrl="bin/SOS.Lib.Util.dll" publishTime="03/03/2012 17:10:54" />
+    <file relUrl="bin/SubSonic.pdb" publishTime="03/03/2012 17:10:57" />
+    <file relUrl="bin/ICSharpCode.SharpZipLib.dll" publishTime="03/17/2010 14:56:14" />
+    <file relUrl="bin/SOS.FOS.MonitoringStationServices.dll" publishTime="03/03/2012 17:10:58" />
+    <file relUrl="bin/SOS.Lib.Core.pdb" publishTime="03/03/2012 17:10:53" />
+    <file relUrl="bin/SOS.Data.pdb" publishTime="03/05/2012 14:52:28" />
+    <file relUrl="bin/HttpServiceLibrary.pdb" publishTime="12/21/2011 15:19:06" />
+    <file relUrl="bin/SOS.Data.Logging.pdb" publishTime="03/05/2012 14:52:29" />
+    <file relUrl="bin/HttpServiceLibrary.dll" publishTime="12/21/2011 15:19:06" />
+    <file relUrl="bin/SubSonic.dll" publishTime="03/03/2012 17:10:57" />
+    <file relUrl="bin/Newtonsoft.Json.dll" publishTime="12/02/2011 09:24:21" />
+    <file relUrl="bin/SOS.FOS.ReceiverEngineServices.pdb" publishTime="03/05/2012 14:57:40" />
+    <file relUrl="bin/SOS.FunctionalServices.Contracts.pdb" publishTime="03/05/2012 14:48:26" />
+    <file relUrl="bin/SOS.Data.Logging.dll" publishTime="03/05/2012 14:52:29" />
+    <file relUrl="bin/SOS.Lib.Util.pdb" publishTime="03/03/2012 17:10:54" />
+    <file relUrl="bin/SOS.Data.AuthenticationControl.pdb" publishTime="03/05/2012 14:52:30" />
+    <file relUrl="bin/SOS.services.Wcf.Signals.dll" publishTime="03/05/2012 14:57:41" />
+    <file relUrl="bin/SOS.FOS.MonitoringStationServices.pdb" publishTime="03/03/2012 17:10:58" />
+    <file relUrl="bin/SOS.Lib.Core.dll" publishTime="03/03/2012 17:10:53" />
+    <file relUrl="bin/StagesGateway.dll" publishTime="12/21/2011 15:11:52" />
+    <file relUrl="bin/SOS.Data.AuthenticationControl.dll" publishTime="03/05/2012 14:52:30" />
+    <file relUrl="bin/SOS.Data.dll" publishTime="03/05/2012 14:52:28" />
+    <file relUrl="bin/SOS.services.Wcf.Signals.pdb" publishTime="03/05/2012 14:57:41" />
+    <file relUrl="Web.config" publishTime="03/05/2012 15:52:35" />
+    <file relUrl="bin/SOS.Lib.RestCake.dll" publishTime="03/05/2012 13:10:43" />
+    <file relUrl="bin/SOS.Data.SosCrm.dll" publishTime="03/05/2012 14:52:30" />
+    <file relUrl="bin/SOS.Data.ReceiverEngine.dll" publishTime="03/05/2012 14:55:20" />
+    <file relUrl="bin/SOS.FunctionalServices.dll" publishTime="03/05/2012 14:57:41" />
+    <file relUrl="bin/SOS.Services.Interfaces.pdb" publishTime="03/05/2012 13:26:46" />
+    <file relUrl="bin/SOS.Lib.RazorEngine.pdb" publishTime="03/05/2012 13:10:43" />
+  </publishProfile>
+</publishData>

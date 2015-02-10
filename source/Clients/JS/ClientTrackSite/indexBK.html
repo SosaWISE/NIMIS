@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<html>
+<head>
+	<title>SS Client Tracker</title>
+	<link rel="stylesheet" href="css/styles.css">
+
+<style type="text/css">
+
+
+  div#map {
+    position: relative; 
+    top: -705px; 
+    left: 63px; 
+  }
+
+ 
+
+  div#crosshair {
+    position: absolute;
+    top: 192px;
+    height: 19px;
+    width: 19px;
+    left: 50%;
+    margin-left: -8px;
+    display: block;
+    background: url(crosshair.gif);
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+</style>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+  var map;
+  var geocoder;
+  var centerChangedLast;
+  var reverseGeocodedLast;
+  var currentReverseGeocodeResponse;
+
+  function initialize() {
+    var latlng = new google.maps.LatLng(32.5468,-23.2031);
+    var myOptions = {
+      zoom: 2,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    geocoder = new google.maps.Geocoder();
+
+
+    setupEvents();
+    centerChanged();
+  }
+
+  function setupEvents() {
+    reverseGeocodedLast = new Date();
+    centerChangedLast = new Date();
+
+    setInterval(function() {
+      if((new Date()).getSeconds() - centerChangedLast.getSeconds() > 1) {
+        if(reverseGeocodedLast.getTime() < centerChangedLast.getTime())
+          reverseGeocode();
+      }
+    }, 1000);
+
+    google.maps.event.addListener(map, 'zoom_changed', function() {
+      document.getElementById("zoom_level").innerHTML = map.getZoom();
+    });
+
+    google.maps.event.addListener(map, 'center_changed', centerChanged);
+
+    google.maps.event.addDomListener(document.getElementById('crosshair'),'dblclick', function() {
+       map.setZoom(map.getZoom() + 1);
+    });
+
+  }
+
+  function getCenterLatLngText() {
+    return '(' + map.getCenter().lat() +', '+ map.getCenter().lng() +')';
+  }
+
+  function centerChanged() {
+    centerChangedLast = new Date();
+    var latlng = getCenterLatLngText();
+    document.getElementById('latlng').innerHTML = latlng;
+    document.getElementById('formatedAddress').innerHTML = '';
+    currentReverseGeocodeResponse = null;
+  }
+
+  function reverseGeocode() {
+    reverseGeocodedLast = new Date();
+    geocoder.geocode({latLng:map.getCenter()},reverseGeocodeResult);
+  }
+
+  function reverseGeocodeResult(results, status) {
+    currentReverseGeocodeResponse = results;
+    if(status == 'OK') {
+      if(results.length == 0) {
+        document.getElementById('formatedAddress').innerHTML = 'None';
+      } else {
+        document.getElementById('formatedAddress').innerHTML = results[0].formatted_address;
+      }
+    } else {
+      document.getElementById('formatedAddress').innerHTML = 'Error';
+    }
+  }
+
+
+  function geocode() {
+    var address = document.getElementById("address").value;
+    geocoder.geocode({
+      'address': address,
+      'partialmatch': true}, geocodeResult);
+  }
+
+  function geocodeResult(results, status) {
+    if (status == 'OK' && results.length > 0) {
+      map.fitBounds(results[0].geometry.viewport);
+    } else {
+      alert("Geocode was not successful for the following reason: " + status);
+    }
+  }
+
+  function addMarkerAtCenter() {
+    var marker = new google.maps.Marker({
+        position: map.getCenter(),
+        map: map
+    });
+
+    var text = 'Lat/Lng: ' + getCenterLatLngText();
+    if(currentReverseGeocodeResponse) {
+      var addr = '';
+      if(currentReverseGeocodeResponse.size == 0) {
+        addr = 'None';
+      } else {
+        addr = currentReverseGeocodeResponse[0].formatted_address;
+      }
+      text = text + '<br>' + 'address: <br>' + addr;
+    }
+
+    var infowindow = new google.maps.InfoWindow({ content: text });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+    });
+  }
+
+</script>
+
+
+</head>
+<body>
+
+	<div class="mainRootDiv">
+		<div class="mainHeaderDiv">
+			<div class="ssLogo"><img src="images/SS_logo.png" alt="Security Sciences Logo" style="border-width: 0; height: 43px;"></div> 
+		</div>
+
+
+<div class="mainMenuDiv" {float: left; width: 50px; padding: 10px;>
+			<div class="btnInformation btnMain"></div>
+			<div class="btnAlerts btnMain"></div>
+			<div class="btnMedicalTracker btnMain"></div>
+			<div class="btnKidTracker btnMain"></div>
+			<div class="btnCarTracker btnMain"></div>
+			<div class="btnPetTracker btnMain"></div>
+			<div class="btnHomeSecurity btnMain"></div>
+			<div class="btnProperties btnMain"></div></div>
+ 
+
+<div class="div#map"> 
+  <div id="map" >
+    <div id="map_canvas" style="width:960px; height:600px"></div>
+    <div id="crosshair"></div>
+ <div class="MapDiv">
+<body onload="initialize()">
+  Find Place: <input type="text" id="address"/><input type="button" value="Go" onclick="geocode()"><input type="button" value="Add Marker at Center" onclick="addMarkerAtCenter()"/>
+
+  <table>
+    <tr><td>Lat/Lng:</td><td><div id="latlng"></div></td></tr>
+    <tr><td>Address:</td><td><div id="formatedAddress"></div></td></tr>
+    <tr><td>Zoom Level</td><td><div id="zoom_level">2</div></td></tr>
+  </table>
+</div></div>
+		
+
+ <p><a href = "/index.htm"> After you make the template look good,  we have to make the Login page color compatible</a></p>
+</body>
+</html>

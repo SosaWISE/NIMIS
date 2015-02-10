@@ -1,0 +1,82 @@
+﻿<Window x:Class="NXS.Clients.Wpf.LicensingManager.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:nxsC="clr-namespace:NXS.Framework.Wpf.Controls;assembly=NXS.Framework.Wpf"
+		xmlns:nxsCnv="clr-namespace:NXS.Framework.Wpf.Converters;assembly=NXS.Framework.Wpf"
+		xmlns:mvvm="clr-namespace:NXS.Framework.Wpf.Mvvm;assembly=NXS.Framework.Wpf"
+		xmlns:wpflib="clr-namespace:NXS.Framework.Wpf;assembly=NXS.Framework.Wpf"
+		Icon="/Assets/Icons/LicensingIcon.ico"
+		Title="{Binding DisplayName}"
+		Style="{StaticResource DefaultWindowStyle}"
+		mvvm:LifetimeEvent.Close="{Binding CloseCommand}"
+		mvvm:LifetimeEvent.Closing="{Binding ClosingCommand}"
+		mvvm:LifetimeEvent.Loaded="{Binding LoadedCommand}"
+		mvvm:LifetimeEvent.Unloaded="{Binding UnloadedCommand}"
+		mvvm:LifetimeEvent.Activated="{Binding ActivatedCommand}"
+		mvvm:LifetimeEvent.Deactivated="{Binding DeactivatedCommand}"
+		Width="1280"
+		Height="1024">
+
+    <Window.Resources>
+        <Style TargetType="TreeViewItem">
+            <Setter Property="IsExpanded"
+					Value="True" />
+            <Setter Property="Focusable"
+					Value="False" />
+        </Style>
+        <wpflib:CommandReference x:Key="toggleMenuSliderCommand"
+								 Command="{Binding ElementName=sbtnMenuContainer,Path=ToggleCommand}" />
+        <wpflib:CommandReference x:Key="employeeDataReportCommand"
+								 Command="{Binding EmployeeDataReportCommand}" />
+        <wpflib:CommandReference x:Key="purchasedAccountsReportCommand"
+								 Command="{Binding PurchasedAccountsReportCommand}" />
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Command="{StaticResource toggleMenuSliderCommand}"
+					Gesture="ALT+F" />
+        <KeyBinding Command="{StaticResource employeeDataReportCommand}"
+					Gesture="CTRL+E" />
+        <KeyBinding Command="{StaticResource purchasedAccountsReportCommand}"
+					Gesture="CTRL+A" />
+    </Window.InputBindings>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="4" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border x:Name="bdMenuContainer"
+				Grid.Column="0"
+				Width="250"
+				Background="#FFFFFFFF">
+            <Grid>
+                <nxsC:ContainerBox x:Name="cbMenu"
+									Header="Nexsense Licensing">
+                    <TreeView x:Name="tvMenu"
+							  Background="Transparent"
+							  ItemsSource="{Binding Path=MenuNodes}">
+                    </TreeView>
+                </nxsC:ContainerBox>
+                <nxsC:SliderButton x:Name="sbtnMenuContainer"
+									TargetElementName="bdMenuContainer"
+									HorizontalAlignment="Right"
+									VerticalAlignment="Top"
+									Margin="0,3,5,0"
+									CloseIconSource="pack://application:,,,/NXS.Framework.Wpf;Component/Themes/Platinum/Assets/MinimizeButton.png"
+									OpenIconSource="pack://application:,,,/NXS.Framework.Wpf;Component/Themes/Platinum/Assets/MaximizeButton.png"
+									OpenStateToolTip="Hide Menu (ALT+F)"
+									ClosedStateToolTip="Show Menu (ALT+F)"
+									PropertyChanged="SliderButton_PropertyChanged" />
+            </Grid>
+        </Border>
+
+        <Border Grid.Column="2"
+				Margin="12">
+            <TabControl x:Name="ctlWorkspacesContainer"
+						ItemsSource="{Binding Path=Workspaces}"
+						Style="{StaticResource WorkspacesContainerTabControlStyle}"
+						Visibility="{Binding Path=Workspaces.Count,Converter={x:Static nxsCnv:PositiveDecimalVisibilityConverter.Instance}}" />
+        </Border>
+    </Grid>
+</Window>

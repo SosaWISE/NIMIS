@@ -1,0 +1,118 @@
+<!-- TemplateId: ext MyCalendarEvent.html -->
+<div id="myCalendarEvent-dialog"  class="modal-dialog" style="height:auto;width:auto">
+	<div class="modal-hdr"><a id="leadCu-Personal-close" class="modal-close btn btn-close-x"><img src="/img/modal_hdr_btn_close.png" alt="X" /></a></div>
+	<!-- Header -->
+	<div style="padding-left: 25px; padding-top:7px; padding-right: 17px;">
+		<img src="/img/calendar_64.png" style="width:48px; height:48px; float:left;" alt="Calendar Event">
+		<div style="padding: 10px 5px;font-size: 30px">Calendar Event -- Create/Edit</div>
+		<div style="float: right;" class="dealerFld">Event ID: <strong>{EventID}</strong></div>
+	</div>
+	<!-- Body -->
+	<div class="modal-input-drape">
+		<div class="input-form">
+			<table class="form-hdr" style="width:100%">
+				<thead class="tbl-head">
+					<tr>
+						<th colspan="3"><div style="float: right;color: red;">*(Required)</div>{Title}</th>
+					</tr>
+					<tr>
+						<th colspan="3"><div style="background:white;padding:0;width: auto;height:1px;margin: -10px 0;"></div></th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- START Title | Event Type-->
+					<tr>
+						<td colspan="2">Event Title: <span style="color:red">*</span></td>
+						<td>Event Type</td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" id="frmCalEventTitle" tabindex="10" class="nmlFieldMegLrge nmlField" maxlength="200" value="{EventTitle}"></td>
+						<td><input type="text" id="frmCalEventType" disabled class="nmlFieldExLarge nmlField" maxlength="50" value="{EventType}"></td>
+					</tr>
+					<!-- END Title | Event Type-->
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:300px;height:5px;margin:0;"></div></td>
+					</tr>
+					<!-- START Description | Lead or Customer Info -->
+					<tr>
+						<td colspan="2"><div class="dealerFld">Description:</div></td>
+						<td><div class="dealerFld">Information:</div></td>
+					</tr>
+					<tr>
+						<td colspan="2"><textarea id="frmCalEventDesc" tabIndex="20" rows="5" cols="20">{Description}</textarea></td>
+						<td rowspan="3"><div>{EventCustInfo}</div></td>
+					</tr>
+					<!-- END   Description | Lead or Customer Info -->
+					<tr><!-- SPACER -->
+						<td colspan="2"><div style="background:transparent;padding:0;width:300px;height:5px;margin:0;"></div></td>
+					</tr>
+					<!-- START URL -->
+					<tr>
+						<td colspan="2"><div class="dealerFld">URL:</div></td>
+					</tr>
+					<tr>
+						<td colspan="3" style="padding: 0 10px"><input type="text" id="frmCalEventUrl" tabindex="30" class="nmlFieldMaxLrge nmlField" maxlength="20"
+														   onkeydown="if (event.keyCode == 13) document.getElementById('frmCalEventBtnSave').click()"></td>
+					</tr>
+					<!-- END   URL -->
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:300px;height:5px;margin:0;"></div></td>
+					</tr>
+					<!-- START StartDate | EndDate | All Day -->
+					<tr>
+						<td><div class="dealerFld">Start Date:</div></td>
+						<td><div class="dealerFld">End Date:</div></td>
+						<td><div class="dealerFld">All Day:</div></td>
+					</tr>
+					<tr>
+						<td style="padding: 0 10px"><input type="text" id="frmCalEventSDate" tabindex="40" class="nmlField nmlFieldLarge" maxlength="20"
+							value="{start}" onkeydown="if (event.keyCode == 13) document.getElementById('frmCalEventBtnSave').click()"></td>
+						<td style="padding: 0 10px"><input type="text" id="frmCalEventEDate" tabindex="50" class="nmlField nmlFieldLarge" maxlength="20"
+							value="{end}" onkeydown="if (event.keyCode == 13) document.getElementById('frmCalEventBtnSave').click()"></td>
+						<td style="padding-left: 5px;"><input id="frmCalEventAllDay" tabindex="60" name="frmPayMethodOfPay" type="checkbox" value="All Day" /></td>
+					</tr>
+					<!-- END   StartDate | EndDate | All Day -->
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:300px;height:5px;margin:0;"></div></td>
+					</tr>
+					<!-- START Reminder  -->
+					<tr>
+						<td colspan="3" style="padding-left: 0px;">
+							<table class="form-hdr" style="width:100%">
+								<tr>
+									<td><div class="dealerFld">Reminder:</div></td>
+									<td><div class="dealerFld">How do you want to be reminded:</div></td>
+								</tr>
+								<tr>
+									<td style="padding: 0 10px"><div class="ui-widget">
+										<select id="frmCalEventReminder" tabindex="10">
+											<option value="">[Select One]</option>
+										</select>
+									</div></td>
+									<td style="padding: 0 10px"><div class="ui-widget">
+										<select id="frmCalEventMediaType" tabindex="10">
+											<option value="">[Select One]</option>
+										</select>
+									</div></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<!-- END   Reminder -->
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:300px;height:5px;margin:0;"></div></td>
+					</tr>
+					<tr>
+						<td style="text-align:left;padding-right:10px"></td>
+						<td></td>
+						<td style="text-align:right;padding-right:10px"><img id="frmCalEventImgSave" class="btn-submit" style="vertical-align: middle;" src="/img/icon_submit32x31.png" alt="submit" />
+							<span style="display:inline-block; vertical-align:middle"><a id="frmCalEventBtnSave" class="btn-submit">SAVE</a></span></td>
+					</tr>
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:auto;height:5px;margin:0;"></div></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

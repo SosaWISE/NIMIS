@@ -1,0 +1,313 @@
+﻿<UserControl x:Class="NXS.Clients.Wpf.LicensingManager.Views.EmployeeDataReportView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:PProC="clr-namespace:NXS.Framework.Wpf.Controls;assembly=NXS.Framework.Wpf"
+			 xmlns:PProCnv="clr-namespace:NXS.Framework.Wpf.Converters;assembly=NXS.Framework.Wpf">
+	<Grid IsEnabled="{Binding IsLoading.Value,Converter={x:Static PProCnv:OppositeBooleanConverter.Instance}}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Style="{StaticResource GutterRow}" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Style="{StaticResource GutterRow}" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Style="{StaticResource GutterRow}" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Style="{StaticResource GutterColumn}" />
+			<ColumnDefinition Width="170" />
+			<ColumnDefinition Width="25" />
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Style="{StaticResource GutterColumn}" />
+			<ColumnDefinition Width="170" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+
+		<Label HorizontalAlignment="Right"
+			   Style="{StaticResource Label2Required}"
+			   Content="First Name:" />
+		<TextBox Grid.Column="2"
+				 PreviewKeyDown="UIItem_PreviewKeyDown"
+				 Text="{Binding Model.FirstName.Value, UpdateSourceTrigger=PropertyChanged}">
+			<TextBox.Background>
+				<MultiBinding Converter="{x:Static PProCnv:ValidatedInputBrushConverter.Instance}">
+					<Binding Path="Model.FirstName.IsValid" />
+					<Binding Path="Model.FirstName.IsDirty" />
+				</MultiBinding>
+			</TextBox.Background>
+		</TextBox>
+
+		<Label Grid.Row="2"
+			   HorizontalAlignment="Right"
+			   Style="{StaticResource Label2Required}"
+			   Content="Last Name:" />
+		<TextBox Grid.Row="2"
+				 Grid.Column="2"
+				 PreviewKeyDown="UIItem_PreviewKeyDown"
+				 Text="{Binding Model.LastName.Value, UpdateSourceTrigger=PropertyChanged}">
+			<TextBox.Background>
+				<MultiBinding Converter="{x:Static PProCnv:ValidatedInputBrushConverter.Instance}">
+					<Binding Path="Model.LastName.IsValid" />
+					<Binding Path="Model.LastName.IsDirty" />
+				</MultiBinding>
+			</TextBox.Background>
+		</TextBox>
+
+		<Label Grid.Column="4"
+			   HorizontalAlignment="Right"
+			   Style="{StaticResource Label2Required}"
+			   Content="Department:" />
+		<PProC:DropDownList Grid.Column="6"
+							PreviewKeyDown="UIItem_PreviewKeyDown"
+							DataContext="{Binding Model.CorpDepartment}" />
+
+		<Label Grid.Row="2"
+			   Grid.Column="4"
+			   HorizontalAlignment="Right"
+			   Style="{StaticResource Label2Required}"
+			   Content="Active:" />
+		<PProC:DropDownList Grid.Row="2"
+							Grid.Column="6"
+							PreviewKeyDown="UIItem_PreviewKeyDown"
+							DataContext="{Binding Model.ActiveOption}" />
+
+		<StackPanel Grid.Row="4"
+					Grid.ColumnSpan="8"
+					HorizontalAlignment="Right"
+					Orientation="Horizontal">
+			<Button Margin="0,0,5,0"
+					Command="{Binding LoadReportCommand}"
+					Content="Load Report" />
+			<Button Command="{Binding ExportToExcelCommand}"
+					Content="Export To Excel" />
+			<Button Command="{Binding ClearCommand}"
+					Content="Clear" />
+		</StackPanel>
+
+		<PProC:SuperListView Grid.Row="6"
+							 Grid.ColumnSpan="8"
+							 ItemsSource="{Binding List}"
+							 InitialSortIndex="0"
+							 Width="{Binding RelativeSource={RelativeSource Self}, Path=Parent.ActualWidth}"
+							 Margin="0,10,0,0">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Width="85">
+						<GridViewColumnHeader Content="Employee ID"
+											  Tag="GPEmployeeID.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock ToolTipService.ShowDuration="99999"
+											   Text="{Binding GPEmployeeID.Value}">
+										<TextBlock.ToolTip>
+											<Grid>
+												<Grid.RowDefinitions>
+													<RowDefinition Height="Auto" />
+													<RowDefinition Style="{StaticResource GutterRow}" />
+													<RowDefinition Height="Auto" />
+													<RowDefinition Style="{StaticResource GutterRow}" />
+													<RowDefinition Height="Auto" />
+													<RowDefinition Style="{StaticResource GutterRow}" />
+													<RowDefinition Height="Auto" />
+												</Grid.RowDefinitions>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto" />
+													<ColumnDefinition Style="{StaticResource GutterColumn}" />
+													<ColumnDefinition Width="170" />
+													<ColumnDefinition Width="25" />
+													<ColumnDefinition Width="Auto" />
+													<ColumnDefinition Style="{StaticResource GutterColumn}" />
+													<ColumnDefinition Width="Auto" />
+												</Grid.ColumnDefinitions>
+												
+												<Label HorizontalAlignment="Right"
+													   Style="{StaticResource Label2Required}"
+													   Content="Street Address:" />
+												<TextBlock Grid.Column="2"
+														   Grid.ColumnSpan="7"
+														   VerticalAlignment="Center"
+														   Text="{Binding StreetAddress.Value}" />
+												
+												<Label Grid.Row="2"
+													   HorizontalAlignment="Right"
+													   Style="{StaticResource Label2Required}"
+													   Content="City:" />
+												<TextBlock Grid.Row="2"
+														   Grid.Column="2"
+														   VerticalAlignment="Center"
+														   Text="{Binding City.Value}" />
+												
+												<Label Grid.Row="4"
+													   HorizontalAlignment="Right"
+													   Style="{StaticResource Label2Required}"
+													   Content="State:" />
+												<TextBlock Grid.Row="4"
+														   Grid.Column="2"
+														   VerticalAlignment="Center"
+														   Text="{Binding State.Value}" />
+												
+												<Label Grid.Row="6"
+													   HorizontalAlignment="Right"
+													   Style="{StaticResource Label2Required}"
+													   Content="Zip:" />
+												<TextBlock Grid.Row="6"
+														   Grid.Column="2"
+														   VerticalAlignment="Center"
+														   Text="{Binding Zip.Value}" />
+												
+												<Label Grid.Row="2"
+													   Grid.Column="4"
+													   HorizontalAlignment="Right"
+													   Style="{StaticResource Label2Required}"
+													   Content="Birth Date:" />
+												<TextBlock Grid.Row="2"
+														   Grid.Column="6"
+														   VerticalAlignment="Center"
+														   Text="{Binding BirthDate.Value, StringFormat='MM/dd/yyyy'}" />
+												
+												<Label Grid.Row="4"
+													   Grid.Column="4"
+													   HorizontalAlignment="Right"
+													   Style="{StaticResource Label2Required}"
+													   Content="Gender:" />
+												<TextBlock Grid.Row="4"
+														   Grid.Column="6"
+														   VerticalAlignment="Center"
+														   Text="{Binding Gender.Value}" />
+												
+												<Label Grid.Row="6"
+													   Grid.Column="4"
+													   HorizontalAlignment="Right"
+													   Style="{StaticResource Label2Required}"
+													   Content="Marital Status:" />
+												<TextBlock Grid.Row="6"
+														   Grid.Column="6"
+														   VerticalAlignment="Center"
+														   Text="{Binding MaritalStatus.Value}" />
+												
+											</Grid>
+										</TextBlock.ToolTip>
+									</TextBlock>
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="125">
+						<GridViewColumnHeader Content="First Name"
+											  Tag="FirstName.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding FirstName.Value}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="35">
+						<GridViewColumnHeader Content="M.I."
+											  Tag="MiddleInitial.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding MiddleInitial.Value}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="125">
+						<GridViewColumnHeader Content="Last Name"
+											  Tag="LastName.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding LastName.Value}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="85">
+						<GridViewColumnHeader Content="Start Date"
+											  Tag="StartDate.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding StartDate.Value, StringFormat='MM/dd/yyyy'}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="70">
+						<GridViewColumnHeader Content="Active"
+											  Tag="Active.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<PProC:Bitmap Source="/Assets/Images/Ok.png"
+												  VerticalAlignment="Center"
+												  HorizontalAlignment="Center"
+												  Visibility="{Binding Path=Active.Value, Converter={x:Static PProCnv:NullableBooleanVisibilityConverter.Instance}}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="85">
+						<GridViewColumnHeader Content="Inactive Date"
+											  Tag="InactiveDate.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Visibility="{Binding Path=Active.Value, Converter={x:Static PProCnv:NullableBooleanVisibilityConverter.Instance}, ConverterParameter=true}"
+											   Text="{Binding InactiveDate.Value, StringFormat='MM/dd/yyyy'}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="175">
+						<GridViewColumnHeader Content="Department"
+											  Tag="Department.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding Department.Value}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="100">
+						<GridViewColumnHeader Content="Phone"
+											  Tag="Phone.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding Phone.Value}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="100">
+						<GridViewColumnHeader Content="Social Security #"
+											  Tag="SSN.Value" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource GridViewCellBorder}">
+									<TextBlock Text="{Binding SSN.Value}" />
+								</Border>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+
+				</GridView>
+			</ListView.View>
+		</PProC:SuperListView>
+
+		<PProC:LoadingAnimation Grid.RowSpan="7"
+								Grid.ColumnSpan="8"
+								Visibility="{Binding IsLoading.Value,Converter={x:Static PProCnv:BooleanVisibilityConverter.Instance}}" />
+
+	</Grid>
+</UserControl>

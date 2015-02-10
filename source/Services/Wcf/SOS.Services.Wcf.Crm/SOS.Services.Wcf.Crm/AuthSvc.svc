@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="SOS.Services.Wcf.Crm.AuthSvc" CodeBehind="AuthSvc.svc.cs" %>

@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:viewModels="clr-namespace:NXS.Clients.Wpf.LicensingManager.ViewModels"
+					xmlns:views="clr-namespace:NXS.Clients.Wpf.LicensingManager.Views">
+	<DataTemplate DataType="{x:Type viewModels:EmployeeDataReportViewModel }">
+		<views:EmployeeDataReportView />
+	</DataTemplate>
+	
+	<DataTemplate DataType="{x:Type viewModels:PurchasedAccountsReportViewModel }">
+		<views:PurchasedAccountsReportView />
+	</DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,193 @@
+<!-- TemplateId: raw leads-panel-view.html -->
+<div class="panel-view">
+<table class="main-table-view" style="" align="center">
+	<tr>
+		<td colspan="3">
+			<div class="main-tool-panel">
+				<img class="main-tool-img-btn close-lead" src="/img/close_1_64_hot.png" alt="Close Lead Panel" />
+				<img class="main-tool-img-btn convert-customer" src="/img/customer_64.png" alt="Convert to Customer" />
+				<img class="main-tool-img-btn edit-lead" src="/img/NewLead_64_Edit.png" alt="Edit Lead" />
+				<img class="main-tool-img-btn disp-lead" src="/img/accept_document_64.png" alt="Edit Lead" />
+				<img class="main-tool-img-btn schd-appt" src="/img/calendar_64.png" alt="Schedule Appointment"/>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top;">
+			<div class="panel-view-left">
+				<!-- TemplateId: raw AddressContainer.html -->
+				<div class="inner-cont">
+					<div class="inner-cont-title">
+						<div>Personal Information</div>
+					</div>
+					<div style="background:white;padding:0;width: auto;height:1px;"></div>
+					<div data-id="{LeadId}"></div>
+					<p style="margin: 7px 0;">
+						<div style="float:right; width:100px;height: 100px"><img alt="Lead" src="/img/NewLead_64.png"
+							 style="width:100px;height:100px;" /></div>
+						Full Name:
+						<br /><span class="main-data">{Salutation} {FirstName} {MiddleName} {LastName} {Suffix}</span>
+						<br />Date of Birth:
+						<br /><span class="main-data">{DOB}</span>
+						<br />Gender:
+						<br /><span class="main-data">{Gender}</span>
+						<br />Language:
+						<br /><span class="main-data">{LocalizationName}</span>
+						<br />
+						<br />Source:
+						<br /><span class="main-data">{LeadSource}</span>
+						<br />Disposition:
+						<br /><span class="main-data">{LeadDisposition}</span>
+						<br />
+						<br />Email: &nbsp;<span class="main-data"><a href="mailto:{Email}">{Email}</a></span>
+						<tpl if="PhoneHome">
+							<br />Home Phone: &nbsp;<span class="main-data">{PhoneHome}</span>
+						</tpl>
+						<tpl if="PhoneWork">
+							<br />Work Phone: &nbsp;<span class="main-data">{PhoneWork}</span>
+						</tpl>
+						<tpl if="PhoneMobile">
+							<br />Mobile Phone: &nbsp;<span class="main-data">{PhoneMobile}</span>
+						</tpl>
+						<br />
+						<br />Generated Date: &nbsp;<span class="main-data">{CreatedOn}</span>
+					</p>
+				</div>
+			</div>
+		</td>
+		<td style="vertical-align: top;">
+			<table class="center-table-view">
+				<tr>
+					<td style="vertical-align: top;">
+						<div class="panel-view-center">
+							<!-- TemplateId: raw MonitoringInfoContainer.html -->
+							<div class="inner-cont inner-cont-mid">
+								<div class="inner-cont-title">
+									<div>Home Address</div>
+								</div>
+								<div style="background:white;padding:0;width: auto;height:1px;"></div>
+								<div data-id="{AddressId}"></div>
+								<p style="margin: 7px 0">
+									<div style="width:100px;height:100px;float: right">
+										<img alt="Home Address" src="/img/AddressIcon.png"
+											 style="width:100px;height:100px;"/>
+									</div>
+									Street Address
+									<br /><span class="main-data">{StreetAddress}</span>
+									<tpl if="StreetAddress2">
+										<br /><span class="main-data">{StreetAddress2}</span>
+									</tpl>
+									<br /><span class="main-data">{City} {StateName} {PostalCode}</span>
+									<br />Time Zone
+									<br /><span class="main-data">{TimeZone}</span>
+								</p>
+							</div>
+						</div>
+					</td>
+					<td style="vertical-align: top;">
+						<div class="panel-view-center">
+							<!-- TemplateId: raw MonitoringInfoContainer.html -->
+						<tpl for="ProductsList">
+							<div class="inner-cont inner-cont-mid">
+								<div class="inner-cont-title">
+									<div>GPS Trackers</div>
+								</div>
+								<div style="background:white;padding:0;width: auto;height:1px;"></div>
+								<p style="margin: 7px 0">
+									<div style="width:100px;height:100px;float: right">
+										<img alt="Watch S-911 HC" src="/Assets/Products/{ProductImageName}"
+											 style="width:100px;height:100px;"/>
+									</div>
+									Product:
+									<br	/><span class="main-data">{ShortName}</span>
+									<br />Contact Date:
+									<br	/><span class="main-data">{OfferDate}</span>
+									<br />Sales Rep:
+									<br	/><span class="main-data">{SalesRepFullName}</span>
+								</p>
+							</div>
+						</tpl>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td style="vertical-align: top; min-width: 150px;">
+			<div class="panel-view-right">
+				<!-- TemplateId: raw RepInfoContainer.html -->
+				<div class="inner-cont inner-cont-small">
+					<div class="inner-cont-title">
+						<div>Sales Rep Information</div>
+					</div>
+					<div style="background:white;padding:0;width: auto;height:1px;"></div>
+					<p style="margin:  7px 0">
+						<div style="float: right; width:105px; height:105px;"><img style="width:105px; height:105px;" src="/img/DefaultRep.png" alt="{RepFullName}" /></div>
+						Rep ID:
+						<br /><span class="main-data">{RepId}</span>
+						<br />Full Name:
+						<br /><span class="main-data">{RepFullName}</span>
+						<br />Recruited Date:
+						<br /><span class="main-data">{RepRecruitedDate}</span>
+						<br />
+						<br />Email: <span class="main-data"><a href="mailto:{RepEmail}">{RepEmail}</a></span>
+						<tpl if="RepPhoneHome">
+							<br />Home Phone: <span class="main-data">{RepPhoneHome}</span>
+						</tpl>
+						<tpl if="RepPhoneCell">
+							<br />Mobile Phone: <span class="main-data">{RepPhoneCell}</span>
+						</tpl>
+						<tpl if="RepPhoneFax">
+							<br />Fax: <span class="main-data">{RepPhoneFax}</span>
+						</tpl>
+						<tpl if="RepCompanyName">
+							<br />Company: <span class="main-data">{RepCompanyName}</span>
+						</tpl>
+						<tpl if="IsLocked">
+							<br /><span class="main-data">Rep Account is Locked</span>
+						</tpl>
+					</p>
+				</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<div class="panel-view-full">
+				<div class="inner-cont">
+					<div class="inner-cont-title">
+						<div>Notes And Events</div>
+					</div>
+					<div style="background:white;padding:0;width: auto;height:1px;"></div>
+					<table class="form-std">
+						<thead class="tbl-head">
+						<tr>
+							<th></th>
+							<th style="white-space: nowrap;">Date Time</th>
+							<th style="white-space: nowrap;">Entered By</th>
+							<th style="white-space: nowrap;">Main Category</th>
+							<th style="white-space: nowrap;">Sub Category</th>
+							<th style="white-space: nowrap;">Description</th>
+						</tr>
+						<tr>
+							<th colspan="8"><div style="background:white;padding:0;width: auto;height:1px;margin: -5px 0;"></div></th>
+						</tr>
+						</thead>
+						<tbody>
+						<tpl for="Notes">
+							<tr id="noteId-{NoteID}" class="search-result-tr">
+								<td style="white-space: nowrap;">{NoteID}</td>
+								<td style="white-space: nowrap;">{[SOS.Utils.Strings.formatDateLong(values.CreatedOn)]}</td>
+								<td style="white-space: nowrap;">{CreatedBy}</td>
+								<td style="white-space: nowrap;">{Category1}</td>
+								<td style="white-space: nowrap;">{Category2}</td>
+								<td style="width:100%">{Note}</td>
+							</tr>
+						</tpl>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</td>
+	</tr>
+</table>
+</div>

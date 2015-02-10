@@ -1,0 +1,109 @@
+<!-- TemplateId: ext LeadConvToCust-BillingInfo.html -->
+<div id="leadConv-BillInfo-dialog" class="modal-dialog" style="height:auto;width:auto">
+	<div class="modal-hdr"><a id="leadCu-Personal-close" class="modal-close btn btn-close-x"><img src="/img/modal_hdr_btn_close.png" alt="X" /></a></div>
+	<div style="padding-left: 25px; padding-top:7px; padding-right: 17px;">
+		<img src="/img/Customer_64.png" style="width:48px; height:48px; float:left;" alt="Freedom SOS" alt="Freedom SOS" />
+		<div style="padding: 13px 5px 0 5px;font-size: 30px">Billing Information</div>
+		<div style="float: right;" class="dealerFld">ID: <strong>{CompoundLeadId}</strong></div>
+	</div>
+	<div class="modal-input-drape">
+		<div class="input-form">
+			<table class="form-hdr" style="width:100%;">
+				<thead class="tbl-head">
+				<tr>
+					<th colspan="3"><div style="float:right;color:red;">*(Required)
+						&nbsp;&nbsp;&nbsp;&#8224;(Business Rule 1)
+						&nbsp;&nbsp;&nbsp;&#8225;(Business Rule 2)&nbsp;</div>{Title}</th>
+				</tr>
+				<tr><!-- SPACER -->
+					<th colspan="3"><div style="background:white;padding:0;width: auto;height:1px;margin: -10px 0;"></div></th>
+				</tr>
+				<tr>
+					<td colspan="3" style="padding-left: 7px;"><input id="frmPayInfoSameAsCust" type="checkbox" /> <span class="dealerFld">Same as Customer</span></td>
+				</tr>
+				<tr><!-- SPACER -->
+					<th colspan="3"><div style="background:white;padding:0;width: auto;height:1px;margin: -10px 0;"></div></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td><div class="dealerFld">Salutation:</div></td>
+					<td><div class="dealerFld">Birth Date: <span style="color:red">&#8224</span></div></td>
+					<td><div class="dealerFld">Home Phone: <span style="color:red;">&#8225</span></div></td>
+				</tr>
+				<tr>
+					<td><input type="text" id="frmPaySalutation" tabindex="10" class="nmlFieldExLarge nmlField" maxlength="20"></td>
+					<td><input type="text" id="frmPayDOB" tabindex="60" class="nmlField" maxlength="20"></td>
+					<td style="padding: 0 10px"><input type="text" id="frmPayPhoneHome" tabindex="110" class="nmlField nmlFieldMedium" maxlength="20" onkeydown="if (event.keyCode == 13) document.getElementById('frmPayBtnNext1').click()"></td>
+				</tr>
+				<tr><!-- SPACER -->
+					<td colspan="3"><div style="background:transparent;padding:0;width:auto;height:5px;margin:0;"></div></td>
+				</tr>
+				<!-- Start FIRST NAME -->
+				<tr>
+					<td><div class="dealerFld">First Name: <span style="color:red">*</span></div></td>
+					<td><div class="dealerFld" id="frmPaySSNDiv">Social Security #: <span style="color:red;">&#8224</span></div></td>
+					<td><div class="dealerFld">Mobile Phone: <span style="color:red;">&#8225</span></div></td>
+				</tr>
+				<tr>
+					<td><input type="text" id="frmPayFirstName" tabindex="20" class="nmlFieldExLarge nmlField" maxlength="50" value="{FirstName}"></td>
+					<td><input type="text" id="frmPaySSN" tabindex="70" class="nmlField" maxlength="20"></td>
+					<td style="padding: 0 10px;"><input type="text" id="frmPayPhoneMobile" tabindex="120" class="nmlField nmlFieldMedium" maxlength="20" onkeydown="if (event.keyCode == 13) document.getElementById('frmPayBtnNext1').click()"></td>
+				</tr>
+				<!-- End   FIRST NAME -->
+				<!-- Start MIDDLE NAME -->
+				<tr>
+					<td><div class="dealerFld">Middle Name:</div></td>
+					<td><div class="dealerFld">Gender: <span style="color:red">*</span></div></td>
+					<td><div class="dealerFld">Work Phone: <span style="color:red;">&#8225</span></div></td>
+				</tr>
+				<tr>
+					<td><input type="text" id="frmPayMiddleName" tabindex="30" class="nmlFieldExLarge nmlField" maxlength="50"></td>
+					<td><select id="frmPayGender" tabindex="80">
+						<option value="Male" selected>Male</option>
+						<option value="Female">Female</option>
+					</select></td>
+					<td style="padding: 0 10px;"><input type="text" id="frmPayPhoneWork" tabindex="130" class="nmlField nmlFieldMedium" maxlength="20" onkeydown="if (event.keyCode == 13) document.getElementById('frmPayBtnNext1').click()"></td>
+				</tr>
+				<!-- End   MIDDLE NAME -->
+				<!-- Start LAST NAME -->
+				<tr>
+					<td><div class="dealerFld">Last Name: <span style="color:red">*</span></div></td>
+					<td><div class="dealerFld">Email: <span style="color:red">*</span></div></td>
+				</tr>
+				<tr>
+					<td><input type="text" id="frmPayLastName" tabindex="40" class="nmlFieldExLarge nmlField" maxlength="50"></td>
+					<td colspan="2" style="padding: 0 10px;"><input type="text" id="frmPayEmail" tabindex="90" class="nmlFieldMegLrge nmlField" maxlength="50" onkeydown="if (event.keyCode == 13) document.getElementById('frmPayBtnNext1').click()"></td>
+				</tr>
+				<!-- End   LAST NAME -->
+				<!-- Start Post Fix -->
+				<tr>
+					<td><div class="dealerFld">Suffix:</div></td>
+					<td>Language:<span style="color:red">*</span></td>
+				</tr>
+				<tr>
+					<td><input type="text" id="frmPaySuffix" tabindex="50" class="nmlFieldExLarge nmlField" maxlength="50"></td>
+					<td colspan="2"><select id="frmPayLanguage" tabindex="100" onkeydown="if (event.keyCode == 13) document.getElementById('frmPayBtnNext1').click()">
+						<option value="en-us" selected>English USA</option>
+						<option value="es">Spanish</option>
+					</select></td>
+				</tr>
+				<!-- End   Post Fix -->
+				<tr><!-- SPACER -->
+					<td colspan="3"><div style="background:transparent;padding:0;width:300px;height:5px;margin:0;"></div></td>
+				</tr>
+				<tr>
+					<td style="text-align:left;padding-right:10px"><span style="display:inline-block; vertical-align:middle"><a id="frmPayBtnPrev2" class="btn-submit">PREV</a></span>
+						<img id="frmPayImgPrev2" class="btn-submit" style="vertical-align: middle;" src="/img/icon_rewind_32_hot.png" alt="submit" /></td>
+					<td></td>
+					<td style="text-align:right;padding-right:10px"><img id="frmPayImgNext2" class="btn-submit" style="vertical-align: middle;" src="/img/icon_next_32_hot.png" alt="submit" />
+						<span style="display:inline-block; vertical-align:middle"><a id="frmPayBtnNext2" class="btn-submit">NEXT</a></span></td>
+				</tr>
+				<tr><!-- SPACER -->
+					<td colspan="3"><div style="background:transparent;padding:0;width:auto;height:5px;margin:0;"></div></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

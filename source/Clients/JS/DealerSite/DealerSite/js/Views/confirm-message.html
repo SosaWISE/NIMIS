@@ -1,0 +1,19 @@
+<!-- TemplateId: raw confirm-message.html -->
+<div id="confirm-message" class="error-modal {[values.MessageType.toLowerCase()]}">
+	<div class="menu-bar">
+		<a id="gen-close-x" href="#" class="modal-close btn btn-close-x">X</a>
+	</div>
+	<div class="modal-main">
+		<img src="/img/icon-{MessageType}.png" alt="{MessageType}" style="float: left;padding: 0 10px 0 0;" />
+		<div><h1 class="popup-title">{Title}</h1></div>
+		<div class="message-body">{MessageBody}</div>
+		<tpl if="Code"><div class="error-code">Error #{Code}</div></tpl>
+		<tpl if="Error_Message"><div class="error-code">Error #{Error_Message}</div></tpl>
+	</div>
+	<div style="text-align: right;">
+		<a id="gen-close" href="#" class="btn modal-close">No</a>
+		<img id="img-close-x" class="img-btn" alt="No" style="padding: 0px 5px 10px 5px;" src="/img/close_1_64_hot.png" />
+		<img id="img-Yes-x" class="img-btn" alt="Yes" style="float: right;padding: 0px 5px 10px 5px;" src="/img/ok_64_hot.png" />
+		<a id="gen-yes" href="#" class="btn modal-close">Yes</a>
+	</div>
+</div>

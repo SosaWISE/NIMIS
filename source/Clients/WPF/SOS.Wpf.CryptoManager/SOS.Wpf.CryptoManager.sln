@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOS.Wpf.CryptoManager", "SOS.Wpf.CryptoManager\SOS.Wpf.CryptoManager.csproj", "{E9366B8C-D664-48D4-A475-86EE56AB3831}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{D92A2CB3-F8AB-4450-8770-3D9DB9F3580A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{CC4B57BB-4413-4E82-8549-55B6E7AFBB36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOS.Lib.Util", "..\..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj", "{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOS.Lib.Core", "..\..\..\Lib\SOS.Lib.Core\SOS.Lib.Core.csproj", "{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E9366B8C-D664-48D4-A475-86EE56AB3831}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E9366B8C-D664-48D4-A475-86EE56AB3831}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{E9366B8C-D664-48D4-A475-86EE56AB3831}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{E9366B8C-D664-48D4-A475-86EE56AB3831}.Debug|x86.ActiveCfg = Debug|x86
+		{E9366B8C-D664-48D4-A475-86EE56AB3831}.Debug|x86.Build.0 = Debug|x86
+		{E9366B8C-D664-48D4-A475-86EE56AB3831}.Release|Any CPU.ActiveCfg = Release|x86
+		{E9366B8C-D664-48D4-A475-86EE56AB3831}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{E9366B8C-D664-48D4-A475-86EE56AB3831}.Release|Mixed Platforms.Build.0 = Release|x86
+		{E9366B8C-D664-48D4-A475-86EE56AB3831}.Release|x86.ActiveCfg = Release|x86
+		{E9366B8C-D664-48D4-A475-86EE56AB3831}.Release|x86.Build.0 = Release|x86
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}.Release|x86.ActiveCfg = Release|Any CPU
+		{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E9366B8C-D664-48D4-A475-86EE56AB3831} = {D92A2CB3-F8AB-4450-8770-3D9DB9F3580A}
+		{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442} = {CC4B57BB-4413-4E82-8549-55B6E7AFBB36}
+		{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97} = {CC4B57BB-4413-4E82-8549-55B6E7AFBB36}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,245 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+	<title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+	<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" />
+	<meta name="keywords" content=",gps medical alert,gps medical alarm,mobile gps locator,gps tracker,emergency personal response system,security, gps medical alert system, gps emergency system, fallen can’t get up, personal emergency system" />
+	<meta name="description" content="medical emergency alert
+									senior emergency alert system
+									emergency medical alert
+									emergency medical alert systems
+									emergency alert system" />
+	<%--<meta name="keywords" content="Your keywords" />--%>
+	<meta name="author" content="George Washington" />
+	<link rel="stylesheet" href="../../css/style.css"/>
+	<script type="text/javascript" src="/js/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="/js/cufon-yui.js"></script>
+	<script type="text/javascript" src="/js/Walkway_SemiBold_400.font.js"></script>
+	<script type="text/javascript" src="/js/Angelina_400.font.js"></script>
+	<script type="text/javascript" src="/js/cufon-replace.js"></script>
+	<script type="text/javascript" src="/js/script.js"></script>
+	<!--[if lt IE 7]>
+  		<div class='aligncenter'><a href="http://www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode"><img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg"border="0"></a></div>  
+ 	<![endif]-->
+    <!--[if lt IE 9]>
+   		<script src="js/html5.js"></script>
+  		<link rel="stylesheet" href="css/ie.css"> 
+	<![endif]-->
+	<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+	<script type="IN/FollowCompany" data-id="2700375" data-counter="none"></script> 
+	<script type="text/javascript">
+
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-33528049-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function ()
+		{
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+
+	</script>
+</head>
+<body>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-Q98D"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>	(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({ 'gtm.start':
+new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+	})(window, document, 'script', 'dataLayer', 'GTM-Q98D');</script>
+<!-- End Google Tag Manager -->
+	
+	<div class="newLeadModalDlg">
+		<div class="closeModalDlg"></div>
+		<div class="downloadModalDlg">
+			<p>Click the icon below to initiate the download process.</p>
+			<p style="text-align: center;">
+				<br />
+				<a href="/DownloadBrochure.ashx"><img src="/images/icon-download.png" width="50" height="50" style="border-width: 0" alt="Download brochure." /></a>
+				<h4 style="text-align: center;">Click Here to Download</h4>
+			</p>
+		</div>
+		<h4>Download Brochure</h4>
+		<h6>Please provide the following to download a brochure</h6>
+		<br />
+		<br />
+		<form id="lead-form" style="width: 437px;">
+			<input id="sourceId" type="hidden" value="10" />
+			<div class="success"> Thank you! &nbsp;Click on the green button to download. --></div>
+			<div class="failure"> There was an error please call us.</div>
+			<fieldset>
+				<label class="name">
+					<input type="text" value="First Name:" />
+					<span class="error">*This is not a valid name.</span>
+					<span class="empty">*This field is required.</span>
+				</label>
+				<label class="lastname">
+					<input type="text" value="Last Name:" />
+					<span class="error">*This is not a valid last name.</span>
+					<span class="empty">*This field is required.</span>
+				</label>
+				<label class="email">
+					<input type="text" value="E-mail:" />
+					<span class="error">*This is not a valid email address.</span>
+					<span class="empty">*This field is required.</span>
+				</label>
+				<label class="phone">
+					<input type="text" value="Phone:" />
+					<span class="error">*This is not a valid phone number.</span>
+					<span class="empty">*This field is required.</span>
+				</label>
+<%--				<label class="address" style="visibility: hidden; display: none">
+					<input type="text" value="Street:" value="[No Street Provided]" />
+					<span class="error">*This is not a valid street.</span>
+					<span class="empty">*This field is required.</span>
+				</label>
+--%>				<label class="city">
+					<input type="text" value="City:" />
+					<span class="error">*This is not a valid city.</span>
+					<span class="empty">*This field is required.</span>
+				</label>
+				<label class="state">
+					<input type="text" value="State:" />
+					<span class="error">*This is not a valid state.</span>
+					<span class="empty">*This field is required.</span>
+				</label>
+				<label class="postal">
+					<input type="text" value="Postal Code:" />
+					<span class="error">*This is not a valid postal code.</span>
+					<span class="empty">*This field is required.</span>
+				</label>
+				<div class="btns"><a class="button" data-type="reset">Reset</a><a class="button" data-type="submit">Submit</a></div>
+			</fieldset>
+		</form>
+	</div>
+<!--==============================header=================================-->
+<header>
+	<div class="main">
+		<h1><a href="/">Freedom SOS</a></h1>
+		<span class="phone">Call:  <span>(888) 642-5277</span></span>
+		<nav>
+			<ul class="sf-menu">
+				<li id="rootHome"><a href="/">Home</a>
+					<ul>
+						<li><a href="/AboutUs">About Us</a></li>
+						<li><a href="/Plans">Enroll</a></li>
+						<li><a href="/Careers">Careers</a></li>
+					</ul>
+				</li>
+				<li id="rootPlans"><a href="/Plans">Plans</a></li>
+				<li id="rootTechnology"><a href="/Technology">Technology</a>
+					<ul>
+						<li><a href="/FleetTracking">Fleet Tracking</a></li>
+					</ul>
+				</li>
+				<li id="rootWhyUs"><a href="/WhyUs">Why Us</a></li>
+				<!--li id="rootDealers"><a href="/Dealers">Dealers</a>
+					<ul>
+						<li><a href="/Dealers/Signup">Signup</a></li>
+					</ul>
+				</li-->
+				<li id="rootFAQs"><a href="/Faqs">FAQ's</a></li>
+				<li id="rootContactUs"><a href="/ContactUs">Contact Us</a>
+					<ul>
+						<li><a href="http://dealers.freedomsos.com">Dealer Login</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<div class="clear"></div>
+	</div>
+	<div class="slider">
+		<div id="coin-slider">
+			<img src="images/slide5.png" alt="">
+			<div class="banner">
+				<strong>Satellite</strong>
+				<strong>GPS Monitoring</strong>
+				<strong>Gives you your freedom.</strong>
+			</div>
+			<img src="images/slide1_ambulance.png" alt="">
+			<div class="banner">
+				<strong>Live Safe</strong>
+				<strong>Now!</strong>
+				<strong>Everywhere you go.</strong>
+			</div>
+			<img src="images/slide2_Police-Vehicle.png" alt="">
+			<div class="banner">
+				<strong>Protected</strong>
+				<strong>No Matter</strong>
+				<strong>Where you are.</strong>
+			</div>
+			<img src="images/slide4_fire_truck.png" alt="">
+			<div class="banner">
+				<strong>In Touch</strong>
+				<strong>All the time</strong>
+				<strong>Even if you are away!!!</strong>
+			</div>
+			<img src="images/slide5_fleetTracking.png" alt=""/>
+			<div class="banner">
+				<strong>Fleet</strong>
+				<strong>Tracking</strong>
+				<strong>Anywhere</strong>
+			</div>
+		</div>
+	</div>
+	<div class="watch"></div>
+	<ul class="links">
+		<li><a href="/Home/Monitoring"><strong>Monitoring</strong>station</a></li>
+		<li><a href="/Support"><strong>Online</strong>Support</a></li>
+		<%--<li><a href="/DownloadBrochure.ashx" onclick="alert('HI'); return false;"><strong>Download</strong>Brochure</a></li>--%>
+		<li><a href="#" id="lnkBrochure"><strong>Download</strong>Brochure</a></li>
+	</ul>
+</header>
+<!--==============================content================================-->
+	<asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+<aside>
+	<div class="container_24">
+		<div class="wrapper">
+			<article class="grid_12">
+				<h6>Quick Links</h6>
+				<div class="wrapper">
+					<article class="grid_4 alpha">
+						<ul>
+							<li><a href="/AboutUs">About Us</a></li>
+						</ul>
+					</article>
+					<article class="grid_4">
+<%--						<ul>
+							<li><a href="/Testimonials">Testimonials</a></li>
+						</ul>
+					</article>
+--%>					<article class="grid_4 omega">
+						<ul>
+							<%--<li><a href="/Affiliate">Affiliate Program</a></li>--%>
+							<li><a href="/Dealers">Dealer Program</a></li>
+						</ul>
+					</article>
+				</div>
+			</article>
+			<article class="grid_11 prefix_1">
+				<h6>Contact Information</h6>
+				<div class="wrapper">
+					<img class="img-indent-r" src="/images/map.png" alt="">
+					<div class="extra-wrap">
+						<p>4699 Harrison Blvd<br/>Ogden, UT 84403-4396</p>
+						Phone: +1 888-642-5277<br>
+						E-mail: ContactUs@FreedomSOS.com<br>
+						<!--==============================footer=================================-->
+						<footer>
+							© 2012 &nbsp; &nbsp;|&nbsp; &nbsp; <a href="/Home/PrivacyStatement">Privacy Policy</a>
+						</footer>
+					</div>
+				</div>
+			</article>
+		</div>
+	</div>
+</aside>
+</body>
+</html>

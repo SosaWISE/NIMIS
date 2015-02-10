@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Testing min-width and max-width</title>
+	<style type="text/css">
+
+	</style>
+
+</head>
+<body>
+<canvas id="cnv"></canvas>
+<script type="text/javascript" charset="utf-8">
+	cnv = document.getElementById("cnv");
+	cnv.width = 500;
+	cnv.height = 400;
+	ctx = cnv.getContext("2d");
+	ctx.font = "bold 12px sans-serif";
+	text = "Andres Sosa"
+	for (i = 0; i < text.length; i++) {
+		ctx.fillText(text[i], 300, 100);
+		ctx.rotate(0.1);
+	}
+</script>
+</body>
+</html>

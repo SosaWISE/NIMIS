@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+		"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	<div class="modal-dialog">
+		<div class="modal-hdr"><a id="login-form-close" class="modal-close btn btn-close-x"><img src="/img/modal_hdr_btn_close.png" alt="X" /></a></div>
+		<div style="padding-left: 25px; padding-top:7px; padding-right: 17px;">
+			<div style="float: right;" class="dealerFld">Steps: <strong>1 of 3</strong></div>
+			<div class="model-hdr-title">
+				<h1>Premise Address</h1>
+				<h2>This is the address where the monitored person or party resides most of the time.</h2>
+			</div>
+		</div>
+		<div class="modal-drape">
+			<div class="input-form">
+				<table class="form-hdr" style="width: 100%">
+					<thead class="tbl-head">
+					<tr>
+						<th>Enter Address</th>
+						<th style="color:red;">*(Required)</th>
+						<th></th>
+					</tr>
+					<tr>
+						<th colspan="3"><div style="background:white;padding:0;width: 305px;height:1px;margin: -10px 0;"></div></th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td><div class="dealerFld">Street Address: <span style="color:red">*</span></div></td>
+						<td><div class="dealerFld">Postal Code: <span style="color:red">*</span></div></td>
+					</tr>
+					<tr>
+						<td><input type="text" tabindex="10" id="streetAddress" class="nmlFieldExLarge nmlField" maxlength="20"></td>
+						<td colspan="2"><input type="text" id="postalCode" tabindex="40" class="nmlField" maxlength="20"></td>
+					</tr>
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:300px;height:5px;margin:0;"></div></td>
+					</tr>
+					<tr>
+						<td><div class="dealerFld">City: <span style="color:red">*</span></div></td>
+						<td><div class="dealerFld">County: <span style="color:red">*</span></div></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><input type="text" id="city" tabindex="20" class="nmlFieldExLarge nmlField" maxlength="20" onkeydown="if (event.keyCode == 13) document.getElementById('aLoginSubmit').click()"></td>
+						<td><input type="text" id="county" tabindex="50" class="nmlFieldExLarge nmlField" maxlength="20" onkeydown="if (event.keyCode == 13) document.getElementById('aLoginSubmit').click()"></td>
+						<td></td>
+					</tr>
+					<!-- START Field Row -->
+					<tr>
+						<td><div class="dealerFld">State: <span style="color:red">*</span></div></td>
+						<td><div class="dealerFld">Premise Phone:</div></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>
+							<select id="state" class="nmlField" tabindex="30">
+								<option value="">[Select One]</option>
+							</select>
+						</td>
+						<td><input type="text" id="premisePhone" tabindex="60" class="nmlFieldExLarge nmlField" maxlength="20" onkeydown="if (event.keyCode == 13) document.getElementById('aLoginSubmit').click()"></td>
+					</tr>
+					<!-- END   Field Row -->
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:300px;height:5px;margin:0;"></div></td>
+					</tr>
+					<tr>
+						<td colspan="2"></td>
+						<td style="text-align:right;padding-right:10px"><img id="imgLogin" class="btn-submit" style="vertical-align: middle;" src="/img/icon_submit32x31.png" alt="submit" />
+							<span style="display:inline-block; vertical-align:middle"><a id="aLoginSubmit" class="btn-submit">SUBMIT</a></span></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

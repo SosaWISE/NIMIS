@@ -1,0 +1,38 @@
+<!-- TemplateId: ext SearchPanelResult.html -->
+<div class="search-result">
+	<table class="form-hdr">
+		<thead class="tbl-head">
+			<tr>
+				<th></th>
+				<th>Lead ID</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Disposition</th>
+				<th>Source</th>
+				<th>Phone</th>
+				<th>Mobile</th>
+				<th>Work</th>
+				<th>Email</th>
+			</tr>
+			<tr>
+				<th colspan="10"><div style="background:white;padding:0;width: 100%;height:1px;margin: -10px 0;"></div></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tpl for="Leads">
+			<tr id="ld-{LeadId}-{CustomerMasterFileId}" class="search-result-tr">
+				<td>{RowNum}</td>
+				<td>{CustomerMasterFileId}</td>
+				<td>{FirstName}</td>
+				<td>{LastName}</td>
+				<td>{Disposition}</td>
+				<td>{Source}</td>
+				<td>{PhoneHome}</td>
+				<td>{PhoneMobile}</td>
+				<td>{PhoneWork}</td>
+				<td>{Email}</td>
+			</tr>
+			</tpl>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,13 @@
+<!-- TemplateId: raw general-message.html -->
+<div id="general-message" class="error-modal {[values.PopupType.toLowerCase()]}">
+	<div class="menu-bar">
+		<a id="gen-close-x" href="#" class="modal-close btn btn-close-x">X</a>
+	</div>
+	<a id="gen-close" href="#" class="btn modal-close">Close</a>
+	<div class="modal-main">
+		<img src="/img/icon-{PopupType}.png" alt="{PopupType}" style="float: left;" />
+		<h1 class="popup-title">{Title}</h1>
+		<div class="message-body">{MessageBody}</div>
+		<tpl if="Code"><div class="error-code">Error #{Code}</div></tpl>
+	</div>
+</div>

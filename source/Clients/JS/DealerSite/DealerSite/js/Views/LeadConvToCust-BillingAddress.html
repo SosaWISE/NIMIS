@@ -1,0 +1,173 @@
+<!-- TemplateId: ext LeadConvToCust-BillingAddress.html -->
+<div id="leadConv-BillAddress-dialog" class="modal-dialog" style="height:auto;width:auto">
+	<div class="modal-hdr"><a id="leadCu-Personal-close" class="modal-close btn btn-close-x"><img src="/img/modal_hdr_btn_close.png" alt="X" /></a></div>
+	<div style="padding-left: 25px; padding-top:7px; padding-right: 17px;">
+		<img src="/img/AddressIcon.png" style="width:48px; height:48px; float:left;" alt="Freedom SOS" alt="Freedom SOS" />
+		<div style="padding: 13px 5px 0 5px;font-size: 30px">Billing Address</div>
+		<div style="float: right;" class="dealerFld">ID: <strong>{CompoundLeadId}</strong></div>
+	</div>
+	<div class="modal-input-drape">
+		<div class="input-form">
+        	<table class="form-hdr" style="width:100%;">
+				<thead class="tbl-head">
+					<tr>
+						<th>{Title}</th>
+						<th style="color:red;">*(Required)</th>
+						<th></th>
+					</tr>
+					<tr><!-- SPACER -->
+						<th colspan="3"><div style="background:white;padding:0;width: auto;height:1px;margin: -10px 0;"></div></th>
+					</tr>
+					<tr>
+						<td colspan="3" style="padding-left: 7px;"><input id="frmPayAddressSameAsCust" type="checkbox" /> <span class="dealerFld">Same as Customer</span></td>
+					</tr>
+					<tr>
+						<th colspan="3"><div style="background:white;padding:0;width: auto;height:1px;margin: -10px 0;"></div></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><div class="dealerFld">Address: <span style="color:red">*</span></div></td>
+						<td colspan="2"><div class="dealerFld">Postal Code: <span style="color:red">*</span></div></td>
+					</tr>
+					<tr>
+						<td><input type="text" id="frmPayStreet" tabindex="10" class="nmlFieldExLarge nmlField" maxlength="20"></td>
+						<td colspan="2"><input type="text" id="frmPayPostalCode" tabindex="50" class="nmlField" maxlength="20" onkeydown="if (event.keyCode == 13) document.getElementById('frmPayBtnNext2').click()"></td>
+					</tr>
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:auto;height:5px;margin:0;"></div></td>
+					</tr>
+					<!-- Start FIRST NAME -->
+					<tr>
+						<td><div class="dealerFld">Line 2:</div></td>
+						<td colspan="2"><div class="dealerFld">Country: <span style="color:red">*</span></td>
+					</tr>
+					<tr>
+						<td><input type="text" id="frmPayStreet2" tabindex="20" class="nmlFieldExLarge nmlField" maxlength="50" value="{FirstName}"></td>
+						<td colspan="2" style="padding: 0 10px"><select id="frmPayCountry" tabindex="60" onkeydown="if (event.keyCode == 13) document.getElementById('frmPayBtnNext2').click()">
+							<option value="">[Select One]</option>
+							<option value="USA" selected>United States of America</option>
+							<option value="CAN">Canada</option>
+						</select></td>
+					</tr>
+					<!-- End   FIRST NAME -->
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:auto;height:5px;margin:0;"></div></td>
+					</tr>
+					<!-- Start MIDDLE NAME -->
+					<tr>
+						<td><div class="dealerFld">City: <span style="color:red">*</span></div></td>
+						<td colspan="2"><div class="dealerFld">Time Zone: <span style="color:red">*</span></div></td>
+					</tr>
+					<tr>
+						<td><input type="text" id="frmPayCity" tabindex="30" class="nmlFieldExLarge nmlField" maxlength="50"></td>
+						<td colspan="2" style="padding:0 10px"><select id="frmPayTimeZone" tabindex="70" onkeydown="if (event.keyCode == 13) document.getElementById('frmPayBtnNext2').click()">
+							<option value="">[Select One]</option>
+							<option value="2" selected>Atlantic Standard Time</option>
+							<option value="4">Eastern Standard Time</option>
+							<option value="6">Central Standard Time</option>
+							<option value="8">Mountain Standard Time</option>
+							<option value="10">Pacific Standard Time</option>
+							<option value="12">Alaska Standard Time</option>
+							<option value="14">Hawaii-Aleutian Standard Time</option>
+						</select></td>
+					</tr>
+					<!-- End   MIDDLE NAME -->
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:auto;height:5px;margin:0;"></div></td>
+					</tr>
+					<!-- START State -->
+					<tr>
+						<td><div class="dealerFld">State: <span style="color:red">*</span></div></td>
+						<td colspan="2"></td>
+					</tr>
+					<tr>
+						<td style="padding: 0 10px"><select id="frmPayState" tabindex="40" onkeydown="if (event.keyCode == 13) document.getElementById('frmPayBtnNext2').click()">
+							<option value="" selected>[Select One]</option>
+							<option value="AK">ALASKA</option>
+							<option value="AL">ALABAMA</option>
+							<option value="AR">ARKANSAS</option>
+							<option value="AS">AMERICAN SAMOA</option>
+							<option value="AZ">ARIZONA</option>
+							<option value="CA">CALIFORNIA</option>
+							<option value="CO">COLORADO</option>
+							<option value="CT">CONNECTICUT</option>
+							<option value="DC">DISTRICT OF COLUMBIA</option>
+							<option value="DE">DELAWARE</option>
+							<option value="FL">FLORIDA</option>
+							<option value="FM">FEDERATED STATES OF MICRONESIA</option>
+							<option value="GA">GEORGIA</option>
+							<option value="GU">GUAM</option>
+							<option value="HI">HAWAII</option>
+							<option value="IA">IOWA</option>
+							<option value="ID">IDAHO</option>
+							<option value="IL">ILLINOIS</option>
+							<option value="IN">INDIANA</option>
+							<option value="KS">KANSAS</option>
+							<option value="KY">KENTUCKY</option>
+							<option value="LA">LOUISIANA</option>
+							<option value="MA">MASSACHUSETTS</option>
+							<option value="MD">MARYLAND</option>
+							<option value="ME">MAINE</option>
+							<option value="MH">MARSHALL ISLANDS</option>
+							<option value="MI">MICHIGAN</option>
+							<option value="MN">MINNESOTA</option>
+							<option value="MO">MISSOURI</option>
+							<option value="MP">NORTHERN MARIANA ISLANDS</option>
+							<option value="MS">MISSISSIPPI</option>
+							<option value="MT">MONTANA</option>
+							<option value="NC">NORTH CAROLINA</option>
+							<option value="ND">NORTH DAKOTA</option>
+							<option value="NE">NEBRASKA</option>
+							<option value="NH">NEW HAMPSHIRE</option>
+							<option value="NJ">NEW JERSEY</option>
+							<option value="NM">NEW MEXICO</option>
+							<option value="NV">NEVADA</option>
+							<option value="NY">NEW YORK</option>
+							<option value="OH">OHIO</option>
+							<option value="OK">OKLAHOMA</option>
+							<option value="OR">OREGON</option>
+							<option value="PA">PENNSYLVANIA</option>
+							<option value="PR">PUERTO RICO</option>
+							<option value="PW">PALAU</option>
+							<option value="RI">RHODE ISLAND</option>
+							<option value="SC">SOUTH CAROLINA</option>
+							<option value="SD">SOUTH DAKOTA</option>
+							<option value="TN">TENNESSEE</option>
+							<option value="TX">TEXAS</option>
+							<option value="UT">UTAH</option>
+							<option value="VA">VIRGINIA</option>
+							<option value="VI">VIRGIN ISLANDS</option>
+							<option value="VT">VERMONT</option>
+							<option value="WA">WASHINGTON</option>
+							<option value="WI">WISCONSIN</option>
+							<option value="WV">WEST VIRGINIA</option>
+							<option value="WY">WYOMING</option>
+						</select></td>
+						<td colspan="2" style="padding: 0 10px;"></td>
+					</tr>
+					<!-- END   State -->
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:300px;height:5px;margin:0;"></div></td>
+					</tr>
+					<tr>
+						<td style="text-align:left;padding-right:10px"><span style="display:inline-block; vertical-align:middle"><a id="frmPayBtnPrev3" class="btn-submit">PREV</a></span>
+							<img id="frmPayImgPrev3" class="btn-submit" style="vertical-align: middle;" src="/img/icon_rewind_32_hot.png" alt="submit" /></td>
+						<td></td>
+						<td style="text-align:right;padding-right:10px"><img id="frmPayImgNext3" class="btn-submit" style="vertical-align: middle;" src="/img/icon_foward_32_hot.png" alt="submit" />
+							<span style="display:inline-block; vertical-align:middle"><a id="frmPayBtnNext3" class="btn-submit">NEXT</a></span></td>
+					</tr>
+					<tr><!-- SPACER -->
+						<td colspan="3"><div style="background:transparent;padding:0;width:auto;height:5px;margin:0;"></div></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!---->
+	<!---->
+	<!--<input type="text" id="username" maxlength="50">-->
+	<!--<div class="dealerFld">Password:</div>-->
+	<!--<input type="password" id="password" maxlength="20">-->
+</div>
