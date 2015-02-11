@@ -247,14 +247,9 @@
     <Compile Include="Models\JsonParamBase.cs" />
     <Compile Include="Models\QlAddress.cs" />
     <Compile Include="Models\QlCreditReport.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\SSE.Services.CmsCORS.dll" />
-    <Content Include="bin\SSE.Services.CmsCORS.pdb" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -311,13 +306,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
-    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <Content Include="obj\Debug\SSE.Services.CmsCORS.csprojResolveAssemblyReference.cache" />
     <None Include="Properties\PublishProfiles\To DEV.pubxml" />
     <None Include="Properties\PublishProfiles\To LOCAL.pubxml" />
     <None Include="Properties\PublishProfiles\To STAGE.pubxml" />
-    <Content Include="obj\Debug\SSE.Services.CmsCORS.csproj.FileListAbsolute.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -349,7 +340,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
