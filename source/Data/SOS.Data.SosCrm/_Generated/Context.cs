@@ -1236,6 +1236,46 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MS_AccountCellularADCRegisterController _MS_AccountCellularADCRegisters;
+		public MS_AccountCellularADCRegisterController MS_AccountCellularADCRegisters
+		{
+			get
+			{
+				if (_MS_AccountCellularADCRegisters == null) _MS_AccountCellularADCRegisters = new MS_AccountCellularADCRegisterController();
+				return _MS_AccountCellularADCRegisters;
+			}
+		}
+
+		MS_AccountCellularSubmitController _MS_AccountCellularSubmits;
+		public MS_AccountCellularSubmitController MS_AccountCellularSubmits
+		{
+			get
+			{
+				if (_MS_AccountCellularSubmits == null) _MS_AccountCellularSubmits = new MS_AccountCellularSubmitController();
+				return _MS_AccountCellularSubmits;
+			}
+		}
+
+		MS_AccountCellularSubmitTypeController _MS_AccountCellularSubmitTypes;
+		public MS_AccountCellularSubmitTypeController MS_AccountCellularSubmitTypes
+		{
+			get
+			{
+				if (_MS_AccountCellularSubmitTypes == null) _MS_AccountCellularSubmitTypes = new MS_AccountCellularSubmitTypeController();
+				return _MS_AccountCellularSubmitTypes;
+			}
+		}
+
+		MS_AccountCellularSubmitVendorController _MS_AccountCellularSubmitVendors;
+		public MS_AccountCellularSubmitVendorController MS_AccountCellularSubmitVendors
+		{
+			get
+			{
+				if (_MS_AccountCellularSubmitVendors == null) _MS_AccountCellularSubmitVendors = new MS_AccountCellularSubmitVendorController();
+				return _MS_AccountCellularSubmitVendors;
+			}
+		}
+
 		MS_AccountCellularTypeController _MS_AccountCellularTypes;
 		public MS_AccountCellularTypeController MS_AccountCellularTypes
 		{
@@ -3875,6 +3915,10 @@ namespace SOS.Data.SosCrm
 	public class MG_GatewayController : BaseTableController<MG_Gateway, MG_GatewayCollection> { }
 	public class MG_TransactionController : BaseTableController<MG_Transaction, MG_TransactionCollection> { }
 	public class MS_AccountAGController : BaseTableController<MS_AccountAG, MS_AccountAGCollection> { }
+	public class MS_AccountCellularADCRegisterController : BaseTableController<MS_AccountCellularADCRegister, MS_AccountCellularADCRegisterCollection> { }
+	public class MS_AccountCellularSubmitController : BaseTableController<MS_AccountCellularSubmit, MS_AccountCellularSubmitCollection> { }
+	public class MS_AccountCellularSubmitTypeController : BaseTableController<MS_AccountCellularSubmitType, MS_AccountCellularSubmitTypeCollection> { }
+	public class MS_AccountCellularSubmitVendorController : BaseTableController<MS_AccountCellularSubmitVendor, MS_AccountCellularSubmitVendorCollection> { }
 	public class MS_AccountCellularTypeController : BaseTableController<MS_AccountCellularType, MS_AccountCellularTypeCollection> { }
 	public class MS_AccountCustomerController : BaseTableController<MS_AccountCustomer, MS_AccountCustomerCollection> { }
 	public class MS_AccountCustomerTypeController : BaseTableController<MS_AccountCustomerType, MS_AccountCustomerTypeCollection> { }

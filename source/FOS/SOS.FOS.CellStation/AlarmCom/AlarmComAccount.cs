@@ -1,11 +1,13 @@
 ﻿using System;
 using SOS.Data.SosCrm;
 using SOS.Data.SosCrm.ControllerExtensions;
+using SOS.FOS.CellStation.AlarmComWebService;
 
 namespace SOS.FOS.CellStation.AlarmCom
 {
 	public class AlarmComAccount
 	{
+		#region .ctor
 		public AlarmComAccount(MS_IndustryAccount aMsIndAcct, AE_Customer customer, MS_VendorAlarmComAccount vendorAccount, MS_IndustryAccount industryAccount)
 			: this(aMsIndAcct.Account, customer, vendorAccount, industryAccount)
 		{
@@ -29,6 +31,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 			// Set important values
 			SetCustomerProperties();
 		}
+		#endregion .ctor
 
 		#region Properties
 
@@ -39,6 +42,10 @@ namespace SOS.FOS.CellStation.AlarmCom
 			AdvancedInteractive = 9,
 			CommercialBasicInteractive = 41,
 			CommercialAdvancedInteractive = 42,
+			HomeCenter = 183,
+			ProDealerResi = 184,
+			ProDealerCommerical = 185,
+			InteractiveGold = 193,
 			NotSet
 		}
 
@@ -59,6 +66,8 @@ namespace SOS.FOS.CellStation.AlarmCom
 		public bool EnableTwoWay { get; set; }
 		public string CellPackageItemId { get; set; }
 		public EnumServicePackage ServicePackageID { get; set; }
+		public PropertyTypeEnum PropertyTypeID { get; set; }
+
 		public string CustomerAccountEmail { get; private set; }
 		public string CustomerAccountPhone { get; private set; }
 
@@ -92,7 +101,9 @@ namespace SOS.FOS.CellStation.AlarmCom
 				if (string.IsNullOrEmpty(salesInformationView.Email))
 					throw new Exception("Alarm.com requires that the customer have an email.  Please set an email with the Primary Customer.");
 				CustomerAccountEmail = salesInformationView.Email;
+						ServicePackageID = EnumServicePackage.InteractiveGold;
 			}
+			PropertyTypeID = PropertyTypeEnum.SingleFamilyHouse;
 
 			var acct = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(AccountID);
 			CellPackageItemId = acct.CellPackageItemId;
@@ -148,7 +159,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 				//	result = EnumServicePackage.CommercialBasicInteractive;
 				//	break;
 				case "CELL_SRV_AC_IG":
-					result = EnumServicePackage.CommercialAdvancedInteractive;
+					result = EnumServicePackage.InteractiveGold;
 					break;
 			}
 			return result;
@@ -173,7 +184,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 				//case EnumServicePackage.CommercialBasicInteractive:
 				//  result = "";
 				//  break;
-				case EnumServicePackage.CommercialAdvancedInteractive:
+				case EnumServicePackage.InteractiveGold:
 					result = "CELL_SRV_AC_IG";
 					break;
 			}

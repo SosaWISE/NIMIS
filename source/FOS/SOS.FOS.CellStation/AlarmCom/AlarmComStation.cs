@@ -517,11 +517,26 @@ namespace SOS.FOS.CellStation.AlarmCom
 		/// Given a ICelluar Account it will create an account for the caller.
 		/// If there are any errors they are stored in the ErrorManager property.
 		/// </summary>
-		/// <param name="oCellAccount">ICelluarAccount</param>
+		/// <param name="serialNumber">string</param>
+		/// <param name="enableTwoWay">bool</param>
+		/// <param name="gpTechId">string</param>
+		/// <param name="gpEmployeeId">string</param>
 		/// <returns>bool</returns>
-		public Result<CustomerOutput> CreateAccount(string serialNumber, bool enableTwoWay)
+		public Result<CustomerOutput> CreateAccount(string serialNumber, bool enableTwoWay, string gpTechId, string gpEmployeeId)
 		{
-			//
+			// ** Initialize.
+			var adcSubmit = new MS_AccountCellularSubmit();
+			adcSubmit.AccountCellularSubmitTypeId = (short) MS_AccountCellularSubmitType.AccountCellularSubmitTypeEnum.Register_Unit;
+			adcSubmit.AccountCellularSubmitVendorId = (short) MS_AccountCellularSubmitVendor.AccountCellularSubmitVendorEnum.Alarmcom;
+			adcSubmit.AccountId = Account.AccountID;
+			adcSubmit.IndustryAccountId = Account.IndustryAccountID;
+			adcSubmit.MonitoringStationOSId = Account.IndustryAccount.ReceiverLine.MonitoringStationOSId;
+			adcSubmit.GPTechId = gpTechId;
+			adcSubmit.DateSubmitted = DateTime.UtcNow;
+			adcSubmit.Save(gpEmployeeId);
+
+
+			// ** Check prefix
 			EnsureSerialNumberPrefix(ref serialNumber);
 
 			var result = new Result<CustomerOutput>();
@@ -641,16 +656,45 @@ namespace SOS.FOS.CellStation.AlarmCom
 
 			// Execute Creation
 			var createCustomerOutput = CustomerClient.CreateCustomer(GetAuth(), oInput);
+			adcSubmit.Message = createCustomerOutput.ErrorMessage;
+
 			// check results
 			if (!createCustomerOutput.Success)
 			{
+				// ** Save action information
+				adcSubmit.WasSuccessfull = false;
+				adcSubmit.Save(gpEmployeeId);
+
+				var adcFail = new MS_AccountCellularADCRegister();
+				adcFail.AccountCellularSubmitID = adcSubmit.AccountCellularSubmitID;
+				adcFail.CustomerID = createCustomerOutput.CustomerId;
+				adcFail.ErrorMessage = createCustomerOutput.ErrorMessage;
+				adcFail.LoginName = createCustomerOutput.LoginName;
+				adcFail.Password = createCustomerOutput.Password;
+				adcFail.Success = createCustomerOutput.Success;
+				adcFail.Save(gpEmployeeId);
+
 				result.Code = -1;
 				result.Message = string.Format("Alarm.com Error Submitting Account: {0}", createCustomerOutput.ErrorMessage);
 				return result;
 			}
 
+			// ** Save action information
+			adcSubmit.WasSuccessfull = true;
+			adcSubmit.Save(gpEmployeeId);
+
+			var adcSubmitInfo = new MS_AccountCellularADCRegister();
+			adcSubmitInfo.AccountCellularSubmitID = adcSubmit.AccountCellularSubmitID;
+			adcSubmitInfo.CustomerID = createCustomerOutput.CustomerId;
+			adcSubmitInfo.ErrorMessage = createCustomerOutput.ErrorMessage;
+			adcSubmitInfo.LoginName = createCustomerOutput.LoginName;
+			adcSubmitInfo.Password = createCustomerOutput.Password;
+			adcSubmitInfo.Success = createCustomerOutput.Success;
+			adcSubmitInfo.Save(gpEmployeeId);
+
 			try
 			{
+
 				// save results
 				try
 				{

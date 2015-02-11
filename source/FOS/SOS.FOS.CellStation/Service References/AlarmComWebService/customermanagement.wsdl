@@ -71,6 +71,20 @@
           <s:enumeration value="ErrorTerminating" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="GetModemSerialFromIccid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iccid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetModemSerialFromIccidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetModemSerialFromIccidResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetLastMessageDate">
         <s:complexType>
           <s:sequence>
@@ -136,6 +150,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="PanelVersion" type="tns:PanelVersionEnum" />
           <s:element minOccurs="0" maxOccurs="1" name="ModemSerialNumber" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="UnitDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="panelSettingTemplateId" nillable="true" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="CsEventGroupsToForward" type="tns:ArrayOfCentralStationEventGroupEnum" />
           <s:element minOccurs="1" maxOccurs="1" name="PhoneLinePresent" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="CentralStationForwardingOption" type="tns:CentralStationForwardingOptionEnum" />
@@ -147,6 +162,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="BranchId" nillable="true" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="LeadId" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="CustomerNotifications" type="tns:ArrayOfCustomerNotificationEnum" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginNameAtAuthenticationProvider" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PropertyType" type="tns:PropertyTypeEnum" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="AddressWithName">
@@ -201,7 +218,19 @@
           <s:enumeration value="Jamaica" />
           <s:enumeration value="Bahamas" />
           <s:enumeration value="SaintKittsNevis" />
+          <s:enumeration value="Barbados" />
           <s:enumeration value="Ghana" />
+          <s:enumeration value="Spain" />
+          <s:enumeration value="Portugal" />
+          <s:enumeration value="Uruguay" />
+          <s:enumeration value="Paraguay" />
+          <s:enumeration value="HongKong" />
+          <s:enumeration value="Bolivia" />
+          <s:enumeration value="Nigeria" />
+          <s:enumeration value="Bermuda" />
+          <s:enumeration value="USVirginIslands" />
+          <s:enumeration value="Nicaragua" />
+          <s:enumeration value="ElSalvador" />
         </s:restriction>
       </s:simpleType>
       <s:complexType name="AddressWithCoordinates">
@@ -262,6 +291,15 @@
           <s:enumeration value="Norfolk" />
           <s:enumeration value="AustralianWestern" />
           <s:enumeration value="GMT" />
+          <s:enumeration value="CentralEuropean" />
+          <s:enumeration value="WesternEuropean" />
+          <s:enumeration value="GMTNoDST" />
+          <s:enumeration value="UruguayTime" />
+          <s:enumeration value="ParaguayTime" />
+          <s:enumeration value="BoliviaTime" />
+          <s:enumeration value="WestAfricaTime" />
+          <s:enumeration value="AustralianEasternNoDst" />
+          <s:enumeration value="AustralianCentralNoDst" />
         </s:restriction>
       </s:simpleType>
       <s:simpleType name="CultureEnum">
@@ -285,6 +323,7 @@
           <s:enumeration value="Turkish_Turkey" />
           <s:enumeration value="English_Jamaica" />
           <s:enumeration value="English_Caribbean" />
+          <s:enumeration value="English_UK" />
           <s:enumeration value="TestNumeric" />
         </s:restriction>
       </s:simpleType>
@@ -302,7 +341,10 @@
           <s:enumeration value="IQPanel" />
           <s:enumeration value="Building36" />
           <s:enumeration value="Advisor" />
-          <s:enumeration value="Panel12" />
+          <s:enumeration value="Impassa" />
+          <s:enumeration value="Neo" />
+          <s:enumeration value="GoControl3" />
+          <s:enumeration value="Nucleus" />
           <s:enumeration value="NoPanel" />
         </s:restriction>
       </s:simpleType>
@@ -326,6 +368,7 @@
           <s:enumeration value="SimonXt14Spanish" />
           <s:enumeration value="SimonXt14Portuguese" />
           <s:enumeration value="SimonXti17" />
+          <s:enumeration value="SimonXt16" />
           <s:enumeration value="Simon32" />
           <s:enumeration value="Simon33" />
           <s:enumeration value="Simon34" />
@@ -360,10 +403,28 @@
           <s:enumeration value="TwoGig110" />
           <s:enumeration value="TwoGig110French" />
           <s:enumeration value="TwoGig110Spanish" />
+          <s:enumeration value="TwoGig112" />
+          <s:enumeration value="TwoGig112French" />
+          <s:enumeration value="TwoGig112Spanish" />
+          <s:enumeration value="TwoGig112Portuguese" />
+          <s:enumeration value="TwoGig113" />
+          <s:enumeration value="TwoGig113Spanish" />
+          <s:enumeration value="TwoGig113French" />
+          <s:enumeration value="TwoGig113Portuguese" />
+          <s:enumeration value="TwoGig113Turkish" />
+          <s:enumeration value="TwoGig114" />
           <s:enumeration value="TouchlinkPreRelease" />
           <s:enumeration value="IQPanel" />
+          <s:enumeration value="IQPanel141" />
+          <s:enumeration value="IQPanel142" />
           <s:enumeration value="AdvisorPreRelease" />
-          <s:enumeration value="Panel12PreRelease" />
+          <s:enumeration value="Impassa" />
+          <s:enumeration value="NeoHS2016" />
+          <s:enumeration value="NeoHS2032" />
+          <s:enumeration value="NeoHS2064" />
+          <s:enumeration value="NeoHS2128" />
+          <s:enumeration value="GoControl3PreRelease" />
+          <s:enumeration value="NucleusPreRelease" />
         </s:restriction>
       </s:simpleType>
       <s:complexType name="ArrayOfCentralStationEventGroupEnum">
@@ -395,6 +456,7 @@
           <s:enumeration value="RFReceiverJamming" />
           <s:enumeration value="CancelsWithoutRestorals" />
           <s:enumeration value="VideoVerification" />
+          <s:enumeration value="PassThrough" />
         </s:restriction>
       </s:simpleType>
       <s:simpleType name="CentralStationForwardingOptionEnum">
@@ -456,6 +518,14 @@
           <s:enumeration value="LiftMasterIntegration" />
           <s:enumeration value="SchneiderIntegration" />
           <s:enumeration value="Video24x7PerSVR" />
+          <s:enumeration value="TaggIntegration" />
+          <s:enumeration value="WaterManagement" />
+          <s:enumeration value="CommercialActivityReports" />
+          <s:enumeration value="BeCloseCommunityView" />
+          <s:enumeration value="ULCommericial" />
+          <s:enumeration value="SolarMonitoring" />
+          <s:enumeration value="SolarEdgeIntegration" />
+          <s:enumeration value="EnphaseIntegration" />
         </s:restriction>
       </s:simpleType>
       <s:complexType name="ArrayOfCustomerNotificationEnum">
@@ -476,6 +546,15 @@
           <s:enumeration value="Malfunction" />
           <s:enumeration value="CameraNotResponding" />
           <s:enumeration value="CameraUploadLimits" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="PropertyTypeEnum">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotSet" />
+          <s:enumeration value="SingleFamilyHouse" />
+          <s:enumeration value="Townhouse" />
+          <s:enumeration value="Condo" />
+          <s:enumeration value="Business" />
         </s:restriction>
       </s:simpleType>
       <s:element name="CreateCustomerResponse">
@@ -509,6 +588,37 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="CheckAvailableLoginName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="input" type="tns:CheckCustomerLoginInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CheckCustomerLoginInput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CheckAvailableLoginNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckAvailableLoginNameResult" type="tns:CheckCustomerLoginOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CheckCustomerLoginOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IsAvailable" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="SuggestedLoginName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="AddCustomerLogin">
         <s:complexType>
           <s:sequence>
@@ -524,6 +634,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="SendEmail" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="Culture" nillable="true" type="tns:CultureEnum" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginNameAtAuthenticationProvider" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="AddCustomerLoginResponse">
@@ -873,6 +984,22 @@
           <s:enumeration value="WirelessRepeater" />
           <s:enumeration value="ExpansionModule" />
           <s:enumeration value="WaterValve" />
+          <s:enumeration value="TemperatureSensor" />
+          <s:enumeration value="Tracker" />
+          <s:enumeration value="Medication" />
+          <s:enumeration value="WaterMultiFunction" />
+          <s:enumeration value="WaterFlood" />
+          <s:enumeration value="IQShock" />
+          <s:enumeration value="DoorBell" />
+          <s:enumeration value="ContactMultiFunction" />
+          <s:enumeration value="IQSmokeMultiFunction" />
+          <s:enumeration value="ShockOthers" />
+          <s:enumeration value="OutputExpander" />
+          <s:enumeration value="PowerSupply" />
+          <s:enumeration value="HighCurrentOutput" />
+          <s:enumeration value="RFTransceiver" />
+          <s:enumeration value="AudioModule" />
+          <s:enumeration value="Gas" />
         </s:restriction>
       </s:simpleType>
       <s:element name="GetFullEquipmentList">
@@ -1049,7 +1176,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="DealerCustomerId" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="PrimaryEmail" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="PrimaryPhoneNumber" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
@@ -1057,6 +1183,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="IsTerminated" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="IsDemo" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="JoinDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TermDate" nillable="true" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="ModemInfo" type="tns:ModemInfo" />
           <s:element minOccurs="0" maxOccurs="1" name="CentralStationInfo" type="tns:CentralStationInfo" />
           <s:element minOccurs="0" maxOccurs="1" name="ServicePlanInfo" type="tns:ServicePlanInfo" />
@@ -1065,6 +1192,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="SubDealerId" nillable="true" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="PanelNotRespondingStatus" type="tns:PanelNotRespondingStatusEnum" />
           <s:element minOccurs="1" maxOccurs="1" name="Culture" type="tns:CultureEnum" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PropertyType" type="tns:PropertyTypeEnum" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ModemInfo">
@@ -1099,6 +1228,8 @@
           <s:enumeration value="Vodafone" />
           <s:enumeration value="VerizonPartner1" />
           <s:enumeration value="Turkcell" />
+          <s:enumeration value="USCellular" />
+          <s:enumeration value="Digicel" />
         </s:restriction>
       </s:simpleType>
       <s:simpleType name="RadioNetworkTypeEnum">
@@ -1109,6 +1240,7 @@
           <s:enumeration value="CDMA" />
           <s:enumeration value="HSPA_GPRS" />
           <s:enumeration value="TwoWayPager" />
+          <s:enumeration value="LTE_VZW" />
         </s:restriction>
       </s:simpleType>
       <s:complexType name="CentralStationInfo">
@@ -1214,6 +1346,7 @@
           <s:enumeration value="CustomerNotLoggedIn" />
           <s:enumeration value="BroadbandCommFailure" />
           <s:enumeration value="CellCommFailure" />
+          <s:enumeration value="CustomerMonitoringRegistrationIncomplete" />
           <s:enumeration value="AllTroubles" />
         </s:restriction>
       </s:simpleType>
@@ -1266,6 +1399,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="CsAcctPrefix" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="ReceiverPhoneNumber" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CsPhoneKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PanelType" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfCustomerTroubleCondition">
@@ -1305,6 +1439,79 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetCustomerListWithTroubleConditionsCsvResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerListFor2G">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="country" type="tns:CountryEnum" />
+            <s:element minOccurs="0" maxOccurs="1" name="postalCodes" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="networks" type="tns:ArrayOfNetworkEnum" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfNetworkEnum">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NetworkEnum" type="tns:NetworkEnum" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCustomerListFor2GResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomerListFor2GResult" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetGsmBandSelection">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="customerId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="newValue" type="tns:GsmBandSelectionEnum" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetGsmBandSelectionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetGsmBandSelectionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerListWithPanelSetting">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="input" type="tns:GetCustomerListWithPanelSettingInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetCustomerListWithPanelSettingInput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Criteria" type="tns:ArrayOfPanelSettingCriteria" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPanelSettingCriteria">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PanelSettingCriteria" nillable="true" type="tns:PanelSettingCriteria" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PanelSettingCriteria">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="DeviceId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PanelSettingId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="SearchedValue" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ExcludeSearchedValue" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCustomerListWithPanelSettingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomerListWithPanelSettingResult" type="tns:ArrayOfInt" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1479,6 +1686,28 @@
         </s:complexType>
       </s:element>
       <s:complexType name="UpdateCustomerLoginOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateAuthenticationProviderLoginName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="customerId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="oldLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="newLogin" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateAuthenticationProviderLoginNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateAuthenticationProviderLoginNameResult" type="tns:UpdateAuthenticationProviderLoginNameOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UpdateAuthenticationProviderLoginNameOutput">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
@@ -1745,11 +1974,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfString">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="SendEnterpriseNoticeResponse">
         <s:complexType>
           <s:sequence>
@@ -1987,8 +2211,10 @@
           <s:enumeration value="TwoGig1_10" />
           <s:enumeration value="TwoGig1_10French" />
           <s:enumeration value="TwoGig1_10Spanish" />
-          <s:enumeration value="Panel121_15" />
-          <s:enumeration value="Panel121_16" />
+          <s:enumeration value="TwoGig1_12" />
+          <s:enumeration value="TwoGig1_12French" />
+          <s:enumeration value="TwoGig1_12Spanish" />
+          <s:enumeration value="TwoGig1_12Portuguese" />
         </s:restriction>
       </s:simpleType>
       <s:element name="RequestFirmwareUpgradeResponse">
@@ -2244,7 +2470,7 @@
           <s:enumeration value="CarbonMonoxide" />
           <s:enumeration value="FirePanic" />
           <s:enumeration value="NoActivityAlarm" />
-          <s:enumeration value="FloodFreezeAlarm" />
+          <s:enumeration value="FloodExtremeTempAlarm" />
           <s:enumeration value="ExitFault" />
           <s:enumeration value="RecentArming" />
           <s:enumeration value="EndOfTampering" />
@@ -2332,6 +2558,18 @@
           <s:enumeration value="FirePanicPendingAlarm" />
           <s:enumeration value="FirePanicSuspectedAlarm" />
           <s:enumeration value="ArmedNight" />
+          <s:enumeration value="SumpPumpAlertNormalOperation" />
+          <s:enumeration value="SumpPumpAlertPossibleIssue" />
+          <s:enumeration value="SumpPumpAlertCriticalIssueOff" />
+          <s:enumeration value="SumpPumpAlertCriticalIssueMalfunction" />
+          <s:enumeration value="ThermostatFanModeChanged" />
+          <s:enumeration value="ThermostatSensorLeftOpenOffset" />
+          <s:enumeration value="CommercialEarlyOpen" />
+          <s:enumeration value="CommercialLateOpen" />
+          <s:enumeration value="CommercialOpenOnTime" />
+          <s:enumeration value="CommercialEarlyClose" />
+          <s:enumeration value="CommercialLateClose" />
+          <s:enumeration value="CommercialClosedOnTime" />
           <s:enumeration value="SpecialEventModemPowerUp" />
           <s:enumeration value="SpecialEventModemPanelCommError" />
           <s:enumeration value="SpecialEventModemPanelCommOK" />
@@ -2753,6 +2991,11 @@
           <s:enumeration value="Reliant" />
           <s:enumeration value="PJM" />
           <s:enumeration value="EHTestingProgram" />
+          <s:enumeration value="GetBackTexas2014" />
+          <s:enumeration value="Constellation2014" />
+          <s:enumeration value="GetBackSCE2014" />
+          <s:enumeration value="ConEdDemandResponse" />
+          <s:enumeration value="HydroOneDemandResponse" />
         </s:restriction>
       </s:simpleType>
       <s:element name="GetCustomerEnergyProgramEligibilityResponse">
@@ -2964,6 +3207,27 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="AddImageSensorDeviceResult" type="tns:AddSensorDeviceOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddImageSensor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="input" type="tns:AddImageSensorInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AddImageSensorInput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DeviceId" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MAC" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddImageSensorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddImageSensorResult" type="tns:AddSensorDeviceOutput" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -3215,7 +3479,7 @@
       </s:element>
       <s:complexType name="EditCustomerMasterCodeInput">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="CustomerID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerID" nillable="true" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="NewMasterCode" type="s:string" />
         </s:sequence>
       </s:complexType>
@@ -3352,6 +3616,255 @@
           <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetUserCodes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="customerId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserCodesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserCodesResult" type="tns:GetUserCodesOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetUserCodesOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserCodes" type="tns:ArrayOfWsUserCodeInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfWsUserCodeInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="WsUserCodeInfo" nillable="true" type="tns:WsUserCodeInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="WsUserCodeInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="panelUserId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="userFirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="userLastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="userCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="voiceAccess" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="partitionFlags" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="enabledPointAccessDeviceIds" type="tns:ArrayOfWsPointAccessDeviceId" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfWsPointAccessDeviceId">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="WsPointAccessDeviceId" nillable="true" type="tns:WsPointAccessDeviceId" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="WsPointAccessDeviceId">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="unitId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="deviceId" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSolarSystems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="customerId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSolarSystemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSolarSystemsResult" type="tns:GetSolarSystemsOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetSolarSystemsOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SolarSystems" type="tns:ArrayOfSolarSystemInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSolarSystemInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SolarSystemInfo" nillable="true" type="tns:SolarSystemInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SolarSystemInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="DeviceId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProviderId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="StatusDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataProvider" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSolarData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="input" type="tns:GetSolarDataInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetSolarDataInput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DeviceId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSolarDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSolarDataResult" type="tns:GetSolarDataOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetSolarDataOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="EnergyGenerated" nillable="true" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateSolarConnection">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="input" type="tns:CreateSolarConnectionInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CreateSolarConnectionInput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SolarProvider" type="tns:SolarProviderEnum" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConnectionId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxOutput" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="SolarProviderEnum">
+        <s:restriction base="s:string">
+          <s:enumeration value="SolarEdge" />
+          <s:enumeration value="Enphase" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CreateSolarConnectionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateSolarConnectionResult" type="tns:CreateSolarConnectionOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CreateSolarConnectionOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetElectricityProviders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="input" type="tns:GetElectricityProvidersInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetElectricityProvidersInput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerId" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetElectricityProvidersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetElectricityProvidersResult" type="tns:GetElectricityProvidersOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetElectricityProvidersOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ElectricityProviders" type="tns:ArrayOfElectricityProviderInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfElectricityProviderInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ElectricityProviderInfo" nillable="true" type="tns:ElectricityProviderInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ElectricityProviderInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="LseId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LseName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetElectricityPlans">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="input" type="tns:GetElectricityPlansInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetElectricityPlansInput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LseId" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetElectricityPlansResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetElectricityPlansResult" type="tns:GetElectricityPlansOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetElectricityPlansOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ElectricityPlans" type="tns:ArrayOfElectricityPlanInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfElectricityPlanInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ElectricityPlanInfo" nillable="true" type="tns:ElectricityPlanInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ElectricityPlanInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="MasterTariffId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TariffName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SaveUtilityInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="input" type="tns:SaveUtilityInfoInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SaveUtilityInfoInput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LseId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MasterTariffId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="BillDay" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="BillEst" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SaveUtilityInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveUtilityInfoResult" type="tns:SaveUtilityInfoOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SaveUtilityInfoOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="IsModemActivatedSoapIn">
@@ -3379,6 +3892,15 @@
     <wsdl:part name="parameters" element="tns:TerminateModemResponse" />
   </wsdl:message>
   <wsdl:message name="TerminateModemAuthentication">
+    <wsdl:part name="Authentication" element="tns:Authentication" />
+  </wsdl:message>
+  <wsdl:message name="GetModemSerialFromIccidSoapIn">
+    <wsdl:part name="parameters" element="tns:GetModemSerialFromIccid" />
+  </wsdl:message>
+  <wsdl:message name="GetModemSerialFromIccidSoapOut">
+    <wsdl:part name="parameters" element="tns:GetModemSerialFromIccidResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetModemSerialFromIccidAuthentication">
     <wsdl:part name="Authentication" element="tns:Authentication" />
   </wsdl:message>
   <wsdl:message name="GetLastMessageDateSoapIn">
@@ -3415,6 +3937,15 @@
     <wsdl:part name="parameters" element="tns:CreateCustomerForDealerResponse" />
   </wsdl:message>
   <wsdl:message name="CreateCustomerForDealerAuthentication">
+    <wsdl:part name="Authentication" element="tns:Authentication" />
+  </wsdl:message>
+  <wsdl:message name="CheckAvailableLoginNameSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckAvailableLoginName" />
+  </wsdl:message>
+  <wsdl:message name="CheckAvailableLoginNameSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckAvailableLoginNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckAvailableLoginNameAuthentication">
     <wsdl:part name="Authentication" element="tns:Authentication" />
   </wsdl:message>
   <wsdl:message name="AddCustomerLoginSoapIn">
@@ -3606,6 +4137,33 @@
   <wsdl:message name="GetCustomerListWithTroubleConditionsCsvAuthentication">
     <wsdl:part name="Authentication" element="tns:Authentication" />
   </wsdl:message>
+  <wsdl:message name="GetCustomerListFor2GSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomerListFor2G" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerListFor2GSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomerListFor2GResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerListFor2GAuthentication">
+    <wsdl:part name="Authentication" element="tns:Authentication" />
+  </wsdl:message>
+  <wsdl:message name="SetGsmBandSelectionSoapIn">
+    <wsdl:part name="parameters" element="tns:SetGsmBandSelection" />
+  </wsdl:message>
+  <wsdl:message name="SetGsmBandSelectionSoapOut">
+    <wsdl:part name="parameters" element="tns:SetGsmBandSelectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetGsmBandSelectionAuthentication">
+    <wsdl:part name="Authentication" element="tns:Authentication" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerListWithPanelSettingSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomerListWithPanelSetting" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerListWithPanelSettingSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomerListWithPanelSettingResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerListWithPanelSettingAuthentication">
+    <wsdl:part name="Authentication" element="tns:Authentication" />
+  </wsdl:message>
   <wsdl:message name="GetCustomerListSoapIn">
     <wsdl:part name="parameters" element="tns:GetCustomerList" />
   </wsdl:message>
@@ -3676,6 +4234,15 @@
     <wsdl:part name="parameters" element="tns:UpdateCustomerLoginResponse" />
   </wsdl:message>
   <wsdl:message name="UpdateCustomerLoginAuthentication">
+    <wsdl:part name="Authentication" element="tns:Authentication" />
+  </wsdl:message>
+  <wsdl:message name="UpdateAuthenticationProviderLoginNameSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateAuthenticationProviderLoginName" />
+  </wsdl:message>
+  <wsdl:message name="UpdateAuthenticationProviderLoginNameSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateAuthenticationProviderLoginNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateAuthenticationProviderLoginNameAuthentication">
     <wsdl:part name="Authentication" element="tns:Authentication" />
   </wsdl:message>
   <wsdl:message name="UpdateLoginPasswordSoapIn">
@@ -4047,6 +4614,15 @@
   <wsdl:message name="AddImageSensorDeviceAuthentication">
     <wsdl:part name="Authentication" element="tns:Authentication" />
   </wsdl:message>
+  <wsdl:message name="AddImageSensorSoapIn">
+    <wsdl:part name="parameters" element="tns:AddImageSensor" />
+  </wsdl:message>
+  <wsdl:message name="AddImageSensorSoapOut">
+    <wsdl:part name="parameters" element="tns:AddImageSensorResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddImageSensorAuthentication">
+    <wsdl:part name="Authentication" element="tns:Authentication" />
+  </wsdl:message>
   <wsdl:message name="GetEligibleSensorGroupsSoapIn">
     <wsdl:part name="parameters" element="tns:GetEligibleSensorGroups" />
   </wsdl:message>
@@ -4164,6 +4740,69 @@
   <wsdl:message name="EditUserCodeAuthentication">
     <wsdl:part name="Authentication" element="tns:Authentication" />
   </wsdl:message>
+  <wsdl:message name="GetUserCodesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserCodes" />
+  </wsdl:message>
+  <wsdl:message name="GetUserCodesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserCodesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserCodesAuthentication">
+    <wsdl:part name="Authentication" element="tns:Authentication" />
+  </wsdl:message>
+  <wsdl:message name="GetSolarSystemsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSolarSystems" />
+  </wsdl:message>
+  <wsdl:message name="GetSolarSystemsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSolarSystemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSolarSystemsAuthentication">
+    <wsdl:part name="Authentication" element="tns:Authentication" />
+  </wsdl:message>
+  <wsdl:message name="GetSolarDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSolarData" />
+  </wsdl:message>
+  <wsdl:message name="GetSolarDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSolarDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSolarDataAuthentication">
+    <wsdl:part name="Authentication" element="tns:Authentication" />
+  </wsdl:message>
+  <wsdl:message name="CreateSolarConnectionSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateSolarConnection" />
+  </wsdl:message>
+  <wsdl:message name="CreateSolarConnectionSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateSolarConnectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateSolarConnectionAuthentication">
+    <wsdl:part name="Authentication" element="tns:Authentication" />
+  </wsdl:message>
+  <wsdl:message name="GetElectricityProvidersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetElectricityProviders" />
+  </wsdl:message>
+  <wsdl:message name="GetElectricityProvidersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetElectricityProvidersResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetElectricityProvidersAuthentication">
+    <wsdl:part name="Authentication" element="tns:Authentication" />
+  </wsdl:message>
+  <wsdl:message name="GetElectricityPlansSoapIn">
+    <wsdl:part name="parameters" element="tns:GetElectricityPlans" />
+  </wsdl:message>
+  <wsdl:message name="GetElectricityPlansSoapOut">
+    <wsdl:part name="parameters" element="tns:GetElectricityPlansResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetElectricityPlansAuthentication">
+    <wsdl:part name="Authentication" element="tns:Authentication" />
+  </wsdl:message>
+  <wsdl:message name="SaveUtilityInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveUtilityInfo" />
+  </wsdl:message>
+  <wsdl:message name="SaveUtilityInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveUtilityInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveUtilityInfoAuthentication">
+    <wsdl:part name="Authentication" element="tns:Authentication" />
+  </wsdl:message>
   <wsdl:portType name="CustomerManagementSoap">
     <wsdl:operation name="IsModemActivated">
       <wsdl:input message="tns:IsModemActivatedSoapIn" />
@@ -4176,6 +4815,10 @@
     <wsdl:operation name="TerminateModem">
       <wsdl:input message="tns:TerminateModemSoapIn" />
       <wsdl:output message="tns:TerminateModemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetModemSerialFromIccid">
+      <wsdl:input message="tns:GetModemSerialFromIccidSoapIn" />
+      <wsdl:output message="tns:GetModemSerialFromIccidSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetLastMessageDate">
       <wsdl:input message="tns:GetLastMessageDateSoapIn" />
@@ -4192,6 +4835,11 @@
     <wsdl:operation name="CreateCustomerForDealer">
       <wsdl:input message="tns:CreateCustomerForDealerSoapIn" />
       <wsdl:output message="tns:CreateCustomerForDealerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckAvailableLoginName">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Check whether a login name is avaialble and suggest an alternative if it is</wsdl:documentation>
+      <wsdl:input message="tns:CheckAvailableLoginNameSoapIn" />
+      <wsdl:output message="tns:CheckAvailableLoginNameSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="AddCustomerLogin">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Add a new login to a customer account</wsdl:documentation>
@@ -4290,6 +4938,21 @@
       <wsdl:input message="tns:GetCustomerListWithTroubleConditionsCsvSoapIn" />
       <wsdl:output message="tns:GetCustomerListWithTroubleConditionsCsvSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetCustomerListFor2G">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a list of the customers IDs that your login has access to and are in the passed zips + networks, and use a 2G radio. This method is designed for getting affected customers for a 2G turndown using an alarm.com-supplied tool. Please contact kraoch@alarm.com for the tool</wsdl:documentation>
+      <wsdl:input message="tns:GetCustomerListFor2GSoapIn" />
+      <wsdl:output message="tns:GetCustomerListFor2GSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetGsmBandSelection">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Forces a radio to a particular cellular band, then tells it to disconnect, and submits a delayed signal strength request.  This method is designed for getting affected customers for a 2G turndown using an alarm.com-supplied tool. Please contact kraoch@alarm.com for the tool</wsdl:documentation>
+      <wsdl:input message="tns:SetGsmBandSelectionSoapIn" />
+      <wsdl:output message="tns:SetGsmBandSelectionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerListWithPanelSetting">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a list of the customers IDs that your login has access to and have a certain value for a panel setting</wsdl:documentation>
+      <wsdl:input message="tns:GetCustomerListWithPanelSettingSoapIn" />
+      <wsdl:output message="tns:GetCustomerListWithPanelSettingSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetCustomerList">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a list of the customers IDs that your login has access to</wsdl:documentation>
       <wsdl:input message="tns:GetCustomerListSoapIn" />
@@ -4323,6 +4986,10 @@
     <wsdl:operation name="UpdateCustomerLogin">
       <wsdl:input message="tns:UpdateCustomerLoginSoapIn" />
       <wsdl:output message="tns:UpdateCustomerLoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAuthenticationProviderLoginName">
+      <wsdl:input message="tns:UpdateAuthenticationProviderLoginNameSoapIn" />
+      <wsdl:output message="tns:UpdateAuthenticationProviderLoginNameSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="UpdateLoginPassword">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Change the password for a login</wsdl:documentation>
@@ -4529,6 +5196,11 @@
       <wsdl:input message="tns:AddImageSensorDeviceSoapIn" />
       <wsdl:output message="tns:AddImageSensorDeviceSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="AddImageSensor">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Add Image Sensor</wsdl:documentation>
+      <wsdl:input message="tns:AddImageSensorSoapIn" />
+      <wsdl:output message="tns:AddImageSensorSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetEligibleSensorGroups">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of eligible sensor groups given a unit ID </wsdl:documentation>
       <wsdl:input message="tns:GetEligibleSensorGroupsSoapIn" />
@@ -4593,6 +5265,41 @@
       <wsdl:input message="tns:EditUserCodeSoapIn" />
       <wsdl:output message="tns:EditUserCodeSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserCodes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get all user codes for a specific customer. This will return all user codes.</wsdl:documentation>
+      <wsdl:input message="tns:GetUserCodesSoapIn" />
+      <wsdl:output message="tns:GetUserCodesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSolarSystems">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get all active solar sites/systems related to the customer in context.</wsdl:documentation>
+      <wsdl:input message="tns:GetSolarSystemsSoapIn" />
+      <wsdl:output message="tns:GetSolarSystemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSolarData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get all active solar sites/systems related to the customer in context.</wsdl:documentation>
+      <wsdl:input message="tns:GetSolarDataSoapIn" />
+      <wsdl:output message="tns:GetSolarDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateSolarConnection">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create a new solar connection for the customer in context.</wsdl:documentation>
+      <wsdl:input message="tns:CreateSolarConnectionSoapIn" />
+      <wsdl:output message="tns:CreateSolarConnectionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetElectricityProviders">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Electricity Providers/Utilities for the customer in context.</wsdl:documentation>
+      <wsdl:input message="tns:GetElectricityProvidersSoapIn" />
+      <wsdl:output message="tns:GetElectricityProvidersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetElectricityPlans">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Electricity Plans for the customer in context.</wsdl:documentation>
+      <wsdl:input message="tns:GetElectricityPlansSoapIn" />
+      <wsdl:output message="tns:GetElectricityPlansSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveUtilityInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Saves any changes made to utility provider or plan selections for a particular customer.</wsdl:documentation>
+      <wsdl:input message="tns:SaveUtilityInfoSoapIn" />
+      <wsdl:output message="tns:SaveUtilityInfoSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CustomerManagementSoap" type="tns:CustomerManagementSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -4621,6 +5328,16 @@
       <wsdl:input>
         <soap:body use="literal" />
         <soap:header message="tns:TerminateModemAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetModemSerialFromIccid">
+      <soap:operation soapAction="http://www.alarm.com/WebServices/GetModemSerialFromIccid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetModemSerialFromIccidAuthentication" part="Authentication" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal" />
@@ -4661,6 +5378,16 @@
       <wsdl:input>
         <soap:body use="literal" />
         <soap:header message="tns:CreateCustomerForDealerAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAvailableLoginName">
+      <soap:operation soapAction="http://www.alarm.com/WebServices/CheckAvailableLoginName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CheckAvailableLoginNameAuthentication" part="Authentication" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal" />
@@ -4876,6 +5603,36 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCustomerListFor2G">
+      <soap:operation soapAction="http://www.alarm.com/WebServices/GetCustomerListFor2G" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCustomerListFor2GAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetGsmBandSelection">
+      <soap:operation soapAction="http://www.alarm.com/WebServices/SetGsmBandSelection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SetGsmBandSelectionAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerListWithPanelSetting">
+      <soap:operation soapAction="http://www.alarm.com/WebServices/GetCustomerListWithPanelSetting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCustomerListWithPanelSettingAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCustomerList">
       <soap:operation soapAction="http://www.alarm.com/WebServices/GetCustomerList" style="document" />
       <wsdl:input>
@@ -4951,6 +5708,16 @@
       <wsdl:input>
         <soap:body use="literal" />
         <soap:header message="tns:UpdateCustomerLoginAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAuthenticationProviderLoginName">
+      <soap:operation soapAction="http://www.alarm.com/WebServices/UpdateAuthenticationProviderLoginName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateAuthenticationProviderLoginNameAuthentication" part="Authentication" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal" />
@@ -5366,6 +6133,16 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AddImageSensor">
+      <soap:operation soapAction="http://www.alarm.com/WebServices/AddImageSensor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:AddImageSensorAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetEligibleSensorGroups">
       <soap:operation soapAction="http://www.alarm.com/WebServices/GetEligibleSensorGroups" style="document" />
       <wsdl:input>
@@ -5496,6 +6273,76 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserCodes">
+      <soap:operation soapAction="http://www.alarm.com/WebServices/GetUserCodes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetUserCodesAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolarSystems">
+      <soap:operation soapAction="http://www.alarm.com/WebServices/GetSolarSystems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetSolarSystemsAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolarData">
+      <soap:operation soapAction="http://www.alarm.com/WebServices/GetSolarData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetSolarDataAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateSolarConnection">
+      <soap:operation soapAction="http://www.alarm.com/WebServices/CreateSolarConnection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CreateSolarConnectionAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElectricityProviders">
+      <soap:operation soapAction="http://www.alarm.com/WebServices/GetElectricityProviders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetElectricityProvidersAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElectricityPlans">
+      <soap:operation soapAction="http://www.alarm.com/WebServices/GetElectricityPlans" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetElectricityPlansAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveUtilityInfo">
+      <soap:operation soapAction="http://www.alarm.com/WebServices/SaveUtilityInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SaveUtilityInfoAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="CustomerManagementSoap12" type="tns:CustomerManagementSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -5524,6 +6371,16 @@
       <wsdl:input>
         <soap12:body use="literal" />
         <soap12:header message="tns:TerminateModemAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetModemSerialFromIccid">
+      <soap12:operation soapAction="http://www.alarm.com/WebServices/GetModemSerialFromIccid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetModemSerialFromIccidAuthentication" part="Authentication" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
@@ -5564,6 +6421,16 @@
       <wsdl:input>
         <soap12:body use="literal" />
         <soap12:header message="tns:CreateCustomerForDealerAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAvailableLoginName">
+      <soap12:operation soapAction="http://www.alarm.com/WebServices/CheckAvailableLoginName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CheckAvailableLoginNameAuthentication" part="Authentication" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
@@ -5779,6 +6646,36 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCustomerListFor2G">
+      <soap12:operation soapAction="http://www.alarm.com/WebServices/GetCustomerListFor2G" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCustomerListFor2GAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetGsmBandSelection">
+      <soap12:operation soapAction="http://www.alarm.com/WebServices/SetGsmBandSelection" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SetGsmBandSelectionAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerListWithPanelSetting">
+      <soap12:operation soapAction="http://www.alarm.com/WebServices/GetCustomerListWithPanelSetting" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCustomerListWithPanelSettingAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCustomerList">
       <soap12:operation soapAction="http://www.alarm.com/WebServices/GetCustomerList" style="document" />
       <wsdl:input>
@@ -5854,6 +6751,16 @@
       <wsdl:input>
         <soap12:body use="literal" />
         <soap12:header message="tns:UpdateCustomerLoginAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAuthenticationProviderLoginName">
+      <soap12:operation soapAction="http://www.alarm.com/WebServices/UpdateAuthenticationProviderLoginName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateAuthenticationProviderLoginNameAuthentication" part="Authentication" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
@@ -6269,6 +7176,16 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AddImageSensor">
+      <soap12:operation soapAction="http://www.alarm.com/WebServices/AddImageSensor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:AddImageSensorAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetEligibleSensorGroups">
       <soap12:operation soapAction="http://www.alarm.com/WebServices/GetEligibleSensorGroups" style="document" />
       <wsdl:input>
@@ -6394,6 +7311,76 @@
       <wsdl:input>
         <soap12:body use="literal" />
         <soap12:header message="tns:EditUserCodeAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserCodes">
+      <soap12:operation soapAction="http://www.alarm.com/WebServices/GetUserCodes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetUserCodesAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolarSystems">
+      <soap12:operation soapAction="http://www.alarm.com/WebServices/GetSolarSystems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetSolarSystemsAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolarData">
+      <soap12:operation soapAction="http://www.alarm.com/WebServices/GetSolarData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetSolarDataAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateSolarConnection">
+      <soap12:operation soapAction="http://www.alarm.com/WebServices/CreateSolarConnection" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CreateSolarConnectionAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElectricityProviders">
+      <soap12:operation soapAction="http://www.alarm.com/WebServices/GetElectricityProviders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetElectricityProvidersAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElectricityPlans">
+      <soap12:operation soapAction="http://www.alarm.com/WebServices/GetElectricityPlans" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetElectricityPlansAuthentication" part="Authentication" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveUtilityInfo">
+      <soap12:operation soapAction="http://www.alarm.com/WebServices/SaveUtilityInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SaveUtilityInfoAuthentication" part="Authentication" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />

@@ -24,7 +24,7 @@ Version:10.4.8.62-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>01/13/2015 17:11:03</LastCompared>
+  <LastCompared>02/10/2015 15:30:43</LastCompared>
   <Options>Default, ObjectExistenceChecks, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
@@ -167,7 +167,7 @@ Version:10.4.8.62-->
     <Schemas type="ListString" version="2">
       <value type="string">ZABiAG8A</value>
     </Schemas>
-    <ZABiAG8A>vbwThumGrA9nAv5QSKy2zwICAUUaL/FVMd97hdIc9gl/TKcCAgH5vSNxSzjgzyh9aoliTy6gAgIBiycEN5+KvlpAQqxzHL/p9QIAAdLqZ+qXMsJfYYT60Suug/wCAAE+AcSxkRLODGvVqgBFmPXYAgEAwRwrcaX2tDXHXAgdYRSwWAQAAWSAZxM/MuSEczWUC/hvSZcEAAHm9D8AkbA8f1XOeU7ffenEBAIB23Trtgibqvmt1ouUdiD2NwMCAe3SU+mNQClwKW2+ky7wqw4DAAEvMzEItB6DWqs62pofFGZVAwAB3yOMG+pogsrXgEkDjxihUgcAAUmbkdQQlX+W9MrsGkdL0/8HAgE_</ZABiAG8A>
+    <ZABiAG8A>TY6jsbvpb1uDSXpfphLVpQICAettQK7rNet/aVuyglzVkdsCAgF7KEdMPDh2p6rpLnwpJdiKAgAB</ZABiAG8A>
     <Grouping type="ListByte" version="2">
       <value type="Byte">5</value>
       <value type="Byte">0</value>
@@ -584,11 +584,15 @@ Version:10.4.8.62-->
     </value>
     <value version="1" type="SelectTableEvent">
       <action>SelectItem</action>
-      <val>[dbo].[MS_DispatchAgencyTypes]:[dbo].[MS_DispatchAgencyTypes]</val>
+      <val>[dbo].[MS_EquipmentMonitronicsDevices]:[dbo].[MS_EquipmentMonitronicsDevices]</val>
     </value>
     <value version="1" type="SelectTableEvent">
       <action>SelectItem</action>
-      <val>[dbo].[MS_AccountSignalFormatTypes]:[dbo].[MS_AccountSignalFormatTypes]</val>
+      <val>[dbo].[MS_AccountCellularSubmitTypes]:[dbo].[MS_AccountCellularSubmitTypes]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_AccountCellularSubmitVendors]:[dbo].[MS_AccountCellularSubmitVendors]</val>
     </value>
   </TableActions>
   <SessionSettings>15</SessionSettings>

@@ -58,7 +58,7 @@ namespace SOS.FunctionalServices
 				msInduAct);
 		}
 
-		public Result<object> Register(long accountID, string serialNumber, bool enableTwoWay)
+		public Result<object> Register(long accountID, string serialNumber, bool enableTwoWay, string gpTechId, string gpEmployeeId)
 		{
 			var stationResult = GetStation(accountID);
 			if (stationResult.Code != 0)
@@ -66,7 +66,7 @@ namespace SOS.FunctionalServices
 				return new Result<object>(stationResult.Code, stationResult.Message);
 			}
 			// get and return account status
-			var result = stationResult.Value.CreateAccount(serialNumber, enableTwoWay);
+			var result = stationResult.Value.CreateAccount(serialNumber, enableTwoWay, gpTechId, gpEmployeeId);
 			return new Result<object>(result.Code, result.Message, result.Value);
 		}
 

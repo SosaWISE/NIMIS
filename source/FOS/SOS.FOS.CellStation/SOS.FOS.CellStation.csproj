@@ -125,6 +125,9 @@
     <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.ChangeServicePlanOutput.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.CheckCustomerLoginOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.CheckPanelSettingsBackupOutput.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -138,6 +141,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.CreateNewCustomerWebsiteMessageOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.CreateSolarConnectionOutput.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.CustomerInfo.datasource">
@@ -173,6 +179,12 @@
     <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.GetDownloadableSettingsOutput.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.GetElectricityPlansOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.GetElectricityProvidersOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.GetEligibleSensorGroupsOutput.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -194,7 +206,16 @@
     <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.GetSignalStrengthHistoryOutput.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.GetSolarDataOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.GetSolarSystemsOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.GetUploadedPanelSettingsOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.GetUserCodesOutput.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.InvalidateLoginTokensOutput.datasource">
@@ -236,6 +257,9 @@
     <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.RestoreBackedUpPanelSettingsOutput.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.SaveUtilityInfoOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.SendEnterpriseNoticeOutput.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -258,6 +282,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.TurnOffAccessCodeLockOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.UpdateAuthenticationProviderLoginNameOutput.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.UpdateCameraSettingsOutput.datasource">

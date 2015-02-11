@@ -2,7 +2,6 @@
 using System.Web.Http;
 using SOS.FunctionalServices;
 using SOS.FunctionalServices.Contracts;
-using SOS.FunctionalServices.Contracts.Models;
 using SOS.Services.Interfaces.Models.CellStation;
 using SSE.Services.CmsCORS.Helpers;
 using SSE.Services.CmsCORS.Models;
@@ -23,12 +22,12 @@ namespace SSE.Services.CmsCORS.Controllers.MsAccountSetup
 		{
 			return CORSSecurity.Authorize("Register", null, null, user =>
 			{
-				var validateResult = CORSArg.ArgumentValidation<object>(new List<CORSArg>() {
+				var validateResult = CORSArg.ArgumentValidation<object>(new List<CORSArg> {
                     new CORSArg("", (id == 0), "'AccountId' was not passed."),
                     new CORSArg("", (data==null || string.IsNullOrEmpty(data.SerialNumber)), "'SerialNumber' was not passed."),
                 });
 				if (validateResult.Failure) return validateResult;
-				return Service.Register(id, data.SerialNumber, data.EnableTwoWay);
+				return Service.Register(id, data.SerialNumber, data.EnableTwoWay, user.GPEmployeeID, user.GPEmployeeID);
 			});
 		}
 
