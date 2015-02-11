@@ -243,18 +243,9 @@
     <Compile Include="Models\Swing\IFnsCustomerSwungInfo.cs" />
     <Compile Include="Models\ScheduleEngine\IFnsSeTicketType.cs" />
     <Compile Include="Models\ScheduleEngine\IFnsSeTicketStatusCode.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\Debug\SOS.FunctionalServices.Contracts.dll" />
-    <Content Include="bin\Debug\SOS.FunctionalServices.Contracts.pdb" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Release\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Lib\SOS.Lib.Core\SOS.Lib.Core.csproj">
       <Project>{a4d0820e-3529-4cb9-ba5f-b2824bfeec97}</Project>
