@@ -119,6 +119,7 @@
     <Compile Include="Models\InventoryEngine\IePurchaseOrderItem.cs" />
     <Compile Include="Models\HumanResources\RuTeamLocation.cs" />
     <Compile Include="Models\MainCore\McDepartment.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountStatusInfo.cs" />
     <Compile Include="Models\MonitoringStation\MsEmergencyContactAuthority.cs" />
     <Compile Include="Models\MonitoringStation\MsAccountDispatchAgencyAssignmentView.cs" />
     <Compile Include="Models\MonitoringStation\MsAccountDslSeisureTypes.cs" />

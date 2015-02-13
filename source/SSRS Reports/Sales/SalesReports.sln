@@ -1,0 +1,18 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "SalesReports", "SalesReports.rptproj", "{D7AC7243-D041-4712-9616-5DD24EFFB63C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D7AC7243-D041-4712-9616-5DD24EFFB63C}.Release|Default.ActiveCfg = Release
+		{D7AC7243-D041-4712-9616-5DD24EFFB63C}.Release|Default.Build.0 = Release
+		{D7AC7243-D041-4712-9616-5DD24EFFB63C}.Release|Default.Deploy.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
