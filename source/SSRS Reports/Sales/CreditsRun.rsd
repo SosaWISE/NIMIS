@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <Description />
+  <DataSet Name="CreditsRun">
+    <Query>
+      <DataSourceReference>NexsenseStgHumanResources</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@seasonID">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+        </DataSetParameter>
+        <DataSetParameter Name="@begindate">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+        </DataSetParameter>
+        <DataSetParameter Name="@enddate">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>/*
+DECLARE @begindate DATETIME
+DECLARE @enddate DATETIME
+DECLARE @seasonID INT
+
+SET @begindate = '1/1/15'
+SET @enddate = '12/31/15'
+SET @seasonID = 4
+*/
+/*
+SeasonID SeasonName
+	1	 Interim Swing Account Season
+	2	 Year Round Tech
+	3	 Inside Sales Group
+	4	 Outside Sales Group
+	5	 Pre Season Test
+*/
+
+/********************
+***  CREDITS RUN  ***
+*********************/
+SELECT 
+	RU_Users.FullName AS Salesperson,
+	CONVERT(DATE,QL_CreditReports.CreatedOn) as CreditDate,
+	COUNT(*) AS NumCreditRuns
+FROM 
+
+	-- QL_CreditReports
+	WISE_CRM.dbo.QL_CreditReports WITH(NOLOCK)
+
+	-- QL_Leads
+	JOIN WISE_CRM.dbo.QL_Leads WITH(NOLOCK)
+		ON QL_CreditReports.LeadId = QL_Leads.LeadID
+		AND QL_Leads.IsDeleted = 'FALSE'
+
+	-- RU_Users
+	JOIN WISE_HumanResource.dbo.RU_Users WITH(NOLOCK)
+		ON QL_Leads.SalesRepId = RU_Users.GPEmployeeId
+		AND RU_Users.IsDeleted = 'FALSE'
+	
+	-- RU_Recruits
+	JOIN WISE_HumanResource.dbo.RU_Recruits WITH(NOLOCK)
+		ON RU_Users.UserID = RU_Recruits.UserId
+		AND RU_Recruits.SeasonId in (@seasonID)
+		AND RU_Recruits.IsDeleted = 'FALSE'
+
+WHERE 
+	QL_CreditReports.CreatedOn BETWEEN @begindate AND @enddate
+	AND QL_CreditReports.IsDeleted = 'FALSE'
+GROUP BY
+	CONVERT(DATE,QL_CreditReports.CreatedOn),
+	RU_Users.FullName</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="Salesperson">
+        <DataField>Salesperson</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CreditDate">
+        <DataField>CreditDate</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="NumCreditRuns">
+        <DataField>NumCreditRuns</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

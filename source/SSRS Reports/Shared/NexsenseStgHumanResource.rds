@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="NexsenseStg">
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=NSUTSEDEV001;Initial Catalog=WISE_HumanResource</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>f17b3f48-5fc3-463a-b91d-f1b7f96e2011</DataSourceID>
+</RptDataSource>

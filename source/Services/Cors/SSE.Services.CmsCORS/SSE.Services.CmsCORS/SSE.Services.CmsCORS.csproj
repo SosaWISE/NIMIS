@@ -159,6 +159,7 @@
     <Compile Include="Controllers\DocBarcodeController\DocBarcodeController.cs" />
     <Compile Include="Controllers\DoNotCall\PhoneNumbersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MonitoringStation\AccountStatusInfoController.cs" />
     <Compile Include="Controllers\TicketService\ServiceTicketsController.cs" />
     <Compile Include="Controllers\TicketService\TechsController.cs" />
     <Compile Include="Controllers\TicketService\TicketSrvTypesController.cs" />

@@ -1,8 +1,8 @@
-﻿using SOS.Data.SosCrm;
+﻿using System.Globalization;
+using SOS.Data.SosCrm;
 using SOS.Data.SosCrm.ControllerExtensions;
 using SOS.FOS.CellStation.AlarmComWebService;
 using SOS.Lib.Core;
-using SSE.Lib.Interfaces.FOS;
 using System;
 using System.Collections.Generic;
 
@@ -12,7 +12,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 	{
 		public AlarmComStation(ICustomerManagementSoapClient customerClient, AlarmComAccount account)
 		{
-			CustomerClient = customerClient;
+			_customerClient = customerClient;
 			Account = account;
 			CellStation = CellularStationFactory.CellStationEnum.AlarmCom;
 		}
@@ -20,11 +20,13 @@ namespace SOS.FOS.CellStation.AlarmCom
 		#region Properties
 
 		//private const int LENTH_OF_SERIALNUMBER = 10;
-		private const int MASTER_USER_CODE = 1234;
+/*
+		private const int _MASTER_USER_CODE = 1234;
+*/
 		private const string _PREFIX = "11317";
 		//public MS_Account MsAccount { get; private set; }
 		public AlarmComAccount Account { get; private set; }
-		ICustomerManagementSoapClient CustomerClient;
+		readonly ICustomerManagementSoapClient _customerClient;
 		public CellularStationFactory.CellStationEnum CellStation { get; private set; }
 
 		#endregion Properties
@@ -64,7 +66,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 		{
 			var result = new Result<bool>();
 			long num;
-			if (serialNumber != null && (!long.TryParse(serialNumber, out num) || num.ToString().Length != 15))
+			if (serialNumber != null && (!long.TryParse(serialNumber, out num) || num.ToString(CultureInfo.InvariantCulture).Length != 15))
 			{
 				// Check the length of the number
 				result.Code = -1;
@@ -103,7 +105,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 			// Execute Retrieve
 			try
 			{
-				result.Value = CustomerClient.LookupCustomerIdFromDealerCustomerId(GetAuth(), oAcct.AccountID.ToString());
+				result.Value = _customerClient.LookupCustomerIdFromDealerCustomerId(GetAuth(), oAcct.AccountID.ToString(CultureInfo.InvariantCulture));
 				result.Code = 0;
 				// Check result
 				if (result.Value <= 0)
@@ -122,12 +124,6 @@ namespace SOS.FOS.CellStation.AlarmCom
 			return result;
 		}
 
-		/// <summary>
-		/// Given an AlarmComAccount with a CSID assigned to it, the method will return an
-		/// Alarm.com Customer ID.
-		/// </summary>
-		/// <param name="oAcct">AlarmComAccount</param>
-		/// <returns>int</returns>
 		//public int GetCustomerIDByDealerCSID(AlarmComAccount oAcct) {
 		//    // Locals
 		//    var nCustomerId = 0;
@@ -154,12 +150,19 @@ namespace SOS.FOS.CellStation.AlarmCom
 		//    // Return result
 		//    return nCustomerId;
 		//}
-
+		/// <summary>
+		/// Given an AlarmComAccount with a CSID assigned to it, the method will return an
+		/// Alarm.com Customer ID.
+		/// </summary>
+		/// <returns>int</returns>
 		/// <summary>
 		/// Given an AlarmComAccount with a CSID assigned to it, and an Alarm.com Serial #
 		/// , the method will return an Alarm.com Customer ID.
 		/// </summary>
-		/// <param name="oAcct">AlarmComAccount</param>
+		/// <param name="oAcct">
+		///     AlarmComAccount
+		///     AlarmComAccount
+		/// </param>
 		/// <param name="serialNumber">string</param>
 		/// <returns>int</returns>
 		public Result<int> GetCustomerIDBySerialNumber(AlarmComAccount oAcct, string serialNumber)
@@ -167,7 +170,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 			var result = new Result<int>();
 			try
 			{
-				result.Value = CustomerClient.LookupCustomerIdFromModemSerial(GetAuth(), serialNumber);
+				result.Value = _customerClient.LookupCustomerIdFromModemSerial(GetAuth(), serialNumber);
 				if (result.Value > 0)
 				{
 					// got a result back
@@ -190,8 +193,6 @@ namespace SOS.FOS.CellStation.AlarmCom
 		/// <summary>
 		/// Given an AlarmComAccount and the Customer ID, it will return an EquipmentList
 		/// </summary>
-		/// <param name="oAcct">AlarmComAccount</param>
-		/// <param name="nCustomerID">int</param>
 		/// <returns>EquipmentList</returns>
 		//public EquipmentList GetDeviceList(AlarmComAccount oAcct, int nCustomerID) {
 		//    // Locals
@@ -244,8 +245,6 @@ namespace SOS.FOS.CellStation.AlarmCom
 		/// Given an AlarmComAccount and a CustomerID it will request from the Device to send device list
 		/// to server.
 		/// </summary>
-		/// <param name="oAcct"></param>
-		/// <param name="customerID"></param>
 		/// <param name="waitUntilPanelConnects">bool</param>
 		/// <returns></returns>
 		public Result<bool> RequestEquipmentList(bool waitUntilPanelConnects)
@@ -254,7 +253,8 @@ namespace SOS.FOS.CellStation.AlarmCom
 			var alarmComAccount = Account;
 			try
 			{
-				if (CustomerClient.RequestSensorNames(GetAuth(), alarmComAccount.CustomerID.Value, waitUntilPanelConnects))
+// ReSharper disable once PossibleInvalidOperationException
+				if (_customerClient.RequestSensorNames(GetAuth(), alarmComAccount.CustomerID.Value, waitUntilPanelConnects))
 				{
 					result.Code = 0;
 					result.Value = true;
@@ -277,7 +277,6 @@ namespace SOS.FOS.CellStation.AlarmCom
 		/// This is a unique method for Alarm.com accounts.  Given an AlarmComAccount object
 		/// it will return an EquipmentList so the data can be bound to a grid.
 		/// </summary>
-		/// <param name="oAcct">AlarmComAccount</param>
 		/// <returns>EquipmentList</returns>
 		public Result<List<PanelDevice>> GetEquipmentList()
 		{
@@ -285,7 +284,8 @@ namespace SOS.FOS.CellStation.AlarmCom
 			var alarmComAccount = Account;
 			try
 			{
-				result.Value.AddRange(CustomerClient.GetDeviceList(GetAuth(), alarmComAccount.CustomerID.Value));
+// ReSharper disable once PossibleInvalidOperationException
+				result.Value.AddRange(_customerClient.GetDeviceList(GetAuth(), alarmComAccount.CustomerID.Value));
 			}
 			catch (Exception ex)
 			{
@@ -300,9 +300,11 @@ namespace SOS.FOS.CellStation.AlarmCom
 		/// with the new one on the CustomerID account.  Error messages will be saved in the ErrorManager
 		/// object.
 		/// </summary>
-		/// <param name="alarmComAccount">AlarmComAccount</param>
-		/// <param name="newSerialNumber">string</param>
-		/// <returns>bool</returns>
+		/// <param name="newSerialNumber"></param>
+		/// <param name="swapReason"></param>
+		/// <param name="specialRequest"></param>
+		/// <param name="restoreBackedUpSettingsAfterSwap"></param>
+		/// <returns></returns>
 		public Result<bool> SwapModem(string newSerialNumber, string swapReason = null, string specialRequest = null, bool restoreBackedUpSettingsAfterSwap = false)
 		{
 			//
@@ -324,18 +326,20 @@ namespace SOS.FOS.CellStation.AlarmCom
 					result.Message = "Unable to swap modem - Missing current Serial Number.";
 					return result;
 				}
-				else if (alarmComAccount.SerialNumber == newSerialNumber)
+				
+				if (alarmComAccount.SerialNumber == newSerialNumber)
 				{
 					result.Code = -1;
 					result.Message = "Attempted to swap to same Serial Number.";
 					return result;
 				}
 
-				var swapModemOutput = CustomerClient.SwapModem(GetAuth(), new SwapModemInput
+				var swapModemOutput = _customerClient.SwapModem(GetAuth(), new SwapModemInput
 				{
 					NewSerialNumber = newSerialNumber,
 					SwapReason = swapReason,
 					SpecialRequest = specialRequest,
+// ReSharper disable once PossibleInvalidOperationException
 					CustomerId = alarmComAccount.CustomerID.Value,
 					RestoreBackedUpSettingsAfterSwap = restoreBackedUpSettingsAfterSwap,
 				});
@@ -391,7 +395,8 @@ namespace SOS.FOS.CellStation.AlarmCom
 					return result;
 				}
 
-				var changePlanOutput = CustomerClient.ChangeServicePlan(GetAuth(), alarmComAccount.CustomerID.Value, (int)servicePackage,
+// ReSharper disable once PossibleInvalidOperationException
+				var changePlanOutput = _customerClient.ChangeServicePlan(GetAuth(), alarmComAccount.CustomerID.Value, (int)servicePackage,
 					(alarmComAccount.EnableTwoWay ? new[] { AddOnFeatureEnum.TwoWayVoice } : new AddOnFeatureEnum[0]));
 				// Check result
 				if (changePlanOutput.Success)
@@ -474,14 +479,14 @@ namespace SOS.FOS.CellStation.AlarmCom
 		/// Given an ICellularAccount object it will terminate the Alarm.com account.  The messages
 		/// will be saved in the ErrorManager field of this object.
 		/// </summary>
-		/// <param name="oCellAccount">ICellularAccount</param>
 		/// <returns>bool</returns>
 		public Result<bool> TerminateAccount()
 		{
 			var result = new Result<bool>();
 			var alarmComAccount = Account;
 
-			if (CustomerClient.TerminateCustomer(GetAuth(), alarmComAccount.CustomerID.Value))
+// ReSharper disable once PossibleInvalidOperationException
+			if (_customerClient.TerminateCustomer(GetAuth(), alarmComAccount.CustomerID.Value))
 			{
 				result.Code = 0;
 				result.Value = true;
@@ -592,8 +597,9 @@ namespace SOS.FOS.CellStation.AlarmCom
 				CustomerAccountAddress = premiseAddress,
 				CustomerAccountEmail = alarmComAccount.CustomerAccountEmail,
 				CustomerAccountPhone = alarmComAccount.CustomerAccountPhone,
-				DealerCustomerId = alarmComAccount.AccountID.ToString(),
-				DesiredLoginName = alarmComAccount.CustomerAccountEmail,
+				DealerCustomerId = alarmComAccount.AccountID.ToString(CultureInfo.InvariantCulture),
+				//DesiredLoginName = alarmComAccount.CustomerAccountEmail,
+				DesiredLoginName = serialNumber,
 				DesiredPassword = csid.Substring(csid.Length - 6), // last six digits of CSID???
 				InstallationAddress = premiseAddress,
 				InstallationTimeZone = TimeZoneEnum.NotSet,
@@ -655,7 +661,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 			}
 
 			// Execute Creation
-			var createCustomerOutput = CustomerClient.CreateCustomer(GetAuth(), oInput);
+			var createCustomerOutput = _customerClient.CreateCustomer(GetAuth(), oInput);
 			adcSubmit.Message = createCustomerOutput.ErrorMessage;
 
 			// check results
@@ -731,7 +737,6 @@ namespace SOS.FOS.CellStation.AlarmCom
 		/// Given a ICellularAccount it will return a ICellularAccountStatus.  This is used to see
 		/// what the status of a cellular account is.
 		/// </summary>
-		/// <param name="oCellAccount">ICellularAccount</param>
 		/// <returns>ICellularAccountStatus</returns>
 		public Result<AlarmComAccountStatus> AccountStatus()
 		{
@@ -769,7 +774,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 					}
 				}
 
-				var customerInfo = CustomerClient.GetCustomerInfo(GetAuth(), customerID);
+				var customerInfo = _customerClient.GetCustomerInfo(GetAuth(), customerID);
 				// Bind Results to AccountStatus
 				result.Value.SetCustInfo(customerInfo, alarmComAccount);
 				result.Value.SaveAccountInfo(customerInfo, alarmComAccount);
