@@ -2236,6 +2236,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MS_MonitronicsEntitySiteSystemController _MS_MonitronicsEntitySiteSystems;
+		public MS_MonitronicsEntitySiteSystemController MS_MonitronicsEntitySiteSystems
+		{
+			get
+			{
+				if (_MS_MonitronicsEntitySiteSystems == null) _MS_MonitronicsEntitySiteSystems = new MS_MonitronicsEntitySiteSystemController();
+				return _MS_MonitronicsEntitySiteSystems;
+			}
+		}
+
 		MS_MonitronicsEntitySiteTypeController _MS_MonitronicsEntitySiteTypes;
 		public MS_MonitronicsEntitySiteTypeController MS_MonitronicsEntitySiteTypes
 		{
@@ -3470,6 +3480,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MS_AccountOnlineStatusInfoViewController _MS_AccountOnlineStatusInfoViews;
+		public MS_AccountOnlineStatusInfoViewController MS_AccountOnlineStatusInfoViews
+		{
+			get
+			{
+				if (_MS_AccountOnlineStatusInfoViews == null) _MS_AccountOnlineStatusInfoViews = new MS_AccountOnlineStatusInfoViewController();
+				return _MS_AccountOnlineStatusInfoViews;
+			}
+		}
+
 		MS_AccountSalesInformationsViewController _MS_AccountSalesInformationsViews;
 		public MS_AccountSalesInformationsViewController MS_AccountSalesInformationsViews
 		{
@@ -4015,6 +4035,7 @@ namespace SOS.Data.SosCrm
 	public class MS_MonitronicsEntitySiteOptionController : BaseTableController<MS_MonitronicsEntitySiteOption, MS_MonitronicsEntitySiteOptionCollection> { }
 	public class MS_MonitronicsEntitySiteStatController : BaseTableController<MS_MonitronicsEntitySiteStat, MS_MonitronicsEntitySiteStatCollection> { }
 	public class MS_MonitronicsEntitySiteSystemOptionController : BaseTableController<MS_MonitronicsEntitySiteSystemOption, MS_MonitronicsEntitySiteSystemOptionCollection> { }
+	public class MS_MonitronicsEntitySiteSystemController : BaseTableController<MS_MonitronicsEntitySiteSystem, MS_MonitronicsEntitySiteSystemCollection> { }
 	public class MS_MonitronicsEntitySiteTypeController : BaseTableController<MS_MonitronicsEntitySiteType, MS_MonitronicsEntitySiteTypeCollection> { }
 	public class MS_MonitronicsEntityStateController : BaseTableController<MS_MonitronicsEntityState, MS_MonitronicsEntityStateCollection> { }
 	public class MS_MonitronicsEntitySystemTypeController : BaseTableController<MS_MonitronicsEntitySystemType, MS_MonitronicsEntitySystemTypeCollection> { }
@@ -4143,6 +4164,7 @@ namespace SOS.Data.SosCrm
 	public class MS_AccountEquipmentsViewController : BaseViewController<MS_AccountEquipmentsView, MS_AccountEquipmentsViewCollection> { }
 	public class MS_AccountEventViewController : BaseViewController<MS_AccountEventView, MS_AccountEventViewCollection> { }
 	public class MS_AccountMonitorInformationsViewController : BaseViewController<MS_AccountMonitorInformationsView, MS_AccountMonitorInformationsViewCollection> { }
+	public class MS_AccountOnlineStatusInfoViewController : BaseViewController<MS_AccountOnlineStatusInfoView, MS_AccountOnlineStatusInfoViewCollection> { }
 	public class MS_AccountSalesInformationsViewController : BaseViewController<MS_AccountSalesInformationsView, MS_AccountSalesInformationsViewCollection> { }
 	public class MS_DeviceEventsViewController : BaseViewController<MS_DeviceEventsView, MS_DeviceEventsViewCollection> { }
 	public class MS_DispatchAgenciesViewController : BaseViewController<MS_DispatchAgenciesView, MS_DispatchAgenciesViewCollection> { }

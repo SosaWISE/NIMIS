@@ -23,7 +23,7 @@ namespace SOS.FOS.MonitoringStationServices.Contracts.Models
 		FosResult<List<IFosDeviceTest>> ActiveTests(long accountId);
 		FosResult<bool> ClearActiveTests(long accountId);
 		FosResult<bool> ClearTest(long accountId, int testNum);
-		FosResult<string> ServiceStatus(long accountId);
+		FosResult<ISystemStatusInfo> ServiceStatus(long accountId, string gpEmployeeId);
 		FosResult<string> SetServiceStatus(long accountId, string oosCat, DateTime startDate, string comment, string gpEmployeeId);
 
 		FosResult<bool> GenerateMetaData(long? accountId = null, string username = "SYSTEM");

@@ -24,9 +24,11 @@ using SOS.FunctionalServices.Contracts.Helper;
 using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.CentralStation;
 using SOS.FunctionalServices.Contracts.Models.HumanResource;
+using SOS.FunctionalServices.Contracts.Models.Reporting;
 using SOS.FunctionalServices.Models;
 using SOS.FunctionalServices.Models.CentralStation;
 using SOS.FunctionalServices.Models.HumanResource;
+using SOS.FunctionalServices.Models.Reporting;
 using SOS.Lib.Core.ErrorHandling;
 using SOS.Lib.Util;
 using Stages;
@@ -2059,11 +2061,18 @@ namespace SOS.FunctionalServices
 				return main.ClearTest(accountId, testNum);
 			});
 		}
-		public IFnsResult<string> ServiceStatus(long accountId)
+		public IFnsResult<IFnsMsSystemStatusInfo> ServiceStatus(long accountId, string gpEmployeeId)
 		{
 			return CallMainFunc(accountId, (main) =>
 			{
-				return main.ServiceStatus(accountId);
+				var wrappedResult = main.ServiceStatus(accountId, gpEmployeeId);
+				var newResult = new FosResult<IFnsMsSystemStatusInfo>
+				{
+					Code = wrappedResult.Code,
+					Message = wrappedResult.Message,
+					Value = new FnsMsSystemStatusInfo(wrappedResult.Value.InService, wrappedResult.Value.OnTest)
+				};
+				return newResult;
 			});
 		}
 		public IFnsResult<string> SetServiceStatus(long accountId, string oosCat, DateTime startDate, string comment, string gpEmployeeId)

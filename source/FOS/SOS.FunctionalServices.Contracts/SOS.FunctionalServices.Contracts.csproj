@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Helper\ErrorCodes.cs" />
     <Compile Include="IInsideSalesService.cs" />
+    <Compile Include="IReportingService.cs" />
     <Compile Include="IScheduleEngineService.cs" />
     <Compile Include="IInventoryEngineService.cs" />
     <Compile Include="IAccountingEngineService.cs" />
@@ -209,6 +210,8 @@
     <Compile Include="Models\Merchant\IFnsMerchResponseModel.cs" />
     <Compile Include="Models\Parolee\IFnsParoleeOfficer.cs" />
     <Compile Include="Models\QualifyLead\IFnsQlQualifyCustomerInfo.cs" />
+    <Compile Include="Models\Reporting\IFnsMsAccountOnlineStatusInfo.cs" />
+    <Compile Include="Models\Reporting\IFnsMsSystemStatusInfo.cs" />
     <Compile Include="Models\ScheduleEngine\IFnsSeScheduleBlock.cs" />
     <Compile Include="Models\ScheduleEngine\IFnsSeScheduleTicket.cs" />
     <Compile Include="Models\ScheduleEngine\IFnsSeTechnicianAvailability.cs" />

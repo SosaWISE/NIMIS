@@ -17218,6 +17218,180 @@ namespace SOS.Data.SosCrm
 		#endregion Columns Struct
 	}
 	/// <summary>
+	/// Strongly-typed collection for the MS_AccountOnlineStatusInfoView class.
+	/// </summary>
+	[DataContract]
+	public partial class MS_AccountOnlineStatusInfoViewCollection : ReadOnlyList<MS_AccountOnlineStatusInfoView, MS_AccountOnlineStatusInfoViewCollection>
+	{
+		public static MS_AccountOnlineStatusInfoViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			MS_AccountOnlineStatusInfoViewCollection result = new MS_AccountOnlineStatusInfoViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwMS_AccountOnlineStatusInfo view.
+	/// </summary>
+	[DataContract]
+	public partial class MS_AccountOnlineStatusInfoView : ReadOnlyRecord<MS_AccountOnlineStatusInfoView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwMS_AccountOnlineStatusInfo", TableType.Table, DataService.GetInstance("SosCrmProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarKeyName = new TableSchema.TableColumn(schema);
+				colvarKeyName.ColumnName = "KeyName";
+				colvarKeyName.DataType = DbType.AnsiString;
+				colvarKeyName.MaxLength = 100;
+				colvarKeyName.AutoIncrement = false;
+				colvarKeyName.IsNullable = true;
+				colvarKeyName.IsPrimaryKey = false;
+				colvarKeyName.IsForeignKey = false;
+				colvarKeyName.IsReadOnly = false;
+				colvarKeyName.DefaultSetting = @"";
+				colvarKeyName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarKeyName);
+
+				TableSchema.TableColumn colvarTextX = new TableSchema.TableColumn(schema);
+				colvarTextX.ColumnName = "Text";
+				colvarTextX.DataType = DbType.AnsiString;
+				colvarTextX.MaxLength = 100;
+				colvarTextX.AutoIncrement = false;
+				colvarTextX.IsNullable = true;
+				colvarTextX.IsPrimaryKey = false;
+				colvarTextX.IsForeignKey = false;
+				colvarTextX.IsReadOnly = false;
+				colvarTextX.DefaultSetting = @"";
+				colvarTextX.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTextX);
+
+				TableSchema.TableColumn colvarValueX = new TableSchema.TableColumn(schema);
+				colvarValueX.ColumnName = "Value";
+				colvarValueX.DataType = DbType.AnsiString;
+				colvarValueX.MaxLength = 100;
+				colvarValueX.AutoIncrement = false;
+				colvarValueX.IsNullable = true;
+				colvarValueX.IsPrimaryKey = false;
+				colvarValueX.IsForeignKey = false;
+				colvarValueX.IsReadOnly = false;
+				colvarValueX.DefaultSetting = @"";
+				colvarValueX.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarValueX);
+
+				TableSchema.TableColumn colvarStatus = new TableSchema.TableColumn(schema);
+				colvarStatus.ColumnName = "Status";
+				colvarStatus.DataType = DbType.AnsiString;
+				colvarStatus.MaxLength = 100;
+				colvarStatus.AutoIncrement = false;
+				colvarStatus.IsNullable = true;
+				colvarStatus.IsPrimaryKey = false;
+				colvarStatus.IsForeignKey = false;
+				colvarStatus.IsReadOnly = false;
+				colvarStatus.DefaultSetting = @"";
+				colvarStatus.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarStatus);
+
+				BaseSchema = schema;
+				DataService.Providers["SosCrmProvider"].AddSchema("vwMS_AccountOnlineStatusInfo",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public MS_AccountOnlineStatusInfoView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public string KeyName {
+			get { return GetColumnValue<string>(Columns.KeyName); }
+			set { SetColumnValue(Columns.KeyName, value); }
+		}
+		[DataMember]
+		public string TextX {
+			get { return GetColumnValue<string>(Columns.TextX); }
+			set { SetColumnValue(Columns.TextX, value); }
+		}
+		[DataMember]
+		public string ValueX {
+			get { return GetColumnValue<string>(Columns.ValueX); }
+			set { SetColumnValue(Columns.ValueX, value); }
+		}
+		[DataMember]
+		public string Status {
+			get { return GetColumnValue<string>(Columns.Status); }
+			set { SetColumnValue(Columns.Status, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return TextX;
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn KeyNameColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn TextXColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn ValueXColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn StatusColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string KeyName = @"KeyName";
+			public const string TextX = @"TextX";
+			public const string ValueX = @"ValueX";
+			public const string Status = @"Status";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
 	/// Strongly-typed collection for the MS_AccountSalesInformationsView class.
 	/// </summary>
 	[DataContract]

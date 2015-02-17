@@ -98,9 +98,9 @@ namespace SOS.FOS.MonitoringStationServices
 		{
 			return MsStation.ClearTest(accountId, testNum);
 		}
-		public FosResult<string> ServiceStatus(long accountId)
+		public FosResult<ISystemStatusInfo> ServiceStatus(long accountId, string gpEmployeeId)
 		{
-			return MsStation.ServiceStatus(accountId);
+			return MsStation.ServiceStatus(accountId, gpEmployeeId);
 		}
 		public FosResult<string> SetServiceStatus(long accountId, string oosCat, DateTime startDate, string comment, string gpEmployeeId)
 		{

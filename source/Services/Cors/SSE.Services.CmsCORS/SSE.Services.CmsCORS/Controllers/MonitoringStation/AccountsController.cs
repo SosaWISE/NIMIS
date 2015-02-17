@@ -210,7 +210,7 @@ namespace SSE.Services.CmsCORS.Controllers.MonitoringStation
 			return CORSSecurity.Authorize("ServiceStatus", AuthApplications.SSECmsCORSID, null, user =>
 			{
 				var service = SosServiceEngine.Instance.FunctionalServices.Instance<IMonitoringStationService>();
-				var fnsResult = service.ServiceStatus(id);
+				var fnsResult = service.ServiceStatus(id, user.GPEmployeeID);
 				return new Result<object>(fnsResult.Code, fnsResult.Message, fnsResult.GetTValue());
 			});
 		}

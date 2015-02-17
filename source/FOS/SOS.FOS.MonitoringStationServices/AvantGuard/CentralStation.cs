@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using NSE.FOS.Contracts.Models;
-using NXS.Logic.MonitoringStations.Models.Get;
 using SOS.Data.SosCrm;
 using SOS.Data.SosCrm.ControllerExtensions;
 using SOS.FOS.MonitoringStationServices.AGSiteService;
 using SOS.FOS.MonitoringStationServices.AvantGuard.Models;
 using SOS.FOS.MonitoringStationServices.Contracts.Models;
-using SOS.Lib.Core.ErrorHandling;
 using Stages;
 
 namespace SOS.FOS.MonitoringStationServices.AvantGuard
@@ -863,6 +860,7 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 		{
 			return ClearTest(accountId, testNum, null);
 		}
+
 		private FosResult<bool> ClearTest(long accountId, int testNum, SessionInfo sess)
 		{
 			var result = new FosResult<bool>();
@@ -880,9 +878,9 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 			result.Value = AGEnvelops.GetResult(result, resp).Code == 0;
 			return result;
 		}
-		public FosResult<string> ServiceStatus(long accountId)
+		public FosResult<ISystemStatusInfo> ServiceStatus(long accountId, string gpEmployeeId)
 		{
-			var result = new FosResult<string>();
+			var result = new FosResult<ISystemStatusInfo>();
 			SessionInfo sess = null;
 			MS_Account msAccount;
 			int devNum, siteNum;
@@ -895,7 +893,9 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 			var resp = _gateway.DeviceDetail(sess.SessionNum, sess.SessionPassword, SiteNum: siteNum, DevNum: devNum);
 			if (resp.ResultSet.Count > 0)
 			{
-				result.Value = resp.ResultSet[0].OOSCat;
+				var systemInfo = new SystemStatusInfo(string.IsNullOrEmpty(resp.ResultSet[0].OOSCat),
+					string.IsNullOrEmpty(resp.ResultSet[0].OOSCat));
+				result.Value = systemInfo;
 			}
 			return result;
 		}
