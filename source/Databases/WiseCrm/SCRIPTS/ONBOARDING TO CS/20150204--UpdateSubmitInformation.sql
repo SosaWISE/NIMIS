@@ -14,7 +14,8 @@ BEGIN TRANSACTION
 DECLARE @MonitoringStationOSId VARCHAR(50) = 'MI_MASTER';
 
 SELECT
-	*
+	RSLT.*
+	--,SUBSTRING(MASM.[ErrText], 24, 8)
 FROM
 	(SELECT
 		--*
@@ -28,7 +29,11 @@ FROM
 	WHERE
 		(AccountSubmitTypeId = 1)
 		AND (WasSuccessfull = 1)) AS RSLT
+	--LEFT OUTER JOIN [dbo].[MS_AccountSubmitMs] AS MASM WITH (NOLOCK)
+	--ON
+	--	(MASM.AccountSubmitId = RSLT.AccountSubmitID)
 WHERE
 	(RSLT.ROWNumber = 1)
+	--AND (MASM.ErrNo = 199)
 
 ROLLBACK TRANSACTION

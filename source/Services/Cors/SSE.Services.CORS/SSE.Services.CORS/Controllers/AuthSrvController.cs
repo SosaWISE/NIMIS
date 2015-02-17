@@ -70,7 +70,7 @@ namespace SSE.Services.CORS.Controllers
 				}
 
 				/** Get new Session from database. */
-				var oSrvSession = oService.SosStart(appInfo.AppToken, szIPAddress);
+				var oSrvSession = oService.SosStart(appInfo.AppToken, szIPAddress, -7);
 
 
 				oResult.SessionId = oSrvSession.SessionID;
@@ -105,10 +105,10 @@ namespace SSE.Services.CORS.Controllers
 
 		[System.Web.Mvc.HttpPost]
 		[System.Web.Mvc.HttpOptions]
-		public SosCORSResult<SOS.Services.Interfaces.Models.CmsModels.AeCustomer> CustomerAuth(UserAuthInfo userAuthInfo)
+		public SosCORSResult<SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer> CustomerAuth(UserAuthInfo userAuthInfo)
 		{
 			/** Inititalizing. */
-			SosCORSResult<SOS.Services.Interfaces.Models.CmsModels.AeCustomer> oResult;
+			SosCORSResult<SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer> oResult;
 
 			#region Parameter Validation
 
@@ -182,10 +182,10 @@ namespace SSE.Services.CORS.Controllers
 			#region CATCH
 			catch (Exception oEx)
 			{
-				oResult = new SosCORSResult<SOS.Services.Interfaces.Models.CmsModels.AeCustomer>((int)SosResultCodes.GeneralError
+				oResult = new SosCORSResult<SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer>((int)SosResultCodes.GeneralError
 				, string.Format("The following exception was thrown:\r\n{0}"
 							, oEx.Message)
-				, typeof(SOS.Services.Interfaces.Models.CmsModels.AeCustomer).ToString());
+				, typeof(SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer).ToString());
 			}
 			#endregion CATCH
 			#endregion Execute Authentication
@@ -200,7 +200,7 @@ namespace SSE.Services.CORS.Controllers
 
 		[System.Web.Mvc.HttpPost]
 		[System.Web.Mvc.HttpOptions]
-		public SosCORSResult<SOS.Services.Interfaces.Models.CmsModels.AeCustomer> CustomerUpdate(CustomerParam customerInfo)
+		public SosCORSResult<SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer> CustomerUpdate(CustomerParam customerInfo)
 		{
 			/** Authenticate. */
 			const string METHOD_NAME = "AeCustomerUpdate";
@@ -208,7 +208,7 @@ namespace SSE.Services.CORS.Controllers
 			, oUser =>
 			{
 				/** Inititalizing. */
-				SosCORSResult<SOS.Services.Interfaces.Models.CmsModels.AeCustomer> oResult;
+				SosCORSResult<SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer> oResult;
 
 				#region Parameter Validation
 
@@ -313,7 +313,7 @@ namespace SSE.Services.CORS.Controllers
 				#region CATCH
 				catch (Exception oEx)
 				{
-					oResult = new SosCORSResult<SOS.Services.Interfaces.Models.CmsModels.AeCustomer>((int)SosResultCodes.GeneralError
+					oResult = new SosCORSResult<SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer>((int)SosResultCodes.GeneralError
 					, string.Format("The following exception was thrown:\r\n{0}"
 								, oEx.Message));
 				}
@@ -462,12 +462,12 @@ namespace SSE.Services.CORS.Controllers
 
 		[System.Web.Mvc.HttpPost]
 		[System.Web.Mvc.HttpOptions]
-		public SosCORSResult<SOS.Services.Interfaces.Models.CmsModels.AeCustomer> UserSignUp(CustomerParam customerInfo)
+		public SosCORSResult<SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer> UserSignUp(CustomerParam customerInfo)
 		{
 			/** Initialize. */
 			const string METHOD_NAME = "UserSignup";
 			// ReSharper disable RedundantAssignment
-			var oResult = new SosCORSResult<SOS.Services.Interfaces.Models.CmsModels.AeCustomer>((int)SosResultCodes.Initializing, string.Format("Initializing method '{0}'.", METHOD_NAME)) { Value = null };
+			var oResult = new SosCORSResult<SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer>((int)SosResultCodes.Initializing, string.Format("Initializing method '{0}'.", METHOD_NAME)) { Value = null };
 			// ReSharper restore RedundantAssignment
 
 			#region Parameter Validation
@@ -579,13 +579,13 @@ namespace SSE.Services.CORS.Controllers
 			#endregion Result
 		}
 
-		public SosCORSResult<SOS.Services.Interfaces.Models.CmsModels.AeCustomer> UserUpdate(CustomerParam customerInfo)
+		public SosCORSResult<SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer> UserUpdate(CustomerParam customerInfo)
 		{
 			#region Initialize
 			/** Initialize. */
 			const string METHOD_NAME = "CustomerUpdate";
 			// ReSharper disable RedundantAssignment
-			var oResult = new SosCORSResult<SOS.Services.Interfaces.Models.CmsModels.AeCustomer>((int)SosResultCodes.Initializing, string.Format("Initializing method '{0}'.", METHOD_NAME)) { Value = null };
+			var oResult = new SosCORSResult<SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer>((int)SosResultCodes.Initializing, string.Format("Initializing method '{0}'.", METHOD_NAME)) { Value = null };
 			// ReSharper restore RedundantAssignment
 			#endregion Initialize
 
@@ -669,12 +669,12 @@ namespace SSE.Services.CORS.Controllers
 			});
 		}
 
-		public SosCORSResult<SOS.Services.Interfaces.Models.CmsModels.AeCustomer> UserRead(CustomerParam customerInfo)
+		public SosCORSResult<SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer> UserRead(CustomerParam customerInfo)
 		{
 			#region Initialize
 
 			const string METHOD_NAME = "CustomerRead";
-			var oResult = new SosCORSResult<SOS.Services.Interfaces.Models.CmsModels.AeCustomer>((int)SosResultCodes.CookieInvalid, "Session has expired.") { Value = null };
+			var oResult = new SosCORSResult<SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer>((int)SosResultCodes.CookieInvalid, "Session has expired.") { Value = null };
 
 			#endregion Initialize
 

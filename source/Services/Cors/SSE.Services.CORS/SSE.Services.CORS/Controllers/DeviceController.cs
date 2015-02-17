@@ -7,8 +7,10 @@ using SOS.FunctionalServices.Contracts;
 using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.CentralStation;
 using SOS.FunctionalServices.Contracts.Models.GpsTracking;
+using SOS.Services.Interfaces.Models.AccountingEngine;
 using SOS.Services.Interfaces.Models.CmsModels;
 using SOS.Services.Interfaces.Models.GpsTracking;
+using SOS.Services.Interfaces.Models.MonitoringStation;
 using SSE.Services.CORS.Helpers;
 using SSE.Services.CORS.Models;
 
@@ -182,12 +184,9 @@ namespace SSE.Services.CORS.Controllers
 																			select new MsAccountClientsView
 																					{
 																						CustomerMasterFileId = oItem.CustomerMasterFileId
-																						,
-																						CustomerID = oItem.CustomerID
-																						,
-																						AccountId = oItem.AccountId
-																						,
-																						UnitID = oItem.UnitID
+																						, CustomerID = oItem.CustomerID
+																						, AccountId = oItem.AccountId
+																						, UnitID = oItem.UnitID
 																						,
 																						Username = oItem.Username
 																						,

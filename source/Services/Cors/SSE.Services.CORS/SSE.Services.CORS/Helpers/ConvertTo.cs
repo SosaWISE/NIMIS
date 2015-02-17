@@ -5,10 +5,10 @@ namespace SSE.Services.CORS.Helpers
 {
 	public static class ConvertTo
 	{
-		public static SOS.Services.Interfaces.Models.CmsModels.AeCustomer CastFnsToAeCustomer(IFnsAeCustomerGpsClientsViewModel oItem)
+		public static SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer CastFnsToAeCustomer(IFnsAeCustomerGpsClientsViewModel oItem)
 		{
 			/** Initialize. */
-			var oResult = new SOS.Services.Interfaces.Models.CmsModels.AeCustomer();
+			var oResult = new SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer();
 
 			/** Bind data. */
 			oResult.CustomerID = oItem.CustomerID;
@@ -42,10 +42,10 @@ namespace SSE.Services.CORS.Helpers
 			return oResult;
 		}
 
-		public static SOS.Services.Interfaces.Models.CmsModels.AeCustomer CastFnsToAeCustomer(IFnsCustomerFullDataModel oAeCustomerModel)
+		public static SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer CastFnsToAeCustomer(IFnsCustomerFullDataModel oAeCustomerModel)
 		{
 			/** Initialize. */
-			var oResult = new SOS.Services.Interfaces.Models.CmsModels.AeCustomer();
+			var oResult = new SOS.Services.Interfaces.Models.AccountingEngine.AeCustomer();
 
 			/** Bind data. */
 			oResult.CustomerID = oAeCustomerModel.CustomerID;

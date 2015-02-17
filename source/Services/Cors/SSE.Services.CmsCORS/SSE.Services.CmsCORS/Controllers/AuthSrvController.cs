@@ -6,7 +6,6 @@ using SOS.FunctionalServices;
 using SOS.FunctionalServices.Contracts;
 using SOS.FunctionalServices.Contracts.Helper;
 using SOS.FunctionalServices.Contracts.Models;
-using SOS.FunctionalServices.Contracts.Models.AuthenticationControl;
 using SOS.FunctionalServices.Contracts.Models.Data;
 using SOS.Services.Interfaces.Models;
 using SSE.Services.CmsCORS.Helpers;
