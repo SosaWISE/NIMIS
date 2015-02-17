@@ -11,6 +11,7 @@ using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.CentralStation;
 using System;
 using SOS.FunctionalServices.Contracts.Models.HumanResource;
+using SOS.FunctionalServices.Contracts.Models.Reporting;
 
 namespace SOS.FunctionalServices.Contracts
 {
@@ -111,7 +112,7 @@ namespace SOS.FunctionalServices.Contracts
 		IFnsResult<object> ActiveTests(long accountId);
 		IFnsResult<bool> ClearActiveTests(long accountId);
 		IFnsResult<bool> ClearTest(long accountId, int testNum);
-		IFnsResult<string> ServiceStatus(long accountId);
+		IFnsResult<IFnsMsSystemStatusInfo> ServiceStatus(long accountId, string gpEmployeeId);
 		IFnsResult<string> SetServiceStatus(long accountId, string oosCat, DateTime startDate, string comment, string gpEmployeeId);
 
 		#region GetTechDetails

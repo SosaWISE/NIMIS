@@ -92,6 +92,8 @@
     <Compile Include="Models\QualifyLead\FnsQlQualifyCustomerInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Reporting\FnsMsAccountOnlineStatusInfo.cs" />
+    <Compile Include="Models\Reporting\FnsMsSystemStatusInfo.cs" />
     <Compile Include="Models\ScheduleEngine\FnsSeScheduleTicket.cs" />
     <Compile Include="Models\ScheduleEngine\FnsSeScheduleBlock.cs" />
     <Compile Include="Models\ScheduleEngine\FnsSeTechnicianAvailability.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Models\TicketService\Tech.cs" />
     <Compile Include="Models\TicketService\TechSkill.cs" />
     <Compile Include="Models\TicketService\TechWeekDay.cs" />
+    <Compile Include="ReportingService.cs" />
     <Compile Include="ScheduleEngineService.cs" />
     <Compile Include="InventoryEngineService.cs" />
     <Compile Include="AccountingEngineService.cs" />

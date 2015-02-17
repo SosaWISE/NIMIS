@@ -53,13 +53,20 @@
     <Compile Include="CellularAccountStatuses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ICustomerManagementSoapClient.cs" />
+    <Compile Include="Service References\AlarmComWebServiceValidate\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\AlarmComWebService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Service References\AlarmComWebServiceValidate\Validate.disco" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Data\SOS.Data.SosCrm\SOS.Data.SosCrm.csproj">
       <Project>{23bb4972-325c-40d8-96f6-eb8a60676d63}</Project>
@@ -91,6 +98,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Service References\AlarmComWebServiceValidate\SOS.FOS.CellStation.AlarmComWebServiceValidate.CheckCoverageResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AlarmComWebServiceValidate\SOS.FOS.CellStation.AlarmComWebServiceValidate.CheckModemAndCoverageResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AlarmComWebServiceValidate\SOS.FOS.CellStation.AlarmComWebServiceValidate.CombinedValidationResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AlarmComWebServiceValidate\SOS.FOS.CellStation.AlarmComWebServiceValidate.CoverageResultEnum.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AlarmComWebServiceValidate\SOS.FOS.CellStation.AlarmComWebServiceValidate.SerialNumberValidationResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AlarmComWebServiceValidate\SOS.FOS.CellStation.AlarmComWebServiceValidate.ValidateSerialNumberResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AlarmComWebServiceValidate\Validate.wsdl" />
     <None Include="Service References\AlarmComWebService\customermanagement.wsdl" />
     <None Include="Service References\AlarmComWebService\SOS.FOS.CellStation.AlarmComWebService.ActivateModemOutput.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -346,6 +372,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AlarmComWebServiceValidate\" />
     <WCFMetadataStorage Include="Service References\AlarmComWebService\" />
   </ItemGroup>
   <ItemGroup>
@@ -359,6 +386,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\AlarmComWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AlarmComWebServiceValidate\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AlarmComWebServiceValidate\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AlarmComWebServiceValidate\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

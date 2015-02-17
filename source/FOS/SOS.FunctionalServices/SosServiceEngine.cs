@@ -113,6 +113,8 @@ namespace SOS.FunctionalServices
 				(Func<IInventoryEngineService>)(() => new InventoryEngineService()));
             oEngine.FunctionalServices.Register(
                 (Func<IScheduleEngineService>)(() => new ScheduleEngineService()));
+			oEngine.FunctionalServices.Register(
+				(Func<IReportingService>)(() => new ReportingService()));
 
 			//oEngine.FunctionalServices.Register(
 			//	(Func<IInsideSalesService>)(() => new InsideSalesService()));

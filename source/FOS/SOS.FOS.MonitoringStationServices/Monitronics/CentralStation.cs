@@ -20,6 +20,7 @@ using SOS.Lib.Core.ErrorHandling;
 using Contact = NXS.Logic.MonitoringStations.Models.Contact;
 using GetPrefixes = NXS.Logic.MonitoringStations.Schemas.GetPrefixes;
 using GetAgencies = NXS.Logic.MonitoringStations.Schemas.GetAgencies;
+using SystemStatusInfo = SOS.FOS.MonitoringStationServices.Monitronics.Models.SystemStatusInfo;
 
 namespace SOS.FOS.MonitoringStationServices.Monitronics
 {
@@ -256,6 +257,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 
 			#endregion Cellular Settings
 
+// ReSharper disable once UseObjectOrCollectionInitializer
 			var emergencyContactsList = new List<Contact>();
 			// ** Add the Primary Contract Signer
 			emergencyContactsList.Add(new Contact
@@ -276,6 +278,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				PhoneTypeId3 = MS_MonitronicsEntityPhoneType.MetaData.Cellular_PhoneID,
 				EmailAddress = aeMoniCustomer.Email
 			});
+// ReSharper disable once LoopCanBeConvertedToQuery
 			foreach (MS_EmergencyContact contact in msAccount.GetEmergencyContact())
 			{
 				var emc = new Contact
@@ -427,6 +430,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				var sb = new StringBuilder();
 				foreach (ErrorsOnBoardAccount.TableRow row in dsErrorsOnBoardAccount.Tables[0].Rows)
 				{
+// ReSharper disable once UseObjectOrCollectionInitializer
 					var submitItem = new MS_AccountSubmitM();
 					submitItem.AccountSubmitId = msAccountSubmit.AccountSubmitID;
 					submitItem.TableName = row.Istable_nameNull() ? null : row.table_name;
@@ -478,6 +482,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			var dsOnBoardAccount = Utils.ConvertDataSet<ErrorsOnBoardAccount>(dsRaw);
 			foreach (ErrorsOnBoardAccount.TableRow row in dsOnBoardAccount.Tables[0].Rows)
 			{
+// ReSharper disable once UseObjectOrCollectionInitializer
 				var submitItem = new MS_AccountSubmitM();
 				submitItem.AccountSubmitId = msAccountSubmit.AccountSubmitID;
 				submitItem.TableName = row.table_name;
@@ -496,6 +501,8 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			// ** Save Successfull install information
 			var salesInformation = SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(msAccount.AccountID);
 			salesInformation.AccountSubmitId = msAccountSubmit.AccountSubmitID;
+			salesInformation.SubmittedToCSDate = DateTime.UtcNow;
+			salesInformation.InstallDate = DateTime.UtcNow;
 			salesInformation.CsConfirmationNumber = confirmationNumber;
 			salesInformation.Save(gpEmployeeId);
 
@@ -684,6 +691,12 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			msAccountSubmit.CreatedOn = DateTime.UtcNow;
 			msAccountSubmit.Save(gpEmployeeId);
 
+		    var deviceId = msAccount.GetMoniSysTypeId();
+		    if (deviceId == null)
+		    {
+		        throw new Exception("This account does not have a panel associated with it that will return a clear Monitronics Device ID.");
+		    }
+
 			DataSet dsResult;
 			if (!moniService.InitiateTwoWayTest(msAccountSubmit, msAccount.IndustryAccount.Csid, msAccount.GetMoniSysTypeId().SystemTypeID,
 				out dsResult))
@@ -694,6 +707,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				{
 					foreach (ErrorsOnBoardAccount.TableRow row in dsErrors.Tables[0].Rows)
 					{
+// ReSharper disable once UseObjectOrCollectionInitializer
 						var submitItem = new MS_AccountSubmitM();
 						submitItem.AccountSubmitId = msAccountSubmit.AccountSubmitID;
 						submitItem.TableName = row.table_name;
@@ -742,9 +756,98 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 		{
 			throw new NotImplementedException();
 		}
-		public FosResult<string> ServiceStatus(long accountId)
+		public FosResult<ISystemStatusInfo> ServiceStatus(long accountId, string gpEmployeeId)
 		{
-			throw new NotImplementedException();
+			#region Initialize
+
+			var result = new FosResult<ISystemStatusInfo>();
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+			var msAccount = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(accountId);
+			
+			#endregion Initialize
+
+			try
+			{
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				string firstErrorMsgGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Site_SystemsID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet, msAccount.IndustryAccount.Csid))
+				{
+					result.Code = BaseErrorCodes.ErrorCodes.MSAccountSystemInfoGetFailed.Code();
+					result.Message = string.Format(BaseErrorCodes.ErrorCodes.MSAccountSystemInfoGetFailed.Message(), accountId,
+						msAccount.IndustryAccount.Csid, firstErrorMsgGet);
+					return result;
+				}
+
+				// Save data
+				var dsSiteSystemInfo = Utils.ConvertDataSet<GetSiteSystemInfo>(dsRaw);
+				var systemStatusInfo = new SystemStatusInfo(false, true);
+				foreach (GetSiteSystemInfo.TableRow row in dsSiteSystemInfo.Table.Rows)
+				{
+					var siteSystemInfo =
+					SosCrmDataContext.Instance.MS_MonitronicsEntitySiteSystems.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntitySiteSystemInfoSave(
+						msAccount.IndustryAccount.IndustryAccountID
+						, row.Issite_nameNull() ? null : row.site_name
+						, row.Issitetype_idNull() ? null : row.sitetype_id
+						, row.Issitestat_idNull() ? null : row.sitestat_id
+						, row.Issite_addr1Null() ? null : row.site_addr1
+						, row.Issite_addr2Null() ? null : row.site_addr2
+						, row.Iscity_nameNull() ? null : row.city_name
+						, row.Iscounty_nameNull() ? null : row.county_name
+						, row.Isstate_idNull() ? null : row.state_id
+						, row.Iszip_codeNull() ? null : row.zip_code
+						, row.Isphone1Null() ? null : row.phone1
+						, row.Isext1Null() ? null : row.ext1
+						, row.Isstreet_noNull() ? null : row.street_no
+						, row.Isstreet_nameNull() ? null : row.street_name
+						, row.Iscountry_nameNull() ? null : row.country_name
+						, row.Istimezone_noNull() ? (int?) null : row.timezone_no
+						, row.Istimezone_descrNull() ? null : row.timezone_descr
+						, row.Isservco_noNull() ? (int?) null : row.servco_no
+						, row.Isinstall_servco_noNull() ? null : row.install_servco_no
+						, row.Iscspart_noNull() ? null : row.cspart_no
+						, row.IssubdivisionNull() ? null : row.subdivision
+						, row.Iscross_streetNull() ? null : row.cross_street
+						, row.Iscodeword1Null() ? null : row.codeword1
+						, row.Iscodeword2Null() ? null : row.codeword2
+						, row.Isorig_install_dateNull() ? (DateTime?) null : row.orig_install_date
+						, row.Islang_idNull() ? null : row.lang_id
+						, row.Iscs_noNull() ? null : row.cs_no
+						, row.Issystype_idNull() ? null : row.systype_id
+						, row.Issec_systype_idNull() ? null : row.sec_systype_id
+						, row.Ispanel_phoneNull() ? null : row.panel_phone
+						, row.Ispanel_locationNull() ? null : row.panel_location
+						, row.Isreceiver_phoneNull() ? null : row.receiver_phone
+						, row.Isati_hoursNull() ? (short?) null : row.ati_hours
+						, row.Isati_minutesNull() ? (byte?) null : row.ati_minutes
+						, row.Ispanel_codeNull() ? null : row.panel_code
+						, row.Istwoway_device_idNull() ? null : row.twoway_device_id
+						, row.Isalkup_cs_noNull() ? null : row.alkup_cs_no
+						, row.Isblkup_cs_noNull() ? null : row.blkup_cs_no
+						, row.Isontest_flagNull() ? null : row.ontest_flag
+						, row.Isontest_expire_dateNull() ? (DateTime?) null : row.ontest_expire_date
+						, row.Isoos_flagNull() ? null : row.oos_flag
+						, row.Isinstall_dateNull() ? (DateTime?) null : row.install_date
+						, row.Ismonitor_typeNull() ? null : row.monitor_type
+						, gpEmployeeId
+					));
+					systemStatusInfo = new SystemStatusInfo(siteSystemInfo.oos_flag.Equals("no"), siteSystemInfo.ontest_flag.Equals("yes"));
+				}
+				
+				// ** Init successfull result
+				result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
+				result.Message = BaseErrorCodes.ErrorCodes.Success.Message();
+				result.Value = systemStatusInfo;
+			}
+			catch (Exception ex)
+			{
+				result.Code = BaseErrorCodes.ErrorCodes.GeneralException.Code();
+				result.Message = string.Format(BaseErrorCodes.ErrorCodes.GeneralException.Message(), "Moni CentralStation", ex.Message);
+				throw;
+			}
+
+			// ** Return result
+			return result;
 		}
 		public FosResult<string> SetServiceStatus(long accountId, string oosCat, DateTime startDate, string comment, string gpEmployeeId)
 		{

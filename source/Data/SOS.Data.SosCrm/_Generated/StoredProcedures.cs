@@ -1182,6 +1182,54 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@ModifiedBy", ModifiedBy, DbType.String);
 			return sp;
 		}
+		public static StoredProcedure MS_MonitronicsEntitySiteSystemInfoSave(long? IndustryAccountID,string site_name,string sitetype_id,string sitestat_id,string site_addr1,string site_addr2,string city_name,string county_name,string state_id,string zip_code,string phone1,string ext1,string street_no,string street_name,string country_name,int? timezone_no,string timezone_descr,int? servco_no,string install_servco_no,string cspart_no,string subdivision,string cross_street,string codeword1,string codeword2,DateTime? orig_install_date,string lang_id,string cs_no,string systype_id,string sec_systype_id,string panel_phone,string panel_location,string receiver_phone,short? ati_hours,byte? ati_minutes,string panel_code,string twoway_device_id,string alkup_cs_no,string blkup_cs_no,string ontest_flag,DateTime? ontest_expire_date,string oos_flag,DateTime? install_date,string monitor_type,string GpEmployeeID) {
+			StoredProcedure sp = new StoredProcedure("custMS_MonitronicsEntitySiteSystemInfoSave" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@IndustryAccountID", IndustryAccountID, DbType.Int64);
+			sp.Command.AddParameter("@site_name", site_name, DbType.AnsiString);
+			sp.Command.AddParameter("@sitetype_id", sitetype_id, DbType.AnsiString);
+			sp.Command.AddParameter("@sitestat_id", sitestat_id, DbType.AnsiString);
+			sp.Command.AddParameter("@site_addr1", site_addr1, DbType.AnsiString);
+			sp.Command.AddParameter("@site_addr2", site_addr2, DbType.AnsiString);
+			sp.Command.AddParameter("@city_name", city_name, DbType.AnsiString);
+			sp.Command.AddParameter("@county_name", county_name, DbType.AnsiString);
+			sp.Command.AddParameter("@state_id", state_id, DbType.AnsiString);
+			sp.Command.AddParameter("@zip_code", zip_code, DbType.AnsiString);
+			sp.Command.AddParameter("@phone1", phone1, DbType.AnsiString);
+			sp.Command.AddParameter("@ext1", ext1, DbType.AnsiString);
+			sp.Command.AddParameter("@street_no", street_no, DbType.AnsiString);
+			sp.Command.AddParameter("@street_name", street_name, DbType.AnsiString);
+			sp.Command.AddParameter("@country_name", country_name, DbType.AnsiString);
+			sp.Command.AddParameter("@timezone_no", timezone_no, DbType.Int32);
+			sp.Command.AddParameter("@timezone_descr", timezone_descr, DbType.AnsiString);
+			sp.Command.AddParameter("@servco_no", servco_no, DbType.Int32);
+			sp.Command.AddParameter("@install_servco_no", install_servco_no, DbType.AnsiString);
+			sp.Command.AddParameter("@cspart_no", cspart_no, DbType.AnsiString);
+			sp.Command.AddParameter("@subdivision", subdivision, DbType.AnsiString);
+			sp.Command.AddParameter("@cross_street", cross_street, DbType.AnsiString);
+			sp.Command.AddParameter("@codeword1", codeword1, DbType.AnsiString);
+			sp.Command.AddParameter("@codeword2", codeword2, DbType.AnsiString);
+			sp.Command.AddParameter("@orig_install_date", orig_install_date, DbType.DateTime);
+			sp.Command.AddParameter("@lang_id", lang_id, DbType.AnsiString);
+			sp.Command.AddParameter("@cs_no", cs_no, DbType.AnsiString);
+			sp.Command.AddParameter("@systype_id", systype_id, DbType.AnsiString);
+			sp.Command.AddParameter("@sec_systype_id", sec_systype_id, DbType.AnsiString);
+			sp.Command.AddParameter("@panel_phone", panel_phone, DbType.AnsiString);
+			sp.Command.AddParameter("@panel_location", panel_location, DbType.AnsiString);
+			sp.Command.AddParameter("@receiver_phone", receiver_phone, DbType.AnsiString);
+			sp.Command.AddParameter("@ati_hours", ati_hours, DbType.Int16);
+			sp.Command.AddParameter("@ati_minutes", ati_minutes, DbType.Byte);
+			sp.Command.AddParameter("@panel_code", panel_code, DbType.AnsiString);
+			sp.Command.AddParameter("@twoway_device_id", twoway_device_id, DbType.AnsiString);
+			sp.Command.AddParameter("@alkup_cs_no", alkup_cs_no, DbType.AnsiString);
+			sp.Command.AddParameter("@blkup_cs_no", blkup_cs_no, DbType.AnsiString);
+			sp.Command.AddParameter("@ontest_flag", ontest_flag, DbType.AnsiString);
+			sp.Command.AddParameter("@ontest_expire_date", ontest_expire_date, DbType.DateTime);
+			sp.Command.AddParameter("@oos_flag", oos_flag, DbType.AnsiString);
+			sp.Command.AddParameter("@install_date", install_date, DbType.DateTime);
+			sp.Command.AddParameter("@monitor_type", monitor_type, DbType.AnsiString);
+			sp.Command.AddParameter("@GpEmployeeID", GpEmployeeID, DbType.AnsiString);
+			return sp;
+		}
 		public static StoredProcedure MS_MonitronicsEntitySiteSystemOptionsNuke() {
 			StoredProcedure sp = new StoredProcedure("custMS_MonitronicsEntitySiteSystemOptionsNuke" ,DataService.GetInstance("SosCrmProvider"));
 			return sp;

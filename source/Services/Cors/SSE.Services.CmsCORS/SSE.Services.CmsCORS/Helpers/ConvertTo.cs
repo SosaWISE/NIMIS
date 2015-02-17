@@ -4,6 +4,7 @@ using SOS.Data.SosCrm;
 using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.AccountingEngine;
 using SOS.FunctionalServices.Contracts.Models.QualifyLead;
+using SOS.FunctionalServices.Contracts.Models.Reporting;
 using SOS.FunctionalServices.Contracts.Models.Swing;
 using SOS.FunctionalServices.Contracts.Models.CentralStation;
 using SOS.FunctionalServices.Contracts.Models.Data;
@@ -1375,5 +1376,18 @@ namespace SSE.Services.CmsCORS.Helpers
 				IsActive = value.IsActive
 			};
 		}
+
+		#region Reporting Services
+
+		public static MsAccountOnlineStatusInfo CastFnsToMsAccountOnlineStatusInfo(IFnsMsAccountOnlineStatusInfo value)
+		{
+			return new MsAccountOnlineStatusInfo
+			{
+				KeyName = value.KeyName,
+				Value = value.Value,
+				Status = value.Status
+			};
+		}
+		#endregion Reporting Services
 	}
 }

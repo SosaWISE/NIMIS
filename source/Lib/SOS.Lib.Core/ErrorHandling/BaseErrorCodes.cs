@@ -93,6 +93,7 @@ namespace SOS.Lib.Core.ErrorHandling
 
 			#region Monitoring Station Errors
 			, MSServices = 80000
+			, MSAccountSystemInfoGetFailed = 80010
 			, MSAccountOnboardError = 80100
 			, MSAccountOnboardMissingConfNumber = 80110
 			, MSAccountNoSignalHistoryFound = 80200
@@ -130,6 +131,8 @@ namespace SOS.Lib.Core.ErrorHandling
 					return "Success";
 				case ErrorCodes.GeneralMessage:
 					return "General PurchaseMessageDescription";
+				case ErrorCodes.GeneralException:
+					return "General Exception thrown @ leyer: '{0}' | Message: {1}";
 			#endregion General Warnings
 
 			#region General Methods
@@ -161,6 +164,8 @@ namespace SOS.Lib.Core.ErrorHandling
 					return "The primary key passed ('{0}') did not return a value.";
 			#endregion General Errors and Sessions
 
+				case ErrorCodes.MSAccountSystemInfoGetFailed:
+					return "While pulling sytem information on AccountID '{0}' with CSID '{1}' the following error was returned:\r\n{2}";
 				case ErrorCodes.MSAccountOnboardError:
 					return "While onboarding AccountID '{0}' with CSID '{1}' the following error(s) was generated:\r\n{2}";
 				case ErrorCodes.MSAccountOnboardMissingConfNumber:

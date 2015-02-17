@@ -59,7 +59,10 @@
     <Compile Include="AvantGuard\CentralStation.cs" />
     <Compile Include="AvantGuard\Models\FosAgSignalHistoryItem.cs" />
     <Compile Include="AvantGuard\Models\FosDeviceTest.cs" />
+    <Compile Include="AvantGuard\Models\SystemStatusInfo.cs" />
     <Compile Include="AvantGuard\Receiver.cs" />
+    <Compile Include="Contracts\Models\ISystemStatusInfo.cs" />
+    <Compile Include="Monitronics\Models\SystemStatusInfo.cs" />
     <Compile Include="Utilities\Exceptions\CsExceptionInvalidZoneConfiguration.cs" />
     <Compile Include="Utilities\Exceptions\CsExceptionMissingMetadata.cs" />
     <Compile Include="Utilities\Exceptions\CsExceptionNoContract.cs" />

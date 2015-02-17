@@ -1,17 +1,17 @@
 USE [WISE_CRM]
 GO
 
-IF EXISTS (SELECT * FROM sysobjects WHERE type = 'V' AND name = 'View_Template')
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'V' AND name = 'vwMS_AccountOnlineStatusInfo')
 	BEGIN
-		PRINT 'Dropping VIEW View_Template'
-		DROP VIEW dbo.View_Template
+		PRINT 'Dropping VIEW vwMS_AccountOnlineStatusInfo'
+		DROP VIEW dbo.vwMS_AccountOnlineStatusInfo
 	END
 GO
 
-PRINT 'Creating VIEW View_Template'
+PRINT 'Creating VIEW vwMS_AccountOnlineStatusInfo'
 GO
 
-/****** Object:  View [dbo].[View_Template]    Script Date: 01/10/2011 15:18:27 ******/
+/****** Object:  View [dbo].[vwMS_AccountOnlineStatusInfo]    Script Date: 01/10/2011 15:18:27 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -19,8 +19,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /******************************************************************************
-**		File: View_Template.sql
-**		Name: View_Template
+**		File: vwMS_AccountOnlineStatusInfo.sql
+**		Name: vwMS_AccountOnlineStatusInfo
 **		Desc: 
 **
 **		This template can be customized:
@@ -34,18 +34,21 @@ GO
 **     ----------						-----------
 **
 **		Auth: Andres Sosa
-**		Date: 01/21/2015
+**		Date: 02/13/2015
 *******************************************************************************
 **	Change History
 *******************************************************************************
 **	Date:		Author:			Description:
 **	-----------	---------------	-----------------------------------------------
-**	01/21/2015	Andres Sosa		Created by
+**	02/13/2015	Andres Sosa		Created by
 *******************************************************************************/
-CREATE VIEW [dbo].[View_Template]
+CREATE VIEW [dbo].[vwMS_AccountOnlineStatusInfo]
 AS
 	-- Enter Query here
-
+	SELECT
+		CAST(NULL AS VARCHAR(100)) AS KeyName
+		, CAST(NULL AS VARCHAR(100)) AS [Value]
+		, CAST(NULL AS VARCHAR(100)) AS [Status]
 GO
 /* TEST */
--- SELECT * FROM View_Template
+-- SELECT * FROM vwMS_AccountOnlineStatusInfo
