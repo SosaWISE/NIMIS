@@ -611,7 +611,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 				CsEventGroupsToForward = null,
 				PhoneLinePresent = false, // set below
 				CentralStationForwardingOption = CentralStationForwardingOptionEnum.NotSet, // set below
-				CentralStationAccountNumber = csid,
+				CentralStationAccountNumber = csid.Substring(csid.Length - 4), // User Story 359:Only pass the last 4 digits of the CSID
 				CentralStationReceiverNumber = alarmComAccount.IndustryAccount.ReceiverLine.ReceiverNumber,
 
 				/*
