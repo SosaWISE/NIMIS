@@ -4,9 +4,49 @@ Nexsense Management System
 
 Geting the Code
 ---------------
+- Install Cygwin
+  - \\10.1.0.11\ExternalData\SOFTWARE\GitExtensions\cygwin_setup-x86_64.exe
+    - or from here: https://cygwin.com/install.html
+  - Run exe
+  - Click Next >
+  - Select Install from Internet. Click Next >
+  - Keep Root Directory C:\cygwin64, and Select All Users (RECOMMENDED). Click Next >
+  - Change Local Package Directory to C:\cygwin64\packages
+  - Select Direct Connection, Click Next >
+  - Select a mirror. Click Next >
+  - Should get a Setup Alert, Click OK
+  - Select All > Devel > git.
+  - Select All > Net > openssh.
+  - Select All > Net > curl.
+  - Select All > Web > wget.
+  - Click Next >
+  - Make sure Select required packages is checked, Click Next >
+  - Wait for it to download and install
+  - Click Finish
 - Install git (on windows the best gui i've found is Git Extensions)
-  - https://code.google.com/p/gitextensions/
+  - \\10.1.0.11\ExternalData\SOFTWARE\GitExtensions\GitExtensions-2.48.03-SetupComplete.msi
+    - or from here: https://code.google.com/p/gitextensions/
+  - Run msi installer
+  - Click Next
+  - Note: When you are prompted to install msysgit and kdiff3, don't install msysgit. You can install kdiff3 or whatever diff software you like.
+  - Verify path is OK for you. Click Next
+  - Leave default options if you want, Click Next
+  - Select OpenSSH, Click Next
+  - Click Install
+  - Let it install
+  - Click Finish
+  - Run Git Extensions
+  - Select Language
+  - In settings (which should pop up right away, if not it's in Tools>Settings) Select the Git tab
+    - Set command used to run git as C:\cygwin64\bin\git.exe
+    - Set Path to linux tools as C:\cygwin64\bin
+    - Change HOME to C:\cygwin64\home\<username>
+  - Select Global settings
+    - Set perferred username and user email
+  - Select Ssh
+    - Ensure OpenSSH is selected  
 - Generate SSH Key and add it to your github account
-  - https://help.github.com/articles/generating-ssh-keys/#platform-windows
+  - open cygwin terminal
+  - follow instructions here: https://help.github.com/articles/generating-ssh-keys/#platform-windows
 - Finally, clone the repo
   - `git clone git@github.com:SosaWISE/NIMIS.git`
