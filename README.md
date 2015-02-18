@@ -19,6 +19,7 @@ Geting the Code
   - Select All > Net > openssh.
   - Select All > Net > curl.
   - Select All > Web > wget.
+  - Select All > Editors > vim.
   - Click Next >
   - Make sure Select required packages is checked, Click Next >
   - Wait for it to download and install
