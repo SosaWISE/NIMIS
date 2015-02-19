@@ -20,9 +20,9 @@ namespace SOS.FOS.CellStation.AlarmCom
 		#region Properties
 
 		//private const int LENTH_OF_SERIALNUMBER = 10;
-/*
-		private const int _MASTER_USER_CODE = 1234;
-*/
+		/*
+				private const int _MASTER_USER_CODE = 1234;
+		*/
 		private const string _PREFIX = "11317";
 		//public MS_Account MsAccount { get; private set; }
 		public AlarmComAccount Account { get; private set; }
@@ -253,7 +253,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 			var alarmComAccount = Account;
 			try
 			{
-// ReSharper disable once PossibleInvalidOperationException
+				// ReSharper disable once PossibleInvalidOperationException
 				if (_customerClient.RequestSensorNames(GetAuth(), alarmComAccount.CustomerID.Value, waitUntilPanelConnects))
 				{
 					result.Code = 0;
@@ -284,7 +284,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 			var alarmComAccount = Account;
 			try
 			{
-// ReSharper disable once PossibleInvalidOperationException
+				// ReSharper disable once PossibleInvalidOperationException
 				result.Value.AddRange(_customerClient.GetDeviceList(GetAuth(), alarmComAccount.CustomerID.Value));
 			}
 			catch (Exception ex)
@@ -326,7 +326,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 					result.Message = "Unable to swap modem - Missing current Serial Number.";
 					return result;
 				}
-				
+
 				if (alarmComAccount.SerialNumber == newSerialNumber)
 				{
 					result.Code = -1;
@@ -339,7 +339,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 					NewSerialNumber = newSerialNumber,
 					SwapReason = swapReason,
 					SpecialRequest = specialRequest,
-// ReSharper disable once PossibleInvalidOperationException
+					// ReSharper disable once PossibleInvalidOperationException
 					CustomerId = alarmComAccount.CustomerID.Value,
 					RestoreBackedUpSettingsAfterSwap = restoreBackedUpSettingsAfterSwap,
 				});
@@ -395,7 +395,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 					return result;
 				}
 
-// ReSharper disable once PossibleInvalidOperationException
+				// ReSharper disable once PossibleInvalidOperationException
 				var changePlanOutput = _customerClient.ChangeServicePlan(GetAuth(), alarmComAccount.CustomerID.Value, (int)servicePackage,
 					(alarmComAccount.EnableTwoWay ? new[] { AddOnFeatureEnum.TwoWayVoice } : new AddOnFeatureEnum[0]));
 				// Check result
@@ -485,7 +485,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 			var result = new Result<bool>();
 			var alarmComAccount = Account;
 
-// ReSharper disable once PossibleInvalidOperationException
+			// ReSharper disable once PossibleInvalidOperationException
 			if (_customerClient.TerminateCustomer(GetAuth(), alarmComAccount.CustomerID.Value))
 			{
 				result.Code = 0;
@@ -531,8 +531,8 @@ namespace SOS.FOS.CellStation.AlarmCom
 		{
 			// ** Initialize.
 			var adcSubmit = new MS_AccountCellularSubmit();
-			adcSubmit.AccountCellularSubmitTypeId = (short) MS_AccountCellularSubmitType.AccountCellularSubmitTypeEnum.Register_Unit;
-			adcSubmit.AccountCellularSubmitVendorId = (short) MS_AccountCellularSubmitVendor.AccountCellularSubmitVendorEnum.Alarmcom;
+			adcSubmit.AccountCellularSubmitTypeId = (short)MS_AccountCellularSubmitType.AccountCellularSubmitTypeEnum.Register_Unit;
+			adcSubmit.AccountCellularSubmitVendorId = (short)MS_AccountCellularSubmitVendor.AccountCellularSubmitVendorEnum.Alarmcom;
 			adcSubmit.AccountId = Account.AccountID;
 			adcSubmit.IndustryAccountId = Account.IndustryAccountID;
 			adcSubmit.MonitoringStationOSId = Account.IndustryAccount.ReceiverLine.MonitoringStationOSId;
@@ -600,7 +600,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 				DealerCustomerId = alarmComAccount.AccountID.ToString(CultureInfo.InvariantCulture),
 				//DesiredLoginName = alarmComAccount.CustomerAccountEmail,
 				DesiredLoginName = serialNumber,
-				DesiredPassword = csid, // alarm.com now wants 7 or more characters. //.Substring(csid.Length - 6), // last six digits of CSID???
+				DesiredPassword = "n" + csid, // alarm.com now wants 7 or more characters. //.Substring(csid.Length - 6), // last six digits of CSID???
 				InstallationAddress = premiseAddress,
 				InstallationTimeZone = TimeZoneEnum.NotSet,
 				Culture = CultureEnum.Unknown,
