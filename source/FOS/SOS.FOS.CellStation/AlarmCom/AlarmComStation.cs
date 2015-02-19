@@ -600,7 +600,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 				DealerCustomerId = alarmComAccount.AccountID.ToString(CultureInfo.InvariantCulture),
 				//DesiredLoginName = alarmComAccount.CustomerAccountEmail,
 				DesiredLoginName = serialNumber,
-				DesiredPassword = csid.Substring(csid.Length - 6), // last six digits of CSID???
+				DesiredPassword = csid, // alarm.com now wants 7 or more characters. //.Substring(csid.Length - 6), // last six digits of CSID???
 				InstallationAddress = premiseAddress,
 				InstallationTimeZone = TimeZoneEnum.NotSet,
 				Culture = CultureEnum.Unknown,
