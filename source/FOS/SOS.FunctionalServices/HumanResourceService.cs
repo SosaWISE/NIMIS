@@ -551,8 +551,8 @@ namespace SOS.FunctionalServices
 			user.DLState = fnsUser.DLState;
 			user.DLCountry = fnsUser.DLCountry;
 			user.DLExpiresOn = fnsUser.DLExpiresOn;
-			user.Height = fnsUser.Height;
-			user.Weight = fnsUser.Weight;
+			user.Height = fnsUser.Height == null ? null : fnsUser.Height.ToString();
+			user.Weight = fnsUser.Weight == null ? null : fnsUser.Weight.ToString();
 			user.EyeColor = fnsUser.EyeColor;
 			user.HairColor = fnsUser.HairColor;
 			user.PhoneHome = fnsUser.PhoneHome;

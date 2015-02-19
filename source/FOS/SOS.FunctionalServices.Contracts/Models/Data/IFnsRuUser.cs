@@ -31,8 +31,8 @@ namespace SOS.FunctionalServices.Contracts.Models.Data
 		string DLState { get; set; }
 		string DLCountry { get; set; }
 		DateTime? DLExpiresOn { get; set; }
-		string Height { get; set; }
-		string Weight { get; set; }
+		int? Height { get; set; }
+		int? Weight { get; set; }
 		string EyeColor { get; set; }
 		string HairColor { get; set; }
 		string PhoneHome { get; set; }

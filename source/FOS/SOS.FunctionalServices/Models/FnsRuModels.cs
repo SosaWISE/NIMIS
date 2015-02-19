@@ -7,7 +7,7 @@ namespace SOS.FunctionalServices.Models
 	public class FnsRuUser : IFnsRuUser
 	{
 		#region .ctor
-		public FnsRuUser(){}
+		public FnsRuUser() { }
 		public FnsRuUser(RU_User oUser)
 		{
 			UserID = oUser.UserID;
@@ -37,8 +37,8 @@ namespace SOS.FunctionalServices.Models
 			DLState = oUser.DLState;
 			DLCountry = oUser.DLCountry;
 			DLExpiresOn = oUser.DLExpiresOn;
-			Height = oUser.Height;
-			Weight = oUser.Weight;
+			Height = (oUser.Height == null) ? (int?)null : int.Parse(oUser.Height);
+			Weight = (oUser.Weight == null) ? (int?)null : int.Parse(oUser.Weight);
 			EyeColor = oUser.EyeColor;
 			HairColor = oUser.HairColor;
 			PhoneHome = oUser.PhoneHome;
@@ -93,8 +93,8 @@ namespace SOS.FunctionalServices.Models
 		public string DLState { get; set; }
 		public string DLCountry { get; set; }
 		public DateTime? DLExpiresOn { get; set; }
-		public string Height { get; set; }
-		public string Weight { get; set; }
+		public int? Height { get; set; }
+		public int? Weight { get; set; }
 		public string EyeColor { get; set; }
 		public string HairColor { get; set; }
 		public string PhoneHome { get; set; }
