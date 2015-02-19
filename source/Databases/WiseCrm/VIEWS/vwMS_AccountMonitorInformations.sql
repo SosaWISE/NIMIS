@@ -54,7 +54,7 @@ AS
 		, MSA.IndustryAccount2Id
 		, IN2.Csid AS [Csid2]
 		, IN2.ReceiverLineId AS [ReceiverLine2Id]
-		, MSA.TechId
+		, MASI.TechId
 		, [WISE_HumanResource].[dbo].fxRU_UsersGetFullnameByGPEmployeeID(MSA.TechId) AS TechFullName
 		, LDS.SalesRepId
 		, [WISE_HumanResource].[dbo].fxRU_UsersGetFullnameByGPEmployeeID(LDS.SalesRepId) AS SalesFullName
@@ -68,6 +68,9 @@ AS
 		, MSA.AccountPassword
 	FROM
 		[dbo].[MS_Accounts] AS MSA WITH (NOLOCK)
+		LEFT OUTER JOIN [dbo].[MS_AccountSalesInformations] AS MASI WITH (NOLOCK)
+		ON
+			(MASI.AccountID = MSA.AccountID)
 		LEFT OUTER JOIN [dbo].[MS_IndustryAccounts] AS IND WITH (NOLOCK)
 		ON
 			(IND.IndustryAccountID = MSA.IndustryAccountId)

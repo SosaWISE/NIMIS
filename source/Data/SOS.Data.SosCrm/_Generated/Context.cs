@@ -3120,6 +3120,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		AE_CustomerAccountInfoToGPViewController _AE_CustomerAccountInfoToGPViews;
+		public AE_CustomerAccountInfoToGPViewController AE_CustomerAccountInfoToGPViews
+		{
+			get
+			{
+				if (_AE_CustomerAccountInfoToGPViews == null) _AE_CustomerAccountInfoToGPViews = new AE_CustomerAccountInfoToGPViewController();
+				return _AE_CustomerAccountInfoToGPViews;
+			}
+		}
+
 		AE_CustomerGpsClientsViewController _AE_CustomerGpsClientsViews;
 		public AE_CustomerGpsClientsViewController AE_CustomerGpsClientsViews
 		{
@@ -3447,6 +3457,16 @@ namespace SOS.Data.SosCrm
 			{
 				if (_MS_AccountDispatchAgencyAssignmentViews == null) _MS_AccountDispatchAgencyAssignmentViews = new MS_AccountDispatchAgencyAssignmentViewController();
 				return _MS_AccountDispatchAgencyAssignmentViews;
+			}
+		}
+
+		MS_AccountEquipmentInfoToGPViewController _MS_AccountEquipmentInfoToGPViews;
+		public MS_AccountEquipmentInfoToGPViewController MS_AccountEquipmentInfoToGPViews
+		{
+			get
+			{
+				if (_MS_AccountEquipmentInfoToGPViews == null) _MS_AccountEquipmentInfoToGPViews = new MS_AccountEquipmentInfoToGPViewController();
+				return _MS_AccountEquipmentInfoToGPViews;
 			}
 		}
 
@@ -4128,6 +4148,7 @@ namespace SOS.Data.SosCrm
 	#region View Controllers
 
 	public class AE_AgingViewController : BaseViewController<AE_AgingView, AE_AgingViewCollection> { }
+	public class AE_CustomerAccountInfoToGPViewController : BaseViewController<AE_CustomerAccountInfoToGPView, AE_CustomerAccountInfoToGPViewCollection> { }
 	public class AE_CustomerGpsClientsViewController : BaseViewController<AE_CustomerGpsClientsView, AE_CustomerGpsClientsViewCollection> { }
 	public class AE_CustomerInformationViewController : BaseViewController<AE_CustomerInformationView, AE_CustomerInformationViewCollection> { }
 	public class AE_CustomerMasterFileGeneralViewController : BaseViewController<AE_CustomerMasterFileGeneralView, AE_CustomerMasterFileGeneralViewCollection> { }
@@ -4161,6 +4182,7 @@ namespace SOS.Data.SosCrm
 	public class MS_AccountClientDetailsViewController : BaseViewController<MS_AccountClientDetailsView, MS_AccountClientDetailsViewCollection> { }
 	public class MS_AccountClientsViewController : BaseViewController<MS_AccountClientsView, MS_AccountClientsViewCollection> { }
 	public class MS_AccountDispatchAgencyAssignmentViewController : BaseViewController<MS_AccountDispatchAgencyAssignmentView, MS_AccountDispatchAgencyAssignmentViewCollection> { }
+	public class MS_AccountEquipmentInfoToGPViewController : BaseViewController<MS_AccountEquipmentInfoToGPView, MS_AccountEquipmentInfoToGPViewCollection> { }
 	public class MS_AccountEquipmentsViewController : BaseViewController<MS_AccountEquipmentsView, MS_AccountEquipmentsViewCollection> { }
 	public class MS_AccountEventViewController : BaseViewController<MS_AccountEventView, MS_AccountEventViewCollection> { }
 	public class MS_AccountMonitorInformationsViewController : BaseViewController<MS_AccountMonitorInformationsView, MS_AccountMonitorInformationsViewCollection> { }

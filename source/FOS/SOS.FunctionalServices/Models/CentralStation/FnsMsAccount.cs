@@ -16,6 +16,7 @@ namespace SOS.FunctionalServices.Models.CentralStation
 
 		public FnsMsAccount(MS_Account account)
 		{
+			var msAccountSlI = SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(account.AccountID);
 			AccountID = account.AccountID;
 			IndustryAccountId = account.IndustryAccountId;
 			SystemTypeId = account.SystemTypeId;
@@ -25,7 +26,7 @@ namespace SOS.FunctionalServices.Models.CentralStation
 			PanelItemId = account.PanelItemId;
 			CellPackageItemId = account.CellPackageItemId;
 			ContractId = account.ContractId;
-			TechId = account.TechId;
+			TechId = msAccountSlI.TechId;
 			AccountPassword = account.AccountPassword;
 			SimProductBarcodeId = account.SimProductBarcodeId;
 			DispatchMessage = account.DispatchMessage;

@@ -47,7 +47,7 @@ namespace SOS.FunctionalServices.Contracts
         #endregion HumanResources
 
         #region Connext
-        IFnsResult<List<IFnsConnextAccountList>> ConnextAccountList(int userID, DateTime beginDate, DateTime endDate, bool isActive);
+        IFnsResult<List<IFnsConnextAccountList>> ConnextAccountList(int userId, DateTime beginDate, DateTime endDate, bool isActive);
         IFnsResult<IFnsConnextCombinedMonthlySalesDetails> ConnextCombinedMonthlySalesDetails(int userID, int salesMonth, int salesYear);
         IFnsResult<IFnsConnextCustomerInfo> ConnextCustomerInfo(long customerMasterFileID);
         IFnsResult<List<IFnsConnextSalesRanking>> ConnextSalesRanking(int userId, string resultType, string rankingGroup, string rankingPeriod, int rows);

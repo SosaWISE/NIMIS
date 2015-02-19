@@ -319,6 +319,16 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 			msAccountSubAG.UserErrorMessage = clientResult.ErrorMessage;
 			msAccountSubAG.Save(gpEmployeeId);
 
+			// ** Save sales information.
+			if (msAccountSubmit.WasSuccessfull)
+			{
+				var msAccountSalesInformation =
+					SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(msAccountSubmit.AccountId);
+				msAccountSalesInformation.AccountSubmitId = msAccountSubmit.AccountSubmitID;
+				msAccountSalesInformation.SubmittedToCSDate = DateTime.UtcNow;
+				msAccountSalesInformation.Save(gpEmployeeId);
+			}
+
 			// ** Create result envelop.
 			var result = new FosResult<MS_AccountSubmit>
 			{
@@ -904,6 +914,7 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 			var result = new FosResult<string>();
 			SessionInfo sess = null;
 			MS_Account msAccount;
+			var msAccountSalesInfo = SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(accountId);
 			int devNum, siteNum;
 			if (GetAvantGuardNums(result, accountId, ref sess, out msAccount, out siteNum, out devNum).Code != 0)
 			{
@@ -931,7 +942,7 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 				AccountId = msAccount.AccountID,
 				IndustryAccountId = msAccount.IndustryAccountId,
 				AccountSubmitTypeId = (short)MS_AccountSubmitType.AccountSubmitTypeEnum.Undefined,
-				GPTechId = msAccount.TechId ?? gpEmployeeId, //@REVIEW: default to gpEmployeeId?
+				GPTechId = msAccountSalesInfo.TechId ?? gpEmployeeId, //@REVIEW: default to gpEmployeeId?
 				MonitoringStationOSId = msAccount.IndustryAccount.ReceiverLine.MonitoringStationOSId,
 				DateSubmitted = DateTime.UtcNow,
 				WasSuccessfull = result.Code == (int)AGErrorCodes.Success,

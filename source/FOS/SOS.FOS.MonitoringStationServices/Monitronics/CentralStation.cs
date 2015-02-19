@@ -679,12 +679,13 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			var result = new FosResult<object>();
 			var moniService = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
 			var msAccount = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(accountId);
+			var msAcctSlI = SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(accountId);
 			var msAccountSubmit = new MS_AccountSubmit();
 			msAccountSubmit.AccountId = accountId;
 			msAccountSubmit.AccountSubmitTypeId = (short) MS_AccountSubmitType.AccountSubmitTypeEnum.Initiate_Two_Way_Test;
 			msAccountSubmit.IndustryAccountId = msAccount.IndustryAccountId;
 			msAccountSubmit.MonitoringStationOSId = msAccount.IndustryAccount.ReceiverLine.MonitoringStationOSId;
-			msAccountSubmit.GPTechId = msAccount.TechId;
+			msAccountSubmit.GPTechId = msAcctSlI.TechId;
 			msAccountSubmit.DateSubmitted = DateTime.UtcNow;
 			msAccountSubmit.WasSuccessfull = false;
 			msAccountSubmit.CreatedBy = gpEmployeeId;

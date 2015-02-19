@@ -1298,6 +1298,11 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@AccountId", AccountId, DbType.Int64);
 			return sp;
 		}
+		public static StoredProcedure MS_MonitronicsEntitySysTypesGetByPanelTypeId(string PanelTypeId) {
+			StoredProcedure sp = new StoredProcedure("custMS_MonitronicsEntitySysTypesGetByPanelTypeId" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@PanelTypeId", PanelTypeId, DbType.AnsiString);
+			return sp;
+		}
 		public static StoredProcedure MS_MonitronicsEntitySysTypesPanelGet(long? AccountId) {
 			StoredProcedure sp = new StoredProcedure("custMS_MonitronicsEntitySysTypesPanelGet" ,DataService.GetInstance("SosCrmProvider"));
 			sp.Command.AddParameter("@AccountId", AccountId, DbType.Int64);

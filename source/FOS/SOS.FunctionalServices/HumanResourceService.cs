@@ -179,7 +179,7 @@ namespace SOS.FunctionalServices
 					RU_SeasonCollection seasons = HumanResourceDataContext.Instance.RU_Seasons.GetAllSeasonsByUserID(item.UserID);
 
 					// ** Save to the MsAccount
-					MS_Account msAccount = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(msAccountId);
+					MS_AccountSalesInformation msAccount = SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(msAccountId);
 					if (!msAccount.IsLoaded)
 					{
 						result.Code = (int)ErrorCodes.SqlItemNotFound;
@@ -236,7 +236,7 @@ namespace SOS.FunctionalServices
 		public IFnsResult<IFnsTechInfo> AccountTechnician(long accountId)
 		{
 			// find the primary customer
-			var acct = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(accountId);
+			var acct = SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(accountId);
 			if (acct == null)
 			{
 				return new FnsResult<IFnsTechInfo>
@@ -741,7 +741,7 @@ namespace SOS.FunctionalServices
 			recruit.GPDependents = fnsRecruit.GPDependents;
 			recruit.DealerId = fnsRecruit.DealerId;
 			recruit.IsActive = fnsRecruit.IsActive;
-			recruit.IsDeleted = fnsRecruit.IsDeleted; ;
+			recruit.IsDeleted = fnsRecruit.IsDeleted;
 			//recruit.CreatedBy = fnsRecruit.CreatedBy;
 			//recruit.CreatedOn = fnsRecruit.CreatedOn;
 			//recruit.ModifiedBy = fnsRecruit.ModifiedBy;
@@ -826,7 +826,7 @@ namespace SOS.FunctionalServices
         #endregion CRM Sales Info
 
         #region Connext Sales Info
-        public IFnsResult<List<IFnsConnextAccountList>> ConnextAccountList(int UserId, DateTime beginDate, DateTime endDate, bool isActive)
+        public IFnsResult<List<IFnsConnextAccountList>> ConnextAccountList(int userId, DateTime beginDate, DateTime endDate, bool isActive)
         {
             #region INITIALIZATION
 
@@ -846,7 +846,7 @@ namespace SOS.FunctionalServices
                 var accountCollection =
                     HumanResourceDataContext.Instance.RU_UsersAccountListConnextViews
                         .LoadCollection(
-                            HumanResourceDataStoredProcedureManager.RU_UsersAccountListConnextGetByUserID(UserId, beginDate, endDate, isActive));
+                            HumanResourceDataStoredProcedureManager.RU_UsersAccountListConnextGetByUserID(userId, beginDate, endDate, isActive));
 
                 // ** Build list
                 var rankingList = new List<IFnsConnextAccountList>();

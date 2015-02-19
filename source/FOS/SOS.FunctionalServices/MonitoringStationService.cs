@@ -1922,13 +1922,14 @@ namespace SOS.FunctionalServices
 
 			// ** Get the assigned tech.
 			var msAccount = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(accountId);
+			var msAcctSlI = SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(accountId);
 			var idAccount = msAccount.IndustryAccount;
 
 			var msAccountSubmit = new MS_AccountSubmit
 			{
 				AccountId = accountId,
 				AccountSubmitTypeId = (short) MS_AccountSubmitType.AccountSubmitTypeEnum.Onboard_System,
-				GPTechId = msAccount.TechId ?? shellTechId,
+				GPTechId = msAcctSlI.TechId ?? shellTechId,
 				DateSubmitted = DateTime.UtcNow,
 				WasSuccessfull = false,
 				MonitoringStationOSId = idAccount.ReceiverLine.MonitoringStationOSId, // let the hardcoding continue...
@@ -2102,7 +2103,7 @@ namespace SOS.FunctionalServices
 			#region TRY
 			try
 			{
-				MS_Account msAccount = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(accountId);
+				MS_AccountSalesInformation msAccount = SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(accountId);
 
 				/** Check to see if the account is set. */
 				if (string.IsNullOrEmpty(msAccount.TechId))
