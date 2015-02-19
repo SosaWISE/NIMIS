@@ -55,7 +55,7 @@ AS
 		, IN2.Csid AS [Csid2]
 		, IN2.ReceiverLineId AS [ReceiverLine2Id]
 		, MASI.TechId
-		, [WISE_HumanResource].[dbo].fxRU_UsersGetFullnameByGPEmployeeID(MSA.TechId) AS TechFullName
+		, [WISE_HumanResource].[dbo].fxRU_UsersGetFullnameByGPEmployeeID(MASI.TechId) AS TechFullName
 		, LDS.SalesRepId
 		, [WISE_HumanResource].[dbo].fxRU_UsersGetFullnameByGPEmployeeID(LDS.SalesRepId) AS SalesFullName
 		, MSA.SystemTypeId
@@ -91,3 +91,4 @@ GO
 /* TEST 
 SELECT * FROM vwMS_AccountMonitorInformations WHERE AccountID = 130532;
 */
+EXEC sp_refreshview N'[dbo].[vwMS_AccountMonitorInformations]'
