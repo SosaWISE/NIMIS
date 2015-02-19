@@ -2,7 +2,7 @@
 <!--
 SQL Compare
 SQL Compare
-Version:10.4.8.87-->
+Version:10.7.0.18-->
 <Project version="2" type="SQLComparisonToolsProject">
   <DataSource1 version="3" type="LiveDatabaseSource">
     <ServerName>db1.dev.nexsense.com</ServerName>
@@ -24,7 +24,7 @@ Version:10.4.8.87-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>06/24/2014 16:10:10</LastCompared>
+  <LastCompared>02/18/2015 18:05:33</LastCompared>
   <Options>Default, ObjectExistenceChecks, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
@@ -167,9 +167,9 @@ Version:10.4.8.87-->
     <Schemas type="ListString" version="2">
       <value type="string">ZABiAG8A</value>
     </Schemas>
-    <ZABiAG8A>vbwThumGrA9nAv5QSKy2zwICAUUaL/FVMd97hdIc9gl/TKcCAgH5vSNxSzjgzyh9aoliTy6gAgIBiycEN5+KvlpAQqxzHL/p9QIAAdLqZ+qXMsJfYYT60Suug/wCAAE+AcSxkRLODGvVqgBFmPXYAgEAwRwrcaX2tDXHXAgdYRSwWAQAAWSAZxM/MuSEczWUC/hvSZcEAAHm9D8AkbA8f1XOeU7ffenEBAIB23Trtgibqvmt1ouUdiD2NwMCAe3SU+mNQClwKW2+ky7wqw4DAAEvMzEItB6DWqs62pofFGZVAwAB3yOMG+pogsrXgEkDjxihUgcAAUmbkdQQlX+W9MrsGkdL0/8HAgE_</ZABiAG8A>
+    <ZABiAG8A>egdQnqj+uasPN1m6Uy09vwICAc8SqPwSLWBkrabpNekXqWIDAgBkgGcTPzLkhHM1lAv4b0mXBAIAVtQ4TCcpX48U2mPogKizlQICAA__</ZABiAG8A>
     <Grouping type="ListByte" version="2">
-      <value type="Byte">5</value>
+      <value type="Byte">1</value>
       <value type="Byte">0</value>
       <value type="Byte">0</value>
       <value type="Byte">0</value>
@@ -388,91 +388,7 @@ Version:10.4.8.87-->
     </value>
     <value version="1" type="SelectTableEvent">
       <action>SelectItem</action>
-      <val>[dbo].[AE_BankAccountTypes]:[dbo].[AE_BankAccountTypes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[BE_DocTypes]:[dbo].[BE_DocTypes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[BE_DocTypeColumns]:[dbo].[BE_DocTypeColumns]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[BE_PrefixDocuments]:[dbo].[BE_PrefixDocuments]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[BE_Prefixes]:[dbo].[BE_Prefixes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[BE_PrefixPrinters]:[dbo].[BE_PrefixPrinters]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>DeselectItem</action>
-      <val>[dbo].[MC_Accounts]:[dbo].[MC_Accounts]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[MS_AccountDslSeizureTypes]:[dbo].[MS_AccountDslSeizureTypes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[MS_AccountEquipmentUpgradeTypes]:[dbo].[MS_AccountEquipmentUpgradeTypes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[MS_AccountZoneTypes]:[dbo].[MS_AccountZoneTypes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[MS_AvantGuardEventCodes]:[dbo].[MS_AvantGuardEventCodes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[MS_AvantGuardTestCategories]:[dbo].[MS_AvantGuardTestCategories]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[MS_AvantGuardSystemTypeCodes]:[dbo].[MS_AvantGuardSystemTypeCodes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[MS_EquipmentMonitoredTypes]:[dbo].[MS_EquipmentMonitoredTypes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[MS_EquipmentPanelTypes]:[dbo].[MS_EquipmentPanelTypes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[MS_EquipmentPanelDefaultZones]:[dbo].[MS_EquipmentPanelDefaultZones]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[MS_EquipmentTypeEventTypes]:[dbo].[MS_EquipmentTypeEventTypes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[MS_EquipmentTypes]:[dbo].[MS_EquipmentTypes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[MS_EquipmentTypesZoneEventTypes]:[dbo].[MS_EquipmentTypesZoneEventTypes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[MS_MonitronicsEventCodes]:[dbo].[MS_MonitronicsEventCodes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[MS_TimeZoneLookup]:[dbo].[MS_TimeZoneLookup]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[UI_ApplicationVersions]:[dbo].[UI_ApplicationVersions]</val>
+      <val>[dbo].[AE_ItemInterims]:[dbo].[AE_ItemInterims]</val>
     </value>
     <value version="1" type="SelectTableEvent">
       <action>DeselectItem</action>
@@ -488,6 +404,14 @@ Version:10.4.8.87-->
     </value>
     <value version="1" type="SelectTableEvent">
       <action>DeselectItem</action>
+      <val>[dbo].[IE_PurchaseOrderItems]:[dbo].[IE_PurchaseOrderItems]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>DeselectItem</action>
+      <val>[dbo].[MC_Accounts]:[dbo].[MC_Accounts]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>DeselectItem</action>
       <val>[dbo].[SAE_BillingInfoSummary]:[dbo].[SAE_BillingInfoSummary]</val>
     </value>
     <value version="1" type="SelectTableEvent">
@@ -495,8 +419,80 @@ Version:10.4.8.87-->
       <val>[dbo].[SAE_BillingHistory]:[dbo].[SAE_BillingHistory]</val>
     </value>
     <value version="1" type="SelectTableEvent">
-      <action>DeselectItem</action>
-      <val>[dbo].[IE_PurchaseOrderItems]:[dbo].[IE_PurchaseOrderItems]</val>
+      <action>SelectItem</action>
+      <val>[dbo].[MS_AvantGuardSystemTypeCodes]:[dbo].[MS_AvantGuardSystemTypeCodes]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_AvantGuardTestCategories]:[dbo].[MS_AvantGuardTestCategories]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_AvantGuardRelations]:[dbo].[MS_AvantGuardRelations]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_AvantGuardEventCodes]:[dbo].[MS_AvantGuardEventCodes]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_AvantGuardAccountState]:[dbo].[MS_AvantGuardAccountState]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_AccountZoneTypes]:[dbo].[MS_AccountZoneTypes]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_EquipmentTypes]:[dbo].[MS_EquipmentTypes]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_EquipmentTypeEventTypes]:[dbo].[MS_EquipmentTypeEventTypes]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_EquipmentTypesZoneEventTypes]:[dbo].[MS_EquipmentTypesZoneEventTypes]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[AE_ItemAccounts]:[dbo].[AE_ItemAccounts]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_Equipments]:[dbo].[MS_Equipments]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_EquipmentPanelTypes]:[dbo].[MS_EquipmentPanelTypes]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_EquipmentMonitoredTypes]:[dbo].[MS_EquipmentMonitoredTypes]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_EquipmentMostFrequents]:[dbo].[MS_EquipmentMostFrequents]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_EquipmentLocations]:[dbo].[MS_EquipmentLocations]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_EquipmentExistings]:[dbo].[MS_EquipmentExistings]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_AccountSubmitTypes]:[dbo].[MS_AccountSubmitTypes]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_EquipmentAccountZoneTypes]:[dbo].[MS_EquipmentAccountZoneTypes]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_EquipmentAccountZoneTypeEvents]:[dbo].[MS_EquipmentAccountZoneTypeEvents]</val>
     </value>
   </TableActions>
   <SessionSettings>15</SessionSettings>
