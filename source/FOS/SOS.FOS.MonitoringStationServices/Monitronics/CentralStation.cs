@@ -229,24 +229,29 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				if (cellProvider == null) throw new CsExceptionMissingMetadata(msAccount.AccountID, "Monitronics Cell Provider");
 
 				// ** Set Phone1
-				acct.SiteSystems[0].Phone1 = "8662055200";
+				// ** TODO:  US#630 ANDRES DONE
+				// acct.SiteSystems[0].Phone1 = "8662055200";
+				// acct.SiteSystems[0].Phone1 = mcAddress.Phone;
 
 				// ** Get Cell Mac based on Provider
 				var serialNumber = msAccount.GetCellDeviceSerialNumber();
 				if (serialNumber == null)
 					throw new Exception(string.Format("This system does not have a Serial number for its cellular device."));
+				var macAddress = serialNumber.MACAddress;
+				if (cellProvider.ValidValue.Equals("ALMCOM") && macAddress.Length == 10)
+					macAddress = string.Format("11317{0}", macAddress);
 
 				acct.SiteSystemOptions.Add(new SiteSystemOption
 				{
 					OptionId = "CELLPROV",
-					OptionValue = msAccount.GetMoniCellProvider().ValidValue
+					OptionValue = cellProvider.ValidValue
 				});
 
 //				var serialNumber = msAccount.IndustryAccount.ReceiverLineBlock
 				acct.SiteSystemOptions.Add(new SiteSystemOption
 				{
 					OptionId = "CELLMAC",
-					OptionValue = serialNumber.MACAddress
+					OptionValue = macAddress
 				});
 			}
 			else
@@ -278,6 +283,8 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				PhoneTypeId3 = MS_MonitronicsEntityPhoneType.MetaData.Cellular_PhoneID,
 				EmailAddress = aeMoniCustomer.Email
 			});
+
+			var createdEVC5001 = false;
 // ReSharper disable once LoopCanBeConvertedToQuery
 			foreach (MS_EmergencyContact contact in msAccount.GetEmergencyContact())
 			{
@@ -298,6 +305,16 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 					PhoneTypeId3 = contact.Phone3Type == null ? null : contact.Phone3Type.MsPhoneTypeId,
 					EmailAddress = contact.Email
 				};
+				// ** TODO:  US#630 DONE
+				if (msAccount.CellularTypeId.Equals(MS_AccountCellularType.MetaData.Cell_BackupID)
+				    || msAccount.CellularTypeId.Equals(MS_AccountCellularType.MetaData.Cell_PrimaryID))
+				{
+					if (!createdEVC5001)
+					{
+						emc.ContlTypeNo = "5001";
+						createdEVC5001 = true;
+					}
+				}
 				emergencyContactsList.Add(emc);
 			}
 			acct.Contacts = emergencyContactsList;
