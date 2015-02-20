@@ -48,7 +48,6 @@
     <Compile Include="Helper\ErrorCodes.cs" />
     <Compile Include="IInsideSalesService.cs" />
     <Compile Include="IReportingService.cs" />
-    <Compile Include="IScheduleEngineService.cs" />
     <Compile Include="IInventoryEngineService.cs" />
     <Compile Include="IAccountingEngineService.cs" />
     <Compile Include="IAuthenticationService.cs" />

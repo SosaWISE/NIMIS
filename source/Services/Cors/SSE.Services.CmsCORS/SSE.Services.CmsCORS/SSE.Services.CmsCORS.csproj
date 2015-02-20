@@ -201,10 +201,6 @@
     <Compile Include="Controllers\Qualify\SalesRepController.cs" />
     <Compile Include="Controllers\Qualify\TechnicianController.cs" />
     <Compile Include="Controllers\Qualify\VerificationSrvController.cs" />
-    <Compile Include="Controllers\ScheduleEngine\ScheduleBlockController.cs" />
-    <Compile Include="Controllers\ScheduleEngine\ScheduleTicketController.cs" />
-    <Compile Include="Controllers\ScheduleEngine\ZipCodeController.cs" />
-    <Compile Include="Controllers\ScheduleEngine\TicketController.cs" />
     <Compile Include="Controllers\Surveys\PossibleAnswersController.cs" />
     <Compile Include="Controllers\Surveys\QuestionMeaningsController.cs" />
     <Compile Include="Controllers\Surveys\QuestionMeaningTokenMapsController.cs" />
@@ -217,8 +213,6 @@
     <Compile Include="Controllers\Surveys\SurveyTypesController.cs" />
     <Compile Include="Controllers\Surveys\TokensController.cs" />
     <Compile Include="Controllers\Swing\SwingController.cs" />
-    <Compile Include="Controllers\ScheduleEngine\TicketTypeController.cs" />
-    <Compile Include="Controllers\ScheduleEngine\TicketStatusCodeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Helpers\ResultExtensions.cs" />
     <Compile Include="HttpCorsModule.cs" />

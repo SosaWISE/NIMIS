@@ -6,8 +6,8 @@
  * Description:  Implementes the SOS Service Engine
  *********************************************************************************************************************/
 
-using System;
 using SOS.FunctionalServices.Contracts;
+using System;
 
 namespace SOS.FunctionalServices
 {
@@ -111,8 +111,8 @@ namespace SOS.FunctionalServices
 				(Func<IQualifyLeadServices>)(() => new QualifyLeadServices()));
 			oEngine.FunctionalServices.Register(
 				(Func<IInventoryEngineService>)(() => new InventoryEngineService()));
-            oEngine.FunctionalServices.Register(
-                (Func<IScheduleEngineService>)(() => new ScheduleEngineService()));
+			//oEngine.FunctionalServices.Register(
+			//	(Func<IScheduleEngineService>)(() => new ScheduleEngineService()));
 			oEngine.FunctionalServices.Register(
 				(Func<IReportingService>)(() => new ReportingService()));
 
