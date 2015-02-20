@@ -1,28 +1,25 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SOS.Data.SosCrm;
+﻿using SOS.Data.SosCrm;
 using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.AccountingEngine;
+using SOS.FunctionalServices.Contracts.Models.CentralStation;
+using SOS.FunctionalServices.Contracts.Models.Data;
+using SOS.FunctionalServices.Contracts.Models.HumanResource;
+using SOS.FunctionalServices.Contracts.Models.InventoryEngine;
 using SOS.FunctionalServices.Contracts.Models.QualifyLead;
 using SOS.FunctionalServices.Contracts.Models.Reporting;
 using SOS.FunctionalServices.Contracts.Models.Swing;
-using SOS.FunctionalServices.Contracts.Models.CentralStation;
-using SOS.FunctionalServices.Contracts.Models.Data;
 using SOS.FunctionalServices.Models.CentralStation;
 using SOS.Services.Interfaces.Models.AccountingEngine;
 using SOS.Services.Interfaces.Models.CmsModels;
+using SOS.Services.Interfaces.Models.HumanResources;
+using SOS.Services.Interfaces.Models.InventoryEngine;
 using SOS.Services.Interfaces.Models.MonitoringStation;
 using SOS.Services.Interfaces.Models.QualifyLead;
 using SOS.Services.Interfaces.Models.Swing;
-using SOS.Services.Interfaces.Models.HumanResources;
-using SOS.Services.Interfaces.Models.ScheduleEngine;
-using SOS.FunctionalServices.Contracts.Models.HumanResource;
 using SSE.Services.CmsCORS.Models;
+using System.Collections.Generic;
+using System.Linq;
 using QlAddress = SSE.Services.CmsCORS.Models.QlAddress;
-using SOS.FunctionalServices.Contracts.Models.InventoryEngine;
-using SOS.FunctionalServices.Contracts.Models.ScheduleEngine;
-
-using SOS.Services.Interfaces.Models.InventoryEngine;
 
 namespace SSE.Services.CmsCORS.Helpers
 {
@@ -311,24 +308,24 @@ namespace SSE.Services.CmsCORS.Helpers
 			}).ToList();
 		}
 
-        public static List<MsAccountServiceType> CastFnsToMsServiceTypeList(List<IFnsMsAccountServiceType> fnsMsAccountServiceTypes)
-        {
-            return fnsMsAccountServiceTypes.Select(msItem => new MsAccountServiceType
-            {
-                SystemTypeID = msItem.SystemTypeID,
-                SystemTypeName = msItem.SystemTypeName
-            }).ToList();
-        }
+		public static List<MsAccountServiceType> CastFnsToMsServiceTypeList(List<IFnsMsAccountServiceType> fnsMsAccountServiceTypes)
+		{
+			return fnsMsAccountServiceTypes.Select(msItem => new MsAccountServiceType
+			{
+				SystemTypeID = msItem.SystemTypeID,
+				SystemTypeName = msItem.SystemTypeName
+			}).ToList();
+		}
 
-        public static List<MsAccountPanelType> CastFnsToMsPanelTypeList(List<IFnsMsAccountPanelType> fnsMsAccountPanelTypes)
-        {
-            return fnsMsAccountPanelTypes.Select(msItem => new MsAccountPanelType
-            {
-                PanelTypeID = msItem.PanelTypeID,
-                PanelTypeName = msItem.PanelTypeName,
+		public static List<MsAccountPanelType> CastFnsToMsPanelTypeList(List<IFnsMsAccountPanelType> fnsMsAccountPanelTypes)
+		{
+			return fnsMsAccountPanelTypes.Select(msItem => new MsAccountPanelType
+			{
+				PanelTypeID = msItem.PanelTypeID,
+				PanelTypeName = msItem.PanelTypeName,
 				UIName = msItem.UIName
-            }).ToList();
-        }
+			}).ToList();
+		}
 
 		public static List<MsVendorAlarmComPackage> CastFnsToMsVendorAlarmComPackageList(List<IFnsMsVendorAlarmComPackage> packageList)
 		{
@@ -345,7 +342,7 @@ namespace SSE.Services.CmsCORS.Helpers
 			return fnsAeContractTemplates.Select(template => new AE_ContractTemplate
 			{
 				ContractTemplateID = template.ContractTemplateID,
-				ContractName =  template.ContractName,
+				ContractName = template.ContractName,
 				ContractLength = template.ContractLength,
 				MonthlyFee = template.MonthlyFee,
 				ShortDesc = template.ShortDesc
@@ -381,41 +378,41 @@ namespace SSE.Services.CmsCORS.Helpers
 			}).ToList();
 		}
 
-        public static List<MsEmergencyContactAuthority> CastFnsToMsEmergencyContactAuthorityList(List<IFnsMsEmergencyContactAuthority> fnsList)
-        {
-            return fnsList.Select(relationship => new MsEmergencyContactAuthority
-            {
-                AuthorityID = relationship.AuthorityID,
-                MonitoringStationOSId = relationship.MonitoringStationOSId,
-                MsAuthorityId = relationship.MsAuthorityId,
-                AuthorityDescription = relationship.AuthorityDescription,
-                IsActive = relationship.IsActive,
-                IsDeleted = relationship.IsDeleted,
-                ModifiedOn = relationship.ModifiedOn,
-                ModifiedBy = relationship.ModifiedBy,
-                CreatedOn = relationship.CreatedOn,
-                CreatedBy = relationship.CreatedBy
-            }).ToList();
-        }
+		public static List<MsEmergencyContactAuthority> CastFnsToMsEmergencyContactAuthorityList(List<IFnsMsEmergencyContactAuthority> fnsList)
+		{
+			return fnsList.Select(relationship => new MsEmergencyContactAuthority
+			{
+				AuthorityID = relationship.AuthorityID,
+				MonitoringStationOSId = relationship.MonitoringStationOSId,
+				MsAuthorityId = relationship.MsAuthorityId,
+				AuthorityDescription = relationship.AuthorityDescription,
+				IsActive = relationship.IsActive,
+				IsDeleted = relationship.IsDeleted,
+				ModifiedOn = relationship.ModifiedOn,
+				ModifiedBy = relationship.ModifiedBy,
+				CreatedOn = relationship.CreatedOn,
+				CreatedBy = relationship.CreatedBy
+			}).ToList();
+		}
 
-        public static List<MsEmergencyContactType> CastFnsToMsEmergencyContactTypeList(List<IFnsMsEmergencyContactType> fnsList)
-        {
-            return fnsList.Select(relationship => new MsEmergencyContactType
-            {
-                EmergencyContactTypeID = relationship.EmergencyContactTypeID,
-                MonitoringStationOSId = relationship.MonitoringStationOSId,
-                MsContactTypeId = relationship.MsContactTypeId,
-                ContactTypeDescription = relationship.ContactTypeDescription,
-                IsActive = relationship.IsActive,
-                IsDeleted = relationship.IsDeleted,
-                ModifiedOn = relationship.ModifiedOn,
-                ModifiedBy = relationship.ModifiedBy,
-                CreatedOn = relationship.CreatedOn,
-                CreatedBy = relationship.CreatedBy
-            }).ToList();
-        }
+		public static List<MsEmergencyContactType> CastFnsToMsEmergencyContactTypeList(List<IFnsMsEmergencyContactType> fnsList)
+		{
+			return fnsList.Select(relationship => new MsEmergencyContactType
+			{
+				EmergencyContactTypeID = relationship.EmergencyContactTypeID,
+				MonitoringStationOSId = relationship.MonitoringStationOSId,
+				MsContactTypeId = relationship.MsContactTypeId,
+				ContactTypeDescription = relationship.ContactTypeDescription,
+				IsActive = relationship.IsActive,
+				IsDeleted = relationship.IsDeleted,
+				ModifiedOn = relationship.ModifiedOn,
+				ModifiedBy = relationship.ModifiedBy,
+				CreatedOn = relationship.CreatedOn,
+				CreatedBy = relationship.CreatedBy
+			}).ToList();
+		}
 
-        public static List<MsEmergencyContact> CastFnsToMsEmergencyContactList(List<IFnsMsEmergencyContact> fnsList)
+		public static List<MsEmergencyContact> CastFnsToMsEmergencyContactList(List<IFnsMsEmergencyContact> fnsList)
 		{
 			return fnsList.Select(emc => new MsEmergencyContact
 			{
@@ -446,35 +443,35 @@ namespace SSE.Services.CmsCORS.Helpers
 		}
 
 
-        public static List<MsAccountEquipment> CastFnsToMsAccountEquipmentList(List<IFnsMsAccountEquipmentsView> fnsList)
-        {
-            return fnsList.Select(ae => new MsAccountEquipment
-            {
-                AccountEquipmentID = ae.AccountEquipmentID,
-		        AccountId = ae.AccountId,
-                EquipmentId = ae.EquipmentId,
-                EquipmentLocationId = ae.EquipmentLocationId,
-                GPEmployeeId = ae.GPEmployeeId,
-                AccountEquipmentUpgradeTypeId = ae.AccountEquipmentUpgradeTypeId,
-                Points = ae.Points,
-                ActualPoints = ae.ActualPoints,
-                Price = ae.Price,
-                IsExisting = ae.IsExisting,
-		        BarcodeId = ae.BarcodeId,
-                IsServiceUpgrade = ae.IsServiceUpgrade,
-                IsExistingWiring = ae.IsExistingWiring,
-                IsMainPanel = ae.IsMainPanel,
-                AccountZoneAssignmentID = ae.AccountZoneAssignmentID,
-                AccountZoneTypeId = ae.AccountZoneTypeId,
-                AccountEventId = ae.AccountEventId,
-                Zone = ae.Zone,
-                Comments = ae.Comments,
-                ItemSKU  = ae.ItemSKU,
-                ItemDesc = ae.ItemDesc,
-                AccountZoneType = ae.AccountZoneType,
-                EquipmentLocationDesc = ae.EquipmentLocationDesc
-            }).ToList();
-        }
+		public static List<MsAccountEquipment> CastFnsToMsAccountEquipmentList(List<IFnsMsAccountEquipmentsView> fnsList)
+		{
+			return fnsList.Select(ae => new MsAccountEquipment
+			{
+				AccountEquipmentID = ae.AccountEquipmentID,
+				AccountId = ae.AccountId,
+				EquipmentId = ae.EquipmentId,
+				EquipmentLocationId = ae.EquipmentLocationId,
+				GPEmployeeId = ae.GPEmployeeId,
+				AccountEquipmentUpgradeTypeId = ae.AccountEquipmentUpgradeTypeId,
+				Points = ae.Points,
+				ActualPoints = ae.ActualPoints,
+				Price = ae.Price,
+				IsExisting = ae.IsExisting,
+				BarcodeId = ae.BarcodeId,
+				IsServiceUpgrade = ae.IsServiceUpgrade,
+				IsExistingWiring = ae.IsExistingWiring,
+				IsMainPanel = ae.IsMainPanel,
+				AccountZoneAssignmentID = ae.AccountZoneAssignmentID,
+				AccountZoneTypeId = ae.AccountZoneTypeId,
+				AccountEventId = ae.AccountEventId,
+				Zone = ae.Zone,
+				Comments = ae.Comments,
+				ItemSKU = ae.ItemSKU,
+				ItemDesc = ae.ItemDesc,
+				AccountZoneType = ae.AccountZoneType,
+				EquipmentLocationDesc = ae.EquipmentLocationDesc
+			}).ToList();
+		}
 
 		public static List<MsAccountDslSeisureTypes> CastFnsToMsDslSeizureTypeList(List<IFnsMsAccountDslSeizureType> typeList)
 		{
@@ -507,7 +504,7 @@ namespace SSE.Services.CmsCORS.Helpers
 				LocationCode = item.LocationCode,
 				IsActive = item.IsActive,
 				IsDeleted = item.IsDeleted
-            }).OrderBy(q => q.EquipmentLocationDesc).ToList();
+			}).OrderBy(q => q.EquipmentLocationDesc).ToList();
 		}
 
 		public static List<MsAccountZoneType> CastFnsToMsAccountZoneTypesList(List<IFnsMsAccountZoneType> zoneTypesList)
@@ -519,15 +516,15 @@ namespace SSE.Services.CmsCORS.Helpers
 			}).ToList();
 		}
 
-        public static List<MsEquipment> CastFnsToMsEquipmentList(List<IFnsMsEquipmentsView> equipmentList)
-        {
-            return equipmentList.Select(item => new MsEquipment
-            {
-                EquipmentID = item.EquipmentID,
-                ShortName = item.ShortName,
+		public static List<MsEquipment> CastFnsToMsEquipmentList(List<IFnsMsEquipmentsView> equipmentList)
+		{
+			return equipmentList.Select(item => new MsEquipment
+			{
+				EquipmentID = item.EquipmentID,
+				ShortName = item.ShortName,
 				EquipmentTypeId = item.EquipmentTypeId,
 			})/*.OrderBy(q=>q.ShortName)*/.ToList();
-        }
+		}
 
 		public static List<MsIndustryAccount> CastFnsToMsIndustryAccountList(List<IFnsMsIndustryAccount> industryList)
 		{
@@ -579,29 +576,29 @@ namespace SSE.Services.CmsCORS.Helpers
 			};
 		}
 
-        public static List<CustomerSwingEmergencyContact> CastFnsToCustomerSwingEmergencyContactList(List<IFnsCustomerSwingEmergencyContact> fnsCustomerSwingEmergencyContacts)
-        {
-            return fnsCustomerSwingEmergencyContacts.Select(msItem => new CustomerSwingEmergencyContact
-            {
-                FirstName = msItem.FirstName,
-                LastName = msItem.LastName,
-                MiddleInit = msItem.MiddleInit,
-                PhoneNumber1 = msItem.PhoneNumber1,
-                Relationship = msItem.Relationship
-            }).ToList();
-        }
+		public static List<CustomerSwingEmergencyContact> CastFnsToCustomerSwingEmergencyContactList(List<IFnsCustomerSwingEmergencyContact> fnsCustomerSwingEmergencyContacts)
+		{
+			return fnsCustomerSwingEmergencyContacts.Select(msItem => new CustomerSwingEmergencyContact
+			{
+				FirstName = msItem.FirstName,
+				LastName = msItem.LastName,
+				MiddleInit = msItem.MiddleInit,
+				PhoneNumber1 = msItem.PhoneNumber1,
+				Relationship = msItem.Relationship
+			}).ToList();
+		}
 
-        public static List<CustomerSwingEquipmentInfo> CastFnsToCustomerSwingEquipmentInfoList(List<IFnsCustomerSwingEquipmentInfo> fnsCustomerSwingEquipmentInfos)
-        {
-            return fnsCustomerSwingEquipmentInfos.Select(msItem => new CustomerSwingEquipmentInfo
-            {
-				RowNumber =  msItem.RowNumber,
+		public static List<CustomerSwingEquipmentInfo> CastFnsToCustomerSwingEquipmentInfoList(List<IFnsCustomerSwingEquipmentInfo> fnsCustomerSwingEquipmentInfos)
+		{
+			return fnsCustomerSwingEquipmentInfos.Select(msItem => new CustomerSwingEquipmentInfo
+			{
+				RowNumber = msItem.RowNumber,
 				ZoneNumber = msItem.ZoneNumber,
-                EquipmentLocationDesc = msItem.EquipmentLocationDesc,
-                FullName = msItem.FullName,
-                ZoneTypeName = msItem.ZoneTypeName
-            }).ToList();
-        }
+				EquipmentLocationDesc = msItem.EquipmentLocationDesc,
+				FullName = msItem.FullName,
+				ZoneTypeName = msItem.ZoneTypeName
+			}).ToList();
+		}
 
 		public static QlQualifyCustomerInfo CastFnsToQlQualifyCustomerInfo(IFnsQlQualifyCustomerInfo item)
 		{
@@ -706,546 +703,546 @@ namespace SSE.Services.CmsCORS.Helpers
 				Email = info.Email,
 				IsMoni = info.IsMoni
 			};
-        }
+		}
 
-        #region InventoryEngine
+		#region InventoryEngine
 
-        public static IePurchaseOrder CastFnsToIePurchaseOrder(IFnsIePurchaseOrder oItem)
-        {
-            /** Initialize. */
-            var oResult = new IePurchaseOrder();
+		public static IePurchaseOrder CastFnsToIePurchaseOrder(IFnsIePurchaseOrder oItem)
+		{
+			/** Initialize. */
+			var oResult = new IePurchaseOrder();
 
-            /** Bind data. */
-            oResult.PurchaseOrderID = oItem.PurchaseOrderID;
+			/** Bind data. */
+			oResult.PurchaseOrderID = oItem.PurchaseOrderID;
 			//oResult.WarehouseSiteId = oItem.WarehouseSiteId;
-            oResult.VendorId = oItem.VendorId;
+			oResult.VendorId = oItem.VendorId;
 			//oResult.CloseDate = oItem.CloseDate;
-            oResult.IsActive = oItem.IsActive;
-            oResult.ModifiedOn = oItem.ModifiedOn;
-            oResult.ModifiedBy = oItem.ModifiedBy;
-            oResult.CreatedOn = oItem.CreatedOn;
-            oResult.CreatedBy = oItem.CreatedBy;
+			oResult.IsActive = oItem.IsActive;
+			oResult.ModifiedOn = oItem.ModifiedOn;
+			oResult.ModifiedBy = oItem.ModifiedBy;
+			oResult.CreatedOn = oItem.CreatedOn;
+			oResult.CreatedBy = oItem.CreatedBy;
 
-            return oResult;
-        }
-        public static List<IePurchaseOrderItem> CastFnsToIePurchaseOrderItemList(List<IFnsIePurchaseOrderItem> purchaseOrderItemList)
-        {
-            return purchaseOrderItemList.Select(item => new IePurchaseOrderItem
-            {
-                PurchaseOrderItemID = item.PurchaseOrderItemID,
-                PurchaseOrderId = item.PurchaseOrderId,
+			return oResult;
+		}
+		public static List<IePurchaseOrderItem> CastFnsToIePurchaseOrderItemList(List<IFnsIePurchaseOrderItem> purchaseOrderItemList)
+		{
+			return purchaseOrderItemList.Select(item => new IePurchaseOrderItem
+			{
+				PurchaseOrderItemID = item.PurchaseOrderItemID,
+				PurchaseOrderId = item.PurchaseOrderId,
 				//ProductSkwId = item.ProductSkwId,
 				ProductSKU = item.ProductSKU,
-                ItemId = item.ItemId,
-                Quantity = item.Quantity,
-                ItemDesc = item.ItemDesc,
-                WithBarcodeCount = item.WithBarcodeCount,
-                WithoutBarcodeCount = item.WithoutBarcodeCount
-            }).ToList(); 
-        }
-
-        public static List<IePackingSlip> CastFnsToIePackingSlip(List<IFnsIePackingSlip> packingSlipList)
-        {
-
-            return packingSlipList.Select(item => new IePackingSlip
-            {
-                PackingSlipID = item.PackingSlipID,
-                PurchaseOrderId = item.PurchaseOrderId,
-                PackingSlipNumber = item.PackingSlipNumber,
-                ArrivalDate = item.ArrivalDate,
-                CloseDate = item.CloseDate,
-                IsActive = item.IsActive,
-                GPPONumber = item.GPPONumber
-               
-            }).ToList(); 
-        }
-
-        public static IePackingSlip CastFnsToIePackingSlip(IFnsIePackingSlip oItem)
-        {
-            /** Initialize. */
-            var oResult = new IePackingSlip();
-
-            /** Bind data. */
-            oResult.PackingSlipID = oItem.PackingSlipID;
-            oResult.PurchaseOrderId = oItem.PurchaseOrderId;
-            oResult.PackingSlipNumber = oItem.PackingSlipNumber;
-            oResult.ArrivalDate = oItem.ArrivalDate;
-            oResult.CloseDate = oItem.CloseDate;
-            oResult.IsActive = oItem.IsActive;
-            oResult.ModifiedOn = oItem.ModifiedOn;
-            oResult.ModifiedBy = oItem.ModifiedBy;
-            oResult.CreatedOn = oItem.CreatedOn;
-            oResult.CreatedBy = oItem.CreatedBy;
-
-            return oResult;
-        }
-
-        public static IeProductBarcode CastFnsToIeProductBarcode(IFnsIeProductBarcode oItem)
-        {
-            /** Initialize. */
-            var oResult = new IeProductBarcode();
-            /** Bind data. */
-            oResult.ProductBarcodeID = oItem.ProductBarcodeID;
-            oResult.PurchaseOrderItemId = oItem.PurchaseOrderItemId;
-            oResult.LastProductBarcodeTrackingId = oItem.LastProductBarcodeTrackingId;
-            oResult.ProductBarcodeBundleId = oItem.ProductBarcodeBundleId;
-            oResult.SimGUID = oItem.SimGUID;
-            oResult.IsDeleted = oItem.IsDeleted;
-            oResult.ModifiedOn = oItem.ModifiedOn;
-            oResult.ModifiedBy = oItem.ModifiedBy;
-            oResult.CreatedOn = oItem.CreatedOn;
-            oResult.CreatedBy = oItem.CreatedBy;
-
-            return oResult;
-        }
-
-        public static IeProductBarcodeTracking CastFnsToIeProductBarcodeTracking(IFnsIeProductBarcodeTracking oItem)
-        {
-            /** Initialize. */
-            var oResult = new IeProductBarcodeTracking();
-
-            /** Bind data. */
-            oResult.ProductBarcodeTrackingID = oItem.ProductBarcodeTrackingID;
-            oResult.ProductBarcodeTrackingTypeId = oItem.ProductBarcodeTrackingTypeId;
-            oResult.ProductBarcodeId = oItem.ProductBarcodeId;
-            oResult.LocationTypeID = oItem.LocationTypeID;
-            oResult.LocationID = oItem.LocationID;
-            /*oResult.TransferToWarehouseSiteId = oItem.TransferToWarehouseSiteId;
-            oResult.ReturnToVendorId = oItem.ReturnToVendorId;
-            oResult.AssignedToCustomerId = oItem.AssignedToCustomerId;
-            oResult.AssignedToDealerId = oItem.AssignedToDealerId;
-            oResult.RtmaNumberId  = oItem.RtmaNumberId;*/
-            oResult.Comment = oItem.Comment;
-            oResult.IsDeleted = oItem.IsDeleted;
-            oResult.ModifiedOn = oItem.ModifiedOn;
-            oResult.ModifiedBy = oItem.ModifiedBy;
-            oResult.CreatedOn = oItem.CreatedOn;
-            oResult.CreatedBy = oItem.CreatedBy;
-
-            return oResult;
-        }
-
-        public static IeProductBarcodeTrackingView CastFnsToIeProductBarcodeTrackingView(IFnsIeProductBarcodeTrackingView oItem)
-        {
-            /** Initialize. */
-            var oResult = new IeProductBarcodeTrackingView();
-
-            /** Bind data. */
-            oResult.ProductBarcodeTrackingID = oItem.ProductBarcodeTrackingID;
-            oResult.ProductBarcodeTrackingTypeId = oItem.ProductBarcodeTrackingTypeId;
-            oResult.ProductBarcodeId = oItem.ProductBarcodeId;
-            oResult.LocationTypeID = oItem.LocationTypeID;
-            oResult.LocationID = oItem.LocationID;
-           /* oResult.TransferToWarehouseSiteId = oItem.TransferToWarehouseSiteId;
-            oResult.Location = oItem.Location;
-            oResult.ReturnToVendorId = oItem.ReturnToVendorId;
-            oResult.AssignedToCustomerId = oItem.AssignedToCustomerId;
-            oResult.AssignedToDealerId = oItem.AssignedToDealerId;
-            oResult.RtmaNumberId = oItem.RtmaNumberId;*/
-            oResult.Comment = oItem.Comment;
-            
-            return oResult;
-        }
-
-
-        public static List<IeWarehouseSite> CastFnsToIeWarehouseSiteList(List<IFnsIeWarehouseSite> warehouseSiteList)
-        {
-            return warehouseSiteList.Select(item => new IeWarehouseSite
-            {
-                WarehouseSiteID = item.WarehouseSiteID,
-                WarehouseSiteName = item.WarehouseSiteName
-
-            }).ToList();
-        }
-
-        public static List<IeLocationType> CastFnsToIeLocationTypeList(List<IFnsIeLocationType> locationTypeList)
-        {
-            return locationTypeList.Select(item => new IeLocationType
-            {
-                LocationTypeID = item.LocationTypeID,
-                LocationTypeName = item.LocationTypeName
-
-            }).ToList();
-        }
-
-        public static List<IeLocation> CastFnsToIeLocationList(List<IFnsIeLocation> locationList)
-        {
-            return locationList.Select(item => new IeLocation
-            {
-                LocationID = item.LocationID,
-                LocationName = item.LocationName
-
-            }).ToList();
-        }
-
-
-        public static List<IeProductBarcodeLocation> CastFnsToIeProductBarcodeLocationList(List<IFnsIeProductBarcodeLocation> productBarcodeLocationList)
-        {
-            return productBarcodeLocationList.Select(item => new IeProductBarcodeLocation
-            {
-                ProductBarcodeId = item.ProductBarcodeId,
-                ItemDesc = item.ItemDesc
-
-            }).ToList();
-        }
-
-        public static IeProductBarcodeLocation CastFnsToIeProductBarcodeLocation(IFnsIeProductBarcodeLocation productBarcodeLocation)
-        {
-            var oResult = new IeProductBarcodeLocation();
-
-            /** Bind data. */
-            oResult.ProductBarcodeId = productBarcodeLocation.ProductBarcodeId;
-            oResult.ItemDesc = productBarcodeLocation.ItemDesc;
-           
-
-            return oResult;
-        }
-
-
-        public static List<IeVendor> CastFnsToIeVendorList(List<IFnsIeVendor> vendorList)
-        {
-            return vendorList.Select(item => new IeVendor
-            {
-                VendorID = item.VendorID,
-                VendorName = item.VendorName
-
-            }).ToList();
-        }
-
-        public static List<IePurchaseOrder> CastFnsToIePurchaseOrderList(List<IFnsIePurchaseOrder> purchaseOrderList)
-        {
-            return purchaseOrderList.Select(item => new IePurchaseOrder
-            {
-                PurchaseOrderID = item.PurchaseOrderID,
-                GPPONumber = item.GPPONumber
-
-            }).ToList();
-        }
-
-        #endregion InventoryEngine
-
-        #region HumanResource
-        public static List<RuTeamLocation> CastFnsToRuTeamLocationList(List<SOS.FunctionalServices.Contracts.Models.HumanResource.IFnsRuTeamLocation> ruTeamLocationList)
-        {
-            return ruTeamLocationList.Select(item => new RuTeamLocation
-            {
-                TeamLocationID = item.TeamLocationID,
-                City = item.City
-            }).ToList();
-        }
-
-
-        public static List<RuTechnician> CastFnsToRuTechnicianList(List<IFnsRuTechnician> ruTechnicianList)
-        {
-            return ruTechnicianList.Select(item => new RuTechnician
-            {
-                TechnicianId = item.TechnicianId,
-                FullName = item.FullName,
-                TechFirstName = item.TechFirstName,
-                TechLastName = item.TechLastName,
-                TechBirthDate = item.TechBirthDate,
-                TechSeasonId = item.TechSeasonId,
-                TechSeasonName = item.TechSeasonName
-
-
-            }).ToList();
-        }
-
-        public static RuTechnician CastFnsToRuTechnician(IFnsRuTechnician ruTechnician)
-        {
-            // ** Return result
-            return new RuTechnician
-            {
-                TechnicianId = ruTechnician.TechnicianId,
-                FullName = ruTechnician.FullName,
-                TechFirstName = ruTechnician.TechFirstName,
-                TechLastName = ruTechnician.TechLastName,
-                TechBirthDate = ruTechnician.TechBirthDate,
-                TechSeasonId = ruTechnician.TechSeasonId,
-                TechSeasonName = ruTechnician.TechSeasonName
-            };
-        }
-
-        #endregion HumanResource
-
-        #region ScheduleEngine
-
-        public static List<SeTicketStatusCode> CastFnsToSeTicketStatusCodeList(List<IFnsSeTicketStatusCode> seTicketStatusCodeList)
-        {
-            return seTicketStatusCodeList.Select(item => new SeTicketStatusCode
-            {
-                StatusCodeID = item.StatusCodeID,
-                StatusCode = item.StatusCode
-
-            }).ToList();
-        }
-
-        public static List<SeTicketType> CastFnsToSeTicketTypeList(List<IFnsSeTicketType> seTicketTypeList)
-        {
-            return seTicketTypeList.Select(item => new SeTicketType
-            {
-                TicketTypeID = item.TicketTypeID,
-                TicketTypeName = item.TicketTypeName
-
-            }).ToList();
-        }
-
-
-        public static SeTicket CastFnsToSeTicket(IFnsSeTicket fnsSeTicket)
-        {
-            return new SeTicket
-            {
-                TicketID = fnsSeTicket.TicketID,
-                AccountId = fnsSeTicket.AccountId,
-                CustomerMasterFileId = fnsSeTicket.CustomerMasterFileId,
-                MonitoringStationNo = fnsSeTicket.MonitoringStationNo,
-                TicketTypeId = fnsSeTicket.TicketTypeId,
-                TicketTypeName = fnsSeTicket.TicketTypeName,
-                Weight =  fnsSeTicket.Weight,
-                StatusCodeId = fnsSeTicket.StatusCodeId,
-                StatusCode = fnsSeTicket.StatusCode,
-                MoniConfirmation = fnsSeTicket.MoniConfirmation,
-                TechConfirmation = fnsSeTicket.TechConfirmation,
-                TechnicianId = fnsSeTicket.TechnicianId,
-                TechnicianName = fnsSeTicket.TechnicianName,
-                TripCharges = fnsSeTicket.TripCharges,
-                Appointment = fnsSeTicket.Appointment,
-                AgentConfirmation = fnsSeTicket.AgentConfirmation,
-                ExpirationDate = fnsSeTicket.ExpirationDate,
-                Notes = fnsSeTicket.Notes,
-                IsTechEnRoute = fnsSeTicket.IsTechEnRoute,
-                IsTechDelayed = fnsSeTicket.IsTechDelayed,
-                IsTechCompleted = fnsSeTicket.IsTechCompleted,
-                CustomerFullName = fnsSeTicket.CustomerFullName,
-                Address = fnsSeTicket.Address,
-                CompleteAddress = fnsSeTicket.CompleteAddress,
-                StreetAddress = fnsSeTicket.StreetAddress,
-                CityStateZip = fnsSeTicket.CityStateZip,
-                County = fnsSeTicket.County,
-                State = fnsSeTicket.State,
-                PostalCode = fnsSeTicket.PostalCode,
-                Latitude = fnsSeTicket.Latitude,
-                Longitude = fnsSeTicket.Longitude,
-                PhoneHome = fnsSeTicket.PhoneHome,
-                PhoneMobile = fnsSeTicket.PhoneMobile,
-                AppointmentDate = fnsSeTicket.AppointmentDate,
-                BlockId = fnsSeTicket.BlockId,
-                TravelTime = fnsSeTicket.TravelTime,
-                ZipCode = fnsSeTicket.ZipCode,
-                MaxRadius = fnsSeTicket.MaxRadius,
-                Distance = fnsSeTicket.Distance,
-                StartTime = fnsSeTicket.StartTime,
-                EndTime = fnsSeTicket.EndTime,
-                ScheduleTicketId = fnsSeTicket.ScheduleTicketId
-            };
-        }
-
-        public static List<SeTicket> CastFnsToSeTicketList(List<IFnsSeTicket> seTicketList)
-        {
-            return seTicketList.Select(item => new SeTicket
-            {
-                TicketID = item.TicketID,
-                AccountId = item.AccountId,
-                CustomerMasterFileId = item.CustomerMasterFileId,
-                MonitoringStationNo = item.MonitoringStationNo,
-                TicketTypeId = item.TicketTypeId,
-                TicketTypeName = item.TicketTypeName,
-                Weight = item.Weight,
-                StatusCodeId = item.StatusCodeId,
-                StatusCode = item.StatusCode,
-                MoniConfirmation = item.MoniConfirmation,
-                TechConfirmation = item.TechConfirmation,
-                TechnicianId = item.TechnicianId,
-                TripCharges = item.TripCharges,
-                Appointment = item.Appointment,
-                AgentConfirmation = item.AgentConfirmation,
-                ExpirationDate = item.ExpirationDate,
-                Notes = item.Notes,
-                IsTechEnRoute = item.IsTechEnRoute,
-                IsTechDelayed = item.IsTechDelayed,
-                IsTechCompleted = item.IsTechCompleted,
-                CustomerFullName = item.CustomerFullName,
-                Address = item.Address,
-                CompleteAddress = item.CompleteAddress,
-                StreetAddress = item.StreetAddress,
-                CityStateZip = item.CityStateZip,
-                County= item.County,
-                State = item.State,
-                PostalCode = item.PostalCode,
-                Latitude = item.Latitude,
-                Longitude = item.Longitude,
-                PhoneHome = item.PhoneHome,
-                PhoneMobile = item.PhoneMobile,
-                AppointmentDate = item.AppointmentDate,
-                BlockId = item.BlockId,
-                TravelTime = item.TravelTime,
-                ZipCode = item.ZipCode,
-                MaxRadius = item.MaxRadius,
-                Distance = item.Distance,
-                StartTime = item.StartTime,
-                EndTime = item.EndTime,
-                ScheduleTicketId = item.ScheduleTicketId
-
-            }).ToList();
-        }
-
-
-        public static List<SeScheduleBlock> CastFnsToSeScheduleBlockList(List<IFnsSeScheduleBlock> seScheduleBlockList)
-        {
-            return seScheduleBlockList.Select(scheduleBlock => new SeScheduleBlock
-            {
-                BlockID = scheduleBlock.BlockID,
-                Block = scheduleBlock.Block,
-                ZipCode = scheduleBlock.ZipCode,
-                MaxRadius = scheduleBlock.MaxRadius,
-                //Distance = scheduleBlock.Distance,
-                Distance = scheduleBlock.Distance ?? CustomGeoCoordinate.GetDistance(scheduleBlock.BlockLatitude ?? 0,
-                                                           scheduleBlock.BlockLongitude??0,
-                                                           scheduleBlock.TicketLatitude??0,
-                                                           scheduleBlock.TicketLongitude??0                                                                                                                       
-                ),
-                AvailableSlots = scheduleBlock.AvailableSlots,
-                StartTime = scheduleBlock.StartTime,
-                EndTime = scheduleBlock.EndTime,
-                TechnicianId = scheduleBlock.TechnicianId,
-                TechnicianName= scheduleBlock.TechnicianName,
-                IsTechConfirmed = scheduleBlock.IsTechConfirmed,
-                CurrentTicketId = scheduleBlock.CurrentTicketId,
-                BlockLatitude = scheduleBlock.BlockLatitude,
-                BlockLongitude = scheduleBlock.BlockLongitude,
-                TicketLatitude = scheduleBlock.TicketLatitude,
-                TicketLongitude = scheduleBlock.TicketLongitude,
-                IsRed = scheduleBlock.IsRed,
-                Color = scheduleBlock.Color,
-                NoOfTickets = scheduleBlock.NoOfTickets,
-                IsBlocked = scheduleBlock.IsBlocked,
-                TicketList = scheduleBlock.TicketList.Select(CastFnsToSeTicket).ToList()
-
-            }).ToList();
-        }
-
-
-        public static SeScheduleBlock CastFnsToSeScheduleBlock(IFnsSeScheduleBlock seScheduleBlock)
-        {
-            return new SeScheduleBlock
-            {
-                BlockID = seScheduleBlock.BlockID,
-                Block = seScheduleBlock.Block,
-                ZipCode = seScheduleBlock.ZipCode,
-                MaxRadius = seScheduleBlock.MaxRadius,
-                Distance = seScheduleBlock.Distance,
-                AvailableSlots = seScheduleBlock.AvailableSlots,
-                StartTime = seScheduleBlock.StartTime,
-                EndTime = seScheduleBlock.EndTime,
-                TechnicianId = seScheduleBlock.TechnicianId,
-                IsTechConfirmed = seScheduleBlock.IsTechConfirmed,
-                IsRed = seScheduleBlock.IsRed,
-                Color = seScheduleBlock.Color,
-                NoOfTickets = seScheduleBlock.NoOfTickets,
-                IsBlocked = seScheduleBlock.IsBlocked,
-                CurrentTicketId = seScheduleBlock.CurrentTicketId,
-                BlockLatitude = seScheduleBlock.BlockLatitude,
-                BlockLongitude = seScheduleBlock.BlockLongitude,
-                TicketLatitude = seScheduleBlock.TicketLatitude,
-                TicketLongitude = seScheduleBlock.TicketLongitude
-            };
-        }
-
-
-
-        public static List<SeTechnicianAvailability> CastFnsToSeTechnicianAvailabilityList(List<IFnsSeTechnicianAvailability> seTechnicianAvailabilityList)
-        {
-            return seTechnicianAvailabilityList.Select(item => new SeTechnicianAvailability
-            {
-                TechnicianAvailabilityID = item.TechnicianAvailabilityID,
-                TechnicianId = item.TechnicianId,
-                StartDateTime = item.StartDateTime,
-                EndDateTime = item.EndDateTime
-            }).ToList();
-        }
-
-
-        public static List<SeScheduleTicket> CastFnsToSeScheduleTicketList(List<IFnsSeScheduleTicket> seScheduleTicketList)
-        {
-            return seScheduleTicketList.Select(item => new SeScheduleTicket
-            {
-                ScheduleTicketID = item.ScheduleTicketID,
-                TicketId = item.TicketId,
-                BlockId = item.BlockId,
-                AppointmentDate = item.AppointmentDate,
-                TravelTime = item.TravelTime
-                /*,
-                AccountId = item.AccountId,
-                CustomerMasterFileId = item.CustomerMasterFileId,
-                MonitoringStationNo = item.MonitoringStationNo,
-                TicketTypeId = item.TicketTypeId,
-                TicketTypeName = item.TicketTypeName,
-                StatusCodeId = item.StatusCodeId,
-                StatusCode = item.StatusCode,
-                MoniConfirmation = item.MoniConfirmation,
-                TechConfirmation = item.TechConfirmation,
-                TechnicianId = item.TechnicianId,
-                TripCharges = item.TripCharges,
-                Appointment = item.Appointment,
-                AgentConfirmation = item.AgentConfirmation,
-                ExpirationDate = item.ExpirationDate,
-                Notes = item.Notes,
-                IsTechEnRoute = item.IsTechEnRoute,
-                IsTechDelayed = item.IsTechDelayed,
-                IsTechCompleted = item.IsTechCompleted,
-                CustomerFullName = item.CustomerFullName,
-                Address = item.Address,
-                CompleteAddress = item.CompleteAddress,
-                StreetAddress = item.StreetAddress,
-                CityStateZip = item.CityStateZip,
-                County = item.County,
-                State = item.State,
-                PostalCode = item.PostalCode,
-                Latitude = item.Latitude,
-                Longitude = item.Longitude,
-                PhoneHome = item.PhoneHome,
-                PhoneMobile = item.PhoneMobile,
-                AppointmentDate = item.AppointmentDate,
-                BlockId = item.BlockId,
-                TravelTime = item.TravelTime,
-                ZipCode = item.ZipCode,
-                MaxRadius = item.MaxRadius,
-                Distance = item.Distance,
-                StartTime = item.StartTime,
-                EndTime = item.EndTime,
-                ScheduleTicketId = item.ScheduleTicketId*/
-
-
-            }).ToList();
-        }
-
-
-        public static SeScheduleTicket CastFnsToSeScheduleTicket(IFnsSeScheduleTicket seScheduleTicket)
-        {
-            return new SeScheduleTicket
-            {
-                ScheduleTicketID = seScheduleTicket.ScheduleTicketID,
-                TicketId = seScheduleTicket.TicketId,
-                BlockId = seScheduleTicket.BlockId,
-                AppointmentDate = seScheduleTicket.AppointmentDate,
-                TravelTime = seScheduleTicket.TravelTime
-
-            };
-        }
-        public static SeZipCode CastFnsToSeZipCode(IFnsSeZipCode fnsSeZipCode)
-        {
-            return new SeZipCode
-            {
-                ZipCode = fnsSeZipCode.ZipCode,
-                Latitude = fnsSeZipCode.Latitude,
-                Longitude = fnsSeZipCode.Longitude,
-                PrimaryCity = fnsSeZipCode.PrimaryCity,
-                State = fnsSeZipCode.State
-       
-            };
-        }
-
-
+				ItemId = item.ItemId,
+				Quantity = item.Quantity,
+				ItemDesc = item.ItemDesc,
+				WithBarcodeCount = item.WithBarcodeCount,
+				WithoutBarcodeCount = item.WithoutBarcodeCount
+			}).ToList();
+		}
+
+		public static List<IePackingSlip> CastFnsToIePackingSlip(List<IFnsIePackingSlip> packingSlipList)
+		{
+
+			return packingSlipList.Select(item => new IePackingSlip
+			{
+				PackingSlipID = item.PackingSlipID,
+				PurchaseOrderId = item.PurchaseOrderId,
+				PackingSlipNumber = item.PackingSlipNumber,
+				ArrivalDate = item.ArrivalDate,
+				CloseDate = item.CloseDate,
+				IsActive = item.IsActive,
+				GPPONumber = item.GPPONumber
+
+			}).ToList();
+		}
+
+		public static IePackingSlip CastFnsToIePackingSlip(IFnsIePackingSlip oItem)
+		{
+			/** Initialize. */
+			var oResult = new IePackingSlip();
+
+			/** Bind data. */
+			oResult.PackingSlipID = oItem.PackingSlipID;
+			oResult.PurchaseOrderId = oItem.PurchaseOrderId;
+			oResult.PackingSlipNumber = oItem.PackingSlipNumber;
+			oResult.ArrivalDate = oItem.ArrivalDate;
+			oResult.CloseDate = oItem.CloseDate;
+			oResult.IsActive = oItem.IsActive;
+			oResult.ModifiedOn = oItem.ModifiedOn;
+			oResult.ModifiedBy = oItem.ModifiedBy;
+			oResult.CreatedOn = oItem.CreatedOn;
+			oResult.CreatedBy = oItem.CreatedBy;
+
+			return oResult;
+		}
+
+		public static IeProductBarcode CastFnsToIeProductBarcode(IFnsIeProductBarcode oItem)
+		{
+			/** Initialize. */
+			var oResult = new IeProductBarcode();
+			/** Bind data. */
+			oResult.ProductBarcodeID = oItem.ProductBarcodeID;
+			oResult.PurchaseOrderItemId = oItem.PurchaseOrderItemId;
+			oResult.LastProductBarcodeTrackingId = oItem.LastProductBarcodeTrackingId;
+			oResult.ProductBarcodeBundleId = oItem.ProductBarcodeBundleId;
+			oResult.SimGUID = oItem.SimGUID;
+			oResult.IsDeleted = oItem.IsDeleted;
+			oResult.ModifiedOn = oItem.ModifiedOn;
+			oResult.ModifiedBy = oItem.ModifiedBy;
+			oResult.CreatedOn = oItem.CreatedOn;
+			oResult.CreatedBy = oItem.CreatedBy;
+
+			return oResult;
+		}
+
+		public static IeProductBarcodeTracking CastFnsToIeProductBarcodeTracking(IFnsIeProductBarcodeTracking oItem)
+		{
+			/** Initialize. */
+			var oResult = new IeProductBarcodeTracking();
+
+			/** Bind data. */
+			oResult.ProductBarcodeTrackingID = oItem.ProductBarcodeTrackingID;
+			oResult.ProductBarcodeTrackingTypeId = oItem.ProductBarcodeTrackingTypeId;
+			oResult.ProductBarcodeId = oItem.ProductBarcodeId;
+			oResult.LocationTypeID = oItem.LocationTypeID;
+			oResult.LocationID = oItem.LocationID;
+			/*oResult.TransferToWarehouseSiteId = oItem.TransferToWarehouseSiteId;
+			oResult.ReturnToVendorId = oItem.ReturnToVendorId;
+			oResult.AssignedToCustomerId = oItem.AssignedToCustomerId;
+			oResult.AssignedToDealerId = oItem.AssignedToDealerId;
+			oResult.RtmaNumberId  = oItem.RtmaNumberId;*/
+			oResult.Comment = oItem.Comment;
+			oResult.IsDeleted = oItem.IsDeleted;
+			oResult.ModifiedOn = oItem.ModifiedOn;
+			oResult.ModifiedBy = oItem.ModifiedBy;
+			oResult.CreatedOn = oItem.CreatedOn;
+			oResult.CreatedBy = oItem.CreatedBy;
+
+			return oResult;
+		}
+
+		public static IeProductBarcodeTrackingView CastFnsToIeProductBarcodeTrackingView(IFnsIeProductBarcodeTrackingView oItem)
+		{
+			/** Initialize. */
+			var oResult = new IeProductBarcodeTrackingView();
+
+			/** Bind data. */
+			oResult.ProductBarcodeTrackingID = oItem.ProductBarcodeTrackingID;
+			oResult.ProductBarcodeTrackingTypeId = oItem.ProductBarcodeTrackingTypeId;
+			oResult.ProductBarcodeId = oItem.ProductBarcodeId;
+			oResult.LocationTypeID = oItem.LocationTypeID;
+			oResult.LocationID = oItem.LocationID;
+			/* oResult.TransferToWarehouseSiteId = oItem.TransferToWarehouseSiteId;
+			 oResult.Location = oItem.Location;
+			 oResult.ReturnToVendorId = oItem.ReturnToVendorId;
+			 oResult.AssignedToCustomerId = oItem.AssignedToCustomerId;
+			 oResult.AssignedToDealerId = oItem.AssignedToDealerId;
+			 oResult.RtmaNumberId = oItem.RtmaNumberId;*/
+			oResult.Comment = oItem.Comment;
+
+			return oResult;
+		}
+
+
+		public static List<IeWarehouseSite> CastFnsToIeWarehouseSiteList(List<IFnsIeWarehouseSite> warehouseSiteList)
+		{
+			return warehouseSiteList.Select(item => new IeWarehouseSite
+			{
+				WarehouseSiteID = item.WarehouseSiteID,
+				WarehouseSiteName = item.WarehouseSiteName
+
+			}).ToList();
+		}
+
+		public static List<IeLocationType> CastFnsToIeLocationTypeList(List<IFnsIeLocationType> locationTypeList)
+		{
+			return locationTypeList.Select(item => new IeLocationType
+			{
+				LocationTypeID = item.LocationTypeID,
+				LocationTypeName = item.LocationTypeName
+
+			}).ToList();
+		}
+
+		public static List<IeLocation> CastFnsToIeLocationList(List<IFnsIeLocation> locationList)
+		{
+			return locationList.Select(item => new IeLocation
+			{
+				LocationID = item.LocationID,
+				LocationName = item.LocationName
+
+			}).ToList();
+		}
+
+
+		public static List<IeProductBarcodeLocation> CastFnsToIeProductBarcodeLocationList(List<IFnsIeProductBarcodeLocation> productBarcodeLocationList)
+		{
+			return productBarcodeLocationList.Select(item => new IeProductBarcodeLocation
+			{
+				ProductBarcodeId = item.ProductBarcodeId,
+				ItemDesc = item.ItemDesc
+
+			}).ToList();
+		}
+
+		public static IeProductBarcodeLocation CastFnsToIeProductBarcodeLocation(IFnsIeProductBarcodeLocation productBarcodeLocation)
+		{
+			var oResult = new IeProductBarcodeLocation();
+
+			/** Bind data. */
+			oResult.ProductBarcodeId = productBarcodeLocation.ProductBarcodeId;
+			oResult.ItemDesc = productBarcodeLocation.ItemDesc;
+
+
+			return oResult;
+		}
+
+
+		public static List<IeVendor> CastFnsToIeVendorList(List<IFnsIeVendor> vendorList)
+		{
+			return vendorList.Select(item => new IeVendor
+			{
+				VendorID = item.VendorID,
+				VendorName = item.VendorName
+
+			}).ToList();
+		}
+
+		public static List<IePurchaseOrder> CastFnsToIePurchaseOrderList(List<IFnsIePurchaseOrder> purchaseOrderList)
+		{
+			return purchaseOrderList.Select(item => new IePurchaseOrder
+			{
+				PurchaseOrderID = item.PurchaseOrderID,
+				GPPONumber = item.GPPONumber
+
+			}).ToList();
+		}
+
+		#endregion InventoryEngine
+
+		#region HumanResource
+		public static List<RuTeamLocation> CastFnsToRuTeamLocationList(List<SOS.FunctionalServices.Contracts.Models.HumanResource.IFnsRuTeamLocation> ruTeamLocationList)
+		{
+			return ruTeamLocationList.Select(item => new RuTeamLocation
+			{
+				TeamLocationID = item.TeamLocationID,
+				City = item.City
+			}).ToList();
+		}
+
+
+		public static List<RuTechnician> CastFnsToRuTechnicianList(List<IFnsRuTechnician> ruTechnicianList)
+		{
+			return ruTechnicianList.Select(item => new RuTechnician
+			{
+				TechnicianId = item.TechnicianId,
+				FullName = item.FullName,
+				TechFirstName = item.TechFirstName,
+				TechLastName = item.TechLastName,
+				TechBirthDate = item.TechBirthDate,
+				TechSeasonId = item.TechSeasonId,
+				TechSeasonName = item.TechSeasonName
+
+
+			}).ToList();
+		}
+
+		public static RuTechnician CastFnsToRuTechnician(IFnsRuTechnician ruTechnician)
+		{
+			// ** Return result
+			return new RuTechnician
+			{
+				TechnicianId = ruTechnician.TechnicianId,
+				FullName = ruTechnician.FullName,
+				TechFirstName = ruTechnician.TechFirstName,
+				TechLastName = ruTechnician.TechLastName,
+				TechBirthDate = ruTechnician.TechBirthDate,
+				TechSeasonId = ruTechnician.TechSeasonId,
+				TechSeasonName = ruTechnician.TechSeasonName
+			};
+		}
+
+		#endregion HumanResource
+
+		#region ScheduleEngine
+		/*
+		public static List<SeTicketStatusCode> CastFnsToSeTicketStatusCodeList(List<IFnsSeTicketStatusCode> seTicketStatusCodeList)
+		{
+			return seTicketStatusCodeList.Select(item => new SeTicketStatusCode
+			{
+				StatusCodeID = item.StatusCodeID,
+				StatusCode = item.StatusCode
+
+			}).ToList();
+		}
+
+		public static List<SeTicketType> CastFnsToSeTicketTypeList(List<IFnsSeTicketType> seTicketTypeList)
+		{
+			return seTicketTypeList.Select(item => new SeTicketType
+			{
+				TicketTypeID = item.TicketTypeID,
+				TicketTypeName = item.TicketTypeName
+
+			}).ToList();
+		}
+
+
+		public static SeTicket CastFnsToSeTicket(IFnsSeTicket fnsSeTicket)
+		{
+			return new SeTicket
+			{
+				TicketID = fnsSeTicket.TicketID,
+				AccountId = fnsSeTicket.AccountId,
+				CustomerMasterFileId = fnsSeTicket.CustomerMasterFileId,
+				MonitoringStationNo = fnsSeTicket.MonitoringStationNo,
+				TicketTypeId = fnsSeTicket.TicketTypeId,
+				TicketTypeName = fnsSeTicket.TicketTypeName,
+				Weight = fnsSeTicket.Weight,
+				StatusCodeId = fnsSeTicket.StatusCodeId,
+				StatusCode = fnsSeTicket.StatusCode,
+				MoniConfirmation = fnsSeTicket.MoniConfirmation,
+				TechConfirmation = fnsSeTicket.TechConfirmation,
+				TechnicianId = fnsSeTicket.TechnicianId,
+				TechnicianName = fnsSeTicket.TechnicianName,
+				TripCharges = fnsSeTicket.TripCharges,
+				Appointment = fnsSeTicket.Appointment,
+				AgentConfirmation = fnsSeTicket.AgentConfirmation,
+				ExpirationDate = fnsSeTicket.ExpirationDate,
+				Notes = fnsSeTicket.Notes,
+				IsTechEnRoute = fnsSeTicket.IsTechEnRoute,
+				IsTechDelayed = fnsSeTicket.IsTechDelayed,
+				IsTechCompleted = fnsSeTicket.IsTechCompleted,
+				CustomerFullName = fnsSeTicket.CustomerFullName,
+				Address = fnsSeTicket.Address,
+				CompleteAddress = fnsSeTicket.CompleteAddress,
+				StreetAddress = fnsSeTicket.StreetAddress,
+				CityStateZip = fnsSeTicket.CityStateZip,
+				County = fnsSeTicket.County,
+				State = fnsSeTicket.State,
+				PostalCode = fnsSeTicket.PostalCode,
+				Latitude = fnsSeTicket.Latitude,
+				Longitude = fnsSeTicket.Longitude,
+				PhoneHome = fnsSeTicket.PhoneHome,
+				PhoneMobile = fnsSeTicket.PhoneMobile,
+				AppointmentDate = fnsSeTicket.AppointmentDate,
+				BlockId = fnsSeTicket.BlockId,
+				TravelTime = fnsSeTicket.TravelTime,
+				ZipCode = fnsSeTicket.ZipCode,
+				MaxRadius = fnsSeTicket.MaxRadius,
+				Distance = fnsSeTicket.Distance,
+				StartTime = fnsSeTicket.StartTime,
+				EndTime = fnsSeTicket.EndTime,
+				ScheduleTicketId = fnsSeTicket.ScheduleTicketId
+			};
+		}
+
+		public static List<SeTicket> CastFnsToSeTicketList(List<IFnsSeTicket> seTicketList)
+		{
+			return seTicketList.Select(item => new SeTicket
+			{
+				TicketID = item.TicketID,
+				AccountId = item.AccountId,
+				CustomerMasterFileId = item.CustomerMasterFileId,
+				MonitoringStationNo = item.MonitoringStationNo,
+				TicketTypeId = item.TicketTypeId,
+				TicketTypeName = item.TicketTypeName,
+				Weight = item.Weight,
+				StatusCodeId = item.StatusCodeId,
+				StatusCode = item.StatusCode,
+				MoniConfirmation = item.MoniConfirmation,
+				TechConfirmation = item.TechConfirmation,
+				TechnicianId = item.TechnicianId,
+				TripCharges = item.TripCharges,
+				Appointment = item.Appointment,
+				AgentConfirmation = item.AgentConfirmation,
+				ExpirationDate = item.ExpirationDate,
+				Notes = item.Notes,
+				IsTechEnRoute = item.IsTechEnRoute,
+				IsTechDelayed = item.IsTechDelayed,
+				IsTechCompleted = item.IsTechCompleted,
+				CustomerFullName = item.CustomerFullName,
+				Address = item.Address,
+				CompleteAddress = item.CompleteAddress,
+				StreetAddress = item.StreetAddress,
+				CityStateZip = item.CityStateZip,
+				County = item.County,
+				State = item.State,
+				PostalCode = item.PostalCode,
+				Latitude = item.Latitude,
+				Longitude = item.Longitude,
+				PhoneHome = item.PhoneHome,
+				PhoneMobile = item.PhoneMobile,
+				AppointmentDate = item.AppointmentDate,
+				BlockId = item.BlockId,
+				TravelTime = item.TravelTime,
+				ZipCode = item.ZipCode,
+				MaxRadius = item.MaxRadius,
+				Distance = item.Distance,
+				StartTime = item.StartTime,
+				EndTime = item.EndTime,
+				ScheduleTicketId = item.ScheduleTicketId
+
+			}).ToList();
+		}
+
+
+		public static List<SeScheduleBlock> CastFnsToSeScheduleBlockList(List<IFnsSeScheduleBlock> seScheduleBlockList)
+		{
+			return seScheduleBlockList.Select(scheduleBlock => new SeScheduleBlock
+			{
+				BlockID = scheduleBlock.BlockID,
+				Block = scheduleBlock.Block,
+				ZipCode = scheduleBlock.ZipCode,
+				MaxRadius = scheduleBlock.MaxRadius,
+				//Distance = scheduleBlock.Distance,
+				Distance = scheduleBlock.Distance ?? CustomGeoCoordinate.GetDistance(scheduleBlock.BlockLatitude ?? 0,
+														   scheduleBlock.BlockLongitude ?? 0,
+														   scheduleBlock.TicketLatitude ?? 0,
+														   scheduleBlock.TicketLongitude ?? 0
+				),
+				AvailableSlots = scheduleBlock.AvailableSlots,
+				StartTime = scheduleBlock.StartTime,
+				EndTime = scheduleBlock.EndTime,
+				TechnicianId = scheduleBlock.TechnicianId,
+				TechnicianName = scheduleBlock.TechnicianName,
+				IsTechConfirmed = scheduleBlock.IsTechConfirmed,
+				CurrentTicketId = scheduleBlock.CurrentTicketId,
+				BlockLatitude = scheduleBlock.BlockLatitude,
+				BlockLongitude = scheduleBlock.BlockLongitude,
+				TicketLatitude = scheduleBlock.TicketLatitude,
+				TicketLongitude = scheduleBlock.TicketLongitude,
+				IsRed = scheduleBlock.IsRed,
+				Color = scheduleBlock.Color,
+				NoOfTickets = scheduleBlock.NoOfTickets,
+				IsBlocked = scheduleBlock.IsBlocked,
+				TicketList = scheduleBlock.TicketList.Select(CastFnsToSeTicket).ToList()
+
+			}).ToList();
+		}
+
+
+		public static SeScheduleBlock CastFnsToSeScheduleBlock(IFnsSeScheduleBlock seScheduleBlock)
+		{
+			return new SeScheduleBlock
+			{
+				BlockID = seScheduleBlock.BlockID,
+				Block = seScheduleBlock.Block,
+				ZipCode = seScheduleBlock.ZipCode,
+				MaxRadius = seScheduleBlock.MaxRadius,
+				Distance = seScheduleBlock.Distance,
+				AvailableSlots = seScheduleBlock.AvailableSlots,
+				StartTime = seScheduleBlock.StartTime,
+				EndTime = seScheduleBlock.EndTime,
+				TechnicianId = seScheduleBlock.TechnicianId,
+				IsTechConfirmed = seScheduleBlock.IsTechConfirmed,
+				IsRed = seScheduleBlock.IsRed,
+				Color = seScheduleBlock.Color,
+				NoOfTickets = seScheduleBlock.NoOfTickets,
+				IsBlocked = seScheduleBlock.IsBlocked,
+				CurrentTicketId = seScheduleBlock.CurrentTicketId,
+				BlockLatitude = seScheduleBlock.BlockLatitude,
+				BlockLongitude = seScheduleBlock.BlockLongitude,
+				TicketLatitude = seScheduleBlock.TicketLatitude,
+				TicketLongitude = seScheduleBlock.TicketLongitude
+			};
+		}
+
+
+
+		public static List<SeTechnicianAvailability> CastFnsToSeTechnicianAvailabilityList(List<IFnsSeTechnicianAvailability> seTechnicianAvailabilityList)
+		{
+			return seTechnicianAvailabilityList.Select(item => new SeTechnicianAvailability
+			{
+				TechnicianAvailabilityID = item.TechnicianAvailabilityID,
+				TechnicianId = item.TechnicianId,
+				StartDateTime = item.StartDateTime,
+				EndDateTime = item.EndDateTime
+			}).ToList();
+		}
+
+
+		public static List<SeScheduleTicket> CastFnsToSeScheduleTicketList(List<IFnsSeScheduleTicket> seScheduleTicketList)
+		{
+			return seScheduleTicketList.Select(item => new SeScheduleTicket
+			{
+				ScheduleTicketID = item.ScheduleTicketID,
+				TicketId = item.TicketId,
+				BlockId = item.BlockId,
+				AppointmentDate = item.AppointmentDate,
+				TravelTime = item.TravelTime
+				//,AccountId = item.AccountId,
+				//CustomerMasterFileId = item.CustomerMasterFileId,
+				//MonitoringStationNo = item.MonitoringStationNo,
+				//TicketTypeId = item.TicketTypeId,
+				//TicketTypeName = item.TicketTypeName,
+				//StatusCodeId = item.StatusCodeId,
+				//StatusCode = item.StatusCode,
+				//MoniConfirmation = item.MoniConfirmation,
+				//TechConfirmation = item.TechConfirmation,
+				//TechnicianId = item.TechnicianId,
+				//TripCharges = item.TripCharges,
+				//Appointment = item.Appointment,
+				//AgentConfirmation = item.AgentConfirmation,
+				//ExpirationDate = item.ExpirationDate,
+				//Notes = item.Notes,
+				//IsTechEnRoute = item.IsTechEnRoute,
+				//IsTechDelayed = item.IsTechDelayed,
+				//IsTechCompleted = item.IsTechCompleted,
+				//CustomerFullName = item.CustomerFullName,
+				//Address = item.Address,
+				//CompleteAddress = item.CompleteAddress,
+				//StreetAddress = item.StreetAddress,
+				//CityStateZip = item.CityStateZip,
+				//County = item.County,
+				//State = item.State,
+				//PostalCode = item.PostalCode,
+				//Latitude = item.Latitude,
+				//Longitude = item.Longitude,
+				//PhoneHome = item.PhoneHome,
+				//PhoneMobile = item.PhoneMobile,
+				//AppointmentDate = item.AppointmentDate,
+				//BlockId = item.BlockId,
+				//TravelTime = item.TravelTime,
+				//ZipCode = item.ZipCode,
+				//MaxRadius = item.MaxRadius,
+				//Distance = item.Distance,
+				//StartTime = item.StartTime,
+				//EndTime = item.EndTime,
+				//ScheduleTicketId = item.ScheduleTicketId
+
+
+			}).ToList();
+		}
+
+
+		public static SeScheduleTicket CastFnsToSeScheduleTicket(IFnsSeScheduleTicket seScheduleTicket)
+		{
+			return new SeScheduleTicket
+			{
+				ScheduleTicketID = seScheduleTicket.ScheduleTicketID,
+				TicketId = seScheduleTicket.TicketId,
+				BlockId = seScheduleTicket.BlockId,
+				AppointmentDate = seScheduleTicket.AppointmentDate,
+				TravelTime = seScheduleTicket.TravelTime
+
+			};
+		}
+		public static SeZipCode CastFnsToSeZipCode(IFnsSeZipCode fnsSeZipCode)
+		{
+			return new SeZipCode
+			{
+				ZipCode = fnsSeZipCode.ZipCode,
+				Latitude = fnsSeZipCode.Latitude,
+				Longitude = fnsSeZipCode.Longitude,
+				PrimaryCity = fnsSeZipCode.PrimaryCity,
+				State = fnsSeZipCode.State
+
+			};
+		}
+
+
+		*/
 		#endregion ScheduleEngine
 
 
@@ -1326,7 +1323,7 @@ namespace SSE.Services.CmsCORS.Helpers
 				Latitude = fmsMcPremiseAddress.Latitude,
 				Longitude = fmsMcPremiseAddress.Longitude,
 				CrossStreet = fmsMcPremiseAddress.CrossStreet,
-				
+
 			};
 		}
 

@@ -47,7 +47,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Device" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Services" />
@@ -224,7 +223,6 @@
     <Compile Include="Helpers\ConvertTo.cs" />
     <Compile Include="Helpers\CORSSecurity.cs" />
     <Compile Include="Helpers\CustAuthAttribute.cs" />
-    <Compile Include="Helpers\CustomGeoCoordinate.cs" />
     <Compile Include="Helpers\IPAddressUtil.cs" />
     <Compile Include="Helpers\SessionCookie.cs" />
     <Compile Include="Models\CmsCORSResult.cs" />
