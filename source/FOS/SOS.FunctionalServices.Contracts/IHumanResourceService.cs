@@ -26,7 +26,7 @@ namespace SOS.FunctionalServices.Contracts
 		IFnsResult<object> TeamsSearch(object teamSearchInfo);
 
 		IFnsResult<IFnsRuUser> UserGet(int userid);
-		IFnsResult<IFnsRuUser> UserSave(IFnsRuUser fnsUser, string gpEmployeeId);
+		IFnsResult<IFnsRuUser> UserSave(IFnsRuUser fnsUser, string gpEmployeeId, int userid);
 		IFnsResult<bool> UserPhotoSave(int userID, byte[] photoFile, string mimeType, string gpEmployeeId);
 		IFnsResult<IFnsRuUserPhoto> UserPhotoGet(int userID);
 		IFnsResult<object> UsersSearch(object userSearchInfo);

@@ -50,6 +50,9 @@ namespace SOS.FunctionalServices
 			var result = new Result<UserModel>();
 			if (userSession != null && userSession.Username == null && username != null)
 			{
+				//
+				_userStore.InvalidateCached(username);
+				//
 				var user = _userStore.Get(username);
 				// compare passwords event if a 
 				if (BCrypt.Net.BCrypt.HashAndPasswordAreEqual(password, user.Password))
@@ -82,6 +85,10 @@ namespace SOS.FunctionalServices
 			}
 			userSession.SessionNum = sessionNum;
 		}
+		public void InvalidateCachedUser(string username)
+		{
+			_userStore.InvalidateCached(username);
+		}
 		public Result<UserModel> GetUser(string username, bool includeLists = true)
 		{
 			var result = new Result<UserModel>();
@@ -103,6 +110,7 @@ namespace SOS.FunctionalServices
 		{
 			var userModel = new UserModel
 			{
+				UserID = user.UserID,
 				Username = user.Username,
 				Firstname = user.FirstName,
 				Lastname = user.LastName,

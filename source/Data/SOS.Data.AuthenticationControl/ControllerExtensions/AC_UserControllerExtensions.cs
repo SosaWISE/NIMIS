@@ -13,5 +13,11 @@ namespace SOS.Data.AuthenticationControl
 				.WHERE(AR.Columns.IsActive, true);
 			return cntlr.LoadSingle(qry);
 		}
+		public static AR ByHRUserId(this ARController cntlr, int hrUserId)
+		{
+			var qry = AR.Query()
+				.WHERE(AR.Columns.HRUserId, hrUserId);
+			return cntlr.LoadSingle(qry);
+		}
 	}
 }

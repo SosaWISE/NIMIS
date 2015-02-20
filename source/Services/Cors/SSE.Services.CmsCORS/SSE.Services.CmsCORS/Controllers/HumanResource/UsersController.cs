@@ -43,7 +43,7 @@ namespace SSE.Services.CmsCORS.Controllers.HumanResource
 				//@TODO: validate fnsUser
 
 				var service = SosServiceEngine.Instance.FunctionalServices.Instance<IHumanResourceService>();
-				var fnsResult = service.UserSave(fnsUser, user.GPEmployeeID);
+				var fnsResult = service.UserSave(fnsUser, user.GPEmployeeID, user.UserID);
 				return result.FromFnsResult(fnsResult);
 			});
 		}

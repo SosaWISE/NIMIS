@@ -1,6 +1,7 @@
 ﻿using System;
 using SOS.Data.HumanResource;
 using SOS.FunctionalServices.Contracts.Models.Data;
+using SOS.Data.AuthenticationControl;
 
 namespace SOS.FunctionalServices.Models
 {
@@ -8,7 +9,7 @@ namespace SOS.FunctionalServices.Models
 	{
 		#region .ctor
 		public FnsRuUser() { }
-		public FnsRuUser(RU_User oUser)
+		public FnsRuUser(RU_User oUser, AC_User acUser = null)
 		{
 			UserID = oUser.UserID;
 			RecruitedByID = oUser.RecruitedById;
@@ -23,8 +24,10 @@ namespace SOS.FunctionalServices.Models
 			CompanyName = oUser.CompanyName;
 			MaritalStatus = oUser.MaritalStatus;
 			SpouseName = oUser.SpouseName;
-			UserName = oUser.UserName;
-			Password = oUser.Password;
+			//
+			UserName = acUser != null ? acUser.Username : oUser.UserName;
+			//Password = acUser != null ? acUser.Password : oUser.Password;
+
 			BirthDate = oUser.BirthDate;
 			HomeTown = oUser.HomeTown;
 			BirthCity = oUser.BirthCity;

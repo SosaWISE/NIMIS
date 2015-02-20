@@ -79,5 +79,16 @@ namespace NXS.Lib.Web.Caching
 		private void OnRemoved(CacheEntryRemovedArguments arguments)
 		{
 		}
+
+		public void InvalidateCached(string username)
+		{
+			if (_disposed)
+				throw new Exception("UserStore is disposed");
+
+			_idlocker.Lock(username, () =>
+			{
+				_cache.Remove(username);
+			});
+		}
 	}
 }

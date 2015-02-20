@@ -26,6 +26,7 @@ using SOS.Lib.Util.Cryptography;
 using IFnsRuUser = SOS.FunctionalServices.Contracts.Models.Data.IFnsRuUser;
 using Bcrypt = BCrypt.Net.BCrypt;
 using SOS.Lib.Util.Extensions;
+using SOS.Data.AuthenticationControl;
 
 namespace SOS.FunctionalServices
 {
@@ -249,7 +250,7 @@ namespace SOS.FunctionalServices
 			return TechInfoGet(acct.TechId);
 		}
 
-        public IFnsResult<List<IFnsRuTeamLocation>> GetRuTeamLocationList()
+		public IFnsResult<List<IFnsRuTeamLocation>> GetRuTeamLocationList()
 		{
 			#region INITIALIZATION
 
@@ -294,8 +295,8 @@ namespace SOS.FunctionalServices
 			// ** Return result
 			return result;
 		}
- 
-        public IFnsResult<List<IFnsRuTechnician>> GetRuTechnicianList()
+
+		public IFnsResult<List<IFnsRuTechnician>> GetRuTechnicianList()
 		{
 			#region INITIALIZATION
 
@@ -385,7 +386,7 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-        public IFnsResult<IFnsRuTeam> TeamGet(int teamid)
+		public IFnsResult<IFnsRuTeam> TeamGet(int teamid)
 		{
 			var team = HumanResourceDataContext.Instance.RU_Teams.LoadByPrimaryKey(teamid);
 			var result = new FnsResult<IFnsRuTeam>();
@@ -402,7 +403,7 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-        public IFnsResult<IFnsRuTeam> TeamSave(IFnsRuTeam fnsTeam, string gpEmployeeId)
+		public IFnsResult<IFnsRuTeam> TeamSave(IFnsRuTeam fnsTeam, string gpEmployeeId)
 		{
 			RU_Team team;
 			if (fnsTeam.TeamID > 0)
@@ -445,7 +446,7 @@ namespace SOS.FunctionalServices
 			return TeamGet(team.TeamID);
 		}
 
-        public IFnsResult<object> TeamsSearch(object teamSearchInfoObj)
+		public IFnsResult<object> TeamsSearch(object teamSearchInfoObj)
 		{
 			var teamSearchInfo = (FnsTeamSearchInfo)teamSearchInfoObj;
 			return new FnsResult<object>
@@ -466,7 +467,7 @@ namespace SOS.FunctionalServices
 			};
 		}
 
-        public IFnsResult<IFnsRuUser> UserGet(int userid)
+		public IFnsResult<IFnsRuUser> UserGet(int userid)
 		{
 			var user = HumanResourceDataContext.Instance.RU_Users.LoadByPrimaryKey(userid);
 			var result = new FnsResult<IFnsRuUser>();
@@ -490,11 +491,12 @@ namespace SOS.FunctionalServices
 				// remove password
 				user.Password = null;
 				// set result value
-				result.Value = new FnsRuUser(user);
+				var acUser = SosAuthControlDataContext.Instance.AC_Users.ByHRUserId(user.UserID);
+				result.Value = new FnsRuUser(user, acUser);
 			}
 			return result;
 		}
-		public IFnsResult<IFnsRuUser> UserSave(IFnsRuUser fnsUser, string gpEmployeeId)
+		public IFnsResult<IFnsRuUser> UserSave(IFnsRuUser fnsUser, string gpEmployeeId, int userid)
 		{
 			RU_User user;
 			if (fnsUser.UserID > 0)
@@ -533,12 +535,7 @@ namespace SOS.FunctionalServices
 			user.MaritalStatus = fnsUser.MaritalStatus;
 			user.SpouseName = fnsUser.SpouseName;
 			user.UserName = fnsUser.UserName;
-			// only set password if not null
-			if (!string.IsNullOrEmpty(fnsUser.Password))
-			{
-				// hash password
-				user.Password = string.IsNullOrEmpty(fnsUser.Password) ? null : Bcrypt.HashPassword(fnsUser.Password);
-			}
+			user.Password = ""; // this is no longer used
 			user.BirthDate = fnsUser.BirthDate;
 			user.HomeTown = fnsUser.HomeTown;
 			user.BirthCity = fnsUser.BirthCity;
@@ -577,6 +574,36 @@ namespace SOS.FunctionalServices
 
 			user.Save(gpEmployeeId);
 
+			{
+				var acUser = SosAuthControlDataContext.Instance.AC_Users.ByHRUserId(user.UserID);
+				if (acUser == null)
+				{
+					// create one if non exist
+					acUser = new AC_User()
+					{
+						HRUserId = user.UserID,
+					};
+				}
+
+				// copy from fnsUser
+				acUser.Username = fnsUser.UserName;
+				if (!string.IsNullOrEmpty(fnsUser.Password))
+				{
+					// only set password if not null
+					acUser.Password = Bcrypt.HashPassword(fnsUser.Password); // hash password
+				}
+				acUser.GPEmployeeID = fnsUser.GPEmployeeID;
+				acUser.IsActive = fnsUser.IsActive;
+				acUser.IsDeleted = fnsUser.IsDeleted;
+
+				// save
+				acUser.Save(userid);
+			}
+
+			// remove user from cache
+			var authService = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
+			authService.InvalidateCachedUser(user.UserName);
+
 			return UserGet(user.UserID);
 		}
 
@@ -601,7 +628,7 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-        public IFnsResult<IFnsRuUserPhoto> UserPhotoGet(int userID)
+		public IFnsResult<IFnsRuUserPhoto> UserPhotoGet(int userID)
 		{
 			var result = new FnsResult<IFnsRuUserPhoto>();
 			RU_UserPhoto userPhoto = HumanResourceDataContext.Instance.RU_UserPhotos.LoadByPrimaryKey(userID);
@@ -760,7 +787,7 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-        public IFnsResult<object> PhoneCellCarriers()
+		public IFnsResult<object> PhoneCellCarriers()
 		{
 			var list = HumanResourceDataContext.Instance.RU_PhoneCellCarriers.LoadAll();
 			var result = new FnsResult<object>();
@@ -768,7 +795,7 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-        public IFnsResult<object> Seasons()
+		public IFnsResult<object> Seasons()
 		{
 			var list = HumanResourceDataContext.Instance.RU_Seasons.LoadAll();
 			var result = new FnsResult<object>();
@@ -776,7 +803,7 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-        public IFnsResult<object> Payscales()
+		public IFnsResult<object> Payscales()
 		{
 			var list = HumanResourceDataContext.Instance.RU_Payscales.LoadAll();
 			var result = new FnsResult<object>();
@@ -784,7 +811,7 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-        public IFnsResult<object> RoleLocations()
+		public IFnsResult<object> RoleLocations()
 		{
 			var list = HumanResourceDataContext.Instance.RU_RoleLocations.LoadAll();
 			var result = new FnsResult<object>();
@@ -792,7 +819,7 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-        public IFnsResult<object> Schools()
+		public IFnsResult<object> Schools()
 		{
 			var list = HumanResourceDataContext.Instance.RU_Schools.LoadAll();
 			var result = new FnsResult<object>();
@@ -800,7 +827,7 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-        public IFnsResult<object> UserTypes()
+		public IFnsResult<object> UserTypes()
 		{
 			var list = HumanResourceDataContext.Instance.RU_UserTypes.LoadAll();
 			var result = new FnsResult<object>();
@@ -816,234 +843,234 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-        public IFnsResult<object> TeamLocations()
+		public IFnsResult<object> TeamLocations()
 		{
 			var list = HumanResourceDataContext.Instance.RU_TeamLocations.LoadAll();
 			var result = new FnsResult<object>();
 			result.Value = list;
 			return result;
 		}
-        #endregion CRM Sales Info
+		#endregion CRM Sales Info
 
-        #region Connext Sales Info
-        public IFnsResult<List<IFnsConnextAccountList>> ConnextAccountList(int userId, DateTime beginDate, DateTime endDate, bool isActive)
-        {
-            #region INITIALIZATION
+		#region Connext Sales Info
+		public IFnsResult<List<IFnsConnextAccountList>> ConnextAccountList(int userId, DateTime beginDate, DateTime endDate, bool isActive)
+		{
+			#region INITIALIZATION
 
-            // ** Initialize 
-            const string METHOD_NAME = "ConnextAccountList";
-            var result = new FnsResult<List<IFnsConnextAccountList>>
-            {
-                Code = (int)ErrorCodes.GeneralMessage,
-                Message = string.Format("Initializing {0}", METHOD_NAME),
-            };
+			// ** Initialize 
+			const string METHOD_NAME = "ConnextAccountList";
+			var result = new FnsResult<List<IFnsConnextAccountList>>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+				Message = string.Format("Initializing {0}", METHOD_NAME),
+			};
 
-            #endregion INITIALIZATION
+			#endregion INITIALIZATION
 
-            #region TRY
-            try
-            {
-                var accountCollection =
-                    HumanResourceDataContext.Instance.RU_UsersAccountListConnextViews
-                        .LoadCollection(
-                            HumanResourceDataStoredProcedureManager.RU_UsersAccountListConnextGetByUserID(userId, beginDate, endDate, isActive));
+			#region TRY
+			try
+			{
+				var accountCollection =
+					HumanResourceDataContext.Instance.RU_UsersAccountListConnextViews
+						.LoadCollection(
+							HumanResourceDataStoredProcedureManager.RU_UsersAccountListConnextGetByUserID(userId, beginDate, endDate, isActive));
 
-                // ** Build list
-                var rankingList = new List<IFnsConnextAccountList>();
-                foreach (var account in accountCollection)
-                {
-                    rankingList.Add(new FnsConnextAccountList(account));
-                }
-
-
-                // ** Save result information
-                result.Code = (int)ErrorCodes.Success;
-                result.Message = "Success";
-                result.Value = rankingList;
-            }
-            #endregion TRY
-
-            #region CATCH
-            catch (Exception ex)
-            {
-                result = new FnsResult<List<IFnsConnextAccountList>>
-                {
-                    Code = (int)ErrorCodes.UnexpectedException,
-                    Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-                };
-            }
-            #endregion CATCH
-
-            // ** Return result
-            return result;
-        }
-
-        public IFnsResult<IFnsConnextCombinedMonthlySalesDetails> ConnextCombinedMonthlySalesDetails(int userID, int salesMonth, int salesYear)
-        {
-            #region INITIALIZATION
-            // ** Initialize 
-            const string METHOD_NAME = "ConnextCombinedMonthlySalesDetails";
-            var result = new FnsResult<IFnsConnextCombinedMonthlySalesDetails>
-            {
-                Code = (int)ErrorCodes.GeneralMessage,
-                Message = string.Format("Initializing {0}", METHOD_NAME),
-            };
-
-            #endregion INITIALIZATION
-
-            #region TRY
-            try
-            {
-                var combinedresults = new FnsConnextCombinedMonthlySalesDetails();
-                //                combinedresults.OfficeStats = new List<RuUsersGetDetailedStatisticsConnext>();
-                //                combinedresults.RepStats = new List<RuUsersGetDetailedStatisticsConnext>();
-
-                // Office Stats
-                var officeCollection =
-                    HumanResourceDataContext.Instance.RU_UsersGetDetailedStatisticsConnextViews
-                        .LoadCollection(
-                            HumanResourceDataStoredProcedureManager.RU_UsersSalesDetailedStatisticsConnextGetByUserID(userID, salesMonth, salesYear, true));
-
-                // ** Build list
-                //                var salesList = new List<IFnsConnextMonthlySalesDetails>();
-                foreach (var office in officeCollection)
-                {
-                    combinedresults.OfficeStats.Add(new FnsConnextMonthlySalesDetails(office));
-                }
-
-                // Salesrep Stats
-                var salesrepCollection =
-                    HumanResourceDataContext.Instance.RU_UsersGetDetailedStatisticsConnextViews
-                        .LoadCollection(
-                            HumanResourceDataStoredProcedureManager.RU_UsersSalesDetailedStatisticsConnextGetByUserID(userID, salesMonth, salesYear, false));
-
-                // ** Build list
-                //                var salesList = new List<IFnsConnextMonthlySalesDetails>();
-                foreach (var salesrep in salesrepCollection)
-                {
-                    combinedresults.OfficeStats.Add(new FnsConnextMonthlySalesDetails(salesrep));
-                }
-
-                // ** Save result information
-                result.Code = (int)ErrorCodes.Success;
-                result.Message = "Success";
-
-                result.Value = combinedresults;
-            }
-            #endregion TRY
-
-            #region CATCH
-            catch (Exception ex)
-            {
-                result = new FnsResult<IFnsConnextCombinedMonthlySalesDetails>
-                {
-                    Code = (int)ErrorCodes.UnexpectedException,
-                    Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-                };
-            }
-            #endregion CATCH
-
-            // ** Return result
-            return result;
-        }
-
-        public IFnsResult<IFnsConnextCustomerInfo> ConnextCustomerInfo(long customerMasterFileID)
-        {
-            #region INITIALIZATION
-
-            // ** Initialize 
-            const string METHOD_NAME = "ConnextCustomerInfo";
-            var result = new FnsResult<IFnsConnextCustomerInfo>
-            {
-                Code = (int)ErrorCodes.GeneralMessage,
-                Message = string.Format("Initializing {0}", METHOD_NAME),
-            };
-
-            #endregion INITIALIZATION
-
-            #region TRY
-            try
-            {
-                FnsConnextCustomerInfo resultValue;
-                resultValue = new FnsConnextCustomerInfo(HumanResourceDataContext.Instance.AE_CustomersGetCustomerInfoConnextViews.LoadSingle(
-                    HumanResourceDataStoredProcedureManager.AE_CustomersGetCustomerInfoConnext(customerMasterFileID)));
-
-                // ** Save result information
-                result.Code = (int)ErrorCodes.Success;
-                result.Message = "Success";
-                result.Value = resultValue;
-            }
-            #endregion TRY
-
-            #region CATCH
-            catch (Exception ex)
-            {
-                result = new FnsResult<IFnsConnextCustomerInfo>
-                {
-                    Code = (int)ErrorCodes.UnexpectedException,
-                    Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-                };
-            }
-            #endregion CATCH
-
-            // ** Return result
-            return result;
-        }
-
-        public IFnsResult<List<IFnsConnextSalesRanking>> ConnextSalesRanking(int userId, string resultType, string rankingGroup, string rankingPeriod, int rows)
-        {
-            #region INITIALIZATION
-
-            // ** Initialize 
-            const string METHOD_NAME = "ConnextSalesRanking";
-            var result = new FnsResult<List<IFnsConnextSalesRanking>>
-            {
-                Code = (int)ErrorCodes.GeneralMessage,
-                Message = string.Format("Initializing {0}", METHOD_NAME),
-            };
-
-            #endregion INITIALIZATION
-
-            #region TRY
-            try
-            {
-                var rankingCollection =
-                    HumanResourceDataContext.Instance.RU_UsersSalesRankingConnextViews
-                        .LoadCollection(
-                            HumanResourceDataStoredProcedureManager.RU_UsersSalesRankingConnextGetbyUserID(userId,
-                                resultType, rankingGroup, rankingPeriod, rows));
-
-                // ** Build list
-                var rankingList = new List<IFnsConnextSalesRanking>();
-                foreach (var ranking in rankingCollection)
-                {
-                    rankingList.Add(new FnsConnextSalesRanking(ranking));
-                }
+				// ** Build list
+				var rankingList = new List<IFnsConnextAccountList>();
+				foreach (var account in accountCollection)
+				{
+					rankingList.Add(new FnsConnextAccountList(account));
+				}
 
 
-                // ** Save result information
-                result.Code = (int)ErrorCodes.Success;
-                result.Message = "Success";
-                result.Value = rankingList;
-            }
-            #endregion TRY
+				// ** Save result information
+				result.Code = (int)ErrorCodes.Success;
+				result.Message = "Success";
+				result.Value = rankingList;
+			}
+			#endregion TRY
 
-            #region CATCH
-            catch (Exception ex)
-            {
-                result = new FnsResult<List<IFnsConnextSalesRanking>>
-                {
-                    Code = (int)ErrorCodes.UnexpectedException,
-                    Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-                };
-            }
-            #endregion CATCH
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<List<IFnsConnextAccountList>>
+				{
+					Code = (int)ErrorCodes.UnexpectedException,
+					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+				};
+			}
+			#endregion CATCH
 
-            // ** Return result
-            return result;
-        }
+			// ** Return result
+			return result;
+		}
 
-        public IFnsResult<IFnsConnextSalesRepExtendedInfo> ConnextSalesRepInfo(int userId, bool isExtended)
+		public IFnsResult<IFnsConnextCombinedMonthlySalesDetails> ConnextCombinedMonthlySalesDetails(int userID, int salesMonth, int salesYear)
+		{
+			#region INITIALIZATION
+			// ** Initialize 
+			const string METHOD_NAME = "ConnextCombinedMonthlySalesDetails";
+			var result = new FnsResult<IFnsConnextCombinedMonthlySalesDetails>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+				Message = string.Format("Initializing {0}", METHOD_NAME),
+			};
+
+			#endregion INITIALIZATION
+
+			#region TRY
+			try
+			{
+				var combinedresults = new FnsConnextCombinedMonthlySalesDetails();
+				//                combinedresults.OfficeStats = new List<RuUsersGetDetailedStatisticsConnext>();
+				//                combinedresults.RepStats = new List<RuUsersGetDetailedStatisticsConnext>();
+
+				// Office Stats
+				var officeCollection =
+					HumanResourceDataContext.Instance.RU_UsersGetDetailedStatisticsConnextViews
+						.LoadCollection(
+							HumanResourceDataStoredProcedureManager.RU_UsersSalesDetailedStatisticsConnextGetByUserID(userID, salesMonth, salesYear, true));
+
+				// ** Build list
+				//                var salesList = new List<IFnsConnextMonthlySalesDetails>();
+				foreach (var office in officeCollection)
+				{
+					combinedresults.OfficeStats.Add(new FnsConnextMonthlySalesDetails(office));
+				}
+
+				// Salesrep Stats
+				var salesrepCollection =
+					HumanResourceDataContext.Instance.RU_UsersGetDetailedStatisticsConnextViews
+						.LoadCollection(
+							HumanResourceDataStoredProcedureManager.RU_UsersSalesDetailedStatisticsConnextGetByUserID(userID, salesMonth, salesYear, false));
+
+				// ** Build list
+				//                var salesList = new List<IFnsConnextMonthlySalesDetails>();
+				foreach (var salesrep in salesrepCollection)
+				{
+					combinedresults.OfficeStats.Add(new FnsConnextMonthlySalesDetails(salesrep));
+				}
+
+				// ** Save result information
+				result.Code = (int)ErrorCodes.Success;
+				result.Message = "Success";
+
+				result.Value = combinedresults;
+			}
+			#endregion TRY
+
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<IFnsConnextCombinedMonthlySalesDetails>
+				{
+					Code = (int)ErrorCodes.UnexpectedException,
+					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+				};
+			}
+			#endregion CATCH
+
+			// ** Return result
+			return result;
+		}
+
+		public IFnsResult<IFnsConnextCustomerInfo> ConnextCustomerInfo(long customerMasterFileID)
+		{
+			#region INITIALIZATION
+
+			// ** Initialize 
+			const string METHOD_NAME = "ConnextCustomerInfo";
+			var result = new FnsResult<IFnsConnextCustomerInfo>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+				Message = string.Format("Initializing {0}", METHOD_NAME),
+			};
+
+			#endregion INITIALIZATION
+
+			#region TRY
+			try
+			{
+				FnsConnextCustomerInfo resultValue;
+				resultValue = new FnsConnextCustomerInfo(HumanResourceDataContext.Instance.AE_CustomersGetCustomerInfoConnextViews.LoadSingle(
+					HumanResourceDataStoredProcedureManager.AE_CustomersGetCustomerInfoConnext(customerMasterFileID)));
+
+				// ** Save result information
+				result.Code = (int)ErrorCodes.Success;
+				result.Message = "Success";
+				result.Value = resultValue;
+			}
+			#endregion TRY
+
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<IFnsConnextCustomerInfo>
+				{
+					Code = (int)ErrorCodes.UnexpectedException,
+					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+				};
+			}
+			#endregion CATCH
+
+			// ** Return result
+			return result;
+		}
+
+		public IFnsResult<List<IFnsConnextSalesRanking>> ConnextSalesRanking(int userId, string resultType, string rankingGroup, string rankingPeriod, int rows)
+		{
+			#region INITIALIZATION
+
+			// ** Initialize 
+			const string METHOD_NAME = "ConnextSalesRanking";
+			var result = new FnsResult<List<IFnsConnextSalesRanking>>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+				Message = string.Format("Initializing {0}", METHOD_NAME),
+			};
+
+			#endregion INITIALIZATION
+
+			#region TRY
+			try
+			{
+				var rankingCollection =
+					HumanResourceDataContext.Instance.RU_UsersSalesRankingConnextViews
+						.LoadCollection(
+							HumanResourceDataStoredProcedureManager.RU_UsersSalesRankingConnextGetbyUserID(userId,
+								resultType, rankingGroup, rankingPeriod, rows));
+
+				// ** Build list
+				var rankingList = new List<IFnsConnextSalesRanking>();
+				foreach (var ranking in rankingCollection)
+				{
+					rankingList.Add(new FnsConnextSalesRanking(ranking));
+				}
+
+
+				// ** Save result information
+				result.Code = (int)ErrorCodes.Success;
+				result.Message = "Success";
+				result.Value = rankingList;
+			}
+			#endregion TRY
+
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<List<IFnsConnextSalesRanking>>
+				{
+					Code = (int)ErrorCodes.UnexpectedException,
+					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+				};
+			}
+			#endregion CATCH
+
+			// ** Return result
+			return result;
+		}
+
+		public IFnsResult<IFnsConnextSalesRepExtendedInfo> ConnextSalesRepInfo(int userId, bool isExtended)
 		{
 			#region INITIALIZATION
 
@@ -1094,140 +1121,140 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-        public IFnsResult<IFnsSalesSalespersonMonthlyCommissions> SalespersonMonthlyCommissions(int userID, int salesMonth, int salesYear)
-        {
-            #region INITIALIZATION
+		public IFnsResult<IFnsSalesSalespersonMonthlyCommissions> SalespersonMonthlyCommissions(int userID, int salesMonth, int salesYear)
+		{
+			#region INITIALIZATION
 
-            // ** Initialize 
-            const string METHOD_NAME = "SalesMonthlyCommissions";
-            var result = new FnsResult<IFnsSalesSalespersonMonthlyCommissions>
-            {
-                Code = (int)ErrorCodes.GeneralMessage,
-                Message = string.Format("Initializing {0}", METHOD_NAME),
-            };
+			// ** Initialize 
+			const string METHOD_NAME = "SalesMonthlyCommissions";
+			var result = new FnsResult<IFnsSalesSalespersonMonthlyCommissions>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+				Message = string.Format("Initializing {0}", METHOD_NAME),
+			};
 
-            #endregion INITIALIZATION
+			#endregion INITIALIZATION
 
-            #region TRY
-            try
-            {
-                FnsSalesSalespersonMonthlyCommissions resultValue;
-                resultValue = new FnsSalesSalespersonMonthlyCommissions(HumanResourceDataContext.Instance.SAE_SalesSalespersonMonthlyCommissionsViews.LoadSingle(
-                    HumanResourceDataStoredProcedureManager.SAE_SalesSalespersonMonthlyCommissions(userID, salesMonth, salesYear)));
+			#region TRY
+			try
+			{
+				FnsSalesSalespersonMonthlyCommissions resultValue;
+				resultValue = new FnsSalesSalespersonMonthlyCommissions(HumanResourceDataContext.Instance.SAE_SalesSalespersonMonthlyCommissionsViews.LoadSingle(
+					HumanResourceDataStoredProcedureManager.SAE_SalesSalespersonMonthlyCommissions(userID, salesMonth, salesYear)));
 
-                // ** Save result information
-                result.Code = (int)ErrorCodes.Success;
-                result.Message = "Success";
-                result.Value = resultValue;
-            }
-            #endregion TRY
+				// ** Save result information
+				result.Code = (int)ErrorCodes.Success;
+				result.Message = "Success";
+				result.Value = resultValue;
+			}
+			#endregion TRY
 
-            #region CATCH
-            catch (Exception ex)
-            {
-                result = new FnsResult<IFnsSalesSalespersonMonthlyCommissions>
-                {
-                    Code = (int)ErrorCodes.UnexpectedException,
-                    Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-                };
-            }
-            #endregion CATCH
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<IFnsSalesSalespersonMonthlyCommissions>
+				{
+					Code = (int)ErrorCodes.UnexpectedException,
+					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+				};
+			}
+			#endregion CATCH
 
-            // ** Return result
-            return result;
-        }
-        public IFnsResult<List<IFnsSalesSalespersonMonthlyHolds>> SalespersonMonthlyHolds(int userID, int salesMonth, int salesYear)
-        {
-            #region INITIALIZATION
-            // ** Initialize 
-            const string METHOD_NAME = "SalespersonMonthlyHolds";
-            var result = new FnsResult<List<IFnsSalesSalespersonMonthlyHolds>>
-            {
-                Code = (int)ErrorCodes.GeneralMessage,
-                Message = string.Format("Initializing {0}", METHOD_NAME),
-            };
-            #endregion INITIALIZATION
+			// ** Return result
+			return result;
+		}
+		public IFnsResult<List<IFnsSalesSalespersonMonthlyHolds>> SalespersonMonthlyHolds(int userID, int salesMonth, int salesYear)
+		{
+			#region INITIALIZATION
+			// ** Initialize 
+			const string METHOD_NAME = "SalespersonMonthlyHolds";
+			var result = new FnsResult<List<IFnsSalesSalespersonMonthlyHolds>>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+				Message = string.Format("Initializing {0}", METHOD_NAME),
+			};
+			#endregion INITIALIZATION
 
-            #region TRY
-            try
-            {
-                var holdCollection =
-                    HumanResourceDataContext.Instance.SAE_SalesSalespersonMonthlyHoldsViews
-                        .LoadCollection(
-                            HumanResourceDataStoredProcedureManager.SAE_SalesSalespersonMonthlyHolds(userID, salesMonth, salesYear));
+			#region TRY
+			try
+			{
+				var holdCollection =
+					HumanResourceDataContext.Instance.SAE_SalesSalespersonMonthlyHoldsViews
+						.LoadCollection(
+							HumanResourceDataStoredProcedureManager.SAE_SalesSalespersonMonthlyHolds(userID, salesMonth, salesYear));
 
-                // ** Build list
-                var holdList = new List<IFnsSalesSalespersonMonthlyHolds>();
-                foreach (var item in holdCollection)
-                {
-                    holdList.Add(new FnsSalesSalespersonMonthlyHolds(item));
-                }
+				// ** Build list
+				var holdList = new List<IFnsSalesSalespersonMonthlyHolds>();
+				foreach (var item in holdCollection)
+				{
+					holdList.Add(new FnsSalesSalespersonMonthlyHolds(item));
+				}
 
 
-                // ** Save result information
-                result.Code = (int)ErrorCodes.Success;
-                result.Message = "Success";
-                result.Value = holdList;
-            }
-            #endregion TRY
+				// ** Save result information
+				result.Code = (int)ErrorCodes.Success;
+				result.Message = "Success";
+				result.Value = holdList;
+			}
+			#endregion TRY
 
-            #region CATCH
-            catch (Exception ex)
-            {
-                result = new FnsResult<List<IFnsSalesSalespersonMonthlyHolds>>
-                {
-                    Code = (int)ErrorCodes.UnexpectedException,
-                    Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-                };
-            }
-            #endregion CATCH
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<List<IFnsSalesSalespersonMonthlyHolds>>
+				{
+					Code = (int)ErrorCodes.UnexpectedException,
+					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+				};
+			}
+			#endregion CATCH
 
-            // ** Return result
-            return result;
-        }
-        public IFnsResult<IFnsSalesSalespersonMonthlyEarningsSummary> SalespersonMonthlyEarningsSummary(int userID, int salesMonth, int salesYear)
-        {
-            #region INITIALIZATION
+			// ** Return result
+			return result;
+		}
+		public IFnsResult<IFnsSalesSalespersonMonthlyEarningsSummary> SalespersonMonthlyEarningsSummary(int userID, int salesMonth, int salesYear)
+		{
+			#region INITIALIZATION
 
-            // ** Initialize 
-            const string METHOD_NAME = "SalesMonthlyEarningsSummary";
-            var result = new FnsResult<IFnsSalesSalespersonMonthlyEarningsSummary>
-            {
-                Code = (int)ErrorCodes.GeneralMessage,
-                Message = string.Format("Initializing {0}", METHOD_NAME),
-            };
+			// ** Initialize 
+			const string METHOD_NAME = "SalesMonthlyEarningsSummary";
+			var result = new FnsResult<IFnsSalesSalespersonMonthlyEarningsSummary>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+				Message = string.Format("Initializing {0}", METHOD_NAME),
+			};
 
-            #endregion INITIALIZATION
+			#endregion INITIALIZATION
 
-            #region TRY
-            try
-            {
-                FnsSalesSalespersonMonthlyEarningsSummary resultValue;
-                resultValue = new FnsSalesSalespersonMonthlyEarningsSummary(HumanResourceDataContext.Instance.SAE_SalesSalespersonMonthlyEarningsViews.LoadSingle(
-                    HumanResourceDataStoredProcedureManager.SAE_SalesSalespersonMonthlyEarnings(userID, salesMonth, salesYear)));
+			#region TRY
+			try
+			{
+				FnsSalesSalespersonMonthlyEarningsSummary resultValue;
+				resultValue = new FnsSalesSalespersonMonthlyEarningsSummary(HumanResourceDataContext.Instance.SAE_SalesSalespersonMonthlyEarningsViews.LoadSingle(
+					HumanResourceDataStoredProcedureManager.SAE_SalesSalespersonMonthlyEarnings(userID, salesMonth, salesYear)));
 
-                // ** Save result information
-                result.Code = (int)ErrorCodes.Success;
-                result.Message = "Success";
-                result.Value = resultValue;
-            }
-            #endregion TRY
+				// ** Save result information
+				result.Code = (int)ErrorCodes.Success;
+				result.Message = "Success";
+				result.Value = resultValue;
+			}
+			#endregion TRY
 
-            #region CATCH
-            catch (Exception ex)
-            {
-                result = new FnsResult<IFnsSalesSalespersonMonthlyEarningsSummary>
-                {
-                    Code = (int)ErrorCodes.UnexpectedException,
-                    Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-                };
-            }
-            #endregion CATCH
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<IFnsSalesSalespersonMonthlyEarningsSummary>
+				{
+					Code = (int)ErrorCodes.UnexpectedException,
+					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+				};
+			}
+			#endregion CATCH
 
-            // ** Return result
-            return result;
-        }
+			// ** Return result
+			return result;
+		}
 
-        #endregion Connext Sales Info
-    }
+		#endregion Connext Sales Info
+	}
 }

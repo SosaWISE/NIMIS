@@ -1,14 +1,10 @@
 ﻿using SOS.FunctionalServices;
 using SOS.FunctionalServices.Contracts;
-using SOS.FunctionalServices.Models.HumanResource;
-using SSE.Services.CmsCORS.Helpers;
-using SSE.Services.CmsCORS.Models;
-using System.Web.Http;
-using FnsRuUser = SOS.FunctionalServices.Models.FnsRuUser;
 using SOS.FunctionalServices.Contracts.Models;
-using AuthApplications = SOS.Data.AuthenticationControl.AC_Application.MetaData;
-using AuthActions = SOS.Data.AuthenticationControl.AC_Action.MetaData;
 using SOS.Lib.Core;
+using SSE.Services.CmsCORS.Helpers;
+using System.Web.Http;
+using AuthApplications = SOS.Data.AuthenticationControl.AC_Application.MetaData;
 
 namespace SSE.Services.CmsCORS.Controllers.HumanResource
 {
