@@ -62,6 +62,8 @@ RETURNS
 	[SSN] [varchar](50) NULL,
 	[DOB] [datetime] NULL,
 	[Score] [int] NOT NULL,
+	[ReportID] [int] NULL,
+	[ReportGuid] [uniqueidentifier] NULL,
 	[IsSelected] [bit] NOT NULL,
 	[IsScored] [bit] NOT NULL,
 	[IsHit] [bit] NOT NULL,
@@ -91,6 +93,8 @@ BEGIN
 		[SSN],
 		[DOB],
 		[Score],
+		[ReportID],
+		[ReportGuid],
 		[IsSelected],
 		[IsScored],
 		[IsHit],
@@ -118,6 +122,8 @@ BEGIN
 		, QCR.SSN
 		, QCR.DOB
 		, QCR.Score
+		, QCRVA.ReportID
+		, QCRVA.ReportGuid
 		, QCR.IsSelected
 		, QCR.IsScored
 		, QCR.IsHit
@@ -138,6 +144,9 @@ BEGIN
 		INNER JOIN [dbo].[QL_CreditReports] AS QCR WITH (NOLOCK)
 		ON
 			(QCR.LeadId = LED.LeadID)
+		LEFT OUTER JOIN [dbo].[QL_CreditReportVendorAbara] AS QCRVA WITH (NOLOCK)
+		ON
+			(QCRVA.CreditReportId = QCR.CreditReportID)
 	WHERE
 		(QCR.Score <> 999)
 	ORDER BY

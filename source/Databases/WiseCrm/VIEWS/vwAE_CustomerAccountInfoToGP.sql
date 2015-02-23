@@ -79,6 +79,7 @@ AS
 		, MSASI.IsTakeOver AS [Take Over]
 		, CAST(NULL AS BIT) AS [Has Existing Equipment]
 		, dbo.fxQlCreditReportGetScoreByMsAccountID(MCA.AccountID) AS [Credit Score]
+		, dbo.fxQlCreditReportGetTransactionIdByMsAccountID(MCA.AccountID) AS [Transaction ID]
 		, CAST(NULL AS SMALLINT) AS [Points]
 	FROM
 		[dbo].[MC_Accounts] AS MCA WITH (NOLOCK)
