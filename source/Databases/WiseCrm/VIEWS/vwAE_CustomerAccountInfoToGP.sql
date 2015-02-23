@@ -46,27 +46,65 @@ CREATE VIEW [dbo].[vwAE_CustomerAccountInfoToGP]
 AS
 	-- Enter Query here
 	SELECT
-		CAST(NULL AS BIGINT) AS [CustomerMasterFileID]
-		, CAST(NULL AS BIGINT) AS [CustomerID]
-		, CAST(NULL AS BIGINT) AS [AccountID]
-		, CAST(NULL AS DateTime) AS [AMA Sign Date]
-		, CAST(NULL AS VARCHAR(50)) AS [Sales Rep ID]
-		, CAST(NULL AS DateTime) AS [Install Date]
-		, CAST(NULL AS VARCHAR(50)) AS [Tech ID]
-		, CAST(NULL AS MONEY) AS RMR
-		, CAST(NULL AS SMALLINT) AS [Billing Day]
-		, CAST(NULL AS SMALLINT) AS [Contract Length]
-		, CAST(NULL AS VARCHAR) AS [Panel Type]
-		, CAST(NULL AS VARCHAR) AS [System Type]  -- 2-way; cellular; cell/interactvie
-		, CAST(NULL AS BIT) AS [Activation Collected]
-		, CAST(NULL AS MONEY) AS [Activation Fee]
-		, CAST(NULL AS VARCHAR) AS [Paid Full / 3 Months]
-		, CAST(NULL AS DATETIME) AS [Cancelled Date]
-		, CAST(NULL AS VARCHAR) AS [Cancelled Reason]
-		, CAST(NULL AS BIT) AS [Take Over]
+		MCA.CustomerMasterFileId AS [CustomerMasterFileID]
+		, MSAC.CustomerId AS [CustomerID]
+		, MCA.AccountID AS [AccountID]
+		, MSIA.Csid AS [Central Station ID]
+		, MSASI.ContractSignedDate AS [AMA Sign Date]
+		, MSASI.SalesRepId AS [Sales Rep ID]
+		, MSASI.InstallDate AS [Install Date]
+		, MSASI.TechId AS [Tech ID]
+		, MSASI.[MMR] AS RMR
+		, MSASI.BillingDay AS [Billing Day]
+		, MSASI.ContractLength AS [Contract Length]
+		, MSA.PanelTypeId AS [Panel Type]
+		, MSAST.SystemTypeName AS [System Type]  -- 2-way; cellular; cell/interactvie
+		, CAST(
+			CASE
+				WHEN MSASI.[SetupFee] IS NULL THEN 0
+				ELSE 1
+			END
+		 AS BIT) AS [Activation Collected]
+		, MSASI.[SetupFee] AS [Activation Fee]
+		, CAST(
+			CASE
+				WHEN MSASI.[Over3Months] = 1 THEN '3 Months'
+				WHEN MSASI.[Over3Months] = 0 THEN 'Paid Full'
+				ELSE 'NOT SET'
+			END
+		 AS VARCHAR) AS [Paid Full / 3 Months]
+		, MSASI.CancelDate AS [Cancelled Date]
+		, MCACR.AccountCancelReason AS [Cancelled Reason]
+		, MSASI.IsTakeOver AS [Take Over]
 		, CAST(NULL AS BIT) AS [Has Existing Equipment]
-		, CAST(NULL AS SMALLINT) AS [Credit Score]
+		, dbo.fxQlCreditReportGetScoreByMsAccountID(MCA.AccountID) AS [Credit Score]
 		, CAST(NULL AS SMALLINT) AS [Points]
+	FROM
+		[dbo].[MC_Accounts] AS MCA WITH (NOLOCK)
+		INNER JOIN [dbo].[MS_AccountCustomers] AS MSAC WITH (NOLOCK)
+		ON
+			(MSAC.AccountId = MCA.AccountID)
+		INNER JOIN [dbo].[MS_Accounts] AS MSA WITH (NOLOCK)
+		ON
+			(MSA.AccountID = MCA.AccountID)
+			AND (MSA.IsDeleted = 0)
+			AND (MSA.ContractId IS NOT NULL)
+		LEFT OUTER JOIN [dbo].[MS_IndustryAccounts] AS MSIA WITH (NOLOCK)
+		ON
+			(MSIA.IndustryAccountID = MSA.IndustryAccountId)
+		LEFT OUTER JOIN [dbo].[MS_AccountSystemTypes] AS MSAST WITH (NOLOCK)
+		ON
+			(MSAST.SystemTypeID = MSA.SystemTypeId)
+		--INNER JOIN [dbo].[MS_AccountSalesInformations] AS MSASI WITH (NOLOCK)
+		INNER JOIN [dbo].[vwMS_AccountSalesInformations] AS MSASI WITH (NOLOCK)
+		ON
+			(MSASI.AccountID = MSA.AccountID)
+		LEFT OUTER JOIN [dbo].[MC_AccountCancelReasons] AS MCACR WITH (NOLOCK)
+		ON
+			(MCACR.AccountCancelReasonID = MSASI.AccountCancelReasonId)
+		INNER JOIN [dbo].[QL_Leads] AS QL WITH (NOLOCK)
+		ON
+			(QL.LeadID = MSAC.LeadId)
 GO
 /* TEST */
-SELECT * FROM vwAE_CustomerAccountInfoToGP
+SELECT * FROM [dbo].[vwAE_CustomerAccountInfoToGP]

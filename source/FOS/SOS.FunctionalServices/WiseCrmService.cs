@@ -22,12 +22,10 @@ using SOS.FunctionalServices.Contracts.Helper;
 using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.CentralStation;
 using SOS.FunctionalServices.Contracts.Models.Data;
-using SOS.FunctionalServices.Contracts.Models.Merchant;
 using SOS.FunctionalServices.Contracts.Models.QualifyLead;
 using SOS.FunctionalServices.Models;
 using SOS.FunctionalServices.Models.CentralStation;
 using SOS.FunctionalServices.Models.Cms;
-using SOS.FunctionalServices.Models.Merchant;
 using SOS.FunctionalServices.Models.QualifyLead;
 using SOS.FunctionalServices.Models.Receiver;
 using SOS.Lib.Core.CreditReportService;
@@ -1302,26 +1300,26 @@ namespace SOS.FunctionalServices
 					};
 
 				/** Update information and make sure there are changes. */
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.CustomerTypeId, customer.CustomerTypeId, () => { customer.CustomerTypeId = customerInfo.CustomerTypeId; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.CustomerMasterFileId, customer.CustomerMasterFileId, () => { customer.CustomerMasterFileId = customerInfo.CustomerMasterFileId; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.DealerId, customer.DealerId, () => { customer.DealerId = customerInfo.DealerId; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.AddressId, customer.AddressId, () => { customer.AddressId = customerInfo.AddressId; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.LocalizationId, customer.LocalizationId, () => { customer.LocalizationId = customerInfo.LocalizationId; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.Prefix, customer.Prefix, () => { customer.Prefix = customerInfo.Prefix; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.FirstName, customer.FirstName, () => { customer.FirstName = customerInfo.FirstName; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.MiddleName, customer.MiddleName, () => { customer.MiddleName = customerInfo.MiddleName; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.LastName, customer.LastName, () => { customer.LastName = customerInfo.LastName; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.Postfix, customer.Postfix, () => { customer.Postfix = customerInfo.Postfix; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.Gender, customer.Gender, () => { customer.Gender = customerInfo.Gender; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.PhoneHome, customer.PhoneHome, () => { customer.PhoneHome = customerInfo.PhoneHome; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.PhoneWork, customer.PhoneWork, () => { customer.PhoneWork = customerInfo.PhoneWork; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.PhoneMobile, customer.PhoneMobile, () => { customer.PhoneMobile = customerInfo.PhoneMobile; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.Email, customer.Email, () => { customer.Email = customerInfo.Email; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.DOB, customer.DOB, () => { customer.DOB = customerInfo.DOB; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.SSN, customer.SSN, () => { customer.SSN = customerInfo.SSN; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.Username, customer.Username, () => { customer.Username = customerInfo.Username; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.Password, customer.Password, () => { customer.Password = customerInfo.Password; });
-				Helpers.FieldAssignment.AssignIfDirty(customerInfo.IsActive, customer.IsActive, () => { customer.IsActive = customerInfo.IsActive; });
+				FieldAssignment.AssignIfDirty(customerInfo.CustomerTypeId, customer.CustomerTypeId, () => { customer.CustomerTypeId = customerInfo.CustomerTypeId; });
+				FieldAssignment.AssignIfDirty(customerInfo.CustomerMasterFileId, customer.CustomerMasterFileId, () => { customer.CustomerMasterFileId = customerInfo.CustomerMasterFileId; });
+				FieldAssignment.AssignIfDirty(customerInfo.DealerId, customer.DealerId, () => { customer.DealerId = customerInfo.DealerId; });
+				FieldAssignment.AssignIfDirty(customerInfo.AddressId, customer.AddressId, () => { customer.AddressId = customerInfo.AddressId; });
+				FieldAssignment.AssignIfDirty(customerInfo.LocalizationId, customer.LocalizationId, () => { customer.LocalizationId = customerInfo.LocalizationId; });
+				FieldAssignment.AssignIfDirty(customerInfo.Prefix, customer.Prefix, () => { customer.Prefix = customerInfo.Prefix; });
+				FieldAssignment.AssignIfDirty(customerInfo.FirstName, customer.FirstName, () => { customer.FirstName = customerInfo.FirstName; });
+				FieldAssignment.AssignIfDirty(customerInfo.MiddleName, customer.MiddleName, () => { customer.MiddleName = customerInfo.MiddleName; });
+				FieldAssignment.AssignIfDirty(customerInfo.LastName, customer.LastName, () => { customer.LastName = customerInfo.LastName; });
+				FieldAssignment.AssignIfDirty(customerInfo.Postfix, customer.Postfix, () => { customer.Postfix = customerInfo.Postfix; });
+				FieldAssignment.AssignIfDirty(customerInfo.Gender, customer.Gender, () => { customer.Gender = customerInfo.Gender; });
+				FieldAssignment.AssignIfDirty(customerInfo.PhoneHome, customer.PhoneHome, () => { customer.PhoneHome = customerInfo.PhoneHome; });
+				FieldAssignment.AssignIfDirty(customerInfo.PhoneWork, customer.PhoneWork, () => { customer.PhoneWork = customerInfo.PhoneWork; });
+				FieldAssignment.AssignIfDirty(customerInfo.PhoneMobile, customer.PhoneMobile, () => { customer.PhoneMobile = customerInfo.PhoneMobile; });
+				FieldAssignment.AssignIfDirty(customerInfo.Email, customer.Email, () => { customer.Email = customerInfo.Email; });
+				FieldAssignment.AssignIfDirty(customerInfo.DOB, customer.DOB, () => { customer.DOB = customerInfo.DOB; });
+				FieldAssignment.AssignIfDirty(customerInfo.SSN, customer.SSN, () => { customer.SSN = customerInfo.SSN; });
+				FieldAssignment.AssignIfDirty(customerInfo.Username, customer.Username, () => { customer.Username = customerInfo.Username; });
+				FieldAssignment.AssignIfDirty(customerInfo.Password, customer.Password, () => { customer.Password = customerInfo.Password; });
+				FieldAssignment.AssignIfDirty(customerInfo.IsActive, customer.IsActive, () => { customer.IsActive = customerInfo.IsActive; });
 
 				/** Update customer info if necessary. */
 				if (!customer.IsDirty)

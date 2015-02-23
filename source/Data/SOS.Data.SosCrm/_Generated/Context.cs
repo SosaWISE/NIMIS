@@ -846,6 +846,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MC_AccountCancelReasonController _MC_AccountCancelReasons;
+		public MC_AccountCancelReasonController MC_AccountCancelReasons
+		{
+			get
+			{
+				if (_MC_AccountCancelReasons == null) _MC_AccountCancelReasons = new MC_AccountCancelReasonController();
+				return _MC_AccountCancelReasons;
+			}
+		}
+
 		MC_AccountFlagController _MC_AccountFlags;
 		public MC_AccountFlagController MC_AccountFlags
 		{
@@ -3916,6 +3926,7 @@ namespace SOS.Data.SosCrm
 	public class IS_AccountController : BaseTableController<IS_Account, IS_AccountCollection> { }
 	public class LL_AccountController : BaseTableController<LL_Account, LL_AccountCollection> { }
 	public class MC_AccountAddressController : BaseTableController<MC_AccountAddress, MC_AccountAddressCollection> { }
+	public class MC_AccountCancelReasonController : BaseTableController<MC_AccountCancelReason, MC_AccountCancelReasonCollection> { }
 	public class MC_AccountFlagController : BaseTableController<MC_AccountFlag, MC_AccountFlagCollection> { }
 	public class MC_AccountFlagTypeController : BaseTableController<MC_AccountFlagType, MC_AccountFlagTypeCollection> { }
 	public class MC_AccountInventoryController : BaseTableController<MC_AccountInventory, MC_AccountInventoryCollection> { }

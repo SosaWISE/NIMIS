@@ -137,7 +137,9 @@ BEGIN
 			AND (MCA.AccountTypeId = 'ALRM')
 		INNER JOIN [dbo].[QL_CreditReports] AS QCR WITH (NOLOCK)
 		ON
-			(QCR.LeadId = LED.LeadID)		
+			(QCR.LeadId = LED.LeadID)
+	WHERE
+		(QCR.Score <> 999)
 	ORDER BY
 		QCR.Score DESC;
 

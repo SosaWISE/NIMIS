@@ -1035,6 +1035,7 @@ namespace SOS.FunctionalServices
 			/** Create the MC_Account */
 			var mcAccount = new MC_Account
 			{
+				CustomerMasterFileId = lead.CustomerMasterFileId,
 				AccountTypeId = "ALRM",
 				DealerId = lead.DealerId,
 				ShipContactId = primaryCustomer.CustomerID,

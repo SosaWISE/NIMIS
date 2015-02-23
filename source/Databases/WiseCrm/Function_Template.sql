@@ -28,33 +28,28 @@ GO
 **     ----------						-----------
 **
 **		Auth: Andrés E. Sosa
-**		Date: 07/10/2014
+**		Date: 02/20/2015
 *******************************************************************************
 **	Change History
 *******************************************************************************
 **	Date:		Author:			Description:
 **	-----------	---------------	-------------------------------------------
-**	07/10/2014	Andrés E. Sosa	Created By
+**	02/20/2015	Andrés E. Sosa	Created By
 **	
 *******************************************************************************/
 CREATE FUNCTION dbo.FUNCTION_TEMPLATE
 (
-	@InterimPanelTypeID NVARCHAR(10)
+	@CustomerId BIGINT
 )
-RETURNS VARCHAR(20)
+RETURNS INT
 AS
 BEGIN
 	/** Declarations */
-	DECLARE @PanelTypeID VARCHAR(20);
+	DECLARE @Score INT;
 
 	/** Execute actions. */
-	SELECT
-		@PanelTypeID = PanelTypeId
-	FROM
-		[dbo].[SAE_InterimPanelTypeMap]
-	WHERE
-		(InterimPanelTypeID = @InterimPanelTypeID);
+	SELECT @Score = Score FROM dbo.fxQlCreditReportGetByMsAccountID(@CustomerId);
 
-	RETURN @PanelTypeID;
+	RETURN @Score;
 END
 GO

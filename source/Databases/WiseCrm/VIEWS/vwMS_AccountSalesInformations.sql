@@ -68,6 +68,12 @@ AS
 		, ACT.ContractTemplateId
 		, MSI.Email
 		, MSI.IsMoni
+		, MSI.ContractSignedDate
+		, MSI.SalesRepId
+		, MSI.InstallDate
+		, MSI.TechId
+		, MSI.CancelDate
+		, MSI.AccountCancelReasonId
 	FROM
 		[dbo].[MS_Accounts] AS MSA WITH (NOLOCK)
 		LEFT OUTER JOIN [dbo].AE_Contracts AS ACT WITH (NOLOCK)
@@ -88,7 +94,7 @@ AS
 			(CPKG.ItemID = MSA.CellPackageItemId)
 GO
 /* TEST 
-SELECT * FROM vwMS_AccountSalesInformations WHERE AccountID = 130532;
+SELECT * FROM vwMS_AccountSalesInformations WHERE AccountID = 191101;
 SELECT * FROM [dbo].[AE_Contracts] WHERE ContractID = 1000022;
 */
 

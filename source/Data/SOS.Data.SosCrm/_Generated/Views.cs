@@ -272,7 +272,7 @@ namespace SOS.Data.SosCrm
 				colvarCustomerID.DataType = DbType.Int64;
 				colvarCustomerID.MaxLength = 0;
 				colvarCustomerID.AutoIncrement = false;
-				colvarCustomerID.IsNullable = true;
+				colvarCustomerID.IsNullable = false;
 				colvarCustomerID.IsPrimaryKey = false;
 				colvarCustomerID.IsForeignKey = false;
 				colvarCustomerID.IsReadOnly = false;
@@ -285,7 +285,7 @@ namespace SOS.Data.SosCrm
 				colvarAccountID.DataType = DbType.Int64;
 				colvarAccountID.MaxLength = 0;
 				colvarAccountID.AutoIncrement = false;
-				colvarAccountID.IsNullable = true;
+				colvarAccountID.IsNullable = false;
 				colvarAccountID.IsPrimaryKey = false;
 				colvarAccountID.IsForeignKey = false;
 				colvarAccountID.IsReadOnly = false;
@@ -309,7 +309,7 @@ namespace SOS.Data.SosCrm
 				TableSchema.TableColumn colvarSalesRepID = new TableSchema.TableColumn(schema);
 				colvarSalesRepID.ColumnName = "Sales Rep ID";
 				colvarSalesRepID.DataType = DbType.AnsiString;
-				colvarSalesRepID.MaxLength = 50;
+				colvarSalesRepID.MaxLength = 10;
 				colvarSalesRepID.AutoIncrement = false;
 				colvarSalesRepID.IsNullable = true;
 				colvarSalesRepID.IsPrimaryKey = false;
@@ -335,7 +335,7 @@ namespace SOS.Data.SosCrm
 				TableSchema.TableColumn colvarTechID = new TableSchema.TableColumn(schema);
 				colvarTechID.ColumnName = "Tech ID";
 				colvarTechID.DataType = DbType.AnsiString;
-				colvarTechID.MaxLength = 50;
+				colvarTechID.MaxLength = 10;
 				colvarTechID.AutoIncrement = false;
 				colvarTechID.IsNullable = true;
 				colvarTechID.IsPrimaryKey = false;
@@ -363,7 +363,7 @@ namespace SOS.Data.SosCrm
 				colvarBillingDay.DataType = DbType.Int16;
 				colvarBillingDay.MaxLength = 0;
 				colvarBillingDay.AutoIncrement = false;
-				colvarBillingDay.IsNullable = true;
+				colvarBillingDay.IsNullable = false;
 				colvarBillingDay.IsPrimaryKey = false;
 				colvarBillingDay.IsForeignKey = false;
 				colvarBillingDay.IsReadOnly = false;
@@ -387,7 +387,7 @@ namespace SOS.Data.SosCrm
 				TableSchema.TableColumn colvarPanelType = new TableSchema.TableColumn(schema);
 				colvarPanelType.ColumnName = "Panel Type";
 				colvarPanelType.DataType = DbType.AnsiString;
-				colvarPanelType.MaxLength = 30;
+				colvarPanelType.MaxLength = 20;
 				colvarPanelType.AutoIncrement = false;
 				colvarPanelType.IsNullable = true;
 				colvarPanelType.IsPrimaryKey = false;
@@ -400,7 +400,7 @@ namespace SOS.Data.SosCrm
 				TableSchema.TableColumn colvarSystemType = new TableSchema.TableColumn(schema);
 				colvarSystemType.ColumnName = "System Type";
 				colvarSystemType.DataType = DbType.AnsiString;
-				colvarSystemType.MaxLength = 30;
+				colvarSystemType.MaxLength = 50;
 				colvarSystemType.AutoIncrement = false;
 				colvarSystemType.IsNullable = true;
 				colvarSystemType.IsPrimaryKey = false;
@@ -465,7 +465,7 @@ namespace SOS.Data.SosCrm
 				TableSchema.TableColumn colvarCancelledReason = new TableSchema.TableColumn(schema);
 				colvarCancelledReason.ColumnName = "Cancelled Reason";
 				colvarCancelledReason.DataType = DbType.AnsiString;
-				colvarCancelledReason.MaxLength = 30;
+				colvarCancelledReason.MaxLength = 50;
 				colvarCancelledReason.AutoIncrement = false;
 				colvarCancelledReason.IsNullable = true;
 				colvarCancelledReason.IsPrimaryKey = false;
@@ -480,7 +480,7 @@ namespace SOS.Data.SosCrm
 				colvarTakeOver.DataType = DbType.Boolean;
 				colvarTakeOver.MaxLength = 0;
 				colvarTakeOver.AutoIncrement = false;
-				colvarTakeOver.IsNullable = true;
+				colvarTakeOver.IsNullable = false;
 				colvarTakeOver.IsPrimaryKey = false;
 				colvarTakeOver.IsForeignKey = false;
 				colvarTakeOver.IsReadOnly = false;
@@ -503,7 +503,7 @@ namespace SOS.Data.SosCrm
 
 				TableSchema.TableColumn colvarCreditScore = new TableSchema.TableColumn(schema);
 				colvarCreditScore.ColumnName = "Credit Score";
-				colvarCreditScore.DataType = DbType.Int16;
+				colvarCreditScore.DataType = DbType.Int32;
 				colvarCreditScore.MaxLength = 0;
 				colvarCreditScore.AutoIncrement = false;
 				colvarCreditScore.IsNullable = true;
@@ -554,13 +554,13 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.CustomerMasterFileID, value); }
 		}
 		[DataMember]
-		public long? CustomerID {
-			get { return GetColumnValue<long?>(Columns.CustomerID); }
+		public long CustomerID {
+			get { return GetColumnValue<long>(Columns.CustomerID); }
 			set { SetColumnValue(Columns.CustomerID, value); }
 		}
 		[DataMember]
-		public long? AccountID {
-			get { return GetColumnValue<long?>(Columns.AccountID); }
+		public long AccountID {
+			get { return GetColumnValue<long>(Columns.AccountID); }
 			set { SetColumnValue(Columns.AccountID, value); }
 		}
 		[DataMember]
@@ -589,8 +589,8 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.RMR, value); }
 		}
 		[DataMember]
-		public short? BillingDay {
-			get { return GetColumnValue<short?>(Columns.BillingDay); }
+		public short BillingDay {
+			get { return GetColumnValue<short>(Columns.BillingDay); }
 			set { SetColumnValue(Columns.BillingDay, value); }
 		}
 		[DataMember]
@@ -634,8 +634,8 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.CancelledReason, value); }
 		}
 		[DataMember]
-		public bool? TakeOver {
-			get { return GetColumnValue<bool?>(Columns.TakeOver); }
+		public bool TakeOver {
+			get { return GetColumnValue<bool>(Columns.TakeOver); }
 			set { SetColumnValue(Columns.TakeOver, value); }
 		}
 		[DataMember]
@@ -644,8 +644,8 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.HasExistingEquipment, value); }
 		}
 		[DataMember]
-		public short? CreditScore {
-			get { return GetColumnValue<short?>(Columns.CreditScore); }
+		public int? CreditScore {
+			get { return GetColumnValue<int?>(Columns.CreditScore); }
 			set { SetColumnValue(Columns.CreditScore, value); }
 		}
 		[DataMember]

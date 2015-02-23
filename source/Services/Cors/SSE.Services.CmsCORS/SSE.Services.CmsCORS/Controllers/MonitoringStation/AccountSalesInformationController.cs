@@ -78,12 +78,11 @@ namespace SSE.Services.CmsCORS.Controllers.MonitoringStation
 			});
 		}
 
-
-        // POST api/accountsalesinformation
-		[Route("MsAccountSalesInformations")]
-		public void Post([FromBody]MsAccountSalesInformation msInfo)
-        {
-        }
+		//// POST api/accountsalesinformation
+		//[Route("MsAccountSalesInformations")]
+		//public void Post([FromBody]MsAccountSalesInformation msInfo)
+		//{
+		//}
 
     }
 }

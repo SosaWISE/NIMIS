@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using SOS.FunctionalServices;
 using SOS.FunctionalServices.Contracts;
-using SOS.FunctionalServices.Contracts.Helper;
-using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.QualifyLead;
-using SOS.FunctionalServices.Models;
 using SSE.Services.CmsCORS.Helpers;
-using SSE.Services.CmsCORS.Models;
 using SOS.FunctionalServices.Contracts.Models.AccountingEngine;
 using SOS.Lib.Core;
 

@@ -42,6 +42,9 @@ BEGIN
 	/** SET NO COUNTING */
 	SET NOCOUNT ON
 
+	--SELECT * FROM dbo.fxGetQl_CreditReportMax(@CustomerMasterFileId);
+
+/* Moved this into a Function that can be used in a view. */
 	SELECT 
 		CR.*
 	FROM QL_CreditReports AS CR
@@ -73,6 +76,7 @@ BEGIN
 		AND CR.IsActive = 1 -- ?? not sure what active means for a credit report
 		AND CR.IsDeleted = 0
 		AND L.CustomerMasterFileId = @CustomerMasterFileId
+
 END
 GO
 
