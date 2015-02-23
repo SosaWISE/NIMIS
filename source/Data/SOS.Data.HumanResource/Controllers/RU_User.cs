@@ -1,7 +1,7 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace SOS.Data.HumanResource
 {
-// ReSharper disable once InconsistentNaming
+	// ReSharper disable once InconsistentNaming
 	public partial class RU_User
 	{
 		public string StringSex
@@ -68,6 +68,12 @@ namespace SOS.Data.HumanResource
 
 				// ** Decrypt the SSN number
 				var ssnRaw = Lib.Util.Cryptography.TripleDES.DecryptString(SSN, null);
+				//@HACK: for detecting decryption error
+				if (ssnRaw.StartsWith("Error: "))
+				{
+					return SSN;
+				}
+
 				ssnRaw = Lib.Util.StringUtility.FormatSsn(ssnRaw);
 				ssnRaw = Lib.Util.StringUtility.FormatSsnWithBlanks(ssnRaw);
 
