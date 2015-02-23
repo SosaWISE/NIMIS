@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using NSE.FOS.Contracts.Models;
+﻿using NSE.FOS.Contracts.Models;
 using NXS.Logic.MonitoringStations.Helpers;
 using NXS.Logic.MonitoringStations.Models;
 using NXS.Logic.MonitoringStations.Models.Get;
@@ -17,9 +9,17 @@ using SOS.FOS.MonitoringStationServices.Contracts.Models;
 using SOS.FOS.MonitoringStationServices.Monitronics.Models;
 using SOS.FOS.MonitoringStationServices.Utilities.Exceptions;
 using SOS.Lib.Core.ErrorHandling;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
 using Contact = NXS.Logic.MonitoringStations.Models.Contact;
-using GetPrefixes = NXS.Logic.MonitoringStations.Schemas.GetPrefixes;
 using GetAgencies = NXS.Logic.MonitoringStations.Schemas.GetAgencies;
+using GetPrefixes = NXS.Logic.MonitoringStations.Schemas.GetPrefixes;
 using SystemStatusInfo = SOS.FOS.MonitoringStationServices.Monitronics.Models.SystemStatusInfo;
 
 namespace SOS.FOS.MonitoringStationServices.Monitronics
@@ -35,7 +35,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			_username = Lib.Util.Cryptography.TripleDES.DecryptString(_username, null);
 			_password = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("MN_PASSWORD");
 			_password = Lib.Util.Cryptography.TripleDES.DecryptString(_password, null);
-            _servCoNummber = "811110003";
+			_servCoNummber = "811110003";
 
 			// ** Save default DEFAULT SYSTEM ACCOUNTID
 			var defaultSysAccountId = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("MN_PASSWORD");
@@ -49,9 +49,9 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 
 		private readonly string _username;
 		private readonly string _password;
-// ReSharper disable once NotAccessedField.Local
-	    private readonly string _servCoNummber;
-// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
+		// ReSharper disable once NotAccessedField.Local
+		private readonly string _servCoNummber;
+		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly long _defSysActId;
 		private const long _DEFAULT_SYS_ACCOUNTID = 1000;
 
@@ -89,12 +89,12 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			var qlReport =
 				SosCrmDataContext.Instance.QL_CreditReports.LoadSingle(
 					SosCrmDataStoredProcedureManager.QL_CreditReportMaxScoreByCmfID(aeMoniCustomer.CustomerMasterFileId));
-			if (msAccount.Contract == null) 
+			if (msAccount.Contract == null)
 				throw new CsExceptionNoContract(msAccountSubmit.AccountId, msAccount.IndustryAccount.Csid);
 			var contractLength = msAccount.Contract.ContractLength;
 
 			var qlQualifyCustomerInfo = SosCrmDataContext.Instance.QL_QualifyCustomerInfoViews.LoadByAccountId(msAccount.AccountID);
-			var optionIdCMPUR = qlQualifyCustomerInfo.Score > 600 ? "PUR" : "CM" ;
+			var optionIdCMPUR = qlQualifyCustomerInfo.Score > 600 ? "PUR" : "CM";
 			var dslVoip = msAccount.DslSeizure.DslSeizureID == (short)MS_AccountDslSeizureType.DslSeizureEnum.Dsl
 				? "DSL"
 				: "NONE";
@@ -111,7 +111,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			}
 			var twoWayDeviceId = msAccount.GetMoniSysTypeId().SystemTypeID;
 			var panelLocation = SosCrmDataContext.Instance.MS_EquipmentLocationsViews.GetPanelLocationByAccountId(msAccount.AccountID);
-			if(panelLocation == null)
+			if (panelLocation == null)
 				throw new Exception("Unable to find a panel for this account.");
 			var installDate = DateTime.Now;
 
@@ -223,7 +223,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			#region Cellular Settings
 
 			if (msAccount.CellularTypeId.Equals(MS_AccountCellularType.MetaData.Cell_BackupID)
-			    || msAccount.CellularTypeId.Equals(MS_AccountCellularType.MetaData.Cell_PrimaryID))
+				|| msAccount.CellularTypeId.Equals(MS_AccountCellularType.MetaData.Cell_PrimaryID))
 			{
 				var cellProvider = msAccount.GetMoniCellProvider();
 				if (cellProvider == null) throw new CsExceptionMissingMetadata(msAccount.AccountID, "Monitronics Cell Provider");
@@ -247,7 +247,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 					OptionValue = cellProvider.ValidValue
 				});
 
-//				var serialNumber = msAccount.IndustryAccount.ReceiverLineBlock
+				//				var serialNumber = msAccount.IndustryAccount.ReceiverLineBlock
 				acct.SiteSystemOptions.Add(new SiteSystemOption
 				{
 					OptionId = "CELLMAC",
@@ -262,7 +262,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 
 			#endregion Cellular Settings
 
-// ReSharper disable once UseObjectOrCollectionInitializer
+			// ReSharper disable once UseObjectOrCollectionInitializer
 			var emergencyContactsList = new List<Contact>();
 			// ** Add the Primary Contract Signer
 			emergencyContactsList.Add(new Contact
@@ -285,7 +285,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			});
 
 			var createdEVC5001 = false;
-// ReSharper disable once LoopCanBeConvertedToQuery
+			// ReSharper disable once LoopCanBeConvertedToQuery
 			foreach (MS_EmergencyContact contact in msAccount.GetEmergencyContact())
 			{
 				var emc = new Contact
@@ -307,7 +307,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				};
 				// ** TODO:  US#630 DONE
 				if (msAccount.CellularTypeId.Equals(MS_AccountCellularType.MetaData.Cell_BackupID)
-				    || msAccount.CellularTypeId.Equals(MS_AccountCellularType.MetaData.Cell_PrimaryID))
+					|| msAccount.CellularTypeId.Equals(MS_AccountCellularType.MetaData.Cell_PrimaryID))
 				{
 					if (!createdEVC5001)
 					{
@@ -344,11 +344,11 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				siteAgencyPermits.Add(daItem);
 			}
 			acct.SiteAgencyPermits = siteAgencyPermits;
-			
+
 			#endregion SiteAgencyPermits
 
 			#region Zones
-			
+
 			var zoneAssignments = SosCrmDataContext.Instance.MS_AccountZoneAssignments.GetZoneAssignmentsByAccountId(msAccount.AccountID);
 			var zones = new List<Zone>();
 			foreach (var zone in zoneAssignments)
@@ -358,11 +358,20 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				int zoneInt;
 				if (!int.TryParse(zone.Zone, out zoneInt)) continue;
 
+				var acctEquipment = zone.AccountEquipment;
+				if (!acctEquipment.EquipmentLocationId.HasValue)
+				{
+					throw new Exception(string.Format("Zone {0} is missing a location", zone.Zone));
+					//result.Code = -1;
+					//result.Message = string.Format("Zone {0} is missing a location", zone.Zone);
+					//return result;
+				}
+
 				var newZone = new Zone
 				{
 					ZoneId = zoneInt.ToString(CultureInfo.InvariantCulture),
-					EquipmentLocationId = zone.AccountEquipment.EquipmentLocation.MonitronicsCode,
-					EquipmentTypeId = zone.AccountEquipment.Equipment.EquipmentType.MonitronicsCode,
+					EquipmentLocationId = acctEquipment.EquipmentLocation.MonitronicsCode,
+					EquipmentTypeId = acctEquipment.Equipment.EquipmentType.MonitronicsCode,
 					ZoneComment = zone.Comments,
 					ZoneStateId = "A"
 				};
@@ -386,7 +395,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				Instructions = gds.Instructions
 			}).ToList();
 			if (siteGeneralDispatches.Count > 0) acct.SiteGeneralDispatches = siteGeneralDispatches;
-			
+
 			#endregion SiteGeneralDispatches
 
 			#endregion Setup Account
@@ -414,7 +423,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 					UserId = gpEmployeeId,
 					RequestDate = DateTime.Now.ToString(CultureInfo.InvariantCulture)
 				};
-				
+
 			}
 
 			#endregion Setup CreditRequestXml
@@ -426,7 +435,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			var purchaseInfoXml = string.Empty;
 			var accountSubmitXml = new MS_AccountSubmitMsXml
 			{
-				AccountSubmitID =  msAccountSubmit.AccountSubmitID,
+				AccountSubmitID = msAccountSubmit.AccountSubmitID,
 				Account = xmlizedString
 			};
 			if (!string.IsNullOrEmpty(creditRequestXml)) accountSubmitXml.CreditRequest = creditRequestXml;
@@ -447,17 +456,17 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				var sb = new StringBuilder();
 				foreach (ErrorsOnBoardAccount.TableRow row in dsErrorsOnBoardAccount.Tables[0].Rows)
 				{
-// ReSharper disable once UseObjectOrCollectionInitializer
+					// ReSharper disable once UseObjectOrCollectionInitializer
 					var submitItem = new MS_AccountSubmitM();
 					submitItem.AccountSubmitId = msAccountSubmit.AccountSubmitID;
 					submitItem.TableName = row.Istable_nameNull() ? null : row.table_name;
 					submitItem.EntryId = row.Isentry_idNull() ? null : row.entry_id;
-					submitItem.SiteNo = row.Issite_noNull() ? (int?) null : row.site_no;
+					submitItem.SiteNo = row.Issite_noNull() ? (int?)null : row.site_no;
 					submitItem.CsNo = row.Iscs_noNull() ? null : row.cs_no;
-					submitItem.ErrNo = row.Iserr_noNull() ? (int?) null : row.err_no;
-					submitItem.MsgType = row.Ismsg_typeNull() ? (byte?) null : row.msg_type;
+					submitItem.ErrNo = row.Iserr_noNull() ? (int?)null : row.err_no;
+					submitItem.MsgType = row.Ismsg_typeNull() ? (byte?)null : row.msg_type;
 					submitItem.ErrText = row.Iserr_textNull() ? null : row.err_text;
-					submitItem.ErrDate = row.Iserr_dateNull() ? (DateTime?) null : row.err_date;
+					submitItem.ErrDate = row.Iserr_dateNull() ? (DateTime?)null : row.err_date;
 					submitItem.CreatedBy = gpEmployeeId;
 					submitItem.CreatedOn = DateTime.UtcNow;
 					submitItem.Save(gpEmployeeId);
@@ -468,11 +477,13 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 					}
 				}
 
-				return	new FosResult<MS_AccountSubmit>
+				return new FosResult<MS_AccountSubmit>
 				{
 					Code = BaseErrorCodes.ErrorCodes.MSAccountOnboardError.Code()
-					, Message = string.Format(BaseErrorCodes.ErrorCodes.MSAccountOnboardError.Message(), msAccount.AccountID, msAccount.IndustryAccount.Csid, sb)
-					, Value = msAccountSubmit
+					,
+					Message = string.Format(BaseErrorCodes.ErrorCodes.MSAccountOnboardError.Message(), msAccount.AccountID, msAccount.IndustryAccount.Csid, sb)
+					,
+					Value = msAccountSubmit
 				};
 			}
 			if (string.IsNullOrEmpty(confirmationNumber))
@@ -485,8 +496,10 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				return new FosResult<MS_AccountSubmit>
 				{
 					Code = BaseErrorCodes.ErrorCodes.MSAccountOnboardMissingConfNumber.Code()
-					, Message = string.Format(BaseErrorCodes.ErrorCodes.MSAccountOnboardMissingConfNumber.Message(), msAccount.AccountID, msAccount.IndustryAccount.Csid, firstErrorMsg)
-					, Value = msAccountSubmit
+					,
+					Message = string.Format(BaseErrorCodes.ErrorCodes.MSAccountOnboardMissingConfNumber.Message(), msAccount.AccountID, msAccount.IndustryAccount.Csid, firstErrorMsg)
+					,
+					Value = msAccountSubmit
 				};
 			}
 
@@ -499,7 +512,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			var dsOnBoardAccount = Utils.ConvertDataSet<ErrorsOnBoardAccount>(dsRaw);
 			foreach (ErrorsOnBoardAccount.TableRow row in dsOnBoardAccount.Tables[0].Rows)
 			{
-// ReSharper disable once UseObjectOrCollectionInitializer
+				// ReSharper disable once UseObjectOrCollectionInitializer
 				var submitItem = new MS_AccountSubmitM();
 				submitItem.AccountSubmitId = msAccountSubmit.AccountSubmitID;
 				submitItem.TableName = row.table_name;
@@ -682,8 +695,8 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 
 		public FosResult<bool> UpdateContacts(long accountId)
 		{
-//TODO: ANDRES			throw new NotImplementedException();
-			return new FosResult<bool>{Code = BaseErrorCodes.ErrorCodes.Success.Code(), Message = BaseErrorCodes.ErrorCodes.Success.Message()};
+			//TODO: ANDRES			throw new NotImplementedException();
+			return new FosResult<bool> { Code = BaseErrorCodes.ErrorCodes.Success.Code(), Message = BaseErrorCodes.ErrorCodes.Success.Message() };
 		}
 
 		public FosResult<object> TwoWayTestData(long accountId)
@@ -699,7 +712,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			var msAcctSlI = SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(accountId);
 			var msAccountSubmit = new MS_AccountSubmit();
 			msAccountSubmit.AccountId = accountId;
-			msAccountSubmit.AccountSubmitTypeId = (short) MS_AccountSubmitType.AccountSubmitTypeEnum.Initiate_Two_Way_Test;
+			msAccountSubmit.AccountSubmitTypeId = (short)MS_AccountSubmitType.AccountSubmitTypeEnum.Initiate_Two_Way_Test;
 			msAccountSubmit.IndustryAccountId = msAccount.IndustryAccountId;
 			msAccountSubmit.MonitoringStationOSId = msAccount.IndustryAccount.ReceiverLine.MonitoringStationOSId;
 			msAccountSubmit.GPTechId = msAcctSlI.TechId;
@@ -709,11 +722,11 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			msAccountSubmit.CreatedOn = DateTime.UtcNow;
 			msAccountSubmit.Save(gpEmployeeId);
 
-		    var deviceId = msAccount.GetMoniSysTypeId();
-		    if (deviceId == null)
-		    {
-		        throw new Exception("This account does not have a panel associated with it that will return a clear Monitronics Device ID.");
-		    }
+			var deviceId = msAccount.GetMoniSysTypeId();
+			if (deviceId == null)
+			{
+				throw new Exception("This account does not have a panel associated with it that will return a clear Monitronics Device ID.");
+			}
 
 			DataSet dsResult;
 			if (!moniService.InitiateTwoWayTest(msAccountSubmit, msAccount.IndustryAccount.Csid, msAccount.GetMoniSysTypeId().SystemTypeID,
@@ -725,12 +738,12 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				{
 					foreach (ErrorsOnBoardAccount.TableRow row in dsErrors.Tables[0].Rows)
 					{
-// ReSharper disable once UseObjectOrCollectionInitializer
+						// ReSharper disable once UseObjectOrCollectionInitializer
 						var submitItem = new MS_AccountSubmitM();
 						submitItem.AccountSubmitId = msAccountSubmit.AccountSubmitID;
 						submitItem.TableName = row.table_name;
 						submitItem.EntryId = row.entry_id;
-						submitItem.SiteNo = row.Issite_noNull() ? (int?) null : row.site_no;
+						submitItem.SiteNo = row.Issite_noNull() ? (int?)null : row.site_no;
 						submitItem.CsNo = row.cs_no;
 						submitItem.ErrNo = row.err_no;
 						submitItem.MsgType = row.msg_type;
@@ -781,7 +794,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			var result = new FosResult<ISystemStatusInfo>();
 			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
 			var msAccount = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(accountId);
-			
+
 			#endregion Initialize
 
 			try
@@ -819,16 +832,16 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 						, row.Isstreet_noNull() ? null : row.street_no
 						, row.Isstreet_nameNull() ? null : row.street_name
 						, row.Iscountry_nameNull() ? null : row.country_name
-						, row.Istimezone_noNull() ? (int?) null : row.timezone_no
+						, row.Istimezone_noNull() ? (int?)null : row.timezone_no
 						, row.Istimezone_descrNull() ? null : row.timezone_descr
-						, row.Isservco_noNull() ? (int?) null : row.servco_no
+						, row.Isservco_noNull() ? (int?)null : row.servco_no
 						, row.Isinstall_servco_noNull() ? null : row.install_servco_no
 						, row.Iscspart_noNull() ? null : row.cspart_no
 						, row.IssubdivisionNull() ? null : row.subdivision
 						, row.Iscross_streetNull() ? null : row.cross_street
 						, row.Iscodeword1Null() ? null : row.codeword1
 						, row.Iscodeword2Null() ? null : row.codeword2
-						, row.Isorig_install_dateNull() ? (DateTime?) null : row.orig_install_date
+						, row.Isorig_install_dateNull() ? (DateTime?)null : row.orig_install_date
 						, row.Islang_idNull() ? null : row.lang_id
 						, row.Iscs_noNull() ? null : row.cs_no
 						, row.Issystype_idNull() ? null : row.systype_id
@@ -836,22 +849,22 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 						, row.Ispanel_phoneNull() ? null : row.panel_phone
 						, row.Ispanel_locationNull() ? null : row.panel_location
 						, row.Isreceiver_phoneNull() ? null : row.receiver_phone
-						, row.Isati_hoursNull() ? (short?) null : row.ati_hours
-						, row.Isati_minutesNull() ? (byte?) null : row.ati_minutes
+						, row.Isati_hoursNull() ? (short?)null : row.ati_hours
+						, row.Isati_minutesNull() ? (byte?)null : row.ati_minutes
 						, row.Ispanel_codeNull() ? null : row.panel_code
 						, row.Istwoway_device_idNull() ? null : row.twoway_device_id
 						, row.Isalkup_cs_noNull() ? null : row.alkup_cs_no
 						, row.Isblkup_cs_noNull() ? null : row.blkup_cs_no
 						, row.Isontest_flagNull() ? null : row.ontest_flag
-						, row.Isontest_expire_dateNull() ? (DateTime?) null : row.ontest_expire_date
+						, row.Isontest_expire_dateNull() ? (DateTime?)null : row.ontest_expire_date
 						, row.Isoos_flagNull() ? null : row.oos_flag
-						, row.Isinstall_dateNull() ? (DateTime?) null : row.install_date
+						, row.Isinstall_dateNull() ? (DateTime?)null : row.install_date
 						, row.Ismonitor_typeNull() ? null : row.monitor_type
 						, gpEmployeeId
 					));
 					systemStatusInfo = new SystemStatusInfo(siteSystemInfo.oos_flag.Equals("no"), siteSystemInfo.ontest_flag.Equals("yes"));
 				}
-				
+
 				// ** Init successfull result
 				result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
 				result.Message = BaseErrorCodes.ErrorCodes.Success.Message();
@@ -946,8 +959,8 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				};
 			#endregion PhoneTypes
 
-            #region Relations
-            if (!GetRelations(out firstErrorMsg, username))
+			#region Relations
+			if (!GetRelations(out firstErrorMsg, username))
 				return new FosResult<bool>
 				{
 					Code = 1,
@@ -956,145 +969,145 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				};
 			#endregion Relations
 
-            #region BusRules
-            if (!GetBusRules(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion BusRules
+			#region BusRules
+			if (!GetBusRules(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion BusRules
 
-            #region PartialBatches
-            if (!GetPartialBatches(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion PartialBatches
+			#region PartialBatches
+			if (!GetPartialBatches(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion PartialBatches
 
-            #region Options
-            if (!GetOptions(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion Options
+			#region Options
+			if (!GetOptions(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion Options
 
-            #region OosCats
-            if (!GetOosCats(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion OosCats
+			#region OosCats
+			if (!GetOosCats(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion OosCats
 
-            #region Languages
-            if (!GetLanguages(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion Languages
+			#region Languages
+			if (!GetLanguages(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion Languages
 
-            #region NamePrefixes
-            if (!GetNamePrefixes(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion NamePrefixes
+			#region NamePrefixes
+			if (!GetNamePrefixes(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion NamePrefixes
 
-            #region NameSuffixes
-            if (!GetNameSuffixes(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion NameSuffixes
+			#region NameSuffixes
+			if (!GetNameSuffixes(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion NameSuffixes
 
-            #region Zips
-            if (!GetZips(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion Zips
+			#region Zips
+			if (!GetZips(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion Zips
 
-            #region TwoWays
+			#region TwoWays
 			if (!GetTwoWays(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion TwoWays
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion TwoWays
 
-            #region ZoneStates
-            if (!GetZoneStates(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion ZoneStates
+			#region ZoneStates
+			if (!GetZoneStates(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion ZoneStates
 
-            #region Prefixes
-            if (!GetPrefixes(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion Prefixes
+			#region Prefixes
+			if (!GetPrefixes(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion Prefixes
 
-            #region States
-            if (!GetStates(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion States
+			#region States
+			if (!GetStates(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion States
 
-            #region PermitTypes
-            if (!GetPermitTypes(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion PermitTypes
+			#region PermitTypes
+			if (!GetPermitTypes(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion PermitTypes
 
-            #region TestCats
-            if (!GetTestCats(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion TestCats
+			#region TestCats
+			if (!GetTestCats(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion TestCats
 
 			//#region ServiceCompany
 			//if (!GetServiceCompany(out firstErrorMsg, username))
@@ -1107,75 +1120,75 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			//#endregion ServiceCompany
 
 
-            #region CellProviders
-            if (!GetCellProviders(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion CellProviders
+			#region CellProviders
+			if (!GetCellProviders(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion CellProviders
 
-            #region Agencies
-            if (!GetAgencies(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion Agencies
+			#region Agencies
+			if (!GetAgencies(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion Agencies
 
-            #region EquipEventXRef
-            if (!GetEquipEventXRef(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion EquipEventXRef
+			#region EquipEventXRef
+			if (!GetEquipEventXRef(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion EquipEventXRef
 
-            #region EquipmentLocations
-            if (!GetEquipmentLocations(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion EquipmentLocations
+			#region EquipmentLocations
+			if (!GetEquipmentLocations(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion EquipmentLocations
 
-            #region EquipmentTypes
-            if (!GetEquipmentTypes(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion EquipmentTypes
+			#region EquipmentTypes
+			if (!GetEquipmentTypes(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion EquipmentTypes
 
-            #region SecGroups
-            if (!GetSecGroups(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion SecGroups
+			#region SecGroups
+			if (!GetSecGroups(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion SecGroups
 
-            #region SiteOptions
-            if (!GetSiteOptions(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion SiteOptions
+			#region SiteOptions
+			if (!GetSiteOptions(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion SiteOptions
 
 			#region SiteSystemOptions
 			if (!GetSiteSystemOptions(out firstErrorMsg, username))
@@ -1190,25 +1203,25 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 
 			#region SystemTypeXRef
 			if (!GetSystemTypeXRef(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion SystemTypeXRef
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion SystemTypeXRef
 
-            #region CellServices
-            if (!GetCellServices(out firstErrorMsg, username))
-                return new FosResult<bool>
-                {
-                    Code = 1,
-                    Message = firstErrorMsg,
-                    Value = false
-                };
-            #endregion CellServices
+			#region CellServices
+			if (!GetCellServices(out firstErrorMsg, username))
+				return new FosResult<bool>
+				{
+					Code = 1,
+					Message = firstErrorMsg,
+					Value = false
+				};
+			#endregion CellServices
 
-            // ** Return result
+			// ** Return result
 			return new FosResult<bool>
 			{
 				Code = 0,
@@ -1231,9 +1244,9 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 
 			// ** Check arguments
 			var sb = new StringBuilder();
-//			if (!string.IsNullOrEmpty(phone)) sb.Append(" phone,");
+			//			if (!string.IsNullOrEmpty(phone)) sb.Append(" phone,");
 			if (!string.IsNullOrEmpty(zip)) sb.Append(" zip,");
-//			if (!string.IsNullOrEmpty(agencyTypeId)) sb.Append(" agencyTypeId");
+			//			if (!string.IsNullOrEmpty(agencyTypeId)) sb.Append(" agencyTypeId");
 			if (string.IsNullOrEmpty(sb.ToString()))
 			{
 				result.Code = BaseErrorCodes.ErrorCodes.ArgumentValidation.Code();
@@ -1255,7 +1268,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				// ** Create XML argument
 				//getAgencies.GetAgency.AgencyTypeId = agencyTypeId;
 				//if (string.IsNullOrEmpty(phone))
-					getAgencies.GetAgency.ZipCode = zip;
+				getAgencies.GetAgency.ZipCode = zip;
 				//else
 				//	getAgencies.GetAgency.Phone1 = phone;
 				var xmlData = getAgencies.Serialize();
@@ -1336,7 +1349,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			return result;
 		}
 
-		#region Private 
+		#region Private
 
 		private bool GetAgencyTypes(out string firstErrorMsgGet, string username = "SYSTEM")
 		{
@@ -1838,1432 +1851,1432 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			#endregion Relations
 		}
 
-        private bool GetBusRules(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region BusRules
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.Bus_RulesID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Bus_RulesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetBusRules>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityBusRules.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityBusRulesNuke());
-                    foreach (GetBusRules.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityBusRules.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityBusRulesSave(row.err_no, row.table_name, row.busrule, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Bus_RulesID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion BusRules
-        }
-
-        private bool GetPartialBatches(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region PartialBatches
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.Partial_BatchesID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Partial_BatchesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetPartialBatches>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityPartialBatches.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityPartialBatchesNuke());
-                    foreach (GetPartialBatches.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityPartialBatches.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityPartialBatchesSave(row.wsi_batch_no, row.cs_no, row.site_name, row.servco_no, row.mm_change_date, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Partial_BatchesID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion PartialBatches
-        }
-
-        private bool GetOptions(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region Options
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.OptionsID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.OptionsID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetOptions>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityOptions.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityOptionsNuke());
-                    foreach (GetOptions.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityOptions.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityOptionsSave(row.option_id, row.Usage, row.descr, row.valid_value, row.value_descr, row.value_required, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.OptionsID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion Options
-        }
-
-        private bool GetOosCats(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region OosCats
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.OosCatsID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.OosCatsID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetOosCats>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityOosCats.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityOosCatsNuke());
-                    foreach (GetOosCats.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityOosCats.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityOosCatsSave(row.ooscat_id, row.descr, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.OosCatsID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion OosCats
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntityLanguages table with hooey from their server
-         ***/
-        private bool GetLanguages(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region Languages
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.LanguagesID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.LanguagesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetLanguages>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityLanguages.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityLanguagesNuke());
-                    foreach (GetLanguages.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityLanguages.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityLanguagesSave(row.lang_id, row.descr, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.LanguagesID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion Languages
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntityNamePrefixes table with hooey from their server
-         ***/
-        private bool GetNamePrefixes(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region NamePrefixes
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.Name_PrefixesID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Name_PrefixesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetNamePrefixes>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityNamePrefixes.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityNamePrefixesNuke());
-                    foreach (GetNamePrefixes.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityNamePrefixes.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityNamePrefixesSave(row.prefix, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Name_PrefixesID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion NamePrefixes
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntityNameSuffixes table with hooey from their server
-         ***/
-        private bool GetNameSuffixes(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region NameSuffixes
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.Name_SuffixesID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Name_SuffixesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetNameSuffixes>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityNameSuffixes.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityNameSuffixesNuke());
-                    foreach (GetNameSuffixes.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityNameSuffixes.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityNameSuffixesSave(row.suffix, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Name_SuffixesID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion NameSuffixes
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntityZips table with hooey from their server
-         ***/
-        private bool GetZips(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region Zips
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Create an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.ZipsID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // Delete all existing data
-                SosCrmDataContext.Instance.MS_MonitronicsEntityZips.LoadCollection(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityZipsNuke());
-
-                // Open file with valid US zip codes (this should be moved to a database table later
-                StreamReader sr = new StreamReader(new FileStream(@"C:\Users\jjenne.NSUTLTITM004\Documents\states-and-counties.csv", FileMode.Open));
-                while (!sr.EndOfStream)
-                {
-                    // get one zip code from file stream
-                    String unique = sr.ReadLine();
-                    if (String.IsNullOrEmpty(unique))
-                        continue;
-                    String[] parts = unique.Split(',');
-                    String state = parts[0];
-                    String county = parts[1];
-
-                    String xmlzip = "<?xml version=\"1.0\"?><GetZipCodes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><GetZipCode state_id=\"" + state.ToUpper() + "\" county_name=\"" + county.ToUpper() + "\" /></GetZipCodes>";
-
-                    // ** Call the getData for Events.
-                    DataSet dsRaw;
-                    Errors dsErrorsGet;
-                    if (
-                        !services.GetDataTry(MS_MonitronicsEntity.MetaData.ZipsID, out dsRaw, out dsErrorsGet,
-                            out firstErrorMsgGet, null, xmlzip))
-                    {
-                        // Save errors
-                        acctSubmits.IsSuccess = false;
-                        acctSubmits.Save(username);
-                        foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                        {
-                            var msGetError = new MS_MonitronicsSubmitsGetDataError
-                            {
-                                SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                                ErrMsg = row.err_msg,
-                                CreatedOn = DateTime.UtcNow
-                            };
-
-                            msGetError.Save(username);
-                        }
-                    }
-                    else
-                    {
-                        // Save data
-                        var dsSysTypes = Utils.ConvertDataSet<GetZips>(dsRaw);
-                        foreach (GetZips.TableRow row in dsSysTypes.Table.Rows)
-                        {
-                            SosCrmDataContext.Instance.MS_MonitronicsEntityZips.LoadSingle(
-                                SosCrmDataStoredProcedureManager.MS_MonitronicsEntityZipsSave(row.city_name,
-                                    row.county_name, row.state_id, row.zip_code, username));
-                        }
-                        result = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.ZipsID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion Zips
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntityTwoWays table with hooey from their server
-         ***/
-        private bool GetTwoWays(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region TwoWays
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.Two_WaysID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Two_WaysID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetTwoWays>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityTwoWays.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityTwoWaysNuke());
-                    foreach (GetTwoWays.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityTwoWays.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityTwoWaysSave(row.twoway_device_id, row.descr, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Two_WaysID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion TwoWays
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntityZoneStates table with hooey from their server
-         ***/
-        private bool GetZoneStates(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region ZoneStates
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.Zone_StatesID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Zone_StatesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetZoneStates>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityZoneStates.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityZoneStatesNuke());
-                    foreach (GetZoneStates.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityZoneStates.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityZoneStatesSave(row.zonestate_id, row.descr, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Zone_StatesID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion ZoneStates
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntityPrefixes table with hooey from their server
-         ***/
-        private bool GetPrefixes(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region Prefixes
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.PrefixesID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.PrefixesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetPrefixes>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityPrefixes.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityPrefixesNuke());
-                    foreach (GetPrefixes.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityPrefixes.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityPrefixesSave(row.cell_flag, row.csno_len, row.cm_purchase, row.servco_no, row.cell_provider, row.systype_id, row.co_no, row.branded_flag, row.receiver_phone, row.alarmnet_citycs, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.PrefixesID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion Prefixes
-        }
-
-
-        /***
-         * Populates the MS_MonitronicsEntityStates table with hooey from their server
-         ***/
-        private bool GetStates(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region States
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.StatesID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.StatesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetStates>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityStates.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityStatesNuke());
-                    foreach (GetStates.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityStates.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityStatesSave(row.state_id, row.state_name, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.StatesID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion States
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntityPermitTypes table with hooey from their server
-         ***/
-        private bool GetPermitTypes(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region PermitTypes
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.Permit_TypesID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Permit_TypesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetPermitTypes>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityPermitTypes.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityPermitTypesNuke());
-                    foreach (GetPermitTypes.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityPermitTypes.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityPermitTypesSave(row.permtype_id, row.descr, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Permit_TypesID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion PermitTypes
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntityTestCats table with hooey from their server
-         ***/
-        private bool GetTestCats(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region TestCats
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.Test_CategoriesID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Test_CategoriesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetTestCats>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityTestCats.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityTestCatsNuke());
-                    foreach (GetTestCats.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityTestCats.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityTestCatsSave(row.testcat_id, row.descr, row.default_hours, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Test_CategoriesID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion TestCats
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntityCellProviders table with hooey from their server
-         ***/
-        private bool GetCellProviders(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region CellProviders
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.Cell_ProvidersID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Cell_ProvidersID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetCellProviders>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityCellProviders.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityCellProvidersNuke());
-                    foreach (GetCellProviders.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityCellProviders.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityCellProvidersSave(row.cell_provider, row.descr, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Cell_ProvidersID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion CellProviders
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntityAgencies table with hooey from their server
-         ***/
-        private bool GetAgencies(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region Agencies
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.AgenciesID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // Delete all existing data
-                SosCrmDataContext.Instance.MS_MonitronicsEntityAgencies.LoadCollection(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityAgenciesNuke());
-
-                // Open file with valid US zip codes (this should be moved to a database table later
-                var sr = new StreamReader(new FileStream(@"C:\Users\jjenne.NSUTLTITM004\Documents\free-zipcode-database.txt", FileMode.Open));
-                while (!sr.EndOfStream)
-                {
-                    // get one zip code from file stream
-                    String zip = sr.ReadLine();
-
-                    // pick up where we left off before the db server crapped.   TEMPORARY!
-                    if (String.Compare(zip, "30237", StringComparison.Ordinal) < 1)
-                        continue;
-
-                    // check if this zip code has already been populated in database
-                    //MS_MonitronicsEntityAgency tmp = SosCrmDataContext.Instance.MS_MonitronicsEntityAgencies.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityAgenciesGetForZip(zip));
-
-                    // if this zip code hasn't been populated yet, get it from Monitronics (this section should be removed after the first time this has finished running so we can overwrite data with new data periodically)
-                    //if (tmp == null)
-                    //{
-                        String xmlzip =
-                            "<?xml version=\"1.0\"?><GetAgencies xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><GetAgency zip_code=\"" +
-                            zip + "\" /></GetAgencies>";
-
-                        // ** Call the getData for Events.
-                        DataSet dsRaw;
-                        Errors dsErrorsGet;
-                        if (
-                            !services.GetDataTry(MS_MonitronicsEntity.MetaData.AgenciesID, out dsRaw, out dsErrorsGet,
-                                out firstErrorMsgGet, null, xmlzip))
-                        {
-                            // Save errors
-                            acctSubmits.IsSuccess = false;
-                            acctSubmits.Save(username);
-                            foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                            {
-                                var msGetError = new MS_MonitronicsSubmitsGetDataError
-                                {
-                                    SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                                    ErrMsg = row.err_msg,
-                                    CreatedOn = DateTime.UtcNow
-                                };
-
-                                msGetError.Save(username);
-                            }
-                        }
-                        else
-                        {
-                            // Save data
-                            var dsSysTypes = Utils.ConvertDataSet<GetAgencies>(dsRaw);
-                            foreach (GetAgencies.TableRow row in dsSysTypes.Table.Rows)
-                            {
-                                SosCrmDataContext.Instance.MS_MonitronicsEntityAgencies.LoadSingle(
-                                    SosCrmDataStoredProcedureManager.MS_MonitronicsEntityAgenciesSave(row.agency_no,
-                                        row.agencytype_id, row.agency_name, row.city_name, row.state_id, zip,
-                                        row.phone1, username));
-                            }
-                            result = true;
-                        }
-                    //}
-                }
-
-                sr.Close();
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.AgenciesID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion Agencies
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntityEquipEventXRef table with hooey from their server
-         ***/
-        private bool GetEquipEventXRef(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region EquipEventXRef
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.Zone_Equipment_EventsID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Zone_Equipment_EventsID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetEquipEventXref>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityEquipEventXRefs.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityEquipEventXRefNuke());
-                    foreach (GetEquipEventXref.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityEquipEventXRefs.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityEquipEventXRefSave(row.equiptype_id, row.event_id, row.site_kind, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Zone_Equipment_EventsID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion EquipEventXRef
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntityEquipmentLocations table with hooey from their server
-         ***/
-        private bool GetEquipmentLocations(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region EquipmentLocations
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.Equipment_LocationsID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Equipment_LocationsID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetEquipLocations>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityEquipmentLocations.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityEquipmentLocationsNuke());
-                    foreach (GetEquipLocations.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityEquipmentLocations.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityEquipmentLocationsSave(row.equiploc_id, row.descr, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Equipment_LocationsID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion EquipmentLocations
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntityEquipmentTypes table with hooey from their server
-         ***/
-        private bool GetEquipmentTypes(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region EquipmentTypes
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.Equipment_TypesID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Equipment_TypesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetEquipTypes>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntityEquipmentTypes.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntityEquipmentTypesNuke());
-                    foreach (GetEquipTypes.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntityEquipmentTypes.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityEquipmentTypesSave(row.equiptype_id, row.descr, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Equipment_TypesID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion EquipmentTypes
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntitySecGroups table with hooey from their server
-         ***/
-        private bool GetSecGroups(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region SecGroups
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.SecGroupsID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.SecGroupsID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetSecGroups>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntitySecGroups.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntitySecGroupsNuke());
-                    foreach (GetSecGroups.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntitySecGroups.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntitySecGroupsSave(row.sec_group, row.sec_level, row.all_users, row.all_accounts, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.SecGroupsID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion SecGroups
-        }
-
-        /***
-         * Populates the MS_MonitronicsEntitySiteOptions table with hooey from their server
-         ***/
-        private bool GetSiteOptions(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region SiteOptions
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
-
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.Site_OptionsID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
-
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Site_OptionsID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
-
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetSiteOptions>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntitySiteOptions.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntitySiteOptionsNuke());
-                    foreach (GetSiteOptions.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntitySiteOptions.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntitySiteOptionsSave(row.cs_no, row.option_id, row.option_value, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Site_OptionsID, ex.Message);
-            }
-
-            // ** Return result
-            return result;
-
-            #endregion SiteOptions
-        }
+		private bool GetBusRules(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region BusRules
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.Bus_RulesID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Bus_RulesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetBusRules>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityBusRules.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityBusRulesNuke());
+					foreach (GetBusRules.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityBusRules.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityBusRulesSave(row.err_no, row.table_name, row.busrule, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Bus_RulesID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion BusRules
+		}
+
+		private bool GetPartialBatches(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region PartialBatches
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.Partial_BatchesID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Partial_BatchesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetPartialBatches>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityPartialBatches.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityPartialBatchesNuke());
+					foreach (GetPartialBatches.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityPartialBatches.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityPartialBatchesSave(row.wsi_batch_no, row.cs_no, row.site_name, row.servco_no, row.mm_change_date, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Partial_BatchesID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion PartialBatches
+		}
+
+		private bool GetOptions(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region Options
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.OptionsID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.OptionsID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetOptions>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityOptions.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityOptionsNuke());
+					foreach (GetOptions.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityOptions.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityOptionsSave(row.option_id, row.Usage, row.descr, row.valid_value, row.value_descr, row.value_required, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.OptionsID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion Options
+		}
+
+		private bool GetOosCats(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region OosCats
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.OosCatsID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.OosCatsID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetOosCats>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityOosCats.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityOosCatsNuke());
+					foreach (GetOosCats.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityOosCats.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityOosCatsSave(row.ooscat_id, row.descr, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.OosCatsID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion OosCats
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntityLanguages table with hooey from their server
+		 ***/
+		private bool GetLanguages(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region Languages
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.LanguagesID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.LanguagesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetLanguages>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityLanguages.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityLanguagesNuke());
+					foreach (GetLanguages.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityLanguages.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityLanguagesSave(row.lang_id, row.descr, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.LanguagesID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion Languages
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntityNamePrefixes table with hooey from their server
+		 ***/
+		private bool GetNamePrefixes(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region NamePrefixes
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.Name_PrefixesID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Name_PrefixesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetNamePrefixes>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityNamePrefixes.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityNamePrefixesNuke());
+					foreach (GetNamePrefixes.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityNamePrefixes.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityNamePrefixesSave(row.prefix, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Name_PrefixesID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion NamePrefixes
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntityNameSuffixes table with hooey from their server
+		 ***/
+		private bool GetNameSuffixes(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region NameSuffixes
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.Name_SuffixesID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Name_SuffixesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetNameSuffixes>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityNameSuffixes.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityNameSuffixesNuke());
+					foreach (GetNameSuffixes.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityNameSuffixes.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityNameSuffixesSave(row.suffix, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Name_SuffixesID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion NameSuffixes
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntityZips table with hooey from their server
+		 ***/
+		private bool GetZips(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region Zips
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Create an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.ZipsID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// Delete all existing data
+				SosCrmDataContext.Instance.MS_MonitronicsEntityZips.LoadCollection(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityZipsNuke());
+
+				// Open file with valid US zip codes (this should be moved to a database table later
+				StreamReader sr = new StreamReader(new FileStream(@"C:\Users\jjenne.NSUTLTITM004\Documents\states-and-counties.csv", FileMode.Open));
+				while (!sr.EndOfStream)
+				{
+					// get one zip code from file stream
+					String unique = sr.ReadLine();
+					if (String.IsNullOrEmpty(unique))
+						continue;
+					String[] parts = unique.Split(',');
+					String state = parts[0];
+					String county = parts[1];
+
+					String xmlzip = "<?xml version=\"1.0\"?><GetZipCodes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><GetZipCode state_id=\"" + state.ToUpper() + "\" county_name=\"" + county.ToUpper() + "\" /></GetZipCodes>";
+
+					// ** Call the getData for Events.
+					DataSet dsRaw;
+					Errors dsErrorsGet;
+					if (
+						!services.GetDataTry(MS_MonitronicsEntity.MetaData.ZipsID, out dsRaw, out dsErrorsGet,
+							out firstErrorMsgGet, null, xmlzip))
+					{
+						// Save errors
+						acctSubmits.IsSuccess = false;
+						acctSubmits.Save(username);
+						foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+						{
+							var msGetError = new MS_MonitronicsSubmitsGetDataError
+							{
+								SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+								ErrMsg = row.err_msg,
+								CreatedOn = DateTime.UtcNow
+							};
+
+							msGetError.Save(username);
+						}
+					}
+					else
+					{
+						// Save data
+						var dsSysTypes = Utils.ConvertDataSet<GetZips>(dsRaw);
+						foreach (GetZips.TableRow row in dsSysTypes.Table.Rows)
+						{
+							SosCrmDataContext.Instance.MS_MonitronicsEntityZips.LoadSingle(
+								SosCrmDataStoredProcedureManager.MS_MonitronicsEntityZipsSave(row.city_name,
+									row.county_name, row.state_id, row.zip_code, username));
+						}
+						result = true;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.ZipsID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion Zips
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntityTwoWays table with hooey from their server
+		 ***/
+		private bool GetTwoWays(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region TwoWays
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.Two_WaysID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Two_WaysID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetTwoWays>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityTwoWays.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityTwoWaysNuke());
+					foreach (GetTwoWays.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityTwoWays.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityTwoWaysSave(row.twoway_device_id, row.descr, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Two_WaysID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion TwoWays
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntityZoneStates table with hooey from their server
+		 ***/
+		private bool GetZoneStates(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region ZoneStates
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.Zone_StatesID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Zone_StatesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetZoneStates>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityZoneStates.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityZoneStatesNuke());
+					foreach (GetZoneStates.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityZoneStates.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityZoneStatesSave(row.zonestate_id, row.descr, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Zone_StatesID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion ZoneStates
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntityPrefixes table with hooey from their server
+		 ***/
+		private bool GetPrefixes(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region Prefixes
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.PrefixesID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.PrefixesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetPrefixes>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityPrefixes.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityPrefixesNuke());
+					foreach (GetPrefixes.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityPrefixes.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityPrefixesSave(row.cell_flag, row.csno_len, row.cm_purchase, row.servco_no, row.cell_provider, row.systype_id, row.co_no, row.branded_flag, row.receiver_phone, row.alarmnet_citycs, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.PrefixesID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion Prefixes
+		}
+
+
+		/***
+		 * Populates the MS_MonitronicsEntityStates table with hooey from their server
+		 ***/
+		private bool GetStates(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region States
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.StatesID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.StatesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetStates>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityStates.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityStatesNuke());
+					foreach (GetStates.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityStates.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityStatesSave(row.state_id, row.state_name, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.StatesID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion States
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntityPermitTypes table with hooey from their server
+		 ***/
+		private bool GetPermitTypes(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region PermitTypes
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.Permit_TypesID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Permit_TypesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetPermitTypes>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityPermitTypes.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityPermitTypesNuke());
+					foreach (GetPermitTypes.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityPermitTypes.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityPermitTypesSave(row.permtype_id, row.descr, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Permit_TypesID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion PermitTypes
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntityTestCats table with hooey from their server
+		 ***/
+		private bool GetTestCats(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region TestCats
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.Test_CategoriesID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Test_CategoriesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetTestCats>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityTestCats.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityTestCatsNuke());
+					foreach (GetTestCats.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityTestCats.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityTestCatsSave(row.testcat_id, row.descr, row.default_hours, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Test_CategoriesID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion TestCats
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntityCellProviders table with hooey from their server
+		 ***/
+		private bool GetCellProviders(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region CellProviders
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.Cell_ProvidersID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Cell_ProvidersID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetCellProviders>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityCellProviders.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityCellProvidersNuke());
+					foreach (GetCellProviders.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityCellProviders.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityCellProvidersSave(row.cell_provider, row.descr, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Cell_ProvidersID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion CellProviders
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntityAgencies table with hooey from their server
+		 ***/
+		private bool GetAgencies(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region Agencies
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.AgenciesID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// Delete all existing data
+				SosCrmDataContext.Instance.MS_MonitronicsEntityAgencies.LoadCollection(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityAgenciesNuke());
+
+				// Open file with valid US zip codes (this should be moved to a database table later
+				var sr = new StreamReader(new FileStream(@"C:\Users\jjenne.NSUTLTITM004\Documents\free-zipcode-database.txt", FileMode.Open));
+				while (!sr.EndOfStream)
+				{
+					// get one zip code from file stream
+					String zip = sr.ReadLine();
+
+					// pick up where we left off before the db server crapped.   TEMPORARY!
+					if (String.Compare(zip, "30237", StringComparison.Ordinal) < 1)
+						continue;
+
+					// check if this zip code has already been populated in database
+					//MS_MonitronicsEntityAgency tmp = SosCrmDataContext.Instance.MS_MonitronicsEntityAgencies.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityAgenciesGetForZip(zip));
+
+					// if this zip code hasn't been populated yet, get it from Monitronics (this section should be removed after the first time this has finished running so we can overwrite data with new data periodically)
+					//if (tmp == null)
+					//{
+					String xmlzip =
+						"<?xml version=\"1.0\"?><GetAgencies xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><GetAgency zip_code=\"" +
+						zip + "\" /></GetAgencies>";
+
+					// ** Call the getData for Events.
+					DataSet dsRaw;
+					Errors dsErrorsGet;
+					if (
+						!services.GetDataTry(MS_MonitronicsEntity.MetaData.AgenciesID, out dsRaw, out dsErrorsGet,
+							out firstErrorMsgGet, null, xmlzip))
+					{
+						// Save errors
+						acctSubmits.IsSuccess = false;
+						acctSubmits.Save(username);
+						foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+						{
+							var msGetError = new MS_MonitronicsSubmitsGetDataError
+							{
+								SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+								ErrMsg = row.err_msg,
+								CreatedOn = DateTime.UtcNow
+							};
+
+							msGetError.Save(username);
+						}
+					}
+					else
+					{
+						// Save data
+						var dsSysTypes = Utils.ConvertDataSet<GetAgencies>(dsRaw);
+						foreach (GetAgencies.TableRow row in dsSysTypes.Table.Rows)
+						{
+							SosCrmDataContext.Instance.MS_MonitronicsEntityAgencies.LoadSingle(
+								SosCrmDataStoredProcedureManager.MS_MonitronicsEntityAgenciesSave(row.agency_no,
+									row.agencytype_id, row.agency_name, row.city_name, row.state_id, zip,
+									row.phone1, username));
+						}
+						result = true;
+					}
+					//}
+				}
+
+				sr.Close();
+
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.AgenciesID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion Agencies
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntityEquipEventXRef table with hooey from their server
+		 ***/
+		private bool GetEquipEventXRef(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region EquipEventXRef
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.Zone_Equipment_EventsID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Zone_Equipment_EventsID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetEquipEventXref>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityEquipEventXRefs.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityEquipEventXRefNuke());
+					foreach (GetEquipEventXref.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityEquipEventXRefs.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityEquipEventXRefSave(row.equiptype_id, row.event_id, row.site_kind, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Zone_Equipment_EventsID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion EquipEventXRef
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntityEquipmentLocations table with hooey from their server
+		 ***/
+		private bool GetEquipmentLocations(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region EquipmentLocations
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.Equipment_LocationsID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Equipment_LocationsID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetEquipLocations>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityEquipmentLocations.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityEquipmentLocationsNuke());
+					foreach (GetEquipLocations.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityEquipmentLocations.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityEquipmentLocationsSave(row.equiploc_id, row.descr, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Equipment_LocationsID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion EquipmentLocations
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntityEquipmentTypes table with hooey from their server
+		 ***/
+		private bool GetEquipmentTypes(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region EquipmentTypes
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.Equipment_TypesID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Equipment_TypesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetEquipTypes>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntityEquipmentTypes.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntityEquipmentTypesNuke());
+					foreach (GetEquipTypes.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntityEquipmentTypes.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityEquipmentTypesSave(row.equiptype_id, row.descr, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Equipment_TypesID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion EquipmentTypes
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntitySecGroups table with hooey from their server
+		 ***/
+		private bool GetSecGroups(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region SecGroups
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.SecGroupsID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.SecGroupsID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetSecGroups>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntitySecGroups.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntitySecGroupsNuke());
+					foreach (GetSecGroups.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntitySecGroups.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntitySecGroupsSave(row.sec_group, row.sec_level, row.all_users, row.all_accounts, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.SecGroupsID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion SecGroups
+		}
+
+		/***
+		 * Populates the MS_MonitronicsEntitySiteOptions table with hooey from their server
+		 ***/
+		private bool GetSiteOptions(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region SiteOptions
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.Site_OptionsID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Site_OptionsID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetSiteOptions>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntitySiteOptions.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntitySiteOptionsNuke());
+					foreach (GetSiteOptions.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntitySiteOptions.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntitySiteOptionsSave(row.cs_no, row.option_id, row.option_value, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Site_OptionsID, ex.Message);
+			}
+
+			// ** Return result
+			return result;
+
+			#endregion SiteOptions
+		}
 
 		/***
 		 * Populates GetSiteSystemOptions
@@ -3335,147 +3348,147 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
          * Populates the MS_MonitronicsEntitySystemTypeXRef table with hooey from their server
          ***/
 		private bool GetSystemTypeXRef(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region SystemTypeXRef
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+		{
+			#region SystemTypeXRef
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
 
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.System_Type_XrefID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.System_Type_XrefID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
 
-                // ** Call the getData for Events.
-                DataSet dsRaw;
-                Errors dsErrorsGet;
-                if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.System_Type_XrefID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
-                {
-                    // Save errors
-                    acctSubmits.IsSuccess = false;
-                    acctSubmits.Save(username);
-                    foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                    {
-                        var msGetError = new MS_MonitronicsSubmitsGetDataError
-                        {
-                            SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                            ErrMsg = row.err_msg,
-                            CreatedOn = DateTime.UtcNow
-                        };
+				// ** Call the getData for Events.
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.System_Type_XrefID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
 
-                        msGetError.Save(username);
-                    }
-                }
-                else
-                {
-                    // Save data
-                    var dsSysTypes = Utils.ConvertDataSet<GetSysTypeXref>(dsRaw);
-                    SosCrmDataContext.Instance.MS_MonitronicsEntitySystemTypeXRefs.LoadCollection(
-                        SosCrmDataStoredProcedureManager.MS_MonitronicsEntitySystemTypeXRefNuke());
-                    foreach (GetSysTypeXref.TableRow row in dsSysTypes.Table.Rows)
-                    {
-                        SosCrmDataContext.Instance.MS_MonitronicsEntitySystemTypeXRefs.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntitySystemTypeXRefSave(row.dig_systype_id, row.twoway_device_id, row.cell_systype_id, username));
-                    }
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.System_Type_XrefID, ex.Message);
-            }
+						msGetError.Save(username);
+					}
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetSysTypeXref>(dsRaw);
+					SosCrmDataContext.Instance.MS_MonitronicsEntitySystemTypeXRefs.LoadCollection(
+						SosCrmDataStoredProcedureManager.MS_MonitronicsEntitySystemTypeXRefNuke());
+					foreach (GetSysTypeXref.TableRow row in dsSysTypes.Table.Rows)
+					{
+						SosCrmDataContext.Instance.MS_MonitronicsEntitySystemTypeXRefs.LoadSingle(SosCrmDataStoredProcedureManager.MS_MonitronicsEntitySystemTypeXRefSave(row.dig_systype_id, row.twoway_device_id, row.cell_systype_id, username));
+					}
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.System_Type_XrefID, ex.Message);
+			}
 
-            // ** Return result
-            return result;
+			// ** Return result
+			return result;
 
-            #endregion SystemTypeXRef
-        }
+			#endregion SystemTypeXRef
+		}
 
-        /***
-         * Populates the MS_MonitronicsEntityCellServices table with hooey from their server
-         ***/
-        private bool GetCellServices(out string firstErrorMsgGet, string username = "SYSTEM")
-        {
-            #region CellServices
-            // ** Initialize
-            var result = false;
-            firstErrorMsgGet = null;
-            var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+		/***
+		 * Populates the MS_MonitronicsEntityCellServices table with hooey from their server
+		 ***/
+		private bool GetCellServices(out string firstErrorMsgGet, string username = "SYSTEM")
+		{
+			#region CellServices
+			// ** Initialize
+			var result = false;
+			firstErrorMsgGet = null;
+			var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
 
-            try
-            {
-                // ** Createa an MS_AccountsSubmit
-                var acctSubmits = new MS_MonitronicsSubmitsGetData
-                {
-                    EntityId = MS_MonitronicsEntity.MetaData.Cell_ServicesID,
-                    IsSuccess = true,
-                    CreatedOn = DateTime.UtcNow
-                };
-                acctSubmits.Save(username);
+			try
+			{
+				// ** Createa an MS_AccountsSubmit
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.Cell_ServicesID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
 
 
-                // delete existing data from table
-                SosCrmDataContext.Instance.MS_MonitronicsEntityCellServices.LoadCollection(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityCellServicesNuke());
+				// delete existing data from table
+				SosCrmDataContext.Instance.MS_MonitronicsEntityCellServices.LoadCollection(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityCellServicesNuke());
 
-                // get all cell providers from database
-                MS_MonitronicsEntityCellProviderCollection cpc = SosCrmDataContext.Instance.MS_MonitronicsEntityCellProviders.LoadCollection(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityCellProvidersGetAll());
+				// get all cell providers from database
+				MS_MonitronicsEntityCellProviderCollection cpc = SosCrmDataContext.Instance.MS_MonitronicsEntityCellProviders.LoadCollection(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityCellProvidersGetAll());
 
-                // iterate through all providers to get cellservices / cellprovideroptions
-                foreach (MS_MonitronicsEntityCellProvider cp in cpc)
-                {
-                    String xmlstr = "<?xml version=\"1.0\"?><GetCellSvcs xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><GetCellSvc cell_provider=\"" + cp.CellProviderID + "\" /></GetCellSvcs>";
+				// iterate through all providers to get cellservices / cellprovideroptions
+				foreach (MS_MonitronicsEntityCellProvider cp in cpc)
+				{
+					String xmlstr = "<?xml version=\"1.0\"?><GetCellSvcs xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><GetCellSvc cell_provider=\"" + cp.CellProviderID + "\" /></GetCellSvcs>";
 
-                    // ** Call the getData for Events.
-                    DataSet dsRaw;
-                    Errors dsErrorsGet;
-                    if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Cell_ServicesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet, null, xmlstr))
-                    {
-                        // Save errors
-                        acctSubmits.IsSuccess = false;
-                        acctSubmits.Save(username);
-                        foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
-                        {
-                            var msGetError = new MS_MonitronicsSubmitsGetDataError
-                            {
-                                SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
-                                ErrMsg = row.err_msg,
-                                CreatedOn = DateTime.UtcNow
-                            };
+					// ** Call the getData for Events.
+					DataSet dsRaw;
+					Errors dsErrorsGet;
+					if (!services.GetDataTry(MS_MonitronicsEntity.MetaData.Cell_ServicesID, out dsRaw, out dsErrorsGet, out firstErrorMsgGet, null, xmlstr))
+					{
+						// Save errors
+						acctSubmits.IsSuccess = false;
+						acctSubmits.Save(username);
+						foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+						{
+							var msGetError = new MS_MonitronicsSubmitsGetDataError
+							{
+								SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+								ErrMsg = row.err_msg,
+								CreatedOn = DateTime.UtcNow
+							};
 
-                            msGetError.Save(username);
-                        }
-                    }
-                    else
-                    {
-                        // Save data
-                        var dsSysTypes = Utils.ConvertDataSet<GetCellProviderOptions>(dsRaw);
-                        foreach (GetCellProviderOptions.TableRow row in dsSysTypes.Table.Rows)
-                        {
-                            SosCrmDataContext.Instance.MS_MonitronicsEntityCellServices.LoadSingle(
-                                SosCrmDataStoredProcedureManager.MS_MonitronicsEntityCellServicesSave(row.option_id,
-                                    row.descr, username));
-                        }
-                        result = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Cell_ServicesID, ex.Message);
-            }
+							msGetError.Save(username);
+						}
+					}
+					else
+					{
+						// Save data
+						var dsSysTypes = Utils.ConvertDataSet<GetCellProviderOptions>(dsRaw);
+						foreach (GetCellProviderOptions.TableRow row in dsSysTypes.Table.Rows)
+						{
+							SosCrmDataContext.Instance.MS_MonitronicsEntityCellServices.LoadSingle(
+								SosCrmDataStoredProcedureManager.MS_MonitronicsEntityCellServicesSave(row.option_id,
+									row.descr, username));
+						}
+						result = true;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("The following error was thrown when GetData for {0} entity: {1}", MS_MonitronicsEntity.MetaData.Cell_ServicesID, ex.Message);
+			}
 
-            // ** Return result
-            return result;
+			// ** Return result
+			return result;
 
-            #endregion CellServices
-        }
+			#endregion CellServices
+		}
 
-        #endregion Private 
+		#endregion Private
 	}
 }
