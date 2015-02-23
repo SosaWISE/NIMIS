@@ -50,6 +50,7 @@ AS
 		, MSAC.CustomerId AS [CustomerID]
 		, MCA.AccountID AS [AccountID]
 		, MSIA.Csid AS [Central Station ID]
+		, MSASI.CurrentMonitoringStation
 		, MSASI.ContractSignedDate AS [AMA Sign Date]
 		, MSASI.SalesRepId AS [Sales Rep ID]
 		, MSASI.InstallDate AS [Install Date]

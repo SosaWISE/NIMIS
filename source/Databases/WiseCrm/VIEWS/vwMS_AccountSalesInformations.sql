@@ -49,7 +49,7 @@ AS
 		MSA.AccountID
 		, MSI.PaymentTypeId
 		, MSI.BillingDay
-		, '[Not Set Yet]' AS CurrentMonitoringStation
+		, MSIA.MonitoringStationName AS CurrentMonitoringStation
 		, MSA.PanelTypeId
 		, MSA.PanelItemId
 		, MSI.IsTakeOver
@@ -92,6 +92,10 @@ AS
 		LEFT OUTER JOIN [dbo].[AE_Items] AS CPKG WITH (NOLOCK)
 		ON
 			(CPKG.ItemID = MSA.CellPackageItemId)
+		LEFT OUTER JOIN [dbo].[vwMS_IndustryAccountNumbersWithReceiverLineInfo] AS MSIA WITH (NOLOCK)
+		ON
+			(MSA.IndustryAccountId = MSIA.IndustryAccountID)
+
 GO
 /* TEST 
 SELECT * FROM vwMS_AccountSalesInformations WHERE AccountID = 191101;
