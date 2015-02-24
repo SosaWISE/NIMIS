@@ -77,10 +77,10 @@ AS
 		, MSASI.CancelDate AS [Cancelled Date]
 		, MCACR.AccountCancelReason AS [Cancelled Reason]
 		, MSASI.IsTakeOver AS [Take Over]
-		, CAST(NULL AS BIT) AS [Has Existing Equipment]
+		, dbo.fxGetMS_AccountEquipmentHasExistingEquipment(MCA.AccountID) AS [Has Existing Equipment]
 		, dbo.fxQlCreditReportGetScoreByMsAccountID(MCA.AccountID) AS [Credit Score]
 		, dbo.fxQlCreditReportGetTransactionIdByMsAccountID(MCA.AccountID) AS [Transaction ID]
-		, CAST(NULL AS SMALLINT) AS [Points]
+		, dbo.fxGetMS_AccountEquipmentPoints(MCA.AccountID) AS [Points]
 	FROM
 		[dbo].[MC_Accounts] AS MCA WITH (NOLOCK)
 		INNER JOIN [dbo].[MS_AccountCustomers] AS MSAC WITH (NOLOCK)
