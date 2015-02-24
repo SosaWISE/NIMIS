@@ -9,7 +9,10 @@ namespace SOS.Data.SosCrm.ControllerExtensions
 	{
 		public static ARCollection LoadCollectionByAccountId(this ARController cntlr, long accountId)
 		{
-			return cntlr.LoadCollection(AR.Query().WHERE(AR.Columns.AccountId, accountId));
+			return cntlr.LoadCollection(AR.Query()
+				.WHERE(AR.Columns.AccountId, accountId)
+				.AND(AR.Columns.IsActive, true)
+				.AND(AR.Columns.IsDeleted, false));
 		}
 	}
 }

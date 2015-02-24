@@ -41,14 +41,14 @@ CREATE FUNCTION dbo.fxQlCreditReportGetTransactionIdByMsAccountID
 (
 	@AccountId BIGINT
 )
-RETURNS INT
+RETURNS UNIQUEIDENTIFIER
 AS
 BEGIN
 	/** Declarations */
-	DECLARE @ReportID INT;
+	DECLARE @ReportID UNIQUEIDENTIFIER;
 
 	/** Execute actions. */
-	SELECT @ReportID = ReportID FROM dbo.fxQlCreditReportGetByMsAccountID(@AccountId);
+	SELECT @ReportID = ReportGuid FROM dbo.fxQlCreditReportGetByMsAccountID(@AccountId);
 
 	RETURN @ReportID;
 END

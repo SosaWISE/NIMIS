@@ -2267,10 +2267,11 @@ namespace SOS.FunctionalServices
 				// ** Get tuple
 				var col = SosCrmDataContext.Instance.MS_DispatchAgenciesViews.GetDispatchAgencies(city, state, zip);
 
-				if (col == null || col.Count == 0)
+
+				if (col == null || col.Count < 3)
 				{
 					col = SosCrmDataContext.Instance.MS_DispatchAgenciesViews.GetMonitronicsEntityAgencies(city, state, zip);
-					if (col == null || col.Count ==0)
+					if (col == null || col.Count == 0)
 						return new FnsResult<List<IFnsMsDispatchAgencyView>>
 						{
 							Code = (int)ErrorCodes.SqlItemNotFound,

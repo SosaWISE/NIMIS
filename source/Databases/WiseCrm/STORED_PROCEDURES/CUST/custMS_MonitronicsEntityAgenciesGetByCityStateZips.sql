@@ -56,6 +56,7 @@ BEGIN
 			MEA.EntityAgenciesID AS DispatchAgencyID
 			, MDAT.DispatchAgencyTypeID
 			, 'MI_MASTER' AS MonitoringStationOSId
+			, MEA.EntityAgenciesID AS DispatchAgencyOsId
 			, MEA.AgencyName AS DispatchAgencyName
 			, MEA.AgencyNumberID AS [MsAgencyNumber]
 			, NULL AS Address1
@@ -66,6 +67,12 @@ BEGIN
             , MEA.ZipCode
 			, MEA.Phone1
 			, NULL AS Phone2
+			, MEA.IsActive
+			, MEA.IsDeleted
+			, MEA.CreatedBy
+			, MEA.CreatedOn
+			, MEA.ModifiedBy
+			, MEA.ModifiedOn
 			, MDAT.DispatchAgencyType
 		FROM
 			[dbo].[MS_MonitronicsEntityAgencies] AS MEA WITH (NOLOCK)
