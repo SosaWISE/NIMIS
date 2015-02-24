@@ -94,7 +94,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			var contractLength = msAccount.Contract.ContractLength;
 
 			var qlQualifyCustomerInfo = SosCrmDataContext.Instance.QL_QualifyCustomerInfoViews.LoadByAccountId(msAccount.AccountID);
-			var optionIdCMPUR = qlQualifyCustomerInfo.Score > 600 ? "PUR" : "CM";
+			var optionIdCMPUR = "CM"; //TODO:  Brian Carter wants all accounts to be CM so that Moni does not do the welcome call.// qlQualifyCustomerInfo.Score > 600 ? "PUR" : "CM";
 			var dslVoip = msAccount.DslSeizure.DslSeizureID == (short)MS_AccountDslSeizureType.DslSeizureEnum.Dsl
 				? "DSL"
 				: "NONE";
