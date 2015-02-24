@@ -359,7 +359,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				if (!int.TryParse(zone.Zone, out zoneInt)) continue;
 
 				var acctEquipment = zone.AccountEquipment;
-				if (!acctEquipment.EquipmentLocationId.HasValue)
+				if (acctEquipment.EquipmentLocationId == null || !acctEquipment.EquipmentLocationId.HasValue)
 				{
 					throw new Exception(string.Format("Zone {0} is missing a location", zone.Zone));
 					//result.Code = -1;

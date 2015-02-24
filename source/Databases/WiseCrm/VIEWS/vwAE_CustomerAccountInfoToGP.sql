@@ -109,4 +109,4 @@ AS
 			(QL.LeadID = MSAC.LeadId)
 GO
 /* TEST */
-SELECT * FROM [dbo].[vwAE_CustomerAccountInfoToGP]
+SELECT * FROM [dbo].[vwAE_CustomerAccountInfoToGP] WHERE [Transaction ID] IS NOT NULL ORDER BY CustomerMasterFileID DESC;
