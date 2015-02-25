@@ -3,10 +3,7 @@ using SOS.Data.SosCrm.ControllerExtensions;
 using SOS.FOS.CellStation;
 using SOS.FOS.CellStation.AlarmCom;
 using SOS.FunctionalServices.Contracts;
-using SOS.FunctionalServices.Contracts.Models;
-using SOS.FunctionalServices.Models;
 using SOS.Lib.Core;
-using SSE.Lib.Interfaces.FOS;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
 

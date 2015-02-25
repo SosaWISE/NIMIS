@@ -1,6 +1,4 @@
 ﻿using SOS.FOS.CellStation.AlarmCom;
-//using PPro.Data.InterimCrm;
-//using PPro.Lib.Core.Monitoring;
 using SOS.Data.SosCrm;
 using SSE.Lib.Interfaces.FOS;
 using SOS.Lib.Core;

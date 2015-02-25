@@ -78,12 +78,14 @@ namespace SOS.FunctionalServices
 			bool shellAccount;
 			var msChoice = Main.GetMsChoice(msAccount.IndustryAccount.ReceiverLine, out shellAccount);
 
-			var msXmlService = new Main(msChoice);
-			var status = msXmlService.ServiceStatus(msAccount.AccountID, gpEmployeeId);
-
 			#endregion Initialize
 
 			#region Build result
+
+			#region Get Central Station Status
+
+			var msXmlService = new Main(msChoice);
+			var status = msXmlService.ServiceStatus(msAccount.AccountID, gpEmployeeId);
 
 			var resultList = new List<IFnsMsAccountOnlineStatusInfo>();
 			var centralStation = msAccount.IndustryAccount.ReceiverLine.MonitoringStationOS.MonitoringStation.MonitoringStationName;
@@ -109,6 +111,11 @@ namespace SOS.FunctionalServices
 				Status = statusGroup,
 				Value = string.Format("Monitoring: {0} | On Test: {1}", status.Value.InService ? "On Line" : "Offline", status.Value.OnTest ? "Yes" : "No"),
 			});
+			#endregion Get Central Station Status
+
+			#region Get Cellular Device Status
+
+			#endregion Get Cellular Device Status
 
 			#endregion Build result
 

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="AlarmCom\AlarmComAccount.cs" />
     <Compile Include="AlarmCom\AlarmComAccountStatus.cs" />
+    <Compile Include="AlarmCom\AlarmComDeviceStatus.cs" />
     <Compile Include="AlarmCom\AlarmComStation.cs" />
     <Compile Include="AlarmCom\CustomerOutput.cs" />
     <Compile Include="CellularStationFactory.cs" />

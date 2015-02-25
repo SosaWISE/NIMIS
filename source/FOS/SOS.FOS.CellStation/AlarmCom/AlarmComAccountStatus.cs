@@ -6,6 +6,8 @@ namespace SOS.FOS.CellStation.AlarmCom
 {
 	public class AlarmComAccountStatus
 	{
+
+		#region Properties
 		public string CellPackageItemId { get; set; }
 		// other properties
 		public int CustomerId { get; set; }
@@ -27,14 +29,15 @@ namespace SOS.FOS.CellStation.AlarmCom
 		public string InstallAddress { get; private set; }
 		public CellularAccountStatuses RegistrationStatus { get; set; }
 		public string Message { get; set; }
-
+		#endregion Properties
 
 		#region Methods
+
 		/// <summary>
 		/// Given a CustomerInfo object it will populate the properties of the class.
 		/// </summary>
 		/// <param name="info">CustomerInfo</param>
-		/// <param name="nAccountID">int</param>
+		/// <param name="alarmComAccount"></param>
 		public void SetCustInfo(CustomerInfo info, AlarmComAccount alarmComAccount)
 		{
 			CellPackageItemId = alarmComAccount.MsAccount.CellPackageItemId;
