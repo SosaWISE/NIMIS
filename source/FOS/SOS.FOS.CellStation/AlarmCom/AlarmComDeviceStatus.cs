@@ -1,4 +1,5 @@
-﻿using SOS.FOS.CellStation.AlarmComWebServiceValidate;
+﻿using System.Globalization;
+using SOS.FOS.CellStation.AlarmComWebServiceValidate;
 
 namespace SOS.FOS.CellStation.AlarmCom
 {
@@ -14,27 +15,29 @@ namespace SOS.FOS.CellStation.AlarmCom
 		#endregion .ctor
 
 		#region Properties
-		public AlarmComAccount Account { get; set; }
+		public AlarmComAccount Account { get; private set; }
 
-		public bool Valid { get; set; }
+		public bool IsRegistered { get; private set; }
+		
+		public bool Valid { get; private set; }
 
-		public string ErrorDescription { get; set; }
+		public string ErrorDescription { get; private set; }
 
-		public bool IsReferral { get; set; }
+		public bool IsReferral { get; private set; }
 
-		public int FirmwareVersion { get; set; }
+		public int FirmwareVersion { get; private set; }
 
-		public string ModemSerial { get; set; }
+		public string ModemSerial { get; private set; }
 
-		public NetworkEnum Network { get; set; }
+		public NetworkEnum Network { get; private set; }
 
-		public RadioNetworkTypeEnum RadioNetworkType { get; set; }
+		public RadioNetworkTypeEnum RadioNetworkType { get; private set; }
 
-		public bool TwoWayVoiceCapable { get; set; }
+		public bool TwoWayVoiceCapable { get; private set; }
 
-		public int ReferralPackageId { get; set; }
+		public int ReferralPackageId { get; private set; }
 
-		public int ReferralServicePlanId { get; set; }
+		public int ReferralServicePlanId { get; private set; }
 
 		#endregion Properties
 
@@ -50,15 +53,22 @@ namespace SOS.FOS.CellStation.AlarmCom
 
 			#region Call ADC to get information
 
-			SerialNumberValidationResult result = client.ValidateSerialNumber(GetAuth(), Account.SerialNumber);
+			var serialNumber = account.SerialNumber;
+			SerialNumberValidationResult result = client.ValidateSerialNumber(GetAuth(), serialNumber);
+			var clientCustomer = new AlarmComWebService.CustomerManagementSoapClient();
 
+			int customerId = clientCustomer.LookupCustomerIdFromDealerCustomerId(GetAuthWebService(), account.AccountID.ToString(CultureInfo.InvariantCulture));
+			var customerInfo = clientCustomer.GetCustomerInfo(GetAuthWebService(), customerId);
 
-			if (!result.Valid)
+			// ** This condition says that we do not have access to this device.
+			if (!result.Valid && result.ModemInfo == null)
 			{
 				Valid = result.Valid;
+				ErrorDescription = result.ErrorDescription;
 				return;
 			}
 
+			IsRegistered = result.ErrorDescription.Equals("SerialNumber is already in use.");
 			Valid = result.Valid;
 			ErrorDescription = result.ErrorDescription;
 			IsReferral = result.IsReferral;
@@ -76,6 +86,11 @@ namespace SOS.FOS.CellStation.AlarmCom
 		private Authentication GetAuth()
 		{
 			return new Authentication { Password = Account.Password, User = Account.Username };
+		}
+
+		private AlarmComWebService.Authentication GetAuthWebService()
+		{
+			return new AlarmComWebService.Authentication { Password = Account.Password, User = Account.Username };
 		}
 
 		#endregion Methods

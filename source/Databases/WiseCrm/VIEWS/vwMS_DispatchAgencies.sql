@@ -56,4 +56,4 @@ AS
 
 GO
 /* TEST */
--- SELECT * FROM vwMS_DispatchAgencies
+-- SELECT TOP 100 * FROM vwMS_DispatchAgencies

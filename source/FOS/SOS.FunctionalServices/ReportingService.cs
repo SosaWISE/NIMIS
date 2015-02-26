@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
 using SOS.Data.SosCrm;
+using SOS.FOS.CellStation.AlarmCom;
 using SOS.FOS.MonitoringStationServices;
 using SOS.FunctionalServices.Contracts;
 using SOS.FunctionalServices.Contracts.Helper;
@@ -115,6 +116,11 @@ namespace SOS.FunctionalServices
 
 			#region Get Cellular Device Status
 
+			var cellServices = new CellStationService();
+			var cellStation = cellServices.GetStation(msAccount.AccountID);
+			var cellDevStat = new AlarmComDeviceStatus(cellStation.Value.Account);
+			cellDevStat.RetrieveDeviceStatus(cellStation.Value.Account);
+			// TODO:  ANDRES
 			#endregion Get Cellular Device Status
 
 			#endregion Build result

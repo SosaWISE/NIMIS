@@ -40,7 +40,7 @@ namespace SOS.FunctionalServices
 		#endregion Properties
 
 		#region Methods
-		private Result<AlarmComStation> GetStation(long accountID)
+		public Result<AlarmComStation> GetStation(long accountID)
 		{
 			var context = SosCrmDataContext.Instance;
 			var msAccount = context.MS_Accounts.LoadByPrimaryKey(accountID);
