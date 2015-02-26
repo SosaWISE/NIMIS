@@ -46,6 +46,7 @@ namespace SOS.FunctionalServices
 
 				var msAccount = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(accountId);
 				var csStatustList = GetCentralStationInfo(msAccount, gpEmployeeId);
+				GetCellularDeviceInfo(msAccount, csStatustList);
 
 				// ** Setup Return
 				result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
@@ -114,19 +115,60 @@ namespace SOS.FunctionalServices
 			});
 			#endregion Get Central Station Status
 
-			#region Get Cellular Device Status
-
-			var cellServices = new CellStationService();
-			var cellStation = cellServices.GetStation(msAccount.AccountID);
-			var cellDevStat = new AlarmComDeviceStatus(cellStation.Value.Account);
-			cellDevStat.RetrieveDeviceStatus(cellStation.Value.Account);
-			// TODO:  ANDRES
-			#endregion Get Cellular Device Status
-
 			#endregion Build result
 
 			// ** Return list
 			return resultList;
+		}
+
+		private bool GetCellularDeviceInfo(MS_Account msAccount, List<IFnsMsAccountOnlineStatusInfo> resultList)
+		{
+			#region Initialize
+			var result = false;
+			#endregion Initialize
+
+			try
+			{
+				#region Get Cellular Device Status
+
+				var cellServices = new CellStationService();
+				var cellStation = cellServices.GetStation(msAccount.AccountID);
+				var cellDevStat = new AlarmComDeviceStatus(cellStation.Value.Account);
+				cellDevStat.RetrieveDeviceStatus(cellStation.Value.Account);
+
+				// TODO:  ANDRES
+				// ** Add result to list.
+				resultList.Add(new FnsMsAccountOnlineStatusInfo
+				{
+					KeyName = string.Format("Cellular Provider: {0}", "Alarm.Com"),
+					Text = string.Format("Cellular Vendor: {0}", "Alarm.Com"),
+					Status = "Good",
+					Value = string.Format("Cellular Vendor: {0}", "Alarm.Com"),
+				});
+
+				resultList.Add(new FnsMsAccountOnlineStatusInfo
+				{
+					KeyName = string.Format("Device Status: {0}", cellDevStat.IsRegistered ? "Registered" : "Unregistered"),
+					Text = string.Format("Device: {0}", cellDevStat.IsRegistered),
+					Status = cellDevStat.IsRegistered ? "Good" : "Warning",
+					Value = string.Format("Serial Number: {0}", cellDevStat.ModemSerial),
+				});
+
+				#endregion Get Cellular Device Status
+
+				result = true;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("Error gathering cellular device information: {0}", ex.Message);
+			}
+
+			#region Return result
+
+			return result;
+
+			#endregion Return result
+
 		}
 
 		#endregion #Central Statio information

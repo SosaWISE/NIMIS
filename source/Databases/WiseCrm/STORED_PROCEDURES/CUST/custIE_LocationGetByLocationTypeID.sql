@@ -60,7 +60,7 @@ BEGIN
 			SET @FieldName = (SELECT IELT.FieldName FROM IE_LocationTypes IELT WHERE IELT.LocationTypeID = @LocationTypeID )
 			SET @FieldID = (SELECT IELT.FieldID FROM IE_LocationTypes IELT WHERE IELT.LocationTypeID = @LocationTypeID )
 			
-			SET @Query = 'SELECT '+ @FieldID +' AS LocationID, '+ @FieldName +'  AS LocationName FROM ' + @TableName
+			SET @Query = 'SELECT '+ @FieldID +' AS LocationID, '+ @FieldName +'  AS LocationName FROM ' + @TableName + ' WHERE (IsActive = 1) AND (IsDeleted = 0)'
 			EXEC(@Query)
 			
 			/*
