@@ -17,6 +17,8 @@ namespace SOS.FOS.CellStation.AlarmCom
 		#region Properties
 		public AlarmComAccount Account { get; private set; }
 
+		public bool IsVisibleToNexsense { get; private set; }
+
 		public bool IsRegistered { get; private set; }
 		
 		public bool Valid { get; private set; }
@@ -52,13 +54,21 @@ namespace SOS.FOS.CellStation.AlarmCom
 			#endregion Initialization
 
 			#region Call ADC to get information
+			var clientCustomer = new AlarmComWebService.CustomerManagementSoapClient();
+			int customerId = clientCustomer.LookupCustomerIdFromDealerCustomerId(GetAuthWebService(), account.AccountID.ToString(CultureInfo.InvariantCulture));
+			if (customerId == 0)
+			{
+				IsVisibleToNexsense = false;
+			}
+			else
+			{
+				var customerInfo = clientCustomer.GetCustomerInfo(GetAuthWebService(), customerId);
+			}
 
 			var serialNumber = account.SerialNumber;
 			SerialNumberValidationResult result = client.ValidateSerialNumber(GetAuth(), serialNumber);
-			var clientCustomer = new AlarmComWebService.CustomerManagementSoapClient();
 
-			int customerId = clientCustomer.LookupCustomerIdFromDealerCustomerId(GetAuthWebService(), account.AccountID.ToString(CultureInfo.InvariantCulture));
-			var customerInfo = clientCustomer.GetCustomerInfo(GetAuthWebService(), customerId);
+			IsRegistered = result.ErrorDescription.Equals("SerialNumber is already in use.");
 
 			// ** This condition says that we do not have access to this device.
 			if (!result.Valid && result.ModemInfo == null)
@@ -68,7 +78,6 @@ namespace SOS.FOS.CellStation.AlarmCom
 				return;
 			}
 
-			IsRegistered = result.ErrorDescription.Equals("SerialNumber is already in use.");
 			Valid = result.Valid;
 			ErrorDescription = result.ErrorDescription;
 			IsReferral = result.IsReferral;
