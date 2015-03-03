@@ -100,7 +100,10 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				: "NONE";
 
 
-			var sysTypeId = msAccount.GetMoniSysTypeId().SystemTypeID; // SysTypeId = "A1S001"
+		    var MoniPanelSysTypeId = msAccount.GetMoniSysTypeId();
+            if (MoniPanelSysTypeId == null)
+                throw new Exception("Main Panel is Missing");
+            var sysTypeId = MoniPanelSysTypeId.SystemTypeID; // SysTypeId = "A1S001"
 			var secSysTypeId = string.Empty;
 			if (msAccount.CellularTypeId.Equals(MS_AccountCellularType.MetaData.Cell_PrimaryID))
 			{
