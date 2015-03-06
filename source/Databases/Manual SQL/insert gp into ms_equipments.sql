@@ -2,6 +2,7 @@ DECLARE @ItemSKU VARCHAR(50)
 DECLARE @EquipmentMonitoredTypeId INT
 DECLARE @EquipmentTypeId INT
 DECLARE @AccountZoneTypeId VARCHAR(10)
+DECLARE @AccountEventId INT
 DECLARE @EquipmentPanelTypeId INT
 DECLARE @IsCellUnit BIT
 DECLARE @IsExisting BIT
@@ -11,11 +12,9 @@ DECLARE @IsWireless BIT
 DECLARE @ShowInInventory BIT
 DECLARE @UpdateFlg INT
 
-SET @ItemSKU = 'HD100'
-/*'99100-006'
-'99100-004',
-'99100-005',
-'99100-006'
+SET @ItemSKU = 'WS-GE-001872-WHITE'
+/*
+	MAKE SURE TO SET YOUR VALUES FOR THE 5 VARIABLES BELOW
 */
 SET @EquipmentMonitoredTypeId = NULL
 /*
@@ -37,7 +36,7 @@ EquipmentMonitoredTypeId:
 15 Close
 */
 
-SET @EquipmentTypeId = 15
+SET @EquipmentTypeId = 26
 /*
 EquipmentTypeID:
 1 Door / Window
@@ -55,7 +54,7 @@ EquipmentTypeID:
 13 Tool
 14 Activation Fee
 15 Camera
-16 Deadbolt
+16 Z-Wave Locks
 17 Doorbell
 18 Kit
 19 Keypad
@@ -74,21 +73,59 @@ SET @AccountZoneTypeId = 'NOZONE'
 /*
 AccountZoneTypeID:
 AccountZoneTypeID	AccountZoneType
-FIRE	Fire
-MEDICAL	Medical
-NOZONE	[No Zone]
-PANEL	Panel
-POLICE	Police
+FIRE				Fire
+MEDICAL				Medical
+NOZONE				[No Zone]
+PANEL				Panel
+POLICE				Police
 */
 
-SET @EquipmentPanelTypeId = 5
+SET @AccountEventId = NULL
+/*
+MoniEventID	Event_id	servtype_id	desc
+34			1010		CFIRE		Commercial Fire
+35			1020		RFIRE		Residential Fire
+36			1030		FTAMP		Fire Tamper
+37			1040		FSUPV		Fire Supervisory
+38			1050		FTEST		Fire Test
+39			1110		SPANIC		Silent Panic
+40			1120		CHLDUP		Commercial Holdup
+41			1130		DURESS		Duress
+42			1140		APANIC		Audible Panic
+43			1200		MEDICL		Medical
+44			1300		CRITCL		Critical Condition
+45			1400		BURG		Burglary
+46			1410		TAMPER		Tamper
+47			1510		CENVIR		Commercial Environmental
+48			1520		RENVIR		Environmental
+49			1600		CANCEL		Cancel
+50			1710		OPEN		Open (No Schedule)
+51			1720		CLOSE		Close (No Schedule)
+52			1810		24SUPV		High Priority Supervisory Alar
+53			1820		CTRBLE		Commercial Trouble
+54			1830		CACLSS		Commercial Trouble
+55			1840		CLBATT		Commercial Low Battery
+56			1860		RTRBLE		Residential Trouble
+57			1870		RACLSS		Residential A/C Power Loss
+58			1880		RLBATT		Residential Low Battery
+59			1910		RESTOR		Restore
+60			1920		TEST		Test
+61			1930		BYPASS		Bypass
+62			1980		UNBYPS		Unbypassed
+63			2110		FTO			Fail to Open
+64			2120		FTC			Fail to Close
+65			2210		FTR			Fail to Restore
+66			2220		FTT			Fail to Test
+*/
+
+SET @EquipmentPanelTypeId = NULL
 /*
 EquipmentPanelTypeId	PanelTypeName	AvantGuardCode
-1	LYNX	LYNX
-2	VISTA	VISTA
-3	SIMON	GE Simon XT
-4	CONCORD	CONCRD
-5	GENERIC	Generic Panel
+1						LYNX			LYNX
+2						VISTA			VISTA
+3						SIMON			GE Simon XT
+4						CONCORD			CONCRD
+5						GENERIC			Generic Panel
 */
 
 SET @IsCellUnit = 0
@@ -139,7 +176,7 @@ IF @UpdateFlg = 0
 		@EquipmentMonitoredTypeId AS EquipmentMonitoredTypeId, 
 		@EquipmentTypeId AS EquipmentTypeId, 
 		@AccountZoneTypeId AS AccountZoneTypeId, 
-		NULL AS AccountEventId, 
+		@AccountEventId AS AccountEventId, 
 		@EquipmentPanelTypeId AS EquipmentPanelTypeId, 
 		AE_Items.ItemSKU AS GPItemNmbr, 
 		AE_Items.ItemDesc AS ItemDescription, 
@@ -186,6 +223,8 @@ IF @UpdateFlg = 0
 	WHERE 
 		GPItemNmbr = @ItemSKU
 END
+
+--SELECT * FROM MS_Equipments WHERE GPItemNmbr = @ItemSKU
 
 /*
 SELECT 
