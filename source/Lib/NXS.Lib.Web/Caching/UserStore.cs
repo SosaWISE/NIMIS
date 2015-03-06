@@ -12,23 +12,23 @@ namespace NXS.Lib.Web.Caching
 
 	public class UserStore : IDisposable
 	{
-		ReadUserFunc _readUser;
-		TimeSpan _hardExpiration;
+		static int _count = 0;
 
 		LockBy<string> _idlocker;
 
-		static int _count = 0;
+		ReadUserFunc _readUser;
+		TimeSpan _hardExpirationLength;
 		MemoryCache _cache;
 
-		public UserStore(ReadUserFunc readUser, TimeSpan hardExpiration,
+		public UserStore(ReadUserFunc readUser, TimeSpan hardExpirationLength,
 			int? memoryLimitMb = null, int? physicalMemoryLimitPercent = null, TimeSpan? pollingInterval = null)
 		{
-			_readUser = readUser;
-			_hardExpiration = hardExpiration;
-
 			_idlocker = new LockBy<string>();
 
-			var cacheSettings = new NameValueCollection();
+			_readUser = readUser;
+			_hardExpirationLength = hardExpirationLength;
+
+			var cacheSettings = new System.Collections.Specialized.NameValueCollection();
 			cacheSettings.Add("CacheMemoryLimitMegabytes", memoryLimitMb.HasValue ? memoryLimitMb.ToString() : "10");
 			cacheSettings.Add("physicalMemoryLimitPercentage", physicalMemoryLimitPercent.HasValue ? physicalMemoryLimitPercent.Value.ToString() : "49");  //set % here
 			cacheSettings.Add("pollingInterval", pollingInterval.HasValue ? pollingInterval.ToString() : "00:02:30");
@@ -65,11 +65,12 @@ namespace NXS.Lib.Web.Caching
 					user = _readUser(username);
 					if (user != default(User))
 					{
-						var p = new CacheItemPolicy();
-						p.AbsoluteExpiration = DateTimeOffset.UtcNow.Add(_hardExpiration);
-						p.Priority = CacheItemPriority.Default;
-						p.RemovedCallback = this.OnRemoved;
-
+						var p = new CacheItemPolicy()
+						{
+							AbsoluteExpiration = DateTimeOffset.UtcNow.Add(_hardExpirationLength),
+							Priority = CacheItemPriority.Default,
+							RemovedCallback = this.OnRemoved,
+						};
 						_cache.Set(username, user, p);
 					}
 				}
@@ -80,7 +81,7 @@ namespace NXS.Lib.Web.Caching
 		{
 		}
 
-		public void InvalidateCached(string username)
+		public void RemoveCached(string username)
 		{
 			if (_disposed)
 				throw new Exception("UserStore is disposed");

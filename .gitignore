@@ -38,5 +38,6 @@ source/Production
 corspackages
 packages
 webenv
+keyStore/
 
 source.other*/

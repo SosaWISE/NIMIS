@@ -94,34 +94,4 @@ namespace NXS.Lib.Web
 			}
 		}
 	}
-
-	//public class LockByBytes : LockBy<byte[]>
-	//{
-	//	public LockByBytes()
-	//		: base(new ByteArrayComparer())
-	//	{
-	//	}
-	//
-	//	internal void Lock(byte[] sessionKey, Action action)
-	//	{
-	//		throw new NotImplementedException();
-	//	}
-	//}
-	//public class ByteArrayComparer : IEqualityComparer<byte[]>
-	//{
-	//	public bool Equals(byte[] left, byte[] right)
-	//	{
-	//		if (left == null || right == null)
-	//		{
-	//			return left == right;
-	//		}
-	//		return left.SequenceEqual(right);
-	//	}
-	//	public int GetHashCode(byte[] key)
-	//	{
-	//		if (key == null)
-	//			throw new ArgumentNullException("key");
-	//		return key.Sum(b => b);
-	//	}
-	//}
 }

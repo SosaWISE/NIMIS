@@ -43,6 +43,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Nancy, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\corspackages\Nancy.1.1\lib\net40\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Authentication.Token">
+      <HintPath>..\..\corspackages\Nancy.Authentication.Token.1.1\lib\net40\Nancy.Authentication.Token.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Hosting.Aspnet">
+      <HintPath>..\..\corspackages\Nancy.Hosting.Aspnet.1.1\lib\net40\Nancy.Hosting.Aspnet.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Serialization.JsonNet">
+      <HintPath>..\..\corspackages\Nancy.Serialization.JsonNet.1.1\lib\net40\Nancy.Serialization.JsonNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -110,10 +123,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\corspackages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\..\corspackages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -240,6 +249,7 @@
     <Compile Include="Models\JsonParamBase.cs" />
     <Compile Include="Models\QlAddress.cs" />
     <Compile Include="Models\QlCreditReport.cs" />
+    <Compile Include="NimisBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -299,6 +309,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="api\web.config" />
     <None Include="Properties\PublishProfiles\To DEV.pubxml" />
     <None Include="Properties\PublishProfiles\To LOCAL.pubxml" />
     <None Include="Properties\PublishProfiles\To STAGE.pubxml" />
@@ -330,6 +341,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="_Nancy\web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -393,6 +405,14 @@
     <ProjectReference Include="..\..\..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj">
       <Project>{33a1b8c5-b37d-423e-b7fd-83ce1ec1d442}</Project>
       <Name>SOS.Lib.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\WebModules\WebModules.Crm\WebModules.Crm.csproj">
+      <Project>{72544965-d17c-4d5c-9361-f27ae1c93b3b}</Project>
+      <Name>WebModules.Crm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\WebModules\WebModules\WebModules.csproj">
+      <Project>{799603c8-07f9-48fd-9f07-5929f1e542a2}</Project>
+      <Name>WebModules</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Interfaces\SOS.Services.Interfaces\SOS.Services.Interfaces.csproj">
       <Project>{DCDBF3EE-D932-4713-9A47-2693C0C7BEF4}</Project>

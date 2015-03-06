@@ -12,6 +12,7 @@ namespace SOS.Lib.Core
 		public string Message { get; set; }
 		public T Value { get; set; }
 
+		public Result() { }
 		public Result(int code = 0, string message = "", T value = default(T))
 		{
 			Code = code;

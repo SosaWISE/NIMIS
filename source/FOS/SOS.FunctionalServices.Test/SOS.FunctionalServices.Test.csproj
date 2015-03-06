@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Nancy">
+      <HintPath>..\..\Services\Cors\corspackages\Nancy.1.1\lib\net40\Nancy.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -67,6 +70,9 @@
       <Project>{2ce00a6b-c0ac-44ab-b80f-9e58865ad3bd}</Project>
       <Name>SOS.FunctionalServices</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

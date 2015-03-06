@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Http;
@@ -12,81 +13,62 @@ using SSE.Services.CmsCORS.Helpers;
 using SSE.Services.CmsCORS.Models;
 using SOS.Lib.Core;
 using NXS.Lib.Web;
+using NXS.Lib.Web.Caching;
+using Nancy.Authentication.Token;
+using Nancy.Security;
+using Nancy;
 
 namespace SSE.Services.CmsCORS.Controllers
 {
 	[RoutePrefix("AuthSrv")]
 	public class AuthSrvController : ApiController
 	{
-		#region SECURITY HOLE
-		//public class DecodedValue
-		//{
-		//	public string Username { get; set; }
-		//	public byte[] SessionNum { get; set; }
-		//	public string SessionKey { get; set; }
-		//}
-		//public class SidDecode
-		//{
-		//	public string SID { get; set; }
-		//	public DecodedValue Decoded { get; set; }
-		//}
-		//[HttpGet, Route("DecodeSID")]
-		//public SidDecode DecodeSID()
-		//{
-		//	var context = HttpContext.Current;
-		//	var userSession = context.GetUserSession();
-		//	if (userSession == null)
-		//		return null;
-		//
-		//	var service = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
-		//	return new SidDecode
-		//	{
-		//		SID = context.Request.Cookies["SID"].Value,
-		//		Decoded = new DecodedValue
-		//		{
-		//			Username = userSession.Username,
-		//			SessionNum = userSession.SessionNum,
-		//			SessionKey = service.SessionNumToKey(userSession.SessionNum),
-		//		},
-		//	};
-		//}
-		#endregion //SECURITY HOLE
+		TokenAuthenticationConfiguration _tokenConfig;
+		AuthService _authService;
+		public AuthSrvController()
+		{
+			_tokenConfig = SosServiceEngine.Instance.FunctionalServices.Instance<TokenAuthenticationConfiguration>();
+			_authService = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
+		}
+
+#if DEBUG
+		public class SessData
+		{
+			public string Token { get; set; }
+			public string Username { get; set; }
+			public byte[] SessionNum { get; set; }
+			public string SessionKey { get; set; }
+		}
+		[HttpGet, Route("SessionData")]
+		public Result<SessData> SessionData()
+		{
+			var result = new Result<SessData>();
+			string token, username;
+			byte[] sessionNum;
+			HttpContext.Current.GetSessionData(_tokenConfig.Tokenizer, out token, out username, out sessionNum);
+			result.Value = new SessData
+			{
+				Token = token,
+				Username = username,
+				SessionNum = sessionNum,
+				SessionKey = _authService.SessionNumToKey(sessionNum),
+			};
+			return result;
+		}
+#endif
 
 		[HttpPost, Route("SessionStart")]
 		public Result<UserModel> SessionStart()
 		{
-			var service = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
-			UserSession userSession;
-			string username;
-
-			var context = HttpContext.Current;
-			var identity = context.User.Identity;
-			if (identity.IsAuthenticated)
+			var identity = HttpContext.Current.GetIdentity(_tokenConfig);
+			var result = new Result<UserModel>();
+			if (identity != null)
 			{
-				// session not needed for windows auth
-				userSession = null;
-				username = identity.GetUsername();
+				result.Value = _authService.ToUserModel(identity);
 			}
 			else
 			{
-				userSession = context.GetUserSession();
-				service.RenewOrStartSession(ref userSession, IPAddressUtil.ClientIPAddress());
-				username = userSession.Username;
-			}
-
-			var result = service.GetUser(username);
-			if (result.Success)
-			{
-				if (identity.IsAuthenticated)
-				{
-					result.Message = "using windows authentication";
-				}
-				else
-				{
-					// set cookies
-					context.SetXsfrTokenCookie(service.NewXsrfToken());
-					context.SetUserSessionCookie(userSession);
-				}
+				//@NOTE: currently anonymous users don't have a session
 			}
 			return result;
 		}
@@ -96,22 +78,27 @@ namespace SSE.Services.CmsCORS.Controllers
 			public string Username { get; set; }
 			public string Password { get; set; }
 		}
-		[HttpPost, Route("UserAuth")]
-		public Result<UserModel> UserAuth(Credentials credentials)
+		public class AuthResult
 		{
-			var context = HttpContext.Current;
-			if (context.User.Identity.IsAuthenticated)
+			public string Token { get; set; }
+			public UserModel User { get; set; }
+		}
+		[HttpPost, Route("UserAuth")]
+		public Result<AuthResult> UserAuth(Credentials credentials)
+		{
+			var result = new Result<AuthResult>();
+			var authResult = _authService.Authenticate(credentials.Username, credentials.Password, IPAddressUtil.ClientIPAddress());
+			if (authResult.Success)
 			{
-				return new Result<UserModel>(code: -1, message: "login not allowed when using windows authentication");
+				var identity = authResult.Value;
+				result.Value = new AuthResult() { User = _authService.ToUserModel(identity), };
+				identity.UseSessionNumAsClaims = true;
+				result.Value.Token = _tokenConfig.Tokenizer.Tokenize(identity, null);
 			}
-
-			var userSession = context.GetUserSession();
-			var service = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
-			var result = service.Authenticate(userSession, credentials.Username, credentials.Password, IPAddressUtil.ClientIPAddress());
-			if (result.Success)
+			else
 			{
-				// set session cookie
-				context.SetUserSessionCookie(userSession);
+				result.Code = authResult.Code;
+				result.Message = authResult.Message;
 			}
 			return result;
 		}
@@ -122,15 +109,10 @@ namespace SSE.Services.CmsCORS.Controllers
 			var result = new Result<bool>();
 			try
 			{
-				var context = HttpContext.Current;
-				var userSession = context.GetUserSession();
-				if (userSession != null)
-				{
-					var service = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
-					service.EndSession(userSession.SessionNum);
-				}
-				// remove cookies
-				context.DestroyAuthCookies();
+				string token, username;
+				byte[] sessionNum;
+				HttpContext.Current.GetSessionData(_tokenConfig.Tokenizer, out token, out username, out sessionNum);
+				_authService.EndSession(sessionNum);
 				result.Value = true;
 			}
 			catch (Exception ex)
