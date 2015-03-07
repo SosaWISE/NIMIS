@@ -1,7 +1,7 @@
 USE [WISE_CRM]
 GO
 /** Declarations */
-DECLARE @AccountID BIGINT = '191104';
+DECLARE @AccountID BIGINT = '191103';
 SELECT TOP 1 * FROM dbo.MS_AccountSubmits ORDER BY AccountSubmitID DESC;
 SELECT * FROM MS_Accounts WHERE AccountID = @AccountID;
 SELECT TOP 100 * FROM dbo.MS_AccountSubmitMs 

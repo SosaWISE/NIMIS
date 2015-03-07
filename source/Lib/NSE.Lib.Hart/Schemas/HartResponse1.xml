@@ -1,0 +1,328 @@
+<?xml version="1.0"?>
+<HX5 version="5.5">
+  <HX5_transaction_information>
+    <Transid>276681645</Transid>
+    <Token>X8QepxHIvAaVyuQFW3IiuPTP3FOVkfcXq0FJ/oEqknsT2n0hjHdwQmFXCF+LXh4NFJVCaeUrs1cbfHv89kekLsqRM0OMz0IwwCz7QuMsLenp</Token>
+  </HX5_transaction_information>
+  <bureau_xml_data>
+    <TU_Report>
+      <transaction_control id="TU4R">
+        <version_switch code="0">TU40 version 0</version_switch>
+        <country_code code="1">United States</country_code>
+        <language_indicator code="1">English</language_indicator>
+        <user_reference></user_reference>
+        <market>29</market>
+        <submarket>UT</submarket>
+        <industry_code>H</industry_code>
+        <member_code>05427406</member_code>
+        <trans_date fmt="CCYYMMDD">20150306</trans_date>
+        <trans_time fmt="HHNNSS">145230</trans_time>
+      </transaction_control>
+      <consumer_data id="CD01">
+        <customer_identifier_qualifier>05</customer_identifier_qualifier>
+        <customer_identifier>HART SOFTWARE</customer_identifier>
+        <password>**masked by vendor**</password>
+      </consumer_data>
+      <bureau_product_header id="PH01" code="07000">Credit Report</bureau_product_header>
+      <subject_segments id="SH01" num="1">
+        <subject_header id="SH01">
+          <subject_id code="1">First subject</subject_id>
+          <file_number>01</file_number>
+          <file_hit code="Y">Regular hit on file -- all files are returned</file_hit>
+          <ssn_match_ind code="01">No match on SSN</ssn_match_ind>
+          <consumer_statement_ind code="N">No consumer statement on file</consumer_statement_ind>
+          <bur_market_file_control>45</bur_market_file_control>
+          <bur_submarket_file_control>II</bur_submarket_file_control>
+          <suppression_ind code="N">Credit data not suppressed</suppression_ind>
+          <infile_since_date>20090303</infile_since_date>
+        </subject_header>
+        <name_information id="NM01" type="1">
+          <source_indicator code="F">Name that appears in the returned file</source_indicator>
+          <name_indicator code="1">Primary name</name_indicator>
+          <lname>ABEL</lname>
+          <fname>JUDY</fname>
+          <mname></mname>
+          <prefix></prefix>
+          <suffix></suffix>
+        </name_information>
+        <personal_information id="PI01">
+          <source_indicator code="F">Data that appears on the TransUnion database</source_indicator>
+          <ssn>666545819</ssn>
+          <dob></dob>
+          <age></age>
+          <gender code=""></gender>
+        </personal_information>
+        <id_mismatch_alert id="TA01">
+          <address_type code=""></address_type>
+          <message_type code="2">SSN alert</message_type>
+          <alert_condition code="1">Mismatch - input does not match file</alert_condition>
+          <number_inquiries_last_60_days>00</number_inquiries_last_60_days>
+        </id_mismatch_alert>
+        <address_information id="AD01">
+          <source_indicator code="F">Address that appears on the database</source_indicator>
+          <addr_qualifier code="1">Personal</addr_qualifier>
+          <house_number>4860</house_number>
+          <predirectional>E</predirectional>
+          <street_name>LANE</street_name>
+          <postdirectional></postdirectional>
+          <street_type>AV</street_type>
+          <apt_unit_number>221</apt_unit_number>
+          <city>FRESNO</city>
+          <state>CA</state>
+          <zip>93727</zip>
+          <date_reported>20150201</date_reported>
+        </address_information>
+        <employment_segments id="EM01" product="07000">
+          <employment_information id="EM01">
+            <employer_name>TEST A</employer_name>
+            <source_indicator code="F"></source_indicator>
+            <occupation>A TESTER</occupation>
+            <date_hired fmt="CCYYMMDD">20100301</date_hired>
+            <date_separated fmt="CCYYMMDD"></date_separated>
+            <date_verified_or_reported fmt="CCYYMMDD">20150210</date_verified_or_reported>
+            <date_verified_or_reported_code code="V">Date Verified is displayed</date_verified_or_reported_code>
+            <income></income>
+            <pay_basis code=""></pay_basis>
+          </employment_information>
+        </employment_segments>
+        <employment_segments id="EM01" product="07000">
+          <employment_information id="EM01">
+            <employer_name>TELCO</employer_name>
+            <source_indicator code="F"></source_indicator>
+            <occupation>SOFTWARE</occupation>
+            <date_hired fmt="CCYYMMDD">20050301</date_hired>
+            <date_separated fmt="CCYYMMDD"></date_separated>
+            <date_verified_or_reported fmt="CCYYMMDD">20150210</date_verified_or_reported>
+            <date_verified_or_reported_code code="V">Date Verified is displayed</date_verified_or_reported_code>
+            <income></income>
+            <pay_basis code=""></pay_basis>
+          </employment_information>
+        </employment_segments>
+        <trade_segments id="TR01" product="07000">
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>03091002</member_code>
+            <subscriber_name>ASSOC CARD</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>111111250029</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20090320</date_opened>
+            <date_verified fmt="CCYYMMDD">20140319</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD"></date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance></balance>
+            <high_credit>000005000</high_credit>
+            <credit_limit>000005000</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20140219</payment_pattern_start_date>
+            <payment_pattern start_date="20140219">1111111111111111111</payment_pattern>
+            <number_months_reviewed>19</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+        </trade_segments>
+        <scoring_segments id="AO01" product="00P02">
+          <product_information id="AO01" product="00P02">
+            <product code="00P02"></product>
+            <product_status code="04">Default product delivered</product_status>
+            <search_status code=""></search_status>
+          </product_information>
+          <scoring id="SC01">
+            <product_code code="00P02">FICO CLASSIC 04</product_code>
+            <sign>+</sign>
+            <score></score>
+            <indicator_flag code="3">File not scored because subject does not have sufficient credit</indicator_flag>
+            <derogatory_alert_flag code="">No alert information is found in the file and/or inquiries did not impact the credit score</derogatory_alert_flag>
+            <factor1 code=""></factor1>
+            <factor2 code=""></factor2>
+            <factor3 code=""></factor3>
+            <factor4 code=""></factor4>
+            <score_card_indicator></score_card_indicator>
+          </scoring>
+        </scoring_segments>
+      </subject_segments>
+      <transaction_ending id="ENDS">
+        <segments_returned>014</segments_returned>
+      </transaction_ending>
+    </TU_Report>
+  </bureau_xml_data>
+  <HTML_Reports>
+    <HTML_Report fmt_type="1"><![CDATA[<html>
+<head>
+<script language="javascript">  function toggleVisibility(useID) {     var tmp = document.getElementById(useID);     var dheader = document.getElementById('TU40_ARM_SD');     var sheader = document.getElementById('TU40_ARM_SS');     if (tmp) {        if (tmp.style.display=="block") tmp.style.display="none";        else tmp.style.display="block";     }     if (dheader) {       if (dheader.style.display=="block") dheader.style.display="none";     else dheader.style.display="block";     }     if (sheader) {       if (sheader.style.display=="block") sheader.style.display="none";     else sheader.style.display="block";     }  }  </script>
+<style type="text/css"><!--
+
+ .spaced {font-family: arial; font-size: 12pt; letter-spacing: 3px}
+ P.TRpad {font-family: monospace; font-size: 10pt; padding-top: 0.05cm; padding-bottom: 0.05cm; padding-left: 0.25cm; padding-right: 0.25cm; letter-spacing: -1px}
+TH {font-family: arial; font-size: 9pt} P {font-family: arial; font-size: 9pt; padding-top: 0.05cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm}
+ P.pipad {font-family : arial; font-size: 9pt; padding-right: 0.05cm; padding-top: 0.05cm; padding-bottom: 0.05cm}
+ TD {font-family: arial; font-size: 9pt; padding-top: 0.05cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm}
+ .mono {font-family: 'Courier New',monospace; font-size: 10pt}
+ .pagebreak {page-break-after: always}
+   --></style>
+<style type="text/css"> <!--
+ .goodmop {background-color: #FFFFFF}
+ .badmop {background-color: lightpink}
+ .alert {background-color:lightsalmon}
+ .separator {background-color:#FFFFCC; font-weight:bold}
+ --> </style>
+</head>
+<body>
+<!--TU_REPORT-->
+<!--FAD=3/6/2015-->
+<!--REPORT_07000-->
+<a name="tureport"></a>
+<p>TRANS UNION REPORT</p>
+
+<p>No match on SSN. </p>
+<!--INPUTINFO-->
+<pre>
+Input Transid: 276681645
+</pre>
+<!--/INPUTINFO-->
+<!--PI11-->
+<table border WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+<tr><th class=spaced COLSPAN=3 ALIGN=CENTER BGCOLOR="#C0C0C0">Personal Information Since 3/3/2009 FAD 3/6/2015</th></tr>
+<tr><th><br/></th><th><br/></th><th><p>Reported</p></th></tr>
+<tr><td width="15%" valign=baseline align=right><p class=pipad><b>
+Name
+<br/>
+SSN
+<br/>
+Address
+<br/>
+</b></p></td>
+<td valign=baseline nowrap><p>
+ &nbsp; ABEL, JUDY
+<br/>
+ &nbsp; 666-54-5819
+<br/>
+ &nbsp; 4860, E, LANE, AV, 221, FRESNO, CA, 93727
+</p></td>
+<td width="15%" valign=baseline align=center><p>
+
+<br/>
+
+<br/>
+2/1/2015
+</p></td></tr>
+</table>
+<br/>
+<!--/PI11-->
+<table bgcolor="#C0C0C0" border RULES=COLS CELLPADDING=0 WIDTH="100%" CELLSPACING=0>
+<tr bgcolor="#C0C0C0"><th class=spaced COLSPAN=1 ALIGN=CENTER BGCOLOR="#C0C0C0">ID Mismatch Alert [Trans Alert]</th></tr>
+<tr><td class=alert align=left><p style="font-weight: bold" align=left> SSN Alert: &nbsp;&nbsp;&nbsp;&nbsp;  Mismatch - input does not match file<br/>Inquiries in last 60 days:&nbsp;0</p></td></tr>
+</table>
+<br/>
+<table border WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+<tr><th class=spaced COLSPAN=5 ALIGN=CENTER BGCOLOR="#C0C0C0">Employment</th></tr>
+<tr><td><br/></td><td><br/></td>
+<th valign=baseline width="12%"><p align=center>Date Hired</p></th>
+<th valign=baseline width="12%"><p align=center>Date Separated</p></th>
+<th valign=baseline width="22%"><p align=center>&nbsp;</p></th>
+</tr>
+<tr><td width="12%" valign=baseline><p align=right><b>Employer </b></p></td><td width="42%" valign=baseline><p>&nbsp; TEST A</p></td><td valign=baseline align=center><p>3/1/2010</p></td><td><br/></td><td valign=baseline align=center><p>Verified 2/10/2015</p></td></tr><tr><td valign=baseline align=right><p><b>Occupation </b></p></td><td valign=baseline><p>&nbsp; A TESTER</p></td><td><br/></td><td><br/></td><td><br/></td></tr>
+<tr><td width="12%" valign=baseline><p align=right><b>Employer </b></p></td><td width="42%" valign=baseline><p>&nbsp; TELCO</p></td><td valign=baseline align=center><p>3/1/2005</p></td><td><br/></td><td valign=baseline align=center><p>Verified 2/10/2015</p></td></tr><tr><td valign=baseline align=right><p><b>Occupation </b></p></td><td valign=baseline><p>&nbsp; SOFTWARE</p></td><td><br/></td><td><br/></td><td><br/></td></tr>
+</table>
+<br/>
+<!--SPECIALUSE-->
+<!--AO01-->
+<table border RULES=COLS CELLPADDING=0 WIDTH="100%" CELLSPACING=0>
+<tr><th class=spaced COLSPAN=1 ALIGN=CENTER BGCOLOR="#C0C0C0">Add-On Products Summary</th></tr>
+<tr>
+<td valign=baseline><p>
+ &nbsp; <b>Product: </b>Score Model - FICO CLASSIC 04
+<br/>
+ &nbsp; <b>Status: </b>Default product delivered
+<br/>
+ &nbsp; &nbsp;
+</p></td>
+</tr>
+</table>
+<br/>
+<!--/AO01-->
+<!--SCORING-->
+<!--SC11-->
+<a name="tuscore1"></a>
+<table border RULES=COLS CELLPADDING=0 WIDTH="100%" CELLSPACING=0>
+<tr><th class=spaced COLSPAN=2 ALIGN=CENTER BGCOLOR="#C0C0C0">Scoring</th></tr>
+<tr><td><p style="font-family: arial; font-size: 9pt">
+&nbsp;&nbsp;&nbsp; <b>Score Model: &nbsp; </b>FICO CLASSIC 04&nbsp;&nbsp;  NOT SCORED: FILE NOT SCORED BECAUSE SUBJECT DOES NOT HAVE SUFFICIENT CREDIT
+</p></td>
+<td width=65 valign=bottom align=center class=alert><table><tr><td><p style="font-family: arial; font-size: 10pt">
+&nbsp;
+</p></td></tr></table>
+ </td>
+</tr>
+</table>
+<br/>
+<!--/SC11-->
+<p>No Credit Summary data for this subject</p>
+<!--TRADELINES-->
+<!--TR11-->
+<a name="tutrades"></a>
+<!--TR11_R-->
+<table border WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+<tr><th class=spaced COLSPAN=9 ALIGN=CENTER BGCOLOR="#C0C0C0">Revolving Accounts
+</th></tr>
+<tr><td COLSPAN=4><br/></td><th COLSPAN=3><p>Current Status</p></th>
+<th width=135><p>Hist Status</p></th><td><br/></td></tr>
+<tr><th valign=baseline><p>Acc Name/Address</p></th>
+<th valign=baseline><p>Rptd<br/>DLA<br/>ECOA</p></th>
+<th valign=baseline><p>Opened<br/>Clsd/PD</p></th>
+<th valign=baseline><p>High<br/>Limit</p></th>
+<th valign=baseline><p>Pmt<br/>Term</p></th>
+<th valign=baseline><p>$Bal</p></th>
+<th valign=baseline><p>$Past Due</p></th>
+<th valign=baseline width=135 align=left nowrap><p nowrap>&nbsp;&nbsp;Mths&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;&nbsp;60&nbsp;&nbsp;&nbsp;&nbsp;90</p></th>
+<th valign=baseline><p>Rating</p></th></tr>
+<tr><td valign=baseline><p>ASSOC CARD  <br/>111111250029<br/><b>Subscriber:&nbsp;</b>B&nbsp;03091002<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/>
+</p></td><td valign=baseline align=center><p>03/14A<br/><br/>C</p></td>
+<td valign=baseline align=center><p>03/09<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>5000<br/>5000</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>&nbsp; </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">19&nbsp;&nbsp;<br/>
+111111111111<br/>1111111</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr>
+<td><p style="font-size: 11pt">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Revolving Totals</b>
+</p></td>
+<td><br/></td><td><br/></td><td><br/></td><td align=center><p style="font-size: 11pt"><b>
+$0</b></p></td>
+<td align=center><p style="font-size: 11pt"><b>
+$0</b></p></td><td><br/></td><td><br/></td><td><br/></td>
+</tr>
+</table>
+<br/>
+<!--/TR11_R-->
+<!--/TR11-->
+<p style="font-family: arial; font-size: 9pt; text-indent: -1em; margin-left: 1em"><b>Serviced By:</b><br />TRANSUNION<br />2 BALDWIN PLACE, P.O. BOX 1000<br />CHESTER, PA 19022<br />800-888-4213<br />http://www.transunion.com<br /></p>
+
+<p>END OF REPORT - TRANS UNION - 3/6/2015, 14:52:30 CT</p>
+<!--/REPORT_CREDIT-->
+<!--/TU_REPORT-->
+</body>
+</html>]]>
+    </HTML_Report>
+  </HTML_Reports>
+</HX5>

@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="HX5">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="HX5_transaction_information">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Transid" type="xs:unsignedInt" />
+							<xs:element name="Token" type="xs:string" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="bureau_xml_data">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="TU_Report">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="transaction_control">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="version_switch">
+														<xs:complexType>
+															<xs:simpleContent>
+																<xs:extension base="xs:string">
+																	<xs:attribute name="code" type="xs:unsignedByte" use="required" />
+																</xs:extension>
+															</xs:simpleContent>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="country_code">
+														<xs:complexType>
+															<xs:simpleContent>
+																<xs:extension base="xs:string">
+																	<xs:attribute name="code" type="xs:unsignedByte" use="required" />
+																</xs:extension>
+															</xs:simpleContent>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="language_indicator">
+														<xs:complexType>
+															<xs:simpleContent>
+																<xs:extension base="xs:string">
+																	<xs:attribute name="code" type="xs:unsignedByte" use="required" />
+																</xs:extension>
+															</xs:simpleContent>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="user_reference" />
+													<xs:element name="market" type="xs:unsignedByte" />
+													<xs:element name="submarket" type="xs:string" />
+													<xs:element name="industry_code" type="xs:string" />
+													<xs:element name="member_code" type="xs:unsignedInt" />
+													<xs:element name="trans_date">
+														<xs:complexType>
+															<xs:simpleContent>
+																<xs:extension base="xs:unsignedInt">
+																	<xs:attribute name="fmt" type="xs:string" use="required" />
+																</xs:extension>
+															</xs:simpleContent>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="trans_time">
+														<xs:complexType>
+															<xs:simpleContent>
+																<xs:extension base="xs:unsignedInt">
+																	<xs:attribute name="fmt" type="xs:string" use="required" />
+																</xs:extension>
+															</xs:simpleContent>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="id" type="xs:string" use="required" />
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="consumer_data">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="customer_identifier_qualifier" type="xs:unsignedByte" />
+													<xs:element name="customer_identifier" type="xs:string" />
+													<xs:element name="password" type="xs:string" />
+												</xs:sequence>
+												<xs:attribute name="id" type="xs:string" use="required" />
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="bureau_product_header">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:string">
+														<xs:attribute name="id" type="xs:string" use="required" />
+														<xs:attribute name="code" type="xs:unsignedShort" use="required" />
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="subject_segments">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="subject_header">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="subject_id">
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="xs:string">
+																				<xs:attribute name="code" type="xs:unsignedByte" use="required" />
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="file_number" type="xs:unsignedByte" />
+																<xs:element name="file_hit">
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="xs:string">
+																				<xs:attribute name="code" type="xs:string" use="required" />
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="ssn_match_ind">
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="xs:string">
+																				<xs:attribute name="code" type="xs:unsignedByte" use="required" />
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="consumer_statement_ind">
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="xs:string">
+																				<xs:attribute name="code" type="xs:string" use="required" />
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="bur_market_file_control" type="xs:unsignedByte" />
+																<xs:element name="bur_submarket_file_control" type="xs:string" />
+																<xs:element name="suppression_ind">
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="xs:string">
+																				<xs:attribute name="code" type="xs:string" use="required" />
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="infile_since_date" type="xs:unsignedInt" />
+															</xs:sequence>
+															<xs:attribute name="id" type="xs:string" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="name_information">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="source_indicator">
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="xs:string">
+																				<xs:attribute name="code" type="xs:string" use="required" />
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="name_indicator">
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="xs:string">
+																				<xs:attribute name="code" type="xs:unsignedByte" use="required" />
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="lname" type="xs:string" />
+																<xs:element name="fname" type="xs:string" />
+																<xs:element name="mname" />
+																<xs:element name="prefix" />
+																<xs:element name="suffix" />
+															</xs:sequence>
+															<xs:attribute name="id" type="xs:string" use="required" />
+															<xs:attribute name="type" type="xs:unsignedByte" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="personal_information">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="source_indicator">
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="xs:string">
+																				<xs:attribute name="code" type="xs:string" use="required" />
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="ssn" type="xs:unsignedInt" />
+																<xs:element name="dob" />
+																<xs:element name="age" />
+																<xs:element name="gender">
+																	<xs:complexType>
+																		<xs:attribute name="code" type="xs:string" use="required" />
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+															<xs:attribute name="id" type="xs:string" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="id_mismatch_alert">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="address_type">
+																	<xs:complexType>
+																		<xs:attribute name="code" type="xs:string" use="required" />
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="message_type">
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="xs:string">
+																				<xs:attribute name="code" type="xs:unsignedByte" use="required" />
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="alert_condition">
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="xs:string">
+																				<xs:attribute name="code" type="xs:unsignedByte" use="required" />
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="number_inquiries_last_60_days" type="xs:unsignedByte" />
+															</xs:sequence>
+															<xs:attribute name="id" type="xs:string" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="address_information">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="source_indicator">
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="xs:string">
+																				<xs:attribute name="code" type="xs:string" use="required" />
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="addr_qualifier">
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="xs:string">
+																				<xs:attribute name="code" type="xs:unsignedByte" use="required" />
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="house_number" type="xs:unsignedShort" />
+																<xs:element name="predirectional" type="xs:string" />
+																<xs:element name="street_name" type="xs:string" />
+																<xs:element name="postdirectional" />
+																<xs:element name="street_type" type="xs:string" />
+																<xs:element name="apt_unit_number" type="xs:unsignedByte" />
+																<xs:element name="city" type="xs:string" />
+																<xs:element name="state" type="xs:string" />
+																<xs:element name="zip" type="xs:unsignedInt" />
+																<xs:element name="date_reported" type="xs:unsignedInt" />
+															</xs:sequence>
+															<xs:attribute name="id" type="xs:string" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element maxOccurs="unbounded" name="employment_segments">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="employment_information">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="employer_name" type="xs:string" />
+																			<xs:element name="source_indicator">
+																				<xs:complexType>
+																					<xs:attribute name="code" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="occupation" type="xs:string" />
+																			<xs:element name="date_hired">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:unsignedInt">
+																							<xs:attribute name="fmt" type="xs:string" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="date_separated">
+																				<xs:complexType>
+																					<xs:attribute name="fmt" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="date_verified_or_reported">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:unsignedInt">
+																							<xs:attribute name="fmt" type="xs:string" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="date_verified_or_reported_code">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:string">
+																							<xs:attribute name="code" type="xs:string" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="income" />
+																			<xs:element name="pay_basis">
+																				<xs:complexType>
+																					<xs:attribute name="code" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																		<xs:attribute name="id" type="xs:string" use="required" />
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+															<xs:attribute name="id" type="xs:string" use="required" />
+															<xs:attribute name="product" type="xs:unsignedShort" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="trade_segments">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="trade">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="industry_code" type="xs:string" />
+																			<xs:element name="member_code" type="xs:unsignedInt" />
+																			<xs:element name="subscriber_name" type="xs:string" />
+																			<xs:element name="account_type">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:string">
+																							<xs:attribute name="code" type="xs:string" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="account_number" type="xs:unsignedLong" />
+																			<xs:element name="account_designator">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:string">
+																							<xs:attribute name="code" type="xs:string" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="date_opened">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:unsignedInt">
+																							<xs:attribute name="fmt" type="xs:string" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="date_verified">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:unsignedInt">
+																							<xs:attribute name="fmt" type="xs:string" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="trade_verification_indicator">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:string">
+																							<xs:attribute name="code" type="xs:string" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="date_closed">
+																				<xs:complexType>
+																					<xs:attribute name="fmt" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="date_closed_indicator">
+																				<xs:complexType>
+																					<xs:attribute name="code" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="date_paid_out">
+																				<xs:complexType>
+																					<xs:attribute name="fmt" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="date_of_last_activity">
+																				<xs:complexType>
+																					<xs:attribute name="fmt" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="current_manner_of_payment">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:string">
+																							<xs:attribute name="code" type="xs:unsignedByte" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="currency">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:string">
+																							<xs:attribute name="code" type="xs:unsignedByte" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="balance" />
+																			<xs:element name="high_credit" type="xs:unsignedShort" />
+																			<xs:element name="credit_limit" type="xs:unsignedShort" />
+																			<xs:element name="terms_duration">
+																				<xs:complexType>
+																					<xs:attribute name="frequency" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="terms_frequency">
+																				<xs:complexType>
+																					<xs:attribute name="code" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="amount_of_payment" />
+																			<xs:element name="collateral" />
+																			<xs:element name="loan_type">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:string">
+																							<xs:attribute name="code" type="xs:string" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="remarks_code">
+																				<xs:complexType>
+																					<xs:attribute name="code" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="amount_past_due" type="xs:unsignedByte" />
+																			<xs:element name="number_payments_past_due" />
+																			<xs:element name="max_delinquency_amount">
+																				<xs:complexType>
+																					<xs:attribute name="date_del" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="max_delinquency_date">
+																				<xs:complexType>
+																					<xs:attribute name="fmt" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="max_delinquency_MOP" />
+																			<xs:element name="payment_pattern_start_date">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:unsignedInt">
+																							<xs:attribute name="fmt" type="xs:string" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="payment_pattern">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:unsignedLong">
+																							<xs:attribute name="start_date" type="xs:unsignedInt" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="number_months_reviewed" type="xs:unsignedByte" />
+																			<xs:element name="times_30_days_late" type="xs:unsignedByte" />
+																			<xs:element name="times_60_days_late" type="xs:unsignedByte" />
+																			<xs:element name="times_90_days_late" type="xs:unsignedByte" />
+																			<xs:element name="historical_counters_verification_indicator">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:string">
+																							<xs:attribute name="code" type="xs:unsignedByte" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																		<xs:attribute name="id" type="xs:string" use="required" />
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+															<xs:attribute name="id" type="xs:string" use="required" />
+															<xs:attribute name="product" type="xs:unsignedShort" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="scoring_segments">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="product_information">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="product">
+																				<xs:complexType>
+																					<xs:attribute name="code" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="product_status">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:string">
+																							<xs:attribute name="code" type="xs:unsignedByte" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="search_status">
+																				<xs:complexType>
+																					<xs:attribute name="code" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																		<xs:attribute name="id" type="xs:string" use="required" />
+																		<xs:attribute name="product" type="xs:string" use="required" />
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="scoring">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="product_code">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:string">
+																							<xs:attribute name="code" type="xs:string" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="sign" type="xs:string" />
+																			<xs:element name="score" />
+																			<xs:element name="indicator_flag">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:string">
+																							<xs:attribute name="code" type="xs:unsignedByte" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="derogatory_alert_flag">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:string">
+																							<xs:attribute name="code" type="xs:string" use="required" />
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="factor1">
+																				<xs:complexType>
+																					<xs:attribute name="code" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="factor2">
+																				<xs:complexType>
+																					<xs:attribute name="code" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="factor3">
+																				<xs:complexType>
+																					<xs:attribute name="code" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="factor4">
+																				<xs:complexType>
+																					<xs:attribute name="code" type="xs:string" use="required" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="score_card_indicator" />
+																		</xs:sequence>
+																		<xs:attribute name="id" type="xs:string" use="required" />
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+															<xs:attribute name="id" type="xs:string" use="required" />
+															<xs:attribute name="product" type="xs:string" use="required" />
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="id" type="xs:string" use="required" />
+												<xs:attribute name="num" type="xs:unsignedByte" use="required" />
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="transaction_ending">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="segments_returned" type="xs:unsignedByte" />
+												</xs:sequence>
+												<xs:attribute name="id" type="xs:string" use="required" />
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="HTML_Reports">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="HTML_Report">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+											<xs:attribute name="fmt_type" type="xs:unsignedByte" use="required" />
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:decimal" use="required" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
