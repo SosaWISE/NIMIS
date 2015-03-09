@@ -72,7 +72,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Schemas\HartResponse.xml" />
+    <Content Include="Schemas\HartResponse.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="Schemas\HartResponse.xsd">

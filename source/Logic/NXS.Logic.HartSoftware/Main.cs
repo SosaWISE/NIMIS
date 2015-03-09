@@ -5,6 +5,8 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Xml.Serialization;
+using NXS.Logic.HartSoftware.Schemas.TU;
+using SOS.Data.SosCrm;
 using SOS.Lib.Core.CreditReportService;
 using SOS.Lib.Core.ErrorHandling;
 
@@ -35,6 +37,27 @@ namespace NXS.Logic.HartSoftware
 			fullname = string.IsNullOrEmpty(oWSLead.MiddleName)
 				? string.Format("{0} {1}", fullname, oWSLead.LastName)
 				: string.Format("{0} {1} {2}", fullname, oWSLead.MiddleName, oWSLead.LastName);
+
+			var cr = new QL_CreditReport
+			{
+				LeadId = oWSLead.LeadID,
+				AddressId = oWSAddress.AddressID,
+				BureauId = QL_CreditReportBureau.MetaData.TransUnionID,
+				SeasonId = oSeason.SeasonID,
+				CreditReportVendorId = QL_CreditReportVendor.MetaData.Hart_SoftwareID,
+				Prefix = oWSLead.Prefix,
+				FirstName = oWSLead.FirstName,
+				MiddleName = oWSLead.MiddleName,
+				LastName = oWSLead.LastName,
+				Suffix = oWSLead.Suffix
+			};
+			if (!string.IsNullOrEmpty(oWSLead.SocialSecurity))
+				cr.SSN = SOS.Lib.Util.Cryptography.TripleDES.EncryptString(oWSLead.SocialSecurity, null);
+			if (!string.IsNullOrEmpty(oWSLead.DOB))
+				cr.DOB = DateTime.Parse(oWSLead.DOB);
+			cr.CreatedOn = DateTime.UtcNow;
+			cr.Save();
+
 			#endregion Initialize
 
 			#region Execute Call To Service
@@ -75,9 +98,32 @@ namespace NXS.Logic.HartSoftware
 						var responseString = responseStream.ReadToEnd();
 						using (TextReader reader = new StringReader(responseString))
 						{
-							//var serializer = new XmlSerializer(typeof(HX5));
-							//var responseCls = (HX5)serializer.Deserialize(reader);
-							//Debug.WriteLine(responseCls.version);
+							var serializer = new XmlSerializer(typeof(THX5));
+							var responseCls = (THX5)serializer.Deserialize(reader);
+							var crHart = new QL_CreditReportVendorHartSoftware();
+							crHart.CreditReportId = cr.CreditReportID;
+							crHart.BureauId = cr.BureauId;
+							crHart.Version = responseCls.version;
+							crHart.Token = responseCls.HX5_transaction_information.Token;
+							crHart.TransactionId = responseCls.HX5_transaction_information.Transid;
+							crHart.XmlResponse = responseString;
+							crHart.ReportHtml = responseCls.HTML_Reports[0].Value;
+							crHart.IsHit = responseCls.bureau_xml_data[0].subject_segments[0].subject_header[0].file_hit.code.Equals("Y");
+//							crHart.IsHit = responseCls.bureau_xml_data[0].subject_segments[0].scoring_segments != null;
+							if (responseCls.bureau_xml_data[0].subject_segments[0].scoring_segments != null)
+							{
+								int score;
+								crHart.IsScored = int.TryParse(responseCls.bureau_xml_data[0].subject_segments[0].scoring_segments[0].scoring.score, out score);
+								crHart.Score = (crHart.IsScored) ? score : 0;
+								crHart.ProductCode = responseCls.bureau_xml_data[0].subject_segments[0].scoring_segments[0].scoring.product_code.code;
+								crHart.ProductCodeValue = responseCls.bureau_xml_data[0].subject_segments[0].scoring_segments[0].scoring.product_code.Value;
+								crHart.IndicatorFlagCode = responseCls.bureau_xml_data[0].subject_segments[0].scoring_segments[0].scoring.indicator_flag.code;
+								crHart.IndicatorFlagValue = responseCls.bureau_xml_data[0].subject_segments[0].scoring_segments[0].scoring.indicator_flag.Value;
+							}
+							
+							crHart.Save();
+
+							Debug.WriteLine(responseCls.version);
 						}
 					}
 				}

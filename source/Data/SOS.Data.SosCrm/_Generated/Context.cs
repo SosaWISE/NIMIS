@@ -2606,6 +2606,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		QL_CreditReportVendorHartSoftwareController _QL_CreditReportVendorHartSoftwares;
+		public QL_CreditReportVendorHartSoftwareController QL_CreditReportVendorHartSoftwares
+		{
+			get
+			{
+				if (_QL_CreditReportVendorHartSoftwares == null) _QL_CreditReportVendorHartSoftwares = new QL_CreditReportVendorHartSoftwareController();
+				return _QL_CreditReportVendorHartSoftwares;
+			}
+		}
+
 		QL_CreditReportVendorManualController _QL_CreditReportVendorManuals;
 		public QL_CreditReportVendorManualController QL_CreditReportVendorManuals
 		{
@@ -4102,6 +4112,7 @@ namespace SOS.Data.SosCrm
 	public class QL_CreditReportController : BaseTableController<QL_CreditReport, QL_CreditReportCollection> { }
 	public class QL_CreditReportVendorAbaraController : BaseTableController<QL_CreditReportVendorAbara, QL_CreditReportVendorAbaraCollection> { }
 	public class QL_CreditReportVendorEasyAccessController : BaseTableController<QL_CreditReportVendorEasyAccess, QL_CreditReportVendorEasyAccessCollection> { }
+	public class QL_CreditReportVendorHartSoftwareController : BaseTableController<QL_CreditReportVendorHartSoftware, QL_CreditReportVendorHartSoftwareCollection> { }
 	public class QL_CreditReportVendorManualController : BaseTableController<QL_CreditReportVendorManual, QL_CreditReportVendorManualCollection> { }
 	public class QL_CreditReportVendorMicrobiltController : BaseTableController<QL_CreditReportVendorMicrobilt, QL_CreditReportVendorMicrobiltCollection> { }
 	public class QL_CreditReportVendorController : BaseTableController<QL_CreditReportVendor, QL_CreditReportVendorCollection> { }
