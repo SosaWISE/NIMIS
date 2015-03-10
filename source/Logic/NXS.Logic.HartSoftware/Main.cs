@@ -123,6 +123,13 @@ namespace NXS.Logic.HartSoftware
 							
 							crHart.Save();
 
+							cr.IsHit = crHart.IsHit;
+							cr.IsScored = crHart.IsScored;
+							cr.Score = crHart.Score;
+							cr.IsActive = true;
+							cr.IsDeleted = false;
+							cr.Save();
+
 							Debug.WriteLine(responseCls.version);
 						}
 					}
