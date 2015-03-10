@@ -51,6 +51,7 @@
     <Compile Include="Models\WSSeason.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vendors\Abara.cs" />
+    <Compile Include="Vendors\Hart.cs" />
     <Compile Include="Vendors\Manual.cs" />
     <Compile Include="Vendors\Microbilt.cs" />
   </ItemGroup>
@@ -86,6 +87,10 @@
     <ProjectReference Include="..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj">
       <Project>{33a1b8c5-b37d-423e-b7fd-83ce1ec1d442}</Project>
       <Name>SOS.Lib.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logic\NXS.Logic.HartSoftware\NXS.Logic.HartSoftware.csproj">
+      <Project>{c5b6624c-df55-4243-9e00-f9999f6793df}</Project>
+      <Name>NXS.Logic.HartSoftware</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

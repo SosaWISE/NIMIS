@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -32,7 +33,8 @@ namespace NXS.Logic.HartSoftware
 
 			var result = false;
 			var sb = new StringBuilder();
-			oRepInfo = null;
+			oRepInfo = new WSCreditReportInfo();
+
 			var fullname = oWSLead.FirstName;
 			fullname = string.IsNullOrEmpty(oWSLead.MiddleName)
 				? string.Format("{0} {1}", fullname, oWSLead.LastName)
@@ -126,7 +128,6 @@ namespace NXS.Logic.HartSoftware
 							crHart.XmlResponse = responseString;
 							crHart.ReportHtml = responseCls.HTML_Reports[0].Value;
 							crHart.IsHit = responseCls.bureau_xml_data[0].subject_segments[0].subject_header[0].file_hit.code.Equals("Y");
-//							crHart.IsHit = responseCls.bureau_xml_data[0].subject_segments[0].scoring_segments != null;
 							if (responseCls.bureau_xml_data[0].subject_segments[0].scoring_segments != null)
 							{
 								int score;
@@ -149,6 +150,19 @@ namespace NXS.Logic.HartSoftware
 							cr.IsActive = true;
 							cr.IsDeleted = false;
 							cr.Save();
+
+							// ** Bind Credit Report Info
+							oRepInfo.LeadId = oWSLead.LeadID;
+							oRepInfo.CreditReportID = cr.CreditReportID;
+							oRepInfo.BureauName = cr.Bureau.BureauName;
+							oRepInfo.DOB = cr.DOB != null ? cr.DOB.Value.ToString(CultureInfo.InvariantCulture) : null;
+							oRepInfo.SSN = !string.IsNullOrEmpty(cr.SSN) ? cr.SSN : null;
+							oRepInfo.Score = cr.Score;
+							oRepInfo.ScoreFound = crHart.IsScored;
+							oRepInfo.ReportFound = crHart.IsHit;
+							oRepInfo.Phone = oWSLead.HomePhone;
+							oRepInfo.AnyError = WSMessage.HasCriticalError(oMessageList);
+							oRepInfo.Messages = crHart.IndicatorFlagValue;
 
 							Debug.WriteLine("FINISH With LeadID: {0}", oWSLead.LeadID);
 						}
@@ -174,6 +188,30 @@ namespace NXS.Logic.HartSoftware
 		}
 
 		#endregion Methods
+
+
+		/// <summary>
+		/// Structure used to store information on the Credit Report.
+		/// </summary>
+		[Serializable]
+		public struct WSCreditReportInfo : IWSCreditReportInfo
+		{
+			public long CreditReportID { get; set; }
+			public long LeadId { get; set; }
+			public long? AccountId { get; set; }
+			public string BureauName { get; set; }
+			public string DOB { get; set; }
+			public string SSN { get; set; }
+			public int Score { get; set; }
+			public bool ScoreFound { get; set; }
+			public string Phone { get; set; }
+			public int PhoneStatus { get; set; }
+			public bool AnyError { get; set; }
+			public string Messages { get; set; }
+			public bool ReportFound { get; set; }
+			public CreditScoreGroup ScoreGroup { get; set; }
+		}
+
 	}
 
 }
