@@ -91,15 +91,32 @@ namespace NXS.Logic.HartSoftware
 
 				using (var webResponse = (HttpWebResponse)webRequest.GetResponse())
 				{
+					Debug.WriteLine("PRE GetResponseStream With LeadID: {0}", oWSLead.LeadID);
+
 					Stream getResponseStream = webResponse.GetResponseStream();
 					if (getResponseStream == null) throw new Exception("GetResponseStream returned a null.");
+					
+					Debug.WriteLine("POST GetResponseStream With LeadID: {0}", oWSLead.LeadID);
+
 					using (var responseStream = new StreamReader(getResponseStream))
 					{
+						Debug.WriteLine("PRE responseStream.ReadToEnd() With LeadID: {0}", oWSLead.LeadID);
+
 						var responseString = responseStream.ReadToEnd();
+
+						Debug.WriteLine("POST responseStream.ReadToEnd() With LeadID: {0}", oWSLead.LeadID);
+
 						using (TextReader reader = new StringReader(responseString))
 						{
+							Debug.WriteLine("PRE (THX5)serializer.Deserialize(reader) With LeadID: {0}", oWSLead.LeadID);
+
 							var serializer = new XmlSerializer(typeof(THX5));
 							var responseCls = (THX5)serializer.Deserialize(reader);
+
+							Debug.WriteLine("POST (THX5)serializer.Deserialize(reader) With LeadID: {0}", oWSLead.LeadID);
+
+							Debug.WriteLine("PRE new QL_CreditReportVendorHartSoftware() With LeadID: {0}", oWSLead.LeadID);
+
 							var crHart = new QL_CreditReportVendorHartSoftware();
 							crHart.CreditReportId = cr.CreditReportID;
 							crHart.BureauId = cr.BureauId;
@@ -123,6 +140,9 @@ namespace NXS.Logic.HartSoftware
 							
 							crHart.Save();
 
+							Debug.WriteLine("POST new QL_CreditReportVendorHartSoftware() With LeadID: {0}", oWSLead.LeadID);
+
+							cr.CreditReportVendorHartSoftwareId = crHart.CreditReportVendorHartSoftwareID;
 							cr.IsHit = crHart.IsHit;
 							cr.IsScored = crHart.IsScored;
 							cr.Score = crHart.Score;
@@ -130,7 +150,7 @@ namespace NXS.Logic.HartSoftware
 							cr.IsDeleted = false;
 							cr.Save();
 
-							Debug.WriteLine(responseCls.version);
+							Debug.WriteLine("FINISH With LeadID: {0}", oWSLead.LeadID);
 						}
 					}
 				}
