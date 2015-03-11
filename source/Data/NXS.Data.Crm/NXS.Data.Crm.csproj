@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{72544965-D17C-4D5C-9361-F27AE1C93B3B}</ProjectGuid>
+    <ProjectGuid>{3C99AA19-9D37-4213-BAA0-A385AEAE892B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebModules.Crm</RootNamespace>
-    <AssemblyName>WebModules.Crm</AssemblyName>
+    <RootNamespace>NXS.Data.Crm</RootNamespace>
+    <AssemblyName>NXS.Data.Crm</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,43 +31,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Nancy">
-      <HintPath>..\..\Services\Cors\corspackages\Nancy.1.1\lib\net40\Nancy.dll</HintPath>
+    <Reference Include="Dapper, Version=1.38.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Services\Cors\corspackages\Dapper.1.38\lib\net45\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CustomerMasterFilesModule.cs" />
+    <Compile Include="Repos\QL_CustomerMasterLeadRepo.cs" />
+    <Compile Include="Repos\QL_LeadRepo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <ProjectReference Include="..\NXS.Data\NXS.Data.csproj">
+      <Project>{5465a862-bb78-4048-b39b-191be0e1d19c}</Project>
+      <Name>NXS.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataServices\NXS.DataServices.Crm\NXS.DataServices.Crm.csproj">
-      <Project>{726eb8be-e824-42a1-8e5f-2bac6373ad1c}</Project>
-      <Name>NXS.DataServices.Crm</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Data\NXS.Data.Crm\NXS.Data.Crm.csproj">
-      <Project>{3c99aa19-9d37-4213-baa0-a385aeae892b}</Project>
-      <Name>NXS.Data.Crm</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Lib\SOS.Lib.Core\SOS.Lib.Core.csproj">
-      <Project>{a4d0820e-3529-4cb9-ba5f-b2824bfeec97}</Project>
-      <Name>SOS.Lib.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebModules\WebModules.csproj">
-      <Project>{799603c8-07f9-48fd-9f07-5929f1e542a2}</Project>
-      <Name>WebModules</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

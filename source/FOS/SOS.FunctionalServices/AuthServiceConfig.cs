@@ -76,7 +76,7 @@ namespace SOS.FunctionalServices
 	{
 		public static void Configure(IFunctionalServiceFactory functionalServices)
 		{
-			var maxAge = TimeSpan.FromHours(12);
+			var maxAge = TimeSpan.FromHours(24);
 			{
 				// Session Store
 				var sessionStore = CreateSessionStore(maxAge);

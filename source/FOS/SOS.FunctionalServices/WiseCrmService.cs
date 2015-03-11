@@ -30,7 +30,6 @@ using SOS.FunctionalServices.Models.QualifyLead;
 using SOS.FunctionalServices.Models.Receiver;
 using SOS.Lib.Core.CreditReportService;
 using SOS.Lib.Util;
-using SOS.Lib.Util.Extensions;
 using SSE.FOS.AddressVerification.Interfaces;
 using SSE.FOS.AddressVerification.Models;
 using WSLead = NSE.FOS.RunCreditServices.Models.WSLead;
@@ -2220,14 +2219,6 @@ namespace SOS.FunctionalServices
 				return result;
 			}
 			result.Value = FnsQlLead.FromQL_Lead(lead);
-			return result;
-		}
-
-		public IFnsResult<List<IFnsQlLead>> MasterFileLeads(long cmfid)
-		{
-			var result = new FnsResult<List<IFnsQlLead>> { Message = "" };
-			var list = SosCrmDataContext.Instance.QL_Leads.ByCmfID(cmfid);
-			result.Value = list.ConvertAll(lead => (IFnsQlLead)FnsQlLead.FromQL_Lead(lead));
 			return result;
 		}
 

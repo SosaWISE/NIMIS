@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{72544965-D17C-4D5C-9361-F27AE1C93B3B}</ProjectGuid>
+    <ProjectGuid>{C25F4837-177C-45D5-8E3F-82A6A68CF23B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebModules.Crm</RootNamespace>
-    <AssemblyName>WebModules.Crm</AssemblyName>
+    <RootNamespace>NXS.Data.Tests</RootNamespace>
+    <AssemblyName>NXS.Data.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,42 +31,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Nancy">
-      <HintPath>..\..\Services\Cors\corspackages\Nancy.1.1\lib\net40\Nancy.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="xunit">
+      <HintPath>..\..\Services\Cors\corspackages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
+    </Reference>
   </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise />
+  </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CustomerMasterFilesModule.cs" />
+    <Compile Include="SequelTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataServices\NXS.DataServices.Crm\NXS.DataServices.Crm.csproj">
-      <Project>{726eb8be-e824-42a1-8e5f-2bac6373ad1c}</Project>
-      <Name>NXS.DataServices.Crm</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Data\NXS.Data.Crm\NXS.Data.Crm.csproj">
-      <Project>{3c99aa19-9d37-4213-baa0-a385aeae892b}</Project>
-      <Name>NXS.Data.Crm</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Lib\SOS.Lib.Core\SOS.Lib.Core.csproj">
-      <Project>{a4d0820e-3529-4cb9-ba5f-b2824bfeec97}</Project>
-      <Name>SOS.Lib.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebModules\WebModules.csproj">
-      <Project>{799603c8-07f9-48fd-9f07-5929f1e542a2}</Project>
-      <Name>WebModules</Name>
+    <ProjectReference Include="..\NXS.Data\NXS.Data.csproj">
+      <Project>{5465a862-bb78-4048-b39b-191be0e1d19c}</Project>
+      <Name>NXS.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

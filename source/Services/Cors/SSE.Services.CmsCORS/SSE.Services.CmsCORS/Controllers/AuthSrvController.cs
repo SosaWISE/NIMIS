@@ -51,7 +51,7 @@ namespace SSE.Services.CmsCORS.Controllers
 				Token = token,
 				Username = username,
 				SessionNum = sessionNum,
-				SessionKey = _authService.SessionNumToKey(sessionNum),
+				SessionKey = sessionNum == null ? null : _authService.SessionNumToKey(sessionNum),
 			};
 			return result;
 		}

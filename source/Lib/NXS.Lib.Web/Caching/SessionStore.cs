@@ -69,7 +69,7 @@ namespace NXS.Lib.Web.Caching
 			_idlocker.Dispose();
 			_cache.Dispose();
 			_rnd.Dispose();
-			_sha1.Dispose();
+			//_sha1.Dispose();
 		}
 
 		// add new session
@@ -178,11 +178,14 @@ namespace NXS.Lib.Web.Caching
 				}
 				catch (Exception ex)
 				{
-					// remove if there are any errors
-					sess = default(Session);
-					_cache.Remove(sessionKey);
+					// swallow errors since this is non-essential
+					//@TODO: log error
 
-					throw ex; //???
+					//// remove if there are any errors
+					//sess = default(Session);
+					//_cache.Remove(sessionKey);
+					//
+					//throw ex; //???
 				}
 			});
 			result = sess;
@@ -219,11 +222,14 @@ namespace NXS.Lib.Web.Caching
 			return key;
 		}
 
-		private SHA1Managed _sha1 = new SHA1Managed();
+		//private SHA1Managed _sha1 = new SHA1Managed();
 		public string SessionNumToKey(byte[] sessionNum)
 		{
 			if (_disposed) throw new Exception("SessionStore is disposed");
 
+			// SHA1Managed is not thread safe: http://stackoverflow.com/questions/12644257
+			// having this as a member variable caused random/wrong sessionKeys
+			var _sha1 = SHA1.Create();
 			return Convert.ToBase64String(_sha1.ComputeHash(sessionNum));
 		}
 	}

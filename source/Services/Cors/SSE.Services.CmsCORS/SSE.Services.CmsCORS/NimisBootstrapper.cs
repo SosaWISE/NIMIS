@@ -32,12 +32,15 @@ namespace SSE.Services.CmsCORS
 				c.ResponseProcessors.Clear();
 				c.ResponseProcessors.Add(typeof(Nancy.Responses.Negotiation.JsonProcessor));
 				//c.ResponseProcessors.Add(typeof(FormattedJsonProcessor)); // default processor always gets priority...
-				// if we include this, xml is returned by default in the browser...
+				// if we include this, xml is returned by default in the browser...not what i want
 				//c.ResponseProcessors.Add(typeof(Nancy.Responses.Negotiation.XmlProcessor));
 
 				c.StatusCodeHandlers.Clear();
 				c.StatusCodeHandlers.Add(typeof(WebModules.StatusCodeHandler));
 			});
+
+			//@HACK: to set connection strings
+			NXS.Data.Crm.CrmDb.ConnectionString = SubSonic.DataService.Providers[SOS.Data.SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME].DefaultConnectionString;
 		}
 		protected override NancyInternalConfiguration InternalConfiguration { get { return _config; } }
 
@@ -46,26 +49,32 @@ namespace SSE.Services.CmsCORS
 			get { return new DiagnosticsConfiguration { Password = @"bob" }; }
 		}
 
-		protected override void ConfigureApplicationContainer(TinyIoCContainer iocContainer)
+		protected override void ConfigureApplicationContainer(TinyIoCContainer container)
 		{
 			StaticConfiguration.DisableErrorTraces = true;
 
 			var configuration = SosServiceEngine.Instance.FunctionalServices.Instance<TokenAuthenticationConfiguration>();
-			iocContainer.Register(configuration);
+			container.Register(configuration);
 
-			iocContainer.Register<ISerializer>(new JsonNetSerializer(iocContainer.Resolve<JsonSerializer>()));
+			container.Register<ISerializer>(new JsonNetSerializer(container.Resolve<JsonSerializer>()));
+
+			//container.Register<System.Data.IDbConnection, System.Data.SqlClient.SqlConnection>().AsMultiInstance();
 		}
+		//protected override void ConfigureRequestContainer(TinyIoCContainer container, NancyContext context)
+		//{
+		//	base.ConfigureRequestContainer(container, context);
+		//}
 
 		protected override void RequestStartup(TinyIoCContainer container, IPipelines pipelines, NancyContext context)
 		{
 			//// CORS
 			//AllowAccessToConsumingSite(pipelines);
 
-			// Auth
-			TokenAuthentication.Enable(pipelines, container.Resolve<TokenAuthenticationConfiguration>());
-
 			//
 			JsonErrors.Enable(pipelines, container.Resolve<ISerializer>());
+
+			// Auth
+			TokenAuthentication.Enable(pipelines, container.Resolve<TokenAuthenticationConfiguration>());
 		}
 
 		// NOT TESTED

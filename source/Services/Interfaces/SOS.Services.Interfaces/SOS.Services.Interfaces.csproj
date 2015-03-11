@@ -211,12 +211,6 @@
     <Compile Include="ServiceUrlAttribute.cs" />
     <Compile Include="ServiceUrls.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\DataModels\SOS.Services.DataModels\SOS.Services.DataModels.csproj">
-      <Project>{1415CB37-0EDB-4645-AA7E-5CE82DF82721}</Project>
-      <Name>SOS.Services.DataModels</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

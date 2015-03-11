@@ -59,11 +59,11 @@ namespace SOS.FunctionalServices.Contracts
 
 		IFnsResult<IFnsAeCustomerGpsClientsViewModel> CustomerSignup(IFnsAeCustomerGpsClientsViewModel customerInfoArg);
 
-	    IFnsResult<IFnsAeCustomerGpsClientsViewModel> CustomerUpdate(IFnsAeCustomerGpsClientsViewModel customerInfoArg);
+		IFnsResult<IFnsAeCustomerGpsClientsViewModel> CustomerUpdate(IFnsAeCustomerGpsClientsViewModel customerInfoArg);
 
-        IFnsResult<IFnsAeCustomerGpsClientsViewModel> CustomerRead(long lCustomerID);
+		IFnsResult<IFnsAeCustomerGpsClientsViewModel> CustomerRead(long lCustomerID);
 
-        IFnsResult<IFnsAeCustomerGpsClientsViewModel> CustomerDelete(long lCustomerID);
+		IFnsResult<IFnsAeCustomerGpsClientsViewModel> CustomerDelete(long lCustomerID);
 
 		IFnsResult<IFnsQlDealerLeadModel> DealerLeadCreateUpdate(IFnsQlDealerLeadModel oDealerLead, string szUserId = "SYSTEM");
 
@@ -87,7 +87,6 @@ namespace SOS.FunctionalServices.Contracts
 		IFnsResult<IFnsVerifyAddress> AddressVerify(IFnsVerifyAddress address, int seasonId, int teamLocationId, string salesRepId, string userId);
 
 		IFnsResult<IFnsQlLead> ReadLead(long leadID);
-		IFnsResult<List<IFnsQlLead>> MasterFileLeads(long cmfid);
 		IFnsResult<IFnsQlLead> SaveLead(IFnsQlLead fnsLead, string userId);
 		IFnsResult<IFnsQlCreditReport> RunCredit(long leadID, bool bypass, string userId);
 

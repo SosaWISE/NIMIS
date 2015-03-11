@@ -9,9 +9,9 @@ using System.Collections.Generic;
 
 namespace WebModules.Crm
 {
-	public abstract class SecureModule : NancyModule
+	public abstract class BaseModule : NancyModule
 	{
-		protected SecureModule(string modulePath)
+		protected BaseModule(string modulePath)
 			: base("/api" + modulePath)
 		{
 			//this.RequiresHttps();
