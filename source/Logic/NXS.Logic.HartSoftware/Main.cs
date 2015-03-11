@@ -75,6 +75,11 @@ namespace NXS.Logic.HartSoftware
 				sb.AppendFormat("\r\nNAME={0}", fullname);
 				if (!string.IsNullOrEmpty(oWSLead.SocialSecurity))
 					sb.AppendFormat("\r\nSSN={0}", oWSLead.SocialSecurity);
+				if (!string.IsNullOrEmpty(oWSLead.DOB))
+				{
+					var dob = DateTime.Parse(oWSLead.DOB);
+					sb.AppendFormat("\r\nDOB={0}", dob.ToString("MM/DD/YY"));
+				}
 				sb.AppendFormat("\r\nADDRESS={0}", oWSAddress.Address1);
 				sb.AppendFormat("\r\nCITY={0}", oWSAddress.City);
 				sb.AppendFormat("\r\nSTATE={0}", oWSAddress.State);
