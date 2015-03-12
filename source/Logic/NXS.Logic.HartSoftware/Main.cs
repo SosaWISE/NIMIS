@@ -133,6 +133,9 @@ namespace NXS.Logic.HartSoftware
 							crHart.XmlResponse = responseString;
 							crHart.ReportHtml = responseCls.HTML_Reports[0].Value;
 							crHart.IsHit = responseCls.bureau_xml_data[0].subject_segments[0].subject_header[0].file_hit.code.Equals("Y");
+							crHart.FileHitCode = responseCls.bureau_xml_data[0].subject_segments[0].subject_header[0].file_hit.code;
+							crHart.FileHitValue = responseCls.bureau_xml_data[0].subject_segments[0].subject_header[0].file_hit.Value;
+
 							if (responseCls.bureau_xml_data[0].subject_segments[0].scoring_segments != null)
 							{
 								int score;
