@@ -532,10 +532,12 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			}
 
 			// ** Save Successfull install information
+			var lead = SosCrmDataContext.Instance.QL_Leads.LoadByAccountId(msAccount.AccountID);
 			var salesInformation = SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(msAccount.AccountID);
 			salesInformation.AccountSubmitId = msAccountSubmit.AccountSubmitID;
 			salesInformation.SubmittedToCSDate = DateTime.UtcNow;
 			salesInformation.InstallDate = DateTime.UtcNow;
+			salesInformation.SalesRepId = lead.SalesRepId;
 			salesInformation.CsConfirmationNumber = confirmationNumber;
 			salesInformation.Save(gpEmployeeId);
 

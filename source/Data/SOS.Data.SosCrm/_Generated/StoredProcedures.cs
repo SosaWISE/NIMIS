@@ -1431,6 +1431,11 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@DealerId", DealerId, DbType.Int32);
 			return sp;
 		}
+		public static StoredProcedure QL_LeadsByAccountId(long? AccountId) {
+			StoredProcedure sp = new StoredProcedure("custQL_LeadsByAccountId" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@AccountId", AccountId, DbType.Int64);
+			return sp;
+		}
 		public static StoredProcedure QL_LeadsCreateBasic(int? DealerId,string LocalizationId,int? TeamLocationId,int? SeasonId,string SalesRepId,int? LeadSourceId,int? LeadDispositionId,string Salutation,string FirstName,string MiddleName,string LastName,string Suffix,string SSN,DateTime? DOB,string DL,string DLStateID,string Email,string PhoneHome,string PhoneWork,string PhoneMobile,string StreetAddress,string City,string StateId,string PostalCode,string PlusFour,string CountryId,string Phone) {
 			StoredProcedure sp = new StoredProcedure("custQL_LeadsCreateBasic" ,DataService.GetInstance("SosCrmProvider"));
 			sp.Command.AddParameter("@DealerId", DealerId, DbType.Int32);
