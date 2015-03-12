@@ -72,6 +72,7 @@
     <Compile Include="ControllerExtensions\MS_ReceiverBlockCellDeviceInfoViewControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\QL_CreditReportControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\QL_CreditReportTransactionAndTokenControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\QL_CustomerMasterLeadControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\SAE_BillingHistoryViewControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\SE_TechnicianScheduleBlockViewControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\SE_TechnicianAvailabilityControllerExtensions.cs" />

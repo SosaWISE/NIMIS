@@ -54,7 +54,7 @@ namespace SSE.Services.CmsCORS.Controllers.MsAccountSetup
 				{
 					// ** Create Service
 					var oService = SosServiceEngine.Instance.FunctionalServices.Instance<IMonitoringStationService>();
-					IFnsResult<IFnsMsAccountLeadInfo> oFnsModel = oService.CreateMasterFileAccounts(info.CustomerMasterFileId, user.GPEmployeeID);
+					IFnsResult<IFnsMsAccountLeadInfo> oFnsModel = oService.CreateMasterFileAccount(info.CustomerMasterFileId, user.GPEmployeeID);
 					/** Check corsResult. */
 					if (oFnsModel.Code != 0)
 					{

@@ -250,7 +250,7 @@ namespace SOS.FunctionalServices
 					contact.CustomerId = mcAccountCustomer.CustomerId;
 				}
 				// ** Cast EMC's to database object.
-				var newContact = (FnsMsEmergencyContact)contact;	
+				var newContact = (FnsMsEmergencyContact)contact;
 				MS_EmergencyContact emc = newContact.GetMsEMC();
 				emc.Save(gpEmployeeId);
 
@@ -311,7 +311,7 @@ namespace SOS.FunctionalServices
 				var newContact = (FnsMsEmergencyContact)fnsMsEmergencyContact;
 				MS_EmergencyContact emc = newContact.GetMsEMC();
 				emc.Save(gpEmployeeId);
-				
+
 				// chose monitoring station
 				bool shellAccount;
 				var msChoice = Main.GetMsChoice(emc.Account.IndustryAccount.ReceiverLine, out shellAccount);
@@ -529,7 +529,7 @@ namespace SOS.FunctionalServices
 				var account = db.MS_Accounts.LoadByPrimaryKey(accountId);
 				if (account == null || account.IndustryAccount == null)
 				{
-					result.Code = (int) ErrorCodes.SqlItemNotFound;
+					result.Code = (int)ErrorCodes.SqlItemNotFound;
 					result.Message = string.Format("Account {0} not found or missing industry account", accountId);
 				}
 				else
@@ -548,7 +548,7 @@ namespace SOS.FunctionalServices
 							.ToList();
 
 					// ** Save result information
-					result.Code = (int) ErrorCodes.Success;
+					result.Code = (int)ErrorCodes.Success;
 					result.Message = "Success";
 					result.Value = resultList;
 				}
@@ -624,115 +624,115 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-        public IFnsResult<List<IFnsMsEmergencyContactAuthority>> EmergencyContactAuthoritiesGet(long accountId, string gpEmployeeId)
-        {
-            #region INITIALIZATION
+		public IFnsResult<List<IFnsMsEmergencyContactAuthority>> EmergencyContactAuthoritiesGet(long accountId, string gpEmployeeId)
+		{
+			#region INITIALIZATION
 
-            // ** Initialize 
-            const string METHOD_NAME = "EmergencyContactAuthoritiesGet";
-            var result = new FnsResult<List<IFnsMsEmergencyContactAuthority>>
-            {
-                Code = (int)ErrorCodes.GeneralMessage,
-                Message = string.Format("Initializing {0}", METHOD_NAME)
-            };
+			// ** Initialize 
+			const string METHOD_NAME = "EmergencyContactAuthoritiesGet";
+			var result = new FnsResult<List<IFnsMsEmergencyContactAuthority>>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+				Message = string.Format("Initializing {0}", METHOD_NAME)
+			};
 
-            #endregion INITIALIZATION
+			#endregion INITIALIZATION
 
-            #region TRY
-            try
-            {
-                var db = SosCrmDataContext.Instance;
-                var account = db.MS_Accounts.LoadByPrimaryKey(accountId);
-                if (account == null || account.IndustryAccount == null)
-                {
-                    result.Code = (int)ErrorCodes.SqlItemNotFound;
-                    result.Message = string.Format("Account {0} not found or missing industry account", accountId);
-                }
-                else
-                {
-                    var relCol = db.MS_EmergencyContactAuthorities.ByMonitoringStation(account.IndustryAccount.ReceiverLine.MonitoringStationOSId);
+			#region TRY
+			try
+			{
+				var db = SosCrmDataContext.Instance;
+				var account = db.MS_Accounts.LoadByPrimaryKey(accountId);
+				if (account == null || account.IndustryAccount == null)
+				{
+					result.Code = (int)ErrorCodes.SqlItemNotFound;
+					result.Message = string.Format("Account {0} not found or missing industry account", accountId);
+				}
+				else
+				{
+					var relCol = db.MS_EmergencyContactAuthorities.ByMonitoringStation(account.IndustryAccount.ReceiverLine.MonitoringStationOSId);
 
-                    // ** Build result
-                    var resultList = relCol.Select(relationshipItem => new FnsMsEmergencyContactAuthority(relationshipItem)).Cast<IFnsMsEmergencyContactAuthority>().ToList();
+					// ** Build result
+					var resultList = relCol.Select(relationshipItem => new FnsMsEmergencyContactAuthority(relationshipItem)).Cast<IFnsMsEmergencyContactAuthority>().ToList();
 
-                    // ** Save result information
-                    result.Code = (int)ErrorCodes.Success;
-                    result.Message = "Success";
-                    result.Value = resultList;
-                }
-            }
-            #endregion TRY
+					// ** Save result information
+					result.Code = (int)ErrorCodes.Success;
+					result.Message = "Success";
+					result.Value = resultList;
+				}
+			}
+			#endregion TRY
 
-            #region CATCH
-            catch (Exception ex)
-            {
-                result = new FnsResult<List<IFnsMsEmergencyContactAuthority>>
-                {
-                    Code = (int)ErrorCodes.UnexpectedException,
-                    Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message)
-                };
-            }
-            #endregion CATCH
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<List<IFnsMsEmergencyContactAuthority>>
+				{
+					Code = (int)ErrorCodes.UnexpectedException,
+					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message)
+				};
+			}
+			#endregion CATCH
 
-            // ** Return result
-            return result;
-        }
+			// ** Return result
+			return result;
+		}
 
-        public IFnsResult<List<IFnsMsEmergencyContactType>> EmergencyContactTypesGet(long accountId, string gpEmployeeId)
-        {
-            #region INITIALIZATION
+		public IFnsResult<List<IFnsMsEmergencyContactType>> EmergencyContactTypesGet(long accountId, string gpEmployeeId)
+		{
+			#region INITIALIZATION
 
-            // ** Initialize 
-            const string METHOD_NAME = "EmergencyContactTypesGet";
-            var result = new FnsResult<List<IFnsMsEmergencyContactType>>
-            {
-                Code = (int)ErrorCodes.GeneralMessage,
-                Message = string.Format("Initializing {0}", METHOD_NAME)
-            };
+			// ** Initialize 
+			const string METHOD_NAME = "EmergencyContactTypesGet";
+			var result = new FnsResult<List<IFnsMsEmergencyContactType>>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+				Message = string.Format("Initializing {0}", METHOD_NAME)
+			};
 
-            #endregion INITIALIZATION
+			#endregion INITIALIZATION
 
-            #region TRY
-            try
-            {
-                var db = SosCrmDataContext.Instance;
-                var account = db.MS_Accounts.LoadByPrimaryKey(accountId);
-                if (account == null || account.IndustryAccount == null)
-                {
-                    result.Code = (int)ErrorCodes.SqlItemNotFound;
-                    result.Message = string.Format("Account {0} not found or missing industry account", accountId);
-                }
-                else
-                {
-                    var relCol = db.MS_EmergencyContactTypes.ByMonitoringStation(account.IndustryAccount.ReceiverLine.MonitoringStationOSId);
+			#region TRY
+			try
+			{
+				var db = SosCrmDataContext.Instance;
+				var account = db.MS_Accounts.LoadByPrimaryKey(accountId);
+				if (account == null || account.IndustryAccount == null)
+				{
+					result.Code = (int)ErrorCodes.SqlItemNotFound;
+					result.Message = string.Format("Account {0} not found or missing industry account", accountId);
+				}
+				else
+				{
+					var relCol = db.MS_EmergencyContactTypes.ByMonitoringStation(account.IndustryAccount.ReceiverLine.MonitoringStationOSId);
 
-                    // ** Build result
-                    var resultList = relCol.Select(relationshipItem => new FnsMsEmergencyContactType(relationshipItem)).Cast<IFnsMsEmergencyContactType>().ToList();
+					// ** Build result
+					var resultList = relCol.Select(relationshipItem => new FnsMsEmergencyContactType(relationshipItem)).Cast<IFnsMsEmergencyContactType>().ToList();
 
-                    // ** Save result information
-                    result.Code = (int)ErrorCodes.Success;
-                    result.Message = "Success";
-                    result.Value = resultList;
-                }
-            }
-            #endregion TRY
+					// ** Save result information
+					result.Code = (int)ErrorCodes.Success;
+					result.Message = "Success";
+					result.Value = resultList;
+				}
+			}
+			#endregion TRY
 
-            #region CATCH
-            catch (Exception ex)
-            {
-                result = new FnsResult<List<IFnsMsEmergencyContactType>>
-                {
-                    Code = (int)ErrorCodes.UnexpectedException,
-                    Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message)
-                };
-            }
-            #endregion CATCH
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<List<IFnsMsEmergencyContactType>>
+				{
+					Code = (int)ErrorCodes.UnexpectedException,
+					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message)
+				};
+			}
+			#endregion CATCH
 
-            // ** Return result
-            return result;
-        }
+			// ** Return result
+			return result;
+		}
 
-        public IFnsResult<List<IFnsMsEmergencyContact>> EmergencyContactGetByAccountId(long accountId, string gpEmployeeId)
+		public IFnsResult<List<IFnsMsEmergencyContact>> EmergencyContactGetByAccountId(long accountId, string gpEmployeeId)
 		{
 			#region INITIALIZATION
 
@@ -987,31 +987,57 @@ namespace SOS.FunctionalServices
 		//	return result;
 		//}
 
-		public IFnsResult<IFnsMsAccountLeadInfo> CreateMasterFileAccounts(long cmfid, string gpEmployeeId)
+		public IFnsResult<IFnsMsAccountLeadInfo> CreateMasterFileAccount(long cmfid, string gpEmployeeId)
 		{
 			var result = new FnsResult<IFnsMsAccountLeadInfo>();
 
-			var leads = SosCrmDataContext.Instance.QL_Leads.ByCmfID(cmfid).ToList();
-			var primaryLeads = leads.Where(IsPrimaryLead).ToList();
-			if (primaryLeads.Count != 1)
+			var masterLeads = SosCrmDataContext.Instance.QL_CustomerMasterLeads.ByCmfID(cmfid).ToList();
+			var primaryMasterLeads = masterLeads.Where(IsPrimaryMasterLead).ToList();
+			if (primaryMasterLeads.Count != 1)
 			{
-				result.Message = (primaryLeads.Count == 0) ? "MasterFile has no primary lead" : "MasterFile has more than one primary lead";
+				result.Message = (primaryMasterLeads.Count == 0) ? "MasterFile has no primary lead" : "MasterFile has more than one primary lead";
+				result.Code = -1;
+				return result;
+			}
+			var monitoredMasterLeads = masterLeads.Where(IsMonitoredMasterLead).ToList();
+			if (monitoredMasterLeads.Count > 1)
+			{
+				result.Message = "MasterFile has more than one monitored lead";
 				result.Code = -1;
 				return result;
 			}
 
-			var primaryLead = primaryLeads[0];
 			long accountID = 0;
 			DatabaseHelper.UseTransaction(Data.SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME, () =>
 			{
-				// primary lead - create account
-				AE_Customer primaryCustomer;
-				var mcAccount = CreateAlarmAccount(primaryLead, gpEmployeeId, out primaryCustomer);
+				// if there are no MONI leads, use PRI lead
+				QL_CustomerMasterLead monitoredMasterLead;
+				if (monitoredMasterLeads.Count > 0)
+				{
+					monitoredMasterLead = monitoredMasterLeads[0];
+				}
+				else
+				{
+					// create moni master lead from primary master lead
+					monitoredMasterLead = new QL_CustomerMasterLead()
+					{
+						CustomerMasterLeadID = Guid.NewGuid(),
+						CustomerMasterFileId = cmfid,
+						CustomerTypeId = "MONI",
+						LeadId = primaryMasterLeads[0].LeadId,
+					};
+					monitoredMasterLead.Save();//gpEmployeeId);
+					// add to list ...as if it was always there...
+					masterLeads.Add(monitoredMasterLead);
+				}
+
+				// monitored lead - create account
+				var mcAccount = CreateAlarmAccount(monitoredMasterLead, gpEmployeeId);
 				accountID = mcAccount.AccountID;
 				// all leads - add customer to account
-				foreach (var lead in leads)
+				foreach (var masterLead in masterLeads)
 				{
-					AddCustomerToAlarmAccount(mcAccount, primaryCustomer, lead, gpEmployeeId);
+					AddCustomerToAlarmAccount(mcAccount, masterLead, gpEmployeeId);
 				}
 				// commit transaction
 				return true;
@@ -1022,23 +1048,28 @@ namespace SOS.FunctionalServices
 
 			return result;
 		}
-		private bool IsPrimaryLead(QL_Lead lead)
+		private bool IsPrimaryMasterLead(QL_CustomerMasterLead masterLead)
 		{
 			var priIdList = new[] { "PRI", "LEAD" };
-			return StringUtility.IsInList(priIdList, lead.CustomerTypeId, false);
+			return StringUtility.IsInList(priIdList, masterLead.CustomerTypeId, false);
 		}
-		private MC_Account CreateAlarmAccount(QL_Lead lead, string gpEmployeeId, out AE_Customer primaryCustomer)
+		private static bool IsMonitoredMasterLead(QL_CustomerMasterLead masterLead)
+		{
+			return string.Equals("MONI", masterLead.CustomerTypeId, StringComparison.OrdinalIgnoreCase);
+		}
+		private MC_Account CreateAlarmAccount(QL_CustomerMasterLead masterLead, string gpEmployeeId)
 		{
 			/** Create Customer */
-			primaryCustomer = CreateCustomer(lead, AE_CustomerAddressType.MetaData.Primary_Customer_AddressID, gpEmployeeId);
+			var monitoredCustomer = GetOrCreateAeCustomer(true, masterLead, gpEmployeeId);
 
+			var lead = masterLead.Lead;
 			/** Create the MC_Account */
 			var mcAccount = new MC_Account
 			{
 				CustomerMasterFileId = lead.CustomerMasterFileId,
 				AccountTypeId = "ALRM",
 				DealerId = lead.DealerId,
-				ShipContactId = primaryCustomer.CustomerID,
+				ShipContactId = monitoredCustomer.CustomerID,
 				ShipContactSameAsCustomer = true,
 				ShipAddressSameAsCustomer = true,
 			};
@@ -1048,7 +1079,7 @@ namespace SOS.FunctionalServices
 			var msAccount = new MS_Account
 			{
 				AccountID = mcAccount.AccountID,
-				PremiseAddressId = primaryCustomer.AddressId,
+				PremiseAddressId = monitoredCustomer.AddressId,
 				SiteTypeId = MS_AccountSiteType.MetaData.BurgFireMed_ResID
 			};
 			msAccount.Save(gpEmployeeId);
@@ -1063,53 +1094,51 @@ namespace SOS.FunctionalServices
 
 			return mcAccount;
 		}
-		private AE_Customer AddCustomerToAlarmAccount(MC_Account mcAccount, AE_Customer primaryCustomer, QL_Lead lead, string gpEmployeeId)
+		private AE_Customer AddCustomerToAlarmAccount(MC_Account mcAccount, QL_CustomerMasterLead masterLead, string gpEmployeeId)
 		{
-			var isPri = primaryCustomer.LeadId == lead.LeadID;
+			// get or create customer
+			AE_Customer customer = GetOrCreateAeCustomer(false, masterLead, gpEmployeeId);
 
-			/** Create Customer or use primary customer */
-			AE_Customer customer = isPri ? primaryCustomer : CreateCustomer(lead, lead.CustomerTypeId, gpEmployeeId);
-
-			/** Create the Customer Accounts record. */
-			var accountCustomer = new MS_AccountCustomer
+			var lead = masterLead.Lead;
+			if (ValidAccountCustomerTypeId(masterLead.CustomerTypeId))
 			{
-				AccountCustomerTypeId = isPri ? "MONI" : lead.CustomerTypeId,
-				LeadId = lead.LeadID,
-				CustomerId = customer.CustomerID,
-				AccountId = mcAccount.AccountID,
-			};
-			accountCustomer.Save(gpEmployeeId);
+				// only create if the customer type is valid for an MS_AccountCustomer
+				var accountCustomer = new MS_AccountCustomer
+				{
+					AccountCustomerTypeId = masterLead.CustomerTypeId,
+					LeadId = lead.LeadID,
+					AccountId = mcAccount.AccountID,
+					CustomerId = customer.CustomerID,
+				};
+				accountCustomer.Save(gpEmployeeId);
+			}
+			//
 			var customerAccount = new AE_CustomerAccount
 			{
 				LeadId = lead.LeadID,
 				AccountId = mcAccount.AccountID,
 				CustomerId = customer.CustomerID,
-				CustomerTypeId = lead.CustomerTypeId,
+				CustomerTypeId = masterLead.CustomerTypeId,
 				CreatedBy = gpEmployeeId,
 			};
 			customerAccount.Save(gpEmployeeId);
 
 			return customer;
 		}
-
-		private bool ValidCustomerAddressTypeID(string typeID)
+		private bool ValidAccountCustomerTypeId(string typeID)
 		{
-			var addressTypes = new[] {
-				AE_CustomerAddressType.MetaData.Billing_AddressID,
-				AE_CustomerAddressType.MetaData.OtherID,
-				AE_CustomerAddressType.MetaData.Premise_AddressID,
-				AE_CustomerAddressType.MetaData.Primary_Customer_AddressID,
-				AE_CustomerAddressType.MetaData.Secondary_Customer_AddressID,
-				AE_CustomerAddressType.MetaData.Shipping_AddressID,
-			};
+			var addressTypes = new[] { "PRI", "SEC", "MONI", };
 			return StringUtility.IsInList(addressTypes, typeID, false);
 		}
-		private AE_Customer CreateCustomer(QL_Lead lead, string customerAddressTypeID, string gpEmployeeId)
+
+		private AE_Customer GetOrCreateAeCustomer(bool isMoniCust, QL_CustomerMasterLead masterLead, string gpEmployeeId)
 		{
-			MC_Address mcAddress = null;
+			var lead = masterLead.Lead;
+
 			var qlAddress = lead.Address;
+			// map ql_address to mc_address 1 to 1
 			// check if an address already exists for the lead qlAddress
-			mcAddress = SosCrmDataContext.Instance.MC_Addresses.ByQlAddressId(qlAddress.AddressID);
+			var mcAddress = SosCrmDataContext.Instance.MC_Addresses.ByQlAddressId(qlAddress.AddressID);
 			if (mcAddress == null)
 			{
 				/** Save Data */
@@ -1156,44 +1185,67 @@ namespace SOS.FunctionalServices
 			}
 
 			/** Create Customer*/
-			var customer = new AE_Customer
+			// map lead to customer 1 to 1
+			// check if a customer already exists for the lead
+			var customer = SosCrmDataContext.Instance.AE_Customers.ByLeadId(masterLead.LeadId);
+			if (customer != null)
 			{
-				LeadId = lead.LeadID,
-				AddressId = mcAddress.AddressID,
-				CustomerTypeId = lead.CustomerTypeId,
-				CustomerMasterFileId = lead.CustomerMasterFileId,
-				DealerId = lead.DealerId,
-				LocalizationId = lead.LocalizationId,
-				Prefix = lead.Salutation,
-				FirstName = lead.FirstName,
-				MiddleName = lead.MiddleName,
-				LastName = lead.LastName,
-				Postfix = lead.Suffix,
-				Gender = lead.Gender,
-				SSN = lead.SSN,
-				DOB = lead.DOB,
-				Email = lead.Email,
-				PhoneHome = lead.PhoneHome ?? qlAddress.Phone, // This is needed because this PhoneHome maps to the panel phone.
-				PhoneWork = lead.PhoneWork,
-				PhoneMobile = lead.PhoneMobile,
-				IsActive = true,
-				IsDeleted = false,
-			};
-			customer.Save(gpEmployeeId);
-
-			/* Create AE_CustomerAddress */
-			if (!ValidCustomerAddressTypeID(customerAddressTypeID))
-			{
-				customerAddressTypeID = AE_CustomerAddressType.MetaData.OtherID;
+				if (isMoniCust)
+					throw new Exception("Unexpected state: A customer already exists, but this should be the very first customer...");
 			}
-			new AE_CustomerAddress
+			else
 			{
-				CustomerId = customer.CustomerID,
-				AddressId = mcAddress.AddressID,
-				CustomerAddressTypeId = customerAddressTypeID,
-			}.Save(gpEmployeeId);
+				customer = new AE_Customer
+				{
+					LeadId = lead.LeadID,
+					AddressId = mcAddress.AddressID,
+					CustomerTypeId = lead.CustomerTypeId,
+					CustomerMasterFileId = lead.CustomerMasterFileId,
+					DealerId = lead.DealerId,
+					LocalizationId = lead.LocalizationId,
+					Prefix = lead.Salutation,
+					FirstName = lead.FirstName,
+					MiddleName = lead.MiddleName,
+					LastName = lead.LastName,
+					Postfix = lead.Suffix,
+					Gender = lead.Gender,
+					SSN = lead.SSN,
+					DOB = lead.DOB,
+					Email = lead.Email,
+					PhoneHome = lead.PhoneHome ?? qlAddress.Phone, // This is needed because this PhoneHome maps to the panel phone.
+					PhoneWork = lead.PhoneWork,
+					PhoneMobile = lead.PhoneMobile,
+					IsActive = true,
+					IsDeleted = false,
+				};
+				customer.Save(gpEmployeeId);
+			}
+
+			var customerAddressTypeID = isMoniCust ? AE_CustomerAddressType.MetaData.Premise_AddressID : masterLead.CustomerTypeId;
+			if (ValidCustomerAddressTypeID(customerAddressTypeID))
+			{
+				// only create if the address type is valid for an AE_CustomerAddress
+				new AE_CustomerAddress
+				{
+					CustomerId = customer.CustomerID,
+					AddressId = mcAddress.AddressID,
+					CustomerAddressTypeId = customerAddressTypeID,
+				}.Save(gpEmployeeId);
+			}
 
 			return customer;
+		}
+		private bool ValidCustomerAddressTypeID(string typeID)
+		{
+			var addressTypes = new[] {
+				AE_CustomerAddressType.MetaData.Billing_AddressID,
+				AE_CustomerAddressType.MetaData.OtherID,
+				AE_CustomerAddressType.MetaData.Premise_AddressID,
+				AE_CustomerAddressType.MetaData.Primary_Customer_AddressID,
+				AE_CustomerAddressType.MetaData.Secondary_Customer_AddressID,
+				AE_CustomerAddressType.MetaData.Shipping_AddressID,
+			};
+			return StringUtility.IsInList(addressTypes, typeID, false);
 		}
 
 		#endregion MsAccounts
@@ -1302,10 +1354,10 @@ namespace SOS.FunctionalServices
 				result.Message = string.Format(BaseErrorCodes.ErrorCodes.ExceptionThrown.Message(), ex.Message, "MsIndustryNumberSetAsPrimary");
 				result.Value = false;
 			}
-			
+
 			// ** Return result
 			return result;
-			
+
 		}
 		public IFnsResult<bool> MsIndustryNumberSetAsSecondary(long industryAccountId, string gpEmployeeId)
 		{
@@ -1929,7 +1981,7 @@ namespace SOS.FunctionalServices
 			var msAccountSubmit = new MS_AccountSubmit
 			{
 				AccountId = accountId,
-				AccountSubmitTypeId = (short) MS_AccountSubmitType.AccountSubmitTypeEnum.Onboard_System,
+				AccountSubmitTypeId = (short)MS_AccountSubmitType.AccountSubmitTypeEnum.Onboard_System,
 				GPTechId = msAcctSlI.TechId ?? shellTechId,
 				DateSubmitted = DateTime.UtcNow,
 				WasSuccessfull = false,
@@ -2439,7 +2491,7 @@ namespace SOS.FunctionalServices
 					assignedCol.Add(SosCrmDataContext.Instance.MS_AccountDispatchAgencyAssignmentViews.LoadSingle(SosCrmDataStoredProcedureManager.MS_AccountDispatchAgencyAssignmentSave(accountId, dispatchAgencyId, msosId, gpEmployeeId)));
 				}
 
-	
+
 				// ** Build result value
 				var fnsList = assignedCol.Select(viewItem => new FnsMsAccountDispatchAgencyAssignmentView(viewItem)).Cast<IFnsMsAccountDispatchAgencyAssignmentView>().ToList();
 
@@ -2523,14 +2575,14 @@ namespace SOS.FunctionalServices
 
 						// ** Create the assignments
 						var filtereDispatchAgencies = from cust in daResult.Value
-							where
-								cust.DispatchAgencyTypeId == dispatchAgency.DispatchAgencyTypeId && cust.Phone1.Equals(dispatchAgency.Phone1)
-							select cust;
+													  where
+														  cust.DispatchAgencyTypeId == dispatchAgency.DispatchAgencyTypeId && cust.Phone1.Equals(dispatchAgency.Phone1)
+													  select cust;
 						// ** // ** Check that there is something to save
 						if (Equals(filtereDispatchAgencies.Count(), 0))
 						{
 							result.Code = BaseErrorCodes.ErrorCodes.CSDispatchAgencyNotFound.Code();
-							result.Message = string.Format(BaseErrorCodes.ErrorCodes.CSDispatchAgencyNotFound.Message(), 
+							result.Message = string.Format(BaseErrorCodes.ErrorCodes.CSDispatchAgencyNotFound.Message(),
 								receiverLine.MonitoringStationOS.MonitoringStation.MonitoringStationName,
 								string.Format("AgencyTypeId={0};Phone={1};ZipCode={2}", daType.MsAgencyTypeNo, dispatchAgency.Phone1, dispatchAgency.ZipCode),
 								receiverLine.MonitoringStationOS.MonitoringStation.ContactPhoneNumber);
