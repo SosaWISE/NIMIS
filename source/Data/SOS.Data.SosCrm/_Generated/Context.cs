@@ -1296,13 +1296,13 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
-		MS_AccountCustomerController _MS_AccountCustomers;
-		public MS_AccountCustomerController MS_AccountCustomers
+		MS_AccountCustomersOLDController _MS_AccountCustomersOLDs;
+		public MS_AccountCustomersOLDController MS_AccountCustomersOLDs
 		{
 			get
 			{
-				if (_MS_AccountCustomers == null) _MS_AccountCustomers = new MS_AccountCustomerController();
-				return _MS_AccountCustomers;
+				if (_MS_AccountCustomersOLDs == null) _MS_AccountCustomersOLDs = new MS_AccountCustomersOLDController();
+				return _MS_AccountCustomersOLDs;
 			}
 		}
 
@@ -3981,7 +3981,7 @@ namespace SOS.Data.SosCrm
 	public class MS_AccountCellularSubmitTypeController : BaseTableController<MS_AccountCellularSubmitType, MS_AccountCellularSubmitTypeCollection> { }
 	public class MS_AccountCellularSubmitVendorController : BaseTableController<MS_AccountCellularSubmitVendor, MS_AccountCellularSubmitVendorCollection> { }
 	public class MS_AccountCellularTypeController : BaseTableController<MS_AccountCellularType, MS_AccountCellularTypeCollection> { }
-	public class MS_AccountCustomerController : BaseTableController<MS_AccountCustomer, MS_AccountCustomerCollection> { }
+	public class MS_AccountCustomersOLDController : BaseTableController<MS_AccountCustomersOLD, MS_AccountCustomersOLDCollection> { }
 	public class MS_AccountCustomerTypeController : BaseTableController<MS_AccountCustomerType, MS_AccountCustomerTypeCollection> { }
 	public class MS_AccountDispatchAgencyAssignmentController : BaseTableController<MS_AccountDispatchAgencyAssignment, MS_AccountDispatchAgencyAssignmentCollection> { }
 	public class MS_AccountDslSeizureTypeController : BaseTableController<MS_AccountDslSeizureType, MS_AccountDslSeizureTypeCollection> { }

@@ -184,18 +184,18 @@ AS
 		LEFT OUTER JOIN [dbo].[MS_AccountSalesInformations] AS MASI WITH (NOLOCK)
 		ON
 			(MASI.AccountID = MSA.AccountID)
-		INNER JOIN [dbo].[MS_AccountCustomers] AS MSAC1 WITH (NOLOCK)
+		INNER JOIN [dbo].[AE_CustomerAccounts] AS MSAC1 WITH (NOLOCK)
 		ON
 			(MSAC1.AccountId = MCA.AccountID)
 			--AND ((MSAC1.AccountCustomerTypeId = 'MONI') OR (MSAC1.AccountCustomerTypeId = 'PRI'))
-			AND (MSAC1.AccountCustomerTypeId = 'MONI')
+			AND (MSAC1.CustomerTypeId = 'MONI')
 		INNER JOIN [dbo].[AE_Customers] AS CUST1 WITH (NOLOCK)
 		ON
 			(CUST1.CustomerID = MSAC1.CustomerId)
-		LEFT OUTER JOIN [dbo].[MS_AccountCustomers] AS MSAC2 WITH (NOLOCK)
+		LEFT OUTER JOIN [dbo].[AE_CustomerAccounts] AS MSAC2 WITH (NOLOCK)
 		ON
 			(MSAC2.AccountId = MCA.AccountID)
-			AND (MSAC2.AccountCustomerTypeId = 'SEC')
+			AND (MSAC2.CustomerTypeId = 'SEC')
 		LEFT OUTER JOIN [dbo].[AE_Customers] AS CUST2 WITH (NOLOCK)
 		ON
 			(CUST2.CustomerID = MSAC2.CustomerId)

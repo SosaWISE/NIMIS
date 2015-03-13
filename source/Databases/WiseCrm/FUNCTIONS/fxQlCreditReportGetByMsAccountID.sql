@@ -132,7 +132,7 @@ BEGIN
 		, QCR.CreatedBy
 		, QCR.CreatedOn
 	FROM
-		[dbo].[MS_AccountCustomers] AS ACA WITH (NOLOCK)
+		[dbo].[AE_CustomerAccounts] AS ACA WITH (NOLOCK)
 		INNER JOIN [dbo].[QL_Leads] AS LED WITH (NOLOCK)
 		ON
 			(LED.LeadID = ACA.LeadId)

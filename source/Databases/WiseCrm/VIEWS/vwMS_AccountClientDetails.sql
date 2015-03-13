@@ -47,7 +47,7 @@ AS
 
 	/** Query */
 	SELECT
-		[AccountCustomerID]
+		[CustomerAccountID]
 		, ACA.[CustomerId]
 		, ACA.[AccountId]
 		--, CST.CustomerID
@@ -96,7 +96,7 @@ AS
 		, IAN.Designator
 		, IAN.SubscriberNumber
 	FROM
-		[WISE_CRM].[dbo].[MS_AccountCustomers] AS ACA WITH (NOLOCK)
+		[WISE_CRM].[dbo].[AE_CustomerAccounts] AS ACA WITH (NOLOCK)
 		INNER JOIN [WISE_CRM].[dbo].AE_Customers AS CST WITH(NOLOCK)
 		ON
 			(ACA.CustomerId = CST.CustomerID)

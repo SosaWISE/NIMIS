@@ -6,7 +6,7 @@ namespace SOS.FunctionalServices.Contracts.Models.CentralStation
 	public interface IFnsMsAccountClientDetailsView
 	{
 		[DataMember]
-		long AccountCustomerID { get; set; }
+		long CustomerAccountID { get; set; }
 
 		[DataMember]
 		long CustomerId { get; set; }

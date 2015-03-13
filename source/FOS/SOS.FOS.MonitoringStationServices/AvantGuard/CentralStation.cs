@@ -151,8 +151,8 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 
 			#region Phones
 			// ** Get monitored parties
-			MS_AccountCustomerCollection moniParties =
-				SosCrmDataContext.Instance.MS_AccountCustomers.GetByAccountId(_account.AccountID);
+			AE_CustomerAccountCollection moniParties =
+				SosCrmDataContext.Instance.AE_CustomerAccounts.GetByAccountId(_account.AccountID);
 
 			// ** Set Site phones 
 			var phones = new List<Phone>();

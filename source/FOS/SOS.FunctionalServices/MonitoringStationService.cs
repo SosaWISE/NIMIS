@@ -1071,14 +1071,14 @@ namespace SOS.FunctionalServices
 			AE_Customer customer = isPri ? primaryCustomer : CreateCustomer(lead, lead.CustomerTypeId, gpEmployeeId);
 
 			/** Create the Customer Accounts record. */
-			var accountCustomer = new MS_AccountCustomer
-			{
-				AccountCustomerTypeId = isPri ? "MONI" : lead.CustomerTypeId,
-				LeadId = lead.LeadID,
-				CustomerId = customer.CustomerID,
-				AccountId = mcAccount.AccountID,
-			};
-			accountCustomer.Save(gpEmployeeId);
+			//var accountCustomer = new MS_AccountCustomer
+			//{
+			//	AccountCustomerTypeId = isPri ? "MONI" : lead.CustomerTypeId,
+			//	LeadId = lead.LeadID,
+			//	CustomerId = customer.CustomerID,
+			//	AccountId = mcAccount.AccountID,
+			//};
+			//accountCustomer.Save(gpEmployeeId);
 			var customerAccount = new AE_CustomerAccount
 			{
 				LeadId = lead.LeadID,

@@ -80,10 +80,10 @@ AS
 		LEFT OUTER JOIN [dbo].[MS_IndustryAccounts] AS IN2 WITH (NOLOCK)
 		ON
 			(IN2.IndustryAccountID = MSA.IndustryAccount2Id)
-		INNER JOIN [dbo].[MS_AccountCustomers] AS MAC WITH (NOLOCK)
+		INNER JOIN [dbo].[AE_CustomerAccounts] AS MAC WITH (NOLOCK)
 		ON
 			(MAC.AccountId = MSA.AccountID)
-			AND (MAC.AccountCustomerTypeId IN ('MONI', 'PRI'))
+			AND (MAC.CustomerTypeId IN ('MONI', 'PRI'))
 		INNER JOIN [dbo].[QL_Leads] AS LDS WITH (NOLOCK)
 		ON
 			(LDS.LeadID = MAC.LeadId)

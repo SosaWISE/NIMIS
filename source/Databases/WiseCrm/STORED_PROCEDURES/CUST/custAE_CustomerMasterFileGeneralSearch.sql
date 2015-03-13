@@ -91,7 +91,7 @@ BEGIN
 			ON
 				(ADRS1.AddressID = CST.AddressId)
 				AND (ADRS1.IsActive = 1 AND ADRS1.IsDeleted = 0)
-			INNER JOIN [dbo].[MS_AccountCustomers] AS ACA WITH (NOLOCK)
+			INNER JOIN [dbo].[AE_CustomerAccounts] AS ACA WITH (NOLOCK)
 			ON
 				(ACA.CustomerId = CST.CustomerID)
 				AND (CST.IsActive = 1 AND CST.IsDeleted = 0)

@@ -49,11 +49,11 @@ AS
 		MAC.AccountId
 		, CUST.*
 	FROM
-		[dbo].[MS_AccountCustomers] AS MAC WITH (NOLOCK)
+		[dbo].[AE_CustomerAccounts] AS MAC WITH (NOLOCK)
 		INNER JOIN [dbo].AE_Customers AS CUST WITH (NOLOCK)
 		ON
 			(CUST.CustomerId = MAC.CustomerId)
-			AND (MAC.AccountCustomerTypeId = 'PRI')
+			AND (MAC.CustomerTypeId = 'PRI')
 
 GO
 /* TEST */

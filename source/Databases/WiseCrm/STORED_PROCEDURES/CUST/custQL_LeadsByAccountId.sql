@@ -52,10 +52,10 @@ BEGIN
 		LD.*
 	FROM
 		[dbo].[QL_Leads] AS LD WITH (NOLOCK)
-		INNER JOIN [dbo].[MS_AccountCustomers] AS MSAC WITH (NOLOCK)
+		INNER JOIN [dbo].[AE_CustomerAccounts] AS MSAC WITH (NOLOCK)
 		ON
 			(MSAC.LeadId = LD.LeadID)
-			AND (MSAC.AccountCustomerTypeId = 'PRI')
+			AND (MSAC.CustomerTypeId = 'PRI')
 	WHERE
 		(MSAC.AccountID = @AccountId)
 

@@ -83,7 +83,7 @@ AS
 		, dbo.fxGetMS_AccountEquipmentPoints(MCA.AccountID) AS [Points]
 	FROM
 		[dbo].[MC_Accounts] AS MCA WITH (NOLOCK)
-		INNER JOIN [dbo].[MS_AccountCustomers] AS MSAC WITH (NOLOCK)
+		INNER JOIN [dbo].[AE_CustomerAccounts] AS MSAC WITH (NOLOCK)
 		ON
 			(MSAC.AccountId = MCA.AccountID)
 		INNER JOIN [dbo].[MS_Accounts] AS MSA WITH (NOLOCK)

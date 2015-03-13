@@ -542,7 +542,7 @@ namespace SOS.Data.SosCrm
 
 				TableSchema.TableColumn colvarTransactionID = new TableSchema.TableColumn(schema);
 				colvarTransactionID.ColumnName = "Transaction ID";
-				colvarTransactionID.DataType = DbType.Int32;
+				colvarTransactionID.DataType = DbType.Guid;
 				colvarTransactionID.MaxLength = 0;
 				colvarTransactionID.AutoIncrement = false;
 				colvarTransactionID.IsNullable = true;
@@ -698,8 +698,8 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.CreditScore, value); }
 		}
 		[DataMember]
-		public int? TransactionID {
-			get { return GetColumnValue<int?>(Columns.TransactionID); }
+		public Guid? TransactionID {
+			get { return GetColumnValue<Guid?>(Columns.TransactionID); }
 			set { SetColumnValue(Columns.TransactionID, value); }
 		}
 		[DataMember]
@@ -12949,18 +12949,18 @@ namespace SOS.Data.SosCrm
 				colvarAccountId.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarAccountId);
 
-				TableSchema.TableColumn colvarAccountCustomerTypeId = new TableSchema.TableColumn(schema);
-				colvarAccountCustomerTypeId.ColumnName = "AccountCustomerTypeId";
-				colvarAccountCustomerTypeId.DataType = DbType.AnsiString;
-				colvarAccountCustomerTypeId.MaxLength = 5;
-				colvarAccountCustomerTypeId.AutoIncrement = false;
-				colvarAccountCustomerTypeId.IsNullable = false;
-				colvarAccountCustomerTypeId.IsPrimaryKey = false;
-				colvarAccountCustomerTypeId.IsForeignKey = false;
-				colvarAccountCustomerTypeId.IsReadOnly = false;
-				colvarAccountCustomerTypeId.DefaultSetting = @"";
-				colvarAccountCustomerTypeId.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarAccountCustomerTypeId);
+				TableSchema.TableColumn colvarCustomerTypeId = new TableSchema.TableColumn(schema);
+				colvarCustomerTypeId.ColumnName = "CustomerTypeId";
+				colvarCustomerTypeId.DataType = DbType.AnsiString;
+				colvarCustomerTypeId.MaxLength = 20;
+				colvarCustomerTypeId.AutoIncrement = false;
+				colvarCustomerTypeId.IsNullable = false;
+				colvarCustomerTypeId.IsPrimaryKey = false;
+				colvarCustomerTypeId.IsForeignKey = false;
+				colvarCustomerTypeId.IsReadOnly = false;
+				colvarCustomerTypeId.DefaultSetting = @"";
+				colvarCustomerTypeId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCustomerTypeId);
 
 				TableSchema.TableColumn colvarCustomerAddressTypeId = new TableSchema.TableColumn(schema);
 				colvarCustomerAddressTypeId.ColumnName = "CustomerAddressTypeId";
@@ -13535,9 +13535,9 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.AccountId, value); }
 		}
 		[DataMember]
-		public string AccountCustomerTypeId {
-			get { return GetColumnValue<string>(Columns.AccountCustomerTypeId); }
-			set { SetColumnValue(Columns.AccountCustomerTypeId, value); }
+		public string CustomerTypeId {
+			get { return GetColumnValue<string>(Columns.CustomerTypeId); }
+			set { SetColumnValue(Columns.CustomerTypeId, value); }
 		}
 		[DataMember]
 		public string CustomerAddressTypeId {
@@ -13754,7 +13754,7 @@ namespace SOS.Data.SosCrm
 
 		public override string ToString()
 		{
-			return AccountCustomerTypeId;
+			return CustomerTypeId;
 		}
 
 		#region Typed Columns
@@ -13763,7 +13763,7 @@ namespace SOS.Data.SosCrm
 		{
 			get { return Schema.Columns[0]; }
 		}
-		public static TableSchema.TableColumn AccountCustomerTypeIdColumn
+		public static TableSchema.TableColumn CustomerTypeIdColumn
 		{
 			get { return Schema.Columns[1]; }
 		}
@@ -13942,7 +13942,7 @@ namespace SOS.Data.SosCrm
 		public struct Columns
 		{
 			public const string AccountId = @"AccountId";
-			public const string AccountCustomerTypeId = @"AccountCustomerTypeId";
+			public const string CustomerTypeId = @"CustomerTypeId";
 			public const string CustomerAddressTypeId = @"CustomerAddressTypeId";
 			public const string AddressID = @"AddressID";
 			public const string QlAddressId = @"QlAddressId";
@@ -14365,18 +14365,18 @@ namespace SOS.Data.SosCrm
 				schema.SchemaName = @"dbo";
 				//columns
 
-				TableSchema.TableColumn colvarAccountCustomerID = new TableSchema.TableColumn(schema);
-				colvarAccountCustomerID.ColumnName = "AccountCustomerID";
-				colvarAccountCustomerID.DataType = DbType.Int64;
-				colvarAccountCustomerID.MaxLength = 0;
-				colvarAccountCustomerID.AutoIncrement = false;
-				colvarAccountCustomerID.IsNullable = false;
-				colvarAccountCustomerID.IsPrimaryKey = false;
-				colvarAccountCustomerID.IsForeignKey = false;
-				colvarAccountCustomerID.IsReadOnly = false;
-				colvarAccountCustomerID.DefaultSetting = @"";
-				colvarAccountCustomerID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarAccountCustomerID);
+				TableSchema.TableColumn colvarCustomerAccountID = new TableSchema.TableColumn(schema);
+				colvarCustomerAccountID.ColumnName = "CustomerAccountID";
+				colvarCustomerAccountID.DataType = DbType.Int64;
+				colvarCustomerAccountID.MaxLength = 0;
+				colvarCustomerAccountID.AutoIncrement = false;
+				colvarCustomerAccountID.IsNullable = false;
+				colvarCustomerAccountID.IsPrimaryKey = false;
+				colvarCustomerAccountID.IsForeignKey = false;
+				colvarCustomerAccountID.IsReadOnly = false;
+				colvarCustomerAccountID.DefaultSetting = @"";
+				colvarCustomerAccountID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCustomerAccountID);
 
 				TableSchema.TableColumn colvarCustomerId = new TableSchema.TableColumn(schema);
 				colvarCustomerId.ColumnName = "CustomerId";
@@ -14920,9 +14920,9 @@ namespace SOS.Data.SosCrm
 
 		#region Properties
 		[DataMember]
-		public long AccountCustomerID {
-			get { return GetColumnValue<long>(Columns.AccountCustomerID); }
-			set { SetColumnValue(Columns.AccountCustomerID, value); }
+		public long CustomerAccountID {
+			get { return GetColumnValue<long>(Columns.CustomerAccountID); }
+			set { SetColumnValue(Columns.CustomerAccountID, value); }
 		}
 		[DataMember]
 		public long CustomerId {
@@ -15129,12 +15129,12 @@ namespace SOS.Data.SosCrm
 
 		public override string ToString()
 		{
-			return AccountCustomerID.ToString();
+			return CustomerAccountID.ToString();
 		}
 
 		#region Typed Columns
 
-		public static TableSchema.TableColumn AccountCustomerIDColumn
+		public static TableSchema.TableColumn CustomerAccountIDColumn
 		{
 			get { return Schema.Columns[0]; }
 		}
@@ -15304,7 +15304,7 @@ namespace SOS.Data.SosCrm
 		#region Columns Struct
 		public struct Columns
 		{
-			public const string AccountCustomerID = @"AccountCustomerID";
+			public const string CustomerAccountID = @"CustomerAccountID";
 			public const string CustomerId = @"CustomerId";
 			public const string AccountId = @"AccountId";
 			public const string CustomerTypeId = @"CustomerTypeId";

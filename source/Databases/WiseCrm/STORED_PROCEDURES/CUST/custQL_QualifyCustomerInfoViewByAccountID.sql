@@ -51,15 +51,15 @@ BEGIN
 	SELECT TOP 1
 		@LeadID = CST.LeadId
 	FROM
-		[dbo].[MS_AccountCustomers] AS MAC WITH (NOLOCK)
+		[dbo].[AE_CustomerAccounts] AS MAC WITH (NOLOCK)
 		INNER JOIN [dbo].[AE_Customers] AS CST WITH (NOLOCK)
 		ON
 			(CST.CustomerID = MAC.CustomerId)
-			AND ((MAC.AccountCustomerTypeId = 'MONI') OR (MAC.AccountCustomerTypeId = 'PRI'))
+			AND ((MAC.CustomerTypeId = 'MONI') OR (MAC.CustomerTypeId = 'PRI'))
 	WHERE
 		(MAC.AccountId = @AccountId)
 	ORDER BY 
-		MAC.AccountCustomerTypeId DESC;
+		MAC.CustomerTypeId DESC;
 
 	BEGIN TRY
 		SELECT
