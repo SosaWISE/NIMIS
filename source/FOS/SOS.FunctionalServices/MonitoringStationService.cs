@@ -991,34 +991,48 @@ namespace SOS.FunctionalServices
 		{
 			var result = new FnsResult<IFnsMsAccountLeadInfo>();
 
-			var leads = SosCrmDataContext.Instance.QL_Leads.ByCmfID(cmfid).ToList();
-			var primaryLeads = leads.Where(IsPrimaryLead).ToList();
-			if (primaryLeads.Count != 1)
+			try
 			{
-				result.Message = (primaryLeads.Count == 0) ? "MasterFile has no primary lead" : "MasterFile has more than one primary lead";
-				result.Code = -1;
-				return result;
-			}
-
-			var primaryLead = primaryLeads[0];
-			long accountID = 0;
-			DatabaseHelper.UseTransaction(Data.SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME, () =>
-			{
-				// primary lead - create account
-				AE_Customer primaryCustomer;
-				var mcAccount = CreateAlarmAccount(primaryLead, gpEmployeeId, out primaryCustomer);
-				accountID = mcAccount.AccountID;
-				// all leads - add customer to account
-				foreach (var lead in leads)
+				var leads = SosCrmDataContext.Instance.QL_Leads.ByCmfID(cmfid).ToList();
+				var primaryLeads = leads.Where(IsPrimaryLead).ToList();
+				if (primaryLeads.Count != 1)
 				{
-					AddCustomerToAlarmAccount(mcAccount, primaryCustomer, lead, gpEmployeeId);
+					result.Message = (primaryLeads.Count == 0) ? "MasterFile has no primary lead" : "MasterFile has more than one primary lead";
+					result.Code = -1;
+					return result;
 				}
-				// commit transaction
-				return true;
-			});
 
-			var accountLeadInfo = SosCrmDataContext.Instance.MS_AccountAndLeadInfoViews.ByAccountID(accountID);
-			result.Value = new FnsMsAccountLeadInfo(accountLeadInfo);
+				var primaryLead = primaryLeads[0];
+				long accountID = 0;
+				DatabaseHelper.UseTransaction(Data.SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME, () =>
+				{
+					// primary lead - create account
+					AE_Customer primaryCustomer;
+					var mcAccount = CreateAlarmAccount(primaryLead, gpEmployeeId, out primaryCustomer);
+					accountID = mcAccount.AccountID;
+					// all leads - add customer to account
+					foreach (var lead in leads)
+					{
+						AddCustomerToAlarmAccount(mcAccount, primaryCustomer, lead, gpEmployeeId);
+					}
+					// commit transaction
+					return true;
+				});
+
+				// ** Save Sales Rep Id from QL_Leads into the MS_AccountSalesInformations table.
+				var accountSalesInformation = SosCrmDataContext.Instance.MS_AccountSalesInformationsViews.SaveSalesRepIDByAccountID(
+					cmfid, accountID);
+				if (accountSalesInformation == null) throw new Exception("While creating the MS_Account for this lead, the system was not able to save the SalesRepID into the MS_AccountSalesInformations table.  Please contact the Administrator.");
+
+				var accountLeadInfo = SosCrmDataContext.Instance.MS_AccountAndLeadInfoViews.ByAccountID(accountID);
+				result.Value = new FnsMsAccountLeadInfo(accountLeadInfo);
+
+			}
+			catch (Exception ex)
+			{
+				result.Code = BaseErrorCodes.ErrorCodes.ExceptionThrown.Code();
+				result.Message = string.Format(BaseErrorCodes.ErrorCodes.ExceptionThrown.Message(), ex.Message);
+			}
 
 			return result;
 		}

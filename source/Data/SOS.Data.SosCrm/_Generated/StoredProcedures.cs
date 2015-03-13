@@ -677,6 +677,12 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@AccountID", AccountID, DbType.Int64);
 			return sp;
 		}
+		public static StoredProcedure MS_AccountSalesInformationSaveSalesRepID(long? CustomerMasterFileID,long? AccountID) {
+			StoredProcedure sp = new StoredProcedure("custMS_AccountSalesInformationSaveSalesRepID" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@CustomerMasterFileID", CustomerMasterFileID, DbType.Int64);
+			sp.Command.AddParameter("@AccountID", AccountID, DbType.Int64);
+			return sp;
+		}
 		public static StoredProcedure MS_AccountSalesInfoViewRead(long? AccountID) {
 			StoredProcedure sp = new StoredProcedure("custMS_AccountSalesInfoViewRead" ,DataService.GetInstance("SosCrmProvider"));
 			sp.Command.AddParameter("@AccountID", AccountID, DbType.Int64);

@@ -11,5 +11,10 @@ namespace SOS.Data.SosCrm.ControllerExtensions
 		{
 			return cntlr.LoadSingle(SosCrmDataStoredProcedureManager.MS_AccountSalesInfoViewRead(accountId));
 		}
+
+		public static AR SaveSalesRepIDByAccountID(this ARController cntlr, long cmfid, long accountId)
+		{
+			return cntlr.LoadSingle(SosCrmDataStoredProcedureManager.MS_AccountSalesInformationSaveSalesRepID(cmfid, accountId));
+		}
 	}
 }
