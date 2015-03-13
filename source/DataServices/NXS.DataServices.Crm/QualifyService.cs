@@ -22,10 +22,8 @@ namespace NXS.DataServices.Crm
 		{
 			using (var db = CrmDb.Connect())
 			{
-				var repo = new QL_LeadRepo(db);
-				//
-				var item = await repo.MasterFileLeadAsync(cmfid, customerTypeId).ConfigureAwait(false);
-				var result = new Result<QlLead>(value: (item == null) ? null : QlLead.FromQL_Lead(item));
+				var item = await db.QL_Leads.MasterFileLeadAsync(cmfid, customerTypeId).ConfigureAwait(false);
+				var result = new Result<QlLead>(value: QlLead.FromDb(item, nullable: true));
 				return result;
 			}
 		}
@@ -34,10 +32,8 @@ namespace NXS.DataServices.Crm
 		{
 			using (var db = CrmDb.Connect())
 			{
-				var repo = new QL_LeadRepo(db);
-				//
-				var items = await repo.MasterFileLeadsAsync(cmfid).ConfigureAwait(false);
-				var result = new Result<List<QlLead>>(value: items.ConvertAll(item => QlLead.FromQL_Lead(item)));
+				var items = await db.QL_Leads.MasterFileLeadsAsync(cmfid).ConfigureAwait(false);
+				var result = new Result<List<QlLead>>(value: items.ConvertAll(item => QlLead.FromDb(item)));
 				return result;
 			}
 		}
@@ -46,9 +42,7 @@ namespace NXS.DataServices.Crm
 		{
 			using (var db = CrmDb.Connect())
 			{
-				var repo = new QL_CustomerMasterLeadRepo(db);
-				//
-				var added = await repo.AddCustomerMasterLeadAsync(cmfid, customerTypeId, leadID).ConfigureAwait(false);
+				var added = await db.QL_CustomerMasterLeads.AddCustomerMasterLeadAsync(cmfid, customerTypeId, leadID).ConfigureAwait(false);
 				var result = new Result<bool>(
 					code: added ? 0 : -1,
 					message: added ? "" :

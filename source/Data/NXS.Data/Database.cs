@@ -189,7 +189,7 @@ namespace NXS.Data
 
 		public partial class Table<T, TID> : ITable
 		{
-			internal Database<TDatabase> _database;
+			protected Database<TDatabase> _database;
 			internal string _name;
 			internal string _pkName;
 			protected readonly string _aliasNoDot;

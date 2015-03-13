@@ -42,8 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContractAdmin\AccountsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CustomerMasterFilesModule.cs" />
+    <Compile Include="Qualify\CustomerMasterFilesModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

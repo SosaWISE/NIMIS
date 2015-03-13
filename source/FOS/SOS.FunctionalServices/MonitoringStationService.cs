@@ -1060,7 +1060,8 @@ namespace SOS.FunctionalServices
 		private MC_Account CreateAlarmAccount(QL_CustomerMasterLead masterLead, string gpEmployeeId)
 		{
 			/** Create Customer */
-			var monitoredCustomer = GetOrCreateAeCustomer(true, masterLead, gpEmployeeId);
+			long mcAddressId;
+			var monitoredCustomer = GetOrCreateAeCustomer(true, masterLead, gpEmployeeId, out mcAddressId);
 
 			var lead = masterLead.Lead;
 			/** Create the MC_Account */
@@ -1097,20 +1098,21 @@ namespace SOS.FunctionalServices
 		private AE_Customer AddCustomerToAlarmAccount(MC_Account mcAccount, QL_CustomerMasterLead masterLead, string gpEmployeeId)
 		{
 			// get or create customer
-			AE_Customer customer = GetOrCreateAeCustomer(false, masterLead, gpEmployeeId);
+			long mcAddressId;
+			AE_Customer customer = GetOrCreateAeCustomer(false, masterLead, gpEmployeeId, out mcAddressId);
 
 			var lead = masterLead.Lead;
 			if (ValidAccountCustomerTypeId(masterLead.CustomerTypeId))
 			{
-				// only create if the customer type is valid for an MS_AccountCustomer
-				var accountCustomer = new MS_AccountCustomer
-				{
-					AccountCustomerTypeId = masterLead.CustomerTypeId,
-					LeadId = lead.LeadID,
-					AccountId = mcAccount.AccountID,
-					CustomerId = customer.CustomerID,
-				};
-				accountCustomer.Save(gpEmployeeId);
+				//// only create if the customer type is valid for an MS_AccountCustomer
+				//var accountCustomer = new MS_AccountCustomer
+				//{
+				//	AccountCustomerTypeId = masterLead.CustomerTypeId,
+				//	LeadId = lead.LeadID,
+				//	AccountId = mcAccount.AccountID,
+				//	CustomerId = customer.CustomerID,
+				//};
+				//accountCustomer.Save(gpEmployeeId);
 			}
 			//
 			var customerAccount = new AE_CustomerAccount
@@ -1119,6 +1121,7 @@ namespace SOS.FunctionalServices
 				AccountId = mcAccount.AccountID,
 				CustomerId = customer.CustomerID,
 				CustomerTypeId = masterLead.CustomerTypeId,
+				AddressId = mcAddressId,
 				CreatedBy = gpEmployeeId,
 			};
 			customerAccount.Save(gpEmployeeId);
@@ -1131,7 +1134,7 @@ namespace SOS.FunctionalServices
 			return StringUtility.IsInList(addressTypes, typeID, false);
 		}
 
-		private AE_Customer GetOrCreateAeCustomer(bool isMoniCust, QL_CustomerMasterLead masterLead, string gpEmployeeId)
+		private AE_Customer GetOrCreateAeCustomer(bool isMoniCust, QL_CustomerMasterLead masterLead, string gpEmployeeId, out long mcAddressId)
 		{
 			var lead = masterLead.Lead;
 
@@ -1183,6 +1186,7 @@ namespace SOS.FunctionalServices
 				};
 				mcAddress.Save(gpEmployeeId);
 			}
+			mcAddressId = mcAddress.AddressID;
 
 			/** Create Customer*/
 			// map lead to customer 1 to 1
@@ -1221,17 +1225,17 @@ namespace SOS.FunctionalServices
 				customer.Save(gpEmployeeId);
 			}
 
-			var customerAddressTypeID = isMoniCust ? AE_CustomerAddressType.MetaData.Premise_AddressID : masterLead.CustomerTypeId;
-			if (ValidCustomerAddressTypeID(customerAddressTypeID))
-			{
-				// only create if the address type is valid for an AE_CustomerAddress
-				new AE_CustomerAddress
-				{
-					CustomerId = customer.CustomerID,
-					AddressId = mcAddress.AddressID,
-					CustomerAddressTypeId = customerAddressTypeID,
-				}.Save(gpEmployeeId);
-			}
+			//var customerAddressTypeID = isMoniCust ? AE_CustomerAddressType.MetaData.Premise_AddressID : masterLead.CustomerTypeId;
+			//if (ValidCustomerAddressTypeID(customerAddressTypeID))
+			//{
+			//	// only create if the address type is valid for an AE_CustomerAddress
+			//	new AE_CustomerAddress
+			//	{
+			//		CustomerId = customer.CustomerID,
+			//		AddressId = mcAddress.AddressID,
+			//		CustomerAddressTypeId = customerAddressTypeID,
+			//	}.Save(gpEmployeeId);
+			//}
 
 			return customer;
 		}

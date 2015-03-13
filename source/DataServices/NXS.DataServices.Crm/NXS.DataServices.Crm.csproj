@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContractAdminService.cs" />
+    <Compile Include="Models\AeCustomer.cs" />
     <Compile Include="Models\QlLead.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QualifyService.cs" />

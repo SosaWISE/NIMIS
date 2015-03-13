@@ -37,8 +37,11 @@ namespace NXS.DataServices.Crm.Models
 		public string PhoneMobile { get; set; }
 		public string ProductSkwId { get; set; }
 
-		public static QlLead FromQL_Lead(QL_Lead lead)
+		public static QlLead FromDb(QL_Lead lead, bool nullable = false)
 		{
+			if (nullable && lead == null)
+				return null;
+
 			return new QlLead
 			{
 				LeadID = lead.LeadID,

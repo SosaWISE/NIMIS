@@ -8,7 +8,6 @@ namespace SOS.FunctionalServices.Models.CentralStation
 	{
 		public FnsMsAccountClientDetailsView(MS_AccountClientDetailsView oResulItem)
 		{
-			AccountCustomerID = oResulItem.AccountCustomerID;
 			CustomerId = oResulItem.CustomerId;
 			AccountId = oResulItem.AccountId;
 			CustomerTypeId = oResulItem.CustomerTypeId;
