@@ -472,7 +472,6 @@ BEGIN
 			  ,[PanelItemId]
 			  ,[CellPackageItemId]
 			  ,[ContractId]
-			  ,[TechId]
 			  ,[AccountPassword]
 			  ,[SimProductBarcodeId]
 			  ,[DispatchMessage]
@@ -502,7 +501,6 @@ BEGIN
 			NULL,  -- PanelItemId
 			NULL,  -- CellPackageItemId
 			NULL,  -- ContractId
-			'SYST001', -- TechId  (This is the Super TECH T.)
 			[AbortCode], -- AccountPassword
 			NULL, -- SimProductBarcodeId
 			NULL -- DispatchMessage
@@ -1018,9 +1016,9 @@ BEGIN
 				'SEC'
 		END
 
-		/** Create the MS_AccountCustomers records. */
-		INSERT INTO [dbo].[MS_AccountCustomers] (
-			[AccountCustomerTypeId]
+		/** Create the AE_CustomerAccounts records. */
+		INSERT INTO [dbo].[AE_CustomerAccounts] (
+			[CustomerTypeId]
 			, [LeadId]
 			, [CustomerId]
 			, [AccountId]

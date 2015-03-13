@@ -26,5 +26,10 @@ namespace SOS.Data.SosCrm.ControllerExtensions
 			var qry = AR.Query().WHERE(AR.Columns.CustomerMasterFileId, cmfid);
 			return cntlr.LoadCollection(qry);
 		}
+
+		public static AR LoadByAccountId(this ARController cntlr, long accountId)
+		{
+			return cntlr.LoadSingle(SosCrmDataStoredProcedureManager.QL_LeadsByAccountId(accountId));
+		}
 	}
 }

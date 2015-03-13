@@ -81,7 +81,7 @@ AS
 		INNER JOIN dbo.MS_AccountPanelTypes AS MAP WITH (NOLOCK)
 		ON
 			(MSA.PanelTypeId = MAP.PanelTypeID)
-		INNER JOIN dbo.MS_AccountCustomers AS ACA WITH (NOLOCK)
+		INNER JOIN dbo.AE_CustomerAccounts AS ACA WITH (NOLOCK)
 		ON
 			(MCA.AccountID = ACA.AccountId)
 		INNER JOIN dbo.AE_Customers AS ACM WITH (NOLOCK)

@@ -100,7 +100,10 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				: "NONE";
 
 
-			var sysTypeId = msAccount.GetMoniSysTypeId().SystemTypeID; // SysTypeId = "A1S001"
+		    var MoniPanelSysTypeId = msAccount.GetMoniSysTypeId();
+            if (MoniPanelSysTypeId == null)
+                throw new Exception("Main Panel is Missing");
+            var sysTypeId = MoniPanelSysTypeId.SystemTypeID; // SysTypeId = "A1S001"
 			var secSysTypeId = string.Empty;
 			if (msAccount.CellularTypeId.Equals(MS_AccountCellularType.MetaData.Cell_PrimaryID))
 			{
@@ -529,10 +532,12 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			}
 
 			// ** Save Successfull install information
+			var lead = SosCrmDataContext.Instance.QL_Leads.LoadByAccountId(msAccount.AccountID);
 			var salesInformation = SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(msAccount.AccountID);
 			salesInformation.AccountSubmitId = msAccountSubmit.AccountSubmitID;
 			salesInformation.SubmittedToCSDate = DateTime.UtcNow;
 			salesInformation.InstallDate = DateTime.UtcNow;
+			salesInformation.SalesRepId = lead.SalesRepId;
 			salesInformation.CsConfirmationNumber = confirmationNumber;
 			salesInformation.Save(gpEmployeeId);
 

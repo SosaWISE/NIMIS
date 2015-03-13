@@ -138,7 +138,6 @@
     <Compile Include="ControllerExtensions\MS_AccountSubmitControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_EquipmentsViewControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_AccountClientViewControllerExtensions.cs" />
-    <Compile Include="ControllerExtensions\MS_AccountCustomerControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_AccountEventViewControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_AccountPanelTypeControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_AccountSystemTypeControllerExtensions.cs" />

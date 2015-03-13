@@ -1,0 +1,2739 @@
+<?xml version="1.0"?>
+ <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <xsd:element name="HX5" type="THX5"/>
+
+  <xsd:complexType name="THX5">
+   <xsd:sequence>
+    <xsd:element name="HX5_transaction_information" type="THX5_transaction_information" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="bureau_xml_data" type="THX5_bureau_xml_data" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="HTML_Reports" type="THX5_HTML_Reports" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="TTY_Reports" type="THX5_TTY_Reports" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="CPU_Reports" type="THX5_CPU_Reports" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="Custom_Reports" type="THX5_Custom_Reports" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="Mirror" type="THX5_Mirror" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="error" type="THX5_processing_error" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="version" type="xsd:string"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5_transaction_information">
+   <xsd:sequence>
+    <xsd:element name="Original_Transaction_DateTime" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="Transid" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="Token" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="version" type="xsd:float" default="5.0"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="Tcodetext">
+   <xsd:simpleContent>
+    <xsd:extension base="xsd:string">
+     <xsd:attribute name="code" type="xsd:string" use="required"/>
+    </xsd:extension>
+   </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Tfmttext">
+   <xsd:simpleContent>
+    <xsd:extension base="xsd:string">
+     <xsd:attribute name="fmt" type="xsd:string" use="required"/>
+    </xsd:extension>
+   </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Tattr_fmt_type">
+   <xsd:simpleContent>
+    <xsd:extension base="xsd:string">
+     <xsd:attribute name="fmt_type" type="xsd:string" use="required"/>
+    </xsd:extension>
+   </xsd:simpleContent>
+  </xsd:complexType>
+  
+  <xsd:complexType name="Tattr_id">
+   <xsd:simpleContent>
+    <xsd:extension base="xsd:string">
+     <xsd:attribute name="id" type="xsd:string" use="required"/>
+    </xsd:extension>
+   </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Tattr_desc">
+   <xsd:simpleContent>
+    <xsd:extension base="xsd:string">
+     <xsd:attribute name="desc" type="xsd:string" use="required"/>
+    </xsd:extension>
+   </xsd:simpleContent>
+  </xsd:complexType>
+  
+  <xsd:complexType name="Tfreqtext">
+   <xsd:simpleContent>
+    <xsd:extension base="xsd:string">
+     <xsd:attribute name="frequency" type="xsd:string" use="required"/>
+    </xsd:extension>
+   </xsd:simpleContent>
+  </xsd:complexType>
+  
+  <xsd:complexType name="Tdatedeltext">
+   <xsd:simpleContent>
+    <xsd:extension base="xsd:string">
+     <xsd:attribute name="date_del" type="xsd:string" use="required"/>
+    </xsd:extension>
+   </xsd:simpleContent>
+  </xsd:complexType>
+  
+  <xsd:complexType name="Tstartdatetext">
+   <xsd:simpleContent>
+    <xsd:extension base="xsd:string">
+     <xsd:attribute name="start_date" type="xsd:string" use="required"/>
+    </xsd:extension>
+   </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5_bureau_xml_data">
+   <xsd:sequence>
+    <xsd:element name="TU_Report" type="THX5_TU_Report" minOccurs="0" maxOccurs="unbounded"/>
+    <!--<xsd:element name="XPN_Report" type="THX5_XPN_Report" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="EFX_Report" type="THX5_EFX_Report" minOccurs="0" maxOccurs="unbounded"/>-->
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <!-- TRANS UNION INFORMATION -->
+  <xsd:complexType name="THX5_TU_Report">
+   <xsd:sequence>
+    <xsd:element name="transaction_control" type="THX5tu_transaction_control" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="bureau_error" type="THX5tu_bureau_error" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="consumer_data" type="THX5tu_consumer_data" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="bureau_product_header" type="THX5tu_bureau_product_header" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subject_segments" type="THX5tu_subject_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="transaction_ending" type="THX5tu_transaction_ending" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="additional_data_not_decoded" type="THX5_additional_data_not_decoded" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="error" type="THX5_processing_error" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5_processing_error">
+   <xsd:simpleContent>
+    <xsd:extension base="xsd:string">
+     <xsd:attribute name="code" type="xsd:string" use="required"/>
+    </xsd:extension>
+   </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_transaction_control">
+   <xsd:sequence>
+    <xsd:element name="version_switch" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="country_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="language_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="user_reference" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="market" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="submarket" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="industry_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="member_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="trans_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="trans_time" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_bureau_error">
+   <xsd:sequence>
+    <xsd:element name="subject_identifier" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="error_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="code" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_consumer_data">
+   <xsd:sequence>
+    <xsd:element name="customer_identifier_qualifier" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="customer_identifier" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="password" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_bureau_product_header">
+   <xsd:simpleContent>
+    <xsd:extension base="Tcodetext">
+     <xsd:attribute name="id" type="xsd:string" use="required"/>
+    </xsd:extension>
+   </xsd:simpleContent>
+  </xsd:complexType>
+  
+  <!-- MAIN SUBJECT ELEMENT -->
+  <xsd:complexType name="THX5tu_subject_segments">
+   <xsd:sequence>
+    <xsd:element name="subject_header" type="THX5tu_subject_header" minOccurs="1" maxOccurs="unbounded"/>
+    <xsd:element name="consumer_identifier" type="THX5tu_consumer_identifier" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="edit_segment" type="THX5tu_edit_segment" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="name_information" type="THX5tu_name_information" minOccurs="1" maxOccurs="unbounded"/>
+    <xsd:element name="personal_information" type="THX5tu_personal_information" minOccurs="1" maxOccurs="unbounded"/>
+    <xsd:element name="identification" type="THX5tu_identification" minOccurs="0" maxOccurs="3"/>
+    <xsd:element name="id_mismatch_alert" type="THX5tu_id_mismatch_alert" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="id_mismatch_alert_02" type="THX5tu_id_mismatch_alert_02" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="address_analysis" type="THX5tu_address_analysis" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="address_information" type="THX5tu_address_information" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="extended_address_information" type="THX5tu_extended_address_information" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="phone_information" type="THX5tu_phone_information" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="employment_segments" type="THX5tu_employment_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="credit_summary" type="THX5tu_credit_summary" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="credit_summary_description" type="THX5tu_credit_summary_description" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="can_registered_item_segments" type="THX5tu_can_registered_item_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="can_bankruptcy_information_segments" type="THX5tu_can_bankruptcy_information_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="can_legal_item_segments" type="THX5tu_can_legal_item_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="public_record_segments" type="THX5tu_public_record_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="collection_segments" type="THX5tu_collection_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="trade_segments" type="THX5tu_trade_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="trade_MOP_totals" type="THX5tu_trade_MOP_totals" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="can_banking_information_segments" type="THX5tu_can_banking_information_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="compliance_information" type="THX5tu_compliance_information" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="miscellaneous_statement" type="THX5_tu_miscellaneous_statement" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="consumer_statement" type="THX5tu_consumer_statement" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="inquiry_segments" type="THX5tu_inquiry_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="text_statements" type="THX5tu_text_statements" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="message_text" type="THX5tu_message_text" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="owning_bureau_identification" type="THX5tu_owning_bureau_identification" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="phone_append_segments" type="THX5tu_phone_append_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="creditor_contact_information_segments" type="THX5tu_creditor_contact_information_segments" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="high_risk_fraud_alert_segments" type="THX5tu_high_risk_fraud_alert_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="scoring_segments" type="THX5tu_scoring_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="income_estimator_segments" type="THX5tu_income_estimator_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="income_estimator_3_segments" type="THX5tu_income_estimator3_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="dti_estimator_3_segments" type="THX5tu_dti_estimator3_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="credit_characteristics_segments" type="THX5tu_credit_characteristics_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="geo_code_segments" type="THX5tu_geo_code_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="fraud_management_platform_segments" type="THX5tu_fraud_management_platform_segments" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="ofac_name_screen_segments" type="THX5tu_ofac_name_screen_segments" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="inquiry_analysis_segments" type="THX5tu_inquiry_analysis_segments" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="idmv_scoring_segments" type="THX5tu_idmv_scoring_segments" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="id_fraud_model_scoring_segments" type="THX5tu_id_fraud_model_scoring_segments" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="message_segments" type="THX5tu_message_segments" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="arm_alert_segments" type="THX5tu_arm_alert_segments" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="num" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+   <xsd:complexType name="THX5tu_subject_header">
+     <xsd:sequence>
+       <xsd:element name="subject_id" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="file_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="file_hit" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="ssn_match_ind" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="consumer_statement_ind" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="bur_market_file_control" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="bur_submarket_file_control" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="suppression_ind" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="infile_since_date" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+     </xsd:sequence>
+     <xsd:attribute name="id" type="xsd:string" use="required"/>
+   </xsd:complexType>
+
+   <xsd:complexType name="THX5tu_consumer_identifier">
+   <xsd:sequence>
+    <xsd:element name="consumer_id" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="CI01"/>
+  </xsd:complexType>
+  
+   <xsd:complexType name="THX5tu_edit_segment">
+     <xsd:sequence>
+       <xsd:element name="subject_id" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="original_value" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="edit_code_num" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+     </xsd:sequence>
+     <xsd:attribute name="id" type="xsd:string" use="required"/>
+   </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_name_information">
+   <xsd:sequence>
+    <xsd:element name="source_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="name_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="lname" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="fname" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="mname" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="prefix" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="suffix" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="NM01"/>
+   <xsd:attribute name="type" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_personal_information">
+   <xsd:sequence>
+    <xsd:element name="source_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ssn" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="dob" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="age" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="gender" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="PI01"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_identification">
+   <xsd:sequence>
+    <xsd:element name="source_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="id_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="id_number_or_value" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_of_expiration" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state_of_issuance" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="ID01"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_id_mismatch_alert">
+   <xsd:sequence>
+    <xsd:element name="address_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="message_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="alert_condition" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="number_inquiries_last_60_days" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="TA01"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_id_mismatch_alert_02">
+   <xsd:sequence>
+    <xsd:element name="message_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="TA01"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_address_analysis">
+   <xsd:sequence>
+    <xsd:element name="input_address_index" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="house_number_match" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="predirectional_match" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="street_name_match" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="street_type_match" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="city_name_match" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state_code_match" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip_code_match" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="apartment_number_match" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="AM01"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_address_information">
+   <xsd:sequence>
+    <xsd:element name="source_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="addr_qualifier" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="house_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="predirectional" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="street_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="postdirectional" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="street_type" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="apt_unit_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="city" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_reported" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_extended_address_information">
+   <xsd:sequence>
+    <xsd:element name="source_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="addr_qualifier" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="street_address" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="city" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_reported" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_phone_information">
+   <xsd:sequence>
+    <xsd:element name="source_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="phone_qualifier" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="phone_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="availability_ind" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="area_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="telephone_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="extension" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="PN01"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_employment_segments">
+   <xsd:sequence>
+    <xsd:element name="employment_information" type="THX5tu_employment_information" minOccurs="1" maxOccurs="unbounded"/>
+    <xsd:element name="address_information" type="THX5tu_address_information" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="phone_information" type="THX5tu_phone_information" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_employment_information">
+   <xsd:sequence>
+    <xsd:element name="employer_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="source_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="occupation" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_hired" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_separated" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_verified_or_reported" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_verified_or_reported_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="income" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="pay_basis" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="EM01"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_credit_summary">
+   <xsd:sequence>
+    <xsd:element name="reporting_period" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="public_records" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="collections" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="negative_trades" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="trades_with_any_historical_negative" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="occurrence_of_historical_negative" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="trades" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="revolving_and_check_credit_trades" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="installments" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="mortgages" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="open_accounts" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="inquiries" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="SM01"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_credit_summary_description">
+   <xsd:sequence>
+    <xsd:element name="summary_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="high_credit" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="credit_limit" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="balance" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="amount_past_due" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="monthly_payment" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="percent_credit_available" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="SD01"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_can_registered_item">
+   <xsd:sequence>
+    <xsd:element name="date_revised" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="subscriber_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="subscriber_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="subscriber_phone" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="acct_num" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_filed" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_mature" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="orig_balance" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="curr_balance" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="past_due_amt" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="payment" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="payment_freq" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="curr_rating" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narr_code_1" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narr_code_2" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="security" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="registered_item_type" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="registration_num" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="RC02"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_can_registered_item_segments">
+   <xsd:sequence>
+    <xsd:element name="can_registered_item" type="THX5tu_can_registered_item" minOccurs="1" maxOccurs="99"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_can_banking_information">
+   <xsd:sequence>
+    <xsd:element name="industry_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="subscriber_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="subscriber_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="acct_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_opened" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_verified" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_closed" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="acct_desig" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="status" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="balance" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narr_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="acct_num" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="BK02"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_can_banking_information_segments">
+   <xsd:sequence>
+    <xsd:element name="can_banking_information" type="THX5tu_can_banking_information" minOccurs="1" maxOccurs="99"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_can_bankruptcy_information">
+   <xsd:sequence>
+    <xsd:element name="date_revised" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="reference_num" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="division_info" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_filing_num" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_reported" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_discharged" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="assets" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="liabilities" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="bankruptcy_discharge_type_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narr_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="bankruptcy_status_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="trustees_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="trustees_company_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="third_party_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="BR02"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_can_bankruptcy_information_segments">
+   <xsd:sequence>
+    <xsd:element name="can_bankruptcy_information" type="THX5tu_can_bankruptcy_information" minOccurs="1" maxOccurs="99"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_can_legal_item">
+   <xsd:sequence>
+    <xsd:element name="date_revised" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="legal_type_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="case_file_num" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="reference_info" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_reported" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_satisfied" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="orig_amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="curr_balance" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="status_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narr_code_1" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narr_code_2" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="plaintiff" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="lawyer" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="third_party" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="LE02"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_can_legal_item_segments">
+   <xsd:sequence>
+    <xsd:element name="can_legal_item" type="THX5tu_can_legal_item" minOccurs="1" maxOccurs="99"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  
+  <xsd:complexType name="THX5tu_public_record">
+   <xsd:sequence>
+    <xsd:element name="industry_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="member_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="public_record_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="docket_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="attorney" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="plaintiff" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_reported" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_paid" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="assets" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="liabilities_amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="account_designator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_location_city" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_location_state" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="PR01"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_public_record_segments">
+   <xsd:sequence>
+    <xsd:element name="public_record" type="THX5tu_public_record" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_collection">
+   <xsd:sequence>
+    <xsd:element name="industry_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="member_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="collection_agency_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="account_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="account_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="account_designator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="creditors_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_opened" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_verified" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="verification_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_closed" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_closed_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_paid_out" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="current_manner_of_payment" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="current_balance" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="original_balance" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="remarks_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="CL01"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_collection_segments">
+   <xsd:sequence>
+    <xsd:element name="collection" type="THX5tu_collection" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_trade">
+   <xsd:sequence>
+    <xsd:element name="industry_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="member_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="subscriber_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="account_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="account_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="account_designator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_opened" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_verified" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="trade_verification_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_closed" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_closed_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_paid_out" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_of_last_activity" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="current_manner_of_payment" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="currency" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="balance" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="high_credit" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="credit_limit" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="terms_duration" type="Tfreqtext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="terms_frequency" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="amount_of_payment" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="collateral" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="loan_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="remarks_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="amount_past_due" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="number_payments_past_due" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="max_delinquency_amount" type="Tdatedeltext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="max_delinquency_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="max_delinquency_MOP" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="payment_pattern_start_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="payment_pattern" type="Tstartdatetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="number_months_reviewed" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="times_30_days_late" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="times_60_days_late" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="times_90_days_late" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="historical_counters_verification_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="TR01"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_trade_segments">
+   <xsd:sequence>
+    <xsd:element name="trade" type="THX5tu_trade" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_trade_MOP_totals">
+   <xsd:sequence>
+    <xsd:element name="MOP_09_9B_9P_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="MOP_08_8A_8A_8D_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="MOP_07_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="MOP_05_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="MOP_04_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="MOP_03_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="MOP_02_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="MOP_01_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="MOP_00_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="all_other_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="number_account_in_dispute" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="TM01"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5_tu_miscellaneous_statement">
+   <xsd:sequence>
+     <xsd:element name="information" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="MI01"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_compliance_information">
+   <xsd:sequence>
+    <xsd:element name="information_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="subscriber_source_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="account_docket_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="remarks_or_public_record_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="remarks_or_public_record_text" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="CP01"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_consumer_statement">
+   <xsd:sequence>
+    <xsd:element name="content_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="information" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="CS01"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_inquiry_segments">
+   <xsd:sequence>
+    <xsd:element name="inquiry" type="THX5tu_inquiry" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_inquiry">
+   <xsd:sequence>
+    <xsd:element name="bureau_market" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="bureau_submarket" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="industry_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="member_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="subscriber_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="inquiry_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="loan_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="loan_amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_of_inquiry" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="IN01"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_text_statements">
+   <xsd:sequence>
+    <xsd:element name="text_statement" type="THX5tu_text_statement" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_text_statement">
+   <xsd:sequence>
+    <xsd:element name="content_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="statement_id" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="curr_seg_num" type="xsd:integer" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_seg_num" type="xsd:integer" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="statement_text" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="IN01"/>
+  </xsd:complexType>
+  
+
+  <xsd:complexType name="THX5tu_owning_bureau_identification">
+   <xsd:sequence>
+    <xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="address" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="csz" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="telephone" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="adverse_action_url" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string"/>
+  </xsd:complexType>
+
+
+  <!-- ADDON PRODUCTS -->
+  <xsd:complexType name="THX5tu_fraud_management_platform_segments">
+   <xsd:sequence>
+    <xsd:element name="product_information" type="THX5tu_addon_product_information" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="inquiry_history" type="THX5tu_inquiry_history" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="message_code" type="THX5tu_message_code" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="deceased_information" type="THX5tu_deceased_information" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="year_of_issuance_information" type="THX5tu_year_of_issuance_information" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="message_text" type="THX5tu_message_text" minOccurs="0" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_phone_append_segments">
+   <xsd:sequence>
+    <xsd:element name="product_information" type="THX5tu_addon_product_information" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="phone_information" type="THX5tu_phone_information" minOccurs="0" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_high_risk_fraud_alert_segments">
+   <xsd:sequence>
+    <xsd:element name="product_information" type="THX5tu_addon_product_information" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="inquiry_history" type="THX5tu_inquiry_history" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="message_code" type="THX5tu_message_code" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="deceased_information" type="THX5tu_deceased_information" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="year_of_issuance_information" type="THX5tu_year_of_issuance_information" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="message_text" type="THX5tu_message_text" minOccurs="0" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_inquiry_analysis">
+   <xsd:sequence>
+    <xsd:element name="inquiry_segments" type="THX5tu_inquiry_segments" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="name_information" type="THX5tu_name_information" minOccurs="0" maxOccurs="2"/>
+    <xsd:element name="address_information" type="THX5tu_address_information" minOccurs="0" maxOccurs="2"/>
+    <xsd:element name="phone_information" type="THX5tu_phone_information" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="employment_segments" type="THX5tu_employment_segments" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_inquiry_analysis_segments">
+   <xsd:sequence>
+    <xsd:element name="product_information" type="THX5tu_addon_product_information" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="inquiry_analysis" type="THX5tu_inquiry_analysis" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_geo_code_segments">
+   <xsd:sequence>
+    <xsd:element name="product_information" type="THX5tu_addon_product_information" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="geo_code" type="THX5tu_geo_code" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="address_information" type="THX5tu_address_information" minOccurs="0" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_scoring_segments">
+   <xsd:sequence>
+    <xsd:element name="product_information" type="THX5tu_addon_product_information" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="scoring" type="THX5tu_scoring" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+   <xsd:complexType name="THX5tu_income_estimator_segments">
+     <xsd:sequence>
+       <xsd:element name="product_information" type="THX5tu_addon_product_information" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="income_estimator" type="THX5tu_income_estimator" minOccurs="0" maxOccurs="unbounded"/>
+     </xsd:sequence>
+     <xsd:attribute name="id" type="xsd:string" use="required"/>
+     <xsd:attribute name="product" type="xsd:string" use="required"/>
+   </xsd:complexType>
+
+   <xsd:complexType name="THX5tu_income_estimator3_segments">
+     <xsd:sequence>
+       <xsd:element name="product_information" type="THX5tu_addon_product_information" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="scoring" type="THX5tu_scoring" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="characteristic" type="THX5tu_characteristic" minOccurs="1" maxOccurs="3"/>
+     </xsd:sequence>
+     <xsd:attribute name="id" type="xsd:string" use="required"/>
+     <xsd:attribute name="product" type="xsd:string" use="required"/>
+   </xsd:complexType>
+
+   <xsd:complexType name="THX5tu_dti_estimator3_segments">
+     <xsd:sequence>
+       <xsd:element name="product_information" type="THX5tu_addon_product_information" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="scoring" type="THX5tu_scoring" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="characteristic" type="THX5tu_characteristic" minOccurs="1" maxOccurs="1"/>
+     </xsd:sequence>
+     <xsd:attribute name="id" type="xsd:string" use="required"/>
+     <xsd:attribute name="product" type="xsd:string" use="required"/>
+   </xsd:complexType>
+
+   <xsd:complexType name="THX5tu_characteristic">
+   <xsd:sequence>
+    <xsd:element name="product_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="char_id" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="char_value" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_credit_characteristics_segments">
+   <xsd:sequence>
+    <xsd:element name="product_information" type="THX5tu_addon_product_information" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="characteristic" type="THX5tu_characteristic" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_idmv_scoring_segments">
+   <xsd:sequence>
+    <xsd:element name="scoring" type="THX5tu_scoring" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_id_fraud_model_scoring_segments">
+   <xsd:sequence>
+    <xsd:element name="scoring" type="THX5tu_scoring" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="transaction_tracking" type="THX5tu_transaction_tracking" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_message_segments">
+   <xsd:sequence>
+    <xsd:element name="message_code" type="THX5tu_message_code" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="message_text" type="THX5tu_message_text" minOccurs="0" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_arm_alert_segments">
+   <xsd:sequence>
+    <xsd:element name="product_information" type="THX5tu_addon_product_information" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="message_text" type="THX5tu_message_text" minOccurs="0" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:group name="THX5tu_creditor_contact_sequence">
+   <xsd:sequence>
+    <xsd:element name="creditor_contact_information" type="THX5tu_creditor_contact" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="subscriber_address" type="THX5tu_subscriber_address" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="phone_information" type="THX5tu_phone_information" minOccurs="0" maxOccurs="unbounded"/>
+   </xsd:sequence>
+  </xsd:group>
+  
+  <xsd:complexType name="THX5tu_creditor_contact_information_segments">
+   <xsd:sequence>
+    <xsd:element name="product_information" type="THX5tu_addon_product_information" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:group ref="THX5tu_creditor_contact_sequence" minOccurs="0" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_ofac_name_screen_segments">
+   <xsd:sequence>
+    <xsd:element name="message_text" type="THX5tu_message_text" minOccurs="0" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_geo_code">
+   <xsd:sequence>
+    <xsd:element name="address_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="geo_status" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="block_group_status" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="census_tract_status" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="MSA_MD_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="county_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="census_tract_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="census_tract_suffix" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="block_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="latitude" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="longitude" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="GC01"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_creditor_contact">
+   <xsd:sequence>
+    <xsd:element name="segment_decoded" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="bureau_market" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="bureau_submarket" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="industry_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="member_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="subscriber_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="method_of_contact" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="LK01"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_subscriber_address">
+   <xsd:sequence>
+    <xsd:element name="address1" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="address2" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="city" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="SA01"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_addon_product_information">
+   <xsd:sequence>
+    <xsd:element name="product" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="product_status" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="search_status" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="AO01"/>
+   <xsd:attribute name="product" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_transaction_tracking">
+   <xsd:sequence>
+    <xsd:element name="transaction_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="TT01"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5tu_inquiry_history">
+   <xsd:sequence>
+    <xsd:element name="message_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="times_input_used_on_other_inquiries" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="threshold_chosen" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="time_frame_of_occurrences" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="QH01"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_message_code">
+   <xsd:sequence>
+    <xsd:element name="message" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="source_ind" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="addr_match_flag" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="pob_apt_unit_or_telephone_ind" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="pob_apt_unit_or_telephone" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="threshold_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="MC01"/>
+   <xsd:attribute name="code" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_message_text">
+   <xsd:sequence>
+    <xsd:element name="message_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="actual_message_length" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="curr_node_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_node_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="threshold_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="text" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="MT01"/>
+   <xsd:attribute name="code" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_deceased_information">
+   <xsd:sequence>
+    <xsd:element name="source_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="lname" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="fname" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="city_last_residency" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state_last_residency" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip_last_residency" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="city_location_of_payments" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state_location_of_payments" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip_location_of_payments" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="dob" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="dod" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="deceased_info_file_searched" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="DC01"/>
+   <xsd:attribute name="code" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_year_of_issuance_information">
+   <xsd:sequence>
+    <xsd:element name="id_qualifier" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="message_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="source_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="number_years_covered" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="range_of_years_issued_from" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="range_of_years_issued_to" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="sign_of_age_obtained_from" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="age_obtained_from" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="sign_of_age_obtained_to" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="age_obtained_to" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="issuance_year_status" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="YI01"/>
+  </xsd:complexType>
+
+   <xsd:complexType name="THX5tu_income_estimator">
+     <xsd:sequence>
+       <xsd:element name="product_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="dti_percentage_ind" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="dti_percentage" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="low_range" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+       <xsd:element name="upper_range" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+     </xsd:sequence>
+     <xsd:attribute name="id" type="xsd:string" use="required" fixed="TC01"/>
+   </xsd:complexType>
+   
+   <xsd:complexType name="THX5tu_scoring">
+   <xsd:sequence>
+    <xsd:element name="product_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="sign" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="score" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="indicator_flag" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="derogatory_alert_flag" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="factor1" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="factor2" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="factor3" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="factor4" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="score_card_indicator" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="SC01"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5tu_transaction_ending">
+   <xsd:sequence>
+    <xsd:element name="segments_returned" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required" fixed="ENDS"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5_additional_data_not_decoded">
+   <xsd:sequence>
+    <xsd:element name="raw_data" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <!-- END TRANS UNION INFORMATION -->
+  
+  <!-- EXPERIAN INFORMATION --><!--
+  <xsd:complexType name="THX5_XPN_Report">
+   <xsd:sequence>
+    <xsd:element name="subject_segments" type="THX5xpn_subject_segments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="additional_data_not_decoded" type="THX5_additional_data_not_decoded" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="error" type="THX5_processing_error" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_subject_segments">
+   <xsd:sequence>
+    <xsd:choice minOccurs="1" maxOccurs="1">
+     <xsd:element name="transaction_control" type="THX5xpn_transaction_control"/>
+     <xsd:element name="error_transaction_control" type="THX5xpn_error_transaction_control"/>
+	</xsd:choice>
+	<xsd:element name="error_message" type="THX5xpn_error_message" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="connect_check" type="THX5xpn_connect_check" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="encrypted_pin" type="THX5xpn_encrypted_pin" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="risk_models" type="THX5xpn_risk_models" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="special_messages" type="THX5xpn_special_messages" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="abbreviated_identifications" type="THX5xpn_abbreviated_identifications" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="social_security_numbers" type="THX5xpn_social_security_numbers" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="names" type="THX5xpn_names" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="addresses" type="THX5xpn_addresses" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="employment" type="THX5xpn_employment" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="telephone_numbers" type="THX5xpn_telephone_numbers" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="public_record_segments" type="THX5xpn_public_record_segments" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="cross_view_returned_check" type="THX5xpn_cross_view_returned_check" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="cross_view_account_closure" type="THX5xpn_cross_view_account_closure" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="cross_view_inquiry" type="THX5xpn_cross_view_inquiry" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="tradeline_segments" type="THX5xpn_tradeline_segments" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="inquiry_segments" type="THX5xpn_inquiry_segments" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="statement_segments" type="THX5xpn_statement_segments" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="message_segments" type="THX5xpn_message_segments" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="direct_check_segments" type="THX5xpn_direct_check_segments" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="fraud_services_segments" type="THX5xpn_fraud_services_segments" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="parallel_profile_segments" type="THX5xpn_parallel_profile_segments" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="consumer_assistance_referral" type="THX5xpn_consumer_assistance_referral" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="profile_summary" type="THX5xpn_profile_summary" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="decision" type="THX5xpn_decision" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="decision_segments" type="THX5xpn_decision_segments" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="attribute_segments" type="THX5xpn_attribute_segments" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="model_attribute_segments" type="THX5xpn_model_attribute_segments" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element name="national_fraud_database" type="THX5xpn_national_fraud_database" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:choice minOccurs="1" maxOccurs="1">
+ 	 <xsd:element name="end_record_errors" type="THX5xpn_end_record_errors"/>
+	 <xsd:element name="end_record_file_returned" type="THX5xpn_end_record_file_returned"/>
+	</xsd:choice>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="num" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_error_message">
+   <xsd:sequence>
+    <xsd:element name="message" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="action" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="module_ident" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_transaction_control">
+   <xsd:sequence>
+    <xsd:element name="trans_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="trans_time" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="preamble" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="version" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="m_keyword" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="trans_date_y2k" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="inquiring_subcode" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="report_code" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="applicant_code" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_error_transaction_control">
+   <xsd:sequence>
+    <xsd:element name="host_id" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="application_id" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="trans_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="trans_time" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="report_type" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="preamble" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="region_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="version" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="surname" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="firstname" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="m_keyword" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="trans_date_y2k" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5xpn_connect_check">
+   <xsd:sequence>
+    <xsd:element name="input_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="id_match_condition" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="credit_class_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="high_risk_address_alert" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="additional_names_and_addresses_for_id_match_condition_c" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="additional_names_and_addresses_for_id_match_condition_d" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="additional_names_and_addresses_for_id_match_condition_e" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="score" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="full_credit_report_desc" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="pubrec_alert_bankruptcy" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="pubrec_alert_judgment" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="pubrec_alert_tax_lien" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="pubrec_alert_bankruptcy_dismissed_discharged" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="pubrec_alert_judgment_satisfied_vacated" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="pubrec_alert_tax_lien_released" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="orig_input_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="customer_sales_message" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5xpn_encrypted_pin">
+   <xsd:sequence>
+    <xsd:element name="pin" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="checksum" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="verification_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5xpn_risk_models">
+   <xsd:sequence>
+    <xsd:element name="risk_model" type="THX5xpn_risk_model" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5xpn_risk_model">
+   <xsd:sequence>
+    <xsd:element name="score" type="THX5xpn_risk_model_score" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="factor" type="Tcodetext" minOccurs="4" maxOccurs="4"/>
+    <xsd:element name="model" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5xpn_risk_model_score">
+   <xsd:simpleContent>
+    <xsd:extension base="xsd:string">
+     <xsd:attribute name="evaluation" type="xsd:string" use="required"/>
+    </xsd:extension>
+   </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_special_messages">
+   <xsd:sequence>
+    <xsd:element name="special_message" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5xpn_special_message">
+   <xsd:sequence>
+    <xsd:element name="message" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5xpn_abbreviated_identifications">
+   <xsd:sequence>
+    <xsd:element name="abbreviated_identification" type="THX5xpn_abbreviated_identification" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_abbreviated_identification">
+   <xsd:sequence>
+    <xsd:element name="lname" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="fname" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="middle_initial" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="spouse_initial" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="generation_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="street_number_last_4_digits" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="street_initial" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="year_of_birth" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="verified_ssn_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_social_security_numbers">
+   <xsd:sequence>
+    <xsd:element name="social_security_number" type="THX5xpn_ssn_info" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_ssn_info">
+   <xsd:sequence>
+    <xsd:element name="variation_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ssn" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_names">
+   <xsd:sequence>
+    <xsd:element name="name_information" type="THX5xpn_name_information" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_name_information">
+   <xsd:sequence>
+    <xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="year_of_birth" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="spouse_name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="spouse_ssn" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="phone" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="phone_source" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="name_type" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="drivers_license_state" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="drivers_license" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="date_of_birth" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="number_times_ssn_reported_with_same_name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="ssn" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_addresses">
+   <xsd:sequence>
+    <xsd:element name="address_information" type="THX5xpn_address_information" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_address_information">
+   <xsd:sequence>
+    <xsd:choice minOccurs="1" maxOccurs="1">
+     <xsd:element name="first_reported_date" type="Tfmttext"/>
+     <xsd:element name="first_reported_date_text" type="Tcodetext"/>
+	</xsd:choice>
+    <xsd:choice minOccurs="1" maxOccurs="1">
+     <xsd:element name="last_updated_date" type="Tfmttext"/>
+     <xsd:element name="last_updated_date_text" type="Tcodetext"/>
+	</xsd:choice>
+    <xsd:element name="origination_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="number_times_reported" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="last_subcode_reporting" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="dwelling_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="home_ownership" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="census_geo_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="address_text" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="geo_county_code" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="geo_state_code" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="geo_msa_code" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:choice minOccurs="0" maxOccurs="1">
+     <xsd:element name="y2k_first_reported_date" type="Tfmttext"/>
+     <xsd:element name="y2k_first_reported_date_text" type="Tcodetext"/>
+	</xsd:choice>
+    <xsd:choice minOccurs="0" maxOccurs="1">
+     <xsd:element name="y2k_last_updated_date" type="Tfmttext"/>
+     <xsd:element name="y2k_last_updated_date_text" type="Tcodetext"/>
+	</xsd:choice>
+    <xsd:element name="phone" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber_address" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber_city" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber_state" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber_zip" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_employment">
+   <xsd:sequence>
+    <xsd:element name="employment_information" type="THX5xpn_employment_information" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_employment_information">
+   <xsd:sequence>
+    <xsd:choice minOccurs="1" maxOccurs="1">
+     <xsd:element name="first_reported_date" type="Tfmttext"/>
+     <xsd:element name="first_reported_date_text" type="Tcodetext"/>
+	</xsd:choice>
+    <xsd:choice minOccurs="1" maxOccurs="1">
+     <xsd:element name="last_updated_date" type="Tfmttext"/>
+     <xsd:element name="last_updated_date_text" type="Tcodetext"/>
+	</xsd:choice>
+    <xsd:element name="origination_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="employer_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="address" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="address_2" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="address_3" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:choice minOccurs="0" maxOccurs="1">
+     <xsd:element name="y2k_first_reported_date" type="Tfmttext"/>
+     <xsd:element name="y2k_first_reported_date_text" type="Tcodetext"/>
+	</xsd:choice>
+    <xsd:choice minOccurs="0" maxOccurs="1">
+     <xsd:element name="y2k_last_updated_date" type="Tfmttext"/>
+     <xsd:element name="y2k_last_updated_date_text" type="Tcodetext"/>
+	</xsd:choice>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_telephone_numbers">
+   <xsd:sequence>
+    <xsd:element name="telephone_information" type="THX5xpn_telephone_information" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_telephone_information">
+   <xsd:sequence>
+    <xsd:element name="telephone_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="telephone_source" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="telephone_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="telephone_last_update_sin" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="telephone_to_file_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="telephone_updated_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_public_record_segments">
+   <xsd:sequence>
+    <xsd:element name="public_record" type="THX5xpn_public_record" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_public_record">
+   <xsd:sequence>
+    <xsd:element name="status" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="evaluation" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="status_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:choice minOccurs="1" maxOccurs="1">
+     <xsd:element name="amount" type="xsd:string"/>
+     <xsd:element name="amount_text" type="Tcodetext"/>
+	</xsd:choice>
+    <xsd:element name="consumer_comment" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_code" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="court_name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="reference_number" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="plaintiff" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="consumer_dispute_flag" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="ecoa" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:choice minOccurs="0" maxOccurs="1">
+     <xsd:element name="asset_amount" type="xsd:string"/>
+     <xsd:element name="asset_amount_text" type="Tcodetext"/>
+	</xsd:choice>
+    <xsd:choice minOccurs="0" maxOccurs="1">
+     <xsd:element name="liabilities_amount" type="xsd:string"/>
+     <xsd:element name="liabilities_amount_text" type="Tcodetext"/>
+	</xsd:choice>
+    <xsd:element name="repayment_percent" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="adjustment_percent" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="book_page" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="vol_invol_value" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="y2k_status_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="y2k_original_filing_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="original_filing_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_cross_view_returned_check">
+   <xsd:sequence>
+    <xsd:element name="aba_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="check_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="check_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="check_amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="paid_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+	<xsd:element name="account_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+	<xsd:element name="institution_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+	<xsd:element name="merchant_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+	<xsd:element name="drivers_license_state" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+	<xsd:element name="drivers_license_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_cross_view_account_closure">
+   <xsd:sequence>
+    <xsd:element name="aba_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="reason_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="paid_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+	<xsd:element name="account_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+	<xsd:element name="institution_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+	<xsd:element name="institution_state" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+	<xsd:element name="institution_zip_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_cross_view_inquiry">
+   <xsd:sequence>
+    <xsd:element name="inquiry_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="customer_state" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+	<xsd:element name="customer_zip_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+	<xsd:element name="customer_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_tradeline_segments">
+   <xsd:sequence>
+    <xsd:element name="tradeline" type="THX5xpn_tradeline" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_tradeline">
+   <xsd:sequence>
+    <xsd:element name="special_comments" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="evaluation" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_open" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="status_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="maximum_delinquency_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="type_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="terms" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ecoa" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="amount" type="THX5xpn_tradeline_amount" minOccurs="1" maxOccurs="2"/>
+    <xsd:element name="balance_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="balance_amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="status" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="amount_past_due" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="open_closed" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="rev_install" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="consumer_comment" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="account_number" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="date_payment_due" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="amount_of_ballon_payment" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="months_reviewed" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="thirty_day_counter" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="sixy_day_counter" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="ninety_day_counter" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="derog_counter" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="collateral" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="payment_profile" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="monthly_payment_amount" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="monthly_payment_type" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="frequency" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="last_payment_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subcode" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="kob" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber_name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="original_creditor" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="sold_to_text" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="payment_profile_84" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="consumer_dispute_flag" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="maximum_payment_code" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="first_delinquency_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="second_delinquency_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="initial_payment_level_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="account_condition_code" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="enhanced_payment_status" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="enhanced_type_codes" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="enhanced_special_comments" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="y2k_date_open" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="y2k_status_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="y2k_maximum_delinquency_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="y2k_balance_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="y2k_last_payment_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="y2k_first_delinquency_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="y2k_second_delinquency_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="y2k_initial_payment_level_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="status_indicator" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="recent_opened_indicator" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="debt_counseling_indicator" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="amount_available" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="type_category" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="credit_grantor_phone_number" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber_address" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber_city" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber_state" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber_zip_code" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5xpn_tradeline_amount">
+   <xsd:simpleContent>
+    <xsd:extension base="xsd:string">
+     <xsd:attribute name="qualifier" type="xsd:string" use="required"/>
+     <xsd:attribute name="qualifier_text" type="xsd:string" use="required"/>
+    </xsd:extension>
+   </xsd:simpleContent>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5xpn_inquiry_segments">
+   <xsd:sequence>
+    <xsd:element name="inquiry" type="THX5xpn_inquiry" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_inquiry">
+   <xsd:sequence>
+    <xsd:element name="inquiry_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="amount" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="terms" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="account_number" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subcode" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="kob" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber_name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="y2k_inquiry_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="credit_grantor_phone_number" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber_address" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber_city" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber_state" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="subscriber_zip_code" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5xpn_message_segments">
+   <xsd:sequence>
+    <xsd:element name="message" type="THX5xpn_message" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_message">
+   <xsd:sequence>
+    <xsd:element name="message_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="message_text" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_statement_segments">
+   <xsd:sequence>
+    <xsd:element name="statement" type="THX5xpn_statement" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_statement">
+   <xsd:sequence>
+    <xsd:element name="type_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_reported" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="statement_text" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="y2k_date_reported" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_direct_check_segments">
+   <xsd:sequence>
+    <xsd:element name="direct_check" type="THX5xpn_direct_check" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_direct_check">
+   <xsd:sequence>
+    <xsd:element name="subscriber_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="subscriber_phone_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="subscriber_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="subscriber_address" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="subscriber_city" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_fraud_services_segments">
+   <xsd:sequence>
+    <xsd:element name="fraud_services" type="THX5xpn_fraud_services" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_fraud_services">
+   <xsd:sequence>
+    <xsd:element name="record_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="sic_codes" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="text_data" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="social_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="social_count" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="social_error_code" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="address_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="address_count" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="address_error_code" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="first_year_possible" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="last_year_possible" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="indicator" type="Tcodetext" minOccurs="0" maxOccurs="4"/>
+    <xsd:element name="date_of_birth" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="date_of_death" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="y2k_social_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="y2k_address_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_parallel_profile_segments">
+   <xsd:sequence>
+    <xsd:element name="parallel_profile" type="THX5xpn_parallel_profile" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_parallel_profile">
+   <xsd:sequence>
+    <xsd:element name="spacing_control" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="report_text" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_consumer_assistance_referral">
+   <xsd:sequence>
+    <xsd:element name="crs_office_name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="crs_street_name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="crs_po_box" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="crs_city_state_zip" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="crs_phone_number" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_profile_summary">
+   <xsd:sequence>
+    <xsd:element name="disputed_accounts_excluded" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="public_records_count" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="installment_balance" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="real_estate_balance" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_revolving_balance" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="past_due_amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="monthly_payment" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="monthly_payment_partial_flag" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="real_estate_payment" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="real_estate_payment_partial_flag" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_revolving_available_percent" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="revolving_available_partial_flag" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_inquiries_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="inquiries_during_last_6_months_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_trade_items_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="paid_accounts_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="satisfactory_accounts_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="now_delinquent_derog_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="was_delinquent_derog_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="oldest_trade_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="thirty_day_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="sixty_day_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ninety_day_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="derog_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="y2k_oldest_trade_date" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_decision">
+   <xsd:sequence>
+    <xsd:element name="bureau_solutions_reference_id" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="product_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="dominant_model_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="primary_score" type="THX5xpn_risk_model" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="secondary_score" type="THX5xpn_risk_model" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="risk_assessment_level" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="policy_rule_codes" type="THX5xpn_decision_policy_rule_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="final_recommended_decision" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="recommended_loan_limit_amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_monthly_payment_amount" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="gross_monthly_income_amount" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="debt_ratio" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="monthly_mortgage_or_rent_payment" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_decision_policy_rule_codes">
+   <xsd:sequence>
+    <xsd:element name="policy_rule_code" type="Tcodetext" minOccurs="1" maxOccurs="20"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_decision_segments">
+   <xsd:sequence>
+    <xsd:element name="solution_strategist_decision" type="THX5xpn_solution_strategist_decision" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_solution_strategist_decision">
+   <xsd:sequence>
+    <xsd:element name="solution_strategist_reference_id" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="product_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="recommended_decision" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="model_type_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="applicant_model_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="decision_reason_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="assessment_level" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="policy_rule_codes" type="THX5xpn_cs_decision_policy_rule_codes" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="product_strategy_code" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="product_category" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="recommended_loan_limit_amount" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="recommended_interest_rate" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="recommended_terms" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="recommended_down_payment" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="recommended_monthly_payment" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="customer_reference_numbers" type="THX5xpn_cs_customer_ref_numbers" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="dominant_model_indicator" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="primary_score" type="THX5xpn_risk_model" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="secondary_score" type="THX5xpn_risk_model" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_cs_decision_policy_rule_codes">
+   <xsd:sequence>
+    <xsd:element name="policy_rule_code" type="Tcodetext" minOccurs="1" maxOccurs="20"/>
+   </xsd:sequence>
+   <xsd:attribute name="decision_indicator" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_cs_customer_ref_numbers">
+   <xsd:sequence>
+    <xsd:element name="customer_reference_number" type="xsd:string" minOccurs="3" maxOccurs="3"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_attribute_segments">
+   <xsd:sequence>
+    <xsd:element name="attributes" type="THX5xpn_attributes" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_attributes">
+   <xsd:sequence>
+    <xsd:element name="attribute" type="THX5xpn_attribute" minOccurs="6" maxOccurs="6"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_attribute">
+   <xsd:sequence>
+    <xsd:element name="variable_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="value" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_model_attribute_segments">
+   <xsd:sequence>
+    <xsd:element name="model_attributes" type="THX5xpn_model_attributes" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_model_attributes">
+   <xsd:sequence>
+    <xsd:element name="model_type_indicator" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="attribute" type="THX5xpn_model_attrs_info" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_model_attrs_info">
+   <xsd:sequence>
+    <xsd:element name="variable_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="sign_of_attribute" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="value" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_national_fraud_database">
+   <xsd:sequence>
+    <xsd:element name="nfd_review_reference_id" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_number_of_nfd_fraud_records_hits" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_number_of_fraud_fields_hits" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_number_of_victim_records_hits" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_number_of_victim_fields_hits" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_number_of_nfd_fields_hit_by_input_address" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_number_of_nfd_fields_hit_by_social_security_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_number_of_nfd_fields_hit_by_drivers_license_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_number_of_nfd_fields_hit_by_all_input_phone_numbers" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="nfd_index" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="nfd_scorecard_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="nfd_most_significant_reason_codes" type="THX5xpn_nfd_reason_codes" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_nfd_reason_codes">
+   <xsd:sequence>
+    <xsd:element name="nfd_most_significant_reason_code" type="THX5xpn_nfd_reason_code" minOccurs="4" maxOccurs="4"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_nfd_reason_code">
+   <xsd:simpleContent>
+    <xsd:extension base="xsd:string">
+     <xsd:attribute name="id" type="xsd:string" use="required"/>
+    </xsd:extension>
+   </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_end_record_errors">
+   <xsd:sequence>
+    <xsd:element name="total_report_segments" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="positive_trade_items" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="non_evaluated_trade_items" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="negative_trade_items" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="non_evaluated_legal_items" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="negative_legal_items" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5xpn_end_record_file_returned">
+   <xsd:sequence>
+    <xsd:element name="total_segments" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="total_length" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  --><!-- END EXPERIAN INFORMATION -->
+  
+  <!-- EQUIFAX INFORMATION -->
+  <!--<xsd:complexType name="THX5_EFX_Report">
+   <xsd:sequence>
+    <xsd:choice>
+      <xsd:element name="subject_segments" type="THX5efx_subject_segments" minOccurs="1" maxOccurs="unbounded"/>
+	  <xsd:element name="efx_errors" type="THX5efx_errors" minOccurs="1" maxOccurs="unbounded"/>
+	</xsd:choice>
+    <xsd:element name="additional_data_not_decoded" type="THX5_additional_data_not_decoded" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="error" type="THX5_processing_error" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5efx_errors">
+   <xsd:sequence>
+    <xsd:element name="customer_reference_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="equifax_customer_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="security_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="safescan_codes" type="THX5efx_transaction_control_safescan_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ecoa_inquiry_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="number_of_months_to_count_inquiries" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="number_of_months_to_count_mops" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="format_errors" type="THX5efx_error_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="validity_errors" type="THX5efx_error_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="processing_errors" type="THX5efx_error_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="output_format_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="remaining_8_of_cust_or_ref" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="num" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5efx_error_codes">
+   <xsd:sequence>
+    <xsd:element name="error" type="Tcodetext" minOccurs="1" maxOccurs="9"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_subject_segments">
+   <xsd:sequence>
+    <xsd:element name="transaction_control" type="THX5efx_transaction_control" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="current_address" type="THX5efx_address" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="former_address" type="THX5efx_address" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="second_former_address" type="THX5efx_address" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="aka_name" type="THX5efx_aka_name" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="former_name" type="THX5efx_former_name" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="date_of_death" type="THX5efx_date_of_death" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="current_employment" type="THX5efx_employment" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="former_employment" type="THX5efx_employment" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="second_employment" type="THX5efx_employment" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="other_income" type="THX5efx_other_income" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="bankruptcies" type="THX5efx_bankruptcies" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="collections" type="THX5efx_collections" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="secured_loans" type="THX5efx_secured_loans" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="legal_items" type="THX5efx_legal_items" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="foreclosures" type="THX5efx_foreclosures" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="alert_contacts" type="THX5efx_alert_contacts" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="tax_liens" type="THX5efx_tax_liens" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="garnishments" type="THX5efx_garnishments" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="tradelines" type="THX5efx_tradelines" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="checking_and_savings" type="THX5efx_checking_and_savings" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="inquiries" type="THX5efx_inquiries" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="consumer_narrative_statements" type="THX5efx_consumer_narrative_statements" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="enhanced_delinquency_alert_system" type="THX5efx_enhanced_delinquency_alert_system" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="beacon" type="THX5efx_beacon" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="on_line_directories" type="THX5efx_on_line_directories" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="scores" type="THX5efx_scores" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="identification_ssn" type="THX5efx_identification_ssn" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="geo_code" type="THX5efx_geo_code" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="fraud_verification_alerts" type="THX5efx_fraud_verification_alerts" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="ofac_alerts" type="THX5efx_ofac_alerts" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="consumer_referral_location" type="THX5efx_consumer_referral_location" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="transaction_ending" type="THX5efx_transaction_ending" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+   <xsd:attribute name="num" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_transaction_control">
+   <xsd:sequence>
+    <xsd:element name="customer_reference_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="equifax_customer_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="consumer_referral_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="multiple_report_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ecoa_inquiry_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="output_format_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="number_of_months_to_count_inquiries" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="number_of_months_to_count_max_del_mop" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="hit_designator_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="file_since_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="last_activity_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="trans_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="last_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="first_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="middle_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="suffix" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ssn" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="dob" type="Tfmttext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="co_applicants_ssn" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="first_name_match" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="middle_name_match" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="last_name_match" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="suffix_name_match" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="link_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="do_not_combine_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="number_of_additional_multiples" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="segment_counters" type="THX5efx_tc_segment_counters" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="address_discrepany_indicator_code" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="safescan_codes" type="THX5efx_transaction_control_safescan_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="fraud_victim_alert_indicator_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_tc_segment_counters">
+   <xsd:sequence>
+    <xsd:element name="segment" type="Tattr_id" minOccurs="0" maxOccurs="60"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_transaction_control_safescan_codes">
+   <xsd:sequence>
+    <xsd:element name="code" type="Tcodetext" minOccurs="0" maxOccurs="4"/>
+   </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5efx_address">
+   <xsd:sequence>
+    <xsd:element name="street_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="street_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="street_type_dir_apt" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="city" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="residence_since" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="r_o_b" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="source_of_address" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_reported" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="telephone_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="source_of_telephone" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="telephone_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="address_variance_indicator_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+
+  --><!-- AKA has been deprecated by EFX; still returned on some Canadian reports --><!--
+  <xsd:complexType name="THX5efx_aka_name">
+   <xsd:sequence>
+    <xsd:element name="last_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="first_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="middle_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="suffix" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="spouse_name" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="legal_name_change" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5efx_former_name">
+   <xsd:sequence>
+    <xsd:element name="last_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="first_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="middle_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="suffix" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_date_of_death">
+   <xsd:simpleContent>
+    <xsd:extension base="Tfmttext">
+     <xsd:attribute name="id" type="xsd:string" use="required"/>
+    </xsd:extension>
+   </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_employment">
+   <xsd:sequence>
+    <xsd:element name="occupation" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="employer" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="city_of_employment" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state_of_employment" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_employment_began" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_employment_verified" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="indirect_verification_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_employment_ended" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_other_income">
+   <xsd:sequence>
+    <xsd:element name="date_reported" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="income_amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="income_source" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_verified" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="indirect_verification_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_bankruptcies">
+   <xsd:sequence>
+    <xsd:element name="bankruptcy" type="THX5efx_bankruptcy" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_bankruptcy">
+   <xsd:sequence>
+    <xsd:element name="date_filed" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_customer_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="type_of_bankruptcy" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="how_filed" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="current_intent_disposition_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="amount_of_liability" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="asset_amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="exempt_amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narrative_codes" type="THX5efx_narr_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="case_number_disposition_date" type="THX5efx_bankruptcy_case_number_disposition_date" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_narr_codes">
+   <xsd:sequence>
+    <xsd:element name="code" type="Tcodetext" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_bankruptcy_case_number_disposition_date">
+   <xsd:sequence>
+    <xsd:element name="full_case_number_disposition_date" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="year" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="case_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="disposition_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_collections">
+   <xsd:sequence>
+    <xsd:element name="collection" type="THX5efx_collection" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_collection">
+   <xsd:sequence>
+    <xsd:element name="date_reported" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_assigned" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="collection_agency_customer_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="client_name_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="original_amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="status_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="collection_status_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="balance" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narrative_codes" type="THX5efx_narr_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_of_last_activity" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="account_serial_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="account_designator_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="automated_update_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_secured_loans">
+   <xsd:sequence>
+    <xsd:element name="secured_loan" type="THX5efx_secured_loan" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_secured_loan">
+   <xsd:sequence>
+    <xsd:element name="foreign_bureau_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_filed" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="abc_classification_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="maturity_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narrative_codes" type="THX5efx_narr_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="case_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_legal_items">
+   <xsd:sequence>
+    <xsd:element name="legal_item" type="THX5efx_legal_item" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_legal_item">
+   <xsd:sequence>
+    <xsd:element name="date_filed" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_customer_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="status_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_satisfied" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="status_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_verified" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narrative_codes" type="THX5efx_narr_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="defendant" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="case_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="plaintiff" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_foreclosures">
+   <xsd:sequence>
+    <xsd:element name="foreclosure" type="THX5efx_foreclosure" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_foreclosure">
+   <xsd:sequence>
+    <xsd:element name="date_filed" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_phone" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_phone_ext" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_customer_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="type_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_satisfied" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="status_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_verified" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narrative_codes" type="THX5efx_narr_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="defendant" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="case_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="plaintiff" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="lawyer_name_addr" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_reported" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="member_num_or_member_narr" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_alert_contacts">
+   <xsd:sequence>
+    <xsd:element name="alert_contact" type="THX5efx_alert_contact" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_alert_contact">
+   <xsd:sequence>
+    <xsd:element name="alert_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_reported" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_effective" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="status" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="contact_phone_information" type="THX5efx_alert_contact_phones" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="address_line_1" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="address_line_2" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="city" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="country_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="additional_information" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5efx_alert_contact_phones">
+   <xsd:sequence>
+    <xsd:element name="phone" type="THX5efx_alert_contact_phone" minOccurs="1" maxOccurs="3"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_alert_contact_phone">
+   <xsd:sequence>
+    <xsd:element name="type" type="Tcodetext" minOccurs="1" maxOccurs="3"/>
+    <xsd:element name="international_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="extension" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_tax_liens">
+   <xsd:sequence>
+    <xsd:element name="tax_lien" type="THX5efx_tax_lien" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_tax_lien">
+   <xsd:sequence>
+    <xsd:element name="date_filed" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_customer_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="acb_creditor_class" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_released" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_verified" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narrative_codes" type="THX5efx_narr_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="case_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_garnishments">
+   <xsd:sequence>
+    <xsd:element name="garnishment" type="THX5efx_garnishment" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_garnishment">
+   <xsd:sequence>
+    <xsd:element name="date_filed" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_customer_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_satisfied" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_verified" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narrative_codes" type="THX5efx_narr_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="case_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="plaintiff" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="garnishee" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="defendant" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_tradelines">
+   <xsd:sequence>
+    <xsd:choice minOccurs="1" maxOccurs="unbounded">
+     <xsd:element name="tradeline" type="THX5efx_tradeline"/>
+    </xsd:choice>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5efx_tradeline">
+   <xsd:sequence>
+    <xsd:element name="customer_name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="customer_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_reported" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_opened" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="high_credit" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="terms" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="balance" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="past_due" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="rate_status_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="automated_update_indicator" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="months_reviewed" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="account_designator_code" type="Tcodetext" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="account_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="thirty_day_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="sixty_day_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ninety_plus_day_counter" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="previous_highs" type="THX5efx_trade_previous_highs" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_last_activity" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narrative_codes" type="THX5efx_narr_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="month_payment_history_24" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5efx_trade_previous_highs">
+   <xsd:sequence>
+    <xsd:element name="previous_high" type="THX5efx_trade_previous_high" minOccurs="1" maxOccurs="3"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_trade_previous_high">
+   <xsd:sequence>
+    <xsd:element name="Rate" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_checking_and_savings">
+   <xsd:sequence>
+    <xsd:choice minOccurs="1" maxOccurs="unbounded">
+     <xsd:element name="checking_savings" type="THX5efx_checking_savings"/>
+    </xsd:choice>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5efx_checking_savings">
+   <xsd:sequence>
+    <xsd:element name="foreign_bureau_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_reported" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_phone" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="court_phone_ext" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="customer_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_opened" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="amount" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="acct_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="narrative_codes" type="THX5efx_narr_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="acct_status" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="nsf_additional_info" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="acct_num" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_verified" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="THX5efx_inquiries">
+   <xsd:sequence>
+    <xsd:choice minOccurs="1" maxOccurs="unbounded">
+     <xsd:element name="inquiry" type="THX5efx_inquiry"/>
+    </xsd:choice>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_inquiry">
+   <xsd:sequence>
+    <xsd:element name="date_of_inquiry" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="abbreviation_customer_name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="customer_name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="customer_number" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_consumer_narrative_statements">
+   <xsd:sequence>
+    <xsd:choice minOccurs="1" maxOccurs="unbounded">
+     <xsd:element name="consumer_narrative_statement" type="THX5efx_consumer_narrative_statement"/>
+    </xsd:choice>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_consumer_narrative_statement">
+   <xsd:sequence>
+    <xsd:element name="date_reported" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="purge_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="customer_statement_text" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_enhanced_delinquency_alert_system">
+   <xsd:sequence>
+    <xsd:element name="edas_score" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="reason_codes" type="THX5efx_reason_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="reject_message_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="edas_regional_indicator_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="edas_indicator_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="fact_act" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_reason_codes">
+   <xsd:sequence>
+    <xsd:element name="reason" type="Tcodetext" minOccurs="4" maxOccurs="4"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_beacon">
+   <xsd:sequence>
+    <xsd:element name="score" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="reason_codes" type="THX5efx_reason_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="reject_message_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="beacon_indicator_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="fact_act" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_on_line_directories">
+   <xsd:sequence>
+    <xsd:element name="on_line_directory" type="THX5efx_on_line_directory" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_on_line_directory">
+   <xsd:sequence>
+    <xsd:element name="customer_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="customer_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="customer_telephone_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="customer_address_line_1" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="customer_address_line_2" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="customer_city" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="customer_state" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="customer_zip" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_scores">
+   <xsd:sequence>
+    <xsd:element name="score" type="THX5efx_mm_score" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_mm_score">
+   <xsd:sequence>
+    <xsd:element name="format_type" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="model_number" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="model_id" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="score_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="score" type="THX5efx_score_info" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="customer_city" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="customer_state" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    <xsd:element name="customer_zip" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_score_info">
+   <xsd:sequence>
+    <xsd:element name="numeric_score" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="numeric_score_indicator" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="reason_codes" type="THX5efx_reason_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="reject_message_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="fact_act" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_identification_ssn">
+   <xsd:sequence>
+    <xsd:element name="credit_report_age" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="credit_report_ssn" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="credit_report_ssn_verified" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="inquiry_ssn" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:choice minOccurs="1" maxOccurs="1">
+     <xsd:element name="inquiry_ssn_date_issued_text" type="xsd:string"/>
+     <xsd:element name="inquiry_ssn_date_issued" type="Tfmttext"/>
+    </xsd:choice>
+    <xsd:element name="inquiry_ssn_state_issued" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:choice minOccurs="1" maxOccurs="1">
+     <xsd:element name="inquiry_ssn_death_date_text" type="xsd:string"/>
+     <xsd:element name="inquiry_ssn_death_date" type="Tfmttext"/>
+    </xsd:choice>
+    <xsd:element name="inquiry_ssn_state_of_death" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_geo_code">
+   <xsd:sequence>
+    <xsd:element name="geo_smsa_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="geo_state_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="geo_country_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="geo_census_tract" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="geo_suffix" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="geo_block_group" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="street_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="street_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="street_type_direction" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="geo_smsa_5_digit_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="city" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="type_of_address" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="return_codes" type="THX5efx_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="microvision_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="microvision_return_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_codes">
+   <xsd:sequence>
+    <xsd:element name="code" type="Tcodetext" minOccurs="0" maxOccurs="4"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_fraud_verification_alerts">
+   <xsd:sequence>
+    <xsd:element name="fraud_verification_alert" type="THX5efx_fraud_verification_alert" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_fraud_verification_alert">
+   <xsd:sequence>
+    <xsd:element name="fraud_advisor_index" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="fraud_advisor_warning_codes" type="THX5efx_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="reject_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="first_name_counter" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="last_name_counter" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="business_name_counter" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="street_address_counter" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ssn_counter" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="home_phone_number_counter" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="work_phone_number_counter" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="dob_confirmed" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="drivers_license_number_confirmed" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="email_address_confirmed" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ssn_verification_level" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="number_of_verified_fields" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="sum_of_verification_counters" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="id_advisor_index" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="id_advisor_warning_codes" type="THX5efx_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="first_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="last_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="street_address" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="city" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ssn" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="date_of_birth" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="home_phone_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_ofac_alerts">
+   <xsd:sequence>
+    <xsd:element name="ofac_alert" type="THX5efx_ofac_alert" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_ofac_alert">
+   <xsd:sequence>
+    <xsd:element name="member_firm_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="customer_number_and_security_digits" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="cdc_transaction_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="cdc_transaction_time" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="transaction_type" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="cdc_response_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="cdc_problem_code" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="match_codes" type="THX5efx_codes" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="problem_report_date" type="Tfmttext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="issue_source" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="issue_id" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="comment" type="Tcodetext" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ofac_first_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ofac_middle_initial" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ofac_last_name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ofac_address" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ofac_city" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ofac_state" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ofac_zip" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="ofac_country_code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="legal_verbiage" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_consumer_referral_location">
+   <xsd:sequence>
+    <xsd:element name="code" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="address_1" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="address_2" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="city" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="state" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="zip" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    <xsd:element name="telephone_number" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5efx_transaction_ending">
+   <xsd:sequence>
+    <xsd:element name="eof_marker" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+   </xsd:sequence>
+   <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>-->
+  <!-- END EQUIFAX INFORMATION -->
+
+  <!-- OTHER REPORT FORMATS -->
+  <xsd:complexType name="THX5_HTML_Reports">
+   <xsd:sequence>
+    <xsd:element name="HTML_Report" type="Tattr_fmt_type" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5_TTY_Reports">
+   <xsd:sequence>
+    <xsd:element name="TTY_Report" type="Tattr_id" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5_CPU_Reports">
+   <xsd:sequence>
+    <xsd:element name="CPU_Report" type="Tattr_id" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5_Custom_Reports">
+   <xsd:sequence>
+    <xsd:element name="Custom_Report" type="Tattr_id" minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="THX5_Mirror">
+   <xsd:sequence>
+    <xsd:any minOccurs="1" maxOccurs="unbounded"/>
+   </xsd:sequence>
+  </xsd:complexType>
+  <!-- END OTHER REPORT FORMATS -->
+
+ </xsd:schema>
+
+
+
+
+
+
+
+
+
+
+
+
+

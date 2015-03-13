@@ -52,15 +52,12 @@ BEGIN
 			CUST.*
 		FROM 
 			AE_Customers AS CUST WITH (NOLOCK)
-			INNER JOIN dbo.MS_AccountCustomers AS MAC WITH (NOLOCK)
-			ON
-				(CUST.CustomerID = MAC.CustomerId)
 			INNER JOIN dbo.AE_CustomerAccounts AS AC WITH (NOLOCK)
 			ON
-				(MAC.AccountId = AC.AccountId)
+				(CUST.CustomerID = AC.CustomerId)
 			INNER JOIN dbo.MS_Accounts AS MSA WITH (NOLOCK)
 			ON
-				(MAC.AccountId = MSA.AccountID)
+				(AC.AccountId = MSA.AccountID)
 		WHERE
 			(MSA.AccountID = @AccountID)
 			AND (@CustomerTypeId IS NULL OR AC.CustomerTypeId = @CustomerTypeId) --@REVIEW: AE_Customers OR AE_CustomerAccounts CustomerTypeId????

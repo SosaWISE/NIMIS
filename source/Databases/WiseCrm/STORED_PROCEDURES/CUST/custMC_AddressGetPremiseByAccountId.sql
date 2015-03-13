@@ -58,18 +58,18 @@ BEGIN
 			SELECT TOP 1
 				@AddressID = ADR.AddressID
 			FROM
-				[dbo].MS_AccountCustomers AS MAC WITH (NOLOCK)
+				[dbo].AE_CustomerAccounts AS MAC WITH (NOLOCK)
 				INNER JOIN [dbo].[AE_Customers] AS CST WITH (NOLOCK)
 				ON
 					(CST.CustomerID = MAC.CustomerId)
-					AND (MAC.AccountCustomerTypeId IN ('MONI','PRI'))
+					AND (MAC.CustomerTypeId IN ('MONI','PRI'))
 				INNER JOIN [dbo].MC_Addresses AS ADR WITH (NOLOCK)
 				ON
 					(ADR.AddressID = CST.AddressId)
 			WHERE
 				(MAC.AccountId = @AccountID)
 			ORDER BY
-				MAC.AccountCustomerTypeId -- MONI comes first
+				MAC.CustomerTypeId -- MONI comes first
 
 			/** SET it to the MS_Accounts table */
 			UPDATE [dbo].[MS_Accounts] SET PremiseAddressId = @AddressID WHERE (AccountID = @AccountID);

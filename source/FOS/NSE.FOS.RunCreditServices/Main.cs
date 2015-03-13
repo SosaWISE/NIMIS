@@ -32,6 +32,7 @@ namespace NSE.FOS.RunCreditServices
 		{
 			public const string ABARA = "ABARA";
 			public const string MICROBILT = "MICROBILT";
+			public const string HART = "HART";
 		}
 
 		#endregion Properties
@@ -46,6 +47,9 @@ namespace NSE.FOS.RunCreditServices
 					break;
 				case Vendors.MICROBILT:
 					_avVendor = new Microbilt();
+					break;
+				case Vendors.HART:
+					_avVendor = new Hart();
 					break;
 				default:
 					throw new Exception(string.Format("The vendor set in config file ('{0}') is not supported.", VendorID));

@@ -115,12 +115,12 @@ AS
 		INNER JOIN [dbo].[SE_TicketStatusCodes] AS SETSS WITH (NOLOCK)
 		ON
 			(TICKET.StatusCodeID = SETSS.[StatusCodeID]) 
-		--INNER JOIN [dbo].[MS_AccountCustomers] AS MSAC WITH (NOLOCK)
+		--INNER JOIN [dbo].[AE_CustomerAccounts] AS MSAC WITH (NOLOCK)
 		--ON
 		--	(TICKET.AccountID = MSAC.AccountId)
-		--INNER JOIN [dbo].[MS_AccountCustomerTypes] MSACT WITH (NOLOCK)
+		--INNER JOIN [dbo].[AE_CustomerAccountTypes] MSACT WITH (NOLOCK)
 		--ON
-		--((MSAC.[AccountCustomerTypeId] = MSACT.[AccountCustomerTypeID])  AND (MSACT.[AccountCustomerTypeID]='PRI'))
+		--((MSAC.[CustomerTypeId] = MSACT.[CustomerTypeID])  AND (MSACT.[CustomerTypeID]='PRI'))
 		--LEFT JOIN [dbo].[AE_Customers] AS AEC WITH (NOLOCK)
 		--ON
 		--	(AEC.[CustomerID] = MSAC.[CustomerId]) --AND (AEC.[CustomerTypeId] = 'PRI') 

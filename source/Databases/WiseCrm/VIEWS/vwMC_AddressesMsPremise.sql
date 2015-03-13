@@ -47,18 +47,18 @@ AS
 	-- Enter Query here
 	SELECT
 		MAC.AccountId
-		, MAC.AccountCustomerTypeId
+		, MAC.CustomerTypeId
 		, ACA.CustomerAddressTypeId
 		, MCA.*
 	FROM
 		(SELECT
 			MACI.*
-			, ROW_NUMBER() OVER (PARTITION BY MACI.AccountId ORDER BY MACI.AccountCustomerTypeId) AS RNBR
+			, ROW_NUMBER() OVER (PARTITION BY MACI.AccountId ORDER BY MACI.CustomerTypeId) AS RNBR
 		FROM
-			[dbo].MS_AccountCustomers AS MACI WITH (NOLOCK)
+			[dbo].AE_CustomerAccounts AS MACI WITH (NOLOCK)
 		WHERE
-			(MACI.AccountCustomerTypeId = 'MONI')
-			OR (MACI.AccountCustomerTypeId = 'PRI')) AS MAC 
+			(MACI.CustomerTypeId = 'MONI')
+			OR (MACI.CustomerTypeId = 'PRI')) AS MAC 
 		INNER JOIN [dbo].AE_CustomerAddress AS ACA WITH (NOLOCK)
 		ON
 			(ACA.CustomerId = MAC.CustomerId)

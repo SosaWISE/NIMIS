@@ -80,7 +80,7 @@ AS
 
 GO
 /* TEST 
-DECLARE @username VARCHAR(50) = 'DevUser';
+DECLARE @username VARCHAR(50) = 'dethington';
 DECLARE @password VARCHAR(20) = 'NexSense';
 DECLARE @SessionId BIGINT = 282327;
 DECLARE @ApplicationId VARCHAR(50) = 'SSE_CMS_CORS';
@@ -94,7 +94,7 @@ FROM
 		(USR.UserID = ACL.UserId)
 WHERE
 	(USR.Username = @username)
-	AND (USR.[Password] = @password)
+--	AND (USR.[Password] = @password)
 --	AND (ACL.ApplicationId = @ApplicationId)
 	AND (USR.IsActive = 1) AND (USR.IsDeleted = 0);
 

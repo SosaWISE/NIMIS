@@ -92,7 +92,7 @@ BEGIN
 			INNER JOIN [dbo].[AE_Customers] AS CST WITH (NOLOCK)
 			ON
 				(CST.CustomerMasterFileId = CMF.CustomerMasterFileID)
-			INNER JOIN [dbo].[MS_AccountCustomers] AS ACA WITH (NOLOCK)
+			INNER JOIN [dbo].[AE_CustomerAccounts] AS ACA WITH (NOLOCK)
 			ON
 				(ACA.CustomerId = CST.CustomerID)
 			INNER JOIN [dbo].[MC_Accounts] AS MCA WITH (NOLOCK)

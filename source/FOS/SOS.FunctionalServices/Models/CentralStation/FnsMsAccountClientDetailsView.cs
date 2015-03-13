@@ -8,6 +8,7 @@ namespace SOS.FunctionalServices.Models.CentralStation
 	{
 		public FnsMsAccountClientDetailsView(MS_AccountClientDetailsView oResulItem)
 		{
+			CustomerAccountID = oResulItem.CustomerAccountID;
 			CustomerId = oResulItem.CustomerId;
 			AccountId = oResulItem.AccountId;
 			CustomerTypeId = oResulItem.CustomerTypeId;
@@ -53,7 +54,7 @@ namespace SOS.FunctionalServices.Models.CentralStation
 			SubscriberNumber = oResulItem.SubscriberNumber;
 		}
 
-		public long AccountCustomerID { get; set; }
+		public long CustomerAccountID { get; set; }
 		public long CustomerId { get; set; }
 		public long AccountId { get; set; }
 		public string CustomerTypeId { get; set; }

@@ -2579,9 +2579,9 @@ namespace SOS.FunctionalServices
 
 						// ** Create the assignments
 						var filtereDispatchAgencies = from cust in daResult.Value
-													  where
-														  cust.DispatchAgencyTypeId == dispatchAgency.DispatchAgencyTypeId && cust.Phone1.Equals(dispatchAgency.Phone1)
-													  select cust;
+							where
+								cust.DispatchAgencyTypeId == dispatchAgency.DispatchAgencyTypeId && cust.Phone1.Equals(dispatchAgency.Phone1)
+							select cust;
 						// ** // ** Check that there is something to save
 						if (Equals(filtereDispatchAgencies.Count(), 0))
 						{

@@ -118,7 +118,7 @@ AS
 		INNER JOIN [dbo].[SE_TicketStatusCodes] AS SETSS WITH (NOLOCK)
 		ON
 			(TICKET.StatusCodeID = SETSS.[StatusCodeID]) 
-		INNER JOIN [dbo].[MS_AccountCustomers] AS MSAC WITH (NOLOCK)
+		INNER JOIN [dbo].[AE_CustomerAccounts] AS MSAC WITH (NOLOCK)
 		ON
 --			(
 			(TICKET.AccountID = MSAC.AccountId)  

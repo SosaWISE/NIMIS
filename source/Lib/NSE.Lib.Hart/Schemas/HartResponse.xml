@@ -1,0 +1,2000 @@
+<?xml version="1.0"?>
+<HX5 version="5.5">
+  <HX5_transaction_information>
+    <Transid>276692422</Transid>
+    <Token>X8QepxHIvAab9P4je2IiuPTP3FOUk/YHq0FI/oEqknsT2n0hjHdwQmFXCF+RRikWFrtKbeUrolAzbXrm22e7LsSKLFO20HkQ5jvRcs8LGPro</Token>
+  </HX5_transaction_information>
+  <bureau_xml_data>
+    <TU_Report>
+      <transaction_control id="TU4R">
+        <version_switch code="0">TU40 version 0</version_switch>
+        <country_code code="1">United States</country_code>
+        <language_indicator code="1">English</language_indicator>
+        <user_reference></user_reference>
+        <market>29</market>
+        <submarket>UT</submarket>
+        <industry_code>H</industry_code>
+        <member_code>05427406</member_code>
+        <trans_date fmt="CCYYMMDD">20150306</trans_date>
+        <trans_time fmt="HHNNSS">172729</trans_time>
+      </transaction_control>
+      <consumer_data id="CD01">
+        <customer_identifier_qualifier>05</customer_identifier_qualifier>
+        <customer_identifier>HART SOFTWARE</customer_identifier>
+        <password>**masked by vendor**</password>
+      </consumer_data>
+      <bureau_product_header id="PH01" code="07000">Credit Report</bureau_product_header>
+      <subject_segments id="SH01" num="1">
+        <subject_header id="SH01">
+          <subject_id code="1">First subject</subject_id>
+          <file_number>01</file_number>
+          <file_hit code="Y">Regular hit on file -- all files are returned</file_hit>
+          <ssn_match_ind code="01">No match on SSN</ssn_match_ind>
+          <consumer_statement_ind code="N">No consumer statement on file</consumer_statement_ind>
+          <bur_market_file_control>45</bur_market_file_control>
+          <bur_submarket_file_control>II</bur_submarket_file_control>
+          <suppression_ind code="N">Credit data not suppressed</suppression_ind>
+          <infile_since_date>19821003</infile_since_date>
+        </subject_header>
+        <name_information id="NM01" type="1">
+          <source_indicator code="F">Name that appears in the returned file</source_indicator>
+          <name_indicator code="1">Primary name</name_indicator>
+          <lname>ABBEY</lname>
+          <fname>TAMMY</fname>
+          <mname></mname>
+          <prefix></prefix>
+          <suffix></suffix>
+        </name_information>
+        <personal_information id="PI01">
+          <source_indicator code="F">Data that appears on the TransUnion database</source_indicator>
+          <ssn>666447841</ssn>
+          <dob>19671101</dob>
+          <age></age>
+          <gender code=""></gender>
+        </personal_information>
+        <id_mismatch_alert id="TA01">
+          <address_type code=""></address_type>
+          <message_type code="2">SSN alert</message_type>
+          <alert_condition code="1">Mismatch - input does not match file</alert_condition>
+          <number_inquiries_last_60_days>00</number_inquiries_last_60_days>
+        </id_mismatch_alert>
+        <address_information id="AD01">
+          <source_indicator code="F">Address that appears on the database</source_indicator>
+          <addr_qualifier code="1">Personal</addr_qualifier>
+          <house_number>306</house_number>
+          <predirectional></predirectional>
+          <street_name>HAWTHORNE</street_name>
+          <postdirectional></postdirectional>
+          <street_type>ST</street_type>
+          <apt_unit_number></apt_unit_number>
+          <city>TALLADEGA</city>
+          <state>AL</state>
+          <zip>35160</zip>
+          <date_reported>20150201</date_reported>
+        </address_information>
+        <address_information id="AD01">
+          <source_indicator code="F">Address that appears on the database</source_indicator>
+          <addr_qualifier code="1">Personal</addr_qualifier>
+          <house_number>48</house_number>
+          <predirectional></predirectional>
+          <street_name>WESTMORELAND</street_name>
+          <postdirectional></postdirectional>
+          <street_type>ST</street_type>
+          <apt_unit_number></apt_unit_number>
+          <city>TALLADEGA</city>
+          <state>AL</state>
+          <zip>35160</zip>
+          <date_reported>20150203</date_reported>
+        </address_information>
+        <employment_segments id="EM01" product="07000">
+          <employment_information id="EM01">
+            <employer_name>WALGREENS</employer_name>
+            <source_indicator code="F"></source_indicator>
+            <occupation>MANAGER</occupation>
+            <date_hired fmt="CCYYMMDD"></date_hired>
+            <date_separated fmt="CCYYMMDD"></date_separated>
+            <date_verified_or_reported fmt="CCYYMMDD">20150210</date_verified_or_reported>
+            <date_verified_or_reported_code code="V">Date Verified is displayed</date_verified_or_reported_code>
+            <income></income>
+            <pay_basis code=""></pay_basis>
+          </employment_information>
+        </employment_segments>
+        <employment_segments id="EM01" product="07000">
+          <employment_information id="EM01">
+            <employer_name>ATT</employer_name>
+            <source_indicator code="F"></source_indicator>
+            <occupation>MGR</occupation>
+            <date_hired fmt="CCYYMMDD"></date_hired>
+            <date_separated fmt="CCYYMMDD"></date_separated>
+            <date_verified_or_reported fmt="CCYYMMDD">20150210</date_verified_or_reported>
+            <date_verified_or_reported_code code="V">Date Verified is displayed</date_verified_or_reported_code>
+            <income></income>
+            <pay_basis code=""></pay_basis>
+          </employment_information>
+        </employment_segments>
+        <trade_segments id="TR01" product="07000">
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>06331059</member_code>
+            <subscriber_name>BK OF AMER</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>3989</account_number>
+            <account_designator code="I">Individual account</account_designator>
+            <date_opened fmt="CCYYMMDD">19850307</date_opened>
+            <date_verified fmt="CCYYMMDD">20150122</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20140408</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20140311</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000006268</high_credit>
+            <credit_limit>000006100</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code="CBC">Account closed by consumer</remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20141222</payment_pattern_start_date>
+            <payment_pattern start_date="20141222">11111111111111111111111111111111111111</payment_pattern>
+            <number_months_reviewed>38</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>0656N011</member_code>
+            <subscriber_name>AMEX</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>51282500</account_number>
+            <account_designator code="I">Individual account</account_designator>
+            <date_opened fmt="CCYYMMDD">20111220</date_opened>
+            <date_verified fmt="CCYYMMDD">20150121</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD"></date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000008366</balance>
+            <high_credit>000008366</high_credit>
+            <credit_limit>000020000</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20141221</payment_pattern_start_date>
+            <payment_pattern start_date="20141221">111111111111XX11111111X11XX11111X11</payment_pattern>
+            <number_months_reviewed>35</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>Q</industry_code>
+            <member_code>0666M001</member_code>
+            <subscriber_name>CRESTAR BANK</subscriber_name>
+            <account_type code="M">Mortgage account</account_type>
+            <account_number>1111100888491</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20140725</date_opened>
+            <date_verified fmt="CCYYMMDD">20141218</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20141205</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000082124</balance>
+            <high_credit>000085250</high_credit>
+            <credit_limit></credit_limit>
+            <terms_duration frequency="M">180</terms_duration>
+            <terms_frequency code="M">Monthly</terms_frequency>
+            <amount_of_payment>000001009</amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CV">Conventional Real Estate Mortgage</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20141118</payment_pattern_start_date>
+            <payment_pattern start_date="20141118">1111</payment_pattern>
+            <number_months_reviewed>04</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>07121001</member_code>
+            <subscriber_name>SUNTRUST BK</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>111110003104</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20070624</date_opened>
+            <date_verified fmt="CCYYMMDD">20141217</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20130110</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20141120</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000039632</balance>
+            <high_credit>000074607</high_credit>
+            <credit_limit></credit_limit>
+            <terms_duration frequency="">MIN</terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment>000000426</amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="LS">Credit Line Secured</loan_type>
+            <remarks_code code="CLO">Closed</remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20141117</payment_pattern_start_date>
+            <payment_pattern start_date="20141117">111111111111</payment_pattern>
+            <number_months_reviewed>12</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>02676032</member_code>
+            <subscriber_name>MELLON BANK</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>111115952221</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20120819</date_opened>
+            <date_verified fmt="CCYYMMDD">20141216</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20141204</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000080</balance>
+            <high_credit>000007700</high_credit>
+            <credit_limit>000009500</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20141116</payment_pattern_start_date>
+            <payment_pattern start_date="20141116">111111111111111111111111111</payment_pattern>
+            <number_months_reviewed>27</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>064DB001</member_code>
+            <subscriber_name>CITI</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>111118227795</account_number>
+            <account_designator code="A">Authorized account</account_designator>
+            <date_opened fmt="CCYYMMDD">20111002</date_opened>
+            <date_verified fmt="CCYYMMDD">20141215</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD">20141208</date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20141203</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000000000</high_credit>
+            <credit_limit>000008600</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20141115</payment_pattern_start_date>
+            <payment_pattern start_date="20141115">11XXXXXXXXXX11111111111111111111X11X1</payment_pattern>
+            <number_months_reviewed>37</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>0362N400</member_code>
+            <subscriber_name>WF/WB</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>111118200888</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20110623</date_opened>
+            <date_verified fmt="CCYYMMDD">20141214</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20140814</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20120514</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000000000</high_credit>
+            <credit_limit>000015000</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20141114</payment_pattern_start_date>
+            <payment_pattern start_date="20141114">11111111111111111111111XXXX11111111111111</payment_pattern>
+            <number_months_reviewed>41</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>F</industry_code>
+            <member_code>06379003</member_code>
+            <subscriber_name>GUARANTY MTG</subscriber_name>
+            <account_type code="M">Mortgage account</account_type>
+            <account_number>1111130797</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20040620</date_opened>
+            <date_verified fmt="CCYYMMDD">20141213</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20141201</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000053388</balance>
+            <high_credit>000072400</high_credit>
+            <credit_limit></credit_limit>
+            <terms_duration frequency="M">360</terms_duration>
+            <terms_frequency code="M">Monthly</terms_frequency>
+            <amount_of_payment>000000529</amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="FR">FHA Real Estate Mortgage</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20141113</payment_pattern_start_date>
+            <payment_pattern start_date="20141113">111111111111111111111111X11X11111111111111111111</payment_pattern>
+            <number_months_reviewed>48</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>07519044</member_code>
+            <subscriber_name>FST USA BK B</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>111112180913</account_number>
+            <account_designator code="I">Individual account</account_designator>
+            <date_opened fmt="CCYYMMDD">20080722</date_opened>
+            <date_verified fmt="CCYYMMDD">20141212</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD">20120106</date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20120124</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000000000</high_credit>
+            <credit_limit></credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20141112</payment_pattern_start_date>
+            <payment_pattern start_date="20141112">1111111111111111111111111111111111111</payment_pattern>
+            <number_months_reviewed>37</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>064DB003</member_code>
+            <subscriber_name>CITI</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>111110321240</account_number>
+            <account_designator code="I">Individual account</account_designator>
+            <date_opened fmt="CCYYMMDD">20101001</date_opened>
+            <date_verified fmt="CCYYMMDD">20141130</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD">20101011</date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD"></date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000000000</high_credit>
+            <credit_limit>000005000</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20141030</payment_pattern_start_date>
+            <payment_pattern start_date="20141030">1</payment_pattern>
+            <number_months_reviewed>01</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>0761D005</member_code>
+            <subscriber_name>AMER BK PLK</subscriber_name>
+            <account_type code="I">Installment account</account_type>
+            <account_number>11111499573</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20020723</date_opened>
+            <date_verified fmt="CCYYMMDD">20141130</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20141023</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000022661</balance>
+            <high_credit>000052340</high_credit>
+            <credit_limit></credit_limit>
+            <terms_duration frequency="M">240</terms_duration>
+            <terms_frequency code="M">Monthly</terms_frequency>
+            <amount_of_payment>000000349</amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CV">Conventional Real Estate Mortgage</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20141030</payment_pattern_start_date>
+            <payment_pattern start_date="20141030">111111111111X1111XXX111111X11X11X1111111X11X11X1</payment_pattern>
+            <number_months_reviewed>48</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>0517R029</member_code>
+            <subscriber_name>FLEET CC</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>111110010214</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20131003</date_opened>
+            <date_verified fmt="CCYYMMDD">20141130</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD">20140705</date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20140712</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000009500</high_credit>
+            <credit_limit>000009500</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20141030</payment_pattern_start_date>
+            <payment_pattern start_date="20141030">111111111111</payment_pattern>
+            <number_months_reviewed>12</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>09202009</member_code>
+            <subscriber_name>CHEVY CHASE</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>111110200315</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20040126</date_opened>
+            <date_verified fmt="CCYYMMDD">20141126</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20141021</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000003951</balance>
+            <high_credit>000015000</high_credit>
+            <credit_limit>000015000</credit_limit>
+            <terms_duration frequency="">MIN</terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment>000000073</amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20141026</payment_pattern_start_date>
+            <payment_pattern start_date="20141026">11111111111111111111111111111111111111111111111</payment_pattern>
+            <number_months_reviewed>47</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>01597029</member_code>
+            <subscriber_name>BK OF AMER</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>8431</account_number>
+            <account_designator code="I">Individual account</account_designator>
+            <date_opened fmt="CCYYMMDD">20130625</date_opened>
+            <date_verified fmt="CCYYMMDD">20141025</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD">20140501</date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20140515</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000012427</high_credit>
+            <credit_limit>000025000</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20140925</payment_pattern_start_date>
+            <payment_pattern start_date="20140925">11111111111</payment_pattern>
+            <number_months_reviewed>11</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>Q</industry_code>
+            <member_code>0666M001</member_code>
+            <subscriber_name>CRESTAR BANK</subscriber_name>
+            <account_type code="M">Mortgage account</account_type>
+            <account_number>1111100517230</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20070724</date_opened>
+            <date_verified fmt="CCYYMMDD">20140710</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20140710</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20140711</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000142800</high_credit>
+            <credit_limit></credit_limit>
+            <terms_duration frequency="M">180</terms_duration>
+            <terms_frequency code="M">Monthly</terms_frequency>
+            <amount_of_payment>000001671</amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CV">Conventional Real Estate Mortgage</loan_type>
+            <remarks_code code="CLO">Closed</remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20140610</payment_pattern_start_date>
+            <payment_pattern start_date="20140610">1X111111111111111111X11X1111111XXXX11111</payment_pattern>
+            <number_months_reviewed>40</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>F</industry_code>
+            <member_code>03837191</member_code>
+            <subscriber_name>NATIONSCREDT</subscriber_name>
+            <account_type code="I">Installment account</account_type>
+            <account_number>11111</account_number>
+            <account_designator code="I">Individual account</account_designator>
+            <date_opened fmt="CCYYMMDD">20101130</date_opened>
+            <date_verified fmt="CCYYMMDD">20140209</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20140209</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20140214</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000021024</high_credit>
+            <credit_limit></credit_limit>
+            <terms_duration frequency="M">120</terms_duration>
+            <terms_frequency code="M">Monthly</terms_frequency>
+            <amount_of_payment>000000175</amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="IS">Installment Sales Contract</loan_type>
+            <remarks_code code="CLO">Closed</remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20140109</payment_pattern_start_date>
+            <payment_pattern start_date="20140109">X11111111111X111X111111111111111111111</payment_pattern>
+            <number_months_reviewed>38</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>07695112</member_code>
+            <subscriber_name>GE CARD CO</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>111115571003</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20091130</date_opened>
+            <date_verified fmt="CCYYMMDD">20140120</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD">20120107</date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20111202</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000002508</high_credit>
+            <credit_limit>000002500</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code="CBC">Account closed by consumer</remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20131220</payment_pattern_start_date>
+            <payment_pattern start_date="20131220">11111111111111111111111111</payment_pattern>
+            <number_months_reviewed>27</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>0282E001</member_code>
+            <subscriber_name>CITI</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>111111002001</account_number>
+            <account_designator code="I">Individual account</account_designator>
+            <date_opened fmt="CCYYMMDD">20080521</date_opened>
+            <date_verified fmt="CCYYMMDD">20131024</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20130512</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD"></date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000001000</high_credit>
+            <credit_limit>000001000</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code="CBG">Account closed by credit grantor</remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20130924</payment_pattern_start_date>
+            <payment_pattern start_date="20130924">111111111111</payment_pattern>
+            <number_months_reviewed>48</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>01597029</member_code>
+            <subscriber_name>BK OF AMER</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>02</account_number>
+            <account_designator code="I">Individual account</account_designator>
+            <date_opened fmt="CCYYMMDD">20020306</date_opened>
+            <date_verified fmt="CCYYMMDD">20130609</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20130606</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20110513</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000007178</high_credit>
+            <credit_limit>000011600</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="LC">Line of Credit</loan_type>
+            <remarks_code code="CBC">Account closed by consumer</remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20130509</payment_pattern_start_date>
+            <payment_pattern start_date="20130509">X11XXXX11111XXXXXXXXXXXXX11XXXX1111111XX11111111</payment_pattern>
+            <number_months_reviewed>48</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>07121001</member_code>
+            <subscriber_name>SUNTRUST BK</subscriber_name>
+            <account_type code="C">Overdraft/reserve checking account</account_type>
+            <account_number>1111100003104</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20070622</date_opened>
+            <date_verified fmt="CCYYMMDD">20120303</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20110709</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20120215</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000060662</balance>
+            <high_credit>000074607</high_credit>
+            <credit_limit>000075000</credit_limit>
+            <terms_duration frequency="">MIN</terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment>000000352</amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="LS">Credit Line Secured</loan_type>
+            <remarks_code code="CLO">Closed</remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20120203</payment_pattern_start_date>
+            <payment_pattern start_date="20120203">111111111111</payment_pattern>
+            <number_months_reviewed>12</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>D</industry_code>
+            <member_code>06256372</member_code>
+            <subscriber_name>CBUSASEARS</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>11111605</account_number>
+            <account_designator code="A">Authorized account</account_designator>
+            <date_opened fmt="CCYYMMDD">20080621</date_opened>
+            <date_verified fmt="CCYYMMDD">20120302</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD">20120108</date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD"></date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000001760</high_credit>
+            <credit_limit>000004000</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CH">Charge Account</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due></amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20120202</payment_pattern_start_date>
+            <payment_pattern start_date="20120202">11XXXXX11XXX1111111111111111111111111111111</payment_pattern>
+            <number_months_reviewed>43</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>01597029</member_code>
+            <subscriber_name>BK OF AMER</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>4806</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">19910125</date_opened>
+            <date_verified fmt="CCYYMMDD">20120301</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD">20101207</date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20101231</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000011402</high_credit>
+            <credit_limit>000016000</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due></amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20120201</payment_pattern_start_date>
+            <payment_pattern start_date="20120201">1XXXXXXXXXX111111111111111111111</payment_pattern>
+            <number_months_reviewed>32</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>F</industry_code>
+            <member_code>0654N1HH</member_code>
+            <subscriber_name>SPRINGLF FIN</subscriber_name>
+            <account_type code="I">Installment account</account_type>
+            <account_number>11111282038942518</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20041031</date_opened>
+            <date_verified fmt="CCYYMMDD">20110407</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20110407</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20111022</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000014400</high_credit>
+            <credit_limit></credit_limit>
+            <terms_duration frequency="M">120</terms_duration>
+            <terms_frequency code="M">Monthly</terms_frequency>
+            <amount_of_payment>000000206</amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="SE">Secured</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20110307</payment_pattern_start_date>
+            <payment_pattern start_date="20110307">111111111111111111111X11111111111111X111111</payment_pattern>
+            <number_months_reviewed>43</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>D</industry_code>
+            <member_code>06256372</member_code>
+            <subscriber_name>CBUSASEARS</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>111114495</account_number>
+            <account_designator code="I">Individual account</account_designator>
+            <date_opened fmt="CCYYMMDD">19821031</date_opened>
+            <date_verified fmt="CCYYMMDD">20110331</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD">20110208</date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20020409</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000001438</high_credit>
+            <credit_limit>000002300</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CH">Charge Account</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20110228</payment_pattern_start_date>
+            <payment_pattern start_date="20110228">X1111X11111</payment_pattern>
+            <number_months_reviewed>35</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>Q</industry_code>
+            <member_code>0964N001</member_code>
+            <subscriber_name>NRL FCU</subscriber_name>
+            <account_type code="I">Installment account</account_type>
+            <account_number>11111026697300001</account_number>
+            <account_designator code="S">Co-signer on account</account_designator>
+            <date_opened fmt="CCYYMMDD">20070427</date_opened>
+            <date_verified fmt="CCYYMMDD">20110208</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20110208</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD"></date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000006000</high_credit>
+            <credit_limit></credit_limit>
+            <terms_duration frequency="M">60</terms_duration>
+            <terms_frequency code="M">Monthly</terms_frequency>
+            <amount_of_payment>000000142</amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="US">Unsecured</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20110108</payment_pattern_start_date>
+            <payment_pattern start_date="20110108">111111111111111111111X11111XXX11111111111X1</payment_pattern>
+            <number_months_reviewed>45</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>01066001</member_code>
+            <subscriber_name>CRESTAR BANK</subscriber_name>
+            <account_type code="I">Installment account</account_type>
+            <account_number>111110949679001</account_number>
+            <account_designator code="I">Individual account</account_designator>
+            <date_opened fmt="CCYYMMDD">20070214</date_opened>
+            <date_verified fmt="CCYYMMDD">20100818</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20100812</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance></balance>
+            <high_credit>000009634</high_credit>
+            <credit_limit></credit_limit>
+            <terms_duration frequency="M">60</terms_duration>
+            <terms_frequency code="M">Monthly</terms_frequency>
+            <amount_of_payment>000000000</amount_of_payment>
+            <collateral></collateral>
+            <loan_type code=""></loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20100718</payment_pattern_start_date>
+            <payment_pattern start_date="20100718">11X1111</payment_pattern>
+            <number_months_reviewed>07</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>08179006</member_code>
+            <subscriber_name>AMEX</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>111110463</account_number>
+            <account_designator code="I">Individual account</account_designator>
+            <date_opened fmt="CCYYMMDD">20030923</date_opened>
+            <date_verified fmt="CCYYMMDD">20090816</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20090812</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD"></date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit></high_credit>
+            <credit_limit>000002500</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code="TRF">Transfer</remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD"></payment_pattern_start_date>
+            <payment_pattern start_date=""></payment_pattern>
+            <number_months_reviewed>01</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>F</industry_code>
+            <member_code>0654N2XS</member_code>
+            <subscriber_name>SPRINGLF FIN</subscriber_name>
+            <account_type code="I">Installment account</account_type>
+            <account_number>1111113012531286</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20030305</date_opened>
+            <date_verified fmt="CCYYMMDD">20070813</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20070813</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20070710</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000025506</high_credit>
+            <credit_limit></credit_limit>
+            <terms_duration frequency="M">120</terms_duration>
+            <terms_frequency code="M">Monthly</terms_frequency>
+            <amount_of_payment>000000212</amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="SE">Secured</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD"></payment_pattern_start_date>
+            <payment_pattern start_date=""></payment_pattern>
+            <number_months_reviewed></number_months_reviewed>
+            <times_30_days_late></times_30_days_late>
+            <times_60_days_late></times_60_days_late>
+            <times_90_days_late></times_90_days_late>
+            <historical_counters_verification_indicator code=""></historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>F</industry_code>
+            <member_code>0654N1HH</member_code>
+            <subscriber_name>SPRINGLF FIN</subscriber_name>
+            <account_type code="I">Installment account</account_type>
+            <account_number>11111282042251308</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20061031</date_opened>
+            <date_verified fmt="CCYYMMDD">20070708</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20070708</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20070606</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000012396</high_credit>
+            <credit_limit></credit_limit>
+            <terms_duration frequency="M">60</terms_duration>
+            <terms_frequency code="M">Monthly</terms_frequency>
+            <amount_of_payment>000000206</amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="SE">Secured</loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD"></payment_pattern_start_date>
+            <payment_pattern start_date=""></payment_pattern>
+            <number_months_reviewed></number_months_reviewed>
+            <times_30_days_late></times_30_days_late>
+            <times_60_days_late></times_60_days_late>
+            <times_90_days_late></times_90_days_late>
+            <historical_counters_verification_indicator code=""></historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>Q</industry_code>
+            <member_code>0535J002</member_code>
+            <subscriber_name>CAPITL MTBKR</subscriber_name>
+            <account_type code="M">Mortgage account</account_type>
+            <account_number>1111119297650989</account_number>
+            <account_designator code="C">Joint account</account_designator>
+            <date_opened fmt="CCYYMMDD">20040818</date_opened>
+            <date_verified fmt="CCYYMMDD">20070119</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD"></date_closed>
+            <date_closed_indicator code=""></date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD">20061231</date_of_last_activity>
+            <current_manner_of_payment code="01">Paid or paying as agreed</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance></balance>
+            <high_credit>000072400</high_credit>
+            <credit_limit></credit_limit>
+            <terms_duration frequency="M"></terms_duration>
+            <terms_frequency code="M">Monthly</terms_frequency>
+            <amount_of_payment>000000696</amount_of_payment>
+            <collateral></collateral>
+            <loan_type code=""></loan_type>
+            <remarks_code code=""></remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD"></payment_pattern_start_date>
+            <payment_pattern start_date=""></payment_pattern>
+            <number_months_reviewed></number_months_reviewed>
+            <times_30_days_late></times_30_days_late>
+            <times_60_days_late></times_60_days_late>
+            <times_90_days_late></times_90_days_late>
+            <historical_counters_verification_indicator code=""></historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>B</industry_code>
+            <member_code>0282E001</member_code>
+            <subscriber_name>CITI</subscriber_name>
+            <account_type code="R">Revolving account</account_type>
+            <account_number>111110004044</account_number>
+            <account_designator code="I">Individual account</account_designator>
+            <date_opened fmt="CCYYMMDD">20080522</date_opened>
+            <date_verified fmt="CCYYMMDD">20131026</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20130607</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD"></date_of_last_activity>
+            <current_manner_of_payment code="UR">Unrated or bankruptcy</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000001000</high_credit>
+            <credit_limit>000001000</credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code="CBG">Account closed by credit grantor</remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20130926</payment_pattern_start_date>
+            <payment_pattern start_date="20130926">1111</payment_pattern>
+            <number_months_reviewed>04</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+          <trade id="TR01">
+            <industry_code>N</industry_code>
+            <member_code>0656N001</member_code>
+            <subscriber_name>AMEX</subscriber_name>
+            <account_type code="O">Open account</account_type>
+            <account_number>53492100</account_number>
+            <account_designator code="I">Individual account</account_designator>
+            <date_opened fmt="CCYYMMDD">20030924</date_opened>
+            <date_verified fmt="CCYYMMDD">20130221</date_verified>
+            <trade_verification_indicator code="A">Automated account</trade_verification_indicator>
+            <date_closed fmt="CCYYMMDD">20101110</date_closed>
+            <date_closed_indicator code="C">Account was closed normally</date_closed_indicator>
+            <date_paid_out fmt="CCYYMMDD"></date_paid_out>
+            <date_of_last_activity fmt="CCYYMMDD"></date_of_last_activity>
+            <current_manner_of_payment code="UR">Unrated or bankruptcy</current_manner_of_payment>
+            <currency code="1">United States currency</currency>
+            <balance>000000000</balance>
+            <high_credit>000000000</high_credit>
+            <credit_limit></credit_limit>
+            <terms_duration frequency=""></terms_duration>
+            <terms_frequency code=""></terms_frequency>
+            <amount_of_payment></amount_of_payment>
+            <collateral></collateral>
+            <loan_type code="CC">Credit Card</loan_type>
+            <remarks_code code="CBC">Account closed by consumer</remarks_code>
+            <amount_past_due>000000000</amount_past_due>
+            <number_payments_past_due></number_payments_past_due>
+            <max_delinquency_amount date_del=""></max_delinquency_amount>
+            <max_delinquency_date fmt="CCYYMMDD"></max_delinquency_date>
+            <max_delinquency_MOP></max_delinquency_MOP>
+            <payment_pattern_start_date fmt="CCYYMMDD">20130121</payment_pattern_start_date>
+            <payment_pattern start_date="20130121">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1</payment_pattern>
+            <number_months_reviewed>33</number_months_reviewed>
+            <times_30_days_late>00</times_30_days_late>
+            <times_60_days_late>00</times_60_days_late>
+            <times_90_days_late>00</times_90_days_late>
+            <historical_counters_verification_indicator code="2">Historical counters were calculated</historical_counters_verification_indicator>
+          </trade>
+        </trade_segments>
+        <inquiry_segments id="IN01" product="07000">
+          <inquiry id="IN01">
+            <bureau_market><![CDATA[06]]>
+            </bureau_market>
+            <bureau_submarket><![CDATA[CH]]>
+            </bureau_submarket>
+            <industry_code code="G">Groceries</industry_code>
+            <member_code><![CDATA[00000199]]>
+            </member_code>
+            <subscriber_name><![CDATA[ROGER]]>
+            </subscriber_name>
+            <inquiry_type code="I">Individual</inquiry_type>
+            <loan_type code=""></loan_type>
+            <loan_amount><![CDATA[]]>
+            </loan_amount>
+            <date_of_inquiry fmt="CCYYMMDD">20150208</date_of_inquiry>
+          </inquiry>
+        </inquiry_segments>
+        <scoring_segments id="AO01" product="00P02">
+          <product_information id="AO01" product="00P02">
+            <product code="00P02"></product>
+            <product_status code="04">Default product delivered</product_status>
+            <search_status code=""></search_status>
+          </product_information>
+          <scoring id="SC01">
+            <product_code code="00P02">FICO CLASSIC 04</product_code>
+            <sign>+</sign>
+            <score>777</score>
+            <indicator_flag code=""></indicator_flag>
+            <derogatory_alert_flag code="I">Inquiries impacted the credit score</derogatory_alert_flag>
+            <factor1 code="030">TIME SINCE MOST RECENT ACCOUNT OPENING IS TOO SHORT</factor1>
+            <factor2 code="011">AMOUNT OWED ON REVOLVING ACCOUNTS IS TOO HIGH</factor2>
+            <factor3 code="006">TOO MANY CONSUMER FINANCE COMPANY ACCOUNTS</factor3>
+            <factor4 code="028">NUMBER OF ESTABLISHED ACCOUNTS</factor4>
+            <score_card_indicator></score_card_indicator>
+          </scoring>
+        </scoring_segments>
+      </subject_segments>
+      <transaction_ending id="ENDS">
+        <segments_returned>047</segments_returned>
+      </transaction_ending>
+    </TU_Report>
+  </bureau_xml_data>
+  <HTML_Reports>
+    <HTML_Report fmt_type="1"><![CDATA[<html>
+<head>
+<script language="javascript">  function toggleVisibility(useID) {     var tmp = document.getElementById(useID);     var dheader = document.getElementById('TU40_ARM_SD');     var sheader = document.getElementById('TU40_ARM_SS');     if (tmp) {        if (tmp.style.display=="block") tmp.style.display="none";        else tmp.style.display="block";     }     if (dheader) {       if (dheader.style.display=="block") dheader.style.display="none";     else dheader.style.display="block";     }     if (sheader) {       if (sheader.style.display=="block") sheader.style.display="none";     else sheader.style.display="block";     }  }  </script>
+<style type="text/css"><!--
+
+ .spaced {font-family: arial; font-size: 12pt; letter-spacing: 3px}
+ P.TRpad {font-family: monospace; font-size: 10pt; padding-top: 0.05cm; padding-bottom: 0.05cm; padding-left: 0.25cm; padding-right: 0.25cm; letter-spacing: -1px}
+TH {font-family: arial; font-size: 9pt} P {font-family: arial; font-size: 9pt; padding-top: 0.05cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm}
+ P.pipad {font-family : arial; font-size: 9pt; padding-right: 0.05cm; padding-top: 0.05cm; padding-bottom: 0.05cm}
+ TD {font-family: arial; font-size: 9pt; padding-top: 0.05cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm}
+ .mono {font-family: 'Courier New',monospace; font-size: 10pt}
+ .pagebreak {page-break-after: always}
+   --></style>
+<style type="text/css"> <!--
+ .goodmop {background-color: #FFFFFF}
+ .badmop {background-color: lightpink}
+ .alert {background-color:lightsalmon}
+ .separator {background-color:#FFFFCC; font-weight:bold}
+ --> </style>
+</head>
+<body>
+<!--TU_REPORT-->
+<!--FAD=3/6/2015-->
+<!--REPORT_07000-->
+<a name="tureport"></a>
+<p>TRANS UNION REPORT</p>
+
+<p>No match on SSN. </p>
+<!--INPUTINFO-->
+<pre>
+Input Transid: 276692422
+</pre>
+<!--/INPUTINFO-->
+<!--PI11-->
+<table border WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+<tr><th class=spaced COLSPAN=3 ALIGN=CENTER BGCOLOR="#C0C0C0">Personal Information Since 10/3/1982 FAD 3/6/2015</th></tr>
+<tr><th><br/></th><th><br/></th><th><p>Reported</p></th></tr>
+<tr><td width="15%" valign=baseline align=right><p class=pipad><b>
+Name
+<br/>
+SSN
+<br/>
+Address
+<br/>
+Address
+<br/>
+</b></p></td>
+<td valign=baseline nowrap><p>
+ &nbsp; ABBEY, TAMMY
+<br/>
+ &nbsp; 666-44-7841&nbsp;&nbsp;&nbsp;&nbsp; <b>DOB: </b>11/1967
+<br/>
+ &nbsp; 306, HAWTHORNE, ST, TALLADEGA, AL, 35160
+<br/>
+ &nbsp; 48, WESTMORELAND, ST, TALLADEGA, AL, 35160
+</p></td>
+<td width="15%" valign=baseline align=center><p>
+
+<br/>
+
+<br/>
+2/1/2015
+<br/>
+2/3/2015
+</p></td></tr>
+</table>
+<br/>
+<!--/PI11-->
+<table bgcolor="#C0C0C0" border RULES=COLS CELLPADDING=0 WIDTH="100%" CELLSPACING=0>
+<tr bgcolor="#C0C0C0"><th class=spaced COLSPAN=1 ALIGN=CENTER BGCOLOR="#C0C0C0">ID Mismatch Alert [Trans Alert]</th></tr>
+<tr><td class=alert align=left><p style="font-weight: bold" align=left> SSN Alert: &nbsp;&nbsp;&nbsp;&nbsp;  Mismatch - input does not match file<br/>Inquiries in last 60 days:&nbsp;0</p></td></tr>
+</table>
+<br/>
+<table border WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+<tr><th class=spaced COLSPAN=5 ALIGN=CENTER BGCOLOR="#C0C0C0">Employment</th></tr>
+<tr><td><br/></td><td><br/></td>
+<th valign=baseline width="12%"><p align=center>Date Hired</p></th>
+<th valign=baseline width="12%"><p align=center>Date Separated</p></th>
+<th valign=baseline width="22%"><p align=center>&nbsp;</p></th>
+</tr>
+<tr><td width="12%" valign=baseline><p align=right><b>Employer </b></p></td><td width="42%" valign=baseline><p>&nbsp; WALGREENS</p></td><td><br/></td><td><br/></td><td valign=baseline align=center><p>Verified 2/10/2015</p></td></tr><tr><td valign=baseline align=right><p><b>Occupation </b></p></td><td valign=baseline><p>&nbsp; MANAGER</p></td><td><br/></td><td><br/></td><td><br/></td></tr>
+<tr><td width="12%" valign=baseline><p align=right><b>Employer </b></p></td><td width="42%" valign=baseline><p>&nbsp; ATT</p></td><td><br/></td><td><br/></td><td valign=baseline align=center><p>Verified 2/10/2015</p></td></tr><tr><td valign=baseline align=right><p><b>Occupation </b></p></td><td valign=baseline><p>&nbsp; MGR</p></td><td><br/></td><td><br/></td><td><br/></td></tr>
+</table>
+<br/>
+<!--SPECIALUSE-->
+<!--AO01-->
+<table border RULES=COLS CELLPADDING=0 WIDTH="100%" CELLSPACING=0>
+<tr><th class=spaced COLSPAN=1 ALIGN=CENTER BGCOLOR="#C0C0C0">Add-On Products Summary</th></tr>
+<tr>
+<td valign=baseline><p>
+ &nbsp; <b>Product: </b>Score Model - FICO CLASSIC 04
+<br/>
+ &nbsp; <b>Status: </b>Default product delivered
+<br/>
+ &nbsp; &nbsp;
+</p></td>
+</tr>
+</table>
+<br/>
+<!--/AO01-->
+<!--SCORING-->
+<!--SC11-->
+<a name="tuscore1"></a>
+<table border RULES=COLS CELLPADDING=0 WIDTH="100%" CELLSPACING=0>
+<tr><th class=spaced COLSPAN=2 ALIGN=CENTER BGCOLOR="#C0C0C0">Scoring</th></tr>
+<tr><td><p style="font-family: arial; font-size: 9pt">
+&nbsp;&nbsp;&nbsp; <b>Score Model: &nbsp; </b>FICO CLASSIC 04&nbsp;&nbsp; +777 <FONT color="#ff0000">&nbsp;&nbsp;&nbsp;***Inquiries impacted the credit score*** </FONT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br/>
+&nbsp;&nbsp;&nbsp; <b>Factor: </b>030&nbsp;TIME SINCE MOST RECENT ACCOUNT OPENING IS TOO SHORT
+<br/>
+&nbsp;&nbsp;&nbsp; <b>Factor: </b>011&nbsp;AMOUNT OWED ON REVOLVING ACCOUNTS IS TOO HIGH
+<br/>
+&nbsp;&nbsp;&nbsp; <b>Factor: </b>006&nbsp;TOO MANY CONSUMER FINANCE COMPANY ACCOUNTS
+<br/>
+&nbsp;&nbsp;&nbsp; <b>Factor: </b>028&nbsp;NUMBER OF ESTABLISHED ACCOUNTS
+</p></td>
+<td width=65 valign=bottom align=center class=alert><table><tr><td><p style="font-family: arial; font-size: 10pt">
+&nbsp;
+<br/>
+&nbsp;
+<br/>
+&nbsp;
+<br/>
+&nbsp;
+<br/>
++777
+</p></td></tr></table>
+ </td>
+</tr>
+</table>
+<br/>
+<!--/SC11-->
+<p>No Credit Summary data for this subject</p>
+<!--TRADELINES-->
+<!--TR11-->
+<a name="tutrades"></a>
+<!--TR11_R-->
+<table border WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+<tr><th class=spaced COLSPAN=9 ALIGN=CENTER BGCOLOR="#C0C0C0">Revolving Accounts
+</th></tr>
+<tr><td COLSPAN=4><br/></td><th COLSPAN=3><p>Current Status</p></th>
+<th width=135><p>Hist Status</p></th><td><br/></td></tr>
+<tr><th valign=baseline><p>Acc Name/Address</p></th>
+<th valign=baseline><p>Rptd<br/>DLA<br/>ECOA</p></th>
+<th valign=baseline><p>Opened<br/>Clsd/PD</p></th>
+<th valign=baseline><p>High<br/>Limit</p></th>
+<th valign=baseline><p>Pmt<br/>Term</p></th>
+<th valign=baseline><p>$Bal</p></th>
+<th valign=baseline><p>$Past Due</p></th>
+<th valign=baseline width=135 align=left nowrap><p nowrap>&nbsp;&nbsp;Mths&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;&nbsp;60&nbsp;&nbsp;&nbsp;&nbsp;90</p></th>
+<th valign=baseline><p>Rating</p></th></tr>
+<tr><td valign=baseline><p>BK OF AMER  <br/>3989<br/><b>Subscriber:&nbsp;</b>B&nbsp;06331059<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/><b>Remarks: </b>Account closed by consumer<br/>
+</p></td><td valign=baseline align=center><p>01/15A<br/>03/14<br/>I</p></td>
+<td valign=baseline align=center><p>03/85<br/>04/14C</p></td>
+<td valign=baseline align=center><p>6268<br/>6100</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">38&nbsp;&nbsp;<br/>
+111111111111<br/>111111111111<br/>111111111111<br/>11</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>AMEX        <br/>51282500<br/><b>Subscriber:&nbsp;</b>B&nbsp;0656N011<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/>
+</p></td><td valign=baseline align=center><p>01/15A<br/><br/>I</p></td>
+<td valign=baseline align=center><p>12/11<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>8366<br/>20K</p></td>
+<td valign=baseline align=center><p><b>&nbsp; </b><br/> </p></td>
+<td valign=baseline align=center><p>8366</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">35&nbsp;&nbsp;<br/>
+111111111111<br/>XX11111111X1<br/>1XX11111X11</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>SUNTRUST BK <br/>111110003104<br/><b>Subscriber:&nbsp;</b>B&nbsp;07121001<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Line Secured<br/><b>Remarks: </b>Closed<br/>
+</p></td><td valign=baseline align=center><p>12/14A<br/>11/14<br/>C</p></td>
+<td valign=baseline align=center><p>06/07<br/>01/13C</p></td>
+<td valign=baseline align=center><p>74.6K<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>426<br/>MIN </p></td>
+<td valign=baseline align=center><p>39.6K</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">12&nbsp;&nbsp;<br/>
+111111111111</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>MELLON BANK <br/>111115952221<br/><b>Subscriber:&nbsp;</b>B&nbsp;02676032<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/>
+</p></td><td valign=baseline align=center><p>12/14A<br/>12/14<br/>C</p></td>
+<td valign=baseline align=center><p>08/12<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>7700<br/>9500</p></td>
+<td valign=baseline align=center><p><b>&nbsp; </b><br/> </p></td>
+<td valign=baseline align=center><p>80</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">27&nbsp;&nbsp;<br/>
+111111111111<br/>111111111111<br/>111</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>CITI        <br/>111118227795<br/><b>Subscriber:&nbsp;</b>B&nbsp;064DB001<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/>
+</p></td><td valign=baseline align=center><p>12/14A<br/>12/14<br/>A</p></td>
+<td valign=baseline align=center><p>10/11<br/>12/14P </p></td>
+<td valign=baseline align=center><p>0<br/>8600</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">37&nbsp;&nbsp;<br/>
+11XXXXXXXXXX<br/>111111111111<br/>11111111X11X<br/>1</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>WF/WB       <br/>111118200888<br/><b>Subscriber:&nbsp;</b>B&nbsp;0362N400<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/>
+</p></td><td valign=baseline align=center><p>12/14A<br/>05/12<br/>C</p></td>
+<td valign=baseline align=center><p>06/11<br/>08/14C</p></td>
+<td valign=baseline align=center><p>0<br/>15K</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">41&nbsp;&nbsp;<br/>
+111111111111<br/>11111111111X<br/>XXX111111111<br/>11111</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>FST USA BK B<br/>111112180913<br/><b>Subscriber:&nbsp;</b>B&nbsp;07519044<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/>
+</p></td><td valign=baseline align=center><p>12/14A<br/>01/12<br/>I</p></td>
+<td valign=baseline align=center><p>07/08<br/>01/12P </p></td>
+<td valign=baseline align=center><p>0<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">37&nbsp;&nbsp;<br/>
+111111111111<br/>111111111111<br/>111111111111<br/>1</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>CITI        <br/>111110321240<br/><b>Subscriber:&nbsp;</b>B&nbsp;064DB003<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/>
+</p></td><td valign=baseline align=center><p>11/14A<br/><br/>I</p></td>
+<td valign=baseline align=center><p>10/10<br/>10/10P </p></td>
+<td valign=baseline align=center><p>0<br/>5000</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">01&nbsp;&nbsp;<br/>
+1</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>FLEET CC    <br/>111110010214<br/><b>Subscriber:&nbsp;</b>B&nbsp;0517R029<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/>
+</p></td><td valign=baseline align=center><p>11/14A<br/>07/14<br/>C</p></td>
+<td valign=baseline align=center><p>10/13<br/>07/14P </p></td>
+<td valign=baseline align=center><p>9500<br/>9500</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">12&nbsp;&nbsp;<br/>
+111111111111</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>CHEVY CHASE <br/>111110200315<br/><b>Subscriber:&nbsp;</b>B&nbsp;09202009<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/>
+</p></td><td valign=baseline align=center><p>11/14A<br/>10/14<br/>C</p></td>
+<td valign=baseline align=center><p>01/04<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>15K<br/>15K</p></td>
+<td valign=baseline align=center><p><b>73</b><br/>MIN </p></td>
+<td valign=baseline align=center><p>3951</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">47&nbsp;&nbsp;<br/>
+111111111111<br/>111111111111<br/>111111111111<br/>11111111111</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>BK OF AMER  <br/>8431<br/><b>Subscriber:&nbsp;</b>B&nbsp;01597029<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/>
+</p></td><td valign=baseline align=center><p>10/14A<br/>05/14<br/>I</p></td>
+<td valign=baseline align=center><p>06/13<br/>05/14P </p></td>
+<td valign=baseline align=center><p>12.4K<br/>25K</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">11&nbsp;&nbsp;<br/>
+11111111111</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>GE CARD CO  <br/>111115571003<br/><b>Subscriber:&nbsp;</b>B&nbsp;07695112<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/><b>Remarks: </b>Account closed by consumer<br/>
+</p></td><td valign=baseline align=center><p>01/14A<br/>12/11<br/>C</p></td>
+<td valign=baseline align=center><p>11/09<br/>01/12P </p></td>
+<td valign=baseline align=center><p>2508<br/>2500</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">27&nbsp;&nbsp;<br/>
+111111111111<br/>111111111111<br/>11</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>CITI        <br/>111111002001<br/><b>Subscriber:&nbsp;</b>B&nbsp;0282E001<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/><b>Remarks: </b>Account closed by credit grantor<br/>
+</p></td><td valign=baseline align=center><p>10/13A<br/><br/>I</p></td>
+<td valign=baseline align=center><p>05/08<br/>05/13C</p></td>
+<td valign=baseline align=center><p>1000<br/>1000</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">48&nbsp;&nbsp;<br/>
+111111111111</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>BK OF AMER  <br/>02<br/><b>Subscriber:&nbsp;</b>B&nbsp;01597029<br/><b>Loan&nbsp;Type:&nbsp;</b>Line of Credit<br/><b>Remarks: </b>Account closed by consumer<br/>
+</p></td><td valign=baseline align=center><p>06/13A<br/>05/11<br/>I</p></td>
+<td valign=baseline align=center><p>03/02<br/>06/13C</p></td>
+<td valign=baseline align=center><p>7178<br/>11.6K</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">48&nbsp;&nbsp;<br/>
+X11XXXX11111<br/>XXXXXXXXXXXX<br/>X11XXXX11111<br/>11XX11111111</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>CBUSASEARS  <br/>11111605<br/><b>Subscriber:&nbsp;</b>D&nbsp;06256372<br/><b>Loan&nbsp;Type:&nbsp;</b>Charge Account<br/>
+</p></td><td valign=baseline align=center><p>03/12A<br/><br/>A</p></td>
+<td valign=baseline align=center><p>06/08<br/>01/12P </p></td>
+<td valign=baseline align=center><p>1760<br/>4000</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>&nbsp; </p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">43&nbsp;&nbsp;<br/>
+11XXXXX11XXX<br/>111111111111<br/>111111111111<br/>1111111</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>BK OF AMER  <br/>4806<br/><b>Subscriber:&nbsp;</b>B&nbsp;01597029<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/>
+</p></td><td valign=baseline align=center><p>03/12A<br/>12/10<br/>C</p></td>
+<td valign=baseline align=center><p>01/91<br/>12/10P </p></td>
+<td valign=baseline align=center><p>11.4K<br/>16K</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>&nbsp; </p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">32&nbsp;&nbsp;<br/>
+1XXXXXXXXXX1<br/>111111111111<br/>11111111</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>CBUSASEARS  <br/>111114495<br/><b>Subscriber:&nbsp;</b>D&nbsp;06256372<br/><b>Loan&nbsp;Type:&nbsp;</b>Charge Account<br/>
+</p></td><td valign=baseline align=center><p>03/11A<br/>04/02<br/>I</p></td>
+<td valign=baseline align=center><p>10/82<br/>02/11P </p></td>
+<td valign=baseline align=center><p>1438<br/>2300</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">35&nbsp;&nbsp;<br/>
+X1111X11111</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>AMEX        <br/>111110463<br/><b>Subscriber:&nbsp;</b>B&nbsp;08179006<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/><b>Remarks: </b>Transfer<br/>
+</p></td><td valign=baseline align=center><p>08/09A<br/><br/>I</p></td>
+<td valign=baseline align=center><p>09/03<br/>08/09C</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/>2500</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">01&nbsp;&nbsp;<br/>
+</p></td>
+<td valign=baseline align=center><p>R1</p></td></tr>
+<tr><td valign=baseline><p>CITI        <br/>111110004044<br/><b>Subscriber:&nbsp;</b>B&nbsp;0282E001<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/><b>Remarks: </b>Account closed by credit grantor<br/>
+</p></td><td valign=baseline align=center><p>10/13A<br/><br/>I</p></td>
+<td valign=baseline align=center><p>05/08<br/>06/13C</p></td>
+<td valign=baseline align=center><p>1000<br/>1000</p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">04&nbsp;&nbsp;<br/>
+1111</p></td>
+<td valign=baseline align=center><p>RUR</p></td></tr>
+<tr>
+<td><p style="font-size: 11pt">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Revolving Totals</b>
+</p></td>
+<td><br/></td><td><br/></td><td><br/></td><td align=center><p style="font-size: 11pt"><b>
+$73</b></p></td>
+<td align=center><p style="font-size: 11pt"><b>
+$52,029</b></p></td><td><br/></td><td><br/></td><td><br/></td>
+</tr>
+</table>
+<br/>
+<!--/TR11_R-->
+<!--TR11_O-->
+<table border WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+<tr><th class=spaced COLSPAN=9 ALIGN=CENTER BGCOLOR="#C0C0C0">Open Accounts
+</th></tr>
+<tr><td COLSPAN=4><br/></td><th COLSPAN=3><p>Current Status</p></th>
+<th width=135><p>Hist Status</p></th><td><br/></td></tr>
+<tr><th valign=baseline><p>Acc Name/Address</p></th>
+<th valign=baseline><p>Rptd<br/>DLA<br/>ECOA</p></th>
+<th valign=baseline><p>Opened<br/>Clsd/PD</p></th>
+<th valign=baseline><p>High<br/>Limit</p></th>
+<th valign=baseline><p>Pmt<br/>Term</p></th>
+<th valign=baseline><p>$Bal</p></th>
+<th valign=baseline><p>$Past Due</p></th>
+<th valign=baseline width=135 align=left nowrap><p nowrap>&nbsp;&nbsp;Mths&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;&nbsp;60&nbsp;&nbsp;&nbsp;&nbsp;90</p></th>
+<th valign=baseline><p>Rating</p></th></tr>
+<tr><td valign=baseline><p>AMEX        <br/>53492100<br/><b>Subscriber:&nbsp;</b>N&nbsp;0656N001<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Card<br/><b>Remarks: </b>Account closed by consumer<br/>
+</p></td><td valign=baseline align=center><p>02/13A<br/><br/>I</p></td>
+<td valign=baseline align=center><p>09/03<br/>11/10C</p></td>
+<td valign=baseline align=center><p>0<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>&nbsp; <br/> </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">33&nbsp;&nbsp;<br/>
+XXXXXXXXXXXX<br/>XXXXXXXXXXXX<br/>XXXXXXXX1</p></td>
+<td valign=baseline align=center><p>OUR</p></td></tr>
+<tr>
+<td><p style="font-size: 11pt">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Open Account Totals</b>
+</p></td>
+<td><br/></td><td><br/></td><td><br/></td><td align=center><p style="font-size: 11pt"><b>
+$0</b></p></td>
+<td align=center><p style="font-size: 11pt"><b>
+$0</b></p></td><td><br/></td><td><br/></td><td><br/></td>
+</tr>
+</table>
+<br/>
+<!--/TR11_O-->
+<!--TR11_OV-->
+<table border WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+<tr><th class=spaced COLSPAN=9 ALIGN=CENTER BGCOLOR="#C0C0C0">Overdraft/Reserve Accounts
+</th></tr>
+<tr><td COLSPAN=4><br/></td><th COLSPAN=3><p>Current Status</p></th>
+<th width=135><p>Hist Status</p></th><td><br/></td></tr>
+<tr><th valign=baseline><p>Acc Name/Address</p></th>
+<th valign=baseline><p>Rptd<br/>DLA<br/>ECOA</p></th>
+<th valign=baseline><p>Opened<br/>Clsd/PD</p></th>
+<th valign=baseline><p>High<br/>Limit</p></th>
+<th valign=baseline><p>Pmt<br/>Term</p></th>
+<th valign=baseline><p>$Bal</p></th>
+<th valign=baseline><p>$Past Due</p></th>
+<th valign=baseline width=135 align=left nowrap><p nowrap>&nbsp;&nbsp;Mths&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;&nbsp;60&nbsp;&nbsp;&nbsp;&nbsp;90</p></th>
+<th valign=baseline><p>Rating</p></th></tr>
+<tr><td valign=baseline><p>SUNTRUST BK <br/>1111100003104<br/><b>Subscriber:&nbsp;</b>B&nbsp;07121001<br/><b>Loan&nbsp;Type:&nbsp;</b>Credit Line Secured<br/><b>Remarks: </b>Closed<br/>
+</p></td><td valign=baseline align=center><p>03/12A<br/>02/12<br/>C</p></td>
+<td valign=baseline align=center><p>06/07<br/>07/11C</p></td>
+<td valign=baseline align=center><p>74.6K<br/>75K</p></td>
+<td valign=baseline align=center><p>352<br/>MIN </p></td>
+<td valign=baseline align=center><p>60.6K</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">12&nbsp;&nbsp;<br/>
+111111111111</p></td>
+<td valign=baseline align=center><p>C1</p></td></tr>
+<tr>
+<td><p style="font-size: 11pt">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Overdraft/Reserve Totals</b>
+</p></td>
+<td><br/></td><td><br/></td><td><br/></td><td align=center><p style="font-size: 11pt"><b>
+$0</b></p></td>
+<td align=center><p style="font-size: 11pt"><b>
+$60,662</b></p></td><td><br/></td><td><br/></td><td><br/></td>
+</tr>
+</table>
+<br/>
+<!--/TR11_OV-->
+<!--TR11_I-->
+<table border WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+<tr><th class=spaced COLSPAN=9 ALIGN=CENTER BGCOLOR="#C0C0C0">Installment Accounts
+</th></tr>
+<tr><td COLSPAN=4><br/></td><th COLSPAN=3><p>Current Status</p></th>
+<th width=135><p>Hist Status</p></th><td><br/></td></tr>
+<tr><th valign=baseline><p>Acc Name/Address</p></th>
+<th valign=baseline><p>Rptd<br/>DLA<br/>ECOA</p></th>
+<th valign=baseline><p>Opened<br/>Clsd/PD</p></th>
+<th valign=baseline><p>High<br/>Limit</p></th>
+<th valign=baseline><p>Pmt<br/>Term</p></th>
+<th valign=baseline><p>$Bal</p></th>
+<th valign=baseline><p>$Past Due</p></th>
+<th valign=baseline width=135 align=left nowrap><p nowrap>&nbsp;&nbsp;Mths&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;&nbsp;60&nbsp;&nbsp;&nbsp;&nbsp;90</p></th>
+<th valign=baseline><p>Rating</p></th></tr>
+<tr><td valign=baseline><p>AMER BK PLK <br/>11111499573<br/><b>Subscriber:&nbsp;</b>B&nbsp;0761D005<br/><b>Loan&nbsp;Type:&nbsp;</b>Conventional Real Estate Mortgage<br/>
+</p></td><td valign=baseline align=center><p>11/14A<br/>10/14<br/>C</p></td>
+<td valign=baseline align=center><p>07/02<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>52.3K<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p><b>349</b><br/>240MO</p></td>
+<td valign=baseline align=center><p>22.6K</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">48&nbsp;&nbsp;<br/>
+111111111111<br/>X1111XXX1111<br/>11X11X11X111<br/>1111X11X11X1</p></td>
+<td valign=baseline align=center><p>I1</p></td></tr>
+<tr><td valign=baseline><p>NATIONSCREDT<br/>11111<br/><b>Subscriber:&nbsp;</b>F&nbsp;03837191<br/><b>Loan&nbsp;Type:&nbsp;</b>Installment Sales Contract<br/><b>Remarks: </b>Closed<br/>
+</p></td><td valign=baseline align=center><p>02/14A<br/>02/14<br/>I</p></td>
+<td valign=baseline align=center><p>11/10<br/>02/14C</p></td>
+<td valign=baseline align=center><p>21.0K<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>175<br/>120MO</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">38&nbsp;&nbsp;<br/>
+X11111111111<br/>X111X1111111<br/>111111111111<br/>11</p></td>
+<td valign=baseline align=center><p>I1</p></td></tr>
+<tr><td valign=baseline><p>SPRINGLF FIN<br/>11111282038942518<br/><b>Subscriber:&nbsp;</b>F&nbsp;0654N1HH<br/><b>Loan&nbsp;Type:&nbsp;</b>Secured<br/>
+</p></td><td valign=baseline align=center><p>04/11A<br/>10/11<br/>C</p></td>
+<td valign=baseline align=center><p>10/04<br/>04/11C</p></td>
+<td valign=baseline align=center><p>14.4K<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>206<br/>120MO</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">43&nbsp;&nbsp;<br/>
+111111111111<br/>111111111X11<br/>111111111111<br/>X111111</p></td>
+<td valign=baseline align=center><p>I1</p></td></tr>
+<tr><td valign=baseline><p>NRL FCU     <br/>11111026697300001<br/><b>Subscriber:&nbsp;</b>Q&nbsp;0964N001<br/><b>Loan&nbsp;Type:&nbsp;</b>Unsecured<br/>
+</p></td><td valign=baseline align=center><p>02/11A<br/><br/>S</p></td>
+<td valign=baseline align=center><p>04/07<br/>02/11C</p></td>
+<td valign=baseline align=center><p>6000<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>142<br/>60MO</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">45&nbsp;&nbsp;<br/>
+111111111111<br/>111111111X11<br/>111XXX111111<br/>11111X1</p></td>
+<td valign=baseline align=center><p>I1</p></td></tr>
+<tr><td valign=baseline><p>CRESTAR BANK<br/>111110949679001<br/><b>Subscriber:&nbsp;</b>B&nbsp;01066001<br/>
+</p></td><td valign=baseline align=center><p>08/10A<br/>08/10<br/>I</p></td>
+<td valign=baseline align=center><p>02/07<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>9634<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>0<br/>60MO</p></td>
+<td valign=baseline align=center><p>&nbsp; </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">07&nbsp;&nbsp;<br/>
+11X1111</p></td>
+<td valign=baseline align=center><p>I1</p></td></tr>
+<tr><td valign=baseline><p>SPRINGLF FIN<br/>1111113012531286<br/><b>Subscriber:&nbsp;</b>F&nbsp;0654N2XS<br/><b>Loan&nbsp;Type:&nbsp;</b>Secured<br/>
+</p></td><td valign=baseline align=center><p>08/07A<br/>07/07<br/>C</p></td>
+<td valign=baseline align=center><p>03/03<br/>08/07C</p></td>
+<td valign=baseline align=center><p>25.5K<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>212<br/>120MO</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">  &nbsp;&nbsp;<br/>
+</p></td>
+<td valign=baseline align=center><p>I1</p></td></tr>
+<tr><td valign=baseline><p>SPRINGLF FIN<br/>11111282042251308<br/><b>Subscriber:&nbsp;</b>F&nbsp;0654N1HH<br/><b>Loan&nbsp;Type:&nbsp;</b>Secured<br/>
+</p></td><td valign=baseline align=center><p>07/07A<br/>06/07<br/>C</p></td>
+<td valign=baseline align=center><p>10/06<br/>07/07C</p></td>
+<td valign=baseline align=center><p>12.3K<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>206<br/>60MO</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">  &nbsp;&nbsp;<br/>
+</p></td>
+<td valign=baseline align=center><p>I1</p></td></tr>
+<tr>
+<td><p style="font-size: 11pt">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Installment Totals</b>
+</p></td>
+<td><br/></td><td><br/></td><td><br/></td><td align=center><p style="font-size: 11pt"><b>
+$349</b></p></td>
+<td align=center><p style="font-size: 11pt"><b>
+$22,661</b></p></td><td><br/></td><td><br/></td><td><br/></td>
+</tr>
+</table>
+<br/>
+<!--/TR11_I-->
+<!--TR11_M-->
+<table border WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+<tr><th class=spaced COLSPAN=9 ALIGN=CENTER BGCOLOR="#C0C0C0">Mortgage Accounts
+</th></tr>
+<tr><td COLSPAN=4><br/></td><th COLSPAN=3><p>Current Status</p></th>
+<th width=135><p>Hist Status</p></th><td><br/></td></tr>
+<tr><th valign=baseline><p>Acc Name/Address</p></th>
+<th valign=baseline><p>Rptd<br/>DLA<br/>ECOA</p></th>
+<th valign=baseline><p>Opened<br/>Clsd/PD</p></th>
+<th valign=baseline><p>High<br/>Limit</p></th>
+<th valign=baseline><p>Pmt<br/>Term</p></th>
+<th valign=baseline><p>$Bal</p></th>
+<th valign=baseline><p>$Past Due</p></th>
+<th valign=baseline width=135 align=left nowrap><p nowrap>&nbsp;&nbsp;Mths&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;&nbsp;60&nbsp;&nbsp;&nbsp;&nbsp;90</p></th>
+<th valign=baseline><p>Rating</p></th></tr>
+<tr><td valign=baseline><p>CRESTAR BANK<br/>1111100888491<br/><b>Subscriber:&nbsp;</b>Q&nbsp;0666M001<br/><b>Loan&nbsp;Type:&nbsp;</b>Conventional Real Estate Mortgage<br/>
+</p></td><td valign=baseline align=center><p>12/14A<br/>12/14<br/>C</p></td>
+<td valign=baseline align=center><p>07/14<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>85.2K<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p><b>1009</b><br/>180MO</p></td>
+<td valign=baseline align=center><p>82.1K</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">04&nbsp;&nbsp;<br/>
+1111</p></td>
+<td valign=baseline align=center><p>M1</p></td></tr>
+<tr><td valign=baseline><p>GUARANTY MTG<br/>1111130797<br/><b>Subscriber:&nbsp;</b>F&nbsp;06379003<br/><b>Loan&nbsp;Type:&nbsp;</b>FHA Real Estate Mortgage<br/>
+</p></td><td valign=baseline align=center><p>12/14A<br/>12/14<br/>C</p></td>
+<td valign=baseline align=center><p>06/04<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>72.4K<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p><b>529</b><br/>360MO</p></td>
+<td valign=baseline align=center><p>53.3K</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">48&nbsp;&nbsp;<br/>
+111111111111<br/>111111111111<br/>X11X11111111<br/>111111111111</p></td>
+<td valign=baseline align=center><p>M1</p></td></tr>
+<tr><td valign=baseline><p>CRESTAR BANK<br/>1111100517230<br/><b>Subscriber:&nbsp;</b>Q&nbsp;0666M001<br/><b>Loan&nbsp;Type:&nbsp;</b>Conventional Real Estate Mortgage<br/><b>Remarks: </b>Closed<br/>
+</p></td><td valign=baseline align=center><p>07/14A<br/>07/14<br/>C</p></td>
+<td valign=baseline align=center><p>07/07<br/>07/14C</p></td>
+<td valign=baseline align=center><p>142.8K<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>1671<br/>180MO</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">40&nbsp;&nbsp;<br/>
+1X1111111111<br/>11111111X11X<br/>1111111XXXX1<br/>1111</p></td>
+<td valign=baseline align=center><p>M1</p></td></tr>
+<tr><td valign=baseline><p>CAPITL MTBKR<br/>1111119297650989<br/><b>Subscriber:&nbsp;</b>Q&nbsp;0535J002<br/>
+</p></td><td valign=baseline align=center><p>01/07A<br/>12/06<br/>C</p></td>
+<td valign=baseline align=center><p>08/04<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>72.4K<br/>&nbsp; </p></td>
+<td valign=baseline align=center><p>696<br/>MO</p></td>
+<td valign=baseline align=center><p>&nbsp; </p></td>
+<td valign=baseline align=center><p>0</p></td>
+<td width=135 valign=baseline nowrap><p class=TRpad style="font-family: 'Courier New',monospace; font-size: 10pt">  &nbsp;&nbsp;<br/>
+</p></td>
+<td valign=baseline align=center><p>M1</p></td></tr>
+<tr>
+<td><p style="font-size: 11pt">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Mortgage Totals</b>
+</p></td>
+<td><br/></td><td><br/></td><td><br/></td><td align=center><p style="font-size: 11pt"><b>
+$1,538</b></p></td>
+<td align=center><p style="font-size: 11pt"><b>
+$135,512</b></p></td><td><br/></td><td><br/></td><td><br/></td>
+</tr>
+</table>
+<br/>
+<!--/TR11_M-->
+<!--/TR11-->
+<table border WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+ <tr><th class=spaced COLSPAN=6 ALIGN=CENTER BGCOLOR="#C0C0C0">Inquiries</th></tr>
+ <tr>
+  <th width="12%"><p>Date</p></th>
+  <th><p>Name/Address</p></th>
+  <th width="15%"><p>Code</p></th>
+  <th width="8%"><p>MKT</p></th>
+  <th width="25%"><p>Type Inq/Loan</p></th>
+  <th><p>Amount</p></th>
+ </tr>
+ <tr>
+  <td align=center valign=top><p>02/08/15</p></td>
+  <td valign=top><p>ROGER</p></td>
+  <td align=center valign=top><p>G CH00000199</p></td>
+  <td align=center valign=top><p>CHI</p></td>
+  <td valign=top><p>I </p></td>
+  <td align=center valign=top><p>&nbsp;</p></td>
+ </tr>
+
+</table><br/>
+
+
+<p style="font-family: arial; font-size: 9pt; text-indent: -1em; margin-left: 1em"><b>Serviced By:</b><br />TRANSUNION<br />2 BALDWIN PLACE, P.O. BOX 1000<br />CHESTER, PA 19022<br />800-888-4213<br />http://www.transunion.com<br /></p>
+
+<p>END OF REPORT - TRANS UNION - 3/6/2015, 17:27:29 CT</p>
+<!--/REPORT_CREDIT-->
+<!--/TU_REPORT-->
+</body>
+</html>]]>
+    </HTML_Report>
+  </HTML_Reports>
+</HX5>
