@@ -7,7 +7,7 @@ using SOS.Lib.Core;
 using System;
 using System.Collections.Generic;
 
-namespace WebModules.Crm
+namespace WebModules
 {
 	public abstract class BaseModule : NancyModule
 	{
