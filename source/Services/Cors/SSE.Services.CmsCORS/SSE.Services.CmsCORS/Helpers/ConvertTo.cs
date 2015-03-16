@@ -15,6 +15,7 @@ using SOS.Services.Interfaces.Models.HumanResources;
 using SOS.Services.Interfaces.Models.InventoryEngine;
 using SOS.Services.Interfaces.Models.MonitoringStation;
 using SOS.Services.Interfaces.Models.QualifyLead;
+using SOS.Services.Interfaces.Models.SalesHareReportSrv;
 using SOS.Services.Interfaces.Models.Swing;
 using SSE.Services.CmsCORS.Models;
 using System.Collections.Generic;
@@ -1385,6 +1386,25 @@ namespace SSE.Services.CmsCORS.Helpers
 				Status = value.Status
 			};
 		}
+
+		public static MsAccountCreditsAndInstalls CastFnsToMsAccountCreditsAndInstalls(IFnsMsAccountCreditsAndInstalls value)
+		{
+			return new MsAccountCreditsAndInstalls
+			{
+				LeadID = value.LeadID,
+				OfficeId = value.OfficeId,
+				OfficeName = value.OfficeName,
+				TeamID = value.TeamID,
+				TeamName = value.TeamName,
+				SalesRepID = value.SalesRepID,
+				Active = value.Active,
+				NumInstalls = value.NumInstalls,
+				NumCredits = value.NumCredits,
+				InstallDate = value.InstallDate,
+				CreditDate = value.CreditDate
+			};
+		}
+
 		#endregion Reporting Services
 	}
 }

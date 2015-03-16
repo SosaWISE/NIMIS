@@ -15891,6 +15891,364 @@ namespace SOS.Data.SosCrm
 		#endregion Columns Struct
 	}
 	/// <summary>
+	/// Strongly-typed collection for the MS_AccountCreditsAndInstallsView class.
+	/// </summary>
+	[DataContract]
+	public partial class MS_AccountCreditsAndInstallsViewCollection : ReadOnlyList<MS_AccountCreditsAndInstallsView, MS_AccountCreditsAndInstallsViewCollection>
+	{
+		public static MS_AccountCreditsAndInstallsViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			MS_AccountCreditsAndInstallsViewCollection result = new MS_AccountCreditsAndInstallsViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwMS_AccountCreditsAndInstalls view.
+	/// </summary>
+	[DataContract]
+	public partial class MS_AccountCreditsAndInstallsView : ReadOnlyRecord<MS_AccountCreditsAndInstallsView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwMS_AccountCreditsAndInstalls", TableType.Table, DataService.GetInstance("SosCrmProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarLeadID = new TableSchema.TableColumn(schema);
+				colvarLeadID.ColumnName = "LeadID";
+				colvarLeadID.DataType = DbType.Int64;
+				colvarLeadID.MaxLength = 0;
+				colvarLeadID.AutoIncrement = false;
+				colvarLeadID.IsNullable = true;
+				colvarLeadID.IsPrimaryKey = false;
+				colvarLeadID.IsForeignKey = false;
+				colvarLeadID.IsReadOnly = false;
+				colvarLeadID.DefaultSetting = @"";
+				colvarLeadID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLeadID);
+
+				TableSchema.TableColumn colvarOfficeID = new TableSchema.TableColumn(schema);
+				colvarOfficeID.ColumnName = "OfficeID";
+				colvarOfficeID.DataType = DbType.Int32;
+				colvarOfficeID.MaxLength = 0;
+				colvarOfficeID.AutoIncrement = false;
+				colvarOfficeID.IsNullable = false;
+				colvarOfficeID.IsPrimaryKey = false;
+				colvarOfficeID.IsForeignKey = false;
+				colvarOfficeID.IsReadOnly = false;
+				colvarOfficeID.DefaultSetting = @"";
+				colvarOfficeID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarOfficeID);
+
+				TableSchema.TableColumn colvarOfficeName = new TableSchema.TableColumn(schema);
+				colvarOfficeName.ColumnName = "OfficeName";
+				colvarOfficeName.DataType = DbType.AnsiString;
+				colvarOfficeName.MaxLength = 50;
+				colvarOfficeName.AutoIncrement = false;
+				colvarOfficeName.IsNullable = false;
+				colvarOfficeName.IsPrimaryKey = false;
+				colvarOfficeName.IsForeignKey = false;
+				colvarOfficeName.IsReadOnly = false;
+				colvarOfficeName.DefaultSetting = @"";
+				colvarOfficeName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarOfficeName);
+
+				TableSchema.TableColumn colvarTeamID = new TableSchema.TableColumn(schema);
+				colvarTeamID.ColumnName = "TeamID";
+				colvarTeamID.DataType = DbType.Int32;
+				colvarTeamID.MaxLength = 0;
+				colvarTeamID.AutoIncrement = false;
+				colvarTeamID.IsNullable = false;
+				colvarTeamID.IsPrimaryKey = false;
+				colvarTeamID.IsForeignKey = false;
+				colvarTeamID.IsReadOnly = false;
+				colvarTeamID.DefaultSetting = @"";
+				colvarTeamID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTeamID);
+
+				TableSchema.TableColumn colvarTeamName = new TableSchema.TableColumn(schema);
+				colvarTeamName.ColumnName = "TeamName";
+				colvarTeamName.DataType = DbType.AnsiString;
+				colvarTeamName.MaxLength = 50;
+				colvarTeamName.AutoIncrement = false;
+				colvarTeamName.IsNullable = false;
+				colvarTeamName.IsPrimaryKey = false;
+				colvarTeamName.IsForeignKey = false;
+				colvarTeamName.IsReadOnly = false;
+				colvarTeamName.DefaultSetting = @"";
+				colvarTeamName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTeamName);
+
+				TableSchema.TableColumn colvarSalesRepID = new TableSchema.TableColumn(schema);
+				colvarSalesRepID.ColumnName = "SalesRepID";
+				colvarSalesRepID.DataType = DbType.String;
+				colvarSalesRepID.MaxLength = 25;
+				colvarSalesRepID.AutoIncrement = false;
+				colvarSalesRepID.IsNullable = false;
+				colvarSalesRepID.IsPrimaryKey = false;
+				colvarSalesRepID.IsForeignKey = false;
+				colvarSalesRepID.IsReadOnly = false;
+				colvarSalesRepID.DefaultSetting = @"";
+				colvarSalesRepID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSalesRepID);
+
+				TableSchema.TableColumn colvarSalesRepName = new TableSchema.TableColumn(schema);
+				colvarSalesRepName.ColumnName = "SalesRepName";
+				colvarSalesRepName.DataType = DbType.String;
+				colvarSalesRepName.MaxLength = 101;
+				colvarSalesRepName.AutoIncrement = false;
+				colvarSalesRepName.IsNullable = true;
+				colvarSalesRepName.IsPrimaryKey = false;
+				colvarSalesRepName.IsForeignKey = false;
+				colvarSalesRepName.IsReadOnly = false;
+				colvarSalesRepName.DefaultSetting = @"";
+				colvarSalesRepName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSalesRepName);
+
+				TableSchema.TableColumn colvarActive = new TableSchema.TableColumn(schema);
+				colvarActive.ColumnName = "Active";
+				colvarActive.DataType = DbType.AnsiString;
+				colvarActive.MaxLength = 8;
+				colvarActive.AutoIncrement = false;
+				colvarActive.IsNullable = false;
+				colvarActive.IsPrimaryKey = false;
+				colvarActive.IsForeignKey = false;
+				colvarActive.IsReadOnly = false;
+				colvarActive.DefaultSetting = @"";
+				colvarActive.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarActive);
+
+				TableSchema.TableColumn colvarNumInstalls = new TableSchema.TableColumn(schema);
+				colvarNumInstalls.ColumnName = "NumInstalls";
+				colvarNumInstalls.DataType = DbType.Int32;
+				colvarNumInstalls.MaxLength = 0;
+				colvarNumInstalls.AutoIncrement = false;
+				colvarNumInstalls.IsNullable = true;
+				colvarNumInstalls.IsPrimaryKey = false;
+				colvarNumInstalls.IsForeignKey = false;
+				colvarNumInstalls.IsReadOnly = false;
+				colvarNumInstalls.DefaultSetting = @"";
+				colvarNumInstalls.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarNumInstalls);
+
+				TableSchema.TableColumn colvarNumCredits = new TableSchema.TableColumn(schema);
+				colvarNumCredits.ColumnName = "NumCredits";
+				colvarNumCredits.DataType = DbType.Int32;
+				colvarNumCredits.MaxLength = 0;
+				colvarNumCredits.AutoIncrement = false;
+				colvarNumCredits.IsNullable = true;
+				colvarNumCredits.IsPrimaryKey = false;
+				colvarNumCredits.IsForeignKey = false;
+				colvarNumCredits.IsReadOnly = false;
+				colvarNumCredits.DefaultSetting = @"";
+				colvarNumCredits.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarNumCredits);
+
+				TableSchema.TableColumn colvarInstallDate = new TableSchema.TableColumn(schema);
+				colvarInstallDate.ColumnName = "InstallDate";
+				colvarInstallDate.DataType = DbType.DateTime;
+				colvarInstallDate.MaxLength = 0;
+				colvarInstallDate.AutoIncrement = false;
+				colvarInstallDate.IsNullable = true;
+				colvarInstallDate.IsPrimaryKey = false;
+				colvarInstallDate.IsForeignKey = false;
+				colvarInstallDate.IsReadOnly = false;
+				colvarInstallDate.DefaultSetting = @"";
+				colvarInstallDate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarInstallDate);
+
+				TableSchema.TableColumn colvarCreditDate = new TableSchema.TableColumn(schema);
+				colvarCreditDate.ColumnName = "CreditDate";
+				colvarCreditDate.DataType = DbType.DateTime;
+				colvarCreditDate.MaxLength = 0;
+				colvarCreditDate.AutoIncrement = false;
+				colvarCreditDate.IsNullable = true;
+				colvarCreditDate.IsPrimaryKey = false;
+				colvarCreditDate.IsForeignKey = false;
+				colvarCreditDate.IsReadOnly = false;
+				colvarCreditDate.DefaultSetting = @"";
+				colvarCreditDate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreditDate);
+
+				BaseSchema = schema;
+				DataService.Providers["SosCrmProvider"].AddSchema("vwMS_AccountCreditsAndInstalls",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public MS_AccountCreditsAndInstallsView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public long? LeadID {
+			get { return GetColumnValue<long?>(Columns.LeadID); }
+			set { SetColumnValue(Columns.LeadID, value); }
+		}
+		[DataMember]
+		public int OfficeID {
+			get { return GetColumnValue<int>(Columns.OfficeID); }
+			set { SetColumnValue(Columns.OfficeID, value); }
+		}
+		[DataMember]
+		public string OfficeName {
+			get { return GetColumnValue<string>(Columns.OfficeName); }
+			set { SetColumnValue(Columns.OfficeName, value); }
+		}
+		[DataMember]
+		public int TeamID {
+			get { return GetColumnValue<int>(Columns.TeamID); }
+			set { SetColumnValue(Columns.TeamID, value); }
+		}
+		[DataMember]
+		public string TeamName {
+			get { return GetColumnValue<string>(Columns.TeamName); }
+			set { SetColumnValue(Columns.TeamName, value); }
+		}
+		[DataMember]
+		public string SalesRepID {
+			get { return GetColumnValue<string>(Columns.SalesRepID); }
+			set { SetColumnValue(Columns.SalesRepID, value); }
+		}
+		[DataMember]
+		public string SalesRepName {
+			get { return GetColumnValue<string>(Columns.SalesRepName); }
+			set { SetColumnValue(Columns.SalesRepName, value); }
+		}
+		[DataMember]
+		public string Active {
+			get { return GetColumnValue<string>(Columns.Active); }
+			set { SetColumnValue(Columns.Active, value); }
+		}
+		[DataMember]
+		public int? NumInstalls {
+			get { return GetColumnValue<int?>(Columns.NumInstalls); }
+			set { SetColumnValue(Columns.NumInstalls, value); }
+		}
+		[DataMember]
+		public int? NumCredits {
+			get { return GetColumnValue<int?>(Columns.NumCredits); }
+			set { SetColumnValue(Columns.NumCredits, value); }
+		}
+		[DataMember]
+		public DateTime? InstallDate {
+			get { return GetColumnValue<DateTime?>(Columns.InstallDate); }
+			set { SetColumnValue(Columns.InstallDate, value); }
+		}
+		[DataMember]
+		public DateTime? CreditDate {
+			get { return GetColumnValue<DateTime?>(Columns.CreditDate); }
+			set { SetColumnValue(Columns.CreditDate, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return LeadID.ToString();
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn LeadIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn OfficeIDColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn OfficeNameColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn TeamIDColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn TeamNameColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn SalesRepIDColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn SalesRepNameColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+		public static TableSchema.TableColumn ActiveColumn
+		{
+			get { return Schema.Columns[7]; }
+		}
+		public static TableSchema.TableColumn NumInstallsColumn
+		{
+			get { return Schema.Columns[8]; }
+		}
+		public static TableSchema.TableColumn NumCreditsColumn
+		{
+			get { return Schema.Columns[9]; }
+		}
+		public static TableSchema.TableColumn InstallDateColumn
+		{
+			get { return Schema.Columns[10]; }
+		}
+		public static TableSchema.TableColumn CreditDateColumn
+		{
+			get { return Schema.Columns[11]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string LeadID = @"LeadID";
+			public const string OfficeID = @"OfficeID";
+			public const string OfficeName = @"OfficeName";
+			public const string TeamID = @"TeamID";
+			public const string TeamName = @"TeamName";
+			public const string SalesRepID = @"SalesRepID";
+			public const string SalesRepName = @"SalesRepName";
+			public const string Active = @"Active";
+			public const string NumInstalls = @"NumInstalls";
+			public const string NumCredits = @"NumCredits";
+			public const string InstallDate = @"InstallDate";
+			public const string CreditDate = @"CreditDate";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
 	/// Strongly-typed collection for the MS_AccountDispatchAgencyAssignmentView class.
 	/// </summary>
 	[DataContract]

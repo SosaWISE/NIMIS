@@ -38,8 +38,10 @@ GO
 CREATE Procedure dbo.custMS_AccountCreditsAndInstallsBySalesRepByDate
 (
 	@OfficeID INT
-	, @begindate datetime
-	, @enddate datetime
+	, @SalesRepId VARCHAR(20)
+	, @begindate DATETIME
+	, @enddate DATETIME
+    , @GpEmployeeId VARCHAR(20)
 )
 AS
 BEGIN
@@ -59,8 +61,15 @@ BEGIN
 			, ACI.SalesRepID
 			, ACI.SalesRepName
 			, ACI.Active
+<<<<<<< HEAD
 			, ISNULL(Installs_qry.NumInstalls,0) as NumInstalls
 			, ISNULL(Credits_qry.NumCredits,0) as NumCredits
+=======
+			, COUNT(ACI.NumInstalls) AS NumInstalls
+			, COUNT(ACI.NumCredits) AS NumCredits
+			, ACI.InstallDate
+			, ACI.CreditDate
+>>>>>>> origin/master
 		FROM
 			[dbo].vwMS_AccountCreditsAndInstalls AS ACI
 
@@ -125,4 +134,8 @@ GO
 GRANT EXEC ON dbo.custMS_AccountCreditsAndInstallsBySalesRepByDate TO PUBLIC
 GO
 
+<<<<<<< HEAD
 /** EXEC dbo.custMS_AccountCreditsAndInstallsBySalesRepByDate null, '03/01/15','03/31/15' */
+=======
+/** EXEC dbo.custMS_AccountCreditsAndInstallsBySalesRepByDate 1, null, '02/01/15','03/31/15', null */
+>>>>>>> origin/master
