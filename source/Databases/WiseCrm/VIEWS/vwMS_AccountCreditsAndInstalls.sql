@@ -44,9 +44,7 @@ GO
 *******************************************************************************/
 CREATE VIEW [dbo].[vwMS_AccountCreditsAndInstalls]
 AS
-	-- Enter Query here
-
-		SELECT
+		SELECT 
 			Credits_qry.LeadID
 			, RU_TeamLocations.TeamLocationID AS [OfficeID]
 			, RU_TeamLocations.Description AS [OfficeName]
@@ -86,8 +84,9 @@ AS
 			***********************/
 			LEFT JOIN 
 			(
-			SELECT 
-				vwMS_AccountSalesInformations.SalesRepId
+			SELECT
+				vwMS_AccountSalesInformations.SalesRepId,
+				vwMS_AccountSalesInformations.AccountID
 				, vwMS_AccountSalesInformations.InstallDate
 				-- ,COUNT(*) AS NumInstalls
 			FROM
@@ -112,7 +111,7 @@ AS
 				JOIN vwMS_AccountSalesInformations
 				ON
 					MS_Accounts.AccountID = vwMS_AccountSalesInformations.AccountID
-
+					AND vwMS_AccountSalesInformations.InstallDate IS NOT NULL
 			--WHERE
 			--	(CONVERT(DATE,vwMS_AccountSalesInformations.InstallDate) BETWEEN @begindate AND @enddate)
 			--GROUP BY
