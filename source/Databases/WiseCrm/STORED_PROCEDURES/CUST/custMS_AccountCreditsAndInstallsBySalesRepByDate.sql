@@ -38,8 +38,10 @@ GO
 CREATE Procedure dbo.custMS_AccountCreditsAndInstallsBySalesRepByDate
 (
 	@OfficeID INT
-	, @begindate datetime
-	, @enddate datetime
+	, @SalesRepId VARCHAR(20)
+	, @begindate DATETIME
+	, @enddate DATETIME
+    , @GpEmployeeId VARCHAR(20)
 )
 AS
 BEGIN
@@ -59,8 +61,8 @@ BEGIN
 			, ACI.SalesRepID
 			, ACI.SalesRepName
 			, ACI.Active
-			, COUNT(ACI.NumInstalls)
-			, COUNT(ACI.NumCredits)
+			, COUNT(ACI.NumInstalls) AS NumInstalls
+			, COUNT(ACI.NumCredits) AS NumCredits
 			, ACI.InstallDate
 			, ACI.CreditDate
 		FROM
@@ -203,4 +205,4 @@ GO
 GRANT EXEC ON dbo.custMS_AccountCreditsAndInstallsBySalesRepByDate TO PUBLIC
 GO
 
-/** EXEC dbo.custMS_AccountCreditsAndInstallsBySalesRepByDate 1, '02/01/15','03/31/15' */
+/** EXEC dbo.custMS_AccountCreditsAndInstallsBySalesRepByDate 1, null, '02/01/15','03/31/15', null */
