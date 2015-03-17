@@ -1,0 +1,158 @@
+﻿<#@ include file="Templates/_SQLServer.ttinclude" #>
+<#@ import namespace="System.Diagnostics" #>
+<#
+	var tables = LoadViews();
+#>
+<# //Debugger.Break(); #>
+using System;
+using System.ComponentModel;
+using System.Linq;
+using SubSonic;
+using SubSonic.Utilities;
+using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Serialization;
+using System.Data;
+using System.Data.SqlClient;
+using System.Runtime.Serialization;
+
+namespace <#=Namespace#>
+{
+<#  foreach(Table tbl in tables) {#>
+	/// <summary>
+	/// Strongly-typed collection for the <#=tbl.ClassName#> class.
+	/// </summary>
+	[DataContract]
+	public partial class <#=tbl.ClassName#>Collection : ReadOnlyList<<#=tbl.ClassName#>, <#=tbl.ClassName#>Collection>
+	{
+		public static <#=tbl.ClassName#>Collection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			<#=tbl.ClassName#>Collection result = new <#=tbl.ClassName#>Collection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the <#=tbl.Name#> view.
+	/// </summary>
+	[DataContract]
+	public partial class <#=tbl.ClassName#> : ReadOnlyRecord<<#=tbl.ClassName#>>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("<#=tbl.Name#>", TableType.Table, DataService.GetInstance("<#=ProviderName#>"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"<#=tbl.Schema#>";
+				//columns
+<#foreach(var col in tbl.Columns) {#>
+<#string varName = "colvar" + col.CleanName;#>
+
+				TableSchema.TableColumn <#=varName #> = new TableSchema.TableColumn(schema);
+				<#=varName #>.ColumnName = "<#=col.Name#>";
+				<#=varName #>.DataType = DbType.<#=col.DbType #>;
+				<#=varName #>.MaxLength = <#=col.MaxLength #>;
+				<#=varName #>.AutoIncrement = <#=col.AutoIncrement.ToString().ToLower() #>;
+				<#=varName #>.IsNullable = <#=col.IsNullable.ToString().ToLower()#>;
+				<#=varName #>.IsPrimaryKey = <#=col.IsPK.ToString().ToLower()#>;
+				<#=varName #>.IsForeignKey = <#=col.IsForeignKey.ToString().ToLower()#>;
+				<#=varName #>.IsReadOnly = <#= col.IsReadOnly.ToString().ToLower() #>;
+<# if (!String.IsNullOrEmpty(col.DefaultSetting)){#>
+				<#=varName#>.DefaultSetting = @"<#= col.DefaultSetting#>";
+<#}#>
+<#else{#>
+				<#=varName#>.DefaultSetting = @"";
+<#}#>
+<#if(col.IsForeignKey) {#>
+				<#=varName #>.ForeignKeyTableName = "<#= col.ForeignKeyTableName #>";
+<#}#>
+<#else{#>
+				<#=varName #>.ForeignKeyTableName = "";
+<#}#>
+				schema.Columns.Add(<#=varName#>);
+<#}#>
+
+				BaseSchema = schema;
+				DataService.Providers["<#=ProviderName#>"].AddSchema("<#=tbl.Name#>",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public <#=tbl.ClassName#>()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+<# foreach(var col in tbl.Columns) {#>
+		[DataMember]
+		public <#=col.SysType#><#=CheckNullable(col)#> <#=col.CleanName#> {
+			get { return GetColumnValue<<#=col.SysType#><#=CheckNullable(col)#>>(Columns.<#=col.CleanName#>); }
+			set { SetColumnValue(Columns.<#=col.CleanName#>, value); }
+		}
+<#}#>
+
+		#endregion //Properties
+
+<#var currentColumn = tbl.Descriptor;#>
+<# if(currentColumn != null) {#>
+		public override string ToString()
+		{
+<# if(currentColumn.SysType == "string") {#>
+			return <#=tbl.Descriptor.CleanName#>;
+<# } #>
+<# else {#>
+			return <#=tbl.Descriptor.CleanName#>.ToString();
+<# } #>
+		}
+<# } #>
+<# else {#>
+			//No Descriptor Column
+<# } #>
+
+		#region Typed Columns
+
+<#for(int i = 0; i < tbl.Columns.Count; i++){#>
+		public static TableSchema.TableColumn <#=tbl.Columns[i].CleanName#>Column
+		{
+			get { return Schema.Columns[<#=i#>]; }
+		}
+<#}#>
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+<#foreach(var col in tbl.Columns){#>
+			public const string <#=col.CleanName#> = @"<#=col.CleanName#>";
+<#}#>
+		}
+		#endregion Columns Struct
+	}
+<#}#>
+}

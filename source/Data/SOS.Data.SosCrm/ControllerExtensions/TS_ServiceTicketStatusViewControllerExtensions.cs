@@ -1,11 +1,13 @@
-﻿namespace SOS.Data.SosCrm
-{
-	using SOS.Lib.Util;
-	using System;
-	using AR = TS_ServiceTicketStatusView;
-	using ARCollection = TS_ServiceTicketStatusViewCollection;
-	using ARController = TS_ServiceTicketStatusViewController;
+﻿using System;
+using AR = SOS.Data.SosCrm.TS_ServiceTicketStatusView;
+using ARCollection = SOS.Data.SosCrm.TS_ServiceTicketStatusViewCollection;
+using ARController = SOS.Data.SosCrm.TS_ServiceTicketStatusViewController;
 
+// ReSharper disable once CheckNamespace
+namespace SOS.Data.SosCrm
+{
+
+// ReSharper disable once InconsistentNaming
 	public static class TS_ServiceTicketStatusViewControllerExtensions
 	{
 		public static ARCollection LoadAll(this ARController cntlr)
