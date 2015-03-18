@@ -58,6 +58,7 @@
     <Compile Include="ControllerExtensions\BX_DocumentFiledControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\IE_PackingSlipViewControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MC_PoliticalTimeZoneControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountCreditsAndInstallsViewControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_AccountDispatchAgencyAssignmentControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_AccountDispatchAgencyAssignmentViewControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_AccountSiteGeneralDispatchControllerExtensions.cs" />

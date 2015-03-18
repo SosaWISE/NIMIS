@@ -3460,6 +3460,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MS_AccountCreditsAndInstallsViewController _MS_AccountCreditsAndInstallsViews;
+		public MS_AccountCreditsAndInstallsViewController MS_AccountCreditsAndInstallsViews
+		{
+			get
+			{
+				if (_MS_AccountCreditsAndInstallsViews == null) _MS_AccountCreditsAndInstallsViews = new MS_AccountCreditsAndInstallsViewController();
+				return _MS_AccountCreditsAndInstallsViews;
+			}
+		}
+
 		MS_AccountDispatchAgencyAssignmentViewController _MS_AccountDispatchAgencyAssignmentViews;
 		public MS_AccountDispatchAgencyAssignmentViewController MS_AccountDispatchAgencyAssignmentViews
 		{
@@ -4192,6 +4202,7 @@ namespace SOS.Data.SosCrm
 	public class MS_AccountAndLeadInfoViewController : BaseViewController<MS_AccountAndLeadInfoView, MS_AccountAndLeadInfoViewCollection> { }
 	public class MS_AccountClientDetailsViewController : BaseViewController<MS_AccountClientDetailsView, MS_AccountClientDetailsViewCollection> { }
 	public class MS_AccountClientsViewController : BaseViewController<MS_AccountClientsView, MS_AccountClientsViewCollection> { }
+	public class MS_AccountCreditsAndInstallsViewController : BaseViewController<MS_AccountCreditsAndInstallsView, MS_AccountCreditsAndInstallsViewCollection> { }
 	public class MS_AccountDispatchAgencyAssignmentViewController : BaseViewController<MS_AccountDispatchAgencyAssignmentView, MS_AccountDispatchAgencyAssignmentViewCollection> { }
 	public class MS_AccountEquipmentInfoToGPViewController : BaseViewController<MS_AccountEquipmentInfoToGPView, MS_AccountEquipmentInfoToGPViewCollection> { }
 	public class MS_AccountEquipmentsViewController : BaseViewController<MS_AccountEquipmentsView, MS_AccountEquipmentsViewCollection> { }

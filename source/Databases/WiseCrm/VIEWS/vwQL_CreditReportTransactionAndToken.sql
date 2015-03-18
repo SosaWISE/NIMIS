@@ -65,17 +65,17 @@ AS
 		QCR.CreditReportID
 		, QCRV.VendorName
 		, QCR.BureauId
-		, CAST(QCRM.CreditReportVendorMicrobiltID AS VARCHAR(50)) AS TransactionID
-		, CAST(QCRM.MicroBiltGUID AS VARCHAR(50)) AS Token
+		, CAST(QCRM.TransactionId AS VARCHAR(50)) AS TransactionID
+		, CAST(QCRM.Token AS VARCHAR(50)) AS Token
 		, QCRM.CreatedOn
 	FROM
 		[dbo].[QL_CreditReports] AS QCR WITH (NOLOCK)
 		INNER JOIN [dbo].[QL_CreditReportVendors] AS QCRV WITH (NOLOCK)
 		ON
 			(QCRV.CreditReportVendorID = QCR.CreditReportVendorId)
-		INNER JOIN [dbo].[QL_CreditReportVendorMicrobilt] AS QCRM WITH (NOLOCK)
+		INNER JOIN [dbo].[QL_CreditReportVendorHartSoftware] AS QCRM WITH (NOLOCK)
 		ON
-			(QCRM.CreditReportVendorMicrobiltID = QCR.CreditReportVendorMicrobiltId)
+			(QCRM.CreditReportVendorHartSoftwareID = QCR.CreditReportVendorHartSoftwareID)
 
 GO
 /* TEST */

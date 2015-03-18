@@ -169,6 +169,8 @@
     <Compile Include="Models\MonitoringStation\MsVendorAlarmComPackage.cs" />
     <Compile Include="Models\OptionItemModels.cs" />
     <Compile Include="Models\RuModels.cs" />
+    <Compile Include="Models\SalesHareReportSrv\CreditsAndInstallsRequest.cs" />
+    <Compile Include="Models\SalesHareReportSrv\MsAccountCreditsAndInstalls.cs" />
     <Compile Include="Models\ScheduleEngine\SeScheduleBlock.cs" />
     <Compile Include="Models\ScheduleEngine\SeScheduleTicket.cs" />
     <Compile Include="Models\ScheduleEngine\SeTechnicianAvailability.cs" />

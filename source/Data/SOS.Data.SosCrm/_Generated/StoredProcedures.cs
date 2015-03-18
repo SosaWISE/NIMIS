@@ -610,6 +610,15 @@ namespace SOS.Data.SosCrm {
 			StoredProcedure sp = new StoredProcedure("custMS_AccountCellularTypesGet" ,DataService.GetInstance("SosCrmProvider"));
 			return sp;
 		}
+		public static StoredProcedure MS_AccountCreditsAndInstallsBySalesRepByDate(int? OfficeID,string SalesRepId,DateTime? begindate,DateTime? enddate,string GpEmployeeId) {
+			StoredProcedure sp = new StoredProcedure("custMS_AccountCreditsAndInstallsBySalesRepByDate" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@OfficeID", OfficeID, DbType.Int32);
+			sp.Command.AddParameter("@SalesRepId", SalesRepId, DbType.AnsiString);
+			sp.Command.AddParameter("@begindate", begindate, DbType.DateTime);
+			sp.Command.AddParameter("@enddate", enddate, DbType.DateTime);
+			sp.Command.AddParameter("@GpEmployeeId", GpEmployeeId, DbType.AnsiString);
+			return sp;
+		}
 		public static StoredProcedure MS_AccountDispatchAgencyAssignmentSave(long? AccountId,int? DispatchAgencyOsId,string MonitoringStationOSId,string GpEmployeeId) {
 			StoredProcedure sp = new StoredProcedure("custMS_AccountDispatchAgencyAssignmentSave" ,DataService.GetInstance("SosCrmProvider"));
 			sp.Command.AddParameter("@AccountId", AccountId, DbType.Int64);
@@ -674,6 +683,12 @@ namespace SOS.Data.SosCrm {
 		}
 		public static StoredProcedure MS_AccountMonitorInformationsByAccountID(long? AccountID) {
 			StoredProcedure sp = new StoredProcedure("custMS_AccountMonitorInformationsByAccountID" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@AccountID", AccountID, DbType.Int64);
+			return sp;
+		}
+		public static StoredProcedure MS_AccountSalesInformationSaveSalesRepID(long? CustomerMasterFileID,long? AccountID) {
+			StoredProcedure sp = new StoredProcedure("custMS_AccountSalesInformationSaveSalesRepID" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@CustomerMasterFileID", CustomerMasterFileID, DbType.Int64);
 			sp.Command.AddParameter("@AccountID", AccountID, DbType.Int64);
 			return sp;
 		}

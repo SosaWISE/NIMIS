@@ -65,15 +65,15 @@ BEGIN
 			@PrimaryCustomerID=CUST.CustomerID
 		FROM 
 			WISE_CRM.dbo.AE_Customers AS CUST WITH (NOLOCK)
-			INNER JOIN WISE_CRM.dbo.MS_AccountCustomers AS MAC WITH (NOLOCK)
-			ON
-				(CUST.CustomerID = MAC.CustomerId)
+			--INNER JOIN WISE_CRM.dbo.MS_AccountCustomers AS MAC WITH (NOLOCK)
+			--ON
+			--	(CUST.CustomerID = MAC.CustomerId)
 			INNER JOIN WISE_CRM.dbo.AE_CustomerAccounts AS AC WITH (NOLOCK)
 			ON
-				(MAC.AccountId = AC.AccountId)
+				(AC.CustomerId = CUST.CustomerID)
 			INNER JOIN WISE_CRM.dbo.MS_Accounts AS MSA WITH (NOLOCK)
 			ON
-				(MAC.AccountId = MSA.AccountID)
+				(AC.AccountId = MSA.AccountID)
 		WHERE
 			(MSA.AccountID = @AccountId)
 			AND (AC.CustomerTypeId = 'PRI')

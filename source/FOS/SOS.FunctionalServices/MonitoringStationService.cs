@@ -991,60 +991,75 @@ namespace SOS.FunctionalServices
 		{
 			var result = new FnsResult<IFnsMsAccountLeadInfo>();
 
-			var masterLeads = SosCrmDataContext.Instance.QL_CustomerMasterLeads.ByCmfID(cmfid).ToList();
-			var primaryMasterLeads = masterLeads.Where(IsPrimaryMasterLead).ToList();
-			if (primaryMasterLeads.Count != 1)
+			try
 			{
-				result.Message = (primaryMasterLeads.Count == 0) ? "MasterFile has no primary lead" : "MasterFile has more than one primary lead";
-				result.Code = -1;
-				return result;
-			}
-			var monitoredMasterLeads = masterLeads.Where(IsMonitoredMasterLead).ToList();
-			if (monitoredMasterLeads.Count > 1)
-			{
-				result.Message = "MasterFile has more than one monitored lead";
-				result.Code = -1;
-				return result;
-			}
-
-			long accountID = 0;
-			DatabaseHelper.UseTransaction(Data.SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME, () =>
-			{
-				// if there are no MONI leads, use PRI lead
-				QL_CustomerMasterLead monitoredMasterLead;
-				if (monitoredMasterLeads.Count > 0)
+				var masterLeads = SosCrmDataContext.Instance.QL_CustomerMasterLeads.ByCmfID(cmfid).ToList();
+				var primaryMasterLeads = masterLeads.Where(IsPrimaryMasterLead).ToList();
+				if (primaryMasterLeads.Count != 1)
 				{
-					monitoredMasterLead = monitoredMasterLeads[0];
+					result.Message = (primaryMasterLeads.Count == 0) ? "MasterFile has no primary lead" : "MasterFile has more than one primary lead";
+					result.Code = -1;
+					return result;
 				}
-				else
+				var monitoredMasterLeads = masterLeads.Where(IsMonitoredMasterLead).ToList();
+				if (monitoredMasterLeads.Count > 1)
 				{
-					// create moni master lead from primary master lead
-					monitoredMasterLead = new QL_CustomerMasterLead()
+					result.Message = "MasterFile has more than one monitored lead";
+					result.Code = -1;
+					return result;
+				}
+
+				long accountID = 0;
+				DatabaseHelper.UseTransaction(Data.SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME, () =>
+				{
+					// if there are no MONI leads, use PRI lead
+					QL_CustomerMasterLead monitoredMasterLead;
+					if (monitoredMasterLeads.Count > 0)
 					{
-						CustomerMasterLeadID = Guid.NewGuid(),
-						CustomerMasterFileId = cmfid,
-						CustomerTypeId = "MONI",
-						LeadId = primaryMasterLeads[0].LeadId,
-					};
-					monitoredMasterLead.Save();//gpEmployeeId);
-					// add to list ...as if it was always there...
-					masterLeads.Add(monitoredMasterLead);
-				}
+						monitoredMasterLead = monitoredMasterLeads[0];
+					}
+					else
+					{
+						// create moni master lead from primary master lead
+						monitoredMasterLead = new QL_CustomerMasterLead()
+						{
+							CustomerMasterLeadID = Guid.NewGuid(),
+							CustomerMasterFileId = cmfid,
+							CustomerTypeId = "MONI",
+							LeadId = primaryMasterLeads[0].LeadId,
+						};
+						monitoredMasterLead.Save();//gpEmployeeId);
+						// add to list ...as if it was always there...
+						masterLeads.Add(monitoredMasterLead);
+					}
 
-				// monitored lead - create account
-				var mcAccount = CreateAlarmAccount(monitoredMasterLead, gpEmployeeId);
-				accountID = mcAccount.AccountID;
-				// all leads - add customer to account
-				foreach (var masterLead in masterLeads)
-				{
-					AddCustomerToAlarmAccount(mcAccount, masterLead, gpEmployeeId);
-				}
-				// commit transaction
-				return true;
-			});
+					// monitored lead - create account
+					var mcAccount = CreateAlarmAccount(monitoredMasterLead, gpEmployeeId);
+					accountID = mcAccount.AccountID;
+					// all leads - add customer to account
+					foreach (var masterLead in masterLeads)
+					{
+						AddCustomerToAlarmAccount(mcAccount, masterLead, gpEmployeeId);
+					}
+					// commit transaction
+					return true;
+				});
 
-			var accountLeadInfo = SosCrmDataContext.Instance.MS_AccountAndLeadInfoViews.ByAccountID(accountID);
-			result.Value = new FnsMsAccountLeadInfo(accountLeadInfo);
+				// ** Save Sales Rep Id from QL_Leads into the MS_AccountSalesInformations table.
+				var accountSalesInformation = SosCrmDataContext.Instance.MS_AccountSalesInformationsViews.SaveSalesRepIDByAccountID(
+					cmfid, accountID);
+				if (accountSalesInformation == null)
+					throw new Exception("While creating the MS_Account for this lead, the system was not able to save the SalesRepID into the MS_AccountSalesInformations table.  Please contact the Administrator.");
+
+				var accountLeadInfo = SosCrmDataContext.Instance.MS_AccountAndLeadInfoViews.ByAccountID(accountID);
+				result.Value = new FnsMsAccountLeadInfo(accountLeadInfo);
+
+			}
+			catch (Exception ex)
+			{
+				result.Code = BaseErrorCodes.ErrorCodes.ExceptionThrown.Code();
+				result.Message = string.Format(BaseErrorCodes.ErrorCodes.ExceptionThrown.Message(), ex.Message);
+			}
 
 			return result;
 		}
@@ -2579,9 +2594,9 @@ namespace SOS.FunctionalServices
 
 						// ** Create the assignments
 						var filtereDispatchAgencies = from cust in daResult.Value
-							where
-								cust.DispatchAgencyTypeId == dispatchAgency.DispatchAgencyTypeId && cust.Phone1.Equals(dispatchAgency.Phone1)
-							select cust;
+													  where
+														  cust.DispatchAgencyTypeId == dispatchAgency.DispatchAgencyTypeId && cust.Phone1.Equals(dispatchAgency.Phone1)
+													  select cust;
 						// ** // ** Check that there is something to save
 						if (Equals(filtereDispatchAgencies.Count(), 0))
 						{

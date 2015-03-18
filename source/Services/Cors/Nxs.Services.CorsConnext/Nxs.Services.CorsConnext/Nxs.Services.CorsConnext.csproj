@@ -168,6 +168,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\ContactSrvcs\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HumanResourceSrvcs\SalespersonMonthlyHoldsController.cs" />
     <Compile Include="Controllers\HumanResourceSrvcs\SalespersonMonthlyCommissionsController.cs" />

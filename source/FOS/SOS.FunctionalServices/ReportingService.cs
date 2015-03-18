@@ -8,9 +8,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
 using SOS.Data.SosCrm;
+using SOS.Data.SosCrm.ControllerExtensions;
 using SOS.FOS.CellStation.AlarmCom;
 using SOS.FOS.MonitoringStationServices;
 using SOS.FunctionalServices.Contracts;
@@ -71,7 +73,50 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-		#region #Central Statio information
+		public IFnsResult<List<IFnsMsAccountCreditsAndInstalls>> GetCreditAndInstallsByOfficeIdAndRepId(int? officeId, string salesRepId, string gpEmployeeId, DateTime startDate, DateTime endDate)
+		{
+			#region INITIALIZATION
+
+			// ** Initialize 
+			const string METHOD_NAME = "FNS-GetCreditAndInstallsByOfficeIdAndRepId";
+			var result = new FnsResult<List<IFnsMsAccountCreditsAndInstalls>>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+			};
+
+			#endregion INITIALIZATION
+
+			#region TRY
+			try
+			{
+				var rawResult = SosCrmDataContext.Instance.MS_AccountCreditsAndInstallsViews.GetByOfficeIdAndRepId(officeId, salesRepId, startDate, endDate, gpEmployeeId);
+				var valueResult = rawResult.Select(item => new FnsMsAccountCreditsAndInstalls(item)).ToList();
+
+
+				// ** Setup Return
+				result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
+				result.Message = BaseErrorCodes.ErrorCodes.Success.Message();
+				result.Value = new List<IFnsMsAccountCreditsAndInstalls>(valueResult);
+
+			}
+			#endregion TRY
+
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<List<IFnsMsAccountCreditsAndInstalls>>
+				{
+					Code = (int)ErrorCodes.UnexpectedException,
+					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message)
+				};
+			}
+			#endregion CATCH
+
+			// ** Return result
+			return result;
+		}
+
+		#region #Central Station information
 
 		private List<IFnsMsAccountOnlineStatusInfo> GetCentralStationInfo(MS_Account msAccount, string gpEmployeeId)
 		{
@@ -121,6 +166,7 @@ namespace SOS.FunctionalServices
 			return resultList;
 		}
 
+// ReSharper disable once UnusedMethodReturnValue.Local
 		private bool GetCellularDeviceInfo(MS_Account msAccount, List<IFnsMsAccountOnlineStatusInfo> resultList)
 		{
 			#region Initialize
@@ -171,6 +217,6 @@ namespace SOS.FunctionalServices
 
 		}
 
-		#endregion #Central Statio information
+		#endregion #Central Station information
 	}
 }

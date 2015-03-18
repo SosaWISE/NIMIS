@@ -98,6 +98,7 @@
     <Compile Include="Models\QualifyLead\FnsQlQualifyCustomerInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Reporting\FnsMsAccountCreditsAndInstalls.cs" />
     <Compile Include="Models\Reporting\FnsMsAccountOnlineStatusInfo.cs" />
     <Compile Include="Models\Reporting\FnsMsSystemStatusInfo.cs" />
     <Compile Include="Models\ScheduleEngine\FnsSeScheduleTicket.cs" />
