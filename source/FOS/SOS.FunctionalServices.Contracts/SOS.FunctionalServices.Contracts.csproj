@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper\ErrorCodes.cs" />
+    <Compile Include="IConnextService.cs" />
     <Compile Include="IInsideSalesService.cs" />
     <Compile Include="IReportingService.cs" />
     <Compile Include="IInventoryEngineService.cs" />
@@ -69,6 +70,11 @@
     <Compile Include="Models\CentralStation\IFnsMsAccountSalesInformation.cs" />
     <Compile Include="Models\CentralStation\IFnsMsIndustryAccountNumbersWithReceiverLineInfoView.cs" />
     <Compile Include="Models\CentralStation\IFnsSignalHistoryItemModel.cs" />
+    <Compile Include="Models\Connext\IFnsCxAddress.cs" />
+    <Compile Include="Models\Connext\IFnsCxAppointment.cs" />
+    <Compile Include="Models\Connext\IFnsCxContactNote.cs" />
+    <Compile Include="Models\Connext\IFnsCxContact.cs" />
+    <Compile Include="Models\Connext\IFnsCxContactType.cs" />
     <Compile Include="Models\Data\IFnsRuTeamLocation.cs">
       <SubType>Code</SubType>
     </Compile>

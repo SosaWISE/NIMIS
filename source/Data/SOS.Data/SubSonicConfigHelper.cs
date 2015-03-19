@@ -25,6 +25,7 @@ namespace SOS.Data
 		public const string NXS_ACCOUNTING_PROVIDER_NAME = "NxsAccountingProvider";
 		public const string NXS_LETTERS_PROVIDER_NAME = "NxsLettersProvider";
 		public const string NXS_GREATPLAINS_PROVIDER_NAME = "NxsGreatPlainsProvider";
+		public const string NXS_CONNEXT_PROVIDER_NAME = "NxsConnextProvider";
 
 		// Connection String Keys
 		public const string SOS_CMS_CONN_STRING_KEY = "SosCrmConnString";
@@ -40,6 +41,7 @@ namespace SOS.Data
 		public const string NXS_ACCOUNTING_CONN_STRING_KEY = "NxsAccountingConnString";
 		public const string NXS_LETTERS_CONN_STRING_KEY = "NxsLettersConnString";
 		public const string NXS_GREATPLAINS_CONN_STRING_KEY = "NxsGreatPlainsConnString";
+		public const string NXS_CONNEXT_CONN_STRING_KEY = "NxsConnextConnString";
 
 		// Application Keys
 		public const string LOG_SOURCE_KEY = "LogSourceID";

@@ -168,6 +168,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\ContactSrvcs\ContactAddressController.cs" />
     <Compile Include="Controllers\ContactSrvcs\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HumanResourceSrvcs\SalespersonMonthlyHoldsController.cs" />
@@ -184,6 +185,7 @@
     </Compile>
     <Compile Include="Helpers\AvatarImage.cs" />
     <Compile Include="Helpers\CmsResultCodes.cs" />
+    <Compile Include="Helpers\ConvertTo.cs" />
     <Compile Include="Helpers\CORSSecurity.cs" />
     <Compile Include="Models\CORSArg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -260,6 +262,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Data\NXS.Data.Connext\NXS.Data.Connext.csproj">
+      <Project>{4a4324ac-1374-469d-bc3d-b8914f97c435}</Project>
+      <Name>NXS.Data.Connext</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Data\SOS.Data.AuthenticationControl\SOS.Data.AuthenticationControl.csproj">
       <Project>{acce6d59-0aa7-4353-850e-1b78e16b3074}</Project>
       <Name>SOS.Data.AuthenticationControl</Name>
