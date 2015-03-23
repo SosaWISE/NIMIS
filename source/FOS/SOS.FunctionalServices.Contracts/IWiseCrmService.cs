@@ -87,7 +87,7 @@ namespace SOS.FunctionalServices.Contracts
 		IFnsResult<IFnsVerifyAddress> AddressVerify(IFnsVerifyAddress address, int seasonId, int teamLocationId, string salesRepId, string userId);
 
 		IFnsResult<IFnsQlLead> ReadLead(long leadID);
-		IFnsResult<IFnsQlLead> SaveLead(IFnsQlLead fnsLead, string userId);
+		IFnsResult<IFnsQlLead> SaveLead(IFnsQlLead fnsLead, string userId, bool createMasterLead);
 		IFnsResult<IFnsQlCreditReport> RunCredit(long leadID, bool bypass, string userId);
 
 		IFnsResult<List<IFnsAeCustomerCardInfo>> MasterFileCustomers(long cmfid);

@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace SOS.Services.Interfaces.Models.MonitoringStation
 {
@@ -28,75 +29,57 @@ namespace SOS.Services.Interfaces.Models.MonitoringStation
 		public string Email { get; set; }
 		public bool? IsMoni { get; set; }
 
+		public string FriendsAndFamilyTypeId { get; set; }
+		public long? AccountSubmitId { get; set; }
+		public string AccountCancelReasonId { get; set; }
+		public string TechId { get; set; }
+		public string SalesRepId { get; set; }
+		public DateTime? InstallDate { get; set; }
+		public DateTime? SubmittedToCSDate { get; set; }
+		public string CsConfirmationNumber { get; set; }
+		public string CsTwoWayConfNumber { get; set; }
+		public DateTime? SubmittedToGPDate { get; set; }
+		public DateTime? ContractSignedDate { get; set; }
+		public DateTime? CancelDate { get; set; }
 		#endregion Properties
 	}
 
 	public interface IMsAccountSalesInformation
 	{
-		[DataMember]
 		long AccountID { get; set; }
-
-		[DataMember]
 		string PaymentTypeId { get; set; }
-
-		[DataMember]
 		short? BillingDay { get; set; }
-
-		[DataMember]
 		string CurrentMonitoringStation { get; set; }
-
-		[DataMember]
 		string PanelTypeId { get; set; }
-
-		[DataMember]
 		string PanelItemId { get; set; }
-
-		[DataMember]
 		bool? IsTakeOver { get; set; }
-
-		[DataMember]
 		bool? IsOwner { get; set; }
-
-		[DataMember]
 		string CellPackageItemId { get; set; }
-
-		[DataMember]
 		string CellularTypeId { get; set; }
-
-		[DataMember]
 		string CellularTypeName { get; set; }
-
-		[DataMember]
 		string CellularVendor { get; set; }
-
-		[DataMember]
 		string CellServicePackage { get; set; }
-
-		[DataMember]
 		decimal? SetupFee { get; set; }
-
-		[DataMember]
 		decimal? Setup1StMonth { get; set; }
-
-		[DataMember]
 		decimal? MMR { get; set; }
-
-		[DataMember]
 		bool? Over3Months { get; set; }
-
-		[DataMember]
 		short? ContractLength { get; set; }
-
-		[DataMember]
 		int? ContractId { get; set; }
-
-		[DataMember]
 		int? ContractTemplateId { get; set; }
-
-		[DataMember]
 		string Email { get; set; }
-
-		[DataMember]
 		bool? IsMoni { get; set; }
+
+		string FriendsAndFamilyTypeId { get; set; }
+		long? AccountSubmitId { get; set; }
+		string AccountCancelReasonId { get; set; }
+		string TechId { get; set; }
+		string SalesRepId { get; set; }
+		DateTime? InstallDate { get; set; }
+		DateTime? SubmittedToCSDate { get; set; }
+		string CsConfirmationNumber { get; set; }
+		string CsTwoWayConfNumber { get; set; }
+		DateTime? SubmittedToGPDate { get; set; }
+		DateTime? ContractSignedDate { get; set; }
+		DateTime? CancelDate { get; set; }
 	}
 }

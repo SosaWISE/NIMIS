@@ -1,5 +1,6 @@
 ﻿using SOS.Data.SosCrm;
 using SOS.FunctionalServices.Contracts.Models.CentralStation;
+using System;
 
 namespace SOS.FunctionalServices.Models.CentralStation
 {
@@ -31,6 +32,19 @@ namespace SOS.FunctionalServices.Models.CentralStation
 			ContractTemplateId = info.ContractTemplateId;
 			Email = info.Email;
 			IsMoni = info.IsMoni;
+
+			FriendsAndFamilyTypeId = info.FriendsAndFamilyTypeId;
+			AccountSubmitId = info.AccountSubmitId;
+			AccountCancelReasonId = info.AccountCancelReasonId;
+			TechId = info.TechId;
+			SalesRepId = info.SalesRepId;
+			InstallDate = info.InstallDate;
+			SubmittedToCSDate = info.SubmittedToCSDate;
+			CsConfirmationNumber = info.CsConfirmationNumber;
+			CsTwoWayConfNumber = info.CsTwoWayConfNumber;
+			SubmittedToGPDate = info.SubmittedToGPDate;
+			ContractSignedDate = info.ContractSignedDate;
+			CancelDate = info.CancelDate;
 		}
 
 
@@ -59,6 +73,19 @@ namespace SOS.FunctionalServices.Models.CentralStation
 		public int? ContractTemplateId { get; private set; }
 		public string Email { get; private set; }
 		public bool? IsMoni { get; private set; }
+
+		public string FriendsAndFamilyTypeId { get; set; }
+		public long? AccountSubmitId { get; set; }
+		public string AccountCancelReasonId { get; set; }
+		public string TechId { get; set; }
+		public string SalesRepId { get; set; }
+		public DateTime? InstallDate { get; set; }
+		public DateTime? SubmittedToCSDate { get; set; }
+		public string CsConfirmationNumber { get; set; }
+		public string CsTwoWayConfNumber { get; set; }
+		public DateTime? SubmittedToGPDate { get; set; }
+		public DateTime? ContractSignedDate { get; set; }
+		public DateTime? CancelDate { get; set; }
 		#endregion Properties
 	}
 }

@@ -31,5 +31,18 @@ namespace SOS.Lib.Core
 
 		public bool ShouldSerializeSuccess() { return false; }
 		public bool ShouldSerializeFailure() { return false; }
+
+		public Result<T> Fail(int code, string message)
+		{
+			this.Code = code;
+			this.Message = message;
+			return this;
+		}
+		public Result<T> Warn(string message)
+		{
+			this.Code = 0;
+			this.Message = message;
+			return this;
+		}
 	}
 }

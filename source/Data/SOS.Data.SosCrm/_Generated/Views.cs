@@ -19147,6 +19147,84 @@ namespace SOS.Data.SosCrm
 				colvarAccountCancelReasonId.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarAccountCancelReasonId);
 
+				TableSchema.TableColumn colvarFriendsAndFamilyTypeId = new TableSchema.TableColumn(schema);
+				colvarFriendsAndFamilyTypeId.ColumnName = "FriendsAndFamilyTypeId";
+				colvarFriendsAndFamilyTypeId.DataType = DbType.AnsiString;
+				colvarFriendsAndFamilyTypeId.MaxLength = 20;
+				colvarFriendsAndFamilyTypeId.AutoIncrement = false;
+				colvarFriendsAndFamilyTypeId.IsNullable = true;
+				colvarFriendsAndFamilyTypeId.IsPrimaryKey = false;
+				colvarFriendsAndFamilyTypeId.IsForeignKey = false;
+				colvarFriendsAndFamilyTypeId.IsReadOnly = false;
+				colvarFriendsAndFamilyTypeId.DefaultSetting = @"";
+				colvarFriendsAndFamilyTypeId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarFriendsAndFamilyTypeId);
+
+				TableSchema.TableColumn colvarAccountSubmitId = new TableSchema.TableColumn(schema);
+				colvarAccountSubmitId.ColumnName = "AccountSubmitId";
+				colvarAccountSubmitId.DataType = DbType.Int64;
+				colvarAccountSubmitId.MaxLength = 0;
+				colvarAccountSubmitId.AutoIncrement = false;
+				colvarAccountSubmitId.IsNullable = true;
+				colvarAccountSubmitId.IsPrimaryKey = false;
+				colvarAccountSubmitId.IsForeignKey = false;
+				colvarAccountSubmitId.IsReadOnly = false;
+				colvarAccountSubmitId.DefaultSetting = @"";
+				colvarAccountSubmitId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAccountSubmitId);
+
+				TableSchema.TableColumn colvarSubmittedToCSDate = new TableSchema.TableColumn(schema);
+				colvarSubmittedToCSDate.ColumnName = "SubmittedToCSDate";
+				colvarSubmittedToCSDate.DataType = DbType.DateTime;
+				colvarSubmittedToCSDate.MaxLength = 0;
+				colvarSubmittedToCSDate.AutoIncrement = false;
+				colvarSubmittedToCSDate.IsNullable = true;
+				colvarSubmittedToCSDate.IsPrimaryKey = false;
+				colvarSubmittedToCSDate.IsForeignKey = false;
+				colvarSubmittedToCSDate.IsReadOnly = false;
+				colvarSubmittedToCSDate.DefaultSetting = @"";
+				colvarSubmittedToCSDate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSubmittedToCSDate);
+
+				TableSchema.TableColumn colvarCsConfirmationNumber = new TableSchema.TableColumn(schema);
+				colvarCsConfirmationNumber.ColumnName = "CsConfirmationNumber";
+				colvarCsConfirmationNumber.DataType = DbType.AnsiString;
+				colvarCsConfirmationNumber.MaxLength = 50;
+				colvarCsConfirmationNumber.AutoIncrement = false;
+				colvarCsConfirmationNumber.IsNullable = true;
+				colvarCsConfirmationNumber.IsPrimaryKey = false;
+				colvarCsConfirmationNumber.IsForeignKey = false;
+				colvarCsConfirmationNumber.IsReadOnly = false;
+				colvarCsConfirmationNumber.DefaultSetting = @"";
+				colvarCsConfirmationNumber.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCsConfirmationNumber);
+
+				TableSchema.TableColumn colvarCsTwoWayConfNumber = new TableSchema.TableColumn(schema);
+				colvarCsTwoWayConfNumber.ColumnName = "CsTwoWayConfNumber";
+				colvarCsTwoWayConfNumber.DataType = DbType.AnsiString;
+				colvarCsTwoWayConfNumber.MaxLength = 50;
+				colvarCsTwoWayConfNumber.AutoIncrement = false;
+				colvarCsTwoWayConfNumber.IsNullable = true;
+				colvarCsTwoWayConfNumber.IsPrimaryKey = false;
+				colvarCsTwoWayConfNumber.IsForeignKey = false;
+				colvarCsTwoWayConfNumber.IsReadOnly = false;
+				colvarCsTwoWayConfNumber.DefaultSetting = @"";
+				colvarCsTwoWayConfNumber.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCsTwoWayConfNumber);
+
+				TableSchema.TableColumn colvarSubmittedToGPDate = new TableSchema.TableColumn(schema);
+				colvarSubmittedToGPDate.ColumnName = "SubmittedToGPDate";
+				colvarSubmittedToGPDate.DataType = DbType.DateTime;
+				colvarSubmittedToGPDate.MaxLength = 0;
+				colvarSubmittedToGPDate.AutoIncrement = false;
+				colvarSubmittedToGPDate.IsNullable = true;
+				colvarSubmittedToGPDate.IsPrimaryKey = false;
+				colvarSubmittedToGPDate.IsForeignKey = false;
+				colvarSubmittedToGPDate.IsReadOnly = false;
+				colvarSubmittedToGPDate.DefaultSetting = @"";
+				colvarSubmittedToGPDate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSubmittedToGPDate);
+
 				BaseSchema = schema;
 				DataService.Providers["SosCrmProvider"].AddSchema("vwMS_AccountSalesInformations",schema);
 			}
@@ -19308,6 +19386,36 @@ namespace SOS.Data.SosCrm
 			get { return GetColumnValue<string>(Columns.AccountCancelReasonId); }
 			set { SetColumnValue(Columns.AccountCancelReasonId, value); }
 		}
+		[DataMember]
+		public string FriendsAndFamilyTypeId {
+			get { return GetColumnValue<string>(Columns.FriendsAndFamilyTypeId); }
+			set { SetColumnValue(Columns.FriendsAndFamilyTypeId, value); }
+		}
+		[DataMember]
+		public long? AccountSubmitId {
+			get { return GetColumnValue<long?>(Columns.AccountSubmitId); }
+			set { SetColumnValue(Columns.AccountSubmitId, value); }
+		}
+		[DataMember]
+		public DateTime? SubmittedToCSDate {
+			get { return GetColumnValue<DateTime?>(Columns.SubmittedToCSDate); }
+			set { SetColumnValue(Columns.SubmittedToCSDate, value); }
+		}
+		[DataMember]
+		public string CsConfirmationNumber {
+			get { return GetColumnValue<string>(Columns.CsConfirmationNumber); }
+			set { SetColumnValue(Columns.CsConfirmationNumber, value); }
+		}
+		[DataMember]
+		public string CsTwoWayConfNumber {
+			get { return GetColumnValue<string>(Columns.CsTwoWayConfNumber); }
+			set { SetColumnValue(Columns.CsTwoWayConfNumber, value); }
+		}
+		[DataMember]
+		public DateTime? SubmittedToGPDate {
+			get { return GetColumnValue<DateTime?>(Columns.SubmittedToGPDate); }
+			set { SetColumnValue(Columns.SubmittedToGPDate, value); }
+		}
 
 		#endregion //Properties
 
@@ -19430,6 +19538,30 @@ namespace SOS.Data.SosCrm
 		{
 			get { return Schema.Columns[27]; }
 		}
+		public static TableSchema.TableColumn FriendsAndFamilyTypeIdColumn
+		{
+			get { return Schema.Columns[28]; }
+		}
+		public static TableSchema.TableColumn AccountSubmitIdColumn
+		{
+			get { return Schema.Columns[29]; }
+		}
+		public static TableSchema.TableColumn SubmittedToCSDateColumn
+		{
+			get { return Schema.Columns[30]; }
+		}
+		public static TableSchema.TableColumn CsConfirmationNumberColumn
+		{
+			get { return Schema.Columns[31]; }
+		}
+		public static TableSchema.TableColumn CsTwoWayConfNumberColumn
+		{
+			get { return Schema.Columns[32]; }
+		}
+		public static TableSchema.TableColumn SubmittedToGPDateColumn
+		{
+			get { return Schema.Columns[33]; }
+		}
 
 		#endregion
 
@@ -19464,6 +19596,12 @@ namespace SOS.Data.SosCrm
 			public const string TechId = @"TechId";
 			public const string CancelDate = @"CancelDate";
 			public const string AccountCancelReasonId = @"AccountCancelReasonId";
+			public const string FriendsAndFamilyTypeId = @"FriendsAndFamilyTypeId";
+			public const string AccountSubmitId = @"AccountSubmitId";
+			public const string SubmittedToCSDate = @"SubmittedToCSDate";
+			public const string CsConfirmationNumber = @"CsConfirmationNumber";
+			public const string CsTwoWayConfNumber = @"CsTwoWayConfNumber";
+			public const string SubmittedToGPDate = @"SubmittedToGPDate";
 		}
 		#endregion Columns Struct
 	}

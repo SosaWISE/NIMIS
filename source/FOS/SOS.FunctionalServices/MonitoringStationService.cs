@@ -1254,18 +1254,18 @@ namespace SOS.FunctionalServices
 
 			return customer;
 		}
-		private bool ValidCustomerAddressTypeID(string typeID)
-		{
-			var addressTypes = new[] {
-				AE_CustomerAddressType.MetaData.Billing_AddressID,
-				AE_CustomerAddressType.MetaData.OtherID,
-				AE_CustomerAddressType.MetaData.Premise_AddressID,
-				AE_CustomerAddressType.MetaData.Primary_Customer_AddressID,
-				AE_CustomerAddressType.MetaData.Secondary_Customer_AddressID,
-				AE_CustomerAddressType.MetaData.Shipping_AddressID,
-			};
-			return StringUtility.IsInList(addressTypes, typeID, false);
-		}
+		//private bool ValidCustomerAddressTypeID(string typeID)
+		//{
+		//	var addressTypes = new[] {
+		//		AE_CustomerAddressType.MetaData.Billing_AddressID,
+		//		AE_CustomerAddressType.MetaData.OtherID,
+		//		AE_CustomerAddressType.MetaData.Premise_AddressID,
+		//		AE_CustomerAddressType.MetaData.Primary_Customer_AddressID,
+		//		AE_CustomerAddressType.MetaData.Secondary_Customer_AddressID,
+		//		AE_CustomerAddressType.MetaData.Shipping_AddressID,
+		//	};
+		//	return StringUtility.IsInList(addressTypes, typeID, false);
+		//}
 
 		#endregion MsAccounts
 

@@ -12,12 +12,6 @@ namespace NXS.DataServices.Crm
 {
 	public class QualifyService
 	{
-		//System.Data.Common.DbConnection _cn;
-		//public QualifyService(System.Data.Common.DbConnection cn)
-		//{
-		//	_cn = cn;
-		//}
-
 		public async Task<Result<QlLead>> MasterFileLeadAsync(long cmfid, string customerTypeId)
 		{
 			using (var db = CrmDb.Connect())

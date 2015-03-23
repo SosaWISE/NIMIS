@@ -13,6 +13,7 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace NXS.Data
 {
@@ -72,19 +73,42 @@ namespace NXS.Data
 
 		public void BeginTransaction(IsolationLevel isolation = IsolationLevel.ReadCommitted)
 		{
+			if (_transaction != null)
+				throw new Exception("transaction already exists");
 			_transaction = _connection.BeginTransaction(isolation);
 		}
-
 		public void CommitTransaction()
 		{
 			_transaction.Commit();
 			_transaction = null;
 		}
-
 		public void RollbackTransaction()
 		{
 			_transaction.Rollback();
 			_transaction = null;
+		}
+
+		public async Task<bool> TransactionAsync(Func<Task<bool>> action, IsolationLevel isolation = IsolationLevel.ReadCommitted)
+		{
+			BeginTransaction(isolation);
+			try
+			{
+				// return true from `action` to signify it should be committed
+				if (await action().ConfigureAwait(false))
+				{
+					// commit the transaction
+					CommitTransaction();
+					return true;
+				}
+			}
+			//catch { } // no catch since we don't want to trap the exception
+			finally
+			{
+				// rollback the transaction on exception or false returned from action
+				if (_transaction != null)
+					RollbackTransaction();
+			}
+			return false;
 		}
 
 		protected Action<TDatabase> CreateTableConstructor(Type tableType)
@@ -133,55 +157,87 @@ namespace NXS.Data
 			return (Action<TDatabase>)dm.CreateDelegate(typeof(Action<TDatabase>));
 		}
 
-		public int Execute(string sql, dynamic param = null)
+		public Task<int> ExecuteAsync(string sql, dynamic param = null)
 		{
-			return SqlMapper.Execute(_connection, sql, param as object, _transaction, commandTimeout: this._commandTimeout);
+			return _connection.ExecuteAsync(sql, param as object, _transaction, this._commandTimeout);
+		}
+		public Task<IEnumerable<T>> QueryAsync<T>(string sql, dynamic param = null)
+		{
+			return _connection.QueryAsync<T>(sql, param as object, _transaction, _commandTimeout);
 		}
 
-		public IEnumerable<T> Query<T>(string sql, dynamic param = null, bool buffered = true)
+		//public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "ID", int? commandTimeout = null)
+		//{
+		//	return _connection.QueryAsync(sql, map, param as object, transaction, buffered, splitOn);
+		//}
+		//public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TReturn>(string sql, Func<TFirst, TSecond, TThird, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "ID", int? commandTimeout = null)
+		//{
+		//	return _connection.QueryAsync(sql, map, param as object, transaction, buffered, splitOn);
+		//}
+		//public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "ID", int? commandTimeout = null)
+		//{
+		//	return _connection.QueryAsync(sql, map, param as object, transaction, buffered, splitOn);
+		//}
+		//public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "ID", int? commandTimeout = null)
+		//{
+		//	return _connection.QueryAsync(sql, map, param as object, transaction, buffered, splitOn);
+		//}
+		public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string[] splitOn = null, int? commandTimeout = null)
 		{
-			return SqlMapper.Query<T>(_connection, sql, param as object, _transaction, buffered, _commandTimeout);
+			return _connection.QueryAsync(sql, map, param as object, transaction, buffered, ToSplitOnStr(splitOn));
+		}
+		public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TReturn>(string sql, Func<TFirst, TSecond, TThird, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string[] splitOn = null, int? commandTimeout = null)
+		{
+			return _connection.QueryAsync(sql, map, param as object, transaction, buffered, ToSplitOnStr(splitOn));
+		}
+		public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string[] splitOn = null, int? commandTimeout = null)
+		{
+			return _connection.QueryAsync(sql, map, param as object, transaction, buffered, ToSplitOnStr(splitOn));
+		}
+		public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string[] splitOn = null, int? commandTimeout = null)
+		{
+			return _connection.QueryAsync(sql, map, param as object, transaction, buffered, ToSplitOnStr(splitOn));
 		}
 
-		public IEnumerable<TReturn> Query<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "ID", int? commandTimeout = null)
+		public Task<IEnumerable<dynamic>> QueryAsync(string sql, dynamic param = null)
 		{
-			return SqlMapper.Query(_connection, sql, map, param as object, transaction, buffered, splitOn);
+			return _connection.QueryAsync(sql, param as object, _transaction);
+		}
+		public Task<SqlMapper.GridReader> QueryMultipleAsync(string sql, dynamic param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+		{
+			return SqlMapper.QueryMultipleAsync(_connection, sql, param, transaction, commandTimeout, commandType);
 		}
 
-		public IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TReturn>(string sql, Func<TFirst, TSecond, TThird, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "ID", int? commandTimeout = null)
+
+		private static string ToSplitOnStr(string[] splitOn)
 		{
-			return SqlMapper.Query(_connection, sql, map, param as object, transaction, buffered, splitOn);
+			if (splitOn == null || splitOn.Length == 0)
+				return "ID";
+
+			var length = splitOn.Length;
+			for (var i = 0; i < length; i++)
+			{
+				splitOn[i] = RawColName(splitOn[i]);
+			}
+			return string.Join(",", splitOn);
+		}
+		private static string RawColName(string colname)
+		{
+			var endIndex = colname.LastIndexOf(']');
+			var startIndex = colname.LastIndexOf('[', endIndex);
+			if (startIndex < 0 || endIndex < 0)
+				return colname;
+			++startIndex;
+			return colname.Substring(startIndex, endIndex - startIndex);
 		}
 
-		public IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "ID", int? commandTimeout = null)
-		{
-			return SqlMapper.Query(_connection, sql, map, param as object, transaction, buffered, splitOn);
-		}
-
-		public IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "ID", int? commandTimeout = null)
-		{
-			return SqlMapper.Query(_connection, sql, map, param as object, transaction, buffered, splitOn);
-		}
-
-		public IEnumerable<dynamic> Query(string sql, dynamic param = null, bool buffered = true)
-		{
-			return SqlMapper.Query(_connection, sql, param as object, _transaction, buffered);
-		}
-
-		public Dapper.SqlMapper.GridReader QueryMultiple(string sql, dynamic param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
-		{
-			return SqlMapper.QueryMultiple(_connection, sql, param, transaction, commandTimeout, commandType);
-		}
 
 		public void Dispose()
 		{
 			if (_connection.State != ConnectionState.Closed)
 			{
 				if (_transaction != null)
-				{
 					_transaction.Rollback();
-				}
-
 				_connection.Close();
 				_connection = null;
 			}
@@ -212,72 +268,75 @@ namespace NXS.Data
 			public string Star { get { return _alias + "*"; } }
 
 			/// <summary>
-			/// Insert a row into the db
+			/// Insert a row into the db asynchronously
 			/// </summary>
 			/// <param name="data">Either DynamicParameters or an anonymous type or concrete type</param>
-			/// <returns></returns>
-			public virtual TID Insert(dynamic data)
+			/// <returns>SCOPE_IDENTITY() or default(TID)</returns>
+			public virtual async Task<TID> InsertAsync(dynamic data, bool hasIdentity = true)
 			{
 				List<string> paramNames = GetParamNames((object)data);
 				paramNames.Remove(PkName);
 
 				string cols = string.Join(",", paramNames);
 				string cols_params = string.Join(",", paramNames.Select(p => "@" + p));
-				var sql = "SET NOCOUNT ON INSERT " + TableName + " (" + cols + ") VALUES (" + cols_params + ") SELECT SCOPE_IDENTITY()";
+				var sql = "SET NOCOUNT ON INSERT " + TableName + " (" + cols + ") VALUES (" + cols_params + ")";
 
-				return _database.Query<TID>(sql, data).Single();
+				if (hasIdentity)
+				{
+					sql += " SELECT SCOPE_IDENTITY()";
+					return (await _database.QueryAsync<TID>(sql, (object)data).ConfigureAwait(false)).FirstOrDefault();
+				}
+				else
+				{
+					await _database.ExecuteAsync(sql, (object)data).ConfigureAwait(false);
+					return default(TID);
+				}
 			}
-
 			/// <summary>
-			/// Update a record in the DB
+			/// Update a record in the DB asynchronously
 			/// </summary>
 			/// <param name="id"></param>
 			/// <param name="data"></param>
 			/// <returns></returns>
-			public int Update(TID id, dynamic data)
+			public Task<int> UpdateAsync(TID id, dynamic data)
 			{
 				List<string> paramNames = GetParamNames((object)data);
-				paramNames.Remove(PkName);
 
 				var builder = new StringBuilder();
 				builder.Append("UPDATE ").Append(TableName).Append(" SET ");
-				builder.AppendLine(string.Join(",", paramNames.Select(p => p + "= @" + p)));
+				builder.AppendLine(string.Join(",", paramNames.Where(n => n != PkName).Select(p => p + "= @" + p)));
 				builder.Append("WHERE " + PkName + " = @id");
 
 				DynamicParameters parameters = new DynamicParameters(data);
 				parameters.Add("id", id);
 
-				return _database.Execute(builder.ToString(), parameters);
+				return _database.ExecuteAsync(builder.ToString(), parameters);
 			}
-
 			/// <summary>
-			/// Delete a record for the DB
+			/// Delete a record for the DB asynchronously
 			/// </summary>
 			/// <param name="id"></param>
 			/// <returns></returns>
-			public bool Delete(TID id)
+			public async Task<bool> DeleteAsync(TID id)
 			{
-				return _database.Execute("DELETE FROM " + TableName + " WHERE " + PkName + " = @id", new { id }) > 0;
+				return (await _database.ExecuteAsync("DELETE FROM " + TableName + " WHERE " + PkName + " = @id", new { id }).ConfigureAwait(false)) > 0;
 			}
-
 			/// <summary>
-			/// Grab a record with a particular ID from the DB 
+			/// Grab a record with a particular ID from the DB asynchronously
 			/// </summary>
 			/// <param name="id"></param>
 			/// <returns></returns>
-			public T ById(TID id)
+			public async Task<T> ByIdAsync(TID id)
 			{
-				return _database.Query<T>("SELECT * FROM " + TableName + " WHERE " + PkName + " = @id", new { id }).FirstOrDefault();
+				return (await _database.QueryAsync<T>("SELECT * FROM " + TableName + " WHERE " + PkName + " = @id", new { id }).ConfigureAwait(false)).FirstOrDefault();
 			}
-
-			public virtual T First()
+			public virtual async Task<T> FirstAsync()
 			{
-				return _database.Query<T>("SELECT TOP(1) * FROM " + TableName).FirstOrDefault();
+				return (await _database.QueryAsync<T>("SELECT TOP(1) * FROM " + TableName).ConfigureAwait(false)).FirstOrDefault();
 			}
-
-			public IEnumerable<T> All()
+			public Task<IEnumerable<T>> AllAsync()
 			{
-				return _database.Query<T>("SELECT * FROM " + TableName);
+				return _database.QueryAsync<T>("SELECT * FROM " + TableName);
 			}
 
 			static ConcurrentDictionary<Type, List<string>> paramNameCache = new ConcurrentDictionary<Type, List<string>>();
@@ -300,6 +359,8 @@ namespace NXS.Data
 					paramNames = new List<string>();
 					foreach (var prop in type.GetProperties(BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Public))
 					{
+						if (DbHelper.ExcludeDict.Contains(prop.Name))
+							continue;
 						var attribs = prop.GetCustomAttributes(typeof(IgnorePropertyAttribute), true);
 						var attr = attribs.FirstOrDefault() as IgnorePropertyAttribute;
 						if (attr == null || (attr != null && !attr.Value))
@@ -313,5 +374,10 @@ namespace NXS.Data
 			}
 		}
 
+	}
+
+	internal class DbHelper
+	{
+		public readonly static HashSet<string> ExcludeDict = new HashSet<string>(new string[] { "DEX_ROW_TS" });
 	}
 }

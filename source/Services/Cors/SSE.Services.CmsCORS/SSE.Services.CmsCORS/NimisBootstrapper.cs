@@ -87,46 +87,4 @@ namespace SSE.Services.CmsCORS
 		//	});
 		//}
 	}
-
-	//public class JsonNetSerializer : ISerializer
-	//{
-	//	readonly JsonSerializer _serializer;
-	//
-	//	public JsonNetSerializer()
-	//	{
-	//		_serializer = JsonSerializer.Create(new JsonSerializerSettings());
-	//	}
-	//
-	//	public IEnumerable<string> Extensions { get { yield return "json"; } }
-	//
-	//	public bool CanSerialize(string contentType)
-	//	{
-	//		return IsJsonType(contentType);
-	//	}
-	//
-	//	public void Serialize<TModel>(string contentType, TModel model, Stream outputStream)
-	//	{
-	//		using (var writer = new JsonTextWriter(new StreamWriter(outputStream)))
-	//		{
-	//			_serializer.Serialize(writer, model);
-	//			writer.Flush();
-	//		}
-	//	}
-	//
-	//	private static bool IsJsonType(string contentType)
-	//	{
-	//		if (string.IsNullOrEmpty(contentType))
-	//		{
-	//			return false;
-	//		}
-	//
-	//		var contentMimeType = contentType.Split(';')[0];
-	//
-	//		return contentMimeType.Equals("application/json", StringComparison.InvariantCultureIgnoreCase) ||
-	//		contentMimeType.StartsWith("application/json-", StringComparison.InvariantCultureIgnoreCase) ||
-	//		contentMimeType.Equals("text/json", StringComparison.InvariantCultureIgnoreCase) ||
-	//		(contentMimeType.StartsWith("application/vnd", StringComparison.InvariantCultureIgnoreCase) &&
-	//		contentMimeType.EndsWith("+json", StringComparison.InvariantCultureIgnoreCase));
-	//	}
-	//}
 }

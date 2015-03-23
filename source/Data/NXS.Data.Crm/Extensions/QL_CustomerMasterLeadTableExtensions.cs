@@ -6,24 +6,23 @@ namespace NXS.Data.Crm.Repos
 {
 	using AR = QL_CustomerMasterLead;
 	using ARCollection = IEnumerable<QL_CustomerMasterLead>;
-	using DbTable = CrmDb.QL_CustomerMasterLeadTable;
+	using ARTable = CrmDb.QL_CustomerMasterLeadTable;
 	public static class QL_CustomerMasterLeadTableExtensions
 	{
-		private static async Task<bool> CustomerMasterLeadExists(this DbTable tbl, long cmfid, string customerTypeId)
+		private static async Task<bool> CustomerMasterLeadExists(this ARTable tbl, long cmfid, string customerTypeId)
 		{
 			var ML = tbl.Db.QL_CustomerMasterLeads;
 
-			var qry = Sequel.Create()
-			.Select().Top("1")
+			var qry = Sequel.NewSelect().Top("1")
 			.Columns(
 				ML.Star
-			).From(ML).WithNoLock()
+			).From(ML)
 			.Where(ML.CustomerMasterFileId, Comparison.Equals, cmfid)
 				.And(ML.CustomerTypeId, Comparison.Equals, customerTypeId);
 			return (await tbl.Db.QueryAsync(qry.Sql, qry.Params).ConfigureAwait(false)).FirstOrDefault() != null;
 		}
 
-		public static async Task<bool> AddCustomerMasterLeadAsync(this DbTable tbl, long cmfid, string customerTypeId, long leadID)
+		public static async Task<bool> AddCustomerMasterLeadAsync(this ARTable tbl, long cmfid, string customerTypeId, long leadID)
 		{
 			if (await tbl.CustomerMasterLeadExists(cmfid, customerTypeId).ConfigureAwait(false))
 				return false;
@@ -35,7 +34,7 @@ namespace NXS.Data.Crm.Repos
 				CustomerTypeId = customerTypeId,
 				LeadId = leadID,
 			};
-			await tbl.Db.QL_CustomerMasterLeads.InsertNoIdAsync(item).ConfigureAwait(false);
+			await tbl.Db.QL_CustomerMasterLeads.InsertAsync(item, hasIdentity: false).ConfigureAwait(false);
 			return true;
 		}
 	}

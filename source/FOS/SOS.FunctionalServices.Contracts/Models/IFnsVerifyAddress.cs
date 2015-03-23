@@ -7,11 +7,11 @@ namespace SOS.FunctionalServices.Contracts.Models
 		long AddressID { get; set; }
 		int DealerId { get; set; }
 		int TimeZoneId { get; set; }
-		string TimeZone { get; set; }
-		string Address { get; set; }
-		string Address2 { get; set; }
+		//string TimeZone { get; set; }
+		string StreetAddress { get; set; }
+		string StreetAddress2 { get; set; }
 		string City { get; set; }
-		string State { get; set; }
+		string StateId { get; set; }
 		string PostalCode { get; set; }
 		string PlusFour { get; set; }
 		string County { get; set; }
@@ -22,7 +22,7 @@ namespace SOS.FunctionalServices.Contracts.Models
 		string ExtensionNumber { get; set; }
 		string CarrierRoute { get; set; }
 		string DPVResponse { get; set; }
-		string PhoneNumber { get; set; }
+		string Phone { get; set; }
 		string StreetNumber { get; set; }
 		string StreetName { get; set; }
 		double Latitude { get; set; }

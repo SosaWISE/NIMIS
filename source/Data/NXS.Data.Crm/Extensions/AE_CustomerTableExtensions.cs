@@ -6,41 +6,37 @@ namespace NXS.Data.Crm
 {
 	using AR = AE_Customer;
 	using ARCollection = IEnumerable<AE_Customer>;
-	using DbTable = CrmDb.AE_CustomerTable;
+	using ARTable = CrmDb.AE_CustomerTable;
 	public static class AE_CustomerTableExtensions
 	{
-		private static Sequel CustomerAccountSql(this DbTable tbl, long accountId, string top = null)
+		//public static Task<ARCollection> ManyByTypeAsync(this ARTable tbl, long accountId, string customerTypeId)
+		//{
+		//	var qry = tbl.ByCustomerAccountSql(accountId, customerTypeId)
+		//	return tbl.Db.QueryAsync<AR>(qry.Sql, qry.Params);
+		//}
+		public static async Task<AR> OneByTypeAsync(this ARTable tbl, long accountId, string customerTypeId)
 		{
-			var CUST = tbl.Db.AE_Customers;
+			var qry = tbl.ByCustomerAccountSql(accountId, customerTypeId, "1");
+			return (await tbl.Db.QueryAsync<AR>(qry.Sql, qry.Params).ConfigureAwait(false)).FirstOrDefault();
+		}
+		private static Sequel ByCustomerAccountSql(this ARTable tbl, long accountId, string customerTypeId, string top = null)
+		{
 			var CA = tbl.Db.AE_CustomerAccounts;
 
-			var qry = Sequel.Create().Select();
-			if (top != null)
-				qry.Top(top);
-			qry.Columns(
-				CUST.Star
-			).From(CUST).WithNoLock()
-			.InnerJoin(CA).WithNoLock()
-				.On(CUST.CustomerID, Comparison.Equals, CA.CustomerId, literalText: true)
-			.Where(CA.AccountId, Comparison.Equals, accountId);
+			var qry = Sequel.NewSelect().Top(top)
+			.Columns(tbl.Star).From(tbl)
+			.InnerJoin(CA)
+				.On(tbl.CustomerID, Comparison.Equals, CA.CustomerId, literalText: true)
+			.Where(CA.AccountId, Comparison.Equals, accountId)
+			.And(CA.CustomerTypeId, Comparison.Equals, customerTypeId);
 			return qry;
 		}
 
-		public static async Task<AR> CustomerByTypeAsync(this DbTable tbl, long accountId, string customerTypeId)
+		public static async Task<AR> OneByLeadIdAsync(this ARTable tbl, long leadId)
 		{
-			var ML = tbl.Db.QL_CustomerMasterLeads;
-			var qry = tbl.CustomerAccountSql(accountId, "1")
-			.And(ML.CustomerTypeId, Comparison.Equals, customerTypeId);
-
+			var qry = Sequel.NewSelect(tbl.Star).From(tbl)
+			.Where(tbl.LeadId, Comparison.Equals, leadId);
 			return (await tbl.Db.QueryAsync<AR>(qry.Sql, qry.Params).ConfigureAwait(false)).FirstOrDefault();
-		}
-		public static Task<ARCollection> CustomersByTypeAsync(this DbTable tbl, long accountId, string customerTypeId)
-		{
-			var ML = tbl.Db.QL_CustomerMasterLeads;
-			var qry = tbl.CustomerAccountSql(accountId)
-			.And(ML.CustomerTypeId, Comparison.Equals, customerTypeId);
-
-			return tbl.Db.QueryAsync<AR>(qry.Sql, qry.Params);
 		}
 	}
 }

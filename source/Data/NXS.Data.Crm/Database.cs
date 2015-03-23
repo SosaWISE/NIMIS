@@ -6,8 +6,8 @@ namespace NXS.Data.Crm
 	public partial class CrmDb : Database<CrmDb>
 	{
 		public AE_CustomerAccountTable AE_CustomerAccounts { get; set; }
-		public AE_CustomerAddressTable AE_CustomerAddresses { get; set; }
 		public AE_CustomerTable AE_Customers { get; set; }
+		public MC_AddressTable MC_Addresses { get; set; }
 		public QL_AddressTable QL_Addresses { get; set; }
 		public QL_CustomerMasterLeadTable QL_CustomerMasterLeads { get; set; }
 		public QL_LeadAddressTable QL_LeadAddresses { get; set; }
@@ -23,20 +23,6 @@ namespace NXS.Data.Crm
 			public string CustomerId { get { return _alias + "[CustomerId]"; } }
 			public string CustomerTypeId { get { return _alias + "[CustomerTypeId]"; } }
 			public string AddressId { get { return _alias + "[AddressId]"; } }
-			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
-			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
-			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
-		}
-		public partial class AE_CustomerAddressTable : Table<AE_CustomerAddress, long>
-		{
-			public CrmDb Db { get { return (CrmDb)_database; } }
-			public AE_CustomerAddressTable(CrmDb db) : base(db, "CuAd", "[dbo].[AE_CustomerAddress]") { }
-			public string CustomerAddressID { get { return _alias + "[CustomerAddressID]"; } }
-			public string CustomerId { get { return _alias + "[CustomerId]"; } }
-			public string AddressId { get { return _alias + "[AddressId]"; } }
-			public string CustomerAddressTypeId { get { return _alias + "[CustomerAddressTypeId]"; } }
-			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
-			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
 			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
 			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
 			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
@@ -75,10 +61,56 @@ namespace NXS.Data.Crm
 			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
 			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
 		}
+		public partial class MC_AddressTable : Table<MC_Address, long>
+		{
+			public CrmDb Db { get { return (CrmDb)_database; } }
+			public MC_AddressTable(CrmDb db) : base(db, "Ad", "[dbo].[MC_Addresses]") { }
+			public string AddressID { get { return _alias + "[AddressID]"; } }
+			public string QlAddressId { get { return _alias + "[QlAddressId]"; } }
+			public string DealerId { get { return _alias + "[DealerId]"; } }
+			public string ValidationVendorId { get { return _alias + "[ValidationVendorId]"; } }
+			public string AddressValidationStateId { get { return _alias + "[AddressValidationStateId]"; } }
+			public string StateId { get { return _alias + "[StateId]"; } }
+			public string CountryId { get { return _alias + "[CountryId]"; } }
+			public string TimeZoneId { get { return _alias + "[TimeZoneId]"; } }
+			public string AddressTypeId { get { return _alias + "[AddressTypeId]"; } }
+			public string StreetAddress { get { return _alias + "[StreetAddress]"; } }
+			public string StreetAddress2 { get { return _alias + "[StreetAddress2]"; } }
+			public string StreetNumber { get { return _alias + "[StreetNumber]"; } }
+			public string StreetName { get { return _alias + "[StreetName]"; } }
+			public string StreetType { get { return _alias + "[StreetType]"; } }
+			public string PreDirectional { get { return _alias + "[PreDirectional]"; } }
+			public string PostDirectional { get { return _alias + "[PostDirectional]"; } }
+			public string Extension { get { return _alias + "[Extension]"; } }
+			public string ExtensionNumber { get { return _alias + "[ExtensionNumber]"; } }
+			public string County { get { return _alias + "[County]"; } }
+			public string CountyCode { get { return _alias + "[CountyCode]"; } }
+			public string Urbanization { get { return _alias + "[Urbanization]"; } }
+			public string UrbanizationCode { get { return _alias + "[UrbanizationCode]"; } }
+			public string City { get { return _alias + "[City]"; } }
+			public string PostalCode { get { return _alias + "[PostalCode]"; } }
+			public string PlusFour { get { return _alias + "[PlusFour]"; } }
+			public string Phone { get { return _alias + "[Phone]"; } }
+			public string DeliveryPoint { get { return _alias + "[DeliveryPoint]"; } }
+			public string CrossStreet { get { return _alias + "[CrossStreet]"; } }
+			public string Latitude { get { return _alias + "[Latitude]"; } }
+			public string Longitude { get { return _alias + "[Longitude]"; } }
+			public string CongressionalDistric { get { return _alias + "[CongressionalDistric]"; } }
+			public string DPV { get { return _alias + "[DPV]"; } }
+			public string DPVResponse { get { return _alias + "[DPVResponse]"; } }
+			public string DPVFootNote { get { return _alias + "[DPVFootNote]"; } }
+			public string CarrierRoute { get { return _alias + "[CarrierRoute]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+		}
 		public partial class QL_AddressTable : Table<QL_Address, long>
 		{
 			public CrmDb Db { get { return (CrmDb)_database; } }
-			public QL_AddressTable(CrmDb db) : base(db, "Ad", "[dbo].[QL_Address]") { }
+			public QL_AddressTable(CrmDb db) : base(db, "Add", "[dbo].[QL_Address]") { }
 			public string AddressID { get { return _alias + "[AddressID]"; } }
 			public string DealerId { get { return _alias + "[DealerId]"; } }
 			public string ValidationVendorId { get { return _alias + "[ValidationVendorId]"; } }
@@ -179,6 +211,5 @@ namespace NXS.Data.Crm
 			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
 			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
 		}
-
 	}
 }

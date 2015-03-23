@@ -3,30 +3,19 @@ using NXS.Data;
 
 namespace NXS.Data.Crm
 {
-	public class AE_CustomerAccount // AE_CustomerAccounts
+	public partial class AE_CustomerAccount // AE_CustomerAccounts
 	{
 		public long CustomerAccountID { get; set; }
 		public long LeadId { get; set; }
 		public long AccountId { get; set; }
 		public long CustomerId { get; set; }
 		public string CustomerTypeId { get; set; }
-		public DateTime CreatedOn { get; set; }
-		public string CreatedBy { get; set; }
-		public DateTime DEX_ROW_TS { get; set; }
-	}
-	public class AE_CustomerAddress // AE_CustomerAddress
-	{
-		public long CustomerAddressID { get; set; }
-		public long CustomerId { get; set; }
 		public long AddressId { get; set; }
-		public string CustomerAddressTypeId { get; set; }
-		public DateTime ModifiedOn { get; set; }
-		public string ModifiedBy { get; set; }
 		public DateTime CreatedOn { get; set; }
 		public string CreatedBy { get; set; }
 		public DateTime DEX_ROW_TS { get; set; }
 	}
-	public class AE_Customer // AE_Customers
+	public partial class AE_Customer // AE_Customers
 	{
 		public long CustomerID { get; set; }
 		public string CustomerTypeId { get; set; }
@@ -58,7 +47,51 @@ namespace NXS.Data.Crm
 		public string CreatedBy { get; set; }
 		public DateTime DEX_ROW_TS { get; set; }
 	}
-	public class QL_Address // QL_Address
+	public partial class MC_Address // MC_Addresses
+	{
+		public long AddressID { get; set; }
+		public long? QlAddressId { get; set; }
+		public int DealerId { get; set; }
+		public string ValidationVendorId { get; set; }
+		public string AddressValidationStateId { get; set; }
+		public string StateId { get; set; }
+		public string CountryId { get; set; }
+		public int TimeZoneId { get; set; }
+		public string AddressTypeId { get; set; }
+		public string StreetAddress { get; set; }
+		public string StreetAddress2 { get; set; }
+		public string StreetNumber { get; set; }
+		public string StreetName { get; set; }
+		public string StreetType { get; set; }
+		public string PreDirectional { get; set; }
+		public string PostDirectional { get; set; }
+		public string Extension { get; set; }
+		public string ExtensionNumber { get; set; }
+		public string County { get; set; }
+		public string CountyCode { get; set; }
+		public string Urbanization { get; set; }
+		public string UrbanizationCode { get; set; }
+		public string City { get; set; }
+		public string PostalCode { get; set; }
+		public string PlusFour { get; set; }
+		public string Phone { get; set; }
+		public string DeliveryPoint { get; set; }
+		public string CrossStreet { get; set; }
+		public double Latitude { get; set; }
+		public double Longitude { get; set; }
+		public int? CongressionalDistric { get; set; }
+		public bool DPV { get; set; }
+		public string DPVResponse { get; set; }
+		public string DPVFootNote { get; set; }
+		public string CarrierRoute { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime ModifiedOn { get; set; }
+	}
+	public partial class QL_Address // QL_Address
 	{
 		public long AddressID { get; set; }
 		public int DealerId { get; set; }
@@ -103,14 +136,14 @@ namespace NXS.Data.Crm
 		public string CreatedBy { get; set; }
 		public DateTime CreatedOn { get; set; }
 	}
-	public class QL_CustomerMasterLead // QL_CustomerMasterLeads
+	public partial class QL_CustomerMasterLead // QL_CustomerMasterLeads
 	{
 		public Guid CustomerMasterLeadID { get; set; }
 		public long CustomerMasterFileId { get; set; }
 		public long LeadId { get; set; }
 		public string CustomerTypeId { get; set; }
 	}
-	public class QL_LeadAddress // QL_LeadAddress
+	public partial class QL_LeadAddress // QL_LeadAddress
 	{
 		public long LeadAddressID { get; set; }
 		public long LeadId { get; set; }
@@ -119,7 +152,7 @@ namespace NXS.Data.Crm
 		public string CreatedBy { get; set; }
 		public DateTime DEX_ROW_TS { get; set; }
 	}
-	public class QL_Lead // QL_Leads
+	public partial class QL_Lead // QL_Leads
 	{
 		public long LeadID { get; set; }
 		public long AddressId { get; set; }

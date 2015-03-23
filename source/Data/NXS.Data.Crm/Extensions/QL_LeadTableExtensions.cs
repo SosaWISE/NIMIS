@@ -6,27 +6,25 @@ namespace NXS.Data.Crm.Repos
 {
 	using AR = QL_Lead;
 	using ARCollection = IEnumerable<QL_Lead>;
-	using DbTable = CrmDb.QL_LeadTable;
+	using ARTable = CrmDb.QL_LeadTable;
 	public static class QL_LeadTableExtensions
 	{
-		private static Sequel MasterFileLeadSql(this DbTable tbl, long cmfid, string top = null)
+		private static Sequel MasterFileLeadSql(this ARTable tbl, long cmfid, string top = null)
 		{
 			var L = tbl.Db.QL_Leads;
 			var ML = tbl.Db.QL_CustomerMasterLeads;
 
-			var qry = Sequel.Create().Select();
-			if (top != null)
-				qry.Top(top);
-			qry.Columns(
+			var qry = Sequel.NewSelect().Top(top)
+			.Columns(
 				L.Star
-			).From(L).WithNoLock()
-			.InnerJoin(ML).WithNoLock()
+			).From(L)
+			.InnerJoin(ML)
 			.On(L.LeadID, Comparison.Equals, ML.LeadId, literalText: true)
 			.Where(ML.CustomerMasterFileId, Comparison.Equals, cmfid);
 			return qry;
 		}
 
-		public static async Task<AR> MasterFileLeadAsync(this DbTable tbl, long cmfid, string customerTypeId)
+		public static async Task<AR> MasterFileLeadAsync(this ARTable tbl, long cmfid, string customerTypeId)
 		{
 			var ML = tbl.Db.QL_CustomerMasterLeads;
 			var qry = tbl.MasterFileLeadSql(cmfid, "1");
@@ -39,7 +37,7 @@ namespace NXS.Data.Crm.Repos
 			return (await tbl.Db.QueryAsync<AR>(qry.Sql, qry.Params).ConfigureAwait(false)).FirstOrDefault();
 		}
 
-		public static Task<ARCollection> MasterFileLeadsAsync(this DbTable tbl, long cmfid)
+		public static Task<ARCollection> MasterFileLeadsAsync(this ARTable tbl, long cmfid)
 		{
 			var ML = tbl.Db.QL_CustomerMasterLeads;
 			var qry = tbl.MasterFileLeadSql(cmfid)

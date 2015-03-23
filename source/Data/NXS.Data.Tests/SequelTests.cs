@@ -36,7 +36,7 @@ namespace NXS.Data.Tests
 			var t1 = db.Table1s;//.As("t1");
 			var t2 = db.Table2s;//.As("t2");
 
-			var qry = Sequel.Create(prettyPrint).Select().Columns(
+			var qry = Sequel.NewSelect(prettyPrint,
 				t1.Star
 				, t2.Col1
 				, t2.Col2
@@ -92,7 +92,7 @@ WHERE
 			var mac = new Db1.Table<object, int>(db, "MAC", "[dbo].[MS_AccountCustomers]");
 			var lds = new Db1.Table<object, int>(db, "LDS", "[dbo].[QL_Leads]");
 
-			var qry = Sequel.Create(prettyPrint).Select().Columns(
+			var qry = Sequel.NewSelect(prettyPrint,
 				"MSA.AccountID"
 				, "MSA.IndustryAccountId"
 				, "IND.Csid"
@@ -189,7 +189,7 @@ ON
 			var t1 = db.Table1s;
 			var t2 = db.Table2s;
 
-			return Sequel.Create(prettyPrint).Select().Columns(
+			return Sequel.NewSelect(prettyPrint,
 				t2.Col1
 				, t2.Col2
 			).From(t1).WithNoLock()
@@ -223,7 +223,7 @@ GROUP BY
 			var t1 = db.Table1s;
 			var t2 = db.Table2s;
 
-			return Sequel.Create(prettyPrint).Select().Columns(
+			return Sequel.NewSelect(prettyPrint,
 				t1.ID
 			).From(t1).WithNoLock()
 			.Union().Select().Columns(
@@ -257,7 +257,7 @@ FROM Table2 AS t2 WITH(NOLOCK)", qry.Sql);
 			var db = Db1.Init(null);
 			var t2 = db.Table2s;
 
-			return Sequel.Create(prettyPrint).Select().Columns(
+			return Sequel.NewSelect(prettyPrint,
 				t2.Col1
 				, t2.Col2
 			).From(t2).WithNoLock()
@@ -290,7 +290,7 @@ ORDER BY
 			var db = Db1.Init(null);
 			var t1 = db.Table1s;
 
-			return Sequel.Create(prettyPrint).Select().Columns(
+			return Sequel.NewSelect(prettyPrint,
 				t1.ID
 			).From(t1)
 			.Where(t1.ID, Comparison.Equals, 1)
@@ -326,7 +326,7 @@ WHERE
 			var msa = new Db1.Table<object, int>(db, "MSA", "[dbo].[MS_Accounts]");
 			var mac = new Db1.Table<object, int>(db, "MAC", "[dbo].[MS_AccountCustomers]");
 
-			return Sequel.Create(prettyPrint).Select().Columns(
+			return Sequel.NewSelect(prettyPrint,
 				"MSA.AccountID"
 			).From(msa).WithNoLock()
 			.InnerJoin(mac).WithNoLock()
@@ -362,7 +362,7 @@ ON
 		{
 			var db = Db1.Init(null);
 			var t = new Db1.Table<object, int>(db, "T", "[dbo].[Table]");
-			return Sequel.Create(prettyPrint).Select().Columns(
+			return Sequel.NewSelect(prettyPrint,
 				"T2.ID"
 			).From(s =>
 			{

@@ -61,15 +61,25 @@ namespace NXS.Data
 
 	public class Sequel
 	{
+		public static bool PrettyPrint;
+
 		StringBuilder _builder;
 		bool _prettyPrint;
 		int _depth = 1;
 		int _paramIndex = 0;
 		DynamicParameters _params;
 
-		public static Sequel Create(bool prettyPrint = false)
+		//public static Sequel Create(bool prettyPrint = false)
+		//{
+		//	return new Sequel(prettyPrint);
+		//}
+		public static Sequel NewSelect(bool prettyPrint, params string[] columns)
 		{
-			return new Sequel(prettyPrint);
+			return new Sequel(prettyPrint).Select(columns);
+		}
+		public static Sequel NewSelect(params string[] columns)
+		{
+			return new Sequel(Sequel.PrettyPrint).Select(columns);
 		}
 
 		private Sequel(bool prettyPrint)
@@ -88,11 +98,13 @@ namespace NXS.Data
 			get { return _params; }
 		}
 
-		public Sequel Select()
+		public Sequel Select(params string[] columns)
 		{
 			if (_builder.Length > 0)
 				if (_prettyPrint) _builder.Newline().Indent(_depth - 1); //else _builder.Append(" ");
 			_builder.Append("SELECT");
+			if (columns.Length > 0)
+				Columns(columns);
 			return this;
 		}
 		public Sequel Columns(params string[] columns)
@@ -124,6 +136,8 @@ namespace NXS.Data
 
 		public Sequel Top(string top, bool percent = false)
 		{
+			if (top == null)
+				return this;
 			_builder.Append(" TOP(");
 			_builder.Append(top);
 			_builder.Append(")");
