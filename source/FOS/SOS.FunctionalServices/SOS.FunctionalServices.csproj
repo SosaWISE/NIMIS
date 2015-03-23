@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthService.cs" />
+    <Compile Include="ConnextService.cs" />
     <Compile Include="Helpers\DatabaseHelper.cs" />
     <Compile Include="AuthServiceConfig.cs" />
     <Compile Include="InsideSalesService.cs" />
@@ -69,6 +70,8 @@
     <Compile Include="Models\CentralStation\FnsMsEmergencyContactAuthority.cs" />
     <Compile Include="Models\CentralStation\FnsMsEmergencyContactType.cs" />
     <Compile Include="Models\CentralStation\FnsMsIndustryAccountNumbersWithReceiverLineInfoView.cs" />
+    <Compile Include="Models\Connext\FnsCxAddress.cs" />
+    <Compile Include="Models\Connext\FnsCxContact.cs" />
     <Compile Include="Models\HumanResource\FnsConnextAccountInfo.cs" />
     <Compile Include="Models\HumanResource\FnsConnextCombinedMonthlySalesDetails.cs" />
     <Compile Include="Models\HumanResource\FnsSalesSalespersonMonthlyHolds.cs" />
@@ -261,6 +264,10 @@
     <Compile Include="WiseCrmService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\NXS.Data.Connext\NXS.Data.Connext.csproj">
+      <Project>{4a4324ac-1374-469d-bc3d-b8914f97c435}</Project>
+      <Name>NXS.Data.Connext</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\SOS.Data.AuthenticationControl\SOS.Data.AuthenticationControl.csproj">
       <Project>{ACCE6D59-0AA7-4353-850E-1B78E16B3074}</Project>
       <Name>SOS.Data.AuthenticationControl</Name>

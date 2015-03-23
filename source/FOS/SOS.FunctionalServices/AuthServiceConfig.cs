@@ -4,7 +4,6 @@ using SOS.Data.AuthenticationControl;
 using SOS.FunctionalServices.Contracts;
 using SOS.Lib.Util.ActiveDirectory;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 

@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Web;
 using System.Web.Http;
-using Nxs.Services.CorsConnext.Helpers;
-using Nxs.Services.CorsConnext.Models;
-using SOS.FunctionalServices;
-using SOS.FunctionalServices.Contracts;
-using SOS.FunctionalServices.Contracts.Helper;
-using SOS.FunctionalServices.Contracts.Models;
-using SOS.FunctionalServices.Contracts.Models.AuthenticationControl;
-using SOS.Services.Interfaces.Models;
-using SOS.Lib.Core;
-using System.Web;
 using NXS.Lib.Web;
+using SOS.FunctionalServices;
+using SOS.Lib.Core;
 
 namespace Nxs.Services.CorsConnext.Controllers
 {

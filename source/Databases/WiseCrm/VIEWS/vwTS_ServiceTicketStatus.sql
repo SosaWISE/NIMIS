@@ -44,7 +44,7 @@ GO
 *******************************************************************************/
 CREATE VIEW [dbo].[vwTS_ServiceTicketStatus]
 AS
-	SELECT
+	SELECT DISTINCT
 		ST.ID
 		, ST.CreatedOn
 		, ST.CreatedBy
@@ -103,41 +103,39 @@ AS
 			WHEN (APPT.IsDeleted = 0) THEN 2 -- Pending
 			ELSE NULL
 		END) AS StatusCodeId
-	FROM TS_ServiceTickets AS ST WITH(NOLOCK)
+	FROM
+		TS_ServiceTickets AS ST WITH(NOLOCK)
+		-- Master File
+		INNER JOIN AE_CustomerAccounts AS CA WITH (NOLOCK)
+		ON
+			ST.AccountId = CA.AccountId
+		INNER JOIN AE_Customers AS C
+		ON
+			CA.CustomerId = C.CustomerID
+			AND (C.[CustomerTypeId] = 'PRI')
+		INNER JOIN [dbo].[MC_Addresses] AS A WITH (NOLOCK)
+		ON
+			(C.AddressId = A.AddressID)
 	
-	-- Master File
-	INNER JOIN AE_CustomerAccounts AS CA
-	ON
-		ST.AccountId = CA.AccountId
-	INNER JOIN AE_Customers AS C
-	ON
-		CA.CustomerId = C.CustomerID
-		AND (C.[CustomerTypeId] = 'PRI')
-	INNER JOIN [dbo].[MC_Addresses] AS A WITH (NOLOCK)
-	ON
-		(C.AddressId = A.AddressID)
-	
-	-- Appointment
-	LEFT OUTER JOIN TS_Appointments AS APPT WITH(NOLOCK)
-	ON
-		(ST.CurrentAppointmentId = APPT.ID)
-	LEFT OUTER JOIN TS_Techs AS T WITH(NOLOCK)
-	ON
-		(APPT.TechId = T.ID)
-	LEFT OUTER JOIN [WISE_HumanResource].[dbo].[RU_Recruits] AS RR WITH (NOLOCK)
-	ON
-		(T.RecruitId = RR.RecruitID)
-	LEFT OUTER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS RU WITH (NOLOCK)
-	ON
-		(RR.UserID = RU.UserID)
+		-- Appointment
+		LEFT OUTER JOIN TS_Appointments AS APPT WITH(NOLOCK)
+		ON
+			(ST.CurrentAppointmentId = APPT.ID)
+		LEFT OUTER JOIN TS_Techs AS T WITH(NOLOCK)
+		ON
+			(APPT.TechId = T.ID)
+		LEFT OUTER JOIN [WISE_HumanResource].[dbo].[RU_Recruits] AS RR WITH (NOLOCK)
+		ON
+			(T.RecruitId = RR.RecruitID)
+		LEFT OUTER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS RU WITH (NOLOCK)
+		ON
+			(RR.UserID = RU.UserID)
 
-	--WHERE
-	--	(ST.IsDeleted = 0)
+		--WHERE
+		--	(ST.IsDeleted = 0)
 
 
 GO
-/* TEST */
--- SELECT * FROM vwTS_ServiceTicketStatus
-
-
-
+/* TEST
+SELECT * FROM vwTS_ServiceTicketStatus WHERE (AccountId = 191157) AND (IsDeleted = 'FALSE');
+ */

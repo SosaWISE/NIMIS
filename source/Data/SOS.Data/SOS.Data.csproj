@@ -50,6 +50,7 @@
     <Compile Include="BaseViewController.cs" />
     <Compile Include="BusinessEntity.cs" />
     <Compile Include="NxsAccountingProvider.cs" />
+    <Compile Include="NxsConnextProvider.cs" />
     <Compile Include="NxsFileStoreProvider.cs" />
     <Compile Include="NxsGreatPlainsProvider.cs" />
     <Compile Include="NxsLettersProvider.cs" />
