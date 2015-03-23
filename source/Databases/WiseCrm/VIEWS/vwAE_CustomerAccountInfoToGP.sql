@@ -47,45 +47,61 @@ AS
 	-- Enter Query here
 	SELECT
 		MCA.CustomerMasterFileId AS [CustomerMasterFileID]
-		, MSAC.CustomerId AS [CustomerID]
 		, MCA.AccountID AS [AccountID]
-		, MSIA.Csid AS [Central Station ID]
+		, AEC.CustomerId AS [PrimaryCustomerID]
+		, AEC.FirstName + ' ' + AEC.LastName AS [PrimaryCustomerName]
+		, AEC2.CustomerID AS [SecondaryCustomerID]
+		, CASE
+			WHEN AEC2.CustomerID IS NULL THEN ''
+			ELSE AEC2.FirstName + ' ' + AEC2.LastName 
+		  END AS [SecondaryCustomerName]
+		, MSIA.Csid AS [CentralStationID]
 		, MSASI.CurrentMonitoringStation
-		, MSASI.ContractSignedDate AS [AMA Sign Date]
-		, MSASI.SalesRepId AS [Sales Rep ID]
-		, MSASI.InstallDate AS [Install Date]
-		, MSASI.TechId AS [Tech ID]
+		, MSASI.ContractSignedDate AS [AMASignDate]
+		, MSASI.SalesRepId AS [SalesRepID]
+		, MSASI.InstallDate AS [InstallDate]
+		, MSASI.TechId AS [TechID]
 		, MSASI.[MMR] AS RMR
-		, MSASI.BillingDay AS [Billing Day]
-		, MSASI.ContractLength AS [Contract Length]
-		, MSA.PanelTypeId AS [Panel Type]
-		, MSAST.SystemTypeName AS [System Type]  -- 2-way; cellular; cell/interactvie
+		, MSASI.BillingDay AS [BillingDay]
+		, MSASI.PaymentTypeId AS [PaymentType]
+		, MSASI.ContractLength AS [ContractLength]
+		, MSA.PanelTypeId AS [PanelType]
+		, MSAST.SystemTypeName AS [SystemType]  -- 2-way; cellular; cell/interactvie
 		, CAST(
 			CASE
 				WHEN MSASI.[SetupFee] IS NULL THEN 0
+				WHEN MSASI.[SetupFee] = 0 THEN 0
 				ELSE 1
 			END
-		 AS BIT) AS [Activation Collected]
-		, MSASI.[SetupFee] AS [Activation Fee]
+		 AS BIT) AS [ActivationCollected]
+		, MSASI.[SetupFee] AS [ActivationFee]
 		, CAST(
 			CASE
 				WHEN MSASI.[Over3Months] = 1 THEN '3 Months'
 				WHEN MSASI.[Over3Months] = 0 THEN 'Paid Full'
 				ELSE 'NOT SET'
 			END
-		 AS VARCHAR) AS [Paid Full / 3 Months]
-		, MSASI.CancelDate AS [Cancelled Date]
-		, MCACR.AccountCancelReason AS [Cancelled Reason]
-		, MSASI.IsTakeOver AS [Take Over]
-		, dbo.fxGetMS_AccountEquipmentHasExistingEquipment(MCA.AccountID) AS [Has Existing Equipment]
-		, dbo.fxQlCreditReportGetScoreByMsAccountID(MCA.AccountID) AS [Credit Score]
-		, dbo.fxQlCreditReportGetTransactionIdByMsAccountID(MCA.AccountID) AS [Transaction ID]
+		 AS VARCHAR) AS [PaidFull3Months]
+		, MSASI.CancelDate AS [CancelledDate]
+		, MCACR.AccountCancelReason AS [CancelledReason]
+		, MSASI.IsTakeOver AS [TakeOver]
+		, dbo.fxGetMS_AccountEquipmentHasExistingEquipment(MCA.AccountID) AS [HasExistingEquipment]
+		, dbo.fxQlCreditReportGetScoreByMsAccountID(MCA.AccountID) AS [CreditScore]
+		, dbo.fxQlCreditReportGetTransactionIdByMsAccountID(MCA.AccountID) AS [TransactionID]
 		, dbo.fxGetMS_AccountEquipmentPoints(MCA.AccountID) AS [Points]
 	FROM
 		[dbo].[MC_Accounts] AS MCA WITH (NOLOCK)
-		INNER JOIN [dbo].[AE_CustomerAccounts] AS MSAC WITH (NOLOCK)
+--		INNER JOIN [dbo].[AE_CustomerAccounts] AS MSAC WITH (NOLOCK)
+--		ON
+--			(MSAC.AccountId = MCA.AccountID)
+		INNER JOIN [dbo].[AE_Customers] AS AEC WITH(NOLOCK)
 		ON
-			(MSAC.AccountId = MCA.AccountID)
+			(MCA.CustomerMasterFileId = AEC.CustomerMasterFileId)
+			AND (AEC.CustomerTypeId = 'PRI')
+		LEFT JOIN [dbo].[AE_Customers] AS AEC2 WITH(NOLOCK)
+		ON
+			(MCA.CustomerMasterFileId = AEC2.CustomerMasterFileId)
+			AND (AEC2.CustomerTypeId = 'SEC')
 		INNER JOIN [dbo].[MS_Accounts] AS MSA WITH (NOLOCK)
 		ON
 			(MSA.AccountID = MCA.AccountID)
@@ -106,7 +122,10 @@ AS
 			(MCACR.AccountCancelReasonID = MSASI.AccountCancelReasonId)
 		INNER JOIN [dbo].[QL_Leads] AS QL WITH (NOLOCK)
 		ON
-			(QL.LeadID = MSAC.LeadId)
+			(QL.LeadID = AEC.LeadId)
 GO
-/* TEST */
-SELECT * FROM [dbo].[vwAE_CustomerAccountInfoToGP] WHERE [Transaction ID] IS NOT NULL ORDER BY CustomerMasterFileID DESC;
+/* TEST 
+SELECT * FROM [dbo].[vwAE_CustomerAccountInfoToGP] WHERE CUSTOMERMASTERFILEID = 3091442
+WHERE INSTALLDATE BETWEEN '1/1/15' AND '3/31/15'
+WHERE [Transaction ID] IS NOT NULL ORDER BY CustomerMasterFileID DESC;
+*/
