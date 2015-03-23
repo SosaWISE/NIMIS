@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContractAdmin\AccountSalesInformationExtrasModule.cs" />
     <Compile Include="ContractAdmin\AccountsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Qualify\CustomerMasterFilesModule.cs" />

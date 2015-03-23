@@ -19225,6 +19225,45 @@ namespace SOS.Data.SosCrm
 				colvarSubmittedToGPDate.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarSubmittedToGPDate);
 
+				TableSchema.TableColumn colvarAMA = new TableSchema.TableColumn(schema);
+				colvarAMA.ColumnName = "AMA";
+				colvarAMA.DataType = DbType.String;
+				colvarAMA.MaxLength = 30;
+				colvarAMA.AutoIncrement = false;
+				colvarAMA.IsNullable = true;
+				colvarAMA.IsPrimaryKey = false;
+				colvarAMA.IsForeignKey = false;
+				colvarAMA.IsReadOnly = false;
+				colvarAMA.DefaultSetting = @"";
+				colvarAMA.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAMA);
+
+				TableSchema.TableColumn colvarNOC = new TableSchema.TableColumn(schema);
+				colvarNOC.ColumnName = "NOC";
+				colvarNOC.DataType = DbType.String;
+				colvarNOC.MaxLength = 30;
+				colvarNOC.AutoIncrement = false;
+				colvarNOC.IsNullable = true;
+				colvarNOC.IsPrimaryKey = false;
+				colvarNOC.IsForeignKey = false;
+				colvarNOC.IsReadOnly = false;
+				colvarNOC.DefaultSetting = @"";
+				colvarNOC.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarNOC);
+
+				TableSchema.TableColumn colvarSOP = new TableSchema.TableColumn(schema);
+				colvarSOP.ColumnName = "SOP";
+				colvarSOP.DataType = DbType.String;
+				colvarSOP.MaxLength = 30;
+				colvarSOP.AutoIncrement = false;
+				colvarSOP.IsNullable = true;
+				colvarSOP.IsPrimaryKey = false;
+				colvarSOP.IsForeignKey = false;
+				colvarSOP.IsReadOnly = false;
+				colvarSOP.DefaultSetting = @"";
+				colvarSOP.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSOP);
+
 				BaseSchema = schema;
 				DataService.Providers["SosCrmProvider"].AddSchema("vwMS_AccountSalesInformations",schema);
 			}
@@ -19416,6 +19455,21 @@ namespace SOS.Data.SosCrm
 			get { return GetColumnValue<DateTime?>(Columns.SubmittedToGPDate); }
 			set { SetColumnValue(Columns.SubmittedToGPDate, value); }
 		}
+		[DataMember]
+		public string AMA {
+			get { return GetColumnValue<string>(Columns.AMA); }
+			set { SetColumnValue(Columns.AMA, value); }
+		}
+		[DataMember]
+		public string NOC {
+			get { return GetColumnValue<string>(Columns.NOC); }
+			set { SetColumnValue(Columns.NOC, value); }
+		}
+		[DataMember]
+		public string SOP {
+			get { return GetColumnValue<string>(Columns.SOP); }
+			set { SetColumnValue(Columns.SOP, value); }
+		}
 
 		#endregion //Properties
 
@@ -19562,6 +19616,18 @@ namespace SOS.Data.SosCrm
 		{
 			get { return Schema.Columns[33]; }
 		}
+		public static TableSchema.TableColumn AMAColumn
+		{
+			get { return Schema.Columns[34]; }
+		}
+		public static TableSchema.TableColumn NOCColumn
+		{
+			get { return Schema.Columns[35]; }
+		}
+		public static TableSchema.TableColumn SOPColumn
+		{
+			get { return Schema.Columns[36]; }
+		}
 
 		#endregion
 
@@ -19602,6 +19668,9 @@ namespace SOS.Data.SosCrm
 			public const string CsConfirmationNumber = @"CsConfirmationNumber";
 			public const string CsTwoWayConfNumber = @"CsTwoWayConfNumber";
 			public const string SubmittedToGPDate = @"SubmittedToGPDate";
+			public const string AMA = @"AMA";
+			public const string NOC = @"NOC";
+			public const string SOP = @"SOP";
 		}
 		#endregion Columns Struct
 	}

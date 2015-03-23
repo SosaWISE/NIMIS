@@ -2,6 +2,7 @@
 using Nancy.Extensions;
 using Nancy.Responses;
 using Nancy.Security;
+using NXS.Lib.Web;
 using SOS.FunctionalServices;
 using SOS.Lib.Core;
 using System;
@@ -17,6 +18,11 @@ namespace WebModules
 			//this.RequiresHttps();
 			//this.RequiresAuthentication();
 			//this.RequiresClaims(new [] { "Admin" });
+		}
+
+		public SystemUserIdentity User
+		{
+			get { return this.Context.CurrentUser as SystemUserIdentity; }
 		}
 
 		public Result<T> Respond<T>(int code = 0, string message = "", T value = default(T))
@@ -55,7 +61,7 @@ namespace WebModules
 			this.AddBeforeHookOrExecute(
 				HttpStatusCodeIfNot(HttpStatusCode.Forbidden, ctx =>
 				{
-					var user = ctx.CurrentUser;
+					var user = this.User;// ctx.CurrentUser;
 					if (user == null) return false;
 
 					var authService = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();

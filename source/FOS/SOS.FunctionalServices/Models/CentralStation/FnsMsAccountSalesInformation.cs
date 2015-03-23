@@ -45,6 +45,9 @@ namespace SOS.FunctionalServices.Models.CentralStation
 			SubmittedToGPDate = info.SubmittedToGPDate;
 			ContractSignedDate = info.ContractSignedDate;
 			CancelDate = info.CancelDate;
+			AMA = info.AMA;
+			NOC = info.NOC;
+			SOP = info.SOP;
 		}
 
 
@@ -86,6 +89,9 @@ namespace SOS.FunctionalServices.Models.CentralStation
 		public DateTime? SubmittedToGPDate { get; set; }
 		public DateTime? ContractSignedDate { get; set; }
 		public DateTime? CancelDate { get; set; }
+		public string AMA { get; set; }
+		public string NOC { get; set; }
+		public string SOP { get; set; }
 		#endregion Properties
 	}
 }

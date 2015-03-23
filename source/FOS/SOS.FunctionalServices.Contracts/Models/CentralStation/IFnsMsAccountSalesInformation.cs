@@ -41,6 +41,9 @@ namespace SOS.FunctionalServices.Contracts.Models.CentralStation
 		DateTime? SubmittedToGPDate { get; set; }
 		DateTime? ContractSignedDate { get; set; }
 		DateTime? CancelDate { get; set; }
+		string AMA { get; set; }
+		string NOC { get; set; }
+		string SOP { get; set; }
 
 		//bool IsActive { get; set; }
 		//bool IsDeleted { get; set; }

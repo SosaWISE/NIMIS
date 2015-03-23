@@ -716,6 +716,9 @@ namespace SSE.Services.CmsCORS.Helpers
 				SubmittedToGPDate = info.SubmittedToGPDate,
 				ContractSignedDate = info.ContractSignedDate,
 				CancelDate = info.CancelDate,
+				AMA = info.AMA,
+				NOC = info.NOC,
+				SOP = info.SOP,
 			};
 		}
 

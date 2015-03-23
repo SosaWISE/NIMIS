@@ -1436,6 +1436,36 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MS_AccountPackageItemController _MS_AccountPackageItems;
+		public MS_AccountPackageItemController MS_AccountPackageItems
+		{
+			get
+			{
+				if (_MS_AccountPackageItems == null) _MS_AccountPackageItems = new MS_AccountPackageItemController();
+				return _MS_AccountPackageItems;
+			}
+		}
+
+		MS_AccountPackageItemTypeController _MS_AccountPackageItemTypes;
+		public MS_AccountPackageItemTypeController MS_AccountPackageItemTypes
+		{
+			get
+			{
+				if (_MS_AccountPackageItemTypes == null) _MS_AccountPackageItemTypes = new MS_AccountPackageItemTypeController();
+				return _MS_AccountPackageItemTypes;
+			}
+		}
+
+		MS_AccountPackageController _MS_AccountPackages;
+		public MS_AccountPackageController MS_AccountPackages
+		{
+			get
+			{
+				if (_MS_AccountPackages == null) _MS_AccountPackages = new MS_AccountPackageController();
+				return _MS_AccountPackages;
+			}
+		}
+
 		MS_AccountPanelTypePanicZoneController _MS_AccountPanelTypePanicZones;
 		public MS_AccountPanelTypePanicZoneController MS_AccountPanelTypePanicZones
 		{
@@ -4045,6 +4075,9 @@ namespace SOS.Data.SosCrm
 	public class MS_AccountHoldCatg2Controller : BaseTableController<MS_AccountHoldCatg2, MS_AccountHoldCatg2Collection> { }
 	public class MS_AccountHoldController : BaseTableController<MS_AccountHold, MS_AccountHoldCollection> { }
 	public class MS_AccountHoldStockController : BaseTableController<MS_AccountHoldStock, MS_AccountHoldStockCollection> { }
+	public class MS_AccountPackageItemController : BaseTableController<MS_AccountPackageItem, MS_AccountPackageItemCollection> { }
+	public class MS_AccountPackageItemTypeController : BaseTableController<MS_AccountPackageItemType, MS_AccountPackageItemTypeCollection> { }
+	public class MS_AccountPackageController : BaseTableController<MS_AccountPackage, MS_AccountPackageCollection> { }
 	public class MS_AccountPanelTypePanicZoneController : BaseTableController<MS_AccountPanelTypePanicZone, MS_AccountPanelTypePanicZoneCollection> { }
 	public class MS_AccountPanelTypeController : BaseTableController<MS_AccountPanelType, MS_AccountPanelTypeCollection> { }
 	public class MS_AccountController : BaseTableController<MS_Account, MS_AccountCollection> { }

@@ -71,6 +71,10 @@ namespace NXS.Data
 			return CreateTableConstructor(typeof(ITable));
 		}
 
+		//public DbTransaction Transaction
+		//{
+		//	get { return _transaction; }
+		//}
 		public void BeginTransaction(IsolationLevel isolation = IsolationLevel.ReadCommitted)
 		{
 			if (_transaction != null)
@@ -184,19 +188,19 @@ namespace NXS.Data
 		//}
 		public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string[] splitOn = null, int? commandTimeout = null)
 		{
-			return _connection.QueryAsync(sql, map, param as object, transaction, buffered, ToSplitOnStr(splitOn));
+			return _connection.QueryAsync(sql, map, param as object, transaction ?? _transaction, buffered, ToSplitOnStr(splitOn));
 		}
 		public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TReturn>(string sql, Func<TFirst, TSecond, TThird, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string[] splitOn = null, int? commandTimeout = null)
 		{
-			return _connection.QueryAsync(sql, map, param as object, transaction, buffered, ToSplitOnStr(splitOn));
+			return _connection.QueryAsync(sql, map, param as object, transaction ?? _transaction, buffered, ToSplitOnStr(splitOn));
 		}
 		public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string[] splitOn = null, int? commandTimeout = null)
 		{
-			return _connection.QueryAsync(sql, map, param as object, transaction, buffered, ToSplitOnStr(splitOn));
+			return _connection.QueryAsync(sql, map, param as object, transaction ?? _transaction, buffered, ToSplitOnStr(splitOn));
 		}
 		public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string[] splitOn = null, int? commandTimeout = null)
 		{
-			return _connection.QueryAsync(sql, map, param as object, transaction, buffered, ToSplitOnStr(splitOn));
+			return _connection.QueryAsync(sql, map, param as object, transaction ?? _transaction, buffered, ToSplitOnStr(splitOn));
 		}
 
 		public Task<IEnumerable<dynamic>> QueryAsync(string sql, dynamic param = null)
@@ -205,7 +209,7 @@ namespace NXS.Data
 		}
 		public Task<SqlMapper.GridReader> QueryMultipleAsync(string sql, dynamic param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
 		{
-			return SqlMapper.QueryMultipleAsync(_connection, sql, param, transaction, commandTimeout, commandType);
+			return SqlMapper.QueryMultipleAsync(_connection, sql, param, transaction ?? _transaction, commandTimeout, commandType);
 		}
 
 
@@ -248,11 +252,12 @@ namespace NXS.Data
 			protected Database<TDatabase> _database;
 			internal string _name;
 			internal string _pkName;
+			internal string _pkDbType;
 			protected readonly string _aliasNoDot;
 			protected readonly string _alias;
 
 			public Table(Database<TDatabase> database) : this(database, null, null, null) { }
-			public Table(Database<TDatabase> database, string alias, string name, string pkName = "ID")
+			public Table(Database<TDatabase> database, string alias, string name, string pkName = "ID", string pkDbType = "int")
 			{
 				_aliasNoDot = alias;
 				_alias = string.IsNullOrEmpty(alias) ? "" : (alias + ".");
@@ -260,6 +265,7 @@ namespace NXS.Data
 				_database = database;
 				_name = name;
 				_pkName = pkName;
+				_pkDbType = pkDbType;
 			}
 
 			public string Alias { get { return _aliasNoDot; } }
@@ -283,7 +289,7 @@ namespace NXS.Data
 
 				if (hasIdentity)
 				{
-					sql += " SELECT SCOPE_IDENTITY()";
+					sql += " SELECT CAST(SCOPE_IDENTITY() AS " + _pkDbType + ")";
 					return (await _database.QueryAsync<TID>(sql, (object)data).ConfigureAwait(false)).FirstOrDefault();
 				}
 				else
@@ -301,6 +307,8 @@ namespace NXS.Data
 			public Task<int> UpdateAsync(TID id, dynamic data)
 			{
 				List<string> paramNames = GetParamNames((object)data);
+				if (paramNames.Count == 0)
+					return Task.FromResult(0);
 
 				var builder = new StringBuilder();
 				builder.Append("UPDATE ").Append(TableName).Append(" SET ");

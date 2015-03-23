@@ -39,12 +39,11 @@ namespace WebModules.Crm.ContractAdmin
 				var input = this.Bind<AeCustomerAccountInput>();
 				return await srv.SetCustomerAccountAsync((long)x.id, (string)x.customerTypeId, input.LeadId).ConfigureAwait(false);
 			};
-			//Delete["/{id:long}/CustomerAccounts/{customerTypeId}", true] = async (x, ct) =>
-			//{
-			//	var srv = new ContractAdminService(this.User.GPEmployeeID);
-			//	var input = this.Bind<AeCustomerAccountInput>();
-			//	return await srv.DeleteCustomerAccountAsync((long)x.id, (string)x.customerTypeId).ConfigureAwait(false);
-			//};
+			Delete["/{id:long}/CustomerAccounts/{customerTypeId}", true] = async (x, ct) =>
+			{
+				var srv = new ContractAdminService(this.User.GPEmployeeID);
+				return await srv.DeleteCustomerAccountAsync((long)x.id, (string)x.customerTypeId).ConfigureAwait(false);
+			};
 
 
 			//Get["/{id:long}/Customers/{customerTypeId}/Address", true] = async (x, ct) =>

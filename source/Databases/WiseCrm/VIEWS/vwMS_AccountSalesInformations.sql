@@ -80,6 +80,9 @@ AS
 		, MSI.CsConfirmationNumber
 		, MSI.CsTwoWayConfNumber
 		, MSI.SubmittedToGPDate
+		, MSI.AMA
+		, MSI.NOC
+		, MSI.SPO
 	FROM
 		[dbo].[MS_Accounts] AS MSA WITH (NOLOCK)
 		LEFT OUTER JOIN [dbo].AE_Contracts AS ACT WITH (NOLOCK)

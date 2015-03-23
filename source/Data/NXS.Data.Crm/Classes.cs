@@ -13,6 +13,8 @@ namespace NXS.Data.Crm
 		public long AddressId { get; set; }
 		public DateTime CreatedOn { get; set; }
 		public string CreatedBy { get; set; }
+		public DateTime? ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
 		public DateTime DEX_ROW_TS { get; set; }
 	}
 	public partial class AE_Customer // AE_Customers
@@ -90,6 +92,39 @@ namespace NXS.Data.Crm
 		public DateTime CreatedOn { get; set; }
 		public string ModifiedBy { get; set; }
 		public DateTime ModifiedOn { get; set; }
+	}
+	public partial class MS_AccountSalesInformation // MS_AccountSalesInformations
+	{
+		public long AccountID { get; set; }
+		public string PaymentTypeId { get; set; }
+		public string FriendsAndFamilyTypeId { get; set; }
+		public long? AccountSubmitId { get; set; }
+		public string AccountCancelReasonId { get; set; }
+		public string TechId { get; set; }
+		public string SalesRepId { get; set; }
+		public short BillingDay { get; set; }
+		public string Email { get; set; }
+		public bool IsMoni { get; set; }
+		public bool IsTakeOver { get; set; }
+		public bool IsOwner { get; set; }
+		public DateTime? InstallDate { get; set; }
+		public DateTime? SubmittedToCSDate { get; set; }
+		public string CsConfirmationNumber { get; set; }
+		public string CsTwoWayConfNumber { get; set; }
+		public DateTime? SubmittedToGPDate { get; set; }
+		public DateTime? ContractSignedDate { get; set; }
+		public DateTime? CancelDate { get; set; }
+		public string AMA { get; set; }
+		public string NOC { get; set; }
+		public string SOP { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+		public long DEX_ROW_ID { get; set; }
 	}
 	public partial class QL_Address // QL_Address
 	{

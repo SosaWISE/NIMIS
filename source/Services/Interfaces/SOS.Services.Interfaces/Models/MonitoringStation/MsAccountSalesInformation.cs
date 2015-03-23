@@ -41,6 +41,9 @@ namespace SOS.Services.Interfaces.Models.MonitoringStation
 		public DateTime? SubmittedToGPDate { get; set; }
 		public DateTime? ContractSignedDate { get; set; }
 		public DateTime? CancelDate { get; set; }
+		public string AMA { get; set; }
+		public string NOC { get; set; }
+		public string SOP { get; set; }
 		#endregion Properties
 	}
 
@@ -81,5 +84,8 @@ namespace SOS.Services.Interfaces.Models.MonitoringStation
 		DateTime? SubmittedToGPDate { get; set; }
 		DateTime? ContractSignedDate { get; set; }
 		DateTime? CancelDate { get; set; }
+		string AMA { get; set; }
+		string NOC { get; set; }
+		string SOP { get; set; }
 	}
 }

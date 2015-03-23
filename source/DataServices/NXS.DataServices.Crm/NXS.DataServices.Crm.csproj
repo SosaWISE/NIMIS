@@ -49,6 +49,7 @@
     <Compile Include="Models\AeCustomerAccount.cs" />
     <Compile Include="Models\AeCustomerAccountInput.cs" />
     <Compile Include="Models\McAddress.cs" />
+    <Compile Include="Models\MsAccountSalesInformationExtras.cs" />
     <Compile Include="Models\QlLead.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QualifyService.cs" />

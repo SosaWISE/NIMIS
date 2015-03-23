@@ -24,6 +24,7 @@ namespace NXS.Data
 			static Func<T, T> _cloner;
 			static Func<T, T, List<Change>> _differ;
 			T _memberWiseClone;
+			public T ValueClone { get { return _memberWiseClone; } }
 			T _trackedObject;
 			public T Value { get { return _trackedObject; } }
 

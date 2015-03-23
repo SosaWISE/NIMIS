@@ -18,9 +18,6 @@ namespace NXS.DataServices.Crm
 		public ContractAdminService(string gpEmployeeId)
 		{
 			_gpEmployeeId = gpEmployeeId;
-
-			var list = new List<AE_CustomerAccount>();
-			list.Sort(PrecedenceComparison);
 		}
 
 		public Dictionary<string, int> CustomerTypesPrecedenceMap()
@@ -46,24 +43,24 @@ namespace NXS.DataServices.Crm
 			return getPrecedence(a.CustomerTypeId) - getPrecedence(b.CustomerTypeId);
 		}
 
-		public async Task<Result<AeCustomer>> CustomerByTypeAsync(long accountId, string customerTypeId)
-		{
-			using (var db = CrmDb.Connect())
-			{
-				var item = await db.AE_Customers.OneByTypeAsync(accountId, customerTypeId).ConfigureAwait(false);
-				var result = new Result<AeCustomer>(value: AeCustomer.FromDb(item, nullable: true));
-				return result;
-			}
-		}
-		public async Task<Result<McAddress>> CustomerAddressByTypeAsync(long accountId, string customerTypeId)
-		{
-			using (var db = CrmDb.Connect())
-			{
-				var item = await db.MC_Addresses.OneByTypeAsync(accountId, customerTypeId).ConfigureAwait(false);
-				var result = new Result<McAddress>(value: McAddress.FromDb(item, nullable: true));
-				return result;
-			}
-		}
+		//public async Task<Result<AeCustomer>> CustomerByTypeAsync(long accountId, string customerTypeId)
+		//{
+		//	using (var db = CrmDb.Connect())
+		//	{
+		//		var item = await db.AE_Customers.OneByTypeAsync(accountId, customerTypeId).ConfigureAwait(false);
+		//		var result = new Result<AeCustomer>(value: AeCustomer.FromDb(item, nullable: true));
+		//		return result;
+		//	}
+		//}
+		//public async Task<Result<McAddress>> CustomerAddressByTypeAsync(long accountId, string customerTypeId)
+		//{
+		//	using (var db = CrmDb.Connect())
+		//	{
+		//		var item = await db.MC_Addresses.OneByTypeAsync(accountId, customerTypeId).ConfigureAwait(false);
+		//		var result = new Result<McAddress>(value: McAddress.FromDb(item, nullable: true));
+		//		return result;
+		//	}
+		//}
 
 
 
@@ -80,7 +77,7 @@ namespace NXS.DataServices.Crm
 		}
 		public async Task<Result<AeCustomer>> SetCustomerAccountAsync(long accountId, string customerTypeId, long leadId)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = CrmDb.Connect(360))
 			{
 				var result = new Result<AeCustomer>();
 				var lead = await db.QL_Leads.ByIdAsync(leadId).ConfigureAwait(false);
@@ -93,27 +90,35 @@ namespace NXS.DataServices.Crm
 				AE_Customer customer = null;
 				await db.TransactionAsync(async () =>
 				{
-					// delete existing customer accounts (there should only be one but the db schema allows more than one)
 					var custAccounts = (await db.AE_CustomerAccounts.ManyByAccountIdAndTypeAsync(accountId, customerTypeId).ConfigureAwait(false)).ToList();
-					foreach (var custAcct in custAccounts)
-						await db.AE_CustomerAccounts.DeleteAsync(custAcct.CustomerAccountID).ConfigureAwait(false);
+					var custAcct = custAccounts.FirstOrDefault();
+					if (custAcct != null)
+						custAccounts.Remove(custAcct); // don't delete this one
+					// delete existing customer accounts except current (there should only be one but the db schema allows more than one)
+					foreach (var item in custAccounts)
+						await db.AE_CustomerAccounts.DeleteAsync(item.CustomerAccountID).ConfigureAwait(false);
 
 					// ensure MC_Address
 					var mcAddress = (await UpdateOrCreateMcAddress(_gpEmployeeId, db, qlAddress).ConfigureAwait(false));
 					// ensure AE_Customer
-					customer = (await UpdateOrCreateAeCustomer(_gpEmployeeId, db, lead, mcAddress).ConfigureAwait(false));
+					customer = (await CreateAeCustomer(_gpEmployeeId, db, lead, mcAddress).ConfigureAwait(false));
 					// add new customer account
+					if (custAcct == null)
 					{
-						var custAcct = new AE_CustomerAccount();
-						//custAcct.CustomerAccountID 
-						custAcct.LeadId = lead.LeadID;
-						custAcct.AccountId = accountId;
-						custAcct.CustomerId = customer.CustomerID;
-						custAcct.CustomerTypeId = customerTypeId;
-						custAcct.AddressId = mcAddress.AddressID;
-						custAcct.CreatedOn = DateTime.UtcNow;
-						custAcct.CreatedBy = _gpEmployeeId;
-						await db.AE_CustomerAccounts.InsertAsync(custAcct).ConfigureAwait(false);
+						custAcct = new AE_CustomerAccount();
+						CopyFrom(custAcct, accountId, customerTypeId, lead, customer, mcAddress);
+						custAcct.ModifiedOn = custAcct.CreatedOn = DateTime.UtcNow;
+						custAcct.ModifiedBy = custAcct.CreatedBy = _gpEmployeeId;
+						custAcct.CustomerAccountID = await db.AE_CustomerAccounts.InsertAsync(custAcct).ConfigureAwait(false);
+					}
+					else
+					{
+						// update customer account
+						var snapShot = Snapshotter.Start(custAcct);
+						CopyFrom(custAcct, accountId, customerTypeId, lead, customer, mcAddress);
+						custAcct.ModifiedOn = DateTime.UtcNow;
+						custAcct.ModifiedBy = _gpEmployeeId;
+						await db.AE_CustomerAccounts.UpdateAsync(custAcct.CustomerAccountID, snapShot.Diff()).ConfigureAwait(false);
 					}
 
 					// commit transaction
@@ -121,6 +126,36 @@ namespace NXS.DataServices.Crm
 				}).ConfigureAwait(false);
 
 				result.Value = AeCustomer.FromDb(customer);
+				return result;
+			}
+		}
+		private static void CopyFrom(AE_CustomerAccount custAcct, long accountId, string customerTypeId, QL_Lead lead, AE_Customer customer, MC_Address mcAddress)
+		{
+			custAcct.AccountId = accountId;
+			custAcct.CustomerTypeId = customerTypeId;
+			custAcct.LeadId = lead.LeadID;
+			custAcct.CustomerId = customer.CustomerID;
+			custAcct.AddressId = mcAddress.AddressID;
+		}
+
+		public async Task<Result<bool>> DeleteCustomerAccountAsync(long accountId, string customerTypeId)
+		{
+			using (var db = CrmDb.Connect())
+			{
+				var result = new Result<bool>();
+
+				await db.TransactionAsync(async () =>
+				{
+					// delete existing customer accounts (there should only be one but the db schema allows more than one)
+					var custAccounts = (await db.AE_CustomerAccounts.ManyByAccountIdAndTypeAsync(accountId, customerTypeId).ConfigureAwait(false)).ToList();
+					foreach (var custAcct in custAccounts)
+						await db.AE_CustomerAccounts.DeleteAsync(custAcct.CustomerAccountID).ConfigureAwait(false);
+
+					// commit transaction
+					return true;
+				}).ConfigureAwait(false);
+
+				result.Value = true;
 				return result;
 			}
 		}
@@ -221,52 +256,51 @@ namespace NXS.DataServices.Crm
 		//	return true;
 		//}
 
-		public async Task<Result<AeCustomer>> SetCustomerAsync(long accountId, string customerTypeId, long leadId)
-		{
-			using (var db = CrmDb.Connect())
-			{
-				var result = new Result<AeCustomer>();
-				var lead = await db.QL_Leads.ByIdAsync(leadId).ConfigureAwait(false);
-				if (lead == null)
-					return result.Fail(-1, "Invalid LeadID");
-				var qlAddress = (await db.QL_Addresses.ByIdAsync(lead.AddressId).ConfigureAwait(false));
+		//public async Task<Result<AeCustomer>> SetCustomerAsync(long accountId, string customerTypeId, long leadId)
+		//{
+		//	using (var db = CrmDb.Connect())
+		//	{
+		//		var result = new Result<AeCustomer>();
+		//		var lead = await db.QL_Leads.ByIdAsync(leadId).ConfigureAwait(false);
+		//		if (lead == null)
+		//			return result.Fail(-1, "Invalid LeadID");
+		//		var qlAddress = (await db.QL_Addresses.ByIdAsync(lead.AddressId).ConfigureAwait(false));
 
-				//@TODO: validate lead's account matches accountId ???
+		//		//@TODO: validate lead's account matches accountId ???
 
-				AE_Customer customer = null;
-				await db.TransactionAsync(async () =>
-				{
-					// delete existing customer accounts (there should only be one but the db schema allows more than one)
-					var custAccounts = (await db.AE_CustomerAccounts.ManyByAccountIdAndTypeAsync(accountId, customerTypeId).ConfigureAwait(false)).ToList();
-					foreach (var custAcct in custAccounts)
-						await db.AE_CustomerAccounts.DeleteAsync(custAcct.CustomerAccountID).ConfigureAwait(false);
+		//		AE_Customer customer = null;
+		//		await db.TransactionAsync(async () =>
+		//		{
+		//			// delete existing customer accounts (there should only be one but the db schema allows more than one)
+		//			var custAccounts = (await db.AE_CustomerAccounts.ManyByAccountIdAndTypeAsync(accountId, customerTypeId).ConfigureAwait(false)).ToList();
+		//			foreach (var custAcct in custAccounts)
+		//				await db.AE_CustomerAccounts.DeleteAsync(custAcct.CustomerAccountID).ConfigureAwait(false);
 
-					// ensure MC_Address
-					var mcAddress = (await UpdateOrCreateMcAddress(_gpEmployeeId, db, qlAddress).ConfigureAwait(false));
-					// ensure AE_Customer
-					customer = (await UpdateOrCreateAeCustomer(_gpEmployeeId, db, lead, mcAddress).ConfigureAwait(false));
-					// add new customer account
-					{
-						var custAcct = new AE_CustomerAccount();
-						//custAcct.CustomerAccountID 
-						custAcct.LeadId = leadId;
-						custAcct.AccountId = accountId;
-						custAcct.CustomerId = customer.CustomerID;
-						custAcct.CustomerTypeId = customerTypeId;
-						custAcct.AddressId = mcAddress.AddressID;
-						custAcct.CreatedOn = DateTime.UtcNow;
-						custAcct.CreatedBy = _gpEmployeeId;
-						await db.AE_CustomerAccounts.InsertAsync(custAcct).ConfigureAwait(false);
-					}
+		//			// ensure MC_Address
+		//			var mcAddress = (await UpdateOrCreateMcAddress(_gpEmployeeId, db, qlAddress).ConfigureAwait(false));
+		//			// ensure AE_Customer
+		//			customer = (await CreateAeCustomer(_gpEmployeeId, db, lead, mcAddress).ConfigureAwait(false));
+		//			// add new customer account
+		//			{
+		//				var custAcct = new AE_CustomerAccount();
+		//				custAcct.LeadId = leadId;
+		//				custAcct.AccountId = accountId;
+		//				custAcct.CustomerId = customer.CustomerID;
+		//				custAcct.CustomerTypeId = customerTypeId;
+		//				custAcct.AddressId = mcAddress.AddressID;
+		//				custAcct.CreatedOn = DateTime.UtcNow;
+		//				custAcct.CreatedBy = _gpEmployeeId;
+		//				await db.AE_CustomerAccounts.InsertAsync(custAcct).ConfigureAwait(false);
+		//			}
 
-					// commit transaction
-					return true;
-				}).ConfigureAwait(false);
+		//			// commit transaction
+		//			return true;
+		//		}).ConfigureAwait(false);
 
-				result.Value = AeCustomer.FromDb(customer);
-				return result;
-			}
-		}
+		//		result.Value = AeCustomer.FromDb(customer);
+		//		return result;
+		//	}
+		//}
 		//public async Task<Result<bool>> SetCustomerAccountAddressAsync(long accountId, string customerTypeId, long qlAddressId)
 		//{
 		//	using (var db = CrmDb.Connect())
@@ -301,17 +335,18 @@ namespace NXS.DataServices.Crm
 
 		private static async Task<MC_Address> UpdateOrCreateMcAddress(string gpEmployeeId, CrmDb db, QL_Address qlAddress)
 		{
+			var tbl = db.MC_Addresses;
 			// map ql_address to mc_address 1 to 1
 			// check if an address already exists for the lead qlAddress
-			var mcAddress = (await db.MC_Addresses.ByQlAddressIdAsync(qlAddress.AddressID).ConfigureAwait(false));
+			var mcAddress = (await tbl.ByQlAddressIdAsync(qlAddress.AddressID).ConfigureAwait(false));
 			if (mcAddress == null)
 			{
 				mcAddress = new MC_Address();
 				CopyFromLead(mcAddress, qlAddress);
 				// crate
-				mcAddress.CreatedOn = mcAddress.ModifiedOn = DateTime.UtcNow;
-				mcAddress.CreatedBy = mcAddress.ModifiedBy = gpEmployeeId;
-				await db.MC_Addresses.InsertAsync(mcAddress).ConfigureAwait(false);
+				mcAddress.ModifiedOn = mcAddress.CreatedOn = DateTime.UtcNow;
+				mcAddress.ModifiedBy = mcAddress.CreatedBy = gpEmployeeId;
+				mcAddress.AddressID = await tbl.InsertAsync(mcAddress).ConfigureAwait(false);
 			}
 			else
 			{
@@ -320,7 +355,7 @@ namespace NXS.DataServices.Crm
 				// update
 				mcAddress.ModifiedOn = DateTime.UtcNow;
 				mcAddress.ModifiedBy = gpEmployeeId;
-				await db.MC_Addresses.UpdateAsync(mcAddress.AddressID, snapShot.Diff()).ConfigureAwait(false);
+				await tbl.UpdateAsync(mcAddress.AddressID, snapShot.Diff()).ConfigureAwait(false);
 			}
 
 			return mcAddress;
@@ -365,7 +400,7 @@ namespace NXS.DataServices.Crm
 			mcAddress.IsDeleted = qlAddress.IsDeleted;
 		}
 
-		private static async Task<AE_Customer> UpdateOrCreateAeCustomer(string gpEmployeeId, CrmDb db, QL_Lead lead, MC_Address mcAddress)
+		private static async Task<AE_Customer> CreateAeCustomer(string gpEmployeeId, CrmDb db, QL_Lead lead, MC_Address mcAddress)
 		{
 			// map lead to customer 1 to 1
 			// check if a customer already exists for the lead
@@ -375,19 +410,21 @@ namespace NXS.DataServices.Crm
 				customer = new AE_Customer();
 				CopyFromLead(customer, lead, mcAddress);
 				// crate
-				customer.CreatedOn = customer.ModifiedOn = DateTime.UtcNow;
-				customer.CreatedBy = customer.ModifiedBy = gpEmployeeId;
-				await db.MC_Addresses.InsertAsync(mcAddress).ConfigureAwait(false);
+				customer.ModifiedOn = customer.CreatedOn = DateTime.UtcNow;
+				customer.ModifiedBy = customer.CreatedBy = gpEmployeeId;
+				customer.CustomerID = await db.AE_Customers.InsertAsync(customer).ConfigureAwait(false);
 			}
-			else
-			{
-				var snapShot = Snapshotter.Start(customer);
-				CopyFromLead(customer, lead, mcAddress);
-				// update
-				customer.ModifiedOn = DateTime.UtcNow;
-				customer.ModifiedBy = gpEmployeeId;
-				await db.AE_Customers.UpdateAsync(customer.CustomerID, snapShot.Diff()).ConfigureAwait(false);
-			}
+			// lead data should not change but customer data can, so updating the customer should be unnecessary and may overwrite changed data
+			//@REVIEW: it may be possible to add data to a lead, but not modify, e.g.: change a null value to a non-null value
+			//else
+			//{
+			//	var snapShot = Snapshotter.Start(customer);
+			//	CopyFromLead(customer, lead, mcAddress);
+			//	// update
+			//	customer.ModifiedOn = DateTime.UtcNow;
+			//	customer.ModifiedBy = gpEmployeeId;
+			//	await db.AE_Customers.UpdateAsync(customer.CustomerID, snapShot.Diff()).ConfigureAwait(false);
+			//}
 
 			return customer;
 		}
@@ -445,5 +482,38 @@ namespace NXS.DataServices.Crm
 		//{
 		//	return string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
 		//}
+
+
+
+
+
+
+
+
+
+
+
+		public async Task<Result<MsAccountSalesInformationExtras>> SaveAccountSalesInformationExtras(long accountId, MsAccountSalesInformationExtras data)
+		{
+			using (var db = CrmDb.Connect())
+			{
+				var result = new Result<MsAccountSalesInformationExtras>();
+				var tbl = db.MS_AccountSalesInformations;
+
+				var msAcctSalesInfo = (await tbl.ByIdAsync(accountId).ConfigureAwait(false));
+				if (msAcctSalesInfo == null)
+					return result.Fail(-1, "Invalid AccountID");
+
+				var snapShot = Snapshotter.Start(msAcctSalesInfo);
+				data.ToDb(msAcctSalesInfo);
+				// update
+				msAcctSalesInfo.ModifiedOn = DateTime.UtcNow;
+				msAcctSalesInfo.ModifiedBy = _gpEmployeeId;
+				// save
+				await tbl.UpdateAsync(accountId, snapShot.Diff()).ConfigureAwait(false);
+
+				return result;
+			}
+		}
 	}
 }
