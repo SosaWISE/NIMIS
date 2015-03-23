@@ -1,0 +1,64 @@
+USE [WISE_CRM]
+GO
+
+--SELECT 
+--	MSASI.AccountID
+--	,MSASI.SalesRepId
+--	, MSASI.AccountSubmitId
+--	, MSAS.AccountSubmitID
+--	, MSASI.InstallDate
+--	, MSASI.SubmittedToCSDate
+--	, MSAS.CreatedOn
+--	, MSASI.CsConfirmationNumber
+--	, SUBSTRING(MSAS.ErrText, 23, 9) AS Confirmation#
+--	, MSAS.ErrText
+--FROM
+--	[dbo].[MS_AccountSalesInformations] AS MSASI WITH (NOLOCK)
+--	INNER JOIN (
+--		SELECT 
+--			ROW_NUMBER() OVER (PARTITION BY MAS.AccountId ORDER BY MAS.AccountSubmitID DESC) AS RWN
+--			, MAS.AccountSubmitID
+--			, MAS.AccountId
+--			, MSASM.ErrText
+--			, MAS.CreatedOn
+--		FROM
+--			[dbo].[MS_AccountSubmits] AS MAS WITH (NOLOCK)
+--			INNER JOIN [dbo].[MS_AccountSubmitMs] AS MSASM WITH (NOLOCK)
+--			ON
+--				(MSASM.AccountSubmitId = MAS.AccountSubmitID)
+--		WHERE
+--			(MAS.WasSuccessfull = 1)
+--			AND (MAS.AccountSubmitTypeId = 1)
+--	) AS MSAS
+--	ON
+--		(MSAS.AccountId = MSASI.AccountID)
+--WHERE
+--	(MSAS.ErrText LIKE '%confirmation #%')
+--	AND (MSAS.RWN >= 1);
+
+--SELECT * FROM dbo.MS_AccountSubmitTypes
+
+
+--SELECT * FROM dbo.[MS_IndustryAccounts] WHERE Csid IN ('768260011','768260013','768260017','768260025','768260030','768260033','768260034','768260035','768260036','768260038','768260039','768260041','768260042','768260044','768260049','768260050','768260053','768260054','768260055','768260056','768260058','768260059','768260060','768260062','768260063','768260064','768260065','768260066','768260067','768260072','768260073','768260075','768260076','768260077','768260078','768260079','768260080','768260081','768260083','768260084','768260085','768260086','768260087','768260088','768260089','768260090','768260092','768260093','768260094','768260095','768260096','768260097','768260098','768260100');
+
+BEGIN TRANSACTION
+
+--UPDATE dbo.MS_AccountSalesInformations SET 
+--	SalesRepId = LD.SalesRepId
+SELECT 
+	MSASI.AccountID
+	, LD.SalesRepId
+	, MSASI.SalesRepId
+FROM
+	dbo.MS_AccountSalesInformations AS MSASI WITH (NOLOCK)
+	INNER JOIN [dbo].AE_CustomerAccounts AS AECA WITH (NOLOCK)
+	ON
+		(AECA.AccountId = MSASI.AccountID)
+	INNER JOIN [dbo].[QL_Leads] AS LD WITH (NOLOCK)
+	ON
+		(LD.LeadID = AECA.LeadId)
+WHERE 
+	(MSASI.SalesRepId IS NULL)
+
+
+ROLLBACK TRANSACTION

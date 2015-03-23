@@ -83,6 +83,10 @@
     <Compile Include="Models\CmsModels\McAddressView.cs" />
     <Compile Include="Models\CmsModels\McLocalization.cs" />
     <Compile Include="Models\CmsModels\McPoliticalTimeZone.cs" />
+    <Compile Include="Models\Connext\CxContact.cs" />
+    <Compile Include="Models\Connext\CxAddress.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\DocBarcode\BxBarcode.cs" />
     <Compile Include="Models\DoNotCall\DncPhoneNumber.cs" />
     <Compile Include="Models\GpsTracking\GsAccountGeoFence.cs" />

@@ -13,15 +13,15 @@ using SOS.Services.Interfaces.Models.Connext;
 namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 {
 	[RoutePrefix("ContactSrvcs")]
-	public class ContactsController : ApiController
+	public class ContactAddressController : ApiController
     {
-        // GET api/contacts
-		[HttpGet, Route("Contacts")]
-		public Result<List<CxContact>> Get()
-        {
+        // GET api/contactaddress
+		[HttpGet, Route("Addresses")]
+		public Result<List<CxAddress>> Get()
+		{
 			#region Initialize
 
-			const string METHOD_NAME = "REST Get All Contacts";
+			const string METHOD_NAME = "REST Get All Addresses";
 
 			#endregion Initialize
 
@@ -34,7 +34,7 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 				{
 					new CORSArg(user.HRUserID, (user.HRUserID == 0), "<li>'HRUserID' must be passed.</li>")
 				};
-				Result<List<CxContact>> result;
+				Result<List<CxAddress>> result;
 				if (!CORSArg.ArgumentValidation(argArray, out result, METHOD_NAME)) return result;
 
 				#endregion Parameter Validation
@@ -46,7 +46,7 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 					var service = SosServiceEngine.Instance.FunctionalServices.Instance<IConnextService>();
 
 					// ** Execute FOS Call
-					var fnsResult = service.ContactReadAll(user.GPEmployeeID);
+					var fnsResult = service.AddressReadAll(user.GPEmployeeID);
 
 					// ** Save result
 					result.Code = fnsResult.Code;
@@ -58,8 +58,8 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 
 					// ** Create result value package
 					// ReSharper disable once RedundantCast
-					var fnsResultList = (List<IFnsCxContact>)fnsResult.GetTValue();
-					var resultList = fnsResultList.Select(fnsCxContact => ConvertTo.CastFnsToCxContact(fnsCxContact)).ToList();
+					var fnsResultList = (List<IFnsCxAddress>)fnsResult.GetTValue();
+					var resultList = fnsResultList.Select(fnsCxAddress => ConvertTo.CastFnsToCxAddress(fnsCxAddress)).ToList();
 
 					result.Value = resultList;
 
@@ -83,13 +83,13 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 			});
 		}
 
-        // GET api/contacts/5
-		[HttpGet, Route("Contacts/{id}")]
-		public Result<CxContact> Get(int id)
-        {
+		// GET api/contactaddress/5
+		[HttpGet, Route("Addresses/{id}")]
+		public Result<CxAddress> Get(int id)
+		{
 			#region Initialize
 
-			const string METHOD_NAME = "REST Get Contacts";
+			const string METHOD_NAME = "REST Get Address";
 
 			#endregion Initialize
 
@@ -100,9 +100,9 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 
 				var argArray = new List<CORSArg>
 				{
-					new CORSArg(user.HRUserID, (user.HRUserID == 0), "<li>'HRUserID' must be passed.</li>")
+					new CORSArg(id, (id == 0), "<li>'AddressID' must be passed.</li>")
 				};
-				Result<CxContact> result;
+				Result<CxAddress> result;
 				if (!CORSArg.ArgumentValidation(argArray, out result, METHOD_NAME)) return result;
 
 				#endregion Parameter Validation
@@ -114,7 +114,7 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 					var service = SosServiceEngine.Instance.FunctionalServices.Instance<IConnextService>();
 
 					// ** Execute FOS Call
-					var fnsResult = service.ContactRead(id, user.GPEmployeeID);
+					var fnsResult = service.AddressRead(id, user.GPEmployeeID);
 
 					// ** Save result
 					result.Code = fnsResult.Code;
@@ -126,8 +126,8 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 
 					// ** Create result value package
 					// ReSharper disable once RedundantCast
-					var fnsCxContact = (IFnsCxContact)fnsResult.GetTValue();
-					var resultList = ConvertTo.CastFnsToCxContact(fnsCxContact);
+					var fnsCxAddress = (IFnsCxAddress)fnsResult.GetTValue();
+					var resultList = ConvertTo.CastFnsToCxAddress(fnsCxAddress);
 
 					result.Value = resultList;
 
@@ -151,13 +151,13 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 			});
 		}
 
-        // POST api/contacts
-		[HttpPost, Route("Contacts")]
-		public Result<CxContact> Post([FromBody]CxContact contact)
-        {
+        // POST api/contactaddress
+		[HttpPost, Route("Addresses")]
+		public Result<CxAddress> Post([FromBody]CxAddress address)
+		{
 			#region Initialize
 
-			const string METHOD_NAME = "REST POST Contacts";
+			const string METHOD_NAME = "REST POST Address";
 
 			#endregion Initialize
 
@@ -168,12 +168,11 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 
 				var argArray = new List<CORSArg>
 				{
-					new CORSArg(contact, (contact == null), "<li>'contact' must be passed.</li>"),
+					new CORSArg(address, (address == null), "<li>'address' must be passed.</li>"),
 				};
-				if (contact != null)
-					argArray.Add(new CORSArg(contact.AddressId, (contact.AddressId == 0), "<li>'contact.AddressId' must be passed.</li>"));
 
-				Result<CxContact> result;
+
+				Result<CxAddress> result;
 				if (!CORSArg.ArgumentValidation(argArray, out result, METHOD_NAME)) return result;
 
 				#endregion Parameter Validation
@@ -185,8 +184,8 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 					var service = SosServiceEngine.Instance.FunctionalServices.Instance<IConnextService>();
 
 					// ** Execute FOS Call
-					IFnsCxContact fnsContact = ConvertTo.CastToFnsCxContact(contact);
-					var fnsResult = service.ContactCreate(fnsContact, user.GPEmployeeID);
+					IFnsCxAddress fnsAddress = ConvertTo.CastToFnsCxAddress(address);
+					var fnsResult = service.AddressCreate(fnsAddress, user.GPEmployeeID);
 
 					// ** Save result
 					result.Code = fnsResult.Code;
@@ -198,8 +197,8 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 
 					// ** Create result value package
 					// ReSharper disable once RedundantCast
-					var fnsCxContact = (IFnsCxContact)fnsResult.GetTValue();
-					var resultList = ConvertTo.CastFnsToCxContact(fnsCxContact);
+					var fnsCxAddress = (IFnsCxAddress)fnsResult.GetTValue();
+					var resultList = ConvertTo.CastFnsToCxAddress(fnsCxAddress);
 
 					result.Value = resultList;
 
@@ -223,13 +222,13 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 			});
 		}
 
-        // PUT api/contacts/5
-		[HttpPut, Route("Contacts/{id}")]
-		public Result<CxContact> Put(int id, [FromBody]CxContact contact)
-        {
+        // PUT api/contactaddress/5
+		[HttpPut, Route("Addresses/{id}")]
+		public Result<CxAddress> Put(int id, [FromBody]CxAddress address)
+		{
 			#region Initialize
 
-			const string METHOD_NAME = "REST PUT Contacts";
+			const string METHOD_NAME = "REST PUT Address";
 
 			#endregion Initialize
 
@@ -240,10 +239,10 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 
 				var argArray = new List<CORSArg>
 				{
-					new CORSArg(contact, (contact == null), "<li>'contact' must be passed.</li>"),
+					new CORSArg(address, (address == null), "<li>'address' must be passed.</li>"),
 					new CORSArg(id, (id == 0), "<li>'id' must be passed.</li>")
 				};
-				Result<CxContact> result;
+				Result<CxAddress> result;
 				if (!CORSArg.ArgumentValidation(argArray, out result, METHOD_NAME)) return result;
 
 				#endregion Parameter Validation
@@ -251,14 +250,14 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 				#region TRY
 				try
 				{
-// ReSharper disable once PossibleNullReferenceException
-					contact.ContactID = id;
+					// ReSharper disable once PossibleNullReferenceException
+					address.AddressID = id;
 					// ** Create a service object
 					var service = SosServiceEngine.Instance.FunctionalServices.Instance<IConnextService>();
 
 					// ** Execute FOS Call
-					IFnsCxContact fnsContact = ConvertTo.CastToFnsCxContact(contact);
-					var fnsResult = service.ContactUpdate(fnsContact, user.GPEmployeeID);
+					IFnsCxAddress fnsContact = ConvertTo.CastToFnsCxAddress(address);
+					var fnsResult = service.AddressUpdate(fnsContact, user.GPEmployeeID);
 
 					// ** Save result
 					result.Code = fnsResult.Code;
@@ -270,8 +269,8 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 
 					// ** Create result value package
 					// ReSharper disable once RedundantCast
-					var fnsCxContact = (IFnsCxContact)fnsResult.GetTValue();
-					var resultList = ConvertTo.CastFnsToCxContact(fnsCxContact);
+					var fnsCxAddress = (IFnsCxAddress)fnsResult.GetTValue();
+					var resultList = ConvertTo.CastFnsToCxAddress(fnsCxAddress);
 
 					result.Value = resultList;
 
@@ -295,13 +294,13 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 			});
 		}
 
-        // DELETE api/contacts/5
-		[HttpDelete, Route("Contacts/{id}")]
-		public Result<CxContact> Delete(int id)
-        {
+        // DELETE api/contactaddress/5
+		[HttpDelete, Route("Addresses/{id}")]
+		public Result<CxAddress> Delete(int id)
+		{
 			#region Initialize
 
-			const string METHOD_NAME = "REST DELETE Contacts";
+			const string METHOD_NAME = "REST DELETE Address";
 
 			#endregion Initialize
 
@@ -312,9 +311,10 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 
 				var argArray = new List<CORSArg>
 				{
-					new CORSArg(user.HRUserID, (user.HRUserID == 0), "<li>'HRUserID' must be passed.</li>")
+					new CORSArg(user.HRUserID, (user.HRUserID == 0), "<li>'HRUserID' must be passed.</li>"),
+					new CORSArg(id, (id == 0), "<li>'addressId' must be passed.</li>")
 				};
-				Result<CxContact> result;
+				Result<CxAddress> result;
 				if (!CORSArg.ArgumentValidation(argArray, out result, METHOD_NAME)) return result;
 
 				#endregion Parameter Validation
@@ -326,7 +326,7 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 					var service = SosServiceEngine.Instance.FunctionalServices.Instance<IConnextService>();
 
 					// ** Execute FOS Call
-					var fnsResult = service.ContactDelete(id, user.GPEmployeeID);
+					var fnsResult = service.AddressDelete(id, user.GPEmployeeID);
 
 					// ** Save result
 					result.Code = fnsResult.Code;
@@ -338,8 +338,8 @@ namespace Nxs.Services.CorsConnext.Controllers.ContactSrvcs
 
 					// ** Create result value package
 					// ReSharper disable once RedundantCast
-					var fnsCxContact = (IFnsCxContact)fnsResult.GetTValue();
-					var resultList = ConvertTo.CastFnsToCxContact(fnsCxContact);
+					var fnsCxAddress = (IFnsCxAddress)fnsResult.GetTValue();
+					var resultList = ConvertTo.CastFnsToCxAddress(fnsCxAddress);
 
 					result.Value = resultList;
 

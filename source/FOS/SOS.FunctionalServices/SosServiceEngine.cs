@@ -120,6 +120,8 @@ namespace SOS.FunctionalServices
 			//	(Func<IInsideSalesService>)(() => new InsideSalesService()));
 
 			oEngine.FunctionalServices.Register(() => new TicketService());
+			oEngine.FunctionalServices.Register(
+				(Func<IConnextService>)(() => new ConnextService()));
 
 			AuthServiceConfig.Configure(oEngine.FunctionalServices);
 		}

@@ -8,6 +8,7 @@ using System.Data;
 using SubSonic;
 using SubSonic.Utilities;
 
+<#= "// ReSharper disable once CheckNamespace"#>
 namespace <#=Namespace#> {
 	public partial class <#=DatabaseName#>StoredProcedureManager {
 <#  foreach(var sp in sps){#>
