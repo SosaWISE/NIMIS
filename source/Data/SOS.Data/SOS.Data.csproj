@@ -52,6 +52,7 @@
     <Compile Include="NxsAccountingProvider.cs" />
     <Compile Include="NxsConnextProvider.cs" />
     <Compile Include="NxsFileStoreProvider.cs" />
+    <Compile Include="NxsFundingProvider.cs" />
     <Compile Include="NxsGreatPlainsProvider.cs" />
     <Compile Include="NxsLettersProvider.cs" />
     <Compile Include="NxsLicensingProvider.cs" />
