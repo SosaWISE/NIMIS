@@ -148,12 +148,12 @@ namespace SSE.Services.CmsCORS.Helpers
 			var result = new VerifyAddress();
 			result.AddressID = item.AddressID;
 			result.DealerId = item.DealerId;
-			result.StreetAddress = item.Address;
-			result.StreetAddress2 = item.Address2;
+			result.StreetAddress = item.StreetAddress;
+			result.StreetAddress2 = item.StreetAddress2;
 			result.StreetNumber = item.StreetNumber;
 			result.StreetName = item.StreetName;
 			result.City = item.City;
-			result.StateId = item.State;
+			result.StateId = item.StateId;
 			result.PostalCode = item.PostalCode;
 			result.PlusFour = item.PlusFour;
 			result.County = item.County;
@@ -164,7 +164,7 @@ namespace SSE.Services.CmsCORS.Helpers
 			result.ExtensionNumber = item.ExtensionNumber;
 			result.CarrierRoute = item.CarrierRoute;
 			result.DPVResponse = item.DPVResponse;
-			result.PhoneNumber = item.PhoneNumber;
+			result.PhoneNumber = item.Phone;
 			result.Latitude = item.Latitude;
 			result.Longitude = item.Longitude;
 			result.Validated = item.DPV;
@@ -172,7 +172,7 @@ namespace SSE.Services.CmsCORS.Helpers
 			result.SeasonId = item.SeasonId;
 			result.TeamLocationId = item.TeamLocationId;
 			result.TimeZoneId = item.TimeZoneId;
-			result.TimeZone = item.TimeZone;
+			//result.TimeZone = item.TimeZone;
 			result.IsActive = item.IsActive;
 			result.CreatedOn = item.CreatedOn;
 			result.CreatedBy = item.CreatedBy;
@@ -702,7 +702,23 @@ namespace SSE.Services.CmsCORS.Helpers
 				ContractId = info.ContractId,
 				ContractTemplateId = info.ContractTemplateId,
 				Email = info.Email,
-				IsMoni = info.IsMoni
+				IsMoni = info.IsMoni,
+
+				FriendsAndFamilyTypeId = info.FriendsAndFamilyTypeId,
+				AccountSubmitId = info.AccountSubmitId,
+				AccountCancelReasonId = info.AccountCancelReasonId,
+				TechId = info.TechId,
+				SalesRepId = info.SalesRepId,
+				InstallDate = info.InstallDate,
+				SubmittedToCSDate = info.SubmittedToCSDate,
+				CsConfirmationNumber = info.CsConfirmationNumber,
+				CsTwoWayConfNumber = info.CsTwoWayConfNumber,
+				SubmittedToGPDate = info.SubmittedToGPDate,
+				ContractSignedDate = info.ContractSignedDate,
+				CancelDate = info.CancelDate,
+				AMA = info.AMA,
+				NOC = info.NOC,
+				SOP = info.SOP,
 			};
 		}
 

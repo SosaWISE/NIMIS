@@ -40,8 +40,10 @@ namespace SSE.Services.CmsCORS.Models
 
 	public class LeadParam : JsonParamBase
 	{
+		public bool CreateMasterLead { get; set; }
+
 		public long LeadID { get; set; }
-		public long AddressID { get; set; }
+		public long AddressId { get; set; }
 		public string CustomerTypeId { get; set; }
 		public long CustomerMasterFileId { get; set; }
 		public int DealerId { get; set; }
@@ -61,7 +63,7 @@ namespace SSE.Services.CmsCORS.Models
 		public string SSN { get; set; }
 		public DateTime? DOB { get; set; }
 		public string DL { get; set; }
-		public string DLStateId { get; set; }
+		public string DLStateID { get; set; }
 		public string Email { get; set; }
 		public string PhoneHome { get; set; }
 		public string PhoneWork { get; set; }

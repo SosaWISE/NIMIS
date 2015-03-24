@@ -936,6 +936,36 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MC_AccountStatusCategoryController _MC_AccountStatusCategories;
+		public MC_AccountStatusCategoryController MC_AccountStatusCategories
+		{
+			get
+			{
+				if (_MC_AccountStatusCategories == null) _MC_AccountStatusCategories = new MC_AccountStatusCategoryController();
+				return _MC_AccountStatusCategories;
+			}
+		}
+
+		MC_AccountStatusEventController _MC_AccountStatusEvents;
+		public MC_AccountStatusEventController MC_AccountStatusEvents
+		{
+			get
+			{
+				if (_MC_AccountStatusEvents == null) _MC_AccountStatusEvents = new MC_AccountStatusEventController();
+				return _MC_AccountStatusEvents;
+			}
+		}
+
+		MC_AccountStatusTypeController _MC_AccountStatusTypes;
+		public MC_AccountStatusTypeController MC_AccountStatusTypes
+		{
+			get
+			{
+				if (_MC_AccountStatusTypes == null) _MC_AccountStatusTypes = new MC_AccountStatusTypeController();
+				return _MC_AccountStatusTypes;
+			}
+		}
+
 		MC_AccountSwungInfoController _MC_AccountSwungInfos;
 		public MC_AccountSwungInfoController MC_AccountSwungInfos
 		{
@@ -1403,6 +1433,36 @@ namespace SOS.Data.SosCrm
 			{
 				if (_MS_AccountHoldStocks == null) _MS_AccountHoldStocks = new MS_AccountHoldStockController();
 				return _MS_AccountHoldStocks;
+			}
+		}
+
+		MS_AccountPackageItemController _MS_AccountPackageItems;
+		public MS_AccountPackageItemController MS_AccountPackageItems
+		{
+			get
+			{
+				if (_MS_AccountPackageItems == null) _MS_AccountPackageItems = new MS_AccountPackageItemController();
+				return _MS_AccountPackageItems;
+			}
+		}
+
+		MS_AccountPackageItemTypeController _MS_AccountPackageItemTypes;
+		public MS_AccountPackageItemTypeController MS_AccountPackageItemTypes
+		{
+			get
+			{
+				if (_MS_AccountPackageItemTypes == null) _MS_AccountPackageItemTypes = new MS_AccountPackageItemTypeController();
+				return _MS_AccountPackageItemTypes;
+			}
+		}
+
+		MS_AccountPackageController _MS_AccountPackages;
+		public MS_AccountPackageController MS_AccountPackages
+		{
+			get
+			{
+				if (_MS_AccountPackages == null) _MS_AccountPackages = new MS_AccountPackageController();
+				return _MS_AccountPackages;
 			}
 		}
 
@@ -2373,6 +2433,16 @@ namespace SOS.Data.SosCrm
 			{
 				if (_MS_ReceiverLineBlockAlarmComs == null) _MS_ReceiverLineBlockAlarmComs = new MS_ReceiverLineBlockAlarmComController();
 				return _MS_ReceiverLineBlockAlarmComs;
+			}
+		}
+
+		MS_ReceiverLineBlockAlarmComHistoryController _MS_ReceiverLineBlockAlarmComHistories;
+		public MS_ReceiverLineBlockAlarmComHistoryController MS_ReceiverLineBlockAlarmComHistories
+		{
+			get
+			{
+				if (_MS_ReceiverLineBlockAlarmComHistories == null) _MS_ReceiverLineBlockAlarmComHistories = new MS_ReceiverLineBlockAlarmComHistoryController();
+				return _MS_ReceiverLineBlockAlarmComHistories;
 			}
 		}
 
@@ -3955,6 +4025,9 @@ namespace SOS.Data.SosCrm
 	public class MC_AccountNoteController : BaseTableController<MC_AccountNote, MC_AccountNoteCollection> { }
 	public class MC_AccountNoteTypeController : BaseTableController<MC_AccountNoteType, MC_AccountNoteTypeCollection> { }
 	public class MC_AccountController : BaseTableController<MC_Account, MC_AccountCollection> { }
+	public class MC_AccountStatusCategoryController : BaseTableController<MC_AccountStatusCategory, MC_AccountStatusCategoryCollection> { }
+	public class MC_AccountStatusEventController : BaseTableController<MC_AccountStatusEvent, MC_AccountStatusEventCollection> { }
+	public class MC_AccountStatusTypeController : BaseTableController<MC_AccountStatusType, MC_AccountStatusTypeCollection> { }
 	public class MC_AccountSwungInfoController : BaseTableController<MC_AccountSwungInfo, MC_AccountSwungInfoCollection> { }
 	public class MC_AccountTypeController : BaseTableController<MC_AccountType, MC_AccountTypeCollection> { }
 	public class MC_AddressCoordController : BaseTableController<MC_AddressCoord, MC_AddressCoordCollection> { }
@@ -4002,6 +4075,9 @@ namespace SOS.Data.SosCrm
 	public class MS_AccountHoldCatg2Controller : BaseTableController<MS_AccountHoldCatg2, MS_AccountHoldCatg2Collection> { }
 	public class MS_AccountHoldController : BaseTableController<MS_AccountHold, MS_AccountHoldCollection> { }
 	public class MS_AccountHoldStockController : BaseTableController<MS_AccountHoldStock, MS_AccountHoldStockCollection> { }
+	public class MS_AccountPackageItemController : BaseTableController<MS_AccountPackageItem, MS_AccountPackageItemCollection> { }
+	public class MS_AccountPackageItemTypeController : BaseTableController<MS_AccountPackageItemType, MS_AccountPackageItemTypeCollection> { }
+	public class MS_AccountPackageController : BaseTableController<MS_AccountPackage, MS_AccountPackageCollection> { }
 	public class MS_AccountPanelTypePanicZoneController : BaseTableController<MS_AccountPanelTypePanicZone, MS_AccountPanelTypePanicZoneCollection> { }
 	public class MS_AccountPanelTypeController : BaseTableController<MS_AccountPanelType, MS_AccountPanelTypeCollection> { }
 	public class MS_AccountController : BaseTableController<MS_Account, MS_AccountCollection> { }
@@ -4099,6 +4175,7 @@ namespace SOS.Data.SosCrm
 	public class MS_MonitronicsSubmitsGetDataController : BaseTableController<MS_MonitronicsSubmitsGetData, MS_MonitronicsSubmitsGetDataCollection> { }
 	public class MS_ReceiverLineAlarmNetController : BaseTableController<MS_ReceiverLineAlarmNet, MS_ReceiverLineAlarmNetCollection> { }
 	public class MS_ReceiverLineBlockAlarmComController : BaseTableController<MS_ReceiverLineBlockAlarmCom, MS_ReceiverLineBlockAlarmComCollection> { }
+	public class MS_ReceiverLineBlockAlarmComHistoryController : BaseTableController<MS_ReceiverLineBlockAlarmComHistory, MS_ReceiverLineBlockAlarmComHistoryCollection> { }
 	public class MS_ReceiverLineBlockAlarmnetController : BaseTableController<MS_ReceiverLineBlockAlarmnet, MS_ReceiverLineBlockAlarmnetCollection> { }
 	public class MS_ReceiverLineBlockController : BaseTableController<MS_ReceiverLineBlock, MS_ReceiverLineBlockCollection> { }
 	public class MS_ReceiverLineBlockTelguardController : BaseTableController<MS_ReceiverLineBlockTelguard, MS_ReceiverLineBlockTelguardCollection> { }

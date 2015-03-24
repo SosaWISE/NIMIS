@@ -62,5 +62,14 @@ namespace SOS.Data.SosCrm.ControllerExtensions
 			var v = qry.SQLCommand;
 			return qry.GetRecordCount() > 0;
 		}
+
+		public static AR ByLeadId(this ARController cntlr, long leadId)
+		{
+			var qry = AR.Query()
+				.WHERE(AR.Columns.LeadId, leadId)
+				.AND(AR.Columns.IsActive, true)
+				.AND(AR.Columns.IsDeleted, false);
+			return cntlr.LoadSingle(qry);
+		}
 	}
 }

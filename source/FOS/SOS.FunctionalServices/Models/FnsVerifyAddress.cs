@@ -13,11 +13,11 @@ namespace SOS.FunctionalServices.Models
 			AddressID = address.AddressID;
 			DealerId = address.DealerId;
 			TimeZoneId = address.TimeZoneId;
-			TimeZone = address.TimeZone.TimeZoneName;
-			Address = address.StreetAddress;
-			Address2 = address.StreetAddress2;
+			//TimeZone = address.TimeZone.TimeZoneName;
+			StreetAddress = address.StreetAddress;
+			StreetAddress2 = address.StreetAddress2;
 			City = address.City;
-			State = address.StateId;
+			StateId = address.StateId;
 			PostalCode = address.PostalCode;
 			PlusFour = address.PlusFour;
 			County = address.County;
@@ -28,7 +28,7 @@ namespace SOS.FunctionalServices.Models
 			ExtensionNumber = address.ExtensionNumber;
 			CarrierRoute = address.CarrierRoute;
 			DPVResponse = address.DPVResponse;
-			PhoneNumber = address.Phone;
+			Phone = address.Phone;
 			StreetNumber = address.StreetNumber;
 			StreetName = address.StreetName;
 			Latitude = address.Latitude;
@@ -68,10 +68,10 @@ namespace SOS.FunctionalServices.Models
 
 			address.DealerId = this.DealerId;
 			address.TimeZoneId = this.TimeZoneId;
-			address.StreetAddress = this.Address;
-			address.StreetAddress2 = this.Address2;
+			address.StreetAddress = this.StreetAddress;
+			address.StreetAddress2 = this.StreetAddress2;
 			address.City = this.City;
-			address.StateId = this.State;
+			address.StateId = this.StateId;
 			address.PostalCode = this.PostalCode;
 			address.PlusFour = this.PlusFour;
 			address.County = this.County;
@@ -82,7 +82,7 @@ namespace SOS.FunctionalServices.Models
 			address.ExtensionNumber = this.ExtensionNumber;
 			address.CarrierRoute = this.CarrierRoute;
 			address.DPVResponse = this.DPVResponse;
-			address.Phone = this.PhoneNumber;
+			address.Phone = this.Phone;
 			address.StreetNumber = this.StreetNumber;
 			address.StreetName = this.StreetName;
 			address.Latitude = this.Latitude;
@@ -118,11 +118,11 @@ namespace SOS.FunctionalServices.Models
 		public long AddressID { get; set; }
 		public int DealerId { get; set; }
 		public int TimeZoneId { get; set; }
-		public string TimeZone { get; set; }
-		public string Address { get; set; }
-		public string Address2 { get; set; }
+		//public string TimeZone { get; set; }
+		public string StreetAddress { get; set; }
+		public string StreetAddress2 { get; set; }
 		public string City { get; set; }
-		public string State { get; set; }
+		public string StateId { get; set; }
 		public string PostalCode { get; set; }
 		public string PlusFour { get; set; }
 		public string County { get; set; }
@@ -133,7 +133,7 @@ namespace SOS.FunctionalServices.Models
 		public string ExtensionNumber { get; set; }
 		public string CarrierRoute { get; set; }
 		public string DPVResponse { get; set; }
-		public string PhoneNumber { get; set; }
+		public string Phone { get; set; }
 		public string StreetNumber { get; set; }
 		public string StreetName { get; set; }
 		public double Latitude { get; set; }

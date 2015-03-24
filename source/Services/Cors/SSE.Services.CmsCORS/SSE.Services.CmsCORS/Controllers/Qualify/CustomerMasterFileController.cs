@@ -20,9 +20,7 @@ namespace SSE.Services.CmsCORS.Controllers.Qualify
 			}
 		}
 
-		[Route("CustomerMasterFiles/{id}/HasCustomer")]
-		[HttpGet]
-		[HttpOptions]
+		[HttpGet, Route("CustomerMasterFiles/{id}/HasCustomer")]
 		public Result<bool> HasCustomer(long id)
 		{
 			return CORSSecurity.Authorize("HasCustomer", null, null, user =>
@@ -40,29 +38,7 @@ namespace SSE.Services.CmsCORS.Controllers.Qualify
 			});
 		}
 
-		[Route("CustomerMasterFiles/{id}/Leads")]
-		[HttpGet]
-		[HttpOptions]
-		public Result<List<IFnsQlLead>> Leads(long id)
-		{
-			return CORSSecurity.Authorize("Leads", null, null, user =>
-			{
-				var result = new Result<List<IFnsQlLead>>();
-				if (id == 0)
-				{
-					result.Code = -1;
-					result.Message = "Invalid CustomerMasterFileID";
-					return result;
-				}
-
-				var fnsResult = Service.MasterFileLeads(id);
-				return result.FromFnsResult(fnsResult);
-			});
-		}
-
-		[Route("CustomerMasterFiles/{id}/Customers")]
-		[HttpGet]
-		[HttpOptions]
+		[HttpGet, Route("CustomerMasterFiles/{id}/Customers")]
 		public Result<List<IFnsAeCustomerCardInfo>> Customers(long id)
 		{
 			return CORSSecurity.Authorize("Customers", null, null, user =>

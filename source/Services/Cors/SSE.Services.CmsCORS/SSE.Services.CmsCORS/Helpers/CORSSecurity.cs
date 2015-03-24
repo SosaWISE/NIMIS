@@ -9,6 +9,8 @@ using SSE.Services.CmsCORS.Models;
 using System;
 using System.Web;
 using NXS.Lib.Web;
+using NXS.Lib.Web.Caching;
+using Nancy.Authentication.Token;
 
 namespace SSE.Services.CmsCORS.Helpers
 {
@@ -80,31 +82,25 @@ namespace SSE.Services.CmsCORS.Helpers
 
 		private static bool Authorize(string applicationID, string actionID, out SseCmsUser user)
 		{
-			var service = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
-			UserModel authUser;
-			var context = HttpContext.Current;
-			var identity = context.User.Identity;
-			if (identity.IsAuthenticated)
+			var tokenConfig = SosServiceEngine.Instance.FunctionalServices.Instance<TokenAuthenticationConfiguration>();
+			var identity = HttpContext.Current.GetIdentity(tokenConfig);
+			var authService = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
+			if (identity != null && authService.HasPermission(identity.Claims, applicationID, actionID))
 			{
-				var username = identity.GetUsername();
-				var result = service.GetUser(username, false);
-				authUser = (result.Success) ? result.Value : null;
-			}
-			else
-			{
-				authUser = service.Authorize(context.GetUserSession(), IPAddressUtil.ClientIPAddress(), applicationID, actionID);
+				user = new SseCmsUser
+				{
+					UserID = identity.UserID,
+					Username = identity.UserName,
+					Firstname = identity.FirstName,
+					Lastname = identity.LastName,
+					GPEmployeeID = identity.GPEmployeeID,
+					DealerId = identity.DealerId,
+				};
+				return true;
 			}
 
-			user = (authUser == null) ? null : new SseCmsUser
-			{
-				UserID = authUser.UserID,
-				Username = authUser.Username,
-				Firstname = authUser.Firstname,
-				Lastname = authUser.Lastname,
-				GPEmployeeID = authUser.GPEmployeeID,
-				DealerId = authUser.DealerId,
-			};
-			return user != null;
+			user = null;
+			return false;
 		}
 
 		private static SseCmsUser GetUnitTestUser()

@@ -53,7 +53,7 @@ namespace SOS.FunctionalServices.Contracts
         IFnsResult<object> AccountValidate(long accountId);
 
 		//IFnsResult<IFnsMsAccountLeadInfo> MsAccountCreate(long leadId, string gpEmployeeId);
-		IFnsResult<IFnsMsAccountLeadInfo> CreateMasterFileAccounts(long cmfid, string gpEmployeeId);
+		IFnsResult<IFnsMsAccountLeadInfo> CreateMasterFileAccount(long cmfid, string gpEmployeeId);
 
 		#region Industry Accounts
 

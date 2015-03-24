@@ -1,4 +1,6 @@
-﻿using NXS.Lib.Web;
+﻿using Nancy.Authentication.Token;
+using NXS.Lib.Web;
+using NXS.Lib.Web.Authentication;
 using NXS.Lib.Web.Caching;
 using SOS.Data.AuthenticationControl;
 using SOS.FunctionalServices.Contracts;
@@ -74,14 +76,20 @@ namespace SOS.FunctionalServices
 	{
 		public static void Configure(IFunctionalServiceFactory functionalServices)
 		{
-			{ // Session Store
-				var sessionStore = CreateSessionStore();
+			var maxAge = TimeSpan.FromHours(24);
+			{
+				// Session Store
+				var sessionStore = CreateSessionStore(maxAge);
 				functionalServices.Register(() => sessionStore);
-			}
-			{ // User Store
+
+				// User Store
 				var mockADGroups = string.Compare(Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("MockADGroups"), "true", true) == 0;
 				var userStore = CreateUserStore(mockADGroups);
 				functionalServices.Register(() => userStore);
+
+				//
+				var configuration = new TokenAuthenticationConfiguration(CreateTokenizer(), new SystemUserIdentityResolver(sessionStore, userStore));
+				functionalServices.Register(() => configuration);
 			}
 			{ // Auth Service
 				var groupApps = new Dictionary<string, HashSet<string>>();
@@ -120,74 +128,57 @@ namespace SOS.FunctionalServices
 			}
 		}
 
-		static SessionStore CreateSessionStore()
+		static SessionStore CreateSessionStore(TimeSpan maxAge)
 		{
-			//var sessionDb = new InMemorySessionDb();
 			return new SessionStore(
-				createSession: (s) =>
+				save: (s) =>
 				{
 					var sess = new AC_UserSession
 					{
 						SessionKey = s.SessionKey,
 						Username = s.Username,
 						IPAddress = s.IPAddress,
-						LastAccessedOn = s.LastAccessedOn,
+						LastAccessedOn = DateTime.UtcNow,
 						Terminated = false,
-						CreatedOn = DateTime.UtcNow,
+						CreatedOn = s.CreatedOn,
 					};
 					sess.Save();
-					//sessionDb.SaveSession(sess);
-					s.ID = sess.ID;
 					return s;
 				},
-				readSession: (sessionKey) =>
+				read: (sessionKey) =>
 				{
 					var sess = SosAuthControlDataContext.Instance.AC_UserSessions.BySessionKey(sessionKey);
-					//var sess = sessionDb.BySessionKey(sessionKey);
 					if (sess == null)
-						throw new Exception("no session read. sessionKey: " + sessionKey);
+						return default(Session); //throw new Exception("no session to read. sessionKey: " + sessionKey);
 					if (sess.Terminated)
-						throw new Exception("session is terminated");
+						return default(Session); //throw new Exception("read session is terminated");
 					return new Session
 					{
-						ID = sess.ID,
+						//ID = sess.ID,
 						SessionKey = sess.SessionKey,
 						Username = sess.Username,
 						IPAddress = sess.IPAddress,
-						LastAccessedOn = sess.LastAccessedOn,
+						//LastAccessedOn = sess.LastAccessedOn,
+						CreatedOn = sess.CreatedOn.ToUniversalTime(),
 					};
 				},
-				updateSession: (s) =>
+				touch: (sessionKey) =>
 				{
-					var sess = SosAuthControlDataContext.Instance.AC_UserSessions.LoadByPrimaryKey(s.ID);
-					//var sess = sessionDb.LoadByPrimaryKey(s.ID);
-					if (sess == null)
-						throw new Exception("no session to update. id: " + s.ID);
-					if (sess.Terminated)
-						throw new Exception("session is terminated");
-					if (sess.Username != null && sess.Username != s.Username)
-						throw new Exception("username cannot change");
-					sess.SessionKey = s.SessionKey;
-					sess.Username = s.Username;
-					sess.IPAddress = s.IPAddress;
-					sess.LastAccessedOn = s.LastAccessedOn;
-					sess.Save();
-					//sessionDb.SaveSession(sess);
+					SosAuthControlDataContext.Instance.AC_UserSessions.Touch(sessionKey);
 				},
-				terminateSession: (sessionKey) =>
+				terminate: (sessionKey) =>
 				{
 					var sess = SosAuthControlDataContext.Instance.AC_UserSessions.BySessionKey(sessionKey);
-					//var sess = sessionDb.BySessionKey(sessionKey);
 					if (sess == null)
-						throw new Exception("no session to terminate. sessionKey:" + sessionKey);
+						return; //throw new Exception("no session to terminate. sessionKey:" + sessionKey);
 					if (!sess.Terminated)
 					{
 						sess.Terminated = true;
 						sess.Save();
-						//sessionDb.SaveSession(sess);
 					}
 				},
-				slidingExpiration: TimeSpan.FromMinutes(20),
+				maxAge: maxAge,
+				slidingCacheExpiration: TimeSpan.FromMinutes(30),
 				memoryLimitMb: 10,
 				physicalMemoryLimitPercent: 5,
 				pollingInterval: TimeSpan.FromMinutes(2)
@@ -231,7 +222,7 @@ namespace SOS.FunctionalServices
 						DealerId = authUser.DealerId,
 					};
 				},
-				hardExpiration: TimeSpan.FromMinutes(20),
+				hardExpirationLength: TimeSpan.FromMinutes(20),
 				memoryLimitMb: 10,
 				physicalMemoryLimitPercent: 5,
 				pollingInterval: TimeSpan.FromMinutes(2)
@@ -258,6 +249,21 @@ namespace SOS.FunctionalServices
 				// default
 				return new List<string> { "Nexsense", };
 			}
+		}
+
+		private static Tokenizer CreateTokenizer()
+		{
+			var tokenizer = new Tokenizer(cfg =>
+			{
+				cfg.AdditionalItems(ctx =>
+				{
+					//@HACK: for integration with non Nancy requests
+					if (ctx == null)
+						return System.Web.HttpContext.Current.Request.Headers["User-Agent"];
+					return ctx.Request.Headers.UserAgent;
+				});
+			});
+			return tokenizer;
 		}
 	}
 }
