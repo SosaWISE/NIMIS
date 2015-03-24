@@ -79,7 +79,7 @@ namespace SOS.FunctionalServices
 				functionalServices.Register(() => sessionStore);
 			}
 			{ // User Store
-				var mockADGroups = string.Compare(SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("MockADGroups"), "true", true) == 0;
+				var mockADGroups = string.Compare(Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("MockADGroups"), "true", true) == 0;
 				var userStore = CreateUserStore(mockADGroups);
 				functionalServices.Register(() => userStore);
 			}
