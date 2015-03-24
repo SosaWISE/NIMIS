@@ -339,6 +339,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Data\NXS.Data.Funding\NXS.Data.Funding.csproj">
+      <Project>{9a891e70-afea-46b9-b9a4-b8445c9925ad}</Project>
+      <Name>NXS.Data.Funding</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Data\SOS.Data.AuthenticationControl\SOS.Data.AuthenticationControl.csproj">
       <Project>{acce6d59-0aa7-4353-850e-1b78e16b3074}</Project>
       <Name>SOS.Data.AuthenticationControl</Name>
@@ -346,6 +350,10 @@
     <ProjectReference Include="..\..\..\..\Data\SOS.Data.GpsTracking\SOS.Data.GpsTracking.csproj">
       <Project>{0a865a05-c179-46ba-975e-e360e33cd223}</Project>
       <Name>SOS.Data.GpsTracking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Data\SOS.Data.HumanResource\SOS.Data.HumanResource.csproj">
+      <Project>{cff942b5-73be-42a3-86de-14ef45befcf1}</Project>
+      <Name>SOS.Data.HumanResource</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Data\SOS.Data.Logging\SOS.Data.Logging.csproj">
       <Project>{b6b1fcf3-f2ba-445e-9041-5100733efd20}</Project>

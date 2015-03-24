@@ -26,6 +26,7 @@ namespace SOS.Data
 		public const string NXS_LETTERS_PROVIDER_NAME = "NxsLettersProvider";
 		public const string NXS_GREATPLAINS_PROVIDER_NAME = "NxsGreatPlainsProvider";
 		public const string NXS_CONNEXT_PROVIDER_NAME = "NxsConnextProvider";
+		public const string NXS_FUNDING_PROVIDER_NAME = "NxsFundingProvider";
 
 		// Connection String Keys
 		public const string SOS_CMS_CONN_STRING_KEY = "SosCrmConnString";
@@ -42,6 +43,7 @@ namespace SOS.Data
 		public const string NXS_LETTERS_CONN_STRING_KEY = "NxsLettersConnString";
 		public const string NXS_GREATPLAINS_CONN_STRING_KEY = "NxsGreatPlainsConnString";
 		public const string NXS_CONNEXT_CONN_STRING_KEY = "NxsConnextConnString";
+		public const string NXS_FUNDING_CONN_STRING_KEY = "NxsFundingConnString";
 
 		// Application Keys
 		public const string LOG_SOURCE_KEY = "LogSourceID";
@@ -63,7 +65,9 @@ namespace SOS.Data
 			{NXS_LICENSING_PROVIDER_NAME, "NXSE_Licensing"},
 			{NXS_ACCOUNTING_PROVIDER_NAME, "NXSE_Accounting"},
 			{NXS_LETTERS_PROVIDER_NAME, "NXSE_Letters"},
-			{NXS_GREATPLAINS_PROVIDER_NAME, "NXSE_GreatPlains"}
+			{NXS_GREATPLAINS_PROVIDER_NAME, "NXSE_GreatPlains"},
+			{NXS_CONNEXT_PROVIDER_NAME, "NXSE_Connext"},
+			{NXS_FUNDING_PROVIDER_NAME, "NXSE_Funding"}
 		};
 
 		#endregion Constants
@@ -109,6 +113,8 @@ namespace SOS.Data
 			SetProviderConnectionString(NXS_INVENTORY_PROVIDER_NAME, NXS_INVENTORY_CONN_STRING_KEY);
 			SetProviderConnectionString(NXS_LICENSING_PROVIDER_NAME, NXS_LICENSING_CONN_STRING_KEY);
 			SetProviderConnectionString(NXS_ACCOUNTING_PROVIDER_NAME, NXS_ACCOUNTING_CONN_STRING_KEY);
+			SetProviderConnectionString(NXS_CONNEXT_PROVIDER_NAME, NXS_CONNEXT_CONN_STRING_KEY);
+			SetProviderConnectionString(NXS_FUNDING_PROVIDER_NAME, NXS_FUNDING_CONN_STRING_KEY);
 		}
 
 		static void SetProviderConnectionString(string providerName, string key)
