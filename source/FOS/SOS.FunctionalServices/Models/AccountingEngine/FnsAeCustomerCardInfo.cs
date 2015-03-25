@@ -55,6 +55,9 @@ namespace SOS.FunctionalServices.Models.AccountingEngine
 					passCreditScore: season.PassCreditScoreThreshold,
 					subCreditScore: season.SubCreditScoreThreshold).ToString();
 			}
+
+			Latitude = address.Latitude;
+			Longitude = address.Longitude;
 		}
 
 		#endregion .ctor
@@ -88,6 +91,8 @@ namespace SOS.FunctionalServices.Models.AccountingEngine
 		public string PlusFour { get; private set; }
 		public string CityStateZip { get; private set; }
 		public string CreditGroup { get; private set; }
+		public double Latitude { get; private set; }
+		public double Longitude { get; private set; }
 		#endregion Properties
 	}
 }
