@@ -48,6 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sequel.cs" />
     <Compile Include="Snapshotter.cs" />
+    <Compile Include="VersionException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

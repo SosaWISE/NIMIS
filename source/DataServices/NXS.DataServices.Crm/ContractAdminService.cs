@@ -20,28 +20,28 @@ namespace NXS.DataServices.Crm
 			_gpEmployeeId = gpEmployeeId;
 		}
 
-		public Dictionary<string, int> CustomerTypesPrecedenceMap()
-		{
-			return precedenceMap;
-		}
-		private static readonly new Dictionary<string, int> precedenceMap = new Dictionary<string, int>(5, StringComparer.OrdinalIgnoreCase) {
-			{"PRI", 1},
-			{"LEAD", 1},
-			{"SEC", 2},
-			{"BILL", 3},
-			{"SHIP", 4},
-		};
-		private static int getPrecedence(string customerTypeId)
-		{
-			if (precedenceMap.ContainsKey(customerTypeId))
-				return precedenceMap[customerTypeId];
-			else
-				return 99;
-		}
-		private static int PrecedenceComparison(AE_CustomerAccount a, AE_CustomerAccount b)
-		{
-			return getPrecedence(a.CustomerTypeId) - getPrecedence(b.CustomerTypeId);
-		}
+		//public Dictionary<string, int> CustomerTypesPrecedenceMap()
+		//{
+		//	return precedenceMap;
+		//}
+		//private static readonly Dictionary<string, int> precedenceMap = new Dictionary<string, int>(5, StringComparer.OrdinalIgnoreCase) {
+		//	{"PRI", 1},
+		//	{"LEAD", 1},
+		//	{"SEC", 2},
+		//	{"BILL", 3},
+		//	{"SHIP", 4},
+		//};
+		//private static int getPrecedence(string customerTypeId)
+		//{
+		//	if (precedenceMap.ContainsKey(customerTypeId))
+		//		return precedenceMap[customerTypeId];
+		//	else
+		//		return 99;
+		//}
+		//private static int PrecedenceComparison(AE_CustomerAccount a, AE_CustomerAccount b)
+		//{
+		//	return getPrecedence(a.CustomerTypeId) - getPrecedence(b.CustomerTypeId);
+		//}
 
 		//public async Task<Result<AeCustomer>> CustomerByTypeAsync(long accountId, string customerTypeId)
 		//{

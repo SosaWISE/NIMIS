@@ -66,7 +66,7 @@ namespace NXS.Data.Crm
 				, McA.Star
 			).From(tbl)
 			.InnerJoin(CUST).On(CUST.CustomerID, Comparison.Equals, tbl.CustomerId, literalText: true)
-			.LeftOuterJoin(McA).On(McA.AddressID, Comparison.Equals, tbl.AddressId, literalText: true); // AddressId is nullable
+			.InnerJoin(McA).On(McA.AddressID, Comparison.Equals, tbl.AddressId, literalText: true);
 		}
 		private static Task<ARCollection> LoadManyFull(this ARTable tbl, Sequel qry)
 		{

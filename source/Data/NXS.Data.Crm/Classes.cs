@@ -222,4 +222,14 @@ namespace NXS.Data.Crm
 		public string CreatedBy { get; set; }
 		public DateTime DEX_ROW_TS { get; set; }
 	}
+	public partial class TS_Team // TS_Teams
+	{
+		public int TeamId { get; set; }
+		public long AddressId { get; set; }
+		public int Version { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+	}
 }

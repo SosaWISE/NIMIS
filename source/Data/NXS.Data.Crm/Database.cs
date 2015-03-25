@@ -13,6 +13,7 @@ namespace NXS.Data.Crm
 		public QL_CustomerMasterLeadTable QL_CustomerMasterLeads { get; set; }
 		public QL_LeadAddressTable QL_LeadAddresses { get; set; }
 		public QL_LeadTable QL_Leads { get; set; }
+		public TS_TeamTable TS_Teams { get; set; }
 
 		public partial class AE_CustomerAccountTable : Table<AE_CustomerAccount, long>
 		{
@@ -248,6 +249,18 @@ namespace NXS.Data.Crm
 			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
 			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
 			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+		}
+		public partial class TS_TeamTable : Table<TS_Team, int>
+		{
+			public CrmDb Db { get { return (CrmDb)_database; } }
+			public TS_TeamTable(CrmDb db) : base(db, "TsT", "[dbo].[TS_Teams]", "TeamId", "int") { }
+			public string TeamId { get { return _alias + "[TeamId]"; } }
+			public string AddressId { get { return _alias + "[AddressId]"; } }
+			public string Version { get { return _alias + "[Version]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
 		}
 
 	}
