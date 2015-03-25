@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Helper\ErrorCodes.cs" />
     <Compile Include="IConnextService.cs" />
+    <Compile Include="IFundingServices.cs" />
     <Compile Include="IInsideSalesService.cs" />
     <Compile Include="IReportingService.cs" />
     <Compile Include="IInventoryEngineService.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Models\Data\IFnsRuTeamLocation.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Funding\IFnsFeCriteria.cs" />
     <Compile Include="Models\HumanResource\IFnsSalesSalespersonMonthlyHolds.cs" />
     <Compile Include="Models\HumanResource\IFnsSalesSalespersonMonthlyCommissions.cs" />
     <Compile Include="Models\HumanResource\IFnsSalesSalespersonMonthlyEarningsSummary.cs" />

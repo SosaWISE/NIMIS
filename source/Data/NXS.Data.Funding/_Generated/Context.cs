@@ -76,16 +76,6 @@ namespace NXS.Data.Funding
 			}
 		}
 
-		FE_CriteriumController _FE_Criteria;
-		public FE_CriteriumController FE_Criteria
-		{
-			get
-			{
-				if (_FE_Criteria == null) _FE_Criteria = new FE_CriteriumController();
-				return _FE_Criteria;
-			}
-		}
-
 		FE_CriteriaItemController _FE_CriteriaItems;
 		public FE_CriteriaItemController FE_CriteriaItems
 		{
@@ -93,6 +83,16 @@ namespace NXS.Data.Funding
 			{
 				if (_FE_CriteriaItems == null) _FE_CriteriaItems = new FE_CriteriaItemController();
 				return _FE_CriteriaItems;
+			}
+		}
+
+		FE_CriteriaController _FE_Criterias;
+		public FE_CriteriaController FE_Criterias
+		{
+			get
+			{
+				if (_FE_Criterias == null) _FE_Criterias = new FE_CriteriaController();
+				return _FE_Criterias;
 			}
 		}
 
@@ -270,6 +270,16 @@ namespace NXS.Data.Funding
 
 		#region View Controllers Properties
 
+		FE_CriteriasViewController _FE_CriteriasViews;
+		public FE_CriteriasViewController FE_CriteriasViews
+		{
+			get
+			{
+				if (_FE_CriteriasViews == null) _FE_CriteriasViews = new FE_CriteriasViewController();
+				return _FE_CriteriasViews;
+			}
+		}
+
 		#endregion //View Controllers Properties
 	}
 
@@ -279,8 +289,8 @@ namespace NXS.Data.Funding
 	public class FE_AccountFundingStatusTypeController : BaseTableController<FE_AccountFundingStatusType, FE_AccountFundingStatusTypeCollection> { }
 	public class FE_BundleItemController : BaseTableController<FE_BundleItem, FE_BundleItemCollection> { }
 	public class FE_BundleController : BaseTableController<FE_Bundle, FE_BundleCollection> { }
-	public class FE_CriteriumController : BaseTableController<FE_Criterium, FE_CriteriumCollection> { }
 	public class FE_CriteriaItemController : BaseTableController<FE_CriteriaItem, FE_CriteriaItemCollection> { }
+	public class FE_CriteriaController : BaseTableController<FE_Criteria, FE_CriteriaCollection> { }
 	public class FE_FundingHistoryController : BaseTableController<FE_FundingHistory, FE_FundingHistoryCollection> { }
 	public class FE_PacketItemController : BaseTableController<FE_PacketItem, FE_PacketItemCollection> { }
 	public class FE_PacketController : BaseTableController<FE_Packet, FE_PacketCollection> { }
@@ -303,6 +313,7 @@ namespace NXS.Data.Funding
 
 	#region View Controllers
 
+	public class FE_CriteriasViewController : BaseViewController<FE_CriteriasView, FE_CriteriasViewCollection> { }
 
 	#endregion //View Controllers
 }

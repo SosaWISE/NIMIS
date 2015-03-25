@@ -3,6 +3,7 @@ using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.AccountingEngine;
 using SOS.FunctionalServices.Contracts.Models.CentralStation;
 using SOS.FunctionalServices.Contracts.Models.Data;
+using SOS.FunctionalServices.Contracts.Models.Funding;
 using SOS.FunctionalServices.Contracts.Models.HumanResource;
 using SOS.FunctionalServices.Contracts.Models.InventoryEngine;
 using SOS.FunctionalServices.Contracts.Models.QualifyLead;
@@ -11,6 +12,7 @@ using SOS.FunctionalServices.Contracts.Models.Swing;
 using SOS.FunctionalServices.Models.CentralStation;
 using SOS.Services.Interfaces.Models.AccountingEngine;
 using SOS.Services.Interfaces.Models.CmsModels;
+using SOS.Services.Interfaces.Models.Funding;
 using SOS.Services.Interfaces.Models.HumanResources;
 using SOS.Services.Interfaces.Models.InventoryEngine;
 using SOS.Services.Interfaces.Models.MonitoringStation;
@@ -1406,5 +1408,25 @@ namespace SSE.Services.CmsCORS.Helpers
 		}
 
 		#endregion Reporting Services
+
+		#region Funding Services
+
+		public static FeCriteria CastFnsToFeCriteria(IFnsFeCriteria value)
+		{
+			return new FeCriteria
+			{
+				CriteriaID = value.CriteriaID,
+				PurchaserId = value.PurchaserId,
+				PurchaserName = value.PurchaserName,
+				CriteriaName = value.CriteriaName,
+				Description = value.Description,
+				FilterString = value.FilterString,
+				CreatedBy = value.CreatedBy,
+				CreatedOn = value.CreatedOn
+			};
+		}
+
+		#endregion Funding Services
+
 	}
 }

@@ -1376,14 +1376,14 @@ namespace NXS.Data.Funding
 
 	}
 	/// <summary>
-	/// Strongly-typed collection for the FE_Criterium class.
+	/// Strongly-typed collection for the FE_CriteriaItem class.
 	/// </summary>
 	[DataContract]
-	public partial class FE_CriteriumCollection : ActiveList<FE_Criterium, FE_CriteriumCollection>
+	public partial class FE_CriteriaItemCollection : ActiveList<FE_CriteriaItem, FE_CriteriaItemCollection>
 	{
-		public static FE_CriteriumCollection LoadByStoredProcedure(StoredProcedure sp)
+		public static FE_CriteriaItemCollection LoadByStoredProcedure(StoredProcedure sp)
 		{
-			FE_CriteriumCollection result = new FE_CriteriumCollection();
+			FE_CriteriaItemCollection result = new FE_CriteriaItemCollection();
 			result.LoadAndCloseReader(sp.GetReader());
 			return result;
 		}
@@ -1397,7 +1397,7 @@ namespace NXS.Data.Funding
 		}
 		public IEnumerable<object> GetJoinColumnList(string columnName)
 		{
-			foreach (FE_Criterium item in this) {
+			foreach (FE_CriteriaItem item in this) {
 				object value = item.GetColumnValue<object>(columnName);
 				if (value != null) {
 					yield return value;
@@ -1407,10 +1407,10 @@ namespace NXS.Data.Funding
 	}
 
 	/// <summary>
-	/// This is an ActiveRecord class which wraps the FE_Criteria table.
+	/// This is an ActiveRecord class which wraps the FE_CriteriaItems table.
 	/// </summary>
 	[DataContract]
-	public partial class FE_Criterium : ActiveRecord<FE_Criterium>, INotifyPropertyChanged
+	public partial class FE_CriteriaItem : ActiveRecord<FE_CriteriaItem>, INotifyPropertyChanged
 	{
 
 
@@ -1425,7 +1425,7 @@ namespace NXS.Data.Funding
 
 		#region .ctors and Default Settings
 
-		public FE_Criterium()
+		public FE_CriteriaItem()
 		{
 			SetSQLProps();InitSetDefaults();MarkNew();
 		}
@@ -1448,7 +1448,308 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_Criteria", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_CriteriaItems", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarCriteraItemID = new TableSchema.TableColumn(schema);
+				colvarCriteraItemID.ColumnName = "CriteraItemID";
+				colvarCriteraItemID.DataType = DbType.Int32;
+				colvarCriteraItemID.MaxLength = 0;
+				colvarCriteraItemID.AutoIncrement = true;
+				colvarCriteraItemID.IsNullable = false;
+				colvarCriteraItemID.IsPrimaryKey = true;
+				colvarCriteraItemID.IsForeignKey = false;
+				colvarCriteraItemID.IsReadOnly = false;
+				colvarCriteraItemID.DefaultSetting = @"";
+				colvarCriteraItemID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCriteraItemID);
+
+				TableSchema.TableColumn colvarCriteriaId = new TableSchema.TableColumn(schema);
+				colvarCriteriaId.ColumnName = "CriteriaId";
+				colvarCriteriaId.DataType = DbType.Int32;
+				colvarCriteriaId.MaxLength = 0;
+				colvarCriteriaId.AutoIncrement = false;
+				colvarCriteriaId.IsNullable = false;
+				colvarCriteriaId.IsPrimaryKey = false;
+				colvarCriteriaId.IsForeignKey = true;
+				colvarCriteriaId.IsReadOnly = false;
+				colvarCriteriaId.DefaultSetting = @"";
+				colvarCriteriaId.ForeignKeyTableName = "FE_Criterias";
+				schema.Columns.Add(colvarCriteriaId);
+
+				TableSchema.TableColumn colvarColumnName = new TableSchema.TableColumn(schema);
+				colvarColumnName.ColumnName = "ColumnName";
+				colvarColumnName.DataType = DbType.String;
+				colvarColumnName.MaxLength = 50;
+				colvarColumnName.AutoIncrement = false;
+				colvarColumnName.IsNullable = false;
+				colvarColumnName.IsPrimaryKey = false;
+				colvarColumnName.IsForeignKey = false;
+				colvarColumnName.IsReadOnly = false;
+				colvarColumnName.DefaultSetting = @"";
+				colvarColumnName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarColumnName);
+
+				TableSchema.TableColumn colvarValueX = new TableSchema.TableColumn(schema);
+				colvarValueX.ColumnName = "Value";
+				colvarValueX.DataType = DbType.String;
+				colvarValueX.MaxLength = 50;
+				colvarValueX.AutoIncrement = false;
+				colvarValueX.IsNullable = false;
+				colvarValueX.IsPrimaryKey = false;
+				colvarValueX.IsForeignKey = false;
+				colvarValueX.IsReadOnly = false;
+				colvarValueX.DefaultSetting = @"";
+				colvarValueX.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarValueX);
+
+				TableSchema.TableColumn colvarOperatorX = new TableSchema.TableColumn(schema);
+				colvarOperatorX.ColumnName = "Operator";
+				colvarOperatorX.DataType = DbType.String;
+				colvarOperatorX.MaxLength = 50;
+				colvarOperatorX.AutoIncrement = false;
+				colvarOperatorX.IsNullable = false;
+				colvarOperatorX.IsPrimaryKey = false;
+				colvarOperatorX.IsForeignKey = false;
+				colvarOperatorX.IsReadOnly = false;
+				colvarOperatorX.DefaultSetting = @"";
+				colvarOperatorX.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarOperatorX);
+
+				TableSchema.TableColumn colvarNotMetMessage = new TableSchema.TableColumn(schema);
+				colvarNotMetMessage.ColumnName = "NotMetMessage";
+				colvarNotMetMessage.DataType = DbType.String;
+				colvarNotMetMessage.MaxLength = 50;
+				colvarNotMetMessage.AutoIncrement = false;
+				colvarNotMetMessage.IsNullable = true;
+				colvarNotMetMessage.IsPrimaryKey = false;
+				colvarNotMetMessage.IsForeignKey = false;
+				colvarNotMetMessage.IsReadOnly = false;
+				colvarNotMetMessage.DefaultSetting = @"";
+				colvarNotMetMessage.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarNotMetMessage);
+
+				BaseSchema = schema;
+				DataService.Providers["NxseFundingProvider"].AddSchema("FE_CriteriaItems",schema);
+			}
+		}
+		#endregion // Schema and Query Accessor
+
+		public static FE_CriteriaItem LoadFrom(FE_CriteriaItem item)
+		{
+			FE_CriteriaItem result = new FE_CriteriaItem();
+			if (item.CriteraItemID != default(int)) {
+				result.LoadByKey(item.CriteraItemID);
+			}
+			result.CopyFrom(item);
+			return result;
+		}
+
+		#region Properties
+		[DataMember]
+		public int CriteraItemID {
+			get { return GetColumnValue<int>(Columns.CriteraItemID); }
+			set {
+				SetColumnValue(Columns.CriteraItemID, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CriteraItemID));
+			}
+		}
+		[DataMember]
+		public int CriteriaId {
+			get { return GetColumnValue<int>(Columns.CriteriaId); }
+			set {
+				SetColumnValue(Columns.CriteriaId, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CriteriaId));
+			}
+		}
+		[DataMember]
+		public string ColumnName {
+			get { return GetColumnValue<string>(Columns.ColumnName); }
+			set {
+				SetColumnValue(Columns.ColumnName, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.ColumnName));
+			}
+		}
+		[DataMember]
+		public string ValueX {
+			get { return GetColumnValue<string>(Columns.ValueX); }
+			set {
+				SetColumnValue(Columns.ValueX, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.ValueX));
+			}
+		}
+		[DataMember]
+		public string OperatorX {
+			get { return GetColumnValue<string>(Columns.OperatorX); }
+			set {
+				SetColumnValue(Columns.OperatorX, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.OperatorX));
+			}
+		}
+		[DataMember]
+		public string NotMetMessage {
+			get { return GetColumnValue<string>(Columns.NotMetMessage); }
+			set {
+				SetColumnValue(Columns.NotMetMessage, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.NotMetMessage));
+			}
+		}
+
+		#endregion //Properties
+
+		#region ForeignKey Properties
+
+		private FE_Criteria _Criteria;
+		//Relationship: FK_FE_CriteriaItems_FE_Criteria
+		public FE_Criteria Criteria
+		{
+			get
+			{
+				if(_Criteria == null) {
+					_Criteria = FE_Criteria.FetchByID(this.CriteriaId);
+				}
+				return _Criteria;
+			}
+			set
+			{
+				SetColumnValue("CriteriaId", value.CriteriaID);
+				_Criteria = value;
+			}
+		}
+
+		#endregion //ForeignKey Properties
+
+		public override string ToString()
+		{
+			return CriteraItemID.ToString();
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn CriteraItemIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn CriteriaIdColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn ColumnNameColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn ValueXColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn OperatorXColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn NotMetMessageColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public static readonly string CriteraItemID = @"CriteraItemID";
+			public static readonly string CriteriaId = @"CriteriaId";
+			public static readonly string ColumnName = @"ColumnName";
+			public static readonly string ValueX = @"Value";
+			public static readonly string OperatorX = @"Operator";
+			public static readonly string NotMetMessage = @"NotMetMessage";
+		}
+		#endregion Columns Struct
+
+		/*
+		public override object PrimaryKeyValue
+		{
+			get { return CriteraItemID; }
+		}
+		*/
+
+
+	}
+	/// <summary>
+	/// Strongly-typed collection for the FE_Criteria class.
+	/// </summary>
+	[DataContract]
+	public partial class FE_CriteriaCollection : ActiveList<FE_Criteria, FE_CriteriaCollection>
+	{
+		public static FE_CriteriaCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			FE_CriteriaCollection result = new FE_CriteriaCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+		public string GetInList(string columnName)
+		{
+			return JoinColumnList(columnName, ",");
+		}
+		public string JoinColumnList(string columnName, string seperator)
+		{
+			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
+		}
+		public IEnumerable<object> GetJoinColumnList(string columnName)
+		{
+			foreach (FE_Criteria item in this) {
+				object value = item.GetColumnValue<object>(columnName);
+				if (value != null) {
+					yield return value;
+				}
+			}
+		}
+	}
+
+	/// <summary>
+	/// This is an ActiveRecord class which wraps the FE_Criterias table.
+	/// </summary>
+	[DataContract]
+	public partial class FE_Criteria : ActiveRecord<FE_Criteria>, INotifyPropertyChanged
+	{
+
+
+		#region Events
+		public event PropertyChangedEventHandler PropertyChanged;
+		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+		{
+			if (PropertyChanged != null)
+				PropertyChanged(this, e);
+		}
+		#endregion Events
+
+		#region .ctors and Default Settings
+
+		public FE_Criteria()
+		{
+			SetSQLProps();InitSetDefaults();MarkNew();
+		}
+		private void InitSetDefaults() { SetDefaults(); }
+		protected static void SetSQLProps() { GetTableSchema(); }
+
+		#endregion
+
+		#region Schema and Query Accessor
+		public static Query CreateQuery() { return new Query(Schema); }
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("FE_Criterias", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -1558,14 +1859,14 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedOn);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_Criteria",schema);
+				DataService.Providers["NxseFundingProvider"].AddSchema("FE_Criterias",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
 
-		public static FE_Criterium LoadFrom(FE_Criterium item)
+		public static FE_Criteria LoadFrom(FE_Criteria item)
 		{
-			FE_Criterium result = new FE_Criterium();
+			FE_Criteria result = new FE_Criteria();
 			if (item.CriteriaID != default(int)) {
 				result.LoadByKey(item.CriteriaID);
 			}
@@ -1759,307 +2060,6 @@ namespace NXS.Data.Funding
 		}
 
 		#endregion Foreign Collections
-
-	}
-	/// <summary>
-	/// Strongly-typed collection for the FE_CriteriaItem class.
-	/// </summary>
-	[DataContract]
-	public partial class FE_CriteriaItemCollection : ActiveList<FE_CriteriaItem, FE_CriteriaItemCollection>
-	{
-		public static FE_CriteriaItemCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			FE_CriteriaItemCollection result = new FE_CriteriaItemCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-		public string GetInList(string columnName)
-		{
-			return JoinColumnList(columnName, ",");
-		}
-		public string JoinColumnList(string columnName, string seperator)
-		{
-			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
-		}
-		public IEnumerable<object> GetJoinColumnList(string columnName)
-		{
-			foreach (FE_CriteriaItem item in this) {
-				object value = item.GetColumnValue<object>(columnName);
-				if (value != null) {
-					yield return value;
-				}
-			}
-		}
-	}
-
-	/// <summary>
-	/// This is an ActiveRecord class which wraps the FE_CriteriaItems table.
-	/// </summary>
-	[DataContract]
-	public partial class FE_CriteriaItem : ActiveRecord<FE_CriteriaItem>, INotifyPropertyChanged
-	{
-
-
-		#region Events
-		public event PropertyChangedEventHandler PropertyChanged;
-		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, e);
-		}
-		#endregion Events
-
-		#region .ctors and Default Settings
-
-		public FE_CriteriaItem()
-		{
-			SetSQLProps();InitSetDefaults();MarkNew();
-		}
-		private void InitSetDefaults() { SetDefaults(); }
-		protected static void SetSQLProps() { GetTableSchema(); }
-
-		#endregion
-
-		#region Schema and Query Accessor
-		public static Query CreateQuery() { return new Query(Schema); }
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema()
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_CriteriaItems", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"dbo";
-				//columns
-
-				TableSchema.TableColumn colvarCriteraItemID = new TableSchema.TableColumn(schema);
-				colvarCriteraItemID.ColumnName = "CriteraItemID";
-				colvarCriteraItemID.DataType = DbType.Int32;
-				colvarCriteraItemID.MaxLength = 0;
-				colvarCriteraItemID.AutoIncrement = true;
-				colvarCriteraItemID.IsNullable = false;
-				colvarCriteraItemID.IsPrimaryKey = true;
-				colvarCriteraItemID.IsForeignKey = false;
-				colvarCriteraItemID.IsReadOnly = false;
-				colvarCriteraItemID.DefaultSetting = @"";
-				colvarCriteraItemID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCriteraItemID);
-
-				TableSchema.TableColumn colvarCriteriaId = new TableSchema.TableColumn(schema);
-				colvarCriteriaId.ColumnName = "CriteriaId";
-				colvarCriteriaId.DataType = DbType.Int32;
-				colvarCriteriaId.MaxLength = 0;
-				colvarCriteriaId.AutoIncrement = false;
-				colvarCriteriaId.IsNullable = false;
-				colvarCriteriaId.IsPrimaryKey = false;
-				colvarCriteriaId.IsForeignKey = true;
-				colvarCriteriaId.IsReadOnly = false;
-				colvarCriteriaId.DefaultSetting = @"";
-				colvarCriteriaId.ForeignKeyTableName = "FE_Criteria";
-				schema.Columns.Add(colvarCriteriaId);
-
-				TableSchema.TableColumn colvarColumnName = new TableSchema.TableColumn(schema);
-				colvarColumnName.ColumnName = "ColumnName";
-				colvarColumnName.DataType = DbType.String;
-				colvarColumnName.MaxLength = 50;
-				colvarColumnName.AutoIncrement = false;
-				colvarColumnName.IsNullable = false;
-				colvarColumnName.IsPrimaryKey = false;
-				colvarColumnName.IsForeignKey = false;
-				colvarColumnName.IsReadOnly = false;
-				colvarColumnName.DefaultSetting = @"";
-				colvarColumnName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarColumnName);
-
-				TableSchema.TableColumn colvarValueX = new TableSchema.TableColumn(schema);
-				colvarValueX.ColumnName = "Value";
-				colvarValueX.DataType = DbType.String;
-				colvarValueX.MaxLength = 50;
-				colvarValueX.AutoIncrement = false;
-				colvarValueX.IsNullable = false;
-				colvarValueX.IsPrimaryKey = false;
-				colvarValueX.IsForeignKey = false;
-				colvarValueX.IsReadOnly = false;
-				colvarValueX.DefaultSetting = @"";
-				colvarValueX.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarValueX);
-
-				TableSchema.TableColumn colvarOperatorX = new TableSchema.TableColumn(schema);
-				colvarOperatorX.ColumnName = "Operator";
-				colvarOperatorX.DataType = DbType.String;
-				colvarOperatorX.MaxLength = 50;
-				colvarOperatorX.AutoIncrement = false;
-				colvarOperatorX.IsNullable = false;
-				colvarOperatorX.IsPrimaryKey = false;
-				colvarOperatorX.IsForeignKey = false;
-				colvarOperatorX.IsReadOnly = false;
-				colvarOperatorX.DefaultSetting = @"";
-				colvarOperatorX.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarOperatorX);
-
-				TableSchema.TableColumn colvarNotMetMessage = new TableSchema.TableColumn(schema);
-				colvarNotMetMessage.ColumnName = "NotMetMessage";
-				colvarNotMetMessage.DataType = DbType.String;
-				colvarNotMetMessage.MaxLength = 50;
-				colvarNotMetMessage.AutoIncrement = false;
-				colvarNotMetMessage.IsNullable = true;
-				colvarNotMetMessage.IsPrimaryKey = false;
-				colvarNotMetMessage.IsForeignKey = false;
-				colvarNotMetMessage.IsReadOnly = false;
-				colvarNotMetMessage.DefaultSetting = @"";
-				colvarNotMetMessage.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNotMetMessage);
-
-				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_CriteriaItems",schema);
-			}
-		}
-		#endregion // Schema and Query Accessor
-
-		public static FE_CriteriaItem LoadFrom(FE_CriteriaItem item)
-		{
-			FE_CriteriaItem result = new FE_CriteriaItem();
-			if (item.CriteraItemID != default(int)) {
-				result.LoadByKey(item.CriteraItemID);
-			}
-			result.CopyFrom(item);
-			return result;
-		}
-
-		#region Properties
-		[DataMember]
-		public int CriteraItemID {
-			get { return GetColumnValue<int>(Columns.CriteraItemID); }
-			set {
-				SetColumnValue(Columns.CriteraItemID, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CriteraItemID));
-			}
-		}
-		[DataMember]
-		public int CriteriaId {
-			get { return GetColumnValue<int>(Columns.CriteriaId); }
-			set {
-				SetColumnValue(Columns.CriteriaId, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CriteriaId));
-			}
-		}
-		[DataMember]
-		public string ColumnName {
-			get { return GetColumnValue<string>(Columns.ColumnName); }
-			set {
-				SetColumnValue(Columns.ColumnName, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.ColumnName));
-			}
-		}
-		[DataMember]
-		public string ValueX {
-			get { return GetColumnValue<string>(Columns.ValueX); }
-			set {
-				SetColumnValue(Columns.ValueX, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.ValueX));
-			}
-		}
-		[DataMember]
-		public string OperatorX {
-			get { return GetColumnValue<string>(Columns.OperatorX); }
-			set {
-				SetColumnValue(Columns.OperatorX, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.OperatorX));
-			}
-		}
-		[DataMember]
-		public string NotMetMessage {
-			get { return GetColumnValue<string>(Columns.NotMetMessage); }
-			set {
-				SetColumnValue(Columns.NotMetMessage, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.NotMetMessage));
-			}
-		}
-
-		#endregion //Properties
-
-		#region ForeignKey Properties
-
-		private FE_Criterium _Criteria;
-		//Relationship: FK_FE_CriteriaItems_FE_Criteria
-		public FE_Criterium Criteria
-		{
-			get
-			{
-				if(_Criteria == null) {
-					_Criteria = FE_Criterium.FetchByID(this.CriteriaId);
-				}
-				return _Criteria;
-			}
-			set
-			{
-				SetColumnValue("CriteriaId", value.CriteriaID);
-				_Criteria = value;
-			}
-		}
-
-		#endregion //ForeignKey Properties
-
-		public override string ToString()
-		{
-			return CriteraItemID.ToString();
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn CriteraItemIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn CriteriaIdColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn ColumnNameColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn ValueXColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn OperatorXColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-		public static TableSchema.TableColumn NotMetMessageColumn
-		{
-			get { return Schema.Columns[5]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public static readonly string CriteraItemID = @"CriteraItemID";
-			public static readonly string CriteriaId = @"CriteriaId";
-			public static readonly string ColumnName = @"ColumnName";
-			public static readonly string ValueX = @"Value";
-			public static readonly string OperatorX = @"Operator";
-			public static readonly string NotMetMessage = @"NotMetMessage";
-		}
-		#endregion Columns Struct
-
-		/*
-		public override object PrimaryKeyValue
-		{
-			get { return CriteraItemID; }
-		}
-		*/
-
 
 	}
 	/// <summary>
@@ -2883,7 +2883,7 @@ namespace NXS.Data.Funding
 				colvarCriteriaId.IsForeignKey = true;
 				colvarCriteriaId.IsReadOnly = false;
 				colvarCriteriaId.DefaultSetting = @"";
-				colvarCriteriaId.ForeignKeyTableName = "FE_Criteria";
+				colvarCriteriaId.ForeignKeyTableName = "FE_Criterias";
 				schema.Columns.Add(colvarCriteriaId);
 
 				TableSchema.TableColumn colvarSubmittedOn = new TableSchema.TableColumn(schema);
@@ -3008,14 +3008,14 @@ namespace NXS.Data.Funding
 
 		#region ForeignKey Properties
 
-		private FE_Criterium _Criteria;
+		private FE_Criteria _Criteria;
 		//Relationship: FK_FE_Packets_FE_Criteria
-		public FE_Criterium Criteria
+		public FE_Criteria Criteria
 		{
 			get
 			{
 				if(_Criteria == null) {
-					_Criteria = FE_Criterium.FetchByID(this.CriteriaId);
+					_Criteria = FE_Criteria.FetchByID(this.CriteriaId);
 				}
 				return _Criteria;
 			}
@@ -4751,18 +4751,18 @@ namespace NXS.Data.Funding
 			}
 		}
 
-		private FE_CriteriumCollection _FE_CriteriaCol;
+		private FE_CriteriaCollection _FE_CriteriasCol;
 		//Relationship: FK_FE_Criteria_FE_Purchasers
-		public FE_CriteriumCollection FE_CriteriaCol
+		public FE_CriteriaCollection FE_CriteriasCol
 		{
 			get
 			{
-				if(_FE_CriteriaCol == null) {
-					_FE_CriteriaCol = new FE_CriteriumCollection();
-					_FE_CriteriaCol.LoadAndCloseReader(FE_Criterium.Query()
-						.WHERE(FE_Criterium.Columns.PurchaserId, PurchaserID).ExecuteReader());
+				if(_FE_CriteriasCol == null) {
+					_FE_CriteriasCol = new FE_CriteriaCollection();
+					_FE_CriteriasCol.LoadAndCloseReader(FE_Criteria.Query()
+						.WHERE(FE_Criteria.Columns.PurchaserId, PurchaserID).ExecuteReader());
 				}
-				return _FE_CriteriaCol;
+				return _FE_CriteriasCol;
 			}
 		}
 
