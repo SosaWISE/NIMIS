@@ -52,7 +52,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwFE_Criterias", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("vwFE_Criterias", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -162,7 +162,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedOn);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("vwFE_Criterias",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("vwFE_Criterias",schema);
 			}
 		}
 		#endregion //Schema Accessor

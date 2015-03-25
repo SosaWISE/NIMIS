@@ -122,6 +122,8 @@ namespace SOS.FunctionalServices
 			oEngine.FunctionalServices.Register(() => new TicketService());
 			oEngine.FunctionalServices.Register(
 				(Func<IConnextService>)(() => new ConnextService()));
+			oEngine.FunctionalServices.Register(
+				(Func<IFundingServices>)(() => new FundingServices()));
 
 			AuthServiceConfig.Configure(oEngine.FunctionalServices);
 		}

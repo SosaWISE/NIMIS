@@ -88,7 +88,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_AccountFundingStatus", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_AccountFundingStatus", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -198,7 +198,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_AccountFundingStatus",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_AccountFundingStatus",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -549,7 +549,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_AccountFundingStatusTypes", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_AccountFundingStatusTypes", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -620,7 +620,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarAccountFundingStatusDescription);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_AccountFundingStatusTypes",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_AccountFundingStatusTypes",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -821,7 +821,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_BundleItems", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_BundleItems", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -892,7 +892,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_BundleItems",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_BundleItems",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -1114,7 +1114,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_Bundles", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_Bundles", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -1198,7 +1198,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_Bundles",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_Bundles",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -1448,7 +1448,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_CriteriaItems", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_CriteriaItems", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -1532,7 +1532,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarNotMetMessage);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_CriteriaItems",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_CriteriaItems",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -1749,7 +1749,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_Criterias", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_Criterias", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -1828,7 +1828,7 @@ namespace NXS.Data.Funding
 				colvarIsDeleted.IsPrimaryKey = false;
 				colvarIsDeleted.IsForeignKey = false;
 				colvarIsDeleted.IsReadOnly = false;
-				colvarIsDeleted.DefaultSetting = @"";
+				colvarIsDeleted.DefaultSetting = @"((0))";
 				colvarIsDeleted.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarIsDeleted);
 
@@ -1859,7 +1859,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedOn);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_Criterias",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_Criterias",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -2135,7 +2135,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_FundingHistory", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_FundingHistory", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -2206,7 +2206,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_FundingHistory",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_FundingHistory",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -2410,7 +2410,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_PacketItems", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_PacketItems", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -2533,7 +2533,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedOn);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_PacketItems",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_PacketItems",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -2855,7 +2855,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_Packets", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_Packets", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -2939,7 +2939,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_Packets",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_Packets",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -3189,7 +3189,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_PurchaseContractMonitronics", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_PurchaseContractMonitronics", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -3299,7 +3299,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarScheduleA);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_PurchaseContractMonitronics",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_PurchaseContractMonitronics",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -3542,7 +3542,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_PurchaseContracts", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_PurchaseContracts", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -3652,7 +3652,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedOn);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_PurchaseContracts",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_PurchaseContracts",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -3928,7 +3928,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_PurchasedAccount", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_PurchasedAccount", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -4012,7 +4012,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedOn);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_PurchasedAccount",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_PurchasedAccount",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -4280,7 +4280,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_PurchasedAccountMonitronics", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_PurchasedAccountMonitronics", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -4390,7 +4390,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarDiscount);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_PurchasedAccountMonitronics",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_PurchasedAccountMonitronics",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -4633,7 +4633,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_Purchasers", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_Purchasers", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -4665,7 +4665,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarPurchaserName);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_Purchasers",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_Purchasers",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -4887,7 +4887,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_RejectedAccount", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_RejectedAccount", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -4971,7 +4971,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_RejectedAccount",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_RejectedAccount",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -5224,7 +5224,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_RejectedAccountMonitronics", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_RejectedAccountMonitronics", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -5321,7 +5321,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarContractNumber);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_RejectedAccountMonitronics",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_RejectedAccountMonitronics",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -5542,7 +5542,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_Rejection", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_Rejection", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -5691,7 +5691,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_Rejection",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_Rejection",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -6009,7 +6009,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_RejectionTypes", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_RejectionTypes", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -6080,7 +6080,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarRejectionTypeDescription);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_RejectionTypes",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_RejectionTypes",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -6281,7 +6281,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_ReplacedAccount", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_ReplacedAccount", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -6365,7 +6365,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_ReplacedAccount",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_ReplacedAccount",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -6600,7 +6600,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_ReturnActions", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_ReturnActions", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -6723,7 +6723,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedOn);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_ReturnActions",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_ReturnActions",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -6997,7 +6997,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_ReturnManifestMonitronicsDetails", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_ReturnManifestMonitronicsDetails", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -7120,7 +7120,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarFullname);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_ReturnManifestMonitronicsDetails",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_ReturnManifestMonitronicsDetails",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -7376,7 +7376,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_ReturnManifests", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_ReturnManifests", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -7590,7 +7590,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedOn);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_ReturnManifests",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_ReturnManifests",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -7973,7 +7973,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_SubmittedToPurchaserAccount", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_SubmittedToPurchaserAccount", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -8044,7 +8044,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_SubmittedToPurchaserAccount",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_SubmittedToPurchaserAccount",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -8266,7 +8266,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_TrackingNumber", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_TrackingNumber", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -8324,7 +8324,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarDeliveryDate);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_TrackingNumber",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_TrackingNumber",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
