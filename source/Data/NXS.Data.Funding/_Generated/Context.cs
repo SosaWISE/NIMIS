@@ -280,6 +280,16 @@ namespace NXS.Data.Funding
 			}
 		}
 
+		FE_PacketsViewController _FE_PacketsViews;
+		public FE_PacketsViewController FE_PacketsViews
+		{
+			get
+			{
+				if (_FE_PacketsViews == null) _FE_PacketsViews = new FE_PacketsViewController();
+				return _FE_PacketsViews;
+			}
+		}
+
 		#endregion //View Controllers Properties
 	}
 
@@ -314,6 +324,7 @@ namespace NXS.Data.Funding
 	#region View Controllers
 
 	public class FE_CriteriasViewController : BaseViewController<FE_CriteriasView, FE_CriteriasViewCollection> { }
+	public class FE_PacketsViewController : BaseViewController<FE_PacketsView, FE_PacketsViewCollection> { }
 
 	#endregion //View Controllers
 }

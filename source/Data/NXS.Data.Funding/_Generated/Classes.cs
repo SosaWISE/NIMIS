@@ -2912,6 +2912,19 @@ namespace NXS.Data.Funding
 				colvarSubmittedBy.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarSubmittedBy);
 
+				TableSchema.TableColumn colvarIsDeleted = new TableSchema.TableColumn(schema);
+				colvarIsDeleted.ColumnName = "IsDeleted";
+				colvarIsDeleted.DataType = DbType.Boolean;
+				colvarIsDeleted.MaxLength = 0;
+				colvarIsDeleted.AutoIncrement = false;
+				colvarIsDeleted.IsNullable = false;
+				colvarIsDeleted.IsPrimaryKey = false;
+				colvarIsDeleted.IsForeignKey = false;
+				colvarIsDeleted.IsReadOnly = false;
+				colvarIsDeleted.DefaultSetting = @"((0))";
+				colvarIsDeleted.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarIsDeleted);
+
 				TableSchema.TableColumn colvarCreatedOn = new TableSchema.TableColumn(schema);
 				colvarCreatedOn.ColumnName = "CreatedOn";
 				colvarCreatedOn.DataType = DbType.DateTime;
@@ -2988,6 +3001,14 @@ namespace NXS.Data.Funding
 			}
 		}
 		[DataMember]
+		public bool IsDeleted {
+			get { return GetColumnValue<bool>(Columns.IsDeleted); }
+			set {
+				SetColumnValue(Columns.IsDeleted, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.IsDeleted));
+			}
+		}
+		[DataMember]
 		public DateTime CreatedOn {
 			get { return GetColumnValue<DateTime>(Columns.CreatedOn); }
 			set {
@@ -3051,13 +3072,17 @@ namespace NXS.Data.Funding
 		{
 			get { return Schema.Columns[3]; }
 		}
-		public static TableSchema.TableColumn CreatedOnColumn
+		public static TableSchema.TableColumn IsDeletedColumn
 		{
 			get { return Schema.Columns[4]; }
 		}
-		public static TableSchema.TableColumn CreatedByColumn
+		public static TableSchema.TableColumn CreatedOnColumn
 		{
 			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn CreatedByColumn
+		{
+			get { return Schema.Columns[6]; }
 		}
 
 		#endregion
@@ -3069,6 +3094,7 @@ namespace NXS.Data.Funding
 			public static readonly string CriteriaId = @"CriteriaId";
 			public static readonly string SubmittedOn = @"SubmittedOn";
 			public static readonly string SubmittedBy = @"SubmittedBy";
+			public static readonly string IsDeleted = @"IsDeleted";
 			public static readonly string CreatedOn = @"CreatedOn";
 			public static readonly string CreatedBy = @"CreatedBy";
 		}

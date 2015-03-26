@@ -149,6 +149,7 @@
     <Compile Include="Controllers\AccountingEngine\CustomerSearchController.cs" />
     <Compile Include="Controllers\AccountingEngine\InvoiceController.cs" />
     <Compile Include="Controllers\Funding\CriteriasController.cs" />
+    <Compile Include="Controllers\Funding\PacketsController.cs" />
     <Compile Include="Controllers\HumanResource\RecruitsController.cs" />
     <Compile Include="Controllers\HumanResource\RuTeamLocationController.cs" />
     <Compile Include="Controllers\HumanResource\RuTechnicianController.cs" />

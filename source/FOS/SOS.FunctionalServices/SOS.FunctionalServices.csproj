@@ -74,6 +74,7 @@
     <Compile Include="Models\Connext\FnsCxAddress.cs" />
     <Compile Include="Models\Connext\FnsCxContact.cs" />
     <Compile Include="Models\Funding\FnsFeCriteria.cs" />
+    <Compile Include="Models\Funding\FnsFePacketView.cs" />
     <Compile Include="Models\HumanResource\FnsConnextAccountInfo.cs" />
     <Compile Include="Models\HumanResource\FnsConnextCombinedMonthlySalesDetails.cs" />
     <Compile Include="Models\HumanResource\FnsSalesSalespersonMonthlyHolds.cs" />

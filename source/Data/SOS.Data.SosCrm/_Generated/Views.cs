@@ -267,19 +267,6 @@ namespace SOS.Data.SosCrm
 				colvarCustomerMasterFileID.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarCustomerMasterFileID);
 
-				TableSchema.TableColumn colvarCustomerID = new TableSchema.TableColumn(schema);
-				colvarCustomerID.ColumnName = "CustomerID";
-				colvarCustomerID.DataType = DbType.Int64;
-				colvarCustomerID.MaxLength = 0;
-				colvarCustomerID.AutoIncrement = false;
-				colvarCustomerID.IsNullable = false;
-				colvarCustomerID.IsPrimaryKey = false;
-				colvarCustomerID.IsForeignKey = false;
-				colvarCustomerID.IsReadOnly = false;
-				colvarCustomerID.DefaultSetting = @"";
-				colvarCustomerID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerID);
-
 				TableSchema.TableColumn colvarAccountID = new TableSchema.TableColumn(schema);
 				colvarAccountID.ColumnName = "AccountID";
 				colvarAccountID.DataType = DbType.Int64;
@@ -293,8 +280,60 @@ namespace SOS.Data.SosCrm
 				colvarAccountID.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarAccountID);
 
+				TableSchema.TableColumn colvarPrimaryCustomerID = new TableSchema.TableColumn(schema);
+				colvarPrimaryCustomerID.ColumnName = "PrimaryCustomerID";
+				colvarPrimaryCustomerID.DataType = DbType.Int64;
+				colvarPrimaryCustomerID.MaxLength = 0;
+				colvarPrimaryCustomerID.AutoIncrement = false;
+				colvarPrimaryCustomerID.IsNullable = false;
+				colvarPrimaryCustomerID.IsPrimaryKey = false;
+				colvarPrimaryCustomerID.IsForeignKey = false;
+				colvarPrimaryCustomerID.IsReadOnly = false;
+				colvarPrimaryCustomerID.DefaultSetting = @"";
+				colvarPrimaryCustomerID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPrimaryCustomerID);
+
+				TableSchema.TableColumn colvarPrimaryCustomerName = new TableSchema.TableColumn(schema);
+				colvarPrimaryCustomerName.ColumnName = "PrimaryCustomerName";
+				colvarPrimaryCustomerName.DataType = DbType.String;
+				colvarPrimaryCustomerName.MaxLength = 101;
+				colvarPrimaryCustomerName.AutoIncrement = false;
+				colvarPrimaryCustomerName.IsNullable = false;
+				colvarPrimaryCustomerName.IsPrimaryKey = false;
+				colvarPrimaryCustomerName.IsForeignKey = false;
+				colvarPrimaryCustomerName.IsReadOnly = false;
+				colvarPrimaryCustomerName.DefaultSetting = @"";
+				colvarPrimaryCustomerName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPrimaryCustomerName);
+
+				TableSchema.TableColumn colvarSecondaryCustomerID = new TableSchema.TableColumn(schema);
+				colvarSecondaryCustomerID.ColumnName = "SecondaryCustomerID";
+				colvarSecondaryCustomerID.DataType = DbType.Int64;
+				colvarSecondaryCustomerID.MaxLength = 0;
+				colvarSecondaryCustomerID.AutoIncrement = false;
+				colvarSecondaryCustomerID.IsNullable = true;
+				colvarSecondaryCustomerID.IsPrimaryKey = false;
+				colvarSecondaryCustomerID.IsForeignKey = false;
+				colvarSecondaryCustomerID.IsReadOnly = false;
+				colvarSecondaryCustomerID.DefaultSetting = @"";
+				colvarSecondaryCustomerID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSecondaryCustomerID);
+
+				TableSchema.TableColumn colvarSecondaryCustomerName = new TableSchema.TableColumn(schema);
+				colvarSecondaryCustomerName.ColumnName = "SecondaryCustomerName";
+				colvarSecondaryCustomerName.DataType = DbType.String;
+				colvarSecondaryCustomerName.MaxLength = 101;
+				colvarSecondaryCustomerName.AutoIncrement = false;
+				colvarSecondaryCustomerName.IsNullable = true;
+				colvarSecondaryCustomerName.IsPrimaryKey = false;
+				colvarSecondaryCustomerName.IsForeignKey = false;
+				colvarSecondaryCustomerName.IsReadOnly = false;
+				colvarSecondaryCustomerName.DefaultSetting = @"";
+				colvarSecondaryCustomerName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSecondaryCustomerName);
+
 				TableSchema.TableColumn colvarCentralStationID = new TableSchema.TableColumn(schema);
-				colvarCentralStationID.ColumnName = "Central Station ID";
+				colvarCentralStationID.ColumnName = "CentralStationID";
 				colvarCentralStationID.DataType = DbType.AnsiString;
 				colvarCentralStationID.MaxLength = 15;
 				colvarCentralStationID.AutoIncrement = false;
@@ -320,7 +359,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarCurrentMonitoringStation);
 
 				TableSchema.TableColumn colvarAMASignDate = new TableSchema.TableColumn(schema);
-				colvarAMASignDate.ColumnName = "AMA Sign Date";
+				colvarAMASignDate.ColumnName = "AMASignDate";
 				colvarAMASignDate.DataType = DbType.DateTime;
 				colvarAMASignDate.MaxLength = 0;
 				colvarAMASignDate.AutoIncrement = false;
@@ -333,7 +372,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarAMASignDate);
 
 				TableSchema.TableColumn colvarSalesRepID = new TableSchema.TableColumn(schema);
-				colvarSalesRepID.ColumnName = "Sales Rep ID";
+				colvarSalesRepID.ColumnName = "SalesRepID";
 				colvarSalesRepID.DataType = DbType.AnsiString;
 				colvarSalesRepID.MaxLength = 10;
 				colvarSalesRepID.AutoIncrement = false;
@@ -346,7 +385,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarSalesRepID);
 
 				TableSchema.TableColumn colvarInstallDate = new TableSchema.TableColumn(schema);
-				colvarInstallDate.ColumnName = "Install Date";
+				colvarInstallDate.ColumnName = "InstallDate";
 				colvarInstallDate.DataType = DbType.DateTime;
 				colvarInstallDate.MaxLength = 0;
 				colvarInstallDate.AutoIncrement = false;
@@ -359,7 +398,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarInstallDate);
 
 				TableSchema.TableColumn colvarTechID = new TableSchema.TableColumn(schema);
-				colvarTechID.ColumnName = "Tech ID";
+				colvarTechID.ColumnName = "TechID";
 				colvarTechID.DataType = DbType.AnsiString;
 				colvarTechID.MaxLength = 10;
 				colvarTechID.AutoIncrement = false;
@@ -385,7 +424,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarRMR);
 
 				TableSchema.TableColumn colvarBillingDay = new TableSchema.TableColumn(schema);
-				colvarBillingDay.ColumnName = "Billing Day";
+				colvarBillingDay.ColumnName = "BillingDay";
 				colvarBillingDay.DataType = DbType.Int16;
 				colvarBillingDay.MaxLength = 0;
 				colvarBillingDay.AutoIncrement = false;
@@ -397,8 +436,21 @@ namespace SOS.Data.SosCrm
 				colvarBillingDay.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarBillingDay);
 
+				TableSchema.TableColumn colvarPaymentType = new TableSchema.TableColumn(schema);
+				colvarPaymentType.ColumnName = "PaymentType";
+				colvarPaymentType.DataType = DbType.AnsiString;
+				colvarPaymentType.MaxLength = 20;
+				colvarPaymentType.AutoIncrement = false;
+				colvarPaymentType.IsNullable = true;
+				colvarPaymentType.IsPrimaryKey = false;
+				colvarPaymentType.IsForeignKey = false;
+				colvarPaymentType.IsReadOnly = false;
+				colvarPaymentType.DefaultSetting = @"";
+				colvarPaymentType.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPaymentType);
+
 				TableSchema.TableColumn colvarContractLength = new TableSchema.TableColumn(schema);
-				colvarContractLength.ColumnName = "Contract Length";
+				colvarContractLength.ColumnName = "ContractLength";
 				colvarContractLength.DataType = DbType.Int16;
 				colvarContractLength.MaxLength = 0;
 				colvarContractLength.AutoIncrement = false;
@@ -411,7 +463,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarContractLength);
 
 				TableSchema.TableColumn colvarPanelType = new TableSchema.TableColumn(schema);
-				colvarPanelType.ColumnName = "Panel Type";
+				colvarPanelType.ColumnName = "PanelType";
 				colvarPanelType.DataType = DbType.AnsiString;
 				colvarPanelType.MaxLength = 20;
 				colvarPanelType.AutoIncrement = false;
@@ -424,7 +476,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarPanelType);
 
 				TableSchema.TableColumn colvarSystemType = new TableSchema.TableColumn(schema);
-				colvarSystemType.ColumnName = "System Type";
+				colvarSystemType.ColumnName = "SystemType";
 				colvarSystemType.DataType = DbType.AnsiString;
 				colvarSystemType.MaxLength = 50;
 				colvarSystemType.AutoIncrement = false;
@@ -437,7 +489,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarSystemType);
 
 				TableSchema.TableColumn colvarActivationCollected = new TableSchema.TableColumn(schema);
-				colvarActivationCollected.ColumnName = "Activation Collected";
+				colvarActivationCollected.ColumnName = "ActivationCollected";
 				colvarActivationCollected.DataType = DbType.Boolean;
 				colvarActivationCollected.MaxLength = 0;
 				colvarActivationCollected.AutoIncrement = false;
@@ -450,7 +502,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarActivationCollected);
 
 				TableSchema.TableColumn colvarActivationFee = new TableSchema.TableColumn(schema);
-				colvarActivationFee.ColumnName = "Activation Fee";
+				colvarActivationFee.ColumnName = "ActivationFee";
 				colvarActivationFee.DataType = DbType.Currency;
 				colvarActivationFee.MaxLength = 0;
 				colvarActivationFee.AutoIncrement = false;
@@ -463,7 +515,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarActivationFee);
 
 				TableSchema.TableColumn colvarPaidFull3Months = new TableSchema.TableColumn(schema);
-				colvarPaidFull3Months.ColumnName = "Paid Full / 3 Months";
+				colvarPaidFull3Months.ColumnName = "PaidFull3Months";
 				colvarPaidFull3Months.DataType = DbType.AnsiString;
 				colvarPaidFull3Months.MaxLength = 30;
 				colvarPaidFull3Months.AutoIncrement = false;
@@ -476,7 +528,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarPaidFull3Months);
 
 				TableSchema.TableColumn colvarCancelledDate = new TableSchema.TableColumn(schema);
-				colvarCancelledDate.ColumnName = "Cancelled Date";
+				colvarCancelledDate.ColumnName = "CancelledDate";
 				colvarCancelledDate.DataType = DbType.DateTime;
 				colvarCancelledDate.MaxLength = 0;
 				colvarCancelledDate.AutoIncrement = false;
@@ -489,7 +541,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarCancelledDate);
 
 				TableSchema.TableColumn colvarCancelledReason = new TableSchema.TableColumn(schema);
-				colvarCancelledReason.ColumnName = "Cancelled Reason";
+				colvarCancelledReason.ColumnName = "CancelledReason";
 				colvarCancelledReason.DataType = DbType.AnsiString;
 				colvarCancelledReason.MaxLength = 50;
 				colvarCancelledReason.AutoIncrement = false;
@@ -502,7 +554,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarCancelledReason);
 
 				TableSchema.TableColumn colvarTakeOver = new TableSchema.TableColumn(schema);
-				colvarTakeOver.ColumnName = "Take Over";
+				colvarTakeOver.ColumnName = "TakeOver";
 				colvarTakeOver.DataType = DbType.Boolean;
 				colvarTakeOver.MaxLength = 0;
 				colvarTakeOver.AutoIncrement = false;
@@ -515,7 +567,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarTakeOver);
 
 				TableSchema.TableColumn colvarHasExistingEquipment = new TableSchema.TableColumn(schema);
-				colvarHasExistingEquipment.ColumnName = "Has Existing Equipment";
+				colvarHasExistingEquipment.ColumnName = "HasExistingEquipment";
 				colvarHasExistingEquipment.DataType = DbType.Boolean;
 				colvarHasExistingEquipment.MaxLength = 0;
 				colvarHasExistingEquipment.AutoIncrement = false;
@@ -528,7 +580,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarHasExistingEquipment);
 
 				TableSchema.TableColumn colvarCreditScore = new TableSchema.TableColumn(schema);
-				colvarCreditScore.ColumnName = "Credit Score";
+				colvarCreditScore.ColumnName = "CreditScore";
 				colvarCreditScore.DataType = DbType.Int32;
 				colvarCreditScore.MaxLength = 0;
 				colvarCreditScore.AutoIncrement = false;
@@ -541,7 +593,7 @@ namespace SOS.Data.SosCrm
 				schema.Columns.Add(colvarCreditScore);
 
 				TableSchema.TableColumn colvarTransactionID = new TableSchema.TableColumn(schema);
-				colvarTransactionID.ColumnName = "Transaction ID";
+				colvarTransactionID.ColumnName = "TransactionID";
 				colvarTransactionID.DataType = DbType.Guid;
 				colvarTransactionID.MaxLength = 0;
 				colvarTransactionID.AutoIncrement = false;
@@ -593,14 +645,29 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.CustomerMasterFileID, value); }
 		}
 		[DataMember]
-		public long CustomerID {
-			get { return GetColumnValue<long>(Columns.CustomerID); }
-			set { SetColumnValue(Columns.CustomerID, value); }
-		}
-		[DataMember]
 		public long AccountID {
 			get { return GetColumnValue<long>(Columns.AccountID); }
 			set { SetColumnValue(Columns.AccountID, value); }
+		}
+		[DataMember]
+		public long PrimaryCustomerID {
+			get { return GetColumnValue<long>(Columns.PrimaryCustomerID); }
+			set { SetColumnValue(Columns.PrimaryCustomerID, value); }
+		}
+		[DataMember]
+		public string PrimaryCustomerName {
+			get { return GetColumnValue<string>(Columns.PrimaryCustomerName); }
+			set { SetColumnValue(Columns.PrimaryCustomerName, value); }
+		}
+		[DataMember]
+		public long? SecondaryCustomerID {
+			get { return GetColumnValue<long?>(Columns.SecondaryCustomerID); }
+			set { SetColumnValue(Columns.SecondaryCustomerID, value); }
+		}
+		[DataMember]
+		public string SecondaryCustomerName {
+			get { return GetColumnValue<string>(Columns.SecondaryCustomerName); }
+			set { SetColumnValue(Columns.SecondaryCustomerName, value); }
 		}
 		[DataMember]
 		public string CentralStationID {
@@ -641,6 +708,11 @@ namespace SOS.Data.SosCrm
 		public short? BillingDay {
 			get { return GetColumnValue<short?>(Columns.BillingDay); }
 			set { SetColumnValue(Columns.BillingDay, value); }
+		}
+		[DataMember]
+		public string PaymentType {
+			get { return GetColumnValue<string>(Columns.PaymentType); }
+			set { SetColumnValue(Columns.PaymentType, value); }
 		}
 		[DataMember]
 		public short? ContractLength {
@@ -721,97 +793,113 @@ namespace SOS.Data.SosCrm
 		{
 			get { return Schema.Columns[0]; }
 		}
-		public static TableSchema.TableColumn CustomerIDColumn
+		public static TableSchema.TableColumn AccountIDColumn
 		{
 			get { return Schema.Columns[1]; }
 		}
-		public static TableSchema.TableColumn AccountIDColumn
+		public static TableSchema.TableColumn PrimaryCustomerIDColumn
 		{
 			get { return Schema.Columns[2]; }
 		}
-		public static TableSchema.TableColumn CentralStationIDColumn
+		public static TableSchema.TableColumn PrimaryCustomerNameColumn
 		{
 			get { return Schema.Columns[3]; }
 		}
-		public static TableSchema.TableColumn CurrentMonitoringStationColumn
+		public static TableSchema.TableColumn SecondaryCustomerIDColumn
 		{
 			get { return Schema.Columns[4]; }
 		}
-		public static TableSchema.TableColumn AMASignDateColumn
+		public static TableSchema.TableColumn SecondaryCustomerNameColumn
 		{
 			get { return Schema.Columns[5]; }
 		}
-		public static TableSchema.TableColumn SalesRepIDColumn
+		public static TableSchema.TableColumn CentralStationIDColumn
 		{
 			get { return Schema.Columns[6]; }
 		}
-		public static TableSchema.TableColumn InstallDateColumn
+		public static TableSchema.TableColumn CurrentMonitoringStationColumn
 		{
 			get { return Schema.Columns[7]; }
 		}
-		public static TableSchema.TableColumn TechIDColumn
+		public static TableSchema.TableColumn AMASignDateColumn
 		{
 			get { return Schema.Columns[8]; }
 		}
-		public static TableSchema.TableColumn RMRColumn
+		public static TableSchema.TableColumn SalesRepIDColumn
 		{
 			get { return Schema.Columns[9]; }
 		}
-		public static TableSchema.TableColumn BillingDayColumn
+		public static TableSchema.TableColumn InstallDateColumn
 		{
 			get { return Schema.Columns[10]; }
 		}
-		public static TableSchema.TableColumn ContractLengthColumn
+		public static TableSchema.TableColumn TechIDColumn
 		{
 			get { return Schema.Columns[11]; }
 		}
-		public static TableSchema.TableColumn PanelTypeColumn
+		public static TableSchema.TableColumn RMRColumn
 		{
 			get { return Schema.Columns[12]; }
 		}
-		public static TableSchema.TableColumn SystemTypeColumn
+		public static TableSchema.TableColumn BillingDayColumn
 		{
 			get { return Schema.Columns[13]; }
 		}
-		public static TableSchema.TableColumn ActivationCollectedColumn
+		public static TableSchema.TableColumn PaymentTypeColumn
 		{
 			get { return Schema.Columns[14]; }
 		}
-		public static TableSchema.TableColumn ActivationFeeColumn
+		public static TableSchema.TableColumn ContractLengthColumn
 		{
 			get { return Schema.Columns[15]; }
 		}
-		public static TableSchema.TableColumn PaidFull3MonthsColumn
+		public static TableSchema.TableColumn PanelTypeColumn
 		{
 			get { return Schema.Columns[16]; }
 		}
-		public static TableSchema.TableColumn CancelledDateColumn
+		public static TableSchema.TableColumn SystemTypeColumn
 		{
 			get { return Schema.Columns[17]; }
 		}
-		public static TableSchema.TableColumn CancelledReasonColumn
+		public static TableSchema.TableColumn ActivationCollectedColumn
 		{
 			get { return Schema.Columns[18]; }
 		}
-		public static TableSchema.TableColumn TakeOverColumn
+		public static TableSchema.TableColumn ActivationFeeColumn
 		{
 			get { return Schema.Columns[19]; }
 		}
-		public static TableSchema.TableColumn HasExistingEquipmentColumn
+		public static TableSchema.TableColumn PaidFull3MonthsColumn
 		{
 			get { return Schema.Columns[20]; }
 		}
-		public static TableSchema.TableColumn CreditScoreColumn
+		public static TableSchema.TableColumn CancelledDateColumn
 		{
 			get { return Schema.Columns[21]; }
 		}
-		public static TableSchema.TableColumn TransactionIDColumn
+		public static TableSchema.TableColumn CancelledReasonColumn
 		{
 			get { return Schema.Columns[22]; }
 		}
-		public static TableSchema.TableColumn PointsColumn
+		public static TableSchema.TableColumn TakeOverColumn
 		{
 			get { return Schema.Columns[23]; }
+		}
+		public static TableSchema.TableColumn HasExistingEquipmentColumn
+		{
+			get { return Schema.Columns[24]; }
+		}
+		public static TableSchema.TableColumn CreditScoreColumn
+		{
+			get { return Schema.Columns[25]; }
+		}
+		public static TableSchema.TableColumn TransactionIDColumn
+		{
+			get { return Schema.Columns[26]; }
+		}
+		public static TableSchema.TableColumn PointsColumn
+		{
+			get { return Schema.Columns[27]; }
 		}
 
 		#endregion
@@ -820,8 +908,11 @@ namespace SOS.Data.SosCrm
 		public struct Columns
 		{
 			public const string CustomerMasterFileID = @"CustomerMasterFileID";
-			public const string CustomerID = @"CustomerID";
 			public const string AccountID = @"AccountID";
+			public const string PrimaryCustomerID = @"PrimaryCustomerID";
+			public const string PrimaryCustomerName = @"PrimaryCustomerName";
+			public const string SecondaryCustomerID = @"SecondaryCustomerID";
+			public const string SecondaryCustomerName = @"SecondaryCustomerName";
 			public const string CentralStationID = @"CentralStationID";
 			public const string CurrentMonitoringStation = @"CurrentMonitoringStation";
 			public const string AMASignDate = @"AMASignDate";
@@ -830,6 +921,7 @@ namespace SOS.Data.SosCrm
 			public const string TechID = @"TechID";
 			public const string RMR = @"RMR";
 			public const string BillingDay = @"BillingDay";
+			public const string PaymentType = @"PaymentType";
 			public const string ContractLength = @"ContractLength";
 			public const string PanelType = @"PanelType";
 			public const string SystemType = @"SystemType";
@@ -19147,6 +19239,123 @@ namespace SOS.Data.SosCrm
 				colvarAccountCancelReasonId.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarAccountCancelReasonId);
 
+				TableSchema.TableColumn colvarFriendsAndFamilyTypeId = new TableSchema.TableColumn(schema);
+				colvarFriendsAndFamilyTypeId.ColumnName = "FriendsAndFamilyTypeId";
+				colvarFriendsAndFamilyTypeId.DataType = DbType.AnsiString;
+				colvarFriendsAndFamilyTypeId.MaxLength = 20;
+				colvarFriendsAndFamilyTypeId.AutoIncrement = false;
+				colvarFriendsAndFamilyTypeId.IsNullable = true;
+				colvarFriendsAndFamilyTypeId.IsPrimaryKey = false;
+				colvarFriendsAndFamilyTypeId.IsForeignKey = false;
+				colvarFriendsAndFamilyTypeId.IsReadOnly = false;
+				colvarFriendsAndFamilyTypeId.DefaultSetting = @"";
+				colvarFriendsAndFamilyTypeId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarFriendsAndFamilyTypeId);
+
+				TableSchema.TableColumn colvarAccountSubmitId = new TableSchema.TableColumn(schema);
+				colvarAccountSubmitId.ColumnName = "AccountSubmitId";
+				colvarAccountSubmitId.DataType = DbType.Int64;
+				colvarAccountSubmitId.MaxLength = 0;
+				colvarAccountSubmitId.AutoIncrement = false;
+				colvarAccountSubmitId.IsNullable = true;
+				colvarAccountSubmitId.IsPrimaryKey = false;
+				colvarAccountSubmitId.IsForeignKey = false;
+				colvarAccountSubmitId.IsReadOnly = false;
+				colvarAccountSubmitId.DefaultSetting = @"";
+				colvarAccountSubmitId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAccountSubmitId);
+
+				TableSchema.TableColumn colvarSubmittedToCSDate = new TableSchema.TableColumn(schema);
+				colvarSubmittedToCSDate.ColumnName = "SubmittedToCSDate";
+				colvarSubmittedToCSDate.DataType = DbType.DateTime;
+				colvarSubmittedToCSDate.MaxLength = 0;
+				colvarSubmittedToCSDate.AutoIncrement = false;
+				colvarSubmittedToCSDate.IsNullable = true;
+				colvarSubmittedToCSDate.IsPrimaryKey = false;
+				colvarSubmittedToCSDate.IsForeignKey = false;
+				colvarSubmittedToCSDate.IsReadOnly = false;
+				colvarSubmittedToCSDate.DefaultSetting = @"";
+				colvarSubmittedToCSDate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSubmittedToCSDate);
+
+				TableSchema.TableColumn colvarCsConfirmationNumber = new TableSchema.TableColumn(schema);
+				colvarCsConfirmationNumber.ColumnName = "CsConfirmationNumber";
+				colvarCsConfirmationNumber.DataType = DbType.AnsiString;
+				colvarCsConfirmationNumber.MaxLength = 50;
+				colvarCsConfirmationNumber.AutoIncrement = false;
+				colvarCsConfirmationNumber.IsNullable = true;
+				colvarCsConfirmationNumber.IsPrimaryKey = false;
+				colvarCsConfirmationNumber.IsForeignKey = false;
+				colvarCsConfirmationNumber.IsReadOnly = false;
+				colvarCsConfirmationNumber.DefaultSetting = @"";
+				colvarCsConfirmationNumber.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCsConfirmationNumber);
+
+				TableSchema.TableColumn colvarCsTwoWayConfNumber = new TableSchema.TableColumn(schema);
+				colvarCsTwoWayConfNumber.ColumnName = "CsTwoWayConfNumber";
+				colvarCsTwoWayConfNumber.DataType = DbType.AnsiString;
+				colvarCsTwoWayConfNumber.MaxLength = 50;
+				colvarCsTwoWayConfNumber.AutoIncrement = false;
+				colvarCsTwoWayConfNumber.IsNullable = true;
+				colvarCsTwoWayConfNumber.IsPrimaryKey = false;
+				colvarCsTwoWayConfNumber.IsForeignKey = false;
+				colvarCsTwoWayConfNumber.IsReadOnly = false;
+				colvarCsTwoWayConfNumber.DefaultSetting = @"";
+				colvarCsTwoWayConfNumber.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCsTwoWayConfNumber);
+
+				TableSchema.TableColumn colvarSubmittedToGPDate = new TableSchema.TableColumn(schema);
+				colvarSubmittedToGPDate.ColumnName = "SubmittedToGPDate";
+				colvarSubmittedToGPDate.DataType = DbType.DateTime;
+				colvarSubmittedToGPDate.MaxLength = 0;
+				colvarSubmittedToGPDate.AutoIncrement = false;
+				colvarSubmittedToGPDate.IsNullable = true;
+				colvarSubmittedToGPDate.IsPrimaryKey = false;
+				colvarSubmittedToGPDate.IsForeignKey = false;
+				colvarSubmittedToGPDate.IsReadOnly = false;
+				colvarSubmittedToGPDate.DefaultSetting = @"";
+				colvarSubmittedToGPDate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSubmittedToGPDate);
+
+				TableSchema.TableColumn colvarAMA = new TableSchema.TableColumn(schema);
+				colvarAMA.ColumnName = "AMA";
+				colvarAMA.DataType = DbType.String;
+				colvarAMA.MaxLength = 30;
+				colvarAMA.AutoIncrement = false;
+				colvarAMA.IsNullable = true;
+				colvarAMA.IsPrimaryKey = false;
+				colvarAMA.IsForeignKey = false;
+				colvarAMA.IsReadOnly = false;
+				colvarAMA.DefaultSetting = @"";
+				colvarAMA.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAMA);
+
+				TableSchema.TableColumn colvarNOC = new TableSchema.TableColumn(schema);
+				colvarNOC.ColumnName = "NOC";
+				colvarNOC.DataType = DbType.String;
+				colvarNOC.MaxLength = 30;
+				colvarNOC.AutoIncrement = false;
+				colvarNOC.IsNullable = true;
+				colvarNOC.IsPrimaryKey = false;
+				colvarNOC.IsForeignKey = false;
+				colvarNOC.IsReadOnly = false;
+				colvarNOC.DefaultSetting = @"";
+				colvarNOC.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarNOC);
+
+				TableSchema.TableColumn colvarSOP = new TableSchema.TableColumn(schema);
+				colvarSOP.ColumnName = "SOP";
+				colvarSOP.DataType = DbType.String;
+				colvarSOP.MaxLength = 30;
+				colvarSOP.AutoIncrement = false;
+				colvarSOP.IsNullable = true;
+				colvarSOP.IsPrimaryKey = false;
+				colvarSOP.IsForeignKey = false;
+				colvarSOP.IsReadOnly = false;
+				colvarSOP.DefaultSetting = @"";
+				colvarSOP.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSOP);
+
 				BaseSchema = schema;
 				DataService.Providers["SosCrmProvider"].AddSchema("vwMS_AccountSalesInformations",schema);
 			}
@@ -19308,6 +19517,51 @@ namespace SOS.Data.SosCrm
 			get { return GetColumnValue<string>(Columns.AccountCancelReasonId); }
 			set { SetColumnValue(Columns.AccountCancelReasonId, value); }
 		}
+		[DataMember]
+		public string FriendsAndFamilyTypeId {
+			get { return GetColumnValue<string>(Columns.FriendsAndFamilyTypeId); }
+			set { SetColumnValue(Columns.FriendsAndFamilyTypeId, value); }
+		}
+		[DataMember]
+		public long? AccountSubmitId {
+			get { return GetColumnValue<long?>(Columns.AccountSubmitId); }
+			set { SetColumnValue(Columns.AccountSubmitId, value); }
+		}
+		[DataMember]
+		public DateTime? SubmittedToCSDate {
+			get { return GetColumnValue<DateTime?>(Columns.SubmittedToCSDate); }
+			set { SetColumnValue(Columns.SubmittedToCSDate, value); }
+		}
+		[DataMember]
+		public string CsConfirmationNumber {
+			get { return GetColumnValue<string>(Columns.CsConfirmationNumber); }
+			set { SetColumnValue(Columns.CsConfirmationNumber, value); }
+		}
+		[DataMember]
+		public string CsTwoWayConfNumber {
+			get { return GetColumnValue<string>(Columns.CsTwoWayConfNumber); }
+			set { SetColumnValue(Columns.CsTwoWayConfNumber, value); }
+		}
+		[DataMember]
+		public DateTime? SubmittedToGPDate {
+			get { return GetColumnValue<DateTime?>(Columns.SubmittedToGPDate); }
+			set { SetColumnValue(Columns.SubmittedToGPDate, value); }
+		}
+		[DataMember]
+		public string AMA {
+			get { return GetColumnValue<string>(Columns.AMA); }
+			set { SetColumnValue(Columns.AMA, value); }
+		}
+		[DataMember]
+		public string NOC {
+			get { return GetColumnValue<string>(Columns.NOC); }
+			set { SetColumnValue(Columns.NOC, value); }
+		}
+		[DataMember]
+		public string SOP {
+			get { return GetColumnValue<string>(Columns.SOP); }
+			set { SetColumnValue(Columns.SOP, value); }
+		}
 
 		#endregion //Properties
 
@@ -19430,6 +19684,42 @@ namespace SOS.Data.SosCrm
 		{
 			get { return Schema.Columns[27]; }
 		}
+		public static TableSchema.TableColumn FriendsAndFamilyTypeIdColumn
+		{
+			get { return Schema.Columns[28]; }
+		}
+		public static TableSchema.TableColumn AccountSubmitIdColumn
+		{
+			get { return Schema.Columns[29]; }
+		}
+		public static TableSchema.TableColumn SubmittedToCSDateColumn
+		{
+			get { return Schema.Columns[30]; }
+		}
+		public static TableSchema.TableColumn CsConfirmationNumberColumn
+		{
+			get { return Schema.Columns[31]; }
+		}
+		public static TableSchema.TableColumn CsTwoWayConfNumberColumn
+		{
+			get { return Schema.Columns[32]; }
+		}
+		public static TableSchema.TableColumn SubmittedToGPDateColumn
+		{
+			get { return Schema.Columns[33]; }
+		}
+		public static TableSchema.TableColumn AMAColumn
+		{
+			get { return Schema.Columns[34]; }
+		}
+		public static TableSchema.TableColumn NOCColumn
+		{
+			get { return Schema.Columns[35]; }
+		}
+		public static TableSchema.TableColumn SOPColumn
+		{
+			get { return Schema.Columns[36]; }
+		}
 
 		#endregion
 
@@ -19464,6 +19754,15 @@ namespace SOS.Data.SosCrm
 			public const string TechId = @"TechId";
 			public const string CancelDate = @"CancelDate";
 			public const string AccountCancelReasonId = @"AccountCancelReasonId";
+			public const string FriendsAndFamilyTypeId = @"FriendsAndFamilyTypeId";
+			public const string AccountSubmitId = @"AccountSubmitId";
+			public const string SubmittedToCSDate = @"SubmittedToCSDate";
+			public const string CsConfirmationNumber = @"CsConfirmationNumber";
+			public const string CsTwoWayConfNumber = @"CsTwoWayConfNumber";
+			public const string SubmittedToGPDate = @"SubmittedToGPDate";
+			public const string AMA = @"AMA";
+			public const string NOC = @"NOC";
+			public const string SOP = @"SOP";
 		}
 		#endregion Columns Struct
 	}
@@ -31094,6 +31393,19 @@ namespace SOS.Data.SosCrm
 				colvarRecruitId.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarRecruitId);
 
+				TableSchema.TableColumn colvarTeamId = new TableSchema.TableColumn(schema);
+				colvarTeamId.ColumnName = "TeamId";
+				colvarTeamId.DataType = DbType.Int32;
+				colvarTeamId.MaxLength = 0;
+				colvarTeamId.AutoIncrement = false;
+				colvarTeamId.IsNullable = true;
+				colvarTeamId.IsPrimaryKey = false;
+				colvarTeamId.IsForeignKey = false;
+				colvarTeamId.IsReadOnly = false;
+				colvarTeamId.DefaultSetting = @"";
+				colvarTeamId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTeamId);
+
 				TableSchema.TableColumn colvarID = new TableSchema.TableColumn(schema);
 				colvarID.ColumnName = "ID";
 				colvarID.DataType = DbType.Int32;
@@ -31329,6 +31641,11 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.RecruitId, value); }
 		}
 		[DataMember]
+		public int? TeamId {
+			get { return GetColumnValue<int?>(Columns.TeamId); }
+			set { SetColumnValue(Columns.TeamId, value); }
+		}
+		[DataMember]
 		public int? ID {
 			get { return GetColumnValue<int?>(Columns.ID); }
 			set { SetColumnValue(Columns.ID, value); }
@@ -31422,69 +31739,73 @@ namespace SOS.Data.SosCrm
 		{
 			get { return Schema.Columns[0]; }
 		}
-		public static TableSchema.TableColumn IDColumn
+		public static TableSchema.TableColumn TeamIdColumn
 		{
 			get { return Schema.Columns[1]; }
 		}
-		public static TableSchema.TableColumn CreatedOnColumn
+		public static TableSchema.TableColumn IDColumn
 		{
 			get { return Schema.Columns[2]; }
 		}
-		public static TableSchema.TableColumn CreatedByColumn
+		public static TableSchema.TableColumn CreatedOnColumn
 		{
 			get { return Schema.Columns[3]; }
 		}
-		public static TableSchema.TableColumn ModifiedOnColumn
+		public static TableSchema.TableColumn CreatedByColumn
 		{
 			get { return Schema.Columns[4]; }
 		}
-		public static TableSchema.TableColumn ModifiedByColumn
+		public static TableSchema.TableColumn ModifiedOnColumn
 		{
 			get { return Schema.Columns[5]; }
 		}
-		public static TableSchema.TableColumn IsDeletedColumn
+		public static TableSchema.TableColumn ModifiedByColumn
 		{
 			get { return Schema.Columns[6]; }
 		}
-		public static TableSchema.TableColumn VersionColumn
+		public static TableSchema.TableColumn IsDeletedColumn
 		{
 			get { return Schema.Columns[7]; }
 		}
-		public static TableSchema.TableColumn StartLocationColumn
+		public static TableSchema.TableColumn VersionColumn
 		{
 			get { return Schema.Columns[8]; }
 		}
-		public static TableSchema.TableColumn StartLocLatitudeColumn
+		public static TableSchema.TableColumn StartLocationColumn
 		{
 			get { return Schema.Columns[9]; }
 		}
-		public static TableSchema.TableColumn StartLocLongitudeColumn
+		public static TableSchema.TableColumn StartLocLatitudeColumn
 		{
 			get { return Schema.Columns[10]; }
 		}
-		public static TableSchema.TableColumn MaxRadiusColumn
+		public static TableSchema.TableColumn StartLocLongitudeColumn
 		{
 			get { return Schema.Columns[11]; }
 		}
-		public static TableSchema.TableColumn UserTypeTeamTypeIDColumn
+		public static TableSchema.TableColumn MaxRadiusColumn
 		{
 			get { return Schema.Columns[12]; }
 		}
-		public static TableSchema.TableColumn FullNameColumn
+		public static TableSchema.TableColumn UserTypeTeamTypeIDColumn
 		{
 			get { return Schema.Columns[13]; }
 		}
-		public static TableSchema.TableColumn GPEmployeeIDColumn
+		public static TableSchema.TableColumn FullNameColumn
 		{
 			get { return Schema.Columns[14]; }
 		}
-		public static TableSchema.TableColumn SeasonIDColumn
+		public static TableSchema.TableColumn GPEmployeeIDColumn
 		{
 			get { return Schema.Columns[15]; }
 		}
-		public static TableSchema.TableColumn SeasonNameColumn
+		public static TableSchema.TableColumn SeasonIDColumn
 		{
 			get { return Schema.Columns[16]; }
+		}
+		public static TableSchema.TableColumn SeasonNameColumn
+		{
+			get { return Schema.Columns[17]; }
 		}
 
 		#endregion
@@ -31493,6 +31814,7 @@ namespace SOS.Data.SosCrm
 		public struct Columns
 		{
 			public const string RecruitId = @"RecruitId";
+			public const string TeamId = @"TeamId";
 			public const string ID = @"ID";
 			public const string CreatedOn = @"CreatedOn";
 			public const string CreatedBy = @"CreatedBy";

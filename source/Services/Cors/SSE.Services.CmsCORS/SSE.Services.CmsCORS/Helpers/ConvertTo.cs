@@ -1426,6 +1426,23 @@ namespace SSE.Services.CmsCORS.Helpers
 			};
 		}
 
+		public static FePacket CastFnsToFePacket(IFnsFePacketView item)
+		{
+			return new FePacket
+			{
+				PacketID = item.PacketID,
+				CriteriaName = item.CriteriaName,
+				CriteriaId = item.CriteriaId,
+				PurchaserID = item.PurchaserID,
+				PurchaserName = item.PurchaserName,
+				SubmittedOn = item.SubmittedOn,
+				SubmittedBy = item.SubmittedBy,
+				IsDeleted = item.IsDeleted,
+				CreatedOn = item.CreatedOn,
+				CreatedBy = item.CreatedBy
+			};
+		}
+
 		#endregion Funding Services
 
 	}

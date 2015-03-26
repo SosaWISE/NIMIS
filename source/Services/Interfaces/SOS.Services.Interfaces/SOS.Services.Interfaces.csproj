@@ -90,6 +90,7 @@
     <Compile Include="Models\DocBarcode\BxBarcode.cs" />
     <Compile Include="Models\DoNotCall\DncPhoneNumber.cs" />
     <Compile Include="Models\Funding\FeCriteria.cs" />
+    <Compile Include="Models\Funding\FePacket.cs" />
     <Compile Include="Models\GpsTracking\GsAccountGeoFence.cs" />
     <Compile Include="Models\GpsTracking\GsAccountGeoFenceCircles.cs" />
     <Compile Include="Models\GpsTracking\GsAccountGeoFencePoints.cs" />

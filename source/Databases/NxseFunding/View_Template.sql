@@ -42,13 +42,21 @@ GO
 **	-----------	---------------	-----------------------------------------------
 **	03/16/2015	Andres Sosa		Created by
 *******************************************************************************/
-CREATE VIEW [dbo].[vwMS_AccountOnlineStatusInfo]
+CREATE VIEW [dbo].[vwFE_Packets]
 AS
 	-- Enter Query here
 	SELECT
-		CAST(NULL AS VARCHAR(100)) AS KeyName
-		, CAST(NULL AS VARCHAR(100)) AS [Value]
-		, CAST(NULL AS VARCHAR(100)) AS [Status]
+		 FEP.PacketID ,
+		        FEP.CriteriaId ,
+		        FEP.SubmittedOn ,
+		        FEP.SubmittedBy ,
+		        FEP.CreatedOn ,
+		        FEP.CreatedBy
+	FROM
+		[dbo].[FE_Packets] AS FEP WITH (NOLOCK)
+		INNER JOIN [dbo].[FE_Criterias] AS FEC WITH (NOLOCK)
+		ON
+			(FEC.CriteriaID = FEP.CriteriaId)
 GO
 /* TEST */
 -- SELECT * FROM vwMS_AccountOnlineStatusInfo
