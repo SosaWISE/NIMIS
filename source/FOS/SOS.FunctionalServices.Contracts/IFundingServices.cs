@@ -17,5 +17,7 @@ namespace SOS.FunctionalServices.Contracts
 		IFnsResult<List<IFnsFeCriteria>> CriteriaReadAll(string gpEmployeeId);
 
 		IFnsResult<List<IFnsFePacketView>> PacketReadAll(string gpEmployeeId);
+
+		IFnsResult<List<IFnsFePacketItemView>> PacketItemsRead(int packetId, string gpEmployeeId);
 	}
 }

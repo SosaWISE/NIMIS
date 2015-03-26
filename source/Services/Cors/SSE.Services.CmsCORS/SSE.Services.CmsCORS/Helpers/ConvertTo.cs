@@ -1445,5 +1445,25 @@ namespace SSE.Services.CmsCORS.Helpers
 
 		#endregion Funding Services
 
+		public static FePacketItem CastFnsToFePacketItem(IFnsFePacketItemView viewItem)
+		{
+			return new FePacketItem
+			{
+				PacketItemID = viewItem.PacketItemID,
+				PacketId = viewItem.PacketId,
+				CustomerNumber = viewItem.CustomerNumber,
+				CustomerId = viewItem.CustomerId,
+				AccountId = viewItem.AccountId,
+				FirstName = viewItem.FirstName,
+				LastName = viewItem.LastName,
+				ReturnAccountFundingStatusId = viewItem.ReturnAccountFundingStatusId,
+				AccountFundingShortDesc = viewItem.AccountFundingShortDesc,
+				AccountStatusNote = viewItem.AccountStatusNote,
+				ModifiedBy = viewItem.ModifiedBy,
+				ModifiedOn = viewItem.ModifiedOn,
+				CreatedBy = viewItem.CreatedBy,
+				CreatedOn = viewItem.CreatedOn
+			};
+		}
 	}
 }

@@ -101,5 +101,46 @@ namespace SOS.FunctionalServices
 			// ** Return result
 			return result;
 		}
+
+		// PacketItemsRead
+		public IFnsResult<List<IFnsFePacketItemView>> PacketItemsRead(int packetId, string gpEmployeeId)
+		{
+			#region INITIALIZATION
+
+			// ** Initialize 
+			const string METHOD_NAME = "PacketReadAll";
+			var result = new FnsResult<List<IFnsFePacketItemView>>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+			};
+
+			#endregion INITIALIZATION
+
+			#region TRY
+			try
+			{
+				var fePacketItems = NxseFundingDataContext.Instance.FE_PacketItemsViews.LoadCollection(NxseFundingDataStoredProcedureManager.FE_PacketItemsViewByPacketID(packetId));
+				var fnsList = fePacketItems.Select(fePacketItem => new FnsFePacketItemView(fePacketItem)).Cast<IFnsFePacketItemView>().ToList();
+
+				result.Message = BaseErrorCodes.ErrorCodes.Success.Message();
+				result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
+				result.Value = fnsList;
+			}
+			#endregion TRY
+
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<List<IFnsFePacketItemView>>
+				{
+					Code = (int)ErrorCodes.UnexpectedException
+					, Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message)
+				};
+			}
+			#endregion CATCH
+
+			// ** Return result
+			return result;
+		}
 	}
 }
