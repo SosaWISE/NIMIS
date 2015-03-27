@@ -92,15 +92,16 @@ namespace SSE.Services.CmsCORS.Controllers.HumanResource
 		{
 			var result = new HttpResponseMessage();
 
-			var authResult = CORSSecurity.Authorize("UserPhoto", AuthApplications.HiringManagerID, null, user =>
-			{
-				return new Result<object>();
-			});
-			if (authResult.Code != 0)
-			{
-				result.StatusCode = System.Net.HttpStatusCode.Forbidden;
-				return result;
-			}
+			//@TODO: get pixijs to work with adding authorization headers
+			//var authResult = CORSSecurity.Authorize("UserPhoto", AuthApplications.HiringManagerID, null, user =>
+			//{
+			//	return new Result<object>();
+			//});
+			//if (authResult.Code != 0)
+			//{
+			//	result.StatusCode = System.Net.HttpStatusCode.Forbidden;
+			//	return result;
+			//}
 
 			var service = SosServiceEngine.Instance.FunctionalServices.Instance<IHumanResourceService>();
 			var fnsResult = service.UserPhotoGet(id);

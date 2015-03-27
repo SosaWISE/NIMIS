@@ -1,5 +1,4 @@
-﻿using NXS.Lib.Web.Security;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -9,42 +8,41 @@ using System.Runtime.Caching;
 using System.Text;
 using System.Threading;
 using System.Security.Cryptography;
+using NXS.Lib.Web;
 
 namespace NXS.Lib.Web.Caching
 {
-	public delegate Session CreateSessionFunc(Session sess);
+	public delegate Session SaveSessionFunc(Session sess);
 	public delegate Session ReadSessionFunc(string sessionKey);
-	public delegate void UpdateSessionFunc(Session sess);
-	public delegate void TerminateSessionFunc(string sessionKey);
+	public delegate void SessionAction(string sessionKey);
 
 	public class SessionStore : IDisposable
 	{
 		static int _count = 0;
 
-		CreateSessionFunc _createSession;
-		ReadSessionFunc _readSession;
-		UpdateSessionFunc _updateSession;
-		TerminateSessionFunc _terminateSession;
-
-		TimeSpan _slidingExpiration;
-
 		LockBy<string> _idlocker;
 
+		SaveSessionFunc _save;
+		ReadSessionFunc _read;
+		SessionAction _touch;
+		SessionAction _terminate;
+
+		TimeSpan _maxAge;
 		MemoryCache _cache;
 		CacheItemPolicy _policy;
 
-		public SessionStore(CreateSessionFunc createSession, ReadSessionFunc readSession, UpdateSessionFunc updateSession, TerminateSessionFunc terminateSession,
-			TimeSpan slidingExpiration,
+		public SessionStore(SaveSessionFunc save, ReadSessionFunc read, SessionAction touch, SessionAction terminate,
+			TimeSpan maxAge, TimeSpan slidingCacheExpiration,
 			int? memoryLimitMb = null, int? physicalMemoryLimitPercent = null, TimeSpan? pollingInterval = null)
 		{
-			_createSession = createSession;
-			_updateSession = updateSession;
-			_readSession = readSession;
-			_terminateSession = terminateSession;
-
-			_slidingExpiration = slidingExpiration;
-
 			_idlocker = new LockBy<string>();
+
+			_save = save;
+			_read = read;
+			_touch = touch;
+			_terminate = terminate;
+
+			_maxAge = maxAge;
 
 			var cacheSettings = new NameValueCollection();
 			cacheSettings.Add("CacheMemoryLimitMegabytes", memoryLimitMb.HasValue ? memoryLimitMb.ToString() : "10");
@@ -53,7 +51,7 @@ namespace NXS.Lib.Web.Caching
 			_cache = new MemoryCache("SessionStore" + (++_count), cacheSettings);
 
 			_policy = new CacheItemPolicy();
-			_policy.SlidingExpiration = slidingExpiration;
+			_policy.SlidingExpiration = slidingCacheExpiration;
 			_policy.Priority = CacheItemPriority.Default;
 			_policy.RemovedCallback = this.OnRemoved;
 		}
@@ -71,14 +69,13 @@ namespace NXS.Lib.Web.Caching
 			_idlocker.Dispose();
 			_cache.Dispose();
 			_rnd.Dispose();
-			_sha1.Dispose();
+			//_sha1.Dispose();
 		}
 
 		// add new session
-		public byte[] Create(string ipAddress)
+		public byte[] Create(string username, string ipAddress)
 		{
-			if (_disposed)
-				throw new Exception("SessionStore is disposed");
+			if (_disposed) throw new Exception("SessionStore is disposed");
 
 			var sessionNum = NewSessionNum();
 			var sessionKey = SessionNumToKey(sessionNum);
@@ -87,85 +84,62 @@ namespace NXS.Lib.Web.Caching
 				// save to disk
 				var sess = new Session
 				{
-					Username = null,
+					Username = username,
 					IPAddress = ipAddress,
 					SessionKey = sessionKey,
-					LastAccessedOn = DateTime.UtcNow,
+					CreatedOn = DateTime.UtcNow,
 				};
-				sess = _createSession(sess);
+				sess = _save(sess);
 				// add to cache
 				_cache.Set(sessionKey, sess, _policy);
 			});
 
 			return sessionNum;
 		}
+		//// add new session
+		//public bool SetUsername(byte[] sessionNum, string username)
+		//{
+		//	if (_disposed) throw new Exception("SessionStore is disposed");
+		//
+		//	Session sess = default(Session);
+		//	var sessionKey = SessionNumToKey(sessionNum);
+		//	_idlocker.Lock(sessionKey, () =>
+		//	{
+		//		if (!Access(sessionNum, out sess))
+		//		{
+		//			return;
+		//		}
+		//
+		//		if (sess.Username != null)
+		//		{
+		//			throw new Exception("Username already set");
+		//		}
+		//		try
+		//		{
+		//			sess.Username = username;
+		//			sess = _save(sess);
+		//			// update cache item
+		//			_cache.Set(sessionKey, sess, _policy);
+		//		}
+		//		catch (Exception ex)
+		//		{
+		//			// remove if there are any errors
+		//			sess = default(Session);
+		//			_cache.Remove(sessionKey);
+		//
+		//			throw ex; //???
+		//		}
+		//	});
+		//
+		//	return sess != default(Session);
+		//}
 
-		// re-new session
-		public bool TryRenew(byte[] currSessionNum, string username, string ipAddress, out byte[] newSessionNum)
+		// get session
+		public bool Access(byte[] sessionNum, out Session result)
 		{
 			if (_disposed) throw new Exception("SessionStore is disposed");
 
 			Session sess = default(Session);
-			try
-			{
-				var sessionNum = NewSessionNum();
-				var sessionKey = SessionNumToKey(sessionNum);
-				_idlocker.Lock(sessionKey, () =>
-				{
-					// try to get the current session
-					var currSessionKey = SessionNumToKey(currSessionNum);
-					_idlocker.Lock(currSessionKey, () =>
-					{
-						if (!TryAccessInternal(currSessionNum, username, ipAddress, false, out sess)) // re-entrant lock
-						{
-							// current session is not valid
-							sessionNum = null;
-							return;
-						}
-						// remove current from cache
-						_cache.Remove(currSessionKey);
-
-						try
-						{
-							// update session key
-							sess.SessionKey = sessionKey;
-							// save all changes to disk
-							_updateSession(sess);
-							// add to cache using new key
-							_cache.Set(sessionKey, sess, _policy);
-						}
-						catch (Exception ex)
-						{
-							// if there are any errors, assume the session is no longer valid
-							sessionNum = null;
-							_cache.Remove(sessionKey);
-
-							throw ex; //???
-						}
-					});
-				});
-				newSessionNum = sessionNum;
-				return newSessionNum != null;
-			}
-			catch
-			{
-				// failed to renew
-				newSessionNum = null;
-				return false;
-			}
-		}
-
-		// get session
-		public bool TryAccess(byte[] sessionNum, string username, string ipAddress, out Session result)
-		{
-			if (_disposed)
-				throw new Exception("SessionStore is disposed");
-			return TryAccessInternal(sessionNum, username, ipAddress, true, out result);
-		}
-		private bool TryAccessInternal(byte[] sessionNum, string username, string ipAddress, bool saveChanges, out Session result)
-		{
-			Session sess = default(Session);
-
 			var sessionKey = SessionNumToKey(sessionNum);
 			_idlocker.Lock(sessionKey, () =>
 			{
@@ -177,7 +151,7 @@ namespace NXS.Lib.Web.Caching
 				else
 				{
 					// load from disk
-					sess = _readSession(sessionKey);
+					sess = _read(sessionKey);
 					if (sess == default(Session))
 					{
 						return;
@@ -189,7 +163,7 @@ namespace NXS.Lib.Web.Caching
 				}
 
 				// validate expiration
-				if (_slidingExpiration < DateTime.UtcNow.Subtract(sess.LastAccessedOn))
+				if (_maxAge < DateTime.UtcNow.Subtract(sess.CreatedOn))
 				{
 					// session has expired
 					sess = default(Session);
@@ -197,29 +171,21 @@ namespace NXS.Lib.Web.Caching
 					return;
 				}
 
-				if (sess.Username != null && sess.Username != username)
-				{
-					throw new Exception("username cannot change");
-				}
-				// update access time
 				try
 				{
-					sess.Username = username;
-					sess.IPAddress = ipAddress;
-					sess.LastAccessedOn = DateTime.UtcNow;
-					if (saveChanges)
-					{
-						// make changes on disk
-						_updateSession(sess);
-					}
+					// update access time
+					_touch(sessionKey);
 				}
 				catch (Exception ex)
 				{
-					// if there are any errors, assume the session is no longer valid
-					sess = default(Session);
-					_cache.Remove(sessionKey);
+					// swallow errors since this is non-essential
+					//@TODO: log error
 
-					throw ex; //???
+					//// remove if there are any errors
+					//sess = default(Session);
+					//_cache.Remove(sessionKey);
+					//
+					//throw ex; //???
 				}
 			});
 			result = sess;
@@ -229,15 +195,15 @@ namespace NXS.Lib.Web.Caching
 		// remove session
 		public void Terminate(byte[] sessionNum)
 		{
-			if (_disposed)
-				throw new Exception("SessionStore is disposed");
+			if (_disposed) throw new Exception("SessionStore is disposed");
+
 			var sessionKey = SessionNumToKey(sessionNum);
 			_idlocker.Lock(sessionKey, () =>
 			{
 				// remove from cache
 				_cache.Remove(sessionKey);
 				// make changes on disk
-				_terminateSession(sessionKey);
+				_terminate(sessionKey);
 			});
 		}
 
@@ -249,18 +215,21 @@ namespace NXS.Lib.Web.Caching
 		private RandomNumberGenerator _rnd = RandomNumberGenerator.Create();
 		private byte[] NewSessionNum()
 		{
-			if (_disposed)
-				throw new Exception("SessionStore is disposed");
+			if (_disposed) throw new Exception("SessionStore is disposed");
+
 			var key = new byte[16]; // 128 / 8
 			_rnd.GetBytes(key);
 			return key;
 		}
 
-		private SHA1Managed _sha1 = new SHA1Managed();
+		//private SHA1Managed _sha1 = new SHA1Managed();
 		public string SessionNumToKey(byte[] sessionNum)
 		{
-			if (_disposed)
-				throw new Exception("SessionStore is disposed");
+			if (_disposed) throw new Exception("SessionStore is disposed");
+
+			// SHA1Managed is not thread safe: http://stackoverflow.com/questions/12644257
+			// having this as a member variable caused random/wrong sessionKeys
+			var _sha1 = SHA1.Create();
 			return Convert.ToBase64String(_sha1.ComputeHash(sessionNum));
 		}
 	}

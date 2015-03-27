@@ -11,8 +11,8 @@ namespace SOS.FunctionalServices.Test
 		public void TestBob()
 		{
 			var service = new AuthService(null, null);
-			var userSession = new UserSession();
-			service.RenewOrStartSession(ref userSession, "ipaddress");
+			//var userSession = new SystemUserIdentity();
+			//service.RenewOrStartSession(ref userSession, "ipaddress");
 		}
 	}
 }

@@ -1,17 +1,9 @@
 ﻿using NXS.Lib.Web;
 using NXS.Lib.Web.Caching;
-using NXS.Lib.Web.Security;
-using SOS.Data.AuthenticationControl;
-using SOS.FunctionalServices.Contracts;
 using SOS.Lib.Core;
 using SOS.Lib.Util.ActiveDirectory;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SOS.FunctionalServices
 {
@@ -35,37 +27,32 @@ namespace SOS.FunctionalServices
 
 		Dictionary<string, HashSet<string>> _groupApps;
 		Dictionary<string, HashSet<string>> _groupActions;
-		public AuthService(Dictionary<string, HashSet<string>> groupApps, Dictionary<string, HashSet<string>> groupActions,
-			SessionStore sessionStore = null, UserStore userStore = null)
+		public AuthService(Dictionary<string, HashSet<string>> groupApps, Dictionary<string, HashSet<string>> groupActions)//,
+		//SessionStore sessionStore = null, UserStore userStore = null)
 		{
 			_groupApps = groupApps;
 			_groupActions = groupActions;
 
-			_sessionStore = sessionStore ?? SosServiceEngine.Instance.FunctionalServices.Instance<SessionStore>();
-			_userStore = userStore ?? SosServiceEngine.Instance.FunctionalServices.Instance<UserStore>();
+			_sessionStore = /*sessionStore ??*/ SosServiceEngine.Instance.FunctionalServices.Instance<SessionStore>();
+			_userStore = /*userStore ??*/ SosServiceEngine.Instance.FunctionalServices.Instance<UserStore>();
 		}
 
-		public Result<UserModel> Authenticate(UserSession userSession, string username, string password, string ipAddress)
+		public Result<SystemUserIdentity> Authenticate(string username, string password, string ipAddress)
 		{
-			var result = new Result<UserModel>();
-			if (userSession != null && userSession.Username == null && username != null)
+			var result = new Result<SystemUserIdentity>();
+			if (username != null)
 			{
 				//
-				_userStore.InvalidateCached(username);
+				RemoveCachedUser(username);
 				//
 				var user = _userStore.Get(username);
-				// compare passwords event if a 
-				if (BCrypt.Net.BCrypt.HashAndPasswordAreEqual(password, user.Password))
+				// compare passwords (first to password in database, then in active directory)
+				if (BCrypt.Net.BCrypt.HashAndPasswordAreEqual(password, user.Password) ||
+					ADHelper.IsValidLogin(username, password, ADUtility.Domain))
 				{
-					// set username on session
-					userSession.Username = username;
-					// access/upate session
-					Session session;
-					if (_sessionStore.TryAccess(userSession.SessionNum, userSession.Username, ipAddress, out session))
-					{
-						result.Value = ToUserModel(user);
-						return result;
-					}
+					var sessionNum = _sessionStore.Create(username, ipAddress);
+					result.Value = new SystemUserIdentity(sessionNum, user);
+					return result;
 				}
 			}
 
@@ -74,68 +61,40 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-		public void RenewOrStartSession(ref UserSession userSession, string ipAddress)
+		public void RemoveCachedUser(string username)
 		{
-			byte[] sessionNum;
-			if (userSession == null || !_sessionStore.TryRenew(userSession.SessionNum, userSession.Username, ipAddress, out sessionNum))
-			{
-				// userSession is null or failed to renew so create new
-				userSession = new UserSession();
-				sessionNum = _sessionStore.Create(ipAddress);
-			}
-			userSession.SessionNum = sessionNum;
+			_userStore.RemoveCached(username);
 		}
-		public void InvalidateCachedUser(string username)
-		{
-			_userStore.InvalidateCached(username);
-		}
-		public Result<UserModel> GetUser(string username, bool includeLists = true)
-		{
-			var result = new Result<UserModel>();
-			if (username == null)
-			{
-				return result;
-			}
 
-			var user = _userStore.Get(username);
-			if (user == default(User))
-			{
-				result.Code = -1;
-				result.Message = "User not found";
-			}
-			result.Value = ToUserModel(user, includeLists);
-			return result;
-		}
-		private UserModel ToUserModel(User user, bool includeLists = true)
+		public UserModel ToUserModel(SystemUserIdentity identity, bool includeLists = true)
 		{
 			var userModel = new UserModel
 			{
-				UserID = user.UserID,
-				Username = user.Username,
-				Firstname = user.FirstName,
-				Lastname = user.LastName,
-				GPEmployeeID = user.GPEmployeeID,
-
-				DealerId = user.DealerId,
+				UserID = identity.UserID,
+				Username = identity.UserName,
+				Firstname = identity.FirstName,
+				Lastname = identity.LastName,
+				GPEmployeeID = identity.GPEmployeeID,
+				DealerId = identity.DealerId,
 			};
 			if (includeLists)
 			{
-				userModel.Apps = GetApps(user.Groups);
-				userModel.Actions = GetActions(user.Groups);
+				userModel.Apps = GetApps(identity.Claims);
+				userModel.Actions = GetActions(identity.Claims);
 			}
 			return userModel;
 		}
 		// get apps the user can open
-		private List<string> GetApps(string[] groups)
+		private List<string> GetApps(IEnumerable<string> groups)
 		{
 			return GetPermissions(_groupApps, groups).ToList();
 		}
 		// get actions the user can perform
-		private List<string> GetActions(string[] groups)
+		private List<string> GetActions(IEnumerable<string> groups)
 		{
 			return GetPermissions(_groupActions, groups).ToList();
 		}
-		private static HashSet<string> GetPermissions(Dictionary<string, HashSet<string>> dict, string[] groups)
+		private static HashSet<string> GetPermissions(Dictionary<string, HashSet<string>> dict, IEnumerable<string> groups)
 		{
 			var result = new HashSet<string>();
 			if (groups != null)
@@ -153,35 +112,18 @@ namespace SOS.FunctionalServices
 			}
 			return result;
 		}
-		public bool HasPermission(string[] groups, string applicationID, string actionID)
+		public bool HasPermission(IEnumerable<string> groups, string applicationID, string actionID)
 		{
 			//@REVIEW: this could be optimized...
 			return ((applicationID == null || GetApps(groups).Contains(applicationID.ToLower())) && // applicationID must be null or in list
 					(actionID == null || GetActions(groups).Contains(actionID.ToLower()))); // actionID must be null or in list
 		}
 
-		public UserModel Authorize(UserSession userSession, string ipAddress, string applicationID, string actionID)
-		{
-			Session session;
-			if (userSession != null && _sessionStore.TryAccess(userSession.SessionNum, userSession.Username, ipAddress, out session))
-			{
-				var user = _userStore.Get(userSession.Username);
-				if (HasPermission(user.Groups, applicationID, actionID))
-				{
-					return ToUserModel(user, false);
-				}
-			}
-			return null;
-		}
-
 		public void EndSession(byte[] sessionNum)
 		{
-			_sessionStore.Terminate(sessionNum);
-		}
+			if (sessionNum == null) return;
 
-		public string NewXsrfToken()
-		{
-			return Convert.ToBase64String(AESHMAC.NewKey());
+			_sessionStore.Terminate(sessionNum);
 		}
 
 		public string SessionNumToKey(byte[] sessionNum)

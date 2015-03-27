@@ -78,12 +78,12 @@ namespace SSE.Services.CmsCORS.Controllers.Qualify
 							AddressID = jsonParam.AddressId,
 							DealerId = jsonParam.DealerId,
 							TimeZoneId = jsonParam.TimeZoneId,
-							Address = jsonParam.StreetAddress,
-							Address2 = jsonParam.StreetAddress2,
+							StreetAddress = jsonParam.StreetAddress,
+							StreetAddress2 = jsonParam.StreetAddress2,
 							City = jsonParam.City,
-							State = jsonParam.StateId,
+							StateId = jsonParam.StateId,
 							PostalCode = jsonParam.PostalCode,
-							PhoneNumber = jsonParam.PhoneNumber,
+							Phone = jsonParam.PhoneNumber,
 
 							SeasonId = jsonParam.SeasonId,
 							TeamLocationId = jsonParam.TeamLocationId,
@@ -202,7 +202,7 @@ namespace SSE.Services.CmsCORS.Controllers.Qualify
 				var argArray = new List<CORSArg>
 				{
 					new CORSArg(jsonParam.CustomerTypeId, string.IsNullOrEmpty(jsonParam.CustomerTypeId), "'CustomerTypeId' Has to be passed."),
-					new CORSArg(jsonParam.AddressID, (jsonParam.AddressID == 0), "'AddressId' Has to be passed."),
+					new CORSArg(jsonParam.AddressId, (jsonParam.AddressId == 0), "'AddressId' Has to be passed."),
 					new CORSArg(jsonParam.DealerId, (jsonParam.DealerId == 0), "'DealerId' Has to be passed."),
 					new CORSArg(jsonParam.TeamLocationId, (jsonParam.TeamLocationId == 0), "'TeamLocationId' Has to be passed."),
 					new CORSArg(jsonParam.SeasonId, (jsonParam.SeasonId == 0), "'SeasonId' Has to be passed."),
@@ -222,7 +222,7 @@ namespace SSE.Services.CmsCORS.Controllers.Qualify
 				var fnsLead = new FnsQlLead
 				{
 					LeadID = jsonParam.LeadID,
-					AddressID = jsonParam.AddressID,
+					AddressId = jsonParam.AddressId,
 					CustomerTypeId = jsonParam.CustomerTypeId,
 					CustomerMasterFileId = jsonParam.CustomerMasterFileId,
 					DealerId = oUser.DealerId,
@@ -242,14 +242,14 @@ namespace SSE.Services.CmsCORS.Controllers.Qualify
 					SSN = jsonParam.SSN,
 					DOB = jsonParam.DOB,
 					DL = jsonParam.DL,
-					DLStateId = jsonParam.DLStateId,
+					DLStateId = jsonParam.DLStateID,
 					Email = jsonParam.Email,
 					PhoneWork = jsonParam.PhoneWork,
 					PhoneMobile = jsonParam.PhoneMobile,
 					PhoneHome = jsonParam.PhoneHome,
 					ProductSkwId = jsonParam.ProductSkwId
 				};
-				var fnsResult = Service.SaveLead(fnsLead, oUser.Username);
+				var fnsResult = Service.SaveLead(fnsLead, oUser.Username, jsonParam.CreateMasterLead);
 				return result.FromFnsResult(fnsResult);
 			});
 		}

@@ -1,0 +1,8 @@
+<xunit>
+  <assemblies>
+    <assembly filename="source\Data\NXS.Data.Tests\bin\Debug\NXS.Data.Tests.dll">
+    </assembly>
+    <assembly filename="source\Lib\NXS.Lib.Web.Test\bin\Debug\NXS.Lib.Web.Test.dll">
+    </assembly>
+  </assemblies>
+</xunit>

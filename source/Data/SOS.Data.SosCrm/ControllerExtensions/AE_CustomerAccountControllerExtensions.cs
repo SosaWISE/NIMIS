@@ -14,14 +14,12 @@ namespace SOS.Data.SosCrm.ControllerExtensions
 
 			return cntlr.LoadSingle(qry);
 		}
-
 		public static ARCollection GetByAccountId(this ARController cntlr, long accountId)
 		{
 			var qry = AR.Query()
 				.WHERE(AR.Columns.AccountId, accountId);
 
 			return cntlr.LoadCollection(qry);
-
 		}
 	}
 }

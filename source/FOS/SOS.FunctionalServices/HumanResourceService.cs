@@ -602,7 +602,7 @@ namespace SOS.FunctionalServices
 
 			// remove user from cache
 			var authService = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
-			authService.InvalidateCachedUser(user.UserName);
+			authService.RemoveCachedUser(user.UserName);
 
 			return UserGet(user.UserID);
 		}

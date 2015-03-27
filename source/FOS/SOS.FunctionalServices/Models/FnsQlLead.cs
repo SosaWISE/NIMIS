@@ -7,7 +7,7 @@ namespace SOS.FunctionalServices.Models
 	public class FnsQlLead : IFnsQlLead
 	{
 		public long LeadID { get; set; }
-		public long AddressID { get; set; }
+		public long AddressId { get; set; }
 		public string CustomerTypeId { get; set; }
 		public long CustomerMasterFileId { get; set; }
 		public int DealerId { get; set; }
@@ -39,7 +39,7 @@ namespace SOS.FunctionalServices.Models
 			return new FnsQlLead
 			{
 				LeadID = lead.LeadID,
-				AddressID = lead.AddressId,
+				AddressId = lead.AddressId,
 				CustomerTypeId = lead.CustomerTypeId,
 				CustomerMasterFileId = lead.CustomerMasterFileId,
 				DealerId = lead.DealerId,

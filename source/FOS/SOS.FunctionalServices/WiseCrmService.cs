@@ -30,7 +30,6 @@ using SOS.FunctionalServices.Models.QualifyLead;
 using SOS.FunctionalServices.Models.Receiver;
 using SOS.Lib.Core.CreditReportService;
 using SOS.Lib.Util;
-using SOS.Lib.Util.Extensions;
 using SSE.FOS.AddressVerification.Interfaces;
 using SSE.FOS.AddressVerification.Models;
 using WSLead = NSE.FOS.RunCreditServices.Models.WSLead;
@@ -2123,19 +2122,19 @@ namespace SOS.FunctionalServices
 			{
 				// ** Get instance of the AddressVerification service.
 				var avService = new SSE.FOS.AddressVerification.Main();
-				var areaCode = StringUtility.GetAreaCode(address.PhoneNumber);
+				var areaCode = StringUtility.GetAreaCode(address.Phone);
 				IFosQlAddress fosAddress = new FosQlAddress
 					{
-						AddressLine1 = address.Address,
-						AddressLine2 = address.Address2,
+						AddressLine1 = address.StreetAddress,
+						AddressLine2 = address.StreetAddress2,
 						StreetNumber = address.StreetNumber,
 						StreetName = address.StreetName,
 						City = string.IsNullOrEmpty(address.City)
 							? string.Empty
 							: address.City,
-						StateId = string.IsNullOrEmpty(address.State)
+						StateId = string.IsNullOrEmpty(address.StateId)
 							? string.Empty
-							: address.State,
+							: address.StateId,
 						PostalCode = string.IsNullOrEmpty(address.PostalCode)
 							? string.Empty
 							: address.PostalCode,
@@ -2148,7 +2147,7 @@ namespace SOS.FunctionalServices
 						CarrierRoute = address.CarrierRoute,
 						DPVResponse = address.DPVResponse,
 						TimeZoneId = address.TimeZoneId,
-						Phone = address.PhoneNumber,
+						Phone = address.Phone,
 					};
 				IFosAVResult<IFosAddressVerified> avResult = avService.VerifyAddress(fosAddress, areaCode, address.DealerId, seasonId, teamLocationId, salesRepId, userId);
 
@@ -2156,12 +2155,12 @@ namespace SOS.FunctionalServices
 				{
 					// ** Bind address to correct return value.
 					address.AddressID = avResult.Value.AddressID;
-					address.Address = avResult.Value.StreetAddress;
-					address.Address2 = avResult.Value.StreetAddress2;
+					address.StreetAddress = avResult.Value.StreetAddress;
+					address.StreetAddress2 = avResult.Value.StreetAddress2;
 					address.StreetNumber = avResult.Value.StreetNumber;
 					address.StreetName = avResult.Value.StreetName;
 					address.City = avResult.Value.City;
-					address.State = avResult.Value.StateId;
+					address.StateId = avResult.Value.StateId;
 					address.PostalCode = avResult.Value.PostalCode;
 					address.PlusFour = avResult.Value.PlusFour;
 					address.County = avResult.Value.County;
@@ -2176,7 +2175,7 @@ namespace SOS.FunctionalServices
 					address.SeasonId = seasonId;
 					address.TeamLocationId = teamLocationId;
 					address.TimeZoneId = avResult.Value.TimeZoneId;
-					address.TimeZone = avResult.Value.TimeZone;
+					//address.TimeZone = avResult.Value.TimeZone;
 					address.Latitude = avResult.Value.Lattitude;
 					address.Longitude = avResult.Value.Longitude;
 					address.DPV = avResult.Value.DPV;
@@ -2223,15 +2222,7 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
-		public IFnsResult<List<IFnsQlLead>> MasterFileLeads(long cmfid)
-		{
-			var result = new FnsResult<List<IFnsQlLead>> { Message = "" };
-			var list = SosCrmDataContext.Instance.QL_Leads.ByCmfID(cmfid);
-			result.Value = list.ConvertAll(lead => (IFnsQlLead)FnsQlLead.FromQL_Lead(lead));
-			return result;
-		}
-
-		public IFnsResult<IFnsQlLead> SaveLead(IFnsQlLead fnsLead, string userId)
+		public IFnsResult<IFnsQlLead> SaveLead(IFnsQlLead fnsLead, string userId, bool createMasterLead)
 		{
 			var result = new FnsResult<IFnsQlLead> { Message = "" };
 
@@ -2264,7 +2255,7 @@ namespace SOS.FunctionalServices
 					{
 						CustomerMasterFileId = cmfid,
 						DealerId = fnsLead.DealerId,
-						AddressId = fnsLead.AddressID,
+						AddressId = fnsLead.AddressId,
 						SalesRepId = fnsLead.SalesRepId,
 						IsActive = true,
 						CreatedOn = DateTime.UtcNow,
@@ -2272,13 +2263,16 @@ namespace SOS.FunctionalServices
 					};
 					SaveQlLead(lead, fnsLead, userId);
 
-					// create QL_CustomerMasterLeads for LeadId and CMFID
-					new QL_CustomerMasterLead
+					if (createMasterLead)
 					{
-						CustomerMasterFileId = cmfid,
-						LeadId = lead.LeadID,
-						CustomerTypeId = fnsLead.CustomerTypeId,
-					}.Save(userId);
+						// create QL_CustomerMasterLeads for LeadId and CMFID
+						new QL_CustomerMasterLead
+						{
+							CustomerMasterFileId = cmfid,
+							LeadId = lead.LeadID,
+							CustomerTypeId = fnsLead.CustomerTypeId,
+						}.Save(userId);
+					}
 
 					// create QL_LeadAddress for LeadId and AddressId
 					new QL_LeadAddress

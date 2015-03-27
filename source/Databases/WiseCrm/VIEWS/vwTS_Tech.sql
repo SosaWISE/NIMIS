@@ -47,6 +47,8 @@ AS
 
 	SELECT
 		RR.RecruitId -- get from recruit instead of tech
+		, RR.TeamId
+
 		, T.ID
 		, T.CreatedOn
 		, T.CreatedBy
