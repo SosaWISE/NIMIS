@@ -148,6 +148,8 @@
     <Compile Include="Controllers\AccountingEngine\CustomerCardInfoController.cs" />
     <Compile Include="Controllers\AccountingEngine\CustomerSearchController.cs" />
     <Compile Include="Controllers\AccountingEngine\InvoiceController.cs" />
+    <Compile Include="Controllers\Funding\BundleItemsController.cs" />
+    <Compile Include="Controllers\Funding\BundlesController.cs" />
     <Compile Include="Controllers\Funding\CriteriasController.cs" />
     <Compile Include="Controllers\Funding\PacketItemsController.cs" />
     <Compile Include="Controllers\Funding\PacketsController.cs" />
