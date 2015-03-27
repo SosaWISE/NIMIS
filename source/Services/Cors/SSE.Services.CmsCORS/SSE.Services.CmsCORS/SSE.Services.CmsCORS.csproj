@@ -56,6 +56,10 @@
     <Reference Include="Nancy.Serialization.JsonNet">
       <HintPath>..\..\corspackages\Nancy.Serialization.JsonNet.1.1\lib\net40\Nancy.Serialization.JsonNet.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\corspackages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -123,10 +127,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\corspackages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\corspackages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.IdentityModel.Tokens.Jwt">
       <HintPath>..\..\corspackages\System.IdentityModel.Tokens.Jwt.1.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
@@ -434,6 +434,10 @@
     <ProjectReference Include="..\..\..\Interfaces\SOS.Services.Interfaces\SOS.Services.Interfaces.csproj">
       <Project>{DCDBF3EE-D932-4713-9A47-2693C0C7BEF4}</Project>
       <Name>SOS.Services.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WsModules.Chat\WsModules.Chat.csproj">
+      <Project>{834afd76-b130-4f41-bda1-3f4dc2a590eb}</Project>
+      <Name>WsModules.Chat</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -48,6 +48,8 @@ namespace SSE.Services.CmsCORS
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 			GlobalConfiguration.Configuration.EnsureInitialized();
+
+			var cancellation = WsModules.Chat.Listener.Start(3639);
 		}
 
 		#region Error Handler Manager
