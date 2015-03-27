@@ -70,6 +70,7 @@ AS
 		INNER JOIN [WISE_CRM].[dbo].[AE_CustomerAccounts] AS AECA WITH (NOLOCK)
 		ON
 			(AECA.AccountId = FEPI.AccountId)
+			AND (AECA.CustomerTypeId = 'PRI')
 		INNER JOIN [WISE_CRM].[dbo].[AE_Customers] AS CUST WITH (NOLOCK)
 		ON
 			(CUST.CustomerID = AECA.CustomerId)

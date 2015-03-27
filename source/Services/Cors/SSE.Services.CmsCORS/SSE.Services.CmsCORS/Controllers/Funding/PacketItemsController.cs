@@ -16,7 +16,7 @@ namespace SSE.Services.CmsCORS.Controllers.Funding
 	public class PacketItemsController : ApiController
     {
 
-		[Route("Packets/{id}")]
+		[Route("PacketItems/{id}")]
 		[HttpGet]
 		// GET api/packetitems/5
 		public CmsCORSResult<List<FePacketItem>> Get(int id)
