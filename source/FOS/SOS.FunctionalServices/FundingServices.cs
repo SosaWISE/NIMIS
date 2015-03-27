@@ -142,5 +142,126 @@ namespace SOS.FunctionalServices
 			// ** Return result
 			return result;
 		}
+
+		public IFnsResult<List<IFnsFeBundle>> BundleReadAll(string gpEmployeeId)
+		{
+			#region INITIALIZATION
+
+			// ** Initialize 
+			const string METHOD_NAME = "BundleReadAll";
+			var result = new FnsResult<List<IFnsFeBundle>>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+			};
+
+			#endregion INITIALIZATION
+
+			#region TRY
+			try
+			{
+				var feBundles = NxseFundingDataContext.Instance.FE_BundlesViews.LoadCollection(NxseFundingDataStoredProcedureManager.FE_BundlesReadOpen());
+				var fnsList = feBundles.Select(feBundle => new FnsFeBundle(feBundle)).Cast<IFnsFeBundle>().ToList();
+
+				result.Message = BaseErrorCodes.ErrorCodes.Success.Message();
+				result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
+				result.Value = fnsList;
+			}
+			#endregion TRY
+
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<List<IFnsFeBundle>>
+				{
+					Code = (int)ErrorCodes.UnexpectedException
+					, Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message)
+				};
+			}
+			#endregion CATCH
+
+			// ** Return result
+			return result;
+		}
+
+		public IFnsResult<IFnsFeBundle> BundleRead(int bundleID, string gpEmployeeId)
+		{
+			#region INITIALIZATION
+
+			// ** Initialize 
+			const string METHOD_NAME = "BundleRead";
+			var result = new FnsResult<IFnsFeBundle>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+			};
+
+			#endregion INITIALIZATION
+
+			#region TRY
+			try
+			{
+				var feBundle = NxseFundingDataContext.Instance.FE_BundlesViews.LoadSingle(FE_BundlesView.Query().WHERE(FE_BundlesView.Columns.BundleID, bundleID));
+				var fnsBundle =new FnsFeBundle(feBundle);
+
+				result.Message = BaseErrorCodes.ErrorCodes.Success.Message();
+				result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
+				result.Value = fnsBundle;
+			}
+			#endregion TRY
+
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<IFnsFeBundle>
+				{
+					Code = (int)ErrorCodes.UnexpectedException
+					, Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message)
+				};
+			}
+			#endregion CATCH
+
+			// ** Return result
+			return result;
+		}
+
+		public IFnsResult<List<IFnsFeBundleItem>> BundleItemsRead(int bundleId, string gpEmployeeId)
+		{
+			#region INITIALIZATION
+
+			// ** Initialize 
+			const string METHOD_NAME = "BundleItemsRead";
+			var result = new FnsResult<List<IFnsFeBundleItem>>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+			};
+
+			#endregion INITIALIZATION
+
+			#region TRY
+			try
+			{
+				var feBundleItems = NxseFundingDataContext.Instance.FE_BundleItemsViews.LoadCollection(NxseFundingDataStoredProcedureManager.FE_BundleItemsViewByBundleID(bundleId));
+				var fnsList = feBundleItems.Select(feBundleItem => new FnsFeBundleItem(feBundleItem)).Cast<IFnsFeBundleItem>().ToList();
+
+				result.Message = BaseErrorCodes.ErrorCodes.Success.Message();
+				result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
+				result.Value = fnsList;
+			}
+			#endregion TRY
+
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<List<IFnsFeBundleItem>>
+				{
+					Code = (int)ErrorCodes.UnexpectedException
+					, Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message)
+				};
+			}
+			#endregion CATCH
+
+			// ** Return result
+			return result;
+		}
+
 	}
 }

@@ -47,7 +47,8 @@ BEGIN
 	SET NOCOUNT ON
 
 	/** DECLARATIONS */
-	DECLARE @PacketItemID INT;
+	DECLARE @PacketItemID INT
+		, @AccountFundingStatusID BIGINT;
 	
 	BEGIN TRY
 		BEGIN TRANSACTION
@@ -73,13 +74,20 @@ BEGIN
 			, [AccountStatusNote]
 			, [CreatedBy]
 		) VALUES (
-			1  -- AccountFundingStatusTypeId - int PaperworkBeingPulled
+			3  -- AccountFundingStatusTypeId - int 'Submitted To Funding'
 			, @AccountId  -- AccountId - int
 			, NULL  -- AccountStatusEventId - bigint
 			, @PacketItemID  -- PacketItemId - int
 			, NULL  -- AccountStatusNote - ntext
 			, @CreatedBy  -- CreatedBy - nvarchar(50)
 		);
+
+		SET @AccountFundingStatusID = SCOPE_IDENTITY();
+		UPDATE [WISE_CRM].[dbo].[MS_AccountSalesInformations] SET 
+			AccountFundingStatusId = @AccountFundingStatusID
+		WHERE
+			(AccountID = @AccountId);
+
 		COMMIT TRANSACTION
 	END TRY
 	BEGIN CATCH

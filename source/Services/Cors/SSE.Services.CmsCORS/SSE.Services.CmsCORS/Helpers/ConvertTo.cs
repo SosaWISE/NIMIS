@@ -1,4 +1,5 @@
-﻿using SOS.Data.SosCrm;
+﻿using System.Web.UI.WebControls;
+using SOS.Data.SosCrm;
 using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.AccountingEngine;
 using SOS.FunctionalServices.Contracts.Models.CentralStation;
@@ -1479,6 +1480,39 @@ namespace SSE.Services.CmsCORS.Helpers
 				ModifiedOn = viewItem.ModifiedOn,
 				CreatedBy = viewItem.CreatedBy,
 				CreatedOn = viewItem.CreatedOn
+			};
+		}
+
+		public static FeBundle CastFnsToFeBundle(IFnsFeBundle viewItem)
+		{
+			return new FeBundle
+			{
+				BundleID = viewItem.BundleID,
+				PurchaserID = viewItem.PurchaserID,
+				PurchaserName = viewItem.PurchaserName,
+				TrackingNumberID = viewItem.TrackingNumberID,
+				TrackingNumber = viewItem.TrackingNumber,
+				DeliveryDate = viewItem.DeliveryDate,
+				SubmittedOn = viewItem.SubmittedOn,
+				SubmittedBy = viewItem.SubmittedBy,
+				CreatedOn = viewItem.CreatedOn,
+				CreatedBy = viewItem.CreatedBy
+			};
+		}
+
+		public static FeBundleItems CastFnsToFeBundleItems(IFnsFeBundleItem viewItem)
+		{
+			return new FeBundleItems
+			{
+				BundleItemID = viewItem.BundleItemID,
+				BundleId = viewItem.BundleId,
+				PacketId = viewItem.PacketId,
+				CreatedOn = viewItem.CreatedOn,
+				CreatedBy = viewItem.CreatedBy,
+				PSubmittedOn = viewItem.PSubmittedOn,
+				PSubmittedBy = viewItem.PSubmittedBy,
+				PCreatedOn = viewItem.PCreatedOn,
+				PCreatedBy = viewItem.CreatedBy
 			};
 		}
 	}

@@ -84,26 +84,5 @@ namespace SSE.Services.CmsCORS.Controllers.Funding
 			});
 
 		}
-
-        // GET api/criterias/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/criterias
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/criterias/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/criterias/5
-        public void Delete(int id)
-        {
-        }
     }
 }

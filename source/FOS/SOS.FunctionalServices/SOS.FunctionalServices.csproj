@@ -81,6 +81,8 @@
     <Compile Include="Models\CentralStation\FnsMsIndustryAccountNumbersWithReceiverLineInfoView.cs" />
     <Compile Include="Models\Connext\FnsCxAddress.cs" />
     <Compile Include="Models\Connext\FnsCxContact.cs" />
+    <Compile Include="Models\Funding\FnsFeBundle.cs" />
+    <Compile Include="Models\Funding\FnsFeBundleItem.cs" />
     <Compile Include="Models\Funding\FnsFeCriteria.cs" />
     <Compile Include="Models\Funding\FnsFePacketItemView.cs" />
     <Compile Include="Models\Funding\FnsFePacketView.cs" />

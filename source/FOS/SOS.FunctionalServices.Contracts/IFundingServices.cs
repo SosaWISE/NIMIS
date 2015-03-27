@@ -19,5 +19,11 @@ namespace SOS.FunctionalServices.Contracts
 		IFnsResult<List<IFnsFePacketView>> PacketReadAll(string gpEmployeeId);
 
 		IFnsResult<List<IFnsFePacketItemView>> PacketItemsRead(int packetId, string gpEmployeeId);
+
+		IFnsResult<List<IFnsFeBundle>> BundleReadAll(string gpEmployeeId);
+
+		IFnsResult<IFnsFeBundle> BundleRead(int bundleID, string gpEmployeeId);
+
+		IFnsResult<List<IFnsFeBundleItem>> BundleItemsRead(int bundleId, string gpEmployeeId);
 	}
 }

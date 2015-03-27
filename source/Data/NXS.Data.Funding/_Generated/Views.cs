@@ -16,6 +16,630 @@ using System.Runtime.Serialization;
 namespace NXS.Data.Funding
 {
 	/// <summary>
+	/// Strongly-typed collection for the FE_BundleItemsView class.
+	/// </summary>
+	[DataContract]
+	public partial class FE_BundleItemsViewCollection : ReadOnlyList<FE_BundleItemsView, FE_BundleItemsViewCollection>
+	{
+		public static FE_BundleItemsViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			FE_BundleItemsViewCollection result = new FE_BundleItemsViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwFE_BundleItems view.
+	/// </summary>
+	[DataContract]
+	public partial class FE_BundleItemsView : ReadOnlyRecord<FE_BundleItemsView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwFE_BundleItems", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarBundleItemID = new TableSchema.TableColumn(schema);
+				colvarBundleItemID.ColumnName = "BundleItemID";
+				colvarBundleItemID.DataType = DbType.Int32;
+				colvarBundleItemID.MaxLength = 0;
+				colvarBundleItemID.AutoIncrement = false;
+				colvarBundleItemID.IsNullable = false;
+				colvarBundleItemID.IsPrimaryKey = false;
+				colvarBundleItemID.IsForeignKey = false;
+				colvarBundleItemID.IsReadOnly = false;
+				colvarBundleItemID.DefaultSetting = @"";
+				colvarBundleItemID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarBundleItemID);
+
+				TableSchema.TableColumn colvarBundleId = new TableSchema.TableColumn(schema);
+				colvarBundleId.ColumnName = "BundleId";
+				colvarBundleId.DataType = DbType.Int32;
+				colvarBundleId.MaxLength = 0;
+				colvarBundleId.AutoIncrement = false;
+				colvarBundleId.IsNullable = false;
+				colvarBundleId.IsPrimaryKey = false;
+				colvarBundleId.IsForeignKey = false;
+				colvarBundleId.IsReadOnly = false;
+				colvarBundleId.DefaultSetting = @"";
+				colvarBundleId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarBundleId);
+
+				TableSchema.TableColumn colvarPacketId = new TableSchema.TableColumn(schema);
+				colvarPacketId.ColumnName = "PacketId";
+				colvarPacketId.DataType = DbType.Int32;
+				colvarPacketId.MaxLength = 0;
+				colvarPacketId.AutoIncrement = false;
+				colvarPacketId.IsNullable = false;
+				colvarPacketId.IsPrimaryKey = false;
+				colvarPacketId.IsForeignKey = false;
+				colvarPacketId.IsReadOnly = false;
+				colvarPacketId.DefaultSetting = @"";
+				colvarPacketId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPacketId);
+
+				TableSchema.TableColumn colvarIsDeleted = new TableSchema.TableColumn(schema);
+				colvarIsDeleted.ColumnName = "IsDeleted";
+				colvarIsDeleted.DataType = DbType.Boolean;
+				colvarIsDeleted.MaxLength = 0;
+				colvarIsDeleted.AutoIncrement = false;
+				colvarIsDeleted.IsNullable = false;
+				colvarIsDeleted.IsPrimaryKey = false;
+				colvarIsDeleted.IsForeignKey = false;
+				colvarIsDeleted.IsReadOnly = false;
+				colvarIsDeleted.DefaultSetting = @"";
+				colvarIsDeleted.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarIsDeleted);
+
+				TableSchema.TableColumn colvarCreatedOn = new TableSchema.TableColumn(schema);
+				colvarCreatedOn.ColumnName = "CreatedOn";
+				colvarCreatedOn.DataType = DbType.DateTime;
+				colvarCreatedOn.MaxLength = 0;
+				colvarCreatedOn.AutoIncrement = false;
+				colvarCreatedOn.IsNullable = false;
+				colvarCreatedOn.IsPrimaryKey = false;
+				colvarCreatedOn.IsForeignKey = false;
+				colvarCreatedOn.IsReadOnly = false;
+				colvarCreatedOn.DefaultSetting = @"";
+				colvarCreatedOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreatedOn);
+
+				TableSchema.TableColumn colvarCreatedBy = new TableSchema.TableColumn(schema);
+				colvarCreatedBy.ColumnName = "CreatedBy";
+				colvarCreatedBy.DataType = DbType.String;
+				colvarCreatedBy.MaxLength = 50;
+				colvarCreatedBy.AutoIncrement = false;
+				colvarCreatedBy.IsNullable = false;
+				colvarCreatedBy.IsPrimaryKey = false;
+				colvarCreatedBy.IsForeignKey = false;
+				colvarCreatedBy.IsReadOnly = false;
+				colvarCreatedBy.DefaultSetting = @"";
+				colvarCreatedBy.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreatedBy);
+
+				TableSchema.TableColumn colvarPSubmittedOn = new TableSchema.TableColumn(schema);
+				colvarPSubmittedOn.ColumnName = "PSubmittedOn";
+				colvarPSubmittedOn.DataType = DbType.DateTime;
+				colvarPSubmittedOn.MaxLength = 0;
+				colvarPSubmittedOn.AutoIncrement = false;
+				colvarPSubmittedOn.IsNullable = true;
+				colvarPSubmittedOn.IsPrimaryKey = false;
+				colvarPSubmittedOn.IsForeignKey = false;
+				colvarPSubmittedOn.IsReadOnly = false;
+				colvarPSubmittedOn.DefaultSetting = @"";
+				colvarPSubmittedOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPSubmittedOn);
+
+				TableSchema.TableColumn colvarPSubmittedBy = new TableSchema.TableColumn(schema);
+				colvarPSubmittedBy.ColumnName = "PSubmittedBy";
+				colvarPSubmittedBy.DataType = DbType.String;
+				colvarPSubmittedBy.MaxLength = 50;
+				colvarPSubmittedBy.AutoIncrement = false;
+				colvarPSubmittedBy.IsNullable = true;
+				colvarPSubmittedBy.IsPrimaryKey = false;
+				colvarPSubmittedBy.IsForeignKey = false;
+				colvarPSubmittedBy.IsReadOnly = false;
+				colvarPSubmittedBy.DefaultSetting = @"";
+				colvarPSubmittedBy.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPSubmittedBy);
+
+				TableSchema.TableColumn colvarPCreatedOn = new TableSchema.TableColumn(schema);
+				colvarPCreatedOn.ColumnName = "PCreatedOn";
+				colvarPCreatedOn.DataType = DbType.DateTime;
+				colvarPCreatedOn.MaxLength = 0;
+				colvarPCreatedOn.AutoIncrement = false;
+				colvarPCreatedOn.IsNullable = false;
+				colvarPCreatedOn.IsPrimaryKey = false;
+				colvarPCreatedOn.IsForeignKey = false;
+				colvarPCreatedOn.IsReadOnly = false;
+				colvarPCreatedOn.DefaultSetting = @"";
+				colvarPCreatedOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPCreatedOn);
+
+				TableSchema.TableColumn colvarPCreatedBy = new TableSchema.TableColumn(schema);
+				colvarPCreatedBy.ColumnName = "PCreatedBy";
+				colvarPCreatedBy.DataType = DbType.String;
+				colvarPCreatedBy.MaxLength = 50;
+				colvarPCreatedBy.AutoIncrement = false;
+				colvarPCreatedBy.IsNullable = false;
+				colvarPCreatedBy.IsPrimaryKey = false;
+				colvarPCreatedBy.IsForeignKey = false;
+				colvarPCreatedBy.IsReadOnly = false;
+				colvarPCreatedBy.DefaultSetting = @"";
+				colvarPCreatedBy.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPCreatedBy);
+
+				BaseSchema = schema;
+				DataService.Providers["NxsFundingProvider"].AddSchema("vwFE_BundleItems",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public FE_BundleItemsView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public int BundleItemID {
+			get { return GetColumnValue<int>(Columns.BundleItemID); }
+			set { SetColumnValue(Columns.BundleItemID, value); }
+		}
+		[DataMember]
+		public int BundleId {
+			get { return GetColumnValue<int>(Columns.BundleId); }
+			set { SetColumnValue(Columns.BundleId, value); }
+		}
+		[DataMember]
+		public int PacketId {
+			get { return GetColumnValue<int>(Columns.PacketId); }
+			set { SetColumnValue(Columns.PacketId, value); }
+		}
+		[DataMember]
+		public bool IsDeleted {
+			get { return GetColumnValue<bool>(Columns.IsDeleted); }
+			set { SetColumnValue(Columns.IsDeleted, value); }
+		}
+		[DataMember]
+		public DateTime CreatedOn {
+			get { return GetColumnValue<DateTime>(Columns.CreatedOn); }
+			set { SetColumnValue(Columns.CreatedOn, value); }
+		}
+		[DataMember]
+		public string CreatedBy {
+			get { return GetColumnValue<string>(Columns.CreatedBy); }
+			set { SetColumnValue(Columns.CreatedBy, value); }
+		}
+		[DataMember]
+		public DateTime? PSubmittedOn {
+			get { return GetColumnValue<DateTime?>(Columns.PSubmittedOn); }
+			set { SetColumnValue(Columns.PSubmittedOn, value); }
+		}
+		[DataMember]
+		public string PSubmittedBy {
+			get { return GetColumnValue<string>(Columns.PSubmittedBy); }
+			set { SetColumnValue(Columns.PSubmittedBy, value); }
+		}
+		[DataMember]
+		public DateTime PCreatedOn {
+			get { return GetColumnValue<DateTime>(Columns.PCreatedOn); }
+			set { SetColumnValue(Columns.PCreatedOn, value); }
+		}
+		[DataMember]
+		public string PCreatedBy {
+			get { return GetColumnValue<string>(Columns.PCreatedBy); }
+			set { SetColumnValue(Columns.PCreatedBy, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return BundleItemID.ToString();
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn BundleItemIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn BundleIdColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn PacketIdColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn IsDeletedColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn CreatedOnColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn CreatedByColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn PSubmittedOnColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+		public static TableSchema.TableColumn PSubmittedByColumn
+		{
+			get { return Schema.Columns[7]; }
+		}
+		public static TableSchema.TableColumn PCreatedOnColumn
+		{
+			get { return Schema.Columns[8]; }
+		}
+		public static TableSchema.TableColumn PCreatedByColumn
+		{
+			get { return Schema.Columns[9]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string BundleItemID = @"BundleItemID";
+			public const string BundleId = @"BundleId";
+			public const string PacketId = @"PacketId";
+			public const string IsDeleted = @"IsDeleted";
+			public const string CreatedOn = @"CreatedOn";
+			public const string CreatedBy = @"CreatedBy";
+			public const string PSubmittedOn = @"PSubmittedOn";
+			public const string PSubmittedBy = @"PSubmittedBy";
+			public const string PCreatedOn = @"PCreatedOn";
+			public const string PCreatedBy = @"PCreatedBy";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
+	/// Strongly-typed collection for the FE_BundlesView class.
+	/// </summary>
+	[DataContract]
+	public partial class FE_BundlesViewCollection : ReadOnlyList<FE_BundlesView, FE_BundlesViewCollection>
+	{
+		public static FE_BundlesViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			FE_BundlesViewCollection result = new FE_BundlesViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwFE_Bundles view.
+	/// </summary>
+	[DataContract]
+	public partial class FE_BundlesView : ReadOnlyRecord<FE_BundlesView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwFE_Bundles", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarBundleID = new TableSchema.TableColumn(schema);
+				colvarBundleID.ColumnName = "BundleID";
+				colvarBundleID.DataType = DbType.Int32;
+				colvarBundleID.MaxLength = 0;
+				colvarBundleID.AutoIncrement = false;
+				colvarBundleID.IsNullable = false;
+				colvarBundleID.IsPrimaryKey = false;
+				colvarBundleID.IsForeignKey = false;
+				colvarBundleID.IsReadOnly = false;
+				colvarBundleID.DefaultSetting = @"";
+				colvarBundleID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarBundleID);
+
+				TableSchema.TableColumn colvarPurchaserID = new TableSchema.TableColumn(schema);
+				colvarPurchaserID.ColumnName = "PurchaserID";
+				colvarPurchaserID.DataType = DbType.AnsiString;
+				colvarPurchaserID.MaxLength = 10;
+				colvarPurchaserID.AutoIncrement = false;
+				colvarPurchaserID.IsNullable = false;
+				colvarPurchaserID.IsPrimaryKey = false;
+				colvarPurchaserID.IsForeignKey = false;
+				colvarPurchaserID.IsReadOnly = false;
+				colvarPurchaserID.DefaultSetting = @"";
+				colvarPurchaserID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPurchaserID);
+
+				TableSchema.TableColumn colvarPurchaserName = new TableSchema.TableColumn(schema);
+				colvarPurchaserName.ColumnName = "PurchaserName";
+				colvarPurchaserName.DataType = DbType.AnsiString;
+				colvarPurchaserName.MaxLength = 50;
+				colvarPurchaserName.AutoIncrement = false;
+				colvarPurchaserName.IsNullable = false;
+				colvarPurchaserName.IsPrimaryKey = false;
+				colvarPurchaserName.IsForeignKey = false;
+				colvarPurchaserName.IsReadOnly = false;
+				colvarPurchaserName.DefaultSetting = @"";
+				colvarPurchaserName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPurchaserName);
+
+				TableSchema.TableColumn colvarTrackingNumberID = new TableSchema.TableColumn(schema);
+				colvarTrackingNumberID.ColumnName = "TrackingNumberID";
+				colvarTrackingNumberID.DataType = DbType.Int64;
+				colvarTrackingNumberID.MaxLength = 0;
+				colvarTrackingNumberID.AutoIncrement = false;
+				colvarTrackingNumberID.IsNullable = true;
+				colvarTrackingNumberID.IsPrimaryKey = false;
+				colvarTrackingNumberID.IsForeignKey = false;
+				colvarTrackingNumberID.IsReadOnly = false;
+				colvarTrackingNumberID.DefaultSetting = @"";
+				colvarTrackingNumberID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTrackingNumberID);
+
+				TableSchema.TableColumn colvarTrackingNumber = new TableSchema.TableColumn(schema);
+				colvarTrackingNumber.ColumnName = "TrackingNumber";
+				colvarTrackingNumber.DataType = DbType.String;
+				colvarTrackingNumber.MaxLength = 50;
+				colvarTrackingNumber.AutoIncrement = false;
+				colvarTrackingNumber.IsNullable = true;
+				colvarTrackingNumber.IsPrimaryKey = false;
+				colvarTrackingNumber.IsForeignKey = false;
+				colvarTrackingNumber.IsReadOnly = false;
+				colvarTrackingNumber.DefaultSetting = @"";
+				colvarTrackingNumber.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTrackingNumber);
+
+				TableSchema.TableColumn colvarDeliveryDate = new TableSchema.TableColumn(schema);
+				colvarDeliveryDate.ColumnName = "DeliveryDate";
+				colvarDeliveryDate.DataType = DbType.DateTime;
+				colvarDeliveryDate.MaxLength = 0;
+				colvarDeliveryDate.AutoIncrement = false;
+				colvarDeliveryDate.IsNullable = true;
+				colvarDeliveryDate.IsPrimaryKey = false;
+				colvarDeliveryDate.IsForeignKey = false;
+				colvarDeliveryDate.IsReadOnly = false;
+				colvarDeliveryDate.DefaultSetting = @"";
+				colvarDeliveryDate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarDeliveryDate);
+
+				TableSchema.TableColumn colvarSubmittedOn = new TableSchema.TableColumn(schema);
+				colvarSubmittedOn.ColumnName = "SubmittedOn";
+				colvarSubmittedOn.DataType = DbType.DateTime;
+				colvarSubmittedOn.MaxLength = 0;
+				colvarSubmittedOn.AutoIncrement = false;
+				colvarSubmittedOn.IsNullable = true;
+				colvarSubmittedOn.IsPrimaryKey = false;
+				colvarSubmittedOn.IsForeignKey = false;
+				colvarSubmittedOn.IsReadOnly = false;
+				colvarSubmittedOn.DefaultSetting = @"";
+				colvarSubmittedOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSubmittedOn);
+
+				TableSchema.TableColumn colvarSubmittedBy = new TableSchema.TableColumn(schema);
+				colvarSubmittedBy.ColumnName = "SubmittedBy";
+				colvarSubmittedBy.DataType = DbType.String;
+				colvarSubmittedBy.MaxLength = 50;
+				colvarSubmittedBy.AutoIncrement = false;
+				colvarSubmittedBy.IsNullable = true;
+				colvarSubmittedBy.IsPrimaryKey = false;
+				colvarSubmittedBy.IsForeignKey = false;
+				colvarSubmittedBy.IsReadOnly = false;
+				colvarSubmittedBy.DefaultSetting = @"";
+				colvarSubmittedBy.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSubmittedBy);
+
+				TableSchema.TableColumn colvarCreatedOn = new TableSchema.TableColumn(schema);
+				colvarCreatedOn.ColumnName = "CreatedOn";
+				colvarCreatedOn.DataType = DbType.DateTime;
+				colvarCreatedOn.MaxLength = 0;
+				colvarCreatedOn.AutoIncrement = false;
+				colvarCreatedOn.IsNullable = false;
+				colvarCreatedOn.IsPrimaryKey = false;
+				colvarCreatedOn.IsForeignKey = false;
+				colvarCreatedOn.IsReadOnly = false;
+				colvarCreatedOn.DefaultSetting = @"";
+				colvarCreatedOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreatedOn);
+
+				TableSchema.TableColumn colvarCreatedBy = new TableSchema.TableColumn(schema);
+				colvarCreatedBy.ColumnName = "CreatedBy";
+				colvarCreatedBy.DataType = DbType.String;
+				colvarCreatedBy.MaxLength = 50;
+				colvarCreatedBy.AutoIncrement = false;
+				colvarCreatedBy.IsNullable = false;
+				colvarCreatedBy.IsPrimaryKey = false;
+				colvarCreatedBy.IsForeignKey = false;
+				colvarCreatedBy.IsReadOnly = false;
+				colvarCreatedBy.DefaultSetting = @"";
+				colvarCreatedBy.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreatedBy);
+
+				BaseSchema = schema;
+				DataService.Providers["NxsFundingProvider"].AddSchema("vwFE_Bundles",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public FE_BundlesView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public int BundleID {
+			get { return GetColumnValue<int>(Columns.BundleID); }
+			set { SetColumnValue(Columns.BundleID, value); }
+		}
+		[DataMember]
+		public string PurchaserID {
+			get { return GetColumnValue<string>(Columns.PurchaserID); }
+			set { SetColumnValue(Columns.PurchaserID, value); }
+		}
+		[DataMember]
+		public string PurchaserName {
+			get { return GetColumnValue<string>(Columns.PurchaserName); }
+			set { SetColumnValue(Columns.PurchaserName, value); }
+		}
+		[DataMember]
+		public long? TrackingNumberID {
+			get { return GetColumnValue<long?>(Columns.TrackingNumberID); }
+			set { SetColumnValue(Columns.TrackingNumberID, value); }
+		}
+		[DataMember]
+		public string TrackingNumber {
+			get { return GetColumnValue<string>(Columns.TrackingNumber); }
+			set { SetColumnValue(Columns.TrackingNumber, value); }
+		}
+		[DataMember]
+		public DateTime? DeliveryDate {
+			get { return GetColumnValue<DateTime?>(Columns.DeliveryDate); }
+			set { SetColumnValue(Columns.DeliveryDate, value); }
+		}
+		[DataMember]
+		public DateTime? SubmittedOn {
+			get { return GetColumnValue<DateTime?>(Columns.SubmittedOn); }
+			set { SetColumnValue(Columns.SubmittedOn, value); }
+		}
+		[DataMember]
+		public string SubmittedBy {
+			get { return GetColumnValue<string>(Columns.SubmittedBy); }
+			set { SetColumnValue(Columns.SubmittedBy, value); }
+		}
+		[DataMember]
+		public DateTime CreatedOn {
+			get { return GetColumnValue<DateTime>(Columns.CreatedOn); }
+			set { SetColumnValue(Columns.CreatedOn, value); }
+		}
+		[DataMember]
+		public string CreatedBy {
+			get { return GetColumnValue<string>(Columns.CreatedBy); }
+			set { SetColumnValue(Columns.CreatedBy, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return PurchaserID;
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn BundleIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn PurchaserIDColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn PurchaserNameColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn TrackingNumberIDColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn TrackingNumberColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn DeliveryDateColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn SubmittedOnColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+		public static TableSchema.TableColumn SubmittedByColumn
+		{
+			get { return Schema.Columns[7]; }
+		}
+		public static TableSchema.TableColumn CreatedOnColumn
+		{
+			get { return Schema.Columns[8]; }
+		}
+		public static TableSchema.TableColumn CreatedByColumn
+		{
+			get { return Schema.Columns[9]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string BundleID = @"BundleID";
+			public const string PurchaserID = @"PurchaserID";
+			public const string PurchaserName = @"PurchaserName";
+			public const string TrackingNumberID = @"TrackingNumberID";
+			public const string TrackingNumber = @"TrackingNumber";
+			public const string DeliveryDate = @"DeliveryDate";
+			public const string SubmittedOn = @"SubmittedOn";
+			public const string SubmittedBy = @"SubmittedBy";
+			public const string CreatedOn = @"CreatedOn";
+			public const string CreatedBy = @"CreatedBy";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
 	/// Strongly-typed collection for the FE_CriteriasView class.
 	/// </summary>
 	[DataContract]

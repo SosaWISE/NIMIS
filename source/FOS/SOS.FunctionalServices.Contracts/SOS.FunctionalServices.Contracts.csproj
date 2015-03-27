@@ -79,6 +79,8 @@
     <Compile Include="Models\Data\IFnsRuTeamLocation.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Funding\IFnsFeBundle.cs" />
+    <Compile Include="Models\Funding\IFnsFeBundleItem.cs" />
     <Compile Include="Models\Funding\IFnsFeCriteria.cs" />
     <Compile Include="Models\Funding\IFnsFePacketItemView.cs" />
     <Compile Include="Models\Funding\IFnsFePacketView.cs" />
