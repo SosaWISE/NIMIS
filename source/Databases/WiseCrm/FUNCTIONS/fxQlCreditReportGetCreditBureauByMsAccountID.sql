@@ -3,18 +3,18 @@ GO
 
 -- TF = Table function
 -- IF = Inline Table function
-IF EXISTS (SELECT * FROM sysobjects WHERE (type = 'TF' OR type = 'IF' OR type = 'FN') AND name = 'fxQlCreditReportGetTransactionIdByMsAccountID')
+IF EXISTS (SELECT * FROM sysobjects WHERE (type = 'TF' OR type = 'IF' OR type = 'FN') AND name = 'fxQlCreditReportGetCreditBureauByMsAccountID')
 	BEGIN
-		PRINT 'Dropping FUNCTION fxQlCreditReportGetTransactionIdByMsAccountID'
-		DROP FUNCTION  dbo.fxQlCreditReportGetTransactionIdByMsAccountID
+		PRINT 'Dropping FUNCTION fxQlCreditReportGetCreditBureauByMsAccountID'
+		DROP FUNCTION  dbo.fxQlCreditReportGetCreditBureauByMsAccountID
 	END
 GO
 
-PRINT 'Creating FUNCTION fxQlCreditReportGetTransactionIdByMsAccountID'
+PRINT 'Creating FUNCTION fxQlCreditReportGetCreditBureauByMsAccountID'
 GO
 /******************************************************************************
-**		File: fxQlCreditReportGetTransactionIdByMsAccountID.sql
-**		Name: fxQlCreditReportGetTransactionIdByMsAccountID
+**		File: fxQlCreditReportGetCreditBureauByMsAccountID.sql
+**		Name: fxQlCreditReportGetCreditBureauByMsAccountID
 **		Desc: 
 **
 **		This template can be customized:
@@ -28,31 +28,31 @@ GO
 **     ----------						-----------
 **
 **		Auth: Andrés E. Sosa
-**		Date: 02/23/2015
+**		Date: 03/30/2015
 *******************************************************************************
 **	Change History
 *******************************************************************************
 **	Date:		Author:			Description:
 **	-----------	---------------	-------------------------------------------
-**	02/23/2015	Andrés E. Sosa	Created By
+**	03/30/2015	Andrés E. Sosa	Created By
 **	
 *******************************************************************************/
-CREATE FUNCTION dbo.fxQlCreditReportGetTransactionIdByMsAccountID
+CREATE FUNCTION dbo.fxQlCreditReportGetCreditBureauByMsAccountID
 (
 	@AccountId BIGINT
 )
-RETURNS VARCHAR(100)
+RETURNS VARCHAR(50)
 AS
 BEGIN
 	/** Declarations */
-	DECLARE @ReportID VARCHAR(100);
+	DECLARE @Bureau VARCHAR(50);
 
 	/** Execute actions. */
-	SELECT @ReportID = CAST(ReportID AS VARCHAR(100)) FROM dbo.fxQlCreditReportGetByMsAccountID(@AccountId);
+	SELECT @Bureau = CAST(BureauName AS VARCHAR(50)) FROM dbo.fxQlCreditReportGetByMsAccountID(@AccountId);
 
-	RETURN @ReportID;
+	RETURN @Bureau;
 END
 GO
 
 --SELECT * FROM dbo.fxQlCreditReportGetByMsAccountID(12312);
---SELECT dbo.fxQlCreditReportGetTransactionIdByMsAccountID(12321) AS ReportID;
+--SELECT dbo.fxQlCreditReportGetCreditBureauByMsAccountID(12321) AS ReportID;

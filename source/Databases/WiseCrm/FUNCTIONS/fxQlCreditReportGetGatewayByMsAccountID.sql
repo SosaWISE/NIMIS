@@ -3,18 +3,18 @@ GO
 
 -- TF = Table function
 -- IF = Inline Table function
-IF EXISTS (SELECT * FROM sysobjects WHERE (type = 'TF' OR type = 'IF' OR type = 'FN') AND name = 'fxQlCreditReportGetScoreByMsAccountID')
+IF EXISTS (SELECT * FROM sysobjects WHERE (type = 'TF' OR type = 'IF' OR type = 'FN') AND name = 'fxQlCreditReportGetGatewayByMsAccountID')
 	BEGIN
-		PRINT 'Dropping FUNCTION fxQlCreditReportGetScoreByMsAccountID'
-		DROP FUNCTION  dbo.fxQlCreditReportGetScoreByMsAccountID
+		PRINT 'Dropping FUNCTION fxQlCreditReportGetGatewayByMsAccountID'
+		DROP FUNCTION  dbo.fxQlCreditReportGetGatewayByMsAccountID
 	END
 GO
 
-PRINT 'Creating FUNCTION fxQlCreditReportGetScoreByMsAccountID'
+PRINT 'Creating FUNCTION fxQlCreditReportGetGatewayByMsAccountID'
 GO
 /******************************************************************************
-**		File: fxQlCreditReportGetScoreByMsAccountID.sql
-**		Name: fxQlCreditReportGetScoreByMsAccountID
+**		File: fxQlCreditReportGetGatewayByMsAccountID.sql
+**		Name: fxQlCreditReportGetGatewayByMsAccountID
 **		Desc: 
 **
 **		This template can be customized:
@@ -28,30 +28,31 @@ GO
 **     ----------						-----------
 **
 **		Auth: Andrés E. Sosa
-**		Date: 02/20/2015
+**		Date: 03/30/2015
 *******************************************************************************
 **	Change History
 *******************************************************************************
 **	Date:		Author:			Description:
 **	-----------	---------------	-------------------------------------------
-**	02/20/2015	Andrés E. Sosa	Created By
+**	03/30/2015	Andrés E. Sosa	Created By
 **	
 *******************************************************************************/
-CREATE FUNCTION dbo.fxQlCreditReportGetScoreByMsAccountID
+CREATE FUNCTION dbo.fxQlCreditReportGetGatewayByMsAccountID
 (
 	@AccountId BIGINT
 )
-RETURNS INT
+RETURNS NVARCHAR(50)
 AS
 BEGIN
 	/** Declarations */
-	DECLARE @Score INT;
+	DECLARE @Gateway NVARCHAR(50);
 
 	/** Execute actions. */
-	SELECT @Score = Score FROM dbo.fxQlCreditReportGetByMsAccountID(@AccountId);
+	SELECT @Gateway = CAST(Gateway AS NVARCHAR(50)) FROM dbo.fxQlCreditReportGetByMsAccountID(@AccountId);
 
-	RETURN @Score;
+	RETURN @Gateway;
 END
 GO
 
-SELECT dbo.fxQlCreditReportGetScoreByMsAccountID(191194) AS SCORE;
+--SELECT * FROM dbo.fxQlCreditReportGetByMsAccountID(12312);
+--SELECT dbo.fxQlCreditReportGetGatewayByMsAccountID(12321) AS ReportID;

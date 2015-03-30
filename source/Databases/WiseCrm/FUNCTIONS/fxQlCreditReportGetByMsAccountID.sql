@@ -51,6 +51,7 @@ RETURNS
 	[SeasonId] [int] NOT NULL,
 	[CreditReportVendorId] [char](4) NOT NULL,
 	[CreditReportVendorAbaraId] [bigint] NULL,
+	[QCR.CreditReportVendorHartSoftwareId] [BIGINT] NULL,
 	[CreditReportVendorMicrobiltId] [bigint] NULL,
 	[CreditReportVendorEasyAccessId] [bigint] NULL,
 	[CreditReportVendorManualId] [bigint] NULL,
@@ -62,8 +63,10 @@ RETURNS
 	[SSN] [varchar](50) NULL,
 	[DOB] [datetime] NULL,
 	[Score] [int] NOT NULL,
-	[ReportID] [int] NULL,
-	[ReportGuid] [uniqueidentifier] NULL,
+	[ReportID] [varchar](100) NULL,
+	[ReportGuid] [varchar](500) NULL,
+	[BureauName] [nvarchar](50) NULL,
+	[Gateway] [nvarchar](50) NULL,
 	[IsSelected] [bit] NOT NULL,
 	[IsScored] [bit] NOT NULL,
 	[IsHit] [bit] NOT NULL,
@@ -82,6 +85,7 @@ BEGIN
 		[SeasonId],
 		[CreditReportVendorId],
 		[CreditReportVendorAbaraId],
+		[QCR.CreditReportVendorHartSoftwareId],
 		[CreditReportVendorMicrobiltId],
 		[CreditReportVendorEasyAccessId],
 		[CreditReportVendorManualId],
@@ -95,6 +99,8 @@ BEGIN
 		[Score],
 		[ReportID],
 		[ReportGuid],
+		[BureauName],
+		[Gateway],
 		[IsSelected],
 		[IsScored],
 		[IsHit],
@@ -111,6 +117,7 @@ BEGIN
 		, QCR.SeasonId
 		, QCR.CreditReportVendorId
 		, QCR.CreditReportVendorAbaraId
+		, QCR.CreditReportVendorHartSoftwareId
 		, QCR.CreditReportVendorMicrobiltId
 		, QCR.CreditReportVendorEasyAccessId
 		, QCR.CreditReportVendorManualId
@@ -122,8 +129,18 @@ BEGIN
 		, QCR.SSN
 		, QCR.DOB
 		, QCR.Score
-		, QCRVA.ReportID
-		, QCRVA.ReportGuid
+		, CASE 
+			WHEN QCRVA.ReportID IS NOT NULL THEN CAST(QCRVA.ReportID AS VARCHAR(100))
+			WHEN QCRHR.CreditReportId IS NOT NULL THEN CAST(QCRHR.TransactionId AS VARCHAR(100))
+			ELSE CAST(NULL AS VARCHAR(100))
+		  END AS [ReportId]
+		, CASE 
+			WHEN QCRVA.ReportGuid IS NOT NULL THEN CAST(QCRVA.ReportGuid AS VARCHAR(500))
+			WHEN QCRHR.Token IS NOT NULL THEN CAST(QCRHR.Token AS VARCHAR(500))
+			ELSE CAST(NULL AS VARCHAR(500)) 
+		  END AS [ReportGuid]
+		, CRB.BureauName
+		, CRV.VendorName AS [Gateway]
 		, QCR.IsSelected
 		, QCR.IsScored
 		, QCR.IsHit
@@ -144,9 +161,18 @@ BEGIN
 		INNER JOIN [dbo].[QL_CreditReports] AS QCR WITH (NOLOCK)
 		ON
 			(QCR.LeadId = LED.LeadID)
+		INNER JOIN [dbo].[QL_CreditReportBureaus] AS CRB WITH (NOLOCK)
+		ON
+			(CRB.BureauID = QCR.BureauId)
+		INNER JOIN [dbo].[QL_CreditReportVendors] AS CRV WITH (NOLOCK)
+		ON
+			(CRV.CreditReportVendorID = QCR.CreditReportVendorId)
 		LEFT OUTER JOIN [dbo].[QL_CreditReportVendorAbara] AS QCRVA WITH (NOLOCK)
 		ON
 			(QCRVA.CreditReportId = QCR.CreditReportID)
+		LEFT OUTER JOIN [dbo].[QL_CreditReportVendorHartSoftware] AS QCRHR WITH (NOLOCK)
+		ON
+			(QCRHR.CreditReportId = QCR.CreditReportID)
 	WHERE
 		(QCR.Score <> 999)
 	ORDER BY
