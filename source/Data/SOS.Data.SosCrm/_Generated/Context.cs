@@ -3880,6 +3880,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		TS_TeamViewController _TS_TeamViews;
+		public TS_TeamViewController TS_TeamViews
+		{
+			get
+			{
+				if (_TS_TeamViews == null) _TS_TeamViews = new TS_TeamViewController();
+				return _TS_TeamViews;
+			}
+		}
+
 		TS_TechViewController _TS_TechViews;
 		public TS_TechViewController TS_TechViews
 		{
@@ -4334,6 +4344,7 @@ namespace SOS.Data.SosCrm
 	public class SE_TechnicianScheduleBlocksViewController : BaseViewController<SE_TechnicianScheduleBlocksView, SE_TechnicianScheduleBlocksViewCollection> { }
 	public class SE_TicketsViewController : BaseViewController<SE_TicketsView, SE_TicketsViewCollection> { }
 	public class TS_ServiceTicketStatusViewController : BaseViewController<TS_ServiceTicketStatusView, TS_ServiceTicketStatusViewCollection> { }
+	public class TS_TeamViewController : BaseViewController<TS_TeamView, TS_TeamViewCollection> { }
 	public class TS_TechViewController : BaseViewController<TS_TechView, TS_TechViewCollection> { }
 	public class UI_ApplicationMenuViewController : BaseViewController<UI_ApplicationMenuView, UI_ApplicationMenuViewCollection> { }
 	public class UI_ApplicationVersionsViewController : BaseViewController<UI_ApplicationVersionsView, UI_ApplicationVersionsViewCollection> { }

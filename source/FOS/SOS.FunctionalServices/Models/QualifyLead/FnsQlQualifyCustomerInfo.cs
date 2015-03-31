@@ -29,7 +29,7 @@ namespace SOS.FunctionalServices.Models.QualifyLead
 			IsHit = item.IsHit;
 			CRStatus = item.CRStatus;
 			Score = item.Score;
-			CreditGroup = SOS.Lib.Core.CreditReportService.CreditHelper.GetCreditScoreGroup(item.Score, item.IsHit,
+			CreditGroup = Lib.Core.CreditReportService.CreditHelper.GetCreditScoreGroup(item.Score, item.IsHit,
 				excellentCreditScore: item.ExcellentCreditScoreThreshold,
 				passCreditScore: item.PassCreditScoreThreshold,
 				subCreditScore: item.SubCreditScoreThreshold).ToString();
@@ -71,7 +71,7 @@ namespace SOS.FunctionalServices.Models.QualifyLead
 		public int Score { get; private set; }
 		public string CreditGroup { get; private set; }
 		public string BureauName { get; private set; }
-		public int UserID { get; private set; }
+		public int? UserID { get; private set; }
 		public string CompanyID { get; private set; }
 		public string FirstName { get; private set; }
 		public string MiddleName { get; private set; }

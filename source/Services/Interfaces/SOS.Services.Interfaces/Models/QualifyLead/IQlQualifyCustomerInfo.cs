@@ -27,7 +27,7 @@ namespace SOS.Services.Interfaces.Models.QualifyLead
 		public int Score { get; set; }
 		public string CreditGroup { get; set; }
 		public string BureauName { get; set; }
-		public int UserID { get; set; }
+		public int? UserID { get; set; }
 		public string CompanyID { get; set; }
 		public string FirstName { get; set; }
 		public string MiddleName { get; set; }
@@ -86,7 +86,7 @@ namespace SOS.Services.Interfaces.Models.QualifyLead
 		[DataMember]
 		string BureauName { get; set; }
 		[DataMember]
-		int UserID { get; set; }
+		int? UserID { get; set; }
 		[DataMember]
 		string CompanyID { get; set; }
 		[DataMember]

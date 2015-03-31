@@ -48,7 +48,7 @@ namespace SOS.FunctionalServices.Contracts.Models.QualifyLead
 		[DataMember]
 		string BureauName { get; }
 		[DataMember]
-		int UserID { get; }
+		int? UserID { get; }
 		[DataMember]
 		string CompanyID { get; }
 		[DataMember]

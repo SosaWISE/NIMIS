@@ -605,6 +605,45 @@ namespace SOS.Data.SosCrm
 				colvarTransactionID.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarTransactionID);
 
+				TableSchema.TableColumn colvarReportGuid = new TableSchema.TableColumn(schema);
+				colvarReportGuid.ColumnName = "ReportGuid";
+				colvarReportGuid.DataType = DbType.AnsiString;
+				colvarReportGuid.MaxLength = 500;
+				colvarReportGuid.AutoIncrement = false;
+				colvarReportGuid.IsNullable = true;
+				colvarReportGuid.IsPrimaryKey = false;
+				colvarReportGuid.IsForeignKey = false;
+				colvarReportGuid.IsReadOnly = false;
+				colvarReportGuid.DefaultSetting = @"";
+				colvarReportGuid.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarReportGuid);
+
+				TableSchema.TableColumn colvarBureau = new TableSchema.TableColumn(schema);
+				colvarBureau.ColumnName = "Bureau";
+				colvarBureau.DataType = DbType.AnsiString;
+				colvarBureau.MaxLength = 50;
+				colvarBureau.AutoIncrement = false;
+				colvarBureau.IsNullable = true;
+				colvarBureau.IsPrimaryKey = false;
+				colvarBureau.IsForeignKey = false;
+				colvarBureau.IsReadOnly = false;
+				colvarBureau.DefaultSetting = @"";
+				colvarBureau.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarBureau);
+
+				TableSchema.TableColumn colvarGateway = new TableSchema.TableColumn(schema);
+				colvarGateway.ColumnName = "Gateway";
+				colvarGateway.DataType = DbType.String;
+				colvarGateway.MaxLength = 50;
+				colvarGateway.AutoIncrement = false;
+				colvarGateway.IsNullable = true;
+				colvarGateway.IsPrimaryKey = false;
+				colvarGateway.IsForeignKey = false;
+				colvarGateway.IsReadOnly = false;
+				colvarGateway.DefaultSetting = @"";
+				colvarGateway.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarGateway);
+
 				TableSchema.TableColumn colvarPoints = new TableSchema.TableColumn(schema);
 				colvarPoints.ColumnName = "Points";
 				colvarPoints.DataType = DbType.Double;
@@ -775,6 +814,21 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.TransactionID, value); }
 		}
 		[DataMember]
+		public string ReportGuid {
+			get { return GetColumnValue<string>(Columns.ReportGuid); }
+			set { SetColumnValue(Columns.ReportGuid, value); }
+		}
+		[DataMember]
+		public string Bureau {
+			get { return GetColumnValue<string>(Columns.Bureau); }
+			set { SetColumnValue(Columns.Bureau, value); }
+		}
+		[DataMember]
+		public string Gateway {
+			get { return GetColumnValue<string>(Columns.Gateway); }
+			set { SetColumnValue(Columns.Gateway, value); }
+		}
+		[DataMember]
 		public double? Points {
 			get { return GetColumnValue<double?>(Columns.Points); }
 			set { SetColumnValue(Columns.Points, value); }
@@ -897,9 +951,21 @@ namespace SOS.Data.SosCrm
 		{
 			get { return Schema.Columns[26]; }
 		}
-		public static TableSchema.TableColumn PointsColumn
+		public static TableSchema.TableColumn ReportGuidColumn
 		{
 			get { return Schema.Columns[27]; }
+		}
+		public static TableSchema.TableColumn BureauColumn
+		{
+			get { return Schema.Columns[28]; }
+		}
+		public static TableSchema.TableColumn GatewayColumn
+		{
+			get { return Schema.Columns[29]; }
+		}
+		public static TableSchema.TableColumn PointsColumn
+		{
+			get { return Schema.Columns[30]; }
 		}
 
 		#endregion
@@ -934,6 +1000,9 @@ namespace SOS.Data.SosCrm
 			public const string HasExistingEquipment = @"HasExistingEquipment";
 			public const string CreditScore = @"CreditScore";
 			public const string TransactionID = @"TransactionID";
+			public const string ReportGuid = @"ReportGuid";
+			public const string Bureau = @"Bureau";
+			public const string Gateway = @"Gateway";
 			public const string Points = @"Points";
 		}
 		#endregion Columns Struct
@@ -19356,6 +19425,45 @@ namespace SOS.Data.SosCrm
 				colvarSOP.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarSOP);
 
+				TableSchema.TableColumn colvarApprovedDate = new TableSchema.TableColumn(schema);
+				colvarApprovedDate.ColumnName = "ApprovedDate";
+				colvarApprovedDate.DataType = DbType.DateTime;
+				colvarApprovedDate.MaxLength = 0;
+				colvarApprovedDate.AutoIncrement = false;
+				colvarApprovedDate.IsNullable = true;
+				colvarApprovedDate.IsPrimaryKey = false;
+				colvarApprovedDate.IsForeignKey = false;
+				colvarApprovedDate.IsReadOnly = false;
+				colvarApprovedDate.DefaultSetting = @"";
+				colvarApprovedDate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarApprovedDate);
+
+				TableSchema.TableColumn colvarApproverID = new TableSchema.TableColumn(schema);
+				colvarApproverID.ColumnName = "ApproverID";
+				colvarApproverID.DataType = DbType.AnsiString;
+				colvarApproverID.MaxLength = 50;
+				colvarApproverID.AutoIncrement = false;
+				colvarApproverID.IsNullable = true;
+				colvarApproverID.IsPrimaryKey = false;
+				colvarApproverID.IsForeignKey = false;
+				colvarApproverID.IsReadOnly = false;
+				colvarApproverID.DefaultSetting = @"";
+				colvarApproverID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarApproverID);
+
+				TableSchema.TableColumn colvarNOCDate = new TableSchema.TableColumn(schema);
+				colvarNOCDate.ColumnName = "NOCDate";
+				colvarNOCDate.DataType = DbType.DateTime;
+				colvarNOCDate.MaxLength = 0;
+				colvarNOCDate.AutoIncrement = false;
+				colvarNOCDate.IsNullable = true;
+				colvarNOCDate.IsPrimaryKey = false;
+				colvarNOCDate.IsForeignKey = false;
+				colvarNOCDate.IsReadOnly = false;
+				colvarNOCDate.DefaultSetting = @"";
+				colvarNOCDate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarNOCDate);
+
 				BaseSchema = schema;
 				DataService.Providers["SosCrmProvider"].AddSchema("vwMS_AccountSalesInformations",schema);
 			}
@@ -19562,6 +19670,21 @@ namespace SOS.Data.SosCrm
 			get { return GetColumnValue<string>(Columns.SOP); }
 			set { SetColumnValue(Columns.SOP, value); }
 		}
+		[DataMember]
+		public DateTime? ApprovedDate {
+			get { return GetColumnValue<DateTime?>(Columns.ApprovedDate); }
+			set { SetColumnValue(Columns.ApprovedDate, value); }
+		}
+		[DataMember]
+		public string ApproverID {
+			get { return GetColumnValue<string>(Columns.ApproverID); }
+			set { SetColumnValue(Columns.ApproverID, value); }
+		}
+		[DataMember]
+		public DateTime? NOCDate {
+			get { return GetColumnValue<DateTime?>(Columns.NOCDate); }
+			set { SetColumnValue(Columns.NOCDate, value); }
+		}
 
 		#endregion //Properties
 
@@ -19720,6 +19843,18 @@ namespace SOS.Data.SosCrm
 		{
 			get { return Schema.Columns[36]; }
 		}
+		public static TableSchema.TableColumn ApprovedDateColumn
+		{
+			get { return Schema.Columns[37]; }
+		}
+		public static TableSchema.TableColumn ApproverIDColumn
+		{
+			get { return Schema.Columns[38]; }
+		}
+		public static TableSchema.TableColumn NOCDateColumn
+		{
+			get { return Schema.Columns[39]; }
+		}
 
 		#endregion
 
@@ -19763,6 +19898,9 @@ namespace SOS.Data.SosCrm
 			public const string AMA = @"AMA";
 			public const string NOC = @"NOC";
 			public const string SOP = @"SOP";
+			public const string ApprovedDate = @"ApprovedDate";
+			public const string ApproverID = @"ApproverID";
+			public const string NOCDate = @"NOCDate";
 		}
 		#endregion Columns Struct
 	}
@@ -22031,7 +22169,7 @@ namespace SOS.Data.SosCrm
 				TableSchema.TableColumn colvarReceiverLineId = new TableSchema.TableColumn(schema);
 				colvarReceiverLineId.ColumnName = "ReceiverLineId";
 				colvarReceiverLineId.DataType = DbType.AnsiString;
-				colvarReceiverLineId.MaxLength = 20;
+				colvarReceiverLineId.MaxLength = 30;
 				colvarReceiverLineId.AutoIncrement = false;
 				colvarReceiverLineId.IsNullable = false;
 				colvarReceiverLineId.IsPrimaryKey = false;
@@ -22678,7 +22816,7 @@ namespace SOS.Data.SosCrm
 				TableSchema.TableColumn colvarReceiverLineID = new TableSchema.TableColumn(schema);
 				colvarReceiverLineID.ColumnName = "ReceiverLineID";
 				colvarReceiverLineID.DataType = DbType.AnsiString;
-				colvarReceiverLineID.MaxLength = 20;
+				colvarReceiverLineID.MaxLength = 30;
 				colvarReceiverLineID.AutoIncrement = false;
 				colvarReceiverLineID.IsNullable = false;
 				colvarReceiverLineID.IsPrimaryKey = false;
@@ -25580,6 +25718,19 @@ namespace SOS.Data.SosCrm
 				colvarPhone.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarPhone);
 
+				TableSchema.TableColumn colvarCreditCreatedOn = new TableSchema.TableColumn(schema);
+				colvarCreditCreatedOn.ColumnName = "CreditCreatedOn";
+				colvarCreditCreatedOn.DataType = DbType.DateTime;
+				colvarCreditCreatedOn.MaxLength = 0;
+				colvarCreditCreatedOn.AutoIncrement = false;
+				colvarCreditCreatedOn.IsNullable = false;
+				colvarCreditCreatedOn.IsPrimaryKey = false;
+				colvarCreditCreatedOn.IsForeignKey = false;
+				colvarCreditCreatedOn.IsReadOnly = false;
+				colvarCreditCreatedOn.DefaultSetting = @"";
+				colvarCreditCreatedOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreditCreatedOn);
+
 				TableSchema.TableColumn colvarCreditReportID = new TableSchema.TableColumn(schema);
 				colvarCreditReportID.ColumnName = "CreditReportID";
 				colvarCreditReportID.DataType = DbType.Int64;
@@ -25650,7 +25801,7 @@ namespace SOS.Data.SosCrm
 				colvarUserID.DataType = DbType.Int32;
 				colvarUserID.MaxLength = 0;
 				colvarUserID.AutoIncrement = false;
-				colvarUserID.IsNullable = false;
+				colvarUserID.IsNullable = true;
 				colvarUserID.IsPrimaryKey = false;
 				colvarUserID.IsForeignKey = false;
 				colvarUserID.IsReadOnly = false;
@@ -25924,6 +26075,11 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.Phone, value); }
 		}
 		[DataMember]
+		public DateTime CreditCreatedOn {
+			get { return GetColumnValue<DateTime>(Columns.CreditCreatedOn); }
+			set { SetColumnValue(Columns.CreditCreatedOn, value); }
+		}
+		[DataMember]
 		public long CreditReportID {
 			get { return GetColumnValue<long>(Columns.CreditReportID); }
 			set { SetColumnValue(Columns.CreditReportID, value); }
@@ -25949,8 +26105,8 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.BureauName, value); }
 		}
 		[DataMember]
-		public int UserID {
-			get { return GetColumnValue<int>(Columns.UserID); }
+		public int? UserID {
+			get { return GetColumnValue<int?>(Columns.UserID); }
 			set { SetColumnValue(Columns.UserID, value); }
 		}
 		[DataMember]
@@ -26088,81 +26244,85 @@ namespace SOS.Data.SosCrm
 		{
 			get { return Schema.Columns[14]; }
 		}
-		public static TableSchema.TableColumn CreditReportIDColumn
+		public static TableSchema.TableColumn CreditCreatedOnColumn
 		{
 			get { return Schema.Columns[15]; }
 		}
-		public static TableSchema.TableColumn IsHitColumn
+		public static TableSchema.TableColumn CreditReportIDColumn
 		{
 			get { return Schema.Columns[16]; }
 		}
-		public static TableSchema.TableColumn CRStatusColumn
+		public static TableSchema.TableColumn IsHitColumn
 		{
 			get { return Schema.Columns[17]; }
 		}
-		public static TableSchema.TableColumn ScoreColumn
+		public static TableSchema.TableColumn CRStatusColumn
 		{
 			get { return Schema.Columns[18]; }
 		}
-		public static TableSchema.TableColumn BureauNameColumn
+		public static TableSchema.TableColumn ScoreColumn
 		{
 			get { return Schema.Columns[19]; }
 		}
-		public static TableSchema.TableColumn UserIDColumn
+		public static TableSchema.TableColumn BureauNameColumn
 		{
 			get { return Schema.Columns[20]; }
 		}
-		public static TableSchema.TableColumn CompanyIDColumn
+		public static TableSchema.TableColumn UserIDColumn
 		{
 			get { return Schema.Columns[21]; }
 		}
-		public static TableSchema.TableColumn FirstNameColumn
+		public static TableSchema.TableColumn CompanyIDColumn
 		{
 			get { return Schema.Columns[22]; }
 		}
-		public static TableSchema.TableColumn MiddleNameColumn
+		public static TableSchema.TableColumn FirstNameColumn
 		{
 			get { return Schema.Columns[23]; }
 		}
-		public static TableSchema.TableColumn LastNameColumn
+		public static TableSchema.TableColumn MiddleNameColumn
 		{
 			get { return Schema.Columns[24]; }
 		}
-		public static TableSchema.TableColumn PreferredNameColumn
+		public static TableSchema.TableColumn LastNameColumn
 		{
 			get { return Schema.Columns[25]; }
 		}
-		public static TableSchema.TableColumn RepEmailColumn
+		public static TableSchema.TableColumn PreferredNameColumn
 		{
 			get { return Schema.Columns[26]; }
 		}
-		public static TableSchema.TableColumn PhoneCellColumn
+		public static TableSchema.TableColumn RepEmailColumn
 		{
 			get { return Schema.Columns[27]; }
 		}
-		public static TableSchema.TableColumn PhoneCellCarrierIDColumn
+		public static TableSchema.TableColumn PhoneCellColumn
 		{
 			get { return Schema.Columns[28]; }
 		}
-		public static TableSchema.TableColumn PhoneCellCarrierColumn
+		public static TableSchema.TableColumn PhoneCellCarrierIDColumn
 		{
 			get { return Schema.Columns[29]; }
 		}
-		public static TableSchema.TableColumn SeasonNameColumn
+		public static TableSchema.TableColumn PhoneCellCarrierColumn
 		{
 			get { return Schema.Columns[30]; }
 		}
-		public static TableSchema.TableColumn ExcellentCreditScoreThresholdColumn
+		public static TableSchema.TableColumn SeasonNameColumn
 		{
 			get { return Schema.Columns[31]; }
 		}
-		public static TableSchema.TableColumn PassCreditScoreThresholdColumn
+		public static TableSchema.TableColumn ExcellentCreditScoreThresholdColumn
 		{
 			get { return Schema.Columns[32]; }
 		}
-		public static TableSchema.TableColumn SubCreditScoreThresholdColumn
+		public static TableSchema.TableColumn PassCreditScoreThresholdColumn
 		{
 			get { return Schema.Columns[33]; }
+		}
+		public static TableSchema.TableColumn SubCreditScoreThresholdColumn
+		{
+			get { return Schema.Columns[34]; }
 		}
 
 		#endregion
@@ -26185,6 +26345,7 @@ namespace SOS.Data.SosCrm
 			public const string TimeZoneName = @"TimeZoneName";
 			public const string PostalCode = @"PostalCode";
 			public const string Phone = @"Phone";
+			public const string CreditCreatedOn = @"CreditCreatedOn";
 			public const string CreditReportID = @"CreditReportID";
 			public const string IsHit = @"IsHit";
 			public const string CRStatus = @"CRStatus";
@@ -31339,6 +31500,364 @@ namespace SOS.Data.SosCrm
 		#endregion Columns Struct
 	}
 	/// <summary>
+	/// Strongly-typed collection for the TS_TeamView class.
+	/// </summary>
+	[DataContract]
+	public partial class TS_TeamViewCollection : ReadOnlyList<TS_TeamView, TS_TeamViewCollection>
+	{
+		public static TS_TeamViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			TS_TeamViewCollection result = new TS_TeamViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwTS_Team view.
+	/// </summary>
+	[DataContract]
+	public partial class TS_TeamView : ReadOnlyRecord<TS_TeamView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwTS_Team", TableType.Table, DataService.GetInstance("SosCrmProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarTeamId = new TableSchema.TableColumn(schema);
+				colvarTeamId.ColumnName = "TeamId";
+				colvarTeamId.DataType = DbType.Int32;
+				colvarTeamId.MaxLength = 0;
+				colvarTeamId.AutoIncrement = false;
+				colvarTeamId.IsNullable = true;
+				colvarTeamId.IsPrimaryKey = false;
+				colvarTeamId.IsForeignKey = false;
+				colvarTeamId.IsReadOnly = false;
+				colvarTeamId.DefaultSetting = @"";
+				colvarTeamId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTeamId);
+
+				TableSchema.TableColumn colvarID = new TableSchema.TableColumn(schema);
+				colvarID.ColumnName = "ID";
+				colvarID.DataType = DbType.Int32;
+				colvarID.MaxLength = 0;
+				colvarID.AutoIncrement = false;
+				colvarID.IsNullable = true;
+				colvarID.IsPrimaryKey = false;
+				colvarID.IsForeignKey = false;
+				colvarID.IsReadOnly = false;
+				colvarID.DefaultSetting = @"";
+				colvarID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarID);
+
+				TableSchema.TableColumn colvarVersion = new TableSchema.TableColumn(schema);
+				colvarVersion.ColumnName = "Version";
+				colvarVersion.DataType = DbType.Int32;
+				colvarVersion.MaxLength = 0;
+				colvarVersion.AutoIncrement = false;
+				colvarVersion.IsNullable = true;
+				colvarVersion.IsPrimaryKey = false;
+				colvarVersion.IsForeignKey = false;
+				colvarVersion.IsReadOnly = false;
+				colvarVersion.DefaultSetting = @"";
+				colvarVersion.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarVersion);
+
+				TableSchema.TableColumn colvarIsDeleted = new TableSchema.TableColumn(schema);
+				colvarIsDeleted.ColumnName = "IsDeleted";
+				colvarIsDeleted.DataType = DbType.Boolean;
+				colvarIsDeleted.MaxLength = 0;
+				colvarIsDeleted.AutoIncrement = false;
+				colvarIsDeleted.IsNullable = true;
+				colvarIsDeleted.IsPrimaryKey = false;
+				colvarIsDeleted.IsForeignKey = false;
+				colvarIsDeleted.IsReadOnly = false;
+				colvarIsDeleted.DefaultSetting = @"";
+				colvarIsDeleted.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarIsDeleted);
+
+				TableSchema.TableColumn colvarCreatedOn = new TableSchema.TableColumn(schema);
+				colvarCreatedOn.ColumnName = "CreatedOn";
+				colvarCreatedOn.DataType = DbType.DateTime;
+				colvarCreatedOn.MaxLength = 0;
+				colvarCreatedOn.AutoIncrement = false;
+				colvarCreatedOn.IsNullable = true;
+				colvarCreatedOn.IsPrimaryKey = false;
+				colvarCreatedOn.IsForeignKey = false;
+				colvarCreatedOn.IsReadOnly = false;
+				colvarCreatedOn.DefaultSetting = @"";
+				colvarCreatedOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreatedOn);
+
+				TableSchema.TableColumn colvarCreatedBy = new TableSchema.TableColumn(schema);
+				colvarCreatedBy.ColumnName = "CreatedBy";
+				colvarCreatedBy.DataType = DbType.String;
+				colvarCreatedBy.MaxLength = 50;
+				colvarCreatedBy.AutoIncrement = false;
+				colvarCreatedBy.IsNullable = true;
+				colvarCreatedBy.IsPrimaryKey = false;
+				colvarCreatedBy.IsForeignKey = false;
+				colvarCreatedBy.IsReadOnly = false;
+				colvarCreatedBy.DefaultSetting = @"";
+				colvarCreatedBy.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreatedBy);
+
+				TableSchema.TableColumn colvarModifiedOn = new TableSchema.TableColumn(schema);
+				colvarModifiedOn.ColumnName = "ModifiedOn";
+				colvarModifiedOn.DataType = DbType.DateTime;
+				colvarModifiedOn.MaxLength = 0;
+				colvarModifiedOn.AutoIncrement = false;
+				colvarModifiedOn.IsNullable = true;
+				colvarModifiedOn.IsPrimaryKey = false;
+				colvarModifiedOn.IsForeignKey = false;
+				colvarModifiedOn.IsReadOnly = false;
+				colvarModifiedOn.DefaultSetting = @"";
+				colvarModifiedOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarModifiedOn);
+
+				TableSchema.TableColumn colvarModifiedBy = new TableSchema.TableColumn(schema);
+				colvarModifiedBy.ColumnName = "ModifiedBy";
+				colvarModifiedBy.DataType = DbType.String;
+				colvarModifiedBy.MaxLength = 50;
+				colvarModifiedBy.AutoIncrement = false;
+				colvarModifiedBy.IsNullable = true;
+				colvarModifiedBy.IsPrimaryKey = false;
+				colvarModifiedBy.IsForeignKey = false;
+				colvarModifiedBy.IsReadOnly = false;
+				colvarModifiedBy.DefaultSetting = @"";
+				colvarModifiedBy.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarModifiedBy);
+
+				TableSchema.TableColumn colvarAddressId = new TableSchema.TableColumn(schema);
+				colvarAddressId.ColumnName = "AddressId";
+				colvarAddressId.DataType = DbType.Int64;
+				colvarAddressId.MaxLength = 0;
+				colvarAddressId.AutoIncrement = false;
+				colvarAddressId.IsNullable = true;
+				colvarAddressId.IsPrimaryKey = false;
+				colvarAddressId.IsForeignKey = false;
+				colvarAddressId.IsReadOnly = false;
+				colvarAddressId.DefaultSetting = @"";
+				colvarAddressId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAddressId);
+
+				TableSchema.TableColumn colvarLatitude = new TableSchema.TableColumn(schema);
+				colvarLatitude.ColumnName = "Latitude";
+				colvarLatitude.DataType = DbType.Double;
+				colvarLatitude.MaxLength = 0;
+				colvarLatitude.AutoIncrement = false;
+				colvarLatitude.IsNullable = true;
+				colvarLatitude.IsPrimaryKey = false;
+				colvarLatitude.IsForeignKey = false;
+				colvarLatitude.IsReadOnly = false;
+				colvarLatitude.DefaultSetting = @"";
+				colvarLatitude.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLatitude);
+
+				TableSchema.TableColumn colvarLongitude = new TableSchema.TableColumn(schema);
+				colvarLongitude.ColumnName = "Longitude";
+				colvarLongitude.DataType = DbType.Double;
+				colvarLongitude.MaxLength = 0;
+				colvarLongitude.AutoIncrement = false;
+				colvarLongitude.IsNullable = true;
+				colvarLongitude.IsPrimaryKey = false;
+				colvarLongitude.IsForeignKey = false;
+				colvarLongitude.IsReadOnly = false;
+				colvarLongitude.DefaultSetting = @"";
+				colvarLongitude.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLongitude);
+
+				TableSchema.TableColumn colvarDescription = new TableSchema.TableColumn(schema);
+				colvarDescription.ColumnName = "Description";
+				colvarDescription.DataType = DbType.AnsiString;
+				colvarDescription.MaxLength = 50;
+				colvarDescription.AutoIncrement = false;
+				colvarDescription.IsNullable = false;
+				colvarDescription.IsPrimaryKey = false;
+				colvarDescription.IsForeignKey = false;
+				colvarDescription.IsReadOnly = false;
+				colvarDescription.DefaultSetting = @"";
+				colvarDescription.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarDescription);
+
+				BaseSchema = schema;
+				DataService.Providers["SosCrmProvider"].AddSchema("vwTS_Team",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public TS_TeamView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public int? TeamId {
+			get { return GetColumnValue<int?>(Columns.TeamId); }
+			set { SetColumnValue(Columns.TeamId, value); }
+		}
+		[DataMember]
+		public int? ID {
+			get { return GetColumnValue<int?>(Columns.ID); }
+			set { SetColumnValue(Columns.ID, value); }
+		}
+		[DataMember]
+		public int? Version {
+			get { return GetColumnValue<int?>(Columns.Version); }
+			set { SetColumnValue(Columns.Version, value); }
+		}
+		[DataMember]
+		public bool? IsDeleted {
+			get { return GetColumnValue<bool?>(Columns.IsDeleted); }
+			set { SetColumnValue(Columns.IsDeleted, value); }
+		}
+		[DataMember]
+		public DateTime? CreatedOn {
+			get { return GetColumnValue<DateTime?>(Columns.CreatedOn); }
+			set { SetColumnValue(Columns.CreatedOn, value); }
+		}
+		[DataMember]
+		public string CreatedBy {
+			get { return GetColumnValue<string>(Columns.CreatedBy); }
+			set { SetColumnValue(Columns.CreatedBy, value); }
+		}
+		[DataMember]
+		public DateTime? ModifiedOn {
+			get { return GetColumnValue<DateTime?>(Columns.ModifiedOn); }
+			set { SetColumnValue(Columns.ModifiedOn, value); }
+		}
+		[DataMember]
+		public string ModifiedBy {
+			get { return GetColumnValue<string>(Columns.ModifiedBy); }
+			set { SetColumnValue(Columns.ModifiedBy, value); }
+		}
+		[DataMember]
+		public long? AddressId {
+			get { return GetColumnValue<long?>(Columns.AddressId); }
+			set { SetColumnValue(Columns.AddressId, value); }
+		}
+		[DataMember]
+		public double? Latitude {
+			get { return GetColumnValue<double?>(Columns.Latitude); }
+			set { SetColumnValue(Columns.Latitude, value); }
+		}
+		[DataMember]
+		public double? Longitude {
+			get { return GetColumnValue<double?>(Columns.Longitude); }
+			set { SetColumnValue(Columns.Longitude, value); }
+		}
+		[DataMember]
+		public string Description {
+			get { return GetColumnValue<string>(Columns.Description); }
+			set { SetColumnValue(Columns.Description, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return TeamId.ToString();
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn TeamIdColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn IDColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn VersionColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn IsDeletedColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn CreatedOnColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn CreatedByColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn ModifiedOnColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+		public static TableSchema.TableColumn ModifiedByColumn
+		{
+			get { return Schema.Columns[7]; }
+		}
+		public static TableSchema.TableColumn AddressIdColumn
+		{
+			get { return Schema.Columns[8]; }
+		}
+		public static TableSchema.TableColumn LatitudeColumn
+		{
+			get { return Schema.Columns[9]; }
+		}
+		public static TableSchema.TableColumn LongitudeColumn
+		{
+			get { return Schema.Columns[10]; }
+		}
+		public static TableSchema.TableColumn DescriptionColumn
+		{
+			get { return Schema.Columns[11]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string TeamId = @"TeamId";
+			public const string ID = @"ID";
+			public const string Version = @"Version";
+			public const string IsDeleted = @"IsDeleted";
+			public const string CreatedOn = @"CreatedOn";
+			public const string CreatedBy = @"CreatedBy";
+			public const string ModifiedOn = @"ModifiedOn";
+			public const string ModifiedBy = @"ModifiedBy";
+			public const string AddressId = @"AddressId";
+			public const string Latitude = @"Latitude";
+			public const string Longitude = @"Longitude";
+			public const string Description = @"Description";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
 	/// Strongly-typed collection for the TS_TechView class.
 	/// </summary>
 	[DataContract]
@@ -31983,7 +32502,7 @@ namespace SOS.Data.SosCrm
 				TableSchema.TableColumn colvarToolTip = new TableSchema.TableColumn(schema);
 				colvarToolTip.ColumnName = "ToolTip";
 				colvarToolTip.DataType = DbType.String;
-				colvarToolTip.MaxLength = 25;
+				colvarToolTip.MaxLength = 255;
 				colvarToolTip.AutoIncrement = false;
 				colvarToolTip.IsNullable = true;
 				colvarToolTip.IsPrimaryKey = false;
