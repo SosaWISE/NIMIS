@@ -49,7 +49,9 @@
     <Compile Include="Models\AeCustomerAccount.cs" />
     <Compile Include="Models\AeCustomerAccountInput.cs" />
     <Compile Include="Models\McAddress.cs" />
+    <Compile Include="Models\MsAccountSalesInformation.cs" />
     <Compile Include="Models\MsAccountSalesInformationExtras.cs" />
+    <Compile Include="Models\Noc.cs" />
     <Compile Include="Models\QlLead.cs" />
     <Compile Include="Models\RuTeam.cs" />
     <Compile Include="Models\TsTeam.cs" />

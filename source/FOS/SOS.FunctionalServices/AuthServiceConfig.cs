@@ -76,7 +76,7 @@ namespace SOS.FunctionalServices
 	{
 		public static void Configure(IFunctionalServiceFactory functionalServices)
 		{
-			var maxAge = TimeSpan.FromHours(24);
+			var maxAge = TimeSpan.FromHours(24); // this should match KeyExpiration + TokenExpiration
 			{
 				// Session Store
 				var sessionStore = CreateSessionStore(maxAge);
@@ -262,6 +262,43 @@ namespace SOS.FunctionalServices
 						return System.Web.HttpContext.Current.Request.Headers["User-Agent"];
 					return ctx.Request.Headers.UserAgent;
 				});
+
+				// length of time a token is valid for after its generating key has expired.
+				// essentially a token is valid for KeyExpiration + TokenExpiration
+				cfg.TokenExpiration(() => TimeSpan.FromHours(8));
+				// length of time a key can be used to generate new tokens
+				cfg.KeyExpiration(() => TimeSpan.FromHours(16));
+
+				// Save keys to db
+				cfg.WithKeyCache(new PersistentKeyStore(
+					save: (list) =>
+					{
+						var items = new List<NXS.DataServices.AuthenticationControl.Models.AcKeyValue>();
+						foreach (var item in list)
+						{
+							var kv = new NXS.DataServices.AuthenticationControl.Models.AcKeyValue();
+							kv.KeyValue = SOS.Lib.Util.Cryptography.TripleDES.EncryptString(item.Value, null);
+							kv.CreatedOn = item.CreatedOn;
+							items.Add(kv);
+						}
+						var kvService = new NXS.DataServices.AuthenticationControl.KeyValueService();
+						kvService.UpdateAll(items);
+					},
+					read: () =>
+					{
+						var kvService = new NXS.DataServices.AuthenticationControl.KeyValueService();
+						var items = kvService.ReadAll();
+						var list = new List<KeyValue>();
+						foreach (var item in items)
+						{
+							var kv = new KeyValue();
+							kv.Value = SOS.Lib.Util.Cryptography.TripleDES.DecryptBytes(item.KeyValue, null);
+							kv.CreatedOn = item.CreatedOn;
+							list.Add(kv);
+						}
+						return list;
+					}
+				));
 			});
 			return tokenizer;
 		}

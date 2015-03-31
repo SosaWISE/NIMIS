@@ -102,6 +102,7 @@ namespace NXS.Data.Crm
 		public string AccountCancelReasonId { get; set; }
 		public string TechId { get; set; }
 		public string SalesRepId { get; set; }
+		public long? AccountFundingStatusId { get; set; }
 		public short BillingDay { get; set; }
 		public string Email { get; set; }
 		public bool IsMoni { get; set; }
@@ -117,6 +118,9 @@ namespace NXS.Data.Crm
 		public string AMA { get; set; }
 		public string NOC { get; set; }
 		public string SOP { get; set; }
+		public DateTime? ApprovedDate { get; set; }
+		public string ApproverID { get; set; }
+		public DateTime? NOCDate { get; set; }
 		public bool IsActive { get; set; }
 		public bool IsDeleted { get; set; }
 		public DateTime ModifiedOn { get; set; }

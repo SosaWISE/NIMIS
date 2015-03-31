@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NXS.Data.Crm.Repos
+namespace NXS.Data.Crm
 {
 	using AR = QL_Lead;
 	using ARCollection = IEnumerable<QL_Lead>;

@@ -272,6 +272,10 @@
     <Compile Include="WiseCrmService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DataServices\NXS.DataServices.AuthenticationControl\NXS.DataServices.AuthenticationControl.csproj">
+      <Project>{bde9e58e-9532-4fe7-92a3-459f3b864c9c}</Project>
+      <Name>NXS.DataServices.AuthenticationControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\NXS.Data.Connext\NXS.Data.Connext.csproj">
       <Project>{4a4324ac-1374-469d-bc3d-b8914f97c435}</Project>
       <Name>NXS.Data.Connext</Name>
