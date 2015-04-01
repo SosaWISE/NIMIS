@@ -82,7 +82,10 @@ AS
 		, MSI.SubmittedToGPDate
 		, MSI.AMA
 		, MSI.NOC
-		, MSI.SPO
+		, MSI.SOP
+		, MSI.ApprovedDate
+		, MSI.ApproverID
+		, MSI.NOCDate
 	FROM
 		[dbo].[MS_Accounts] AS MSA WITH (NOLOCK)
 		LEFT OUTER JOIN [dbo].AE_Contracts AS ACT WITH (NOLOCK)

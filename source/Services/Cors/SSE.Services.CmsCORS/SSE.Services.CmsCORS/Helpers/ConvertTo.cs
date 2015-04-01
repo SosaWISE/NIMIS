@@ -622,6 +622,7 @@ namespace SSE.Services.CmsCORS.Helpers
 				TimeZoneName = item.TimeZoneName,
 				PostalCode = item.PostalCode,
 				Phone = item.Phone,
+				CreditCreatedOn = item.CreditCreatedOn,
 				CreditReportID = item.CreditReportID,
 				IsHit = item.IsHit,
 				CRStatus = item.CRStatus,
@@ -721,6 +722,9 @@ namespace SSE.Services.CmsCORS.Helpers
 				AMA = info.AMA,
 				NOC = info.NOC,
 				SOP = info.SOP,
+				ApprovedDate = info.ApprovedDate,
+				ApproverID = info.ApproverID,
+				NOCDate = info.NOCDate,
 			};
 		}
 

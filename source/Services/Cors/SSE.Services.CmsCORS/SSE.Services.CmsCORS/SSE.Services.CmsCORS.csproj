@@ -356,6 +356,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Data\NXS.Data.AuthenticationControl\NXS.Data.AuthenticationControl.csproj">
+      <Project>{b5f44294-2518-40d7-9b18-93e7a47ee993}</Project>
+      <Name>NXS.Data.AuthenticationControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Data\NXS.Data.Crm\NXS.Data.Crm.csproj">
       <Project>{3c99aa19-9d37-4213-baa0-a385aeae892b}</Project>
       <Name>NXS.Data.Crm</Name>

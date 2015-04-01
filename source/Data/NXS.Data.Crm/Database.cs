@@ -122,6 +122,7 @@ namespace NXS.Data.Crm
 			public string AccountCancelReasonId { get { return _alias + "[AccountCancelReasonId]"; } }
 			public string TechId { get { return _alias + "[TechId]"; } }
 			public string SalesRepId { get { return _alias + "[SalesRepId]"; } }
+			public string AccountFundingStatusId { get { return _alias + "[AccountFundingStatusId]"; } }
 			public string BillingDay { get { return _alias + "[BillingDay]"; } }
 			public string Email { get { return _alias + "[Email]"; } }
 			public string IsMoni { get { return _alias + "[IsMoni]"; } }
@@ -137,6 +138,9 @@ namespace NXS.Data.Crm
 			public string AMA { get { return _alias + "[AMA]"; } }
 			public string NOC { get { return _alias + "[NOC]"; } }
 			public string SOP { get { return _alias + "[SOP]"; } }
+			public string ApprovedDate { get { return _alias + "[ApprovedDate]"; } }
+			public string ApproverID { get { return _alias + "[ApproverID]"; } }
+			public string NOCDate { get { return _alias + "[NOCDate]"; } }
 			public string IsActive { get { return _alias + "[IsActive]"; } }
 			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }

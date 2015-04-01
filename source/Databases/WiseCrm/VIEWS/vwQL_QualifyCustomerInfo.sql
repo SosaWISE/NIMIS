@@ -61,6 +61,7 @@ AS
 		, TZ.TimeZoneName
 		, ADR.PostalCode
 		, ADR.Phone
+		, CR.CreatedOn AS CreditCreatedOn
 		, CR.CreditReportID
 		, CR.IsHit
 		, CASE
@@ -97,7 +98,7 @@ AS
 		INNER JOIN [dbo].QL_CreditReportBureaus AS CRB WITH (NOLOCK)
 		ON
 			(CRB.BureauID = CR.BureauId)
-		INNER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS SREP WITH (NOLOCK)
+		LEFT OUTER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS SREP WITH (NOLOCK)
 		ON
 			(LED.SalesRepID = SREP.GPEmployeeID)
 		INNER JOIN [WISE_HumanResource].[dbo].[RU_Season] AS SES WITH (NOLOCK)
