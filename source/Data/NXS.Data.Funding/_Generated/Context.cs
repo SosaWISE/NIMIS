@@ -146,16 +146,6 @@ namespace NXS.Data.Funding
 			}
 		}
 
-		FE_PurchasedAccountController _FE_PurchasedAccounts;
-		public FE_PurchasedAccountController FE_PurchasedAccounts
-		{
-			get
-			{
-				if (_FE_PurchasedAccounts == null) _FE_PurchasedAccounts = new FE_PurchasedAccountController();
-				return _FE_PurchasedAccounts;
-			}
-		}
-
 		FE_PurchasedAccountMonitronicController _FE_PurchasedAccountMonitronics;
 		public FE_PurchasedAccountMonitronicController FE_PurchasedAccountMonitronics
 		{
@@ -163,6 +153,16 @@ namespace NXS.Data.Funding
 			{
 				if (_FE_PurchasedAccountMonitronics == null) _FE_PurchasedAccountMonitronics = new FE_PurchasedAccountMonitronicController();
 				return _FE_PurchasedAccountMonitronics;
+			}
+		}
+
+		FE_PurchasedAccountController _FE_PurchasedAccounts;
+		public FE_PurchasedAccountController FE_PurchasedAccounts
+		{
+			get
+			{
+				if (_FE_PurchasedAccounts == null) _FE_PurchasedAccounts = new FE_PurchasedAccountController();
+				return _FE_PurchasedAccounts;
 			}
 		}
 
@@ -320,6 +320,26 @@ namespace NXS.Data.Funding
 			}
 		}
 
+		FE_RejectedAccountsViewController _FE_RejectedAccountsViews;
+		public FE_RejectedAccountsViewController FE_RejectedAccountsViews
+		{
+			get
+			{
+				if (_FE_RejectedAccountsViews == null) _FE_RejectedAccountsViews = new FE_RejectedAccountsViewController();
+				return _FE_RejectedAccountsViews;
+			}
+		}
+
+		MS_AccountsViewController _MS_AccountsViews;
+		public MS_AccountsViewController MS_AccountsViews
+		{
+			get
+			{
+				if (_MS_AccountsViews == null) _MS_AccountsViews = new MS_AccountsViewController();
+				return _MS_AccountsViews;
+			}
+		}
+
 		#endregion //View Controllers Properties
 	}
 
@@ -336,8 +356,8 @@ namespace NXS.Data.Funding
 	public class FE_PacketController : BaseTableController<FE_Packet, FE_PacketCollection> { }
 	public class FE_PurchaseContractMonitronicController : BaseTableController<FE_PurchaseContractMonitronic, FE_PurchaseContractMonitronicCollection> { }
 	public class FE_PurchaseContractController : BaseTableController<FE_PurchaseContract, FE_PurchaseContractCollection> { }
-	public class FE_PurchasedAccountController : BaseTableController<FE_PurchasedAccount, FE_PurchasedAccountCollection> { }
 	public class FE_PurchasedAccountMonitronicController : BaseTableController<FE_PurchasedAccountMonitronic, FE_PurchasedAccountMonitronicCollection> { }
+	public class FE_PurchasedAccountController : BaseTableController<FE_PurchasedAccount, FE_PurchasedAccountCollection> { }
 	public class FE_PurchaserController : BaseTableController<FE_Purchaser, FE_PurchaserCollection> { }
 	public class FE_RejectedAccountController : BaseTableController<FE_RejectedAccount, FE_RejectedAccountCollection> { }
 	public class FE_RejectionController : BaseTableController<FE_Rejection, FE_RejectionCollection> { }
@@ -358,6 +378,8 @@ namespace NXS.Data.Funding
 	public class FE_CriteriasViewController : BaseViewController<FE_CriteriasView, FE_CriteriasViewCollection> { }
 	public class FE_PacketItemsViewController : BaseViewController<FE_PacketItemsView, FE_PacketItemsViewCollection> { }
 	public class FE_PacketsViewController : BaseViewController<FE_PacketsView, FE_PacketsViewCollection> { }
+	public class FE_RejectedAccountsViewController : BaseViewController<FE_RejectedAccountsView, FE_RejectedAccountsViewCollection> { }
+	public class MS_AccountsViewController : BaseViewController<MS_AccountsView, MS_AccountsViewCollection> { }
 
 	#endregion //View Controllers
 }

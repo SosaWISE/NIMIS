@@ -1,4 +1,5 @@
-﻿using SOS.Data.SosCrm;
+﻿using System.Web.UI.WebControls;
+using SOS.Data.SosCrm;
 using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.AccountingEngine;
 using SOS.FunctionalServices.Contracts.Models.CentralStation;
@@ -1474,11 +1475,16 @@ namespace SSE.Services.CmsCORS.Helpers
 				CustomerNumber = viewItem.CustomerNumber,
 				CustomerId = viewItem.CustomerId,
 				AccountId = viewItem.AccountId,
+				Csid = viewItem.Csid,
 				FirstName = viewItem.FirstName,
 				LastName = viewItem.LastName,
 				ReturnAccountFundingStatusId = viewItem.ReturnAccountFundingStatusId,
 				AccountFundingShortDesc = viewItem.AccountFundingShortDesc,
 				AccountStatusNote = viewItem.AccountStatusNote,
+				TransactionID = viewItem.TransactionID,
+				ReportGuid = viewItem.ReportGuid,
+				Bureau = viewItem.Bureau,
+				Gateway = viewItem.Gateway,
 				ModifiedBy = viewItem.ModifiedBy,
 				ModifiedOn = viewItem.ModifiedOn,
 				CreatedBy = viewItem.CreatedBy,

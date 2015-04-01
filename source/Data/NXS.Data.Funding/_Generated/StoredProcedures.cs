@@ -41,6 +41,31 @@ namespace NXS.Data.Funding {
 			StoredProcedure sp = new StoredProcedure("custFE_PacketsReadOpen" ,DataService.GetInstance("NxsFundingProvider"));
 			return sp;
 		}
+		public static StoredProcedure FE_PurchasedAccountAdd(int? PurchaseContractID,long? CMFID,string CSID,string CreatedBy) {
+			StoredProcedure sp = new StoredProcedure("custFE_PurchasedAccountAdd" ,DataService.GetInstance("NxsFundingProvider"));
+			sp.Command.AddParameter("@PurchaseContractID", PurchaseContractID, DbType.Int32);
+			sp.Command.AddParameter("@CMFID", CMFID, DbType.Int64);
+			sp.Command.AddParameter("@CSID", CSID, DbType.AnsiString);
+			sp.Command.AddParameter("@CreatedBy", CreatedBy, DbType.String);
+			return sp;
+		}
+		public static StoredProcedure FE_RejectedAccountsViewAddAccount(int? BundleID,long? CMFID,string CSID,int? AccountFundingStatusTypeId,int? RejectionTypeId,string AccountStatusNote,string CreatedBy) {
+			StoredProcedure sp = new StoredProcedure("custFE_RejectedAccountsViewAddAccount" ,DataService.GetInstance("NxsFundingProvider"));
+			sp.Command.AddParameter("@BundleID", BundleID, DbType.Int32);
+			sp.Command.AddParameter("@CMFID", CMFID, DbType.Int64);
+			sp.Command.AddParameter("@CSID", CSID, DbType.AnsiString);
+			sp.Command.AddParameter("@AccountFundingStatusTypeId", AccountFundingStatusTypeId, DbType.Int32);
+			sp.Command.AddParameter("@RejectionTypeId", RejectionTypeId, DbType.Int32);
+			sp.Command.AddParameter("@AccountStatusNote", AccountStatusNote, DbType.String);
+			sp.Command.AddParameter("@CreatedBy", CreatedBy, DbType.AnsiString);
+			return sp;
+		}
+		public static StoredProcedure FE_SubmittedToPurchaserAccountSubmitABundle(int? BundleId,string CreatedBy) {
+			StoredProcedure sp = new StoredProcedure("custFE_SubmittedToPurchaserAccountSubmitABundle" ,DataService.GetInstance("NxsFundingProvider"));
+			sp.Command.AddParameter("@BundleId", BundleId, DbType.Int32);
+			sp.Command.AddParameter("@CreatedBy", CreatedBy, DbType.AnsiString);
+			return sp;
+		}
 	}
 }
  

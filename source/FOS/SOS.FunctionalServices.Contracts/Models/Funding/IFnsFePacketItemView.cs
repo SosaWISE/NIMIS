@@ -21,6 +21,9 @@ namespace SOS.FunctionalServices.Contracts.Models.Funding
 		long AccountId { get; }
 
 		[DataMember]
+		string Csid { get; }
+
+		[DataMember]
 		string FirstName { get; }
 
 		[DataMember]
@@ -34,6 +37,18 @@ namespace SOS.FunctionalServices.Contracts.Models.Funding
 
 		[DataMember]
 		string AccountStatusNote { get; }
+
+		[DataMember]
+		string TransactionID { get; }
+
+		[DataMember]
+		string ReportGuid { get; }
+
+		[DataMember]
+		string Bureau { get; }
+
+		[DataMember]
+		string Gateway { get; }
 
 		[DataMember]
 		string ModifiedBy { get; }
