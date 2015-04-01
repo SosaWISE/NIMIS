@@ -61,7 +61,7 @@ AS
 		INNER JOIN [dbo].[FE_Purchasers] AS FEP WITH (NOLOCK)
 		ON
 			(FEP.PurchaserID = BND.PurchaserId)
-		LEFT OUTER JOIN [dbo].[FE_TrackingNumber] AS FET WITH (NOLOCK)
+		LEFT OUTER JOIN [dbo].[FE_TrackingNumbers] AS FET WITH (NOLOCK)
 		ON
 			(FET.BundleId = BND.BundleID)
 GO

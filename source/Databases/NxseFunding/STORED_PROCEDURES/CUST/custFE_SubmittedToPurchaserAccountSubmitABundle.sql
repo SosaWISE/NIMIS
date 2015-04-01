@@ -100,7 +100,7 @@ BEGIN
 					(AccountID = @AccountId);
 
 				/** Submit to purchaser */
-				INSERT INTO [dbo].[FE_SubmittedToPurchaserAccount] (
+				INSERT INTO [dbo].[FE_SubmittedToPurchaserAccounts] (
 					[PacketItemId]
 					, [AccountFundingStatusId]
 					, [CreatedBy]
@@ -150,7 +150,7 @@ BEGIN
 	SELECT 
 		FES.*
 	FROM
-		[dbo].[FE_SubmittedToPurchaserAccount] AS FES WITH (NOLOCK)
+		[dbo].[FE_SubmittedToPurchaserAccounts] AS FES WITH (NOLOCK)
 		INNER JOIN @SubmitToPurchaserTable AS STP 
 		ON
 			(STP.SubmittedToPurchaserId = FES.SubmittedToPurchaserId);

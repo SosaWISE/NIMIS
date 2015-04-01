@@ -16,7 +16,8 @@ GO
 		, @AccountFundingStatusId INT
 		, @PacketItemId BIGINT
 		, @PurchaserId VARCHAR(10)
-		, @RejectionID BIGINT;
+		, @RejectionID BIGINT
+		, @RejectedAccountID BIGINT;
 
 	SELECT @AccountID = AccountID FROM [dbo].[vwMS_Accounts] WHERE (CustomerMasterFileId = @CMFID) AND (Csid = @CSID);
 	PRINT '|-- AccountID: ' + CAST(@AccountID AS VARCHAR(20)) + ' | CMFID: ' + CAST(@CMFID AS VARCHAR(20)) + ' | CSID: ' + @CSID;
@@ -39,6 +40,7 @@ GO
 	WHERE
 		(PAKI.AccountId = @AccountID)
 		AND (BUN.BundleID = @BundleID);
+	PRINT '|-- -- AQUIRED PacketItemID: ' + CAST(@PacketItemId AS VARCHAR(20)) + ' | PurchaserId: ' + CAST(@PurchaserId AS VARCHAR(20));
 
 		/** Create the AccountFunding Status */
 	INSERT INTO [dbo].[FE_AccountFundingStatus] (
@@ -55,11 +57,13 @@ GO
 		, @CreatedBy  -- CreatedBy - nvarchar(50)
 	);
 	SET @AccountFundingStatusId = SCOPE_IDENTITY();
+	PRINT '|-- -- INSERTED AccountFundingStatusId: ' + CAST(@AccountFundingStatusId AS VARCHAR(20));
 
 	/** Update MS_AccountSalesInformation */
 	UPDATE [WISE_CRM].[dbo].[MS_AccountSalesInformations] SET 
 		AccountFundingStatusId = @AccountFundingStatusId
 	WHERE (AccountID = @AccountID);
+	PRINT '|-- -- UPDATED [WISE_CRM].[dbo].[MS_AccountSalesInformations] with AccountFundingStatusId: ' + CAST(@AccountFundingStatusId AS VARCHAR(20));
 
 	/** Add to Rejection tables */
 	INSERT INTO [dbo].[FE_Rejection] (
@@ -80,6 +84,22 @@ GO
 		, @CreatedBy  -- CreatedBy - nvarchar(50)
 	);
 	SET @RejectionID = SCOPE_IDENTITY();
+	PRINT '|-- -- INSERTED [dbo].[FE_Rejection] new Identity RejectionID: ' + CAST(@RejectionID AS VARCHAR(20));
 
+	INSERT INTO [dbo].[FE_RejectedAccount] (
+		[AccountId]
+		, [RejectionId]
+		, [PacketItemId]
+		, [AccountFundingStatusId]
+		, [CreatedBy]
+	) VALUES (
+		@AccountID -- AccountId - bigint
+		, @RejectionID  -- bigint
+		, @PacketItemId  -- PacketItemId - bigint
+		, @AccountFundingStatusId  -- AccountFundingStatusId - bigint
+		, @CreatedBy  -- CreatedBy - nvarchar(50)
+	);
+	SET @RejectedAccountID = SCOPE_IDENTITY();
+	PRINT '|-- -- INSERTED [dbo].[FE_RejectedAccount] new Identity RejectedAccountID: ' + CAST(@RejectedAccountID AS VARCHAR(20));
 
 	ROLLBACK TRANSACTION
