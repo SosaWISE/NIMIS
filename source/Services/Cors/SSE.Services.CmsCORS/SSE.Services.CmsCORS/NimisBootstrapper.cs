@@ -38,9 +38,6 @@ namespace SSE.Services.CmsCORS
 				c.StatusCodeHandlers.Clear();
 				c.StatusCodeHandlers.Add(typeof(WebModules.StatusCodeHandler));
 			});
-
-			//@HACK: to set connection strings
-			NXS.Data.Crm.CrmDb.ConnectionString = SubSonic.DataService.Providers[SOS.Data.SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME].DefaultConnectionString;
 		}
 		protected override NancyInternalConfiguration InternalConfiguration { get { return _config; } }
 

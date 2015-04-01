@@ -25,6 +25,7 @@ namespace SOS.FunctionalServices.Models.QualifyLead
 			TimeZoneName = item.TimeZoneName;
 			PostalCode = item.PostalCode;
 			Phone = item.Phone;
+			CreditCreatedOn = item.CreditCreatedOn;
 			CreditReportID = item.CreditReportID;
 			IsHit = item.IsHit;
 			CRStatus = item.CRStatus;
@@ -65,6 +66,7 @@ namespace SOS.FunctionalServices.Models.QualifyLead
 		public string TimeZoneName { get; private set; }
 		public string PostalCode { get; private set; }
 		public string Phone { get; private set; }
+		public DateTime CreditCreatedOn { get; private set; }
 		public long CreditReportID { get; private set; }
 		public bool IsHit { get; private set; }
 		public string CRStatus { get; private set; }
