@@ -727,8 +727,6 @@ BEGIN
 					, IsMoni = @IsMoni
 					, IsTakeOver = @IsTakeOver
 					, IsOwner = @IsOwner
-					, IsActive = 1
-					, IsDeleted = 0
 					, ModifiedOn = GetUTCDate()
 					, ModifiedBy = @GPEmployeeID
 				WHERE
@@ -744,8 +742,6 @@ BEGIN
 					, IsMoni
 					, IsTakeOver
 					, IsOwner
-					, IsActive
-					, IsDeleted
 					, ModifiedBy
 					, CreatedBy
 				) VALUES (
@@ -756,8 +752,6 @@ BEGIN
 					, @IsMoni
 					, @IsTakeOver
 					, @IsOwner
-					, 1
-					, 0
 					, @GpEmployeeID
 					, @GpEmployeeID
 				);
