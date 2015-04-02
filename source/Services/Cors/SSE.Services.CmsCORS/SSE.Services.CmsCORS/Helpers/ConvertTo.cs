@@ -1575,7 +1575,7 @@ namespace SSE.Services.CmsCORS.Helpers
 				LocationTypeName = licItem.LocationTypeName,
 				RequirementName = licItem.RequirementName,
 				LockID = licItem.LockID,
-				LockTypeName = licItem.LocationTypeName,
+				LockTypeName = licItem.LockTypeName,
 				CallCenterMessage = licItem.CallCenterMessage,
 				Status = licItem.Status,
 				LicenseID = licItem.LicenseID

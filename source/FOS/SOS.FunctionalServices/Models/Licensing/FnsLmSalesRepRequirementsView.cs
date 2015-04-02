@@ -14,7 +14,7 @@ namespace SOS.FunctionalServices.Models.Licensing
 			LocationTypeName = viewItem.LocationTypeName;
 			RequirementName = viewItem.RequirementName;
 			LockID = viewItem.LockID;
-			LockTypeName = viewItem.LocationTypeName;
+			LockTypeName = viewItem.LockTypeName;
 			CallCenterMessage = viewItem.CallCenterMessage;
 			Status = viewItem.Status;
 			LicenseID = viewItem.LicenseID;
