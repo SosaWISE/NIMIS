@@ -72,6 +72,7 @@
     <Compile Include="Helpers\DatabaseHelper.cs" />
     <Compile Include="AuthServiceConfig.cs" />
     <Compile Include="InsideSalesService.cs" />
+    <Compile Include="LicencingManagementService.cs" />
     <Compile Include="Models\CentralStation\FnsMcAddressView.cs" />
     <Compile Include="Models\CentralStation\FnsMsAccountDispatchAgencyAssignmentView.cs" />
     <Compile Include="Models\CentralStation\FnsMsDispatchAgencyType.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Models\HumanResource\FnsTeamSearchInfo.cs" />
     <Compile Include="Models\HumanResource\FnsUserSearchInfo.cs" />
     <Compile Include="Models\HumanResource\FnsRuTechnician.cs" />
+    <Compile Include="Models\Licensing\FnsLmSalesRepRequirementsView.cs" />
     <Compile Include="Models\QualifyLead\FnsQlQualifyCustomerInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -289,6 +291,10 @@
     <ProjectReference Include="..\..\Data\NXS.Data.Funding\NXS.Data.Funding.csproj">
       <Project>{9a891e70-afea-46b9-b9a4-b8445c9925ad}</Project>
       <Name>NXS.Data.Funding</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\NXS.Data.Licensing\NXS.Data.Licensing.csproj">
+      <Project>{a6035aa6-47ad-4c14-8911-1982da86f0e0}</Project>
+      <Name>NXS.Data.Licensing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Data\SOS.Data.AuthenticationControl\SOS.Data.AuthenticationControl.csproj">
       <Project>{ACCE6D59-0AA7-4353-850E-1B78E16B3074}</Project>

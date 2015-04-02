@@ -49,6 +49,7 @@
     <Compile Include="IConnextService.cs" />
     <Compile Include="IFundingServices.cs" />
     <Compile Include="IInsideSalesService.cs" />
+    <Compile Include="ILicencingManagementService.cs" />
     <Compile Include="IReportingService.cs" />
     <Compile Include="IInventoryEngineService.cs" />
     <Compile Include="IAccountingEngineService.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Models\InventoryEngine\IFnsIePackingSlip.cs" />
     <Compile Include="Models\InventoryEngine\IFnsIePurchaseOrderItem.cs" />
     <Compile Include="Models\InventoryEngine\IFnsIeProductBarcode.cs" />
+    <Compile Include="Models\Licensing\IFnsLmSalesRepRequirementsView.cs" />
     <Compile Include="Models\QualifyLead\IFnsQlAddress.cs" />
     <Compile Include="Models\QualifyLead\IFnsQlCreditReport.cs" />
     <Compile Include="Models\QualifyLead\IFnsQlLead.cs" />

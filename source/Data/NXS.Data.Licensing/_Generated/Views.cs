@@ -998,6 +998,295 @@ namespace NXS.Data.Licensing
 		#endregion Columns Struct
 	}
 	/// <summary>
+	/// Strongly-typed collection for the LM_SalesRepRequirementsView class.
+	/// </summary>
+	[DataContract]
+	public partial class LM_SalesRepRequirementsViewCollection : ReadOnlyList<LM_SalesRepRequirementsView, LM_SalesRepRequirementsViewCollection>
+	{
+		public static LM_SalesRepRequirementsViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			LM_SalesRepRequirementsViewCollection result = new LM_SalesRepRequirementsViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwLM_SalesRepRequirements view.
+	/// </summary>
+	[DataContract]
+	public partial class LM_SalesRepRequirementsView : ReadOnlyRecord<LM_SalesRepRequirementsView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+		
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema() 
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwLM_SalesRepRequirements", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarRequirementID = new TableSchema.TableColumn(schema);
+				colvarRequirementID.ColumnName = "RequirementID";
+				colvarRequirementID.DataType = DbType.Int32;
+				colvarRequirementID.MaxLength = 0;
+				colvarRequirementID.AutoIncrement = false;
+				colvarRequirementID.IsNullable = false;
+				colvarRequirementID.IsPrimaryKey = false;
+				colvarRequirementID.IsForeignKey = false;
+				colvarRequirementID.IsReadOnly = false;
+				colvarRequirementID.DefaultSetting = @"";
+				colvarRequirementID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRequirementID);
+
+				TableSchema.TableColumn colvarRequirementTypeName = new TableSchema.TableColumn(schema);
+				colvarRequirementTypeName.ColumnName = "RequirementTypeName";
+				colvarRequirementTypeName.DataType = DbType.String;
+				colvarRequirementTypeName.MaxLength = 50;
+				colvarRequirementTypeName.AutoIncrement = false;
+				colvarRequirementTypeName.IsNullable = false;
+				colvarRequirementTypeName.IsPrimaryKey = false;
+				colvarRequirementTypeName.IsForeignKey = false;
+				colvarRequirementTypeName.IsReadOnly = false;
+				colvarRequirementTypeName.DefaultSetting = @"";
+				colvarRequirementTypeName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRequirementTypeName);
+
+				TableSchema.TableColumn colvarLocationTypeName = new TableSchema.TableColumn(schema);
+				colvarLocationTypeName.ColumnName = "LocationTypeName";
+				colvarLocationTypeName.DataType = DbType.String;
+				colvarLocationTypeName.MaxLength = 50;
+				colvarLocationTypeName.AutoIncrement = false;
+				colvarLocationTypeName.IsNullable = false;
+				colvarLocationTypeName.IsPrimaryKey = false;
+				colvarLocationTypeName.IsForeignKey = false;
+				colvarLocationTypeName.IsReadOnly = false;
+				colvarLocationTypeName.DefaultSetting = @"";
+				colvarLocationTypeName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLocationTypeName);
+
+				TableSchema.TableColumn colvarRequirementName = new TableSchema.TableColumn(schema);
+				colvarRequirementName.ColumnName = "RequirementName";
+				colvarRequirementName.DataType = DbType.String;
+				colvarRequirementName.MaxLength = 100;
+				colvarRequirementName.AutoIncrement = false;
+				colvarRequirementName.IsNullable = false;
+				colvarRequirementName.IsPrimaryKey = false;
+				colvarRequirementName.IsForeignKey = false;
+				colvarRequirementName.IsReadOnly = false;
+				colvarRequirementName.DefaultSetting = @"";
+				colvarRequirementName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRequirementName);
+
+				TableSchema.TableColumn colvarLockID = new TableSchema.TableColumn(schema);
+				colvarLockID.ColumnName = "LockID";
+				colvarLockID.DataType = DbType.Int32;
+				colvarLockID.MaxLength = 0;
+				colvarLockID.AutoIncrement = false;
+				colvarLockID.IsNullable = false;
+				colvarLockID.IsPrimaryKey = false;
+				colvarLockID.IsForeignKey = false;
+				colvarLockID.IsReadOnly = false;
+				colvarLockID.DefaultSetting = @"";
+				colvarLockID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLockID);
+
+				TableSchema.TableColumn colvarLockTypeName = new TableSchema.TableColumn(schema);
+				colvarLockTypeName.ColumnName = "LockTypeName";
+				colvarLockTypeName.DataType = DbType.String;
+				colvarLockTypeName.MaxLength = 50;
+				colvarLockTypeName.AutoIncrement = false;
+				colvarLockTypeName.IsNullable = false;
+				colvarLockTypeName.IsPrimaryKey = false;
+				colvarLockTypeName.IsForeignKey = false;
+				colvarLockTypeName.IsReadOnly = false;
+				colvarLockTypeName.DefaultSetting = @"";
+				colvarLockTypeName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLockTypeName);
+
+				TableSchema.TableColumn colvarCallCenterMessage = new TableSchema.TableColumn(schema);
+				colvarCallCenterMessage.ColumnName = "CallCenterMessage";
+				colvarCallCenterMessage.DataType = DbType.String;
+				colvarCallCenterMessage.MaxLength = -1;
+				colvarCallCenterMessage.AutoIncrement = false;
+				colvarCallCenterMessage.IsNullable = true;
+				colvarCallCenterMessage.IsPrimaryKey = false;
+				colvarCallCenterMessage.IsForeignKey = false;
+				colvarCallCenterMessage.IsReadOnly = false;
+				colvarCallCenterMessage.DefaultSetting = @"";
+				colvarCallCenterMessage.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCallCenterMessage);
+
+				TableSchema.TableColumn colvarStatus = new TableSchema.TableColumn(schema);
+				colvarStatus.ColumnName = "Status";
+				colvarStatus.DataType = DbType.AnsiString;
+				colvarStatus.MaxLength = 100;
+				colvarStatus.AutoIncrement = false;
+				colvarStatus.IsNullable = true;
+				colvarStatus.IsPrimaryKey = false;
+				colvarStatus.IsForeignKey = false;
+				colvarStatus.IsReadOnly = false;
+				colvarStatus.DefaultSetting = @"";
+				colvarStatus.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarStatus);
+
+				TableSchema.TableColumn colvarLicenseID = new TableSchema.TableColumn(schema);
+				colvarLicenseID.ColumnName = "LicenseID";
+				colvarLicenseID.DataType = DbType.Int32;
+				colvarLicenseID.MaxLength = 0;
+				colvarLicenseID.AutoIncrement = false;
+				colvarLicenseID.IsNullable = true;
+				colvarLicenseID.IsPrimaryKey = false;
+				colvarLicenseID.IsForeignKey = false;
+				colvarLicenseID.IsReadOnly = false;
+				colvarLicenseID.DefaultSetting = @"";
+				colvarLicenseID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLicenseID);
+
+				BaseSchema = schema;
+				DataService.Providers["LicensingProvider"].AddSchema("vwLM_SalesRepRequirements",schema);
+			}
+		}
+		#endregion //Schema Accessor
+		
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public LM_SalesRepRequirementsView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public int RequirementID { 
+			get { return GetColumnValue<int>(Columns.RequirementID); }
+			set { SetColumnValue(Columns.RequirementID, value); }
+		}
+		[DataMember]
+		public string RequirementTypeName { 
+			get { return GetColumnValue<string>(Columns.RequirementTypeName); }
+			set { SetColumnValue(Columns.RequirementTypeName, value); }
+		}
+		[DataMember]
+		public string LocationTypeName { 
+			get { return GetColumnValue<string>(Columns.LocationTypeName); }
+			set { SetColumnValue(Columns.LocationTypeName, value); }
+		}
+		[DataMember]
+		public string RequirementName { 
+			get { return GetColumnValue<string>(Columns.RequirementName); }
+			set { SetColumnValue(Columns.RequirementName, value); }
+		}
+		[DataMember]
+		public int LockID { 
+			get { return GetColumnValue<int>(Columns.LockID); }
+			set { SetColumnValue(Columns.LockID, value); }
+		}
+		[DataMember]
+		public string LockTypeName { 
+			get { return GetColumnValue<string>(Columns.LockTypeName); }
+			set { SetColumnValue(Columns.LockTypeName, value); }
+		}
+		[DataMember]
+		public string CallCenterMessage { 
+			get { return GetColumnValue<string>(Columns.CallCenterMessage); }
+			set { SetColumnValue(Columns.CallCenterMessage, value); }
+		}
+		[DataMember]
+		public string Status { 
+			get { return GetColumnValue<string>(Columns.Status); }
+			set { SetColumnValue(Columns.Status, value); }
+		}
+		[DataMember]
+		public int? LicenseID { 
+			get { return GetColumnValue<int?>(Columns.LicenseID); }
+			set { SetColumnValue(Columns.LicenseID, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return RequirementTypeName;
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn RequirementIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn RequirementTypeNameColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn LocationTypeNameColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn RequirementNameColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn LockIDColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn LockTypeNameColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn CallCenterMessageColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+		public static TableSchema.TableColumn StatusColumn
+		{
+			get { return Schema.Columns[7]; }
+		}
+		public static TableSchema.TableColumn LicenseIDColumn
+		{
+			get { return Schema.Columns[8]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string RequirementID = @"RequirementID";
+			public const string RequirementTypeName = @"RequirementTypeName";
+			public const string LocationTypeName = @"LocationTypeName";
+			public const string RequirementName = @"RequirementName";
+			public const string LockID = @"LockID";
+			public const string LockTypeName = @"LockTypeName";
+			public const string CallCenterMessage = @"CallCenterMessage";
+			public const string Status = @"Status";
+			public const string LicenseID = @"LicenseID";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
 	/// Strongly-typed collection for the RequirementLocationsView class.
 	/// </summary>
 	[DataContract]

@@ -69,22 +69,23 @@ BEGIN
 			, LMR.LockID
 			, LMR.[LockTypeName]
 			, LMR.CallCenterMessage
-			, CASE
-				WHEN LML.LicenseID IS NULL
-				THEN 'Missing License'
+			--, CASE
+			--	WHEN LML.LicenseID IS NULL
+			--	THEN 'Missing License'
 
-				WHEN LML.RequirementsAreMet = 0
-				THEN 'License Incomplete'
+			--	WHEN LML.RequirementsAreMet = 0
+			--	THEN 'License Incomplete'
 
-				WHEN GETDATE() < LML.IssueDate
-				THEN 'License not active yet'
+			--	WHEN GETDATE() < LML.IssueDate
+			--	THEN 'License not active yet'
 
-				WHEN GETDATE() > LML.ExpirationDate
-				THEN 'License Expired'
+			--	WHEN GETDATE() > LML.ExpirationDate
+			--	THEN 'License Expired'
 			
-				ELSE 'Licensing Complete'
+			--	ELSE 'Licensing Complete'
 
-			  END AS [Status]
+			--  END AS [Status]
+			, dbo.fxGetLicenseStatus(NULL, LML.LicenseID, LML.RequirementsAreMet, LML.IssueDate, LML.ExpirationDate) AS [Status]
 			, CASE 
 				WHEN LML.LicenseID IS NULL THEN 0
 				ELSE LML.LicenseID
@@ -114,25 +115,26 @@ BEGIN
 			, LMR.LockID
 			, LMR.[LockTypeName]
 			, LMR.CallCenterMessage
-			, CASE
-				WHEN Country.CanSolicit = 0
-				THEN 'No Solicitation'
+			--, CASE
+			--	WHEN Country.CanSolicit = 0
+			--	THEN 'No Solicitation'
 
-				WHEN LML.LicenseID IS NULL
-				THEN 'Missing License'
+			--	WHEN LML.LicenseID IS NULL
+			--	THEN 'Missing License'
 
-				WHEN LML.RequirementsAreMet = 0
-				THEN 'License Incomplete'
+			--	WHEN LML.RequirementsAreMet = 0
+			--	THEN 'License Incomplete'
 
-				WHEN GETDATE() < LML.IssueDate
-				THEN 'License not active yet'
+			--	WHEN GETDATE() < LML.IssueDate
+			--	THEN 'License not active yet'
 
-				WHEN GETDATE() > LML.ExpirationDate
-				THEN 'License Expired'
+			--	WHEN GETDATE() > LML.ExpirationDate
+			--	THEN 'License Expired'
 			
-				ELSE 'Licensing Complete'
+			--	ELSE 'Licensing Complete'
 
-			  END AS [Status]
+			--  END AS [Status]
+			, dbo.fxGetLicenseStatus(Country.CanSolicit, LML.LicenseID, LML.RequirementsAreMet, LML.IssueDate, LML.ExpirationDate) AS [Status]
 			, CASE 
 				WHEN LML.LicenseID IS NULL THEN 0
 				ELSE LML.LicenseID
@@ -166,25 +168,26 @@ BEGIN
 			, LMR.LockID
 			, LMR.[LockTypeName]
 			, LMR.CallCenterMessage
-			, CASE
-				WHEN [State].CanSolicit = 0
-				THEN 'No Solicitation'
+			--, CASE
+			--	WHEN [State].CanSolicit = 0
+			--	THEN 'No Solicitation'
 
-				WHEN LML.LicenseID IS NULL
-				THEN 'Missing License'
+			--	WHEN LML.LicenseID IS NULL
+			--	THEN 'Missing License'
 
-				WHEN LML.RequirementsAreMet = 0
-				THEN 'License Incomplete'
+			--	WHEN LML.RequirementsAreMet = 0
+			--	THEN 'License Incomplete'
 
-				WHEN GETDATE() < LML.IssueDate
-				THEN 'License not active yet'
+			--	WHEN GETDATE() < LML.IssueDate
+			--	THEN 'License not active yet'
 
-				WHEN GETDATE() > LML.ExpirationDate
-				THEN 'License Expired'
+			--	WHEN GETDATE() > LML.ExpirationDate
+			--	THEN 'License Expired'
 			
-				ELSE 'Licensing Complete'
+			--	ELSE 'Licensing Complete'
 
-			  END AS [Status]
+			--  END AS [Status]
+			, dbo.fxGetLicenseStatus(Country.CanSolicit, LML.LicenseID, LML.RequirementsAreMet, LML.IssueDate, LML.ExpirationDate) AS [Status]
 			, CASE 
 				WHEN LML.LicenseID IS NULL THEN 0
 				ELSE LML.LicenseID
@@ -223,25 +226,26 @@ BEGIN
 			, LMR.LockID
 			, LMR.[LockTypeName]
 			, LMR.CallCenterMessage
-			, CASE
-				WHEN County.CanSolicit = 0
-				THEN 'No Solicitation'
+			--, CASE
+			--	WHEN County.CanSolicit = 0
+			--	THEN 'No Solicitation'
 
-				WHEN LML.LicenseID IS NULL
-				THEN 'Missing License'
+			--	WHEN LML.LicenseID IS NULL
+			--	THEN 'Missing License'
 
-				WHEN LML.RequirementsAreMet = 0
-				THEN 'License Incomplete'
+			--	WHEN LML.RequirementsAreMet = 0
+			--	THEN 'License Incomplete'
 
-				WHEN GETDATE() < LML.IssueDate
-				THEN 'License not active yet'
+			--	WHEN GETDATE() < LML.IssueDate
+			--	THEN 'License not active yet'
 
-				WHEN GETDATE() > LML.ExpirationDate
-				THEN 'License Expired'
+			--	WHEN GETDATE() > LML.ExpirationDate
+			--	THEN 'License Expired'
 				
-				ELSE 'Licensing Complete'
+			--	ELSE 'Licensing Complete'
 
-			  END AS [Status]
+			--  END AS [Status]
+			, dbo.fxGetLicenseStatus(Country.CanSolicit, LML.LicenseID, LML.RequirementsAreMet, LML.IssueDate, LML.ExpirationDate) AS [Status]
 			, CASE 
 				WHEN LML.LicenseID IS NULL THEN 0
 				ELSE LML.LicenseID
@@ -284,25 +288,26 @@ BEGIN
 			, LMR.LockID
 			, LMR.[LockTypeName]
 			, LMR.CallCenterMessage
-			, CASE
-				WHEN City.CanSolicit = 0
-				THEN 'No Solicitation'
+			--, CASE
+			--	WHEN City.CanSolicit = 0
+			--	THEN 'No Solicitation'
 
-				WHEN LML.LicenseID IS NULL
-				THEN 'Missing License'
+			--	WHEN LML.LicenseID IS NULL
+			--	THEN 'Missing License'
 
-				WHEN LML.RequirementsAreMet = 0
-				THEN 'License Incomplete'
+			--	WHEN LML.RequirementsAreMet = 0
+			--	THEN 'License Incomplete'
 
-				WHEN GETDATE() < LML.IssueDate
-				THEN 'License not active yet'
+			--	WHEN GETDATE() < LML.IssueDate
+			--	THEN 'License not active yet'
 
-				WHEN GETDATE() > LML.ExpirationDate
-				THEN 'License Expired'
+			--	WHEN GETDATE() > LML.ExpirationDate
+			--	THEN 'License Expired'
 				
-				ELSE 'Licensing Complete'
+			--	ELSE 'Licensing Complete'
 
-			  END AS [Status]
+			--  END AS [Status]
+			, dbo.fxGetLicenseStatus(Country.CanSolicit, LML.LicenseID, LML.RequirementsAreMet, LML.IssueDate, LML.ExpirationDate) AS [Status]
 			, CASE 
 				WHEN LML.LicenseID IS NULL THEN 0
 				ELSE LML.LicenseID
@@ -351,25 +356,26 @@ BEGIN
 			, LMR.LockID
 			, LMR.[LockTypeName]
 			, LMR.CallCenterMessage
-			, CASE
-				WHEN Township.CanSolicit = 0
-				THEN 'No Solicitation'
+			--, CASE
+			--	WHEN Township.CanSolicit = 0
+			--	THEN 'No Solicitation'
 
-				WHEN LML.LicenseID IS NULL
-				THEN 'Missing License'
+			--	WHEN LML.LicenseID IS NULL
+			--	THEN 'Missing License'
 
-				WHEN LML.RequirementsAreMet = 0
-				THEN 'License Incomplete'
+			--	WHEN LML.RequirementsAreMet = 0
+			--	THEN 'License Incomplete'
 
-				WHEN GETDATE() < LML.IssueDate
-				THEN 'License not active yet'
+			--	WHEN GETDATE() < LML.IssueDate
+			--	THEN 'License not active yet'
 
-				WHEN GETDATE() > LML.ExpirationDate
-				THEN 'License Expired'
+			--	WHEN GETDATE() > LML.ExpirationDate
+			--	THEN 'License Expired'
 				
-				ELSE 'Licensing Complete'
+			--	ELSE 'Licensing Complete'
 
-			  END AS [Status]
+			--  END AS [Status]
+			, dbo.fxGetLicenseStatus(Country.CanSolicit, LML.LicenseID, LML.RequirementsAreMet, LML.IssueDate, LML.ExpirationDate) AS [Status]
 			, CASE 
 				WHEN LML.LicenseID IS NULL THEN 0
 				ELSE LML.LicenseID

@@ -1,4 +1,4 @@
-USE [WISE_CRM]
+USE [NXSE_Licensing]
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE type = 'V' AND name = 'View_Template')
@@ -34,13 +34,13 @@ GO
 **     ----------						-----------
 **
 **		Auth: Andres Sosa
-**		Date: 06/07/2014
+**		Date: 04/01/2015
 *******************************************************************************
 **	Change History
 *******************************************************************************
 **	Date:		Author:			Description:
 **	-----------	---------------	-----------------------------------------------
-**	06/07/2014	Andres Sosa		Created by
+**	04/01/2015	Andres Sosa		Created by
 *******************************************************************************/
 CREATE VIEW [dbo].[View_Template]
 AS

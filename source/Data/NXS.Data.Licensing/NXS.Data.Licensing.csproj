@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NXS.Data.Licensing</RootNamespace>
     <AssemblyName>NXS.Data.Licensing</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,6 +48,7 @@
     <Compile Include="ControllerExtensions\LM_NoteControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\LM_RequirementControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\LM_RequirementTypeControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\LM_SalesRepRequirementsViewControllerExtensions.cs" />
     <Compile Include="Controllers\MetAndNeededRequirementController.cs" />
     <Compile Include="LicensingDataContext.cs" />
     <Compile Include="Models\MetAndNeededRequirement.cs" />

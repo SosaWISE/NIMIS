@@ -2490,6 +2490,182 @@ namespace NXS.Data.Licensing
 
 	}
 	/// <summary>
+	/// Strongly-typed collection for the LM_LicenseStatus class.
+	/// </summary>
+	[DataContract]
+	public partial class LM_LicenseStatusCollection : ActiveList<LM_LicenseStatus, LM_LicenseStatusCollection>
+	{
+		public static LM_LicenseStatusCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			LM_LicenseStatusCollection result = new LM_LicenseStatusCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+		public string GetInList(string columnName)
+		{
+			return JoinColumnList(columnName, ",");
+		}
+		public string JoinColumnList(string columnName, string seperator)
+		{
+			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
+		}
+		public IEnumerable<object> GetJoinColumnList(string columnName)
+		{
+			foreach (LM_LicenseStatus item in this) {
+				object value = item.GetColumnValue<object>(columnName);
+				if (value != null) {
+					yield return value;
+				}
+			}
+		}
+	}
+	
+	/// <summary>
+	/// This is an ActiveRecord class which wraps the LM_LicenseStatuses table.
+	/// </summary>
+	[DataContract]
+	public partial class LM_LicenseStatus : ActiveRecord<LM_LicenseStatus>, INotifyPropertyChanged
+	{
+
+
+		#region Events
+		public event PropertyChangedEventHandler PropertyChanged;
+		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+		{
+			if (PropertyChanged != null)
+				PropertyChanged(this, e);
+		}
+		#endregion Events
+
+		#region .ctors and Default Settings
+
+		public LM_LicenseStatus()
+		{
+			SetSQLProps();InitSetDefaults();MarkNew();
+		}
+		private void InitSetDefaults() { SetDefaults(); }
+		protected static void SetSQLProps() { GetTableSchema(); }
+
+		#endregion
+
+		#region Schema and Query Accessor
+		public static Query CreateQuery() { return new Query(Schema); }
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema() 
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("LM_LicenseStatuses", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarLicenseStatusID = new TableSchema.TableColumn(schema);
+				colvarLicenseStatusID.ColumnName = "LicenseStatusID";
+				colvarLicenseStatusID.DataType = DbType.Int16;
+				colvarLicenseStatusID.MaxLength = 0;
+				colvarLicenseStatusID.AutoIncrement = false;
+				colvarLicenseStatusID.IsNullable = false;
+				colvarLicenseStatusID.IsPrimaryKey = true;
+				colvarLicenseStatusID.IsForeignKey = false;
+				colvarLicenseStatusID.IsReadOnly = false;
+				colvarLicenseStatusID.DefaultSetting = @"";
+				colvarLicenseStatusID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLicenseStatusID);
+
+				TableSchema.TableColumn colvarLicenseStatus = new TableSchema.TableColumn(schema);
+				colvarLicenseStatus.ColumnName = "LicenseStatus";
+				colvarLicenseStatus.DataType = DbType.AnsiString;
+				colvarLicenseStatus.MaxLength = 100;
+				colvarLicenseStatus.AutoIncrement = false;
+				colvarLicenseStatus.IsNullable = false;
+				colvarLicenseStatus.IsPrimaryKey = false;
+				colvarLicenseStatus.IsForeignKey = false;
+				colvarLicenseStatus.IsReadOnly = false;
+				colvarLicenseStatus.DefaultSetting = @"";
+				colvarLicenseStatus.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLicenseStatus);
+
+				BaseSchema = schema;
+				DataService.Providers["LicensingProvider"].AddSchema("LM_LicenseStatuses",schema);
+			}
+		}
+		#endregion // Schema and Query Accessor
+
+		public static LM_LicenseStatus LoadFrom(LM_LicenseStatus item)
+		{
+			LM_LicenseStatus result = new LM_LicenseStatus();
+			if (item.LicenseStatusID != default(short)) {
+				result.LoadByKey(item.LicenseStatusID);
+			}
+			result.CopyFrom(item);
+			return result;
+		}
+
+		#region Properties
+		[DataMember]
+		public short LicenseStatusID { 
+			get { return GetColumnValue<short>(Columns.LicenseStatusID); }
+			set {
+				SetColumnValue(Columns.LicenseStatusID, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.LicenseStatusID));
+			}
+		}
+		[DataMember]
+		public string LicenseStatus { 
+			get { return GetColumnValue<string>(Columns.LicenseStatus); }
+			set {
+				SetColumnValue(Columns.LicenseStatus, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.LicenseStatus));
+			}
+		}
+
+		#endregion //Properties
+
+
+		public override string ToString()
+		{
+			return LicenseStatus;
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn LicenseStatusIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn LicenseStatusColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public static readonly string LicenseStatusID = @"LicenseStatusID";
+			public static readonly string LicenseStatus = @"LicenseStatus";
+		}
+		#endregion Columns Struct
+
+		/*
+		public override object PrimaryKeyValue
+		{
+			get { return LicenseStatusID; }
+		}
+		*/
+
+
+	}
+	/// <summary>
 	/// Strongly-typed collection for the LM_Location class.
 	/// </summary>
 	[DataContract]

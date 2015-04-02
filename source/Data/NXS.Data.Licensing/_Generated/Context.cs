@@ -86,6 +86,16 @@ namespace NXS.Data.Licensing
 			}
 		}
 
+		LM_LicenseStatusController _LM_LicenseStatuses;
+		public LM_LicenseStatusController LM_LicenseStatuses
+		{
+			get
+			{
+				if (_LM_LicenseStatuses == null) _LM_LicenseStatuses = new LM_LicenseStatusController();
+				return _LM_LicenseStatuses;
+			}
+		}
+
 		LM_LocationController _LM_Locations;
 		public LM_LocationController LM_Locations
 		{
@@ -210,6 +220,16 @@ namespace NXS.Data.Licensing
 			}
 		}
 
+		LM_SalesRepRequirementsViewController _LM_SalesRepRequirementsViews;
+		public LM_SalesRepRequirementsViewController LM_SalesRepRequirementsViews
+		{
+			get
+			{
+				if (_LM_SalesRepRequirementsViews == null) _LM_SalesRepRequirementsViews = new LM_SalesRepRequirementsViewController();
+				return _LM_SalesRepRequirementsViews;
+			}
+		}
+
 		RequirementLocationsViewController _RequirementLocationsViews;
 		public RequirementLocationsViewController RequirementLocationsViews
 		{
@@ -230,6 +250,7 @@ namespace NXS.Data.Licensing
 	public class LM_AttachmentTypeController : BaseTableController<LM_AttachmentType, LM_AttachmentTypeCollection> { }
 	public class LM_LicenseItemController : BaseTableController<LM_LicenseItem, LM_LicenseItemCollection> { }
 	public class LM_LicenseController : BaseTableController<LM_License, LM_LicenseCollection> { }
+	public class LM_LicenseStatusController : BaseTableController<LM_LicenseStatus, LM_LicenseStatusCollection> { }
 	public class LM_LocationController : BaseTableController<LM_Location, LM_LocationCollection> { }
 	public class LM_LocationTypeController : BaseTableController<LM_LocationType, LM_LocationTypeCollection> { }
 	public class LM_LockController : BaseTableController<LM_Lock, LM_LockCollection> { }
@@ -247,6 +268,7 @@ namespace NXS.Data.Licensing
 	public class AllRequirementsPerLocationViewController : BaseViewController<AllRequirementsPerLocationView, AllRequirementsPerLocationViewCollection> { }
 	public class LicenseLocationsViewController : BaseViewController<LicenseLocationsView, LicenseLocationsViewCollection> { }
 	public class LM_RequirementsViewController : BaseViewController<LM_RequirementsView, LM_RequirementsViewCollection> { }
+	public class LM_SalesRepRequirementsViewController : BaseViewController<LM_SalesRepRequirementsView, LM_SalesRepRequirementsViewCollection> { }
 	public class RequirementLocationsViewController : BaseViewController<RequirementLocationsView, RequirementLocationsViewCollection> { }
 
 	#endregion //View Controllers
