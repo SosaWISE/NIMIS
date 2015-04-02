@@ -200,6 +200,16 @@ namespace NXS.Data.Licensing
 			}
 		}
 
+		LM_RequirementsViewController _LM_RequirementsViews;
+		public LM_RequirementsViewController LM_RequirementsViews
+		{
+			get
+			{
+				if (_LM_RequirementsViews == null) _LM_RequirementsViews = new LM_RequirementsViewController();
+				return _LM_RequirementsViews;
+			}
+		}
+
 		RequirementLocationsViewController _RequirementLocationsViews;
 		public RequirementLocationsViewController RequirementLocationsViews
 		{
@@ -236,6 +246,7 @@ namespace NXS.Data.Licensing
 	
 	public class AllRequirementsPerLocationViewController : BaseViewController<AllRequirementsPerLocationView, AllRequirementsPerLocationViewCollection> { }
 	public class LicenseLocationsViewController : BaseViewController<LicenseLocationsView, LicenseLocationsViewCollection> { }
+	public class LM_RequirementsViewController : BaseViewController<LM_RequirementsView, LM_RequirementsViewCollection> { }
 	public class RequirementLocationsViewController : BaseViewController<RequirementLocationsView, RequirementLocationsViewCollection> { }
 
 	#endregion //View Controllers

@@ -33,7 +33,7 @@ GO
 **	Date:		Author:			Description:
 **	-----------	---------------	-----------------------------------------------
 **	10/15/2014	Andres Sosa		Created By
-** EXEC dbo.custLM_RequirementsGetRepLicenseByLocation 'UNITED STATES OF AMERICA', 'VIRGINIA', 'PORTSMOUTH CITY COUNTY', 'PORTSMOUTH', NULL, 'SOSA001' 
+** EXEC dbo.custLM_RequirementsGetRepLicenseByLocation 'UNITED STATES OF AMERICA', 'VIRGINIA', 'PORTSMOUTH CITY COUNTY', 'PORTSMOUTH', NULL, 'SOSAA001'
 *******************************************************************************/
 CREATE Procedure dbo.custLM_RequirementsGetRepLicenseByLocation
 (
@@ -50,13 +50,24 @@ BEGIN
 	SET NOCOUNT ON
 
 	/** DECLARATIONS */
+	DECLARE @SalesRepReqTypeID INT = 2
+		, @NexsenseLLCLocationID INT = 2
+		, @CountryLocationTypeID INT = 2
+		, @StateLocationTypeID INT = 3
+		, @CountyLocationTypeID INT = 4
+		, @CityLocationTypeID INT = 5
+		, @TownshipLocationTypeID INT = 6;
 	
 	BEGIN TRY
 
-		--Global requirements
+		--NEXSENSE requirement
 		SELECT
 			LMR.RequirementID
+			, LMR.RequirementTypeName
+			, LMR.LocationTypeName
 			, LMR.RequirementName
+			, LMR.LockID
+			, LMR.[LockTypeName]
 			, LMR.CallCenterMessage
 			, CASE
 				WHEN LML.LicenseID IS NULL
@@ -73,31 +84,35 @@ BEGIN
 			
 				ELSE 'Licensing Complete'
 
-				END AS [Status]
+			  END AS [Status]
 			, CASE 
-				WHEN LML.LicenseID IS NULL
-				THEN 0
+				WHEN LML.LicenseID IS NULL THEN 0
 				ELSE LML.LicenseID
-				END AS LicenseID
+			  END AS LicenseID
 		FROM 
-			LM_Requirements AS LMR WITH (NOLOCK)
+			vwLM_Requirements AS LMR WITH (NOLOCK)
 			LEFT OUTER JOIN LM_Licenses AS LML WITH (NOLOCK)
 			ON	
 				(LMR.RequirementID = LML.RequirementID)
-				AND (LML.GPEmployeeID = @GPEmployeeID)
+				AND (LML.IsActive = 1)
 				AND (LML.IsDeleted = 0)
+				AND (LMR.IsActive = 1)
+				AND (LMR.IsDeleted = 0)
 		WHERE
-			(LMR.IsActive = 1)
-			AND (LMR.IsDeleted = 0)
-			AND (LMR.LocationID = 2) --Global
-			AND (LMR.RequirementTypeID = 2) -- Rep Requirement
+				(LMR.LocationID = @NexsenseLLCLocationID)
+				AND (LMR.RequirementTypeID = @SalesRepReqTypeID)
+				AND (LML.GPEmployeeID = @GPEmployeeID)
 
 		UNION
 
 		--Countries
 		SELECT 
 			LMR.RequirementID
+			, LMR.RequirementTypeName
+			, LMR.LocationTypeName
 			, LMR.RequirementName
+			, LMR.LockID
+			, LMR.[LockTypeName]
 			, LMR.CallCenterMessage
 			, CASE
 				WHEN Country.CanSolicit = 0
@@ -117,35 +132,39 @@ BEGIN
 			
 				ELSE 'Licensing Complete'
 
-				END AS [Status]
+			  END AS [Status]
 			, CASE 
-				WHEN LML.LicenseID IS NULL
-				THEN 0
+				WHEN LML.LicenseID IS NULL THEN 0
 				ELSE LML.LicenseID
-				END AS LicenseID
+			  END AS LicenseID
 		FROM
 			LM_Locations AS Country WITH (NOLOCK)
-			INNER JOIN LM_Requirements AS LMR WITH (NOLOCK)
+			INNER JOIN vwLM_Requirements AS LMR WITH (NOLOCK)
 			ON
 				(Country.LocationID = LMR.LocationID)
+				AND (LMR.IsActive = 1)
+				AND (LMR.IsDeleted = 0)
 			LEFT OUTER JOIN LM_Licenses AS LML WITH (NOLOCK)
 			ON
 				(LMR.RequirementID = LML.RequirementID)
-				AND (LML.GPEmployeeID = @GPEmployeeID)
+				AND (LML.IsActive = 1)
 				AND (LML.IsDeleted = 0)
 		WHERE
 			(Country.LocationName = @CountryName)
-			AND (Country.LocationTypeID = 2) -- Country
-			AND (LMR.IsActive = 1)
-			AND (LMR.IsDeleted = 0)
-			AND (LMR.RequirementTypeID = 2) -- Rep Requirement
+			AND (LML.GPEmployeeID = @GPEmployeeID)
+			AND (Country.LocationTypeID = @CountryLocationTypeID) -- Country
+			AND (LMR.RequirementTypeID = @SalesRepReqTypeID) -- Rep Requirement
 
 		UNION
 
 		--State
 		SELECT 
 			LMR.RequirementID
+			, LMR.RequirementTypeName
+			, LMR.LocationTypeName
 			, LMR.RequirementName
+			, LMR.LockID
+			, LMR.[LockTypeName]
 			, LMR.CallCenterMessage
 			, CASE
 				WHEN [State].CanSolicit = 0
@@ -176,28 +195,33 @@ BEGIN
 			ON
 				(Country.LocationID = [State].ParentLocationID)
 				AND ([State].LocationName = @StateName)
-				AND ([State].LocationTypeID = 3) -- State
-			INNER JOIN LM_Requirements AS LMR WITH (NOLOCK)
+				AND ([State].LocationTypeID = @StateLocationTypeID) -- State
+			INNER JOIN vwLM_Requirements AS LMR WITH (NOLOCK)
 			ON
 				([State].LocationID = LMR.LocationID)
+				AND (LMR.IsActive = 1)
+				AND (LMR.IsDeleted = 0)
 			LEFT OUTER JOIN LM_Licenses AS LML WITH (NOLOCK)
 			ON
 				(LMR.RequirementID = LML.RequirementID)
 				AND (LML.GPEmployeeID = @GPEmployeeID)
+				AND (LML.IsActive = 1)
 				AND (LML.IsDeleted = 0)
 		WHERE
 			(Country.LocationName = @CountryName)
-			AND (Country.LocationTypeID = 2) -- Country
-			AND (LMR.IsActive = 1)
-			AND (LMR.IsDeleted = 0)
-			AND (LMR.RequirementTypeID = 2) -- Rep Requirement
+			AND (Country.LocationTypeID = @CountryLocationTypeID) -- Country
+			AND (LMR.RequirementTypeID = @SalesRepReqTypeID) -- Rep Requirement
 
 		UNION
 
 		--County
 		SELECT
 			LMR.RequirementID
+			, LMR.RequirementTypeName
+			, LMR.LocationTypeName
 			, LMR.RequirementName
+			, LMR.LockID
+			, LMR.[LockTypeName]
 			, LMR.CallCenterMessage
 			, CASE
 				WHEN County.CanSolicit = 0
@@ -217,46 +241,48 @@ BEGIN
 				
 				ELSE 'Licensing Complete'
 
-				END AS [Status]
+			  END AS [Status]
 			, CASE 
-				WHEN LML.LicenseID IS NULL
-				THEN 0
+				WHEN LML.LicenseID IS NULL THEN 0
 				ELSE LML.LicenseID
-				END AS LicenseID
-
+			  END AS LicenseID
 		FROM 
 			LM_Locations AS Country WITH (NOLOCK)
 			INNER JOIN LM_Locations AS [State] WITH (NOLOCK)
 			ON
-				Country.LocationID = [State].ParentLocationID
-				AND [State].LocationName = @StateName
-				AND [State].LocationTypeID = 3 -- State
+				(Country.LocationID = [State].ParentLocationID)
+				AND (Country.LocationTypeID = @CountryLocationTypeID) -- Country
+				AND (Country.LocationName = @CountryName)
+				AND ([State].LocationName = @StateName)
+				AND ([State].LocationTypeID = @StateLocationTypeID) -- State
 			INNER JOIN LM_Locations AS County WITH (NOLOCK)
 			ON
-				[State].LocationID = County.ParentLocationID
-				AND County.LocationName = @CountyName
-				AND County.LocationTypeID = 4 -- County
-			INNER JOIN LM_Requirements AS LMR WITH (NOLOCK)
+				([State].LocationID = County.ParentLocationID)
+				AND (County.LocationName = @CountyName)
+				AND (County.LocationTypeID = @CountyLocationTypeID) -- County
+			INNER JOIN vwLM_Requirements AS LMR WITH (NOLOCK)
 			ON
-				County.LocationID = LMR.LocationID
+				(County.LocationID = LMR.LocationID)
+				AND (LMR.RequirementTypeID = @SalesRepReqTypeID) -- Rep Requirement
+				AND (LMR.IsActive = 1)
+				AND (LMR.IsDeleted = 0)
 			LEFT OUTER JOIN LM_Licenses AS LML WITH (NOLOCK)
 			ON
-				LMR.RequirementID = LML.RequirementID
-				AND LML.GPEmployeeID = @GPEmployeeID
-				AND LML.IsDeleted = 0
-		WHERE 
-			Country.LocationName = @CountryName AND
-			Country.LocationTypeID = 2 AND -- Country
-			LMR.IsActive = 1 AND
-			LMR.IsDeleted = 0 AND 
-			LMR.RequirementTypeID = 2 -- Rep Requirement
+				(LMR.RequirementID = LML.RequirementID)
+				AND (LML.GPEmployeeID = @GPEmployeeID)
+				AND (LML.IsActive = 1)
+				AND (LML.IsDeleted = 0)
 
 		UNION
 
 		--City
 		SELECT
 			LMR.RequirementID
+			, LMR.RequirementTypeName
+			, LMR.LocationTypeName
 			, LMR.RequirementName
+			, LMR.LockID
+			, LMR.[LockTypeName]
 			, LMR.CallCenterMessage
 			, CASE
 				WHEN City.CanSolicit = 0
@@ -276,50 +302,54 @@ BEGIN
 				
 				ELSE 'Licensing Complete'
 
-				END AS [Status]
+			  END AS [Status]
 			, CASE 
-				WHEN LML.LicenseID IS NULL
-				THEN 0
+				WHEN LML.LicenseID IS NULL THEN 0
 				ELSE LML.LicenseID
-				END AS LicenseID
+			  END AS LicenseID
 		FROM 
 			LM_Locations AS Country WITH (NOLOCK)
 			INNER JOIN LM_Locations AS [State] WITH (NOLOCK)
 			ON
-				Country.LocationID = [State].ParentLocationID
-				AND [State].LocationName = @StateName
-				AND [State].LocationTypeID = 3 -- State
+				(Country.LocationID = [State].ParentLocationID)
+				AND ([State].LocationName = @StateName)
+				AND ([State].LocationTypeID = @StateLocationTypeID) -- State
 			INNER JOIN LM_Locations AS County WITH (NOLOCK)
 			ON
-				[State].LocationID = County.ParentLocationID
-				AND County.LocationName = @CountyName
-				AND County.LocationTypeID = 4 -- County
+				([State].LocationID = County.ParentLocationID)
+				AND (County.LocationName = @CountyName)
+				AND (County.LocationTypeID = @CountyLocationTypeID) -- County
 			INNER JOIN LM_Locations AS City WITH (NOLOCK)
 			ON
-				County.LocationID = City.ParentLocationID
-				AND City.LocationName = @CityName
-				AND City.LocationTypeID = 5 -- City
-			INNER JOIN LM_Requirements AS LMR WITH (NOLOCK)
+				(County.LocationID = City.ParentLocationID)
+				AND (City.LocationName = @CityName)
+				AND (City.LocationTypeID = @CityLocationTypeID) -- City
+			INNER JOIN vwLM_Requirements AS LMR WITH (NOLOCK)
 			ON
-				City.LocationID = LMR.LocationID
+				(City.LocationID = LMR.LocationID)
+				AND (LMR.IsActive = 1)
+				AND (LMR.IsDeleted = 0)
 			LEFT OUTER JOIN LM_Licenses AS LML WITH (NOLOCK)
 			ON
-				LMR.RequirementID = LML.RequirementID
-				AND LML.GPEmployeeID = @GPEmployeeID
-				AND LML.IsDeleted = 0
+				(LMR.RequirementID = LML.RequirementID)
+				AND (LML.GPEmployeeID = @GPEmployeeID)
+				AND (LML.IsActive = 1)
+				AND (LML.IsDeleted = 0)
 		WHERE 
-			Country.LocationName = @CountryName AND
-			Country.LocationTypeID = 2 AND -- Country
-			LMR.IsActive = 1 AND
-			LMR.IsDeleted = 0 AND 
-			LMR.RequirementTypeID = 2 -- Rep Requirement
+			(Country.LocationName = @CountryName)
+			AND (Country.LocationTypeID = @CountryLocationTypeID) -- Country
+			AND (LMR.RequirementTypeID = @SalesRepReqTypeID) -- Rep Requirement
 
 		UNION
 
 		--Township
 		SELECT
 			LMR.RequirementID
+			, LMR.RequirementTypeName
+			, LMR.LocationTypeName
 			, LMR.RequirementName
+			, LMR.LockID
+			, LMR.[LockTypeName]
 			, LMR.CallCenterMessage
 			, CASE
 				WHEN Township.CanSolicit = 0
@@ -339,48 +369,48 @@ BEGIN
 				
 				ELSE 'Licensing Complete'
 
-				END AS [Status]
+			  END AS [Status]
 			, CASE 
-				WHEN LML.LicenseID IS NULL
-				THEN 0
+				WHEN LML.LicenseID IS NULL THEN 0
 				ELSE LML.LicenseID
-				END AS LicenseID
+			  END AS LicenseID
 		FROM
 			LM_Locations AS Country WITH (NOLOCK)
 			INNER JOIN LM_Locations AS [State] WITH (NOLOCK)
 			ON
 				Country.LocationID = [State].ParentLocationID
 				AND [State].LocationName = @StateName
-				AND [State].LocationTypeID = 3 -- State
+				AND [State].LocationTypeID = @StateLocationTypeID -- State
 			INNER JOIN LM_Locations AS County WITH (NOLOCK)
 			ON
 				[State].LocationID = County.ParentLocationID
 				AND County.LocationName = @CountyName
-				AND County.LocationTypeID = 4 -- County
+				AND County.LocationTypeID = @CountyLocationTypeID -- County
 			INNER JOIN LM_Locations AS City WITH (NOLOCK)
 			ON
 				County.LocationID = City.ParentLocationID
 				AND City.LocationName = @CityName
-				AND City.LocationTypeID = 5 -- City
+				AND City.LocationTypeID = @CityLocationTypeID -- City
 			INNER JOIN LM_Locations AS Township WITH (NOLOCK)
 			ON
 				City.LocationID = Township.ParentLocationID
 				AND Township.LocationName = @TownshipName
-				AND Township.LocationTypeID = 6 -- Township
-			INNER JOIN LM_Requirements AS LMR WITH (NOLOCK)
+				AND Township.LocationTypeID = @TownshipLocationTypeID -- Township
+			INNER JOIN vwLM_Requirements AS LMR WITH (NOLOCK)
 			ON
 				Township.LocationID = LMR.LocationID
+				AND LMR.IsActive = 1
+				AND LMR.IsDeleted = 0 
 			LEFT OUTER JOIN LM_Licenses AS LML WITH (NOLOCK)
 			ON
 				LMR.RequirementID = LML.RequirementID
 				AND LML.GPEmployeeID = @GPEmployeeID
+				AND LML.IsActive = 1
 				AND LML.IsDeleted = 0
 		WHERE 
-			Country.LocationName = @CountryName AND
-			Country.LocationTypeID = 2 AND -- Country
-			LMR.IsActive = 1 AND
-			LMR.IsDeleted = 0 AND 
-			LMR.RequirementTypeID = 2 -- Rep Requirement
+			(Country.LocationName = @CountryName)
+			AND (Country.LocationTypeID = @CountryLocationTypeID) -- Country
+			AND (LMR.RequirementTypeID = @SalesRepReqTypeID) -- Rep Requirement
 	
 	END TRY
 	BEGIN CATCH

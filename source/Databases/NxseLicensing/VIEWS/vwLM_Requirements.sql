@@ -46,9 +46,41 @@ CREATE VIEW [dbo].[vwLM_Requirements]
 AS
 	-- Enter Query here
 	SELECT
-		*
+		LMR.RequirementID
+		, LMR.LocationID
+		, LML.LocationName
+		, LMLT.LocationTypeName
+		, LMR.RequirementTypeID
+		, LMRQ.RequirementTypeName
+		, LMR.AgencyID
+		, LMR.LockID
+		, LMLK.[Description] AS [LockTypeName]
+		, LMR.TemplateID
+		, LMR.RequirementName
+		, LMR.ApplicationDescription
+		, LMR.CallCenterMessage
+		, LMR.RequiredForFunding
+		, LMR.Fee
+		, LMR.IsActive
+		, LMR.IsDeleted
+		, LMR.CreatedByID
+		, LMR.CreatedByDate
+		, LMR.ModifiedByID
+		, LMR.ModifiedByDate
 	FROM
-		[dbo].[LM_Requirements]
+		[dbo].[LM_Requirements] AS LMR WITH (NOLOCK)
+		INNER JOIN [dbo].[LM_RequirementTypes] AS LMRQ WITH (NOLOCK)
+		ON
+			(LMRQ.RequirementTypeID = LMR.RequirementTypeID)
+		INNER JOIN [dbo].[LM_Locations] AS LML WITH (NOLOCK)
+		ON
+			(LML.LocationID = LMR.LocationID)
+		INNER JOIN [dbo].[LM_LocationTypes] AS LMLT WITH (NOLOCK)
+		ON
+			(LMLT.LocationTypeID = LML.LocationTypeID)
+		INNER JOIN [dbo].[LM_Locks] AS LMLK WITH (NOLOCK)
+		ON
+			(LMLK.LockID = LMR.LockID)
 
 GO
 /* TEST */
