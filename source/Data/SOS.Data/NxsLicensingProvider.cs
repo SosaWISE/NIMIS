@@ -1,7 +1,8 @@
 ﻿using System.Data.SqlClient;
 using SubSonic;
 
-namespace SOS.Data
+// ReSharper disable once CheckNamespace
+namespace NXS.Data
 {
 	public class NxsLicensingProvider : SqlDataProvider
 	{

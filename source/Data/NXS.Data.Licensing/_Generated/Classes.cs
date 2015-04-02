@@ -88,7 +88,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_Agencies", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_Agencies", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -406,7 +406,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarModifiedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_Agencies",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_Agencies",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -875,7 +875,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_Attachments", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_Attachments", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -1076,7 +1076,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarModifiedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_Attachments",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_Attachments",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -1410,7 +1410,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_AttachmentTypes", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_AttachmentTypes", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -1442,7 +1442,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarAttachmentTypeName);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_AttachmentTypes",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_AttachmentTypes",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -1604,7 +1604,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_LicenseItems", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_LicenseItems", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -1740,7 +1740,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarCreatedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_LicenseItems",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_LicenseItems",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -2009,7 +2009,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_Licenses", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_Licenses", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -2210,7 +2210,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarCreatedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_Licenses",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_Licenses",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -2562,7 +2562,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_LicenseStatuses", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_LicenseStatuses", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -2594,7 +2594,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarLicenseStatus);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_LicenseStatuses",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_LicenseStatuses",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -2738,7 +2738,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_Locations", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_Locations", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -2952,7 +2952,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarCreatedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_Locations",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_Locations",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -3497,7 +3497,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_LocationTypes", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_LocationTypes", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -3529,7 +3529,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarLocationTypeName);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_LocationTypes",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_LocationTypes",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -3709,7 +3709,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_Locks", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_Locks", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -3741,7 +3741,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarDescription);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_Locks",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_Locks",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -3903,7 +3903,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_Notes", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_Notes", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -3987,7 +3987,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarCreatedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_Notes",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_Notes",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -4223,7 +4223,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_NoteTypes", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_NoteTypes", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -4255,7 +4255,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarNoteTypeName);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_NoteTypes",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_NoteTypes",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -4417,7 +4417,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_RequirementItems", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_RequirementItems", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -4553,7 +4553,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarModifiedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_RequirementItems",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_RequirementItems",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -4822,7 +4822,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_Requirements", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_Requirements", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -5049,7 +5049,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarModifiedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_Requirements",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_Requirements",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -5530,7 +5530,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_RequirementTypes", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_RequirementTypes", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -5562,7 +5562,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarRequirementTypeName);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_RequirementTypes",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_RequirementTypes",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -5724,7 +5724,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("SAE_LicenseIndex", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("SAE_LicenseIndex", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -5821,7 +5821,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarTownship);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("SAE_LicenseIndex",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("SAE_LicenseIndex",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor

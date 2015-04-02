@@ -4,7 +4,7 @@
 		const string ConnectionStringName = "LicensingConnString";
 		const string DatabaseName = "LicensingData";
 
-		const string ProviderName = "LicensingProvider";
+		const string ProviderName = "NxsLicensingProvider";
 
 		const string IncludeProcedureList = "^cust*";
 		const string ExcludeProcedureList = "^custFx*";

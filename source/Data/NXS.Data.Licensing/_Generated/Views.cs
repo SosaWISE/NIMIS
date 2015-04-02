@@ -52,7 +52,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwAllRequirementsPerLocation", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("vwAllRequirementsPerLocation", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -123,7 +123,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarRequirementTypeID);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("vwAllRequirementsPerLocation",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("vwAllRequirementsPerLocation",schema);
 			}
 		}
 		#endregion //Schema Accessor
@@ -249,7 +249,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwLicenseLocations", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("vwLicenseLocations", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -333,7 +333,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarCity);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("vwLicenseLocations",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("vwLicenseLocations",schema);
 			}
 		}
 		#endregion //Schema Accessor
@@ -469,7 +469,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwLM_Requirements", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("vwLM_Requirements", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -748,7 +748,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarModifiedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("vwLM_Requirements",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("vwLM_Requirements",schema);
 			}
 		}
 		#endregion //Schema Accessor
@@ -1034,7 +1034,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwLM_SalesRepRequirements", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("vwLM_SalesRepRequirements", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -1157,7 +1157,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarLicenseID);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("vwLM_SalesRepRequirements",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("vwLM_SalesRepRequirements",schema);
 			}
 		}
 		#endregion //Schema Accessor
@@ -1323,7 +1323,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwRequirementLocations", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("vwRequirementLocations", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -1420,7 +1420,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarCity);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("vwRequirementLocations",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("vwRequirementLocations",schema);
 			}
 		}
 		#endregion //Schema Accessor
