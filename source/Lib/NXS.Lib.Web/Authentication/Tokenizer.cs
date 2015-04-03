@@ -359,8 +359,10 @@ namespace NXS.Lib.Web.Authentication
 				{
 					lock (keysLock)
 					{
+						// check if it still needs to update
 						if (NeedsUpdate(purgeExpiration, validExpiration, includeExpired))
 						{
+							// update and get keys from store
 							this.keys = this.tokenizer.keyStore.Update(purgeExpiration, validExpiration, CreateKey());
 						}
 					}
