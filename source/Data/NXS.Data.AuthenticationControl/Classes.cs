@@ -7,6 +7,6 @@ namespace NXS.Data.AuthenticationControl
 	{
 		public int ID { get; set; }
 		public string KeyValue { get; set; }
-		public DateTime? CreatedOn { get; set; }
+		public DateTime CreatedOn { get; set; }
 	}
 }

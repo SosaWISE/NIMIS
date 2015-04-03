@@ -400,7 +400,16 @@ namespace NXS.Data
 			}
 
 			/// <summary>
-			/// Delete a record for the DB asynchronously
+			/// Delete a record from the DB synchronously
+			/// </summary>
+			/// <param name="id"></param>
+			/// <returns></returns>
+			public bool Delete(TID id)
+			{
+				return _database.Execute("DELETE FROM " + TableName + " WHERE " + PkName + " = @id", new { id }) > 0;
+			}
+			/// <summary>
+			/// Delete a record from the DB asynchronously
 			/// </summary>
 			/// <param name="id"></param>
 			/// <returns></returns>

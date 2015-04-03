@@ -1,11 +1,4 @@
 ﻿using NXS.DataServices.Crm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Nancy.ModelBinding;
-using NXS.DataServices.Crm.Models;
 
 namespace WebModules.Crm.Ticket
 {

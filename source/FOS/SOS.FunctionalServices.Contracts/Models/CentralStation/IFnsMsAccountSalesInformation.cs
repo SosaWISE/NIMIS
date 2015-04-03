@@ -47,6 +47,8 @@ namespace SOS.FunctionalServices.Contracts.Models.CentralStation
 		DateTime? ApprovedDate { get; set; }
 		string ApproverID { get; set; }
 		DateTime? NOCDate { get; set; }
+		bool? OptOutCorporate { get; set; }
+		bool? OptOutAffiliate { get; set; }
 
 		//bool IsActive { get; set; }
 		//bool IsDeleted { get; set; }

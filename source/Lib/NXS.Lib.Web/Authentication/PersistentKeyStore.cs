@@ -7,7 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace NXS.Lib.Web.Authentication
 {
-	public delegate void SaveKeyValuesFunc(List<KeyValue> keyValueList);
+	public delegate List<KeyValue> UpdateKeyValuesFunc(DateTime purgeExpiration, DateTime validExpiration, byte[] newKey);
 	public delegate List<KeyValue> ReadKeyValuesFunc();
 	public delegate void KeyValueAction();
 
@@ -19,47 +19,43 @@ namespace NXS.Lib.Web.Authentication
 	}
 
 	/// <summary>
-	/// Stores encryption keys in the file system
+	/// Stores encryption keys
 	/// </summary>
-	public class PersistentKeyStore : ITokenKeyStore
+	public class PersistentKeyStore : IFarmTokenKeyStore
 	{
-		SaveKeyValuesFunc _save;
+		UpdateKeyValuesFunc _update;
 		ReadKeyValuesFunc _read;
 
-		public PersistentKeyStore(SaveKeyValuesFunc save, ReadKeyValuesFunc read)
+		public PersistentKeyStore(UpdateKeyValuesFunc update, ReadKeyValuesFunc read)
 		{
-			_save = save;
+			_update = update;
 			_read = read;
 		}
 
 		public IDictionary<DateTime, byte[]> Retrieve()
 		{
-			var keyValues = _read();
+			return ConvertKeyValues(_read());
+		}
+
+		public IDictionary<DateTime, byte[]> Update(DateTime purgeExpiration, DateTime validExpiration, byte[] newKey)
+		{
+			return ConvertKeyValues(_update(purgeExpiration, validExpiration, newKey));
+		}
+
+		public void Purge()
+		{
+			_update(DateTime.MaxValue, DateTime.MaxValue, null);
+		}
+
+
+		private static IDictionary<DateTime, byte[]> ConvertKeyValues(List<KeyValue> keyValues)
+		{
 			var keyChain = new Dictionary<DateTime, byte[]>(keyValues.Count);
 			foreach (var kv in keyValues)
 			{
 				keyChain.Add(kv.CreatedOn, kv.Value);
 			}
 			return keyChain;
-		}
-
-		public void Store(IDictionary<DateTime, byte[]> keys)
-		{
-			var keyValues = new List<KeyValue>();
-			foreach (var k in keys)
-			{
-				var kv = new KeyValue();
-				kv.Value = k.Value;
-				kv.CreatedOn = k.Key;
-				keyValues.Add(kv);
-			}
-			_save(keyValues);
-		}
-
-		public void Purge()
-		{
-			// save nothin
-			_save(new List<KeyValue>());
 		}
 	}
 }
