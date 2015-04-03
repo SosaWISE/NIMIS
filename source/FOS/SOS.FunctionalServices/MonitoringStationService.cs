@@ -1719,7 +1719,7 @@ namespace SOS.FunctionalServices
 					}
 					// Check that the barcode hasn't been sold already.
 					if (productBarcode.LastProductBarcodeTrackingId != null
-						&& string.Compare(productBarcode.LastProductBarcodeTracking.LocationTypeID, "Sold", true) == 0)
+						&& String.Compare(productBarcode.LastProductBarcodeTracking.LocationTypeID, "Sold", StringComparison.OrdinalIgnoreCase) == 0)
 					{
 						result.Code = -1;
 						result.Message = string.Format("Barcode {0} is already assigned to Account# {1}.", item.BarcodeId, productBarcode.LastProductBarcodeTracking.LocationID);
