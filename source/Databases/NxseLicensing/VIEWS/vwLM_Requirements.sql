@@ -58,7 +58,8 @@ AS
 		, LMR.TemplateID
 		, LMR.RequirementName
 		, LMR.ApplicationDescription
-		, LMR.CallCenterMessage
+		--, LMR.CallCenterMessage
+		, [dbo].fxGetBindMessageTokensTo(LMR.CallCenterMessage) AS CallCenterMessage
 		, LMR.RequiredForFunding
 		, LMR.Fee
 		, LMR.IsActive
