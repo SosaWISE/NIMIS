@@ -93,6 +93,53 @@ namespace NXS.Data.Crm
 		public string ModifiedBy { get; set; }
 		public DateTime ModifiedOn { get; set; }
 	}
+	public partial class MS_AccountHoldCatg1 // MS_AccountHoldCatg1
+	{
+		public int Catg1ID { get; set; }
+		public string CatgName { get; set; }
+		public string CatgDescription { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime ModifiedOn { get; set; }
+	}
+	public partial class MS_AccountHoldCatg2 // MS_AccountHoldCatg2
+	{
+		public int Catg2ID { get; set; }
+		public string CatgName { get; set; }
+		public int Catg1Id { get; set; }
+		public string RecruitFriendlyName { get; set; }
+		public string CatgDescription { get; set; }
+		public bool IsRepFrontEndHold { get; set; }
+		public bool IsRepBackEndHold { get; set; }
+		public bool IsTechFrontEndHold { get; set; }
+		public bool IsTechBackEndHold { get; set; }
+		public bool PreventsContractSale { get; set; }
+		public bool IsAccountFlag { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime ModifiedOn { get; set; }
+	}
+	public partial class MS_AccountHold // MS_AccountHolds
+	{
+		public int AccountHoldID { get; set; }
+		public long AccountId { get; set; }
+		public int Catg2Id { get; set; }
+		public string HoldDescription { get; set; }
+		public string FixedNote { get; set; }
+		public string FixedBy { get; set; }
+		public DateTime? FixedOn { get; set; }
+		public bool IsActive { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime ModifiedOn { get; set; }
+	}
 	public partial class MS_AccountSalesInformation // MS_AccountSalesInformations
 	{
 		public long AccountID { get; set; }
@@ -121,8 +168,8 @@ namespace NXS.Data.Crm
 		public DateTime? ApprovedDate { get; set; }
 		public string ApproverID { get; set; }
 		public DateTime? NOCDate { get; set; }
-		public bool IsActive { get; set; }
-		public bool IsDeleted { get; set; }
+		public bool OptOutCorporate { get; set; }
+		public bool OptOutAffiliate { get; set; }
 		public DateTime ModifiedOn { get; set; }
 		public string ModifiedBy { get; set; }
 		public DateTime CreatedOn { get; set; }

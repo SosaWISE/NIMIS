@@ -47,6 +47,8 @@ namespace SOS.Services.Interfaces.Models.MonitoringStation
 		public DateTime? ApprovedDate { get; set; }
 		public string ApproverID { get; set; }
 		public DateTime? NOCDate { get; set; }
+		public bool OptOutCorporate { get; set; }
+		public bool OptOutAffiliate { get; set; }
 		#endregion Properties
 	}
 
@@ -93,5 +95,7 @@ namespace SOS.Services.Interfaces.Models.MonitoringStation
 		DateTime? ApprovedDate { get; set; }
 		string ApproverID { get; set; }
 		DateTime? NOCDate { get; set; }
+		bool OptOutCorporate { get; set; }
+		bool OptOutAffiliate { get; set; }
 	}
 }

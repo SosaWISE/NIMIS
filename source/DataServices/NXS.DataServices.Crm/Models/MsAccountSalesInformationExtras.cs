@@ -32,6 +32,8 @@ namespace NXS.DataServices.Crm.Models
 		public DateTime? ApprovedDate { get; set; }
 		public string ApproverID { get; set; }
 		public DateTime? NOCDate { get; set; }
+		public bool OptOutCorporate { get; set; }
+		public bool OptOutAffiliate { get; set; }
 		// public bool IsActive { get; set; }
 		// public bool IsDeleted { get; set; }
 		// public DateTime ModifiedOn { get; set; }
@@ -76,6 +78,8 @@ namespace NXS.DataServices.Crm.Models
 		//	result.ApprovedDate = item.ApprovedDate;
 		//	result.ApproverID = item.ApproverID;
 		//	result.NOCDate = item.NOCDate;
+		//	result.OptOutCorporate = item.OptOutCorporate;
+		//	result.OptOutAffiliate = item.OptOutAffiliate;
 		//	//result.IsActive = item.IsActive;
 		//	//result.IsDeleted = item.IsDeleted;
 		//	//result.ModifiedOn = item.ModifiedOn;
@@ -112,6 +116,8 @@ namespace NXS.DataServices.Crm.Models
 			item.ApprovedDate = this.ApprovedDate;
 			item.ApproverID = this.ApproverID;
 			item.NOCDate = this.NOCDate;
+			item.OptOutCorporate = this.OptOutCorporate;
+			item.OptOutAffiliate = this.OptOutAffiliate;
 			//item.IsActive = this.IsActive;
 			//item.IsDeleted = this.IsDeleted;
 			//item.ModifiedOn = this.ModifiedOn;

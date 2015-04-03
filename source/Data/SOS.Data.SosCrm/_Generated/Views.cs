@@ -19464,6 +19464,32 @@ namespace SOS.Data.SosCrm
 				colvarNOCDate.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarNOCDate);
 
+				TableSchema.TableColumn colvarOptOutCorporate = new TableSchema.TableColumn(schema);
+				colvarOptOutCorporate.ColumnName = "OptOutCorporate";
+				colvarOptOutCorporate.DataType = DbType.Boolean;
+				colvarOptOutCorporate.MaxLength = 0;
+				colvarOptOutCorporate.AutoIncrement = false;
+				colvarOptOutCorporate.IsNullable = true;
+				colvarOptOutCorporate.IsPrimaryKey = false;
+				colvarOptOutCorporate.IsForeignKey = false;
+				colvarOptOutCorporate.IsReadOnly = false;
+				colvarOptOutCorporate.DefaultSetting = @"";
+				colvarOptOutCorporate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarOptOutCorporate);
+
+				TableSchema.TableColumn colvarOptOutAffiliate = new TableSchema.TableColumn(schema);
+				colvarOptOutAffiliate.ColumnName = "OptOutAffiliate";
+				colvarOptOutAffiliate.DataType = DbType.Boolean;
+				colvarOptOutAffiliate.MaxLength = 0;
+				colvarOptOutAffiliate.AutoIncrement = false;
+				colvarOptOutAffiliate.IsNullable = true;
+				colvarOptOutAffiliate.IsPrimaryKey = false;
+				colvarOptOutAffiliate.IsForeignKey = false;
+				colvarOptOutAffiliate.IsReadOnly = false;
+				colvarOptOutAffiliate.DefaultSetting = @"";
+				colvarOptOutAffiliate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarOptOutAffiliate);
+
 				BaseSchema = schema;
 				DataService.Providers["SosCrmProvider"].AddSchema("vwMS_AccountSalesInformations",schema);
 			}
@@ -19685,6 +19711,16 @@ namespace SOS.Data.SosCrm
 			get { return GetColumnValue<DateTime?>(Columns.NOCDate); }
 			set { SetColumnValue(Columns.NOCDate, value); }
 		}
+		[DataMember]
+		public bool? OptOutCorporate {
+			get { return GetColumnValue<bool?>(Columns.OptOutCorporate); }
+			set { SetColumnValue(Columns.OptOutCorporate, value); }
+		}
+		[DataMember]
+		public bool? OptOutAffiliate {
+			get { return GetColumnValue<bool?>(Columns.OptOutAffiliate); }
+			set { SetColumnValue(Columns.OptOutAffiliate, value); }
+		}
 
 		#endregion //Properties
 
@@ -19855,6 +19891,14 @@ namespace SOS.Data.SosCrm
 		{
 			get { return Schema.Columns[39]; }
 		}
+		public static TableSchema.TableColumn OptOutCorporateColumn
+		{
+			get { return Schema.Columns[40]; }
+		}
+		public static TableSchema.TableColumn OptOutAffiliateColumn
+		{
+			get { return Schema.Columns[41]; }
+		}
 
 		#endregion
 
@@ -19901,6 +19945,8 @@ namespace SOS.Data.SosCrm
 			public const string ApprovedDate = @"ApprovedDate";
 			public const string ApproverID = @"ApproverID";
 			public const string NOCDate = @"NOCDate";
+			public const string OptOutCorporate = @"OptOutCorporate";
+			public const string OptOutAffiliate = @"OptOutAffiliate";
 		}
 		#endregion Columns Struct
 	}

@@ -30,6 +30,8 @@
 //		public DateTime? ApprovedDate { get; set; }
 //		public string ApproverID { get; set; }
 //		public DateTime? NOCDate { get; set; }
+//		public bool OptOutCorporate { get; set; }
+//		public bool OptOutAffiliate { get; set; }
 //		public bool IsActive { get; set; }
 //		public bool IsDeleted { get; set; }
 //		public DateTime ModifiedOn { get; set; }
@@ -73,6 +75,8 @@
 //			result.ApprovedDate = item.ApprovedDate;
 //			result.ApproverID = item.ApproverID;
 //			result.NOCDate = item.NOCDate;
+//			result.OptOutCorporate = item.OptOutCorporate;
+//			result.OptOutAffiliate = item.OptOutAffiliate;
 //			result.IsActive = item.IsActive;
 //			result.IsDeleted = item.IsDeleted;
 //			result.ModifiedOn = item.ModifiedOn;

@@ -12,93 +12,63 @@ namespace NXS.DataServices.AuthenticationControl
 {
 	public class KeyValueService
 	{
-		public void UpdateAll(List<AcKeyValue> keyValues)
+		public List<AcKeyValue> UpdateAll(DateTime purgeExpiration, DateTime validExpiration, string newKeyValue)
 		{
 			using (var db = AuthControlDb.Connect())
 			{
-				// map to dictionary
-				var dict = new Dictionary<int, AcKeyValue>(keyValues.Count);
-				{
-					var id = 0;
-					foreach (var kv in keyValues)
-					{
-						// add to dict (key is the id and the index+1)
-						dict.Add(++id, kv);
-					}
-				}
-
 				var tbl = db.AC_KeyValues;
 				db.Transaction(() =>
 				{
-					var items = tbl.All();
+					// load all and lock table so we're the exclusive editors/readers
+					// http://stackoverflow.com/a/4597035
+					var items = tbl.AllWithUpdateLock();
 
+					bool hasValidKey = false;
 					foreach (var item in items)
 					{
-						var id = item.ID;
-						if (dict.ContainsKey(id))
-						{
-							// update existing
-							var kv = dict[id];
-							// update data
-							item.KeyValue = kv.KeyValue;
-							item.CreatedOn = kv.CreatedOn.ToUniversalTime();
-							// remove from dict
-							dict.Remove(id);
-						}
-						else
-						{
-							// null out data
-							item.KeyValue = null;
-							item.CreatedOn = null;
-						}
-						// start save and add to waiting list
-						tbl.Update(id, item);
+						if (item.CreatedOn < purgeExpiration)
+							tbl.Delete(item.ID); // delete expired
+						else if (!(item.CreatedOn < validExpiration))
+							hasValidKey = true;
 					}
 
-					// add new
-					foreach (var kvp in dict)
+					// add new only if there are none remaining and a new one was passed in
+					if (!hasValidKey && newKeyValue != null)
 					{
 						var item = new AC_KeyValue();
-						item.ID = kvp.Key;
-						item.KeyValue = kvp.Value.KeyValue;
-						item.CreatedOn = kvp.Value.CreatedOn.ToUniversalTime();
-						// start insert and add to waiting list
-						tbl.Insert(item, hasIdentity: false);
+						item.KeyValue = newKeyValue;
+						item.CreatedOn = DateTime.UtcNow;
+						item.ID = tbl.Insert(item);
 					}
 
-					//
+					// commit transaction
 					return true;
 				}, System.Data.IsolationLevel.Serializable);
+
+				return ConvertKeyValues(tbl.All());
 			}
 		}
+
 		public List<AcKeyValue> ReadAll()
 		{
 			using (var db = AuthControlDb.Connect())
 			{
-				var results = new List<AcKeyValue>();
-
 				var tbl = db.AC_KeyValues;
-				db.Transaction(() =>
-				{
-					var items = tbl.All();
-
-					foreach (var item in items)
-					{
-						if (item.KeyValue != null && item.CreatedOn.HasValue)
-						{
-							var kv = new AcKeyValue();
-							kv.KeyValue = item.KeyValue;
-							kv.CreatedOn = DateUtility.SpecifyUtcKind(item.CreatedOn.Value);
-							results.Add(kv);
-						}
-					}
-
-					//
-					return true;
-				}, System.Data.IsolationLevel.Serializable);
-
-				return results;
+				return ConvertKeyValues(tbl.All());
 			}
+		}
+
+		private static List<AcKeyValue> ConvertKeyValues(IEnumerable<AC_KeyValue> items)
+		{
+			var results = new List<AcKeyValue>();
+			foreach (var item in items)
+			{
+				var kv = new AcKeyValue();
+				kv.KeyValue = item.KeyValue;
+				kv.CreatedOn = DateUtility.SpecifyUtcKind(item.CreatedOn);
+				results.Add(kv);
+			}
+			return results;
 		}
 	}
 }

@@ -392,8 +392,9 @@ namespace NXS.DataServices.Crm
 			mcAddress.DPVResponse = qlAddress.DPVResponse;
 			mcAddress.DPVFootNote = qlAddress.DPVFootnote;
 			mcAddress.CarrierRoute = qlAddress.CarrierRoute;
-			mcAddress.IsActive = qlAddress.IsActive;
-			mcAddress.IsDeleted = qlAddress.IsDeleted;
+			// make sure address is active even if the lead address is not
+			mcAddress.IsActive = true;// qlAddress.IsActive;
+			mcAddress.IsDeleted = false;// qlAddress.IsDeleted;
 		}
 
 		private static async Task<AE_Customer> CreateAeCustomer(string gpEmployeeId, CrmDb db, QL_Lead lead, MC_Address mcAddress)

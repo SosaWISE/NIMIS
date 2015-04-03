@@ -51,6 +51,8 @@ namespace SOS.FunctionalServices.Models.CentralStation
 			ApprovedDate = info.ApprovedDate;
 			ApproverID = info.ApproverID;
 			NOCDate = info.NOCDate;
+			OptOutCorporate = info.OptOutCorporate;
+			OptOutAffiliate = info.OptOutAffiliate;
 		}
 
 
@@ -98,6 +100,8 @@ namespace SOS.FunctionalServices.Models.CentralStation
 		public DateTime? ApprovedDate { get; set; }
 		public string ApproverID { get; set; }
 		public DateTime? NOCDate { get; set; }
+		public bool? OptOutCorporate { get; set; }
+		public bool? OptOutAffiliate { get; set; }
 		#endregion Properties
 	}
 }
