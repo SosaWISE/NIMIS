@@ -41,7 +41,7 @@ namespace NXS.DataServices.AuthenticationControl
 						item.ID = tbl.Insert(item);
 					}
 
-					//
+					// commit transaction
 					return true;
 				}, System.Data.IsolationLevel.Serializable);
 
