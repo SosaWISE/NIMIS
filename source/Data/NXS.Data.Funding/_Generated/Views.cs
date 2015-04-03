@@ -1012,6 +1012,19 @@ namespace NXS.Data.Funding
 				colvarAccountId.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarAccountId);
 
+				TableSchema.TableColumn colvarCsid = new TableSchema.TableColumn(schema);
+				colvarCsid.ColumnName = "Csid";
+				colvarCsid.DataType = DbType.AnsiString;
+				colvarCsid.MaxLength = 15;
+				colvarCsid.AutoIncrement = false;
+				colvarCsid.IsNullable = true;
+				colvarCsid.IsPrimaryKey = false;
+				colvarCsid.IsForeignKey = false;
+				colvarCsid.IsReadOnly = false;
+				colvarCsid.DefaultSetting = @"";
+				colvarCsid.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCsid);
+
 				TableSchema.TableColumn colvarFirstName = new TableSchema.TableColumn(schema);
 				colvarFirstName.ColumnName = "FirstName";
 				colvarFirstName.DataType = DbType.String;
@@ -1067,7 +1080,7 @@ namespace NXS.Data.Funding
 				TableSchema.TableColumn colvarAccountStatusNote = new TableSchema.TableColumn(schema);
 				colvarAccountStatusNote.ColumnName = "AccountStatusNote";
 				colvarAccountStatusNote.DataType = DbType.String;
-				colvarAccountStatusNote.MaxLength = 1073741823;
+				colvarAccountStatusNote.MaxLength = -1;
 				colvarAccountStatusNote.AutoIncrement = false;
 				colvarAccountStatusNote.IsNullable = true;
 				colvarAccountStatusNote.IsPrimaryKey = false;
@@ -1076,6 +1089,58 @@ namespace NXS.Data.Funding
 				colvarAccountStatusNote.DefaultSetting = @"";
 				colvarAccountStatusNote.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarAccountStatusNote);
+
+				TableSchema.TableColumn colvarTransactionID = new TableSchema.TableColumn(schema);
+				colvarTransactionID.ColumnName = "TransactionID";
+				colvarTransactionID.DataType = DbType.AnsiString;
+				colvarTransactionID.MaxLength = 100;
+				colvarTransactionID.AutoIncrement = false;
+				colvarTransactionID.IsNullable = true;
+				colvarTransactionID.IsPrimaryKey = false;
+				colvarTransactionID.IsForeignKey = false;
+				colvarTransactionID.IsReadOnly = false;
+				colvarTransactionID.DefaultSetting = @"";
+				colvarTransactionID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTransactionID);
+
+				TableSchema.TableColumn colvarReportGuid = new TableSchema.TableColumn(schema);
+				colvarReportGuid.ColumnName = "ReportGuid";
+				colvarReportGuid.DataType = DbType.AnsiString;
+				colvarReportGuid.MaxLength = 500;
+				colvarReportGuid.AutoIncrement = false;
+				colvarReportGuid.IsNullable = true;
+				colvarReportGuid.IsPrimaryKey = false;
+				colvarReportGuid.IsForeignKey = false;
+				colvarReportGuid.IsReadOnly = false;
+				colvarReportGuid.DefaultSetting = @"";
+				colvarReportGuid.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarReportGuid);
+
+				TableSchema.TableColumn colvarBureau = new TableSchema.TableColumn(schema);
+				colvarBureau.ColumnName = "Bureau";
+				colvarBureau.DataType = DbType.AnsiString;
+				colvarBureau.MaxLength = 50;
+				colvarBureau.AutoIncrement = false;
+				colvarBureau.IsNullable = true;
+				colvarBureau.IsPrimaryKey = false;
+				colvarBureau.IsForeignKey = false;
+				colvarBureau.IsReadOnly = false;
+				colvarBureau.DefaultSetting = @"";
+				colvarBureau.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarBureau);
+
+				TableSchema.TableColumn colvarGateway = new TableSchema.TableColumn(schema);
+				colvarGateway.ColumnName = "Gateway";
+				colvarGateway.DataType = DbType.String;
+				colvarGateway.MaxLength = 50;
+				colvarGateway.AutoIncrement = false;
+				colvarGateway.IsNullable = true;
+				colvarGateway.IsPrimaryKey = false;
+				colvarGateway.IsForeignKey = false;
+				colvarGateway.IsReadOnly = false;
+				colvarGateway.DefaultSetting = @"";
+				colvarGateway.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarGateway);
 
 				TableSchema.TableColumn colvarModifiedBy = new TableSchema.TableColumn(schema);
 				colvarModifiedBy.ColumnName = "ModifiedBy";
@@ -1176,6 +1241,11 @@ namespace NXS.Data.Funding
 			set { SetColumnValue(Columns.AccountId, value); }
 		}
 		[DataMember]
+		public string Csid {
+			get { return GetColumnValue<string>(Columns.Csid); }
+			set { SetColumnValue(Columns.Csid, value); }
+		}
+		[DataMember]
 		public string FirstName {
 			get { return GetColumnValue<string>(Columns.FirstName); }
 			set { SetColumnValue(Columns.FirstName, value); }
@@ -1199,6 +1269,26 @@ namespace NXS.Data.Funding
 		public string AccountStatusNote {
 			get { return GetColumnValue<string>(Columns.AccountStatusNote); }
 			set { SetColumnValue(Columns.AccountStatusNote, value); }
+		}
+		[DataMember]
+		public string TransactionID {
+			get { return GetColumnValue<string>(Columns.TransactionID); }
+			set { SetColumnValue(Columns.TransactionID, value); }
+		}
+		[DataMember]
+		public string ReportGuid {
+			get { return GetColumnValue<string>(Columns.ReportGuid); }
+			set { SetColumnValue(Columns.ReportGuid, value); }
+		}
+		[DataMember]
+		public string Bureau {
+			get { return GetColumnValue<string>(Columns.Bureau); }
+			set { SetColumnValue(Columns.Bureau, value); }
+		}
+		[DataMember]
+		public string Gateway {
+			get { return GetColumnValue<string>(Columns.Gateway); }
+			set { SetColumnValue(Columns.Gateway, value); }
 		}
 		[DataMember]
 		public string ModifiedBy {
@@ -1250,41 +1340,61 @@ namespace NXS.Data.Funding
 		{
 			get { return Schema.Columns[4]; }
 		}
-		public static TableSchema.TableColumn FirstNameColumn
+		public static TableSchema.TableColumn CsidColumn
 		{
 			get { return Schema.Columns[5]; }
 		}
-		public static TableSchema.TableColumn LastNameColumn
+		public static TableSchema.TableColumn FirstNameColumn
 		{
 			get { return Schema.Columns[6]; }
 		}
-		public static TableSchema.TableColumn ReturnAccountFundingStatusIdColumn
+		public static TableSchema.TableColumn LastNameColumn
 		{
 			get { return Schema.Columns[7]; }
 		}
-		public static TableSchema.TableColumn AccountFundingShortDescColumn
+		public static TableSchema.TableColumn ReturnAccountFundingStatusIdColumn
 		{
 			get { return Schema.Columns[8]; }
 		}
-		public static TableSchema.TableColumn AccountStatusNoteColumn
+		public static TableSchema.TableColumn AccountFundingShortDescColumn
 		{
 			get { return Schema.Columns[9]; }
 		}
-		public static TableSchema.TableColumn ModifiedByColumn
+		public static TableSchema.TableColumn AccountStatusNoteColumn
 		{
 			get { return Schema.Columns[10]; }
 		}
-		public static TableSchema.TableColumn ModifiedOnColumn
+		public static TableSchema.TableColumn TransactionIDColumn
 		{
 			get { return Schema.Columns[11]; }
 		}
-		public static TableSchema.TableColumn CreatedByColumn
+		public static TableSchema.TableColumn ReportGuidColumn
 		{
 			get { return Schema.Columns[12]; }
 		}
-		public static TableSchema.TableColumn CreatedOnColumn
+		public static TableSchema.TableColumn BureauColumn
 		{
 			get { return Schema.Columns[13]; }
+		}
+		public static TableSchema.TableColumn GatewayColumn
+		{
+			get { return Schema.Columns[14]; }
+		}
+		public static TableSchema.TableColumn ModifiedByColumn
+		{
+			get { return Schema.Columns[15]; }
+		}
+		public static TableSchema.TableColumn ModifiedOnColumn
+		{
+			get { return Schema.Columns[16]; }
+		}
+		public static TableSchema.TableColumn CreatedByColumn
+		{
+			get { return Schema.Columns[17]; }
+		}
+		public static TableSchema.TableColumn CreatedOnColumn
+		{
+			get { return Schema.Columns[18]; }
 		}
 
 		#endregion
@@ -1297,11 +1407,16 @@ namespace NXS.Data.Funding
 			public const string CustomerNumber = @"CustomerNumber";
 			public const string CustomerId = @"CustomerId";
 			public const string AccountId = @"AccountId";
+			public const string Csid = @"Csid";
 			public const string FirstName = @"FirstName";
 			public const string LastName = @"LastName";
 			public const string ReturnAccountFundingStatusId = @"ReturnAccountFundingStatusId";
 			public const string AccountFundingShortDesc = @"AccountFundingShortDesc";
 			public const string AccountStatusNote = @"AccountStatusNote";
+			public const string TransactionID = @"TransactionID";
+			public const string ReportGuid = @"ReportGuid";
+			public const string Bureau = @"Bureau";
+			public const string Gateway = @"Gateway";
 			public const string ModifiedBy = @"ModifiedBy";
 			public const string ModifiedOn = @"ModifiedOn";
 			public const string CreatedBy = @"CreatedBy";
@@ -1618,6 +1733,423 @@ namespace NXS.Data.Funding
 			public const string IsDeleted = @"IsDeleted";
 			public const string CreatedOn = @"CreatedOn";
 			public const string CreatedBy = @"CreatedBy";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
+	/// Strongly-typed collection for the FE_RejectedAccountsView class.
+	/// </summary>
+	[DataContract]
+	public partial class FE_RejectedAccountsViewCollection : ReadOnlyList<FE_RejectedAccountsView, FE_RejectedAccountsViewCollection>
+	{
+		public static FE_RejectedAccountsViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			FE_RejectedAccountsViewCollection result = new FE_RejectedAccountsViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwFE_RejectedAccounts view.
+	/// </summary>
+	[DataContract]
+	public partial class FE_RejectedAccountsView : ReadOnlyRecord<FE_RejectedAccountsView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwFE_RejectedAccounts", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarRejectedAccountID = new TableSchema.TableColumn(schema);
+				colvarRejectedAccountID.ColumnName = "RejectedAccountID";
+				colvarRejectedAccountID.DataType = DbType.Int64;
+				colvarRejectedAccountID.MaxLength = 0;
+				colvarRejectedAccountID.AutoIncrement = true;
+				colvarRejectedAccountID.IsNullable = false;
+				colvarRejectedAccountID.IsPrimaryKey = false;
+				colvarRejectedAccountID.IsForeignKey = false;
+				colvarRejectedAccountID.IsReadOnly = false;
+				colvarRejectedAccountID.DefaultSetting = @"";
+				colvarRejectedAccountID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRejectedAccountID);
+
+				TableSchema.TableColumn colvarRejectionId = new TableSchema.TableColumn(schema);
+				colvarRejectionId.ColumnName = "RejectionId";
+				colvarRejectionId.DataType = DbType.Int64;
+				colvarRejectionId.MaxLength = 0;
+				colvarRejectionId.AutoIncrement = false;
+				colvarRejectionId.IsNullable = false;
+				colvarRejectionId.IsPrimaryKey = false;
+				colvarRejectionId.IsForeignKey = false;
+				colvarRejectionId.IsReadOnly = false;
+				colvarRejectionId.DefaultSetting = @"";
+				colvarRejectionId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRejectionId);
+
+				TableSchema.TableColumn colvarAccountId = new TableSchema.TableColumn(schema);
+				colvarAccountId.ColumnName = "AccountId";
+				colvarAccountId.DataType = DbType.Int64;
+				colvarAccountId.MaxLength = 0;
+				colvarAccountId.AutoIncrement = false;
+				colvarAccountId.IsNullable = false;
+				colvarAccountId.IsPrimaryKey = false;
+				colvarAccountId.IsForeignKey = false;
+				colvarAccountId.IsReadOnly = false;
+				colvarAccountId.DefaultSetting = @"";
+				colvarAccountId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAccountId);
+
+				TableSchema.TableColumn colvarPacketItemId = new TableSchema.TableColumn(schema);
+				colvarPacketItemId.ColumnName = "PacketItemId";
+				colvarPacketItemId.DataType = DbType.Int64;
+				colvarPacketItemId.MaxLength = 0;
+				colvarPacketItemId.AutoIncrement = false;
+				colvarPacketItemId.IsNullable = true;
+				colvarPacketItemId.IsPrimaryKey = false;
+				colvarPacketItemId.IsForeignKey = false;
+				colvarPacketItemId.IsReadOnly = false;
+				colvarPacketItemId.DefaultSetting = @"";
+				colvarPacketItemId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPacketItemId);
+
+				TableSchema.TableColumn colvarAccountFundingStatusId = new TableSchema.TableColumn(schema);
+				colvarAccountFundingStatusId.ColumnName = "AccountFundingStatusId";
+				colvarAccountFundingStatusId.DataType = DbType.Int64;
+				colvarAccountFundingStatusId.MaxLength = 0;
+				colvarAccountFundingStatusId.AutoIncrement = false;
+				colvarAccountFundingStatusId.IsNullable = true;
+				colvarAccountFundingStatusId.IsPrimaryKey = false;
+				colvarAccountFundingStatusId.IsForeignKey = false;
+				colvarAccountFundingStatusId.IsReadOnly = false;
+				colvarAccountFundingStatusId.DefaultSetting = @"";
+				colvarAccountFundingStatusId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAccountFundingStatusId);
+
+				TableSchema.TableColumn colvarCreatedOn = new TableSchema.TableColumn(schema);
+				colvarCreatedOn.ColumnName = "CreatedOn";
+				colvarCreatedOn.DataType = DbType.DateTime;
+				colvarCreatedOn.MaxLength = 0;
+				colvarCreatedOn.AutoIncrement = false;
+				colvarCreatedOn.IsNullable = false;
+				colvarCreatedOn.IsPrimaryKey = false;
+				colvarCreatedOn.IsForeignKey = false;
+				colvarCreatedOn.IsReadOnly = false;
+				colvarCreatedOn.DefaultSetting = @"";
+				colvarCreatedOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreatedOn);
+
+				TableSchema.TableColumn colvarCreatedBy = new TableSchema.TableColumn(schema);
+				colvarCreatedBy.ColumnName = "CreatedBy";
+				colvarCreatedBy.DataType = DbType.String;
+				colvarCreatedBy.MaxLength = 50;
+				colvarCreatedBy.AutoIncrement = false;
+				colvarCreatedBy.IsNullable = false;
+				colvarCreatedBy.IsPrimaryKey = false;
+				colvarCreatedBy.IsForeignKey = false;
+				colvarCreatedBy.IsReadOnly = false;
+				colvarCreatedBy.DefaultSetting = @"";
+				colvarCreatedBy.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreatedBy);
+
+				BaseSchema = schema;
+				DataService.Providers["NxsFundingProvider"].AddSchema("vwFE_RejectedAccounts",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public FE_RejectedAccountsView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public long RejectedAccountID {
+			get { return GetColumnValue<long>(Columns.RejectedAccountID); }
+			set { SetColumnValue(Columns.RejectedAccountID, value); }
+		}
+		[DataMember]
+		public long RejectionId {
+			get { return GetColumnValue<long>(Columns.RejectionId); }
+			set { SetColumnValue(Columns.RejectionId, value); }
+		}
+		[DataMember]
+		public long AccountId {
+			get { return GetColumnValue<long>(Columns.AccountId); }
+			set { SetColumnValue(Columns.AccountId, value); }
+		}
+		[DataMember]
+		public long? PacketItemId {
+			get { return GetColumnValue<long?>(Columns.PacketItemId); }
+			set { SetColumnValue(Columns.PacketItemId, value); }
+		}
+		[DataMember]
+		public long? AccountFundingStatusId {
+			get { return GetColumnValue<long?>(Columns.AccountFundingStatusId); }
+			set { SetColumnValue(Columns.AccountFundingStatusId, value); }
+		}
+		[DataMember]
+		public DateTime CreatedOn {
+			get { return GetColumnValue<DateTime>(Columns.CreatedOn); }
+			set { SetColumnValue(Columns.CreatedOn, value); }
+		}
+		[DataMember]
+		public string CreatedBy {
+			get { return GetColumnValue<string>(Columns.CreatedBy); }
+			set { SetColumnValue(Columns.CreatedBy, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return RejectedAccountID.ToString();
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn RejectedAccountIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn RejectionIdColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn AccountIdColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn PacketItemIdColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn AccountFundingStatusIdColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn CreatedOnColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn CreatedByColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string RejectedAccountID = @"RejectedAccountID";
+			public const string RejectionId = @"RejectionId";
+			public const string AccountId = @"AccountId";
+			public const string PacketItemId = @"PacketItemId";
+			public const string AccountFundingStatusId = @"AccountFundingStatusId";
+			public const string CreatedOn = @"CreatedOn";
+			public const string CreatedBy = @"CreatedBy";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
+	/// Strongly-typed collection for the MS_AccountsView class.
+	/// </summary>
+	[DataContract]
+	public partial class MS_AccountsViewCollection : ReadOnlyList<MS_AccountsView, MS_AccountsViewCollection>
+	{
+		public static MS_AccountsViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			MS_AccountsViewCollection result = new MS_AccountsViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwMS_Accounts view.
+	/// </summary>
+	[DataContract]
+	public partial class MS_AccountsView : ReadOnlyRecord<MS_AccountsView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwMS_Accounts", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarAccountID = new TableSchema.TableColumn(schema);
+				colvarAccountID.ColumnName = "AccountID";
+				colvarAccountID.DataType = DbType.Int64;
+				colvarAccountID.MaxLength = 0;
+				colvarAccountID.AutoIncrement = false;
+				colvarAccountID.IsNullable = false;
+				colvarAccountID.IsPrimaryKey = false;
+				colvarAccountID.IsForeignKey = false;
+				colvarAccountID.IsReadOnly = false;
+				colvarAccountID.DefaultSetting = @"";
+				colvarAccountID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAccountID);
+
+				TableSchema.TableColumn colvarCustomerMasterFileId = new TableSchema.TableColumn(schema);
+				colvarCustomerMasterFileId.ColumnName = "CustomerMasterFileId";
+				colvarCustomerMasterFileId.DataType = DbType.Int64;
+				colvarCustomerMasterFileId.MaxLength = 0;
+				colvarCustomerMasterFileId.AutoIncrement = false;
+				colvarCustomerMasterFileId.IsNullable = false;
+				colvarCustomerMasterFileId.IsPrimaryKey = false;
+				colvarCustomerMasterFileId.IsForeignKey = false;
+				colvarCustomerMasterFileId.IsReadOnly = false;
+				colvarCustomerMasterFileId.DefaultSetting = @"";
+				colvarCustomerMasterFileId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCustomerMasterFileId);
+
+				TableSchema.TableColumn colvarCustomerId = new TableSchema.TableColumn(schema);
+				colvarCustomerId.ColumnName = "CustomerId";
+				colvarCustomerId.DataType = DbType.Int64;
+				colvarCustomerId.MaxLength = 0;
+				colvarCustomerId.AutoIncrement = false;
+				colvarCustomerId.IsNullable = false;
+				colvarCustomerId.IsPrimaryKey = false;
+				colvarCustomerId.IsForeignKey = false;
+				colvarCustomerId.IsReadOnly = false;
+				colvarCustomerId.DefaultSetting = @"";
+				colvarCustomerId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCustomerId);
+
+				TableSchema.TableColumn colvarCsid = new TableSchema.TableColumn(schema);
+				colvarCsid.ColumnName = "Csid";
+				colvarCsid.DataType = DbType.AnsiString;
+				colvarCsid.MaxLength = 15;
+				colvarCsid.AutoIncrement = false;
+				colvarCsid.IsNullable = true;
+				colvarCsid.IsPrimaryKey = false;
+				colvarCsid.IsForeignKey = false;
+				colvarCsid.IsReadOnly = false;
+				colvarCsid.DefaultSetting = @"";
+				colvarCsid.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCsid);
+
+				BaseSchema = schema;
+				DataService.Providers["NxsFundingProvider"].AddSchema("vwMS_Accounts",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public MS_AccountsView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public long AccountID {
+			get { return GetColumnValue<long>(Columns.AccountID); }
+			set { SetColumnValue(Columns.AccountID, value); }
+		}
+		[DataMember]
+		public long CustomerMasterFileId {
+			get { return GetColumnValue<long>(Columns.CustomerMasterFileId); }
+			set { SetColumnValue(Columns.CustomerMasterFileId, value); }
+		}
+		[DataMember]
+		public long CustomerId {
+			get { return GetColumnValue<long>(Columns.CustomerId); }
+			set { SetColumnValue(Columns.CustomerId, value); }
+		}
+		[DataMember]
+		public string Csid {
+			get { return GetColumnValue<string>(Columns.Csid); }
+			set { SetColumnValue(Columns.Csid, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return AccountID.ToString();
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn AccountIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn CustomerMasterFileIdColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn CustomerIdColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn CsidColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string AccountID = @"AccountID";
+			public const string CustomerMasterFileId = @"CustomerMasterFileId";
+			public const string CustomerId = @"CustomerId";
+			public const string Csid = @"Csid";
 		}
 		#endregion Columns Struct
 	}

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using SOS.FunctionalServices;
 using SOS.FunctionalServices.Contracts;
-using SOS.FunctionalServices.Contracts.Helper;
 using SOS.FunctionalServices.Contracts.Models;
+using SOS.FunctionalServices.Contracts.Models.Licensing;
 using SOS.FunctionalServices.Models;
+using SOS.Lib.Core.ErrorHandling;
+using SOS.Services.Interfaces.Models;
+using SOS.Services.Interfaces.Models.Licensing;
 using SSE.Services.CmsCORS.Helpers;
 using SSE.Services.CmsCORS.Models;
 using AuthActions = SOS.Data.AuthenticationControl.AC_Action.MetaData;
@@ -100,6 +101,74 @@ namespace SSE.Services.CmsCORS.Controllers.Qualify
 				var service = SosServiceEngine.Instance.FunctionalServices.Instance<IWiseCrmService>();
 				var fnsResult = service.AddressVerify(addressToVerify, addressToVerify.SeasonId, addressToVerify.TeamLocationId, addressToVerify.SalesRepId, user.Username);
 				return result.FromFnsResult(fnsResult);
+			});
+		}
+
+		// POST QualifySrv/addressvalidation
+		[Route("PremiseAddressValidation")]
+		[HttpPost]
+		[HttpOptions]
+		public Result<NxsVerifyAddressAndLicensing> PremisePost([FromBody]FnsVerifyAddress addressToVerify)
+		{
+			return CORSSecurity.Authorize("PremiseAddressValidation", AuthApplications.SSECmsCORSID, null, user =>
+			{
+				var result = new Result<NxsVerifyAddressAndLicensing>();
+
+				var argArray = new List<CORSArg>
+				{
+					new CORSArg(addressToVerify.SeasonId, (addressToVerify.SeasonId == 0), "'SeasonId' must be passed."),
+					new CORSArg(addressToVerify.TeamLocationId, (addressToVerify.TeamLocationId == 0), "'TeamLocationId' must be passed."),
+					new CORSArg(addressToVerify.SalesRepId, (string.IsNullOrEmpty(addressToVerify.SalesRepId)), "'SalesRepId' must be passed."),
+					new CORSArg(addressToVerify.DealerId, (addressToVerify.DealerId == 0), "'DealerId' can not be blank."),
+					new CORSArg(addressToVerify.StreetAddress, (string.IsNullOrEmpty(addressToVerify.StreetAddress)), "'Address' can not be blank."),
+					//new CORSArg(jsonParam.City, (string.IsNullOrEmpty(jsonParam.City)), "'City' can not be blank."),
+					//new CORSArg(jsonParam.StateId, (string.IsNullOrEmpty(jsonParam.StateId)), "'StateId' can not be blank."),
+					new CORSArg(addressToVerify.PostalCode, (string.IsNullOrEmpty(addressToVerify.PostalCode)), "'PostalCode' can not be blank."),
+					new CORSArg(addressToVerify.Phone, (string.IsNullOrEmpty(addressToVerify.Phone)), "'PhoneNumber' was not set."),
+				};
+				if (!CORSArg.ArgumentValidation(argArray, result))
+				{
+					return result;
+				}
+
+				var service = SosServiceEngine.Instance.FunctionalServices.Instance<IWiseCrmService>();
+				var fnsResult = service.AddressVerify(addressToVerify, addressToVerify.SeasonId, addressToVerify.TeamLocationId, addressToVerify.SalesRepId, user.Username);
+				
+				// Check to see if the rep is legit.
+				var fnsResultValue = (IFnsVerifyAddress)fnsResult.GetValue();
+				var lService = SosServiceEngine.Instance.FunctionalServices.Instance<ILicencingManagementService>();
+				var fnsLResult = lService.SalesRepComplianceGet(fnsResultValue.SalesRepId, fnsResultValue.CountryId, fnsResultValue.StateId,
+					fnsResultValue.County, fnsResultValue.City, null, user.GPEmployeeID);
+				// // **  Check result
+				if (fnsLResult.Code != BaseErrorCodes.ErrorCodes.Success.Code())
+				{
+					result.Code = fnsLResult.Code;
+					result.Message = fnsLResult.Message;
+					return result;
+				}
+
+				// // ** Loop through results
+				var fnsLicenseList = (List<IFnsLmSalesRepRequirementsView>)fnsLResult.GetValue();
+				var licenseList = new List<LmSalesRepRequirement>();
+				foreach (var licItem in fnsLicenseList)
+				{
+					if (!licItem.Status.Equals("Licensing Complete"))
+					{
+						licenseList.Add(ConvertTo.CastFnsToLmSalesRepRequirement(licItem));
+					}
+				}
+				// // ** Build result value
+				var resultValue = new NxsVerifyAddressAndLicensing
+				{
+					VerifiedAddress = ConvertTo.CastFnsToVerifyAddress(fnsResultValue),
+					SalesLicReq = licenseList
+				};
+
+				result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
+				result.Message = BaseErrorCodes.ErrorCodes.Success.Message();
+				result.Value = resultValue;
+
+				return result;
 			});
 		}
 	}

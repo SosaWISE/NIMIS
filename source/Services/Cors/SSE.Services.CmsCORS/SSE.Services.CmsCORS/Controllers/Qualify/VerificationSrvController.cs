@@ -30,7 +30,7 @@ namespace SSE.Services.CmsCORS.Controllers.Qualify
 		[Route("VerifyAddress")]
 		[HttpPost]
 		[HttpOptions]
-		public CmsCORSResult<VerifyAddress> VerifyAddress(AddressParam jsonParam)
+		public CmsCORSResult<SOS.Services.Interfaces.Models.QualifyLead.QlAddress> VerifyAddress(AddressParam jsonParam)
 		{
 			#region Initialize
 
@@ -63,7 +63,7 @@ namespace SSE.Services.CmsCORS.Controllers.Qualify
 						new CORSArg(jsonParam.PhoneNumber, (string.IsNullOrEmpty(jsonParam.PhoneNumber)),
 							"<li>'PhoneNumber' was not set.</li>")
 					};
-					CmsCORSResult<VerifyAddress> oResult;
+					CmsCORSResult<SOS.Services.Interfaces.Models.QualifyLead.QlAddress> oResult;
 					if (!CORSArg.ArgumentValidation(aCORSArg, out oResult, METHOD_NAME)) return oResult;
 
 					#endregion Parameter Validation
@@ -201,6 +201,7 @@ namespace SSE.Services.CmsCORS.Controllers.Qualify
 				}
 				var argArray = new List<CORSArg>
 				{
+// ReSharper disable PossibleNullReferenceException
 					new CORSArg(jsonParam.CustomerTypeId, string.IsNullOrEmpty(jsonParam.CustomerTypeId), "'CustomerTypeId' Has to be passed."),
 					new CORSArg(jsonParam.AddressId, (jsonParam.AddressId == 0), "'AddressId' Has to be passed."),
 					new CORSArg(jsonParam.DealerId, (jsonParam.DealerId == 0), "'DealerId' Has to be passed."),
@@ -213,6 +214,7 @@ namespace SSE.Services.CmsCORS.Controllers.Qualify
 					new CORSArg(jsonParam.FirstName, (string.IsNullOrEmpty(jsonParam.FirstName)), "'FirstName' Has to be passed."),
 					new CORSArg(jsonParam.LastName, (string.IsNullOrEmpty(jsonParam.LastName)), "'LastName' Has to be passed."),
 					new CORSArg(jsonParam.SSN, (string.IsNullOrEmpty(jsonParam.SSN) && jsonParam.DOB == null), "'SSN or DOB' Has to be passed.")
+// ReSharper restore PossibleNullReferenceException
 				};
 				if (!CORSArg.ArgumentValidation(argArray, result))
 				{

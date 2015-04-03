@@ -88,7 +88,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_Agencies", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_Agencies", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -406,7 +406,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarModifiedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_Agencies",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_Agencies",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -875,7 +875,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_Attachments", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_Attachments", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -1076,7 +1076,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarModifiedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_Attachments",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_Attachments",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -1410,7 +1410,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_AttachmentTypes", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_AttachmentTypes", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -1442,7 +1442,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarAttachmentTypeName);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_AttachmentTypes",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_AttachmentTypes",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -1604,7 +1604,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_LicenseItems", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_LicenseItems", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -1740,7 +1740,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarCreatedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_LicenseItems",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_LicenseItems",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -2009,7 +2009,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_Licenses", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_Licenses", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -2210,7 +2210,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarCreatedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_Licenses",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_Licenses",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -2490,6 +2490,182 @@ namespace NXS.Data.Licensing
 
 	}
 	/// <summary>
+	/// Strongly-typed collection for the LM_LicenseStatus class.
+	/// </summary>
+	[DataContract]
+	public partial class LM_LicenseStatusCollection : ActiveList<LM_LicenseStatus, LM_LicenseStatusCollection>
+	{
+		public static LM_LicenseStatusCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			LM_LicenseStatusCollection result = new LM_LicenseStatusCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+		public string GetInList(string columnName)
+		{
+			return JoinColumnList(columnName, ",");
+		}
+		public string JoinColumnList(string columnName, string seperator)
+		{
+			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
+		}
+		public IEnumerable<object> GetJoinColumnList(string columnName)
+		{
+			foreach (LM_LicenseStatus item in this) {
+				object value = item.GetColumnValue<object>(columnName);
+				if (value != null) {
+					yield return value;
+				}
+			}
+		}
+	}
+	
+	/// <summary>
+	/// This is an ActiveRecord class which wraps the LM_LicenseStatuses table.
+	/// </summary>
+	[DataContract]
+	public partial class LM_LicenseStatus : ActiveRecord<LM_LicenseStatus>, INotifyPropertyChanged
+	{
+
+
+		#region Events
+		public event PropertyChangedEventHandler PropertyChanged;
+		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+		{
+			if (PropertyChanged != null)
+				PropertyChanged(this, e);
+		}
+		#endregion Events
+
+		#region .ctors and Default Settings
+
+		public LM_LicenseStatus()
+		{
+			SetSQLProps();InitSetDefaults();MarkNew();
+		}
+		private void InitSetDefaults() { SetDefaults(); }
+		protected static void SetSQLProps() { GetTableSchema(); }
+
+		#endregion
+
+		#region Schema and Query Accessor
+		public static Query CreateQuery() { return new Query(Schema); }
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema() 
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("LM_LicenseStatuses", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarLicenseStatusID = new TableSchema.TableColumn(schema);
+				colvarLicenseStatusID.ColumnName = "LicenseStatusID";
+				colvarLicenseStatusID.DataType = DbType.Int16;
+				colvarLicenseStatusID.MaxLength = 0;
+				colvarLicenseStatusID.AutoIncrement = false;
+				colvarLicenseStatusID.IsNullable = false;
+				colvarLicenseStatusID.IsPrimaryKey = true;
+				colvarLicenseStatusID.IsForeignKey = false;
+				colvarLicenseStatusID.IsReadOnly = false;
+				colvarLicenseStatusID.DefaultSetting = @"";
+				colvarLicenseStatusID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLicenseStatusID);
+
+				TableSchema.TableColumn colvarLicenseStatus = new TableSchema.TableColumn(schema);
+				colvarLicenseStatus.ColumnName = "LicenseStatus";
+				colvarLicenseStatus.DataType = DbType.AnsiString;
+				colvarLicenseStatus.MaxLength = 100;
+				colvarLicenseStatus.AutoIncrement = false;
+				colvarLicenseStatus.IsNullable = false;
+				colvarLicenseStatus.IsPrimaryKey = false;
+				colvarLicenseStatus.IsForeignKey = false;
+				colvarLicenseStatus.IsReadOnly = false;
+				colvarLicenseStatus.DefaultSetting = @"";
+				colvarLicenseStatus.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLicenseStatus);
+
+				BaseSchema = schema;
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_LicenseStatuses",schema);
+			}
+		}
+		#endregion // Schema and Query Accessor
+
+		public static LM_LicenseStatus LoadFrom(LM_LicenseStatus item)
+		{
+			LM_LicenseStatus result = new LM_LicenseStatus();
+			if (item.LicenseStatusID != default(short)) {
+				result.LoadByKey(item.LicenseStatusID);
+			}
+			result.CopyFrom(item);
+			return result;
+		}
+
+		#region Properties
+		[DataMember]
+		public short LicenseStatusID { 
+			get { return GetColumnValue<short>(Columns.LicenseStatusID); }
+			set {
+				SetColumnValue(Columns.LicenseStatusID, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.LicenseStatusID));
+			}
+		}
+		[DataMember]
+		public string LicenseStatus { 
+			get { return GetColumnValue<string>(Columns.LicenseStatus); }
+			set {
+				SetColumnValue(Columns.LicenseStatus, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.LicenseStatus));
+			}
+		}
+
+		#endregion //Properties
+
+
+		public override string ToString()
+		{
+			return LicenseStatus;
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn LicenseStatusIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn LicenseStatusColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public static readonly string LicenseStatusID = @"LicenseStatusID";
+			public static readonly string LicenseStatus = @"LicenseStatus";
+		}
+		#endregion Columns Struct
+
+		/*
+		public override object PrimaryKeyValue
+		{
+			get { return LicenseStatusID; }
+		}
+		*/
+
+
+	}
+	/// <summary>
 	/// Strongly-typed collection for the LM_Location class.
 	/// </summary>
 	[DataContract]
@@ -2562,7 +2738,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_Locations", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_Locations", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -2776,7 +2952,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarCreatedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_Locations",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_Locations",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -3321,7 +3497,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_LocationTypes", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_LocationTypes", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -3353,7 +3529,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarLocationTypeName);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_LocationTypes",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_LocationTypes",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -3533,7 +3709,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_Locks", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_Locks", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -3565,7 +3741,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarDescription);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_Locks",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_Locks",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -3727,7 +3903,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_Notes", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_Notes", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -3811,7 +3987,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarCreatedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_Notes",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_Notes",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -4047,7 +4223,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_NoteTypes", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_NoteTypes", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -4079,7 +4255,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarNoteTypeName);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_NoteTypes",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_NoteTypes",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -4241,7 +4417,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_RequirementItems", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_RequirementItems", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -4377,7 +4553,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarModifiedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_RequirementItems",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_RequirementItems",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -4646,7 +4822,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_Requirements", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_Requirements", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -4873,7 +5049,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarModifiedByDate);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_Requirements",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_Requirements",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -5354,7 +5530,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LM_RequirementTypes", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("LM_RequirementTypes", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -5386,7 +5562,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarRequirementTypeName);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LM_RequirementTypes",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("LM_RequirementTypes",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -5476,986 +5652,6 @@ namespace NXS.Data.Licensing
 
 	}
 	/// <summary>
-	/// Strongly-typed collection for the LMCompanyLicense class.
-	/// </summary>
-	[DataContract]
-	public partial class LMCompanyLicenseCollection : ActiveList<LMCompanyLicense, LMCompanyLicenseCollection>
-	{
-		public static LMCompanyLicenseCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			LMCompanyLicenseCollection result = new LMCompanyLicenseCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-		public string GetInList(string columnName)
-		{
-			return JoinColumnList(columnName, ",");
-		}
-		public string JoinColumnList(string columnName, string seperator)
-		{
-			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
-		}
-		public IEnumerable<object> GetJoinColumnList(string columnName)
-		{
-			foreach (LMCompanyLicense item in this) {
-				object value = item.GetColumnValue<object>(columnName);
-				if (value != null) {
-					yield return value;
-				}
-			}
-		}
-	}
-	
-	/// <summary>
-	/// This is an ActiveRecord class which wraps the LMCompanyLicenses table.
-	/// </summary>
-	[DataContract]
-	public partial class LMCompanyLicense : ActiveRecord<LMCompanyLicense>, INotifyPropertyChanged
-	{
-
-
-		#region Events
-		public event PropertyChangedEventHandler PropertyChanged;
-		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, e);
-		}
-		#endregion Events
-
-		#region .ctors and Default Settings
-
-		public LMCompanyLicense()
-		{
-			SetSQLProps();InitSetDefaults();MarkNew();
-		}
-		private void InitSetDefaults() { SetDefaults(); }
-		protected static void SetSQLProps() { GetTableSchema(); }
-
-		#endregion
-
-		#region Schema and Query Accessor
-		public static Query CreateQuery() { return new Query(Schema); }
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema() 
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LMCompanyLicenses", TableType.Table, DataService.GetInstance("LicensingProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"db_owner";
-				//columns
-
-				TableSchema.TableColumn colvarRequirementID = new TableSchema.TableColumn(schema);
-				colvarRequirementID.ColumnName = "RequirementID";
-				colvarRequirementID.DataType = DbType.Int32;
-				colvarRequirementID.MaxLength = 0;
-				colvarRequirementID.AutoIncrement = false;
-				colvarRequirementID.IsNullable = true;
-				colvarRequirementID.IsPrimaryKey = false;
-				colvarRequirementID.IsForeignKey = false;
-				colvarRequirementID.IsReadOnly = false;
-				colvarRequirementID.DefaultSetting = @"";
-				colvarRequirementID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRequirementID);
-
-				TableSchema.TableColumn colvarRequirementName = new TableSchema.TableColumn(schema);
-				colvarRequirementName.ColumnName = "RequirementName";
-				colvarRequirementName.DataType = DbType.String;
-				colvarRequirementName.MaxLength = -1;
-				colvarRequirementName.AutoIncrement = false;
-				colvarRequirementName.IsNullable = true;
-				colvarRequirementName.IsPrimaryKey = false;
-				colvarRequirementName.IsForeignKey = false;
-				colvarRequirementName.IsReadOnly = false;
-				colvarRequirementName.DefaultSetting = @"";
-				colvarRequirementName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRequirementName);
-
-				TableSchema.TableColumn colvarCallCenterMessage = new TableSchema.TableColumn(schema);
-				colvarCallCenterMessage.ColumnName = "CallCenterMessage";
-				colvarCallCenterMessage.DataType = DbType.String;
-				colvarCallCenterMessage.MaxLength = -1;
-				colvarCallCenterMessage.AutoIncrement = false;
-				colvarCallCenterMessage.IsNullable = true;
-				colvarCallCenterMessage.IsPrimaryKey = false;
-				colvarCallCenterMessage.IsForeignKey = false;
-				colvarCallCenterMessage.IsReadOnly = false;
-				colvarCallCenterMessage.DefaultSetting = @"";
-				colvarCallCenterMessage.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCallCenterMessage);
-
-				TableSchema.TableColumn colvarStatus = new TableSchema.TableColumn(schema);
-				colvarStatus.ColumnName = "Status";
-				colvarStatus.DataType = DbType.String;
-				colvarStatus.MaxLength = 50;
-				colvarStatus.AutoIncrement = false;
-				colvarStatus.IsNullable = true;
-				colvarStatus.IsPrimaryKey = false;
-				colvarStatus.IsForeignKey = false;
-				colvarStatus.IsReadOnly = false;
-				colvarStatus.DefaultSetting = @"";
-				colvarStatus.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarStatus);
-
-				TableSchema.TableColumn colvarLicenseID = new TableSchema.TableColumn(schema);
-				colvarLicenseID.ColumnName = "LicenseID";
-				colvarLicenseID.DataType = DbType.Int32;
-				colvarLicenseID.MaxLength = 0;
-				colvarLicenseID.AutoIncrement = false;
-				colvarLicenseID.IsNullable = true;
-				colvarLicenseID.IsPrimaryKey = false;
-				colvarLicenseID.IsForeignKey = false;
-				colvarLicenseID.IsReadOnly = false;
-				colvarLicenseID.DefaultSetting = @"";
-				colvarLicenseID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLicenseID);
-
-				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LMCompanyLicenses",schema);
-			}
-		}
-		#endregion // Schema and Query Accessor
-
-
-		#region Properties
-		[DataMember]
-		public int? RequirementID { 
-			get { return GetColumnValue<int?>(Columns.RequirementID); }
-			set {
-				SetColumnValue(Columns.RequirementID, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.RequirementID));
-			}
-		}
-		[DataMember]
-		public string RequirementName { 
-			get { return GetColumnValue<string>(Columns.RequirementName); }
-			set {
-				SetColumnValue(Columns.RequirementName, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.RequirementName));
-			}
-		}
-		[DataMember]
-		public string CallCenterMessage { 
-			get { return GetColumnValue<string>(Columns.CallCenterMessage); }
-			set {
-				SetColumnValue(Columns.CallCenterMessage, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CallCenterMessage));
-			}
-		}
-		[DataMember]
-		public string Status { 
-			get { return GetColumnValue<string>(Columns.Status); }
-			set {
-				SetColumnValue(Columns.Status, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.Status));
-			}
-		}
-		[DataMember]
-		public int? LicenseID { 
-			get { return GetColumnValue<int?>(Columns.LicenseID); }
-			set {
-				SetColumnValue(Columns.LicenseID, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.LicenseID));
-			}
-		}
-
-		#endregion //Properties
-
-
-		public override string ToString()
-		{
-			return RequirementName;
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn RequirementIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn RequirementNameColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn CallCenterMessageColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn StatusColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn LicenseIDColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public static readonly string RequirementID = @"RequirementID";
-			public static readonly string RequirementName = @"RequirementName";
-			public static readonly string CallCenterMessage = @"CallCenterMessage";
-			public static readonly string Status = @"Status";
-			public static readonly string LicenseID = @"LicenseID";
-		}
-		#endregion Columns Struct
-
-		/*
-		public override object PrimaryKeyValue
-		{
-			get { return null; }
-		}
-		*/
-
-
-	}
-	/// <summary>
-	/// Strongly-typed collection for the LMCustomerLicense class.
-	/// </summary>
-	[DataContract]
-	public partial class LMCustomerLicenseCollection : ActiveList<LMCustomerLicense, LMCustomerLicenseCollection>
-	{
-		public static LMCustomerLicenseCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			LMCustomerLicenseCollection result = new LMCustomerLicenseCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-		public string GetInList(string columnName)
-		{
-			return JoinColumnList(columnName, ",");
-		}
-		public string JoinColumnList(string columnName, string seperator)
-		{
-			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
-		}
-		public IEnumerable<object> GetJoinColumnList(string columnName)
-		{
-			foreach (LMCustomerLicense item in this) {
-				object value = item.GetColumnValue<object>(columnName);
-				if (value != null) {
-					yield return value;
-				}
-			}
-		}
-	}
-	
-	/// <summary>
-	/// This is an ActiveRecord class which wraps the LMCustomerLicenses table.
-	/// </summary>
-	[DataContract]
-	public partial class LMCustomerLicense : ActiveRecord<LMCustomerLicense>, INotifyPropertyChanged
-	{
-
-
-		#region Events
-		public event PropertyChangedEventHandler PropertyChanged;
-		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, e);
-		}
-		#endregion Events
-
-		#region .ctors and Default Settings
-
-		public LMCustomerLicense()
-		{
-			SetSQLProps();InitSetDefaults();MarkNew();
-		}
-		private void InitSetDefaults() { SetDefaults(); }
-		protected static void SetSQLProps() { GetTableSchema(); }
-
-		#endregion
-
-		#region Schema and Query Accessor
-		public static Query CreateQuery() { return new Query(Schema); }
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema() 
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LMCustomerLicenses", TableType.Table, DataService.GetInstance("LicensingProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"db_owner";
-				//columns
-
-				TableSchema.TableColumn colvarRequirementID = new TableSchema.TableColumn(schema);
-				colvarRequirementID.ColumnName = "RequirementID";
-				colvarRequirementID.DataType = DbType.Int32;
-				colvarRequirementID.MaxLength = 0;
-				colvarRequirementID.AutoIncrement = false;
-				colvarRequirementID.IsNullable = true;
-				colvarRequirementID.IsPrimaryKey = false;
-				colvarRequirementID.IsForeignKey = false;
-				colvarRequirementID.IsReadOnly = false;
-				colvarRequirementID.DefaultSetting = @"";
-				colvarRequirementID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRequirementID);
-
-				TableSchema.TableColumn colvarRequirementName = new TableSchema.TableColumn(schema);
-				colvarRequirementName.ColumnName = "RequirementName";
-				colvarRequirementName.DataType = DbType.String;
-				colvarRequirementName.MaxLength = -1;
-				colvarRequirementName.AutoIncrement = false;
-				colvarRequirementName.IsNullable = true;
-				colvarRequirementName.IsPrimaryKey = false;
-				colvarRequirementName.IsForeignKey = false;
-				colvarRequirementName.IsReadOnly = false;
-				colvarRequirementName.DefaultSetting = @"";
-				colvarRequirementName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRequirementName);
-
-				TableSchema.TableColumn colvarCallCenterMessage = new TableSchema.TableColumn(schema);
-				colvarCallCenterMessage.ColumnName = "CallCenterMessage";
-				colvarCallCenterMessage.DataType = DbType.String;
-				colvarCallCenterMessage.MaxLength = -1;
-				colvarCallCenterMessage.AutoIncrement = false;
-				colvarCallCenterMessage.IsNullable = true;
-				colvarCallCenterMessage.IsPrimaryKey = false;
-				colvarCallCenterMessage.IsForeignKey = false;
-				colvarCallCenterMessage.IsReadOnly = false;
-				colvarCallCenterMessage.DefaultSetting = @"";
-				colvarCallCenterMessage.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCallCenterMessage);
-
-				TableSchema.TableColumn colvarStatus = new TableSchema.TableColumn(schema);
-				colvarStatus.ColumnName = "Status";
-				colvarStatus.DataType = DbType.String;
-				colvarStatus.MaxLength = 50;
-				colvarStatus.AutoIncrement = false;
-				colvarStatus.IsNullable = true;
-				colvarStatus.IsPrimaryKey = false;
-				colvarStatus.IsForeignKey = false;
-				colvarStatus.IsReadOnly = false;
-				colvarStatus.DefaultSetting = @"";
-				colvarStatus.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarStatus);
-
-				TableSchema.TableColumn colvarLicenseID = new TableSchema.TableColumn(schema);
-				colvarLicenseID.ColumnName = "LicenseID";
-				colvarLicenseID.DataType = DbType.Int32;
-				colvarLicenseID.MaxLength = 0;
-				colvarLicenseID.AutoIncrement = false;
-				colvarLicenseID.IsNullable = true;
-				colvarLicenseID.IsPrimaryKey = false;
-				colvarLicenseID.IsForeignKey = false;
-				colvarLicenseID.IsReadOnly = false;
-				colvarLicenseID.DefaultSetting = @"";
-				colvarLicenseID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLicenseID);
-
-				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LMCustomerLicenses",schema);
-			}
-		}
-		#endregion // Schema and Query Accessor
-
-
-		#region Properties
-		[DataMember]
-		public int? RequirementID { 
-			get { return GetColumnValue<int?>(Columns.RequirementID); }
-			set {
-				SetColumnValue(Columns.RequirementID, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.RequirementID));
-			}
-		}
-		[DataMember]
-		public string RequirementName { 
-			get { return GetColumnValue<string>(Columns.RequirementName); }
-			set {
-				SetColumnValue(Columns.RequirementName, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.RequirementName));
-			}
-		}
-		[DataMember]
-		public string CallCenterMessage { 
-			get { return GetColumnValue<string>(Columns.CallCenterMessage); }
-			set {
-				SetColumnValue(Columns.CallCenterMessage, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CallCenterMessage));
-			}
-		}
-		[DataMember]
-		public string Status { 
-			get { return GetColumnValue<string>(Columns.Status); }
-			set {
-				SetColumnValue(Columns.Status, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.Status));
-			}
-		}
-		[DataMember]
-		public int? LicenseID { 
-			get { return GetColumnValue<int?>(Columns.LicenseID); }
-			set {
-				SetColumnValue(Columns.LicenseID, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.LicenseID));
-			}
-		}
-
-		#endregion //Properties
-
-
-		public override string ToString()
-		{
-			return RequirementName;
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn RequirementIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn RequirementNameColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn CallCenterMessageColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn StatusColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn LicenseIDColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public static readonly string RequirementID = @"RequirementID";
-			public static readonly string RequirementName = @"RequirementName";
-			public static readonly string CallCenterMessage = @"CallCenterMessage";
-			public static readonly string Status = @"Status";
-			public static readonly string LicenseID = @"LicenseID";
-		}
-		#endregion Columns Struct
-
-		/*
-		public override object PrimaryKeyValue
-		{
-			get { return null; }
-		}
-		*/
-
-
-	}
-	/// <summary>
-	/// Strongly-typed collection for the LMRepLicense class.
-	/// </summary>
-	[DataContract]
-	public partial class LMRepLicenseCollection : ActiveList<LMRepLicense, LMRepLicenseCollection>
-	{
-		public static LMRepLicenseCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			LMRepLicenseCollection result = new LMRepLicenseCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-		public string GetInList(string columnName)
-		{
-			return JoinColumnList(columnName, ",");
-		}
-		public string JoinColumnList(string columnName, string seperator)
-		{
-			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
-		}
-		public IEnumerable<object> GetJoinColumnList(string columnName)
-		{
-			foreach (LMRepLicense item in this) {
-				object value = item.GetColumnValue<object>(columnName);
-				if (value != null) {
-					yield return value;
-				}
-			}
-		}
-	}
-	
-	/// <summary>
-	/// This is an ActiveRecord class which wraps the LMRepLicenses table.
-	/// </summary>
-	[DataContract]
-	public partial class LMRepLicense : ActiveRecord<LMRepLicense>, INotifyPropertyChanged
-	{
-
-
-		#region Events
-		public event PropertyChangedEventHandler PropertyChanged;
-		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, e);
-		}
-		#endregion Events
-
-		#region .ctors and Default Settings
-
-		public LMRepLicense()
-		{
-			SetSQLProps();InitSetDefaults();MarkNew();
-		}
-		private void InitSetDefaults() { SetDefaults(); }
-		protected static void SetSQLProps() { GetTableSchema(); }
-
-		#endregion
-
-		#region Schema and Query Accessor
-		public static Query CreateQuery() { return new Query(Schema); }
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema() 
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LMRepLicenses", TableType.Table, DataService.GetInstance("LicensingProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"db_owner";
-				//columns
-
-				TableSchema.TableColumn colvarRequirementID = new TableSchema.TableColumn(schema);
-				colvarRequirementID.ColumnName = "RequirementID";
-				colvarRequirementID.DataType = DbType.Int32;
-				colvarRequirementID.MaxLength = 0;
-				colvarRequirementID.AutoIncrement = false;
-				colvarRequirementID.IsNullable = true;
-				colvarRequirementID.IsPrimaryKey = false;
-				colvarRequirementID.IsForeignKey = false;
-				colvarRequirementID.IsReadOnly = false;
-				colvarRequirementID.DefaultSetting = @"";
-				colvarRequirementID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRequirementID);
-
-				TableSchema.TableColumn colvarRequirementName = new TableSchema.TableColumn(schema);
-				colvarRequirementName.ColumnName = "RequirementName";
-				colvarRequirementName.DataType = DbType.String;
-				colvarRequirementName.MaxLength = -1;
-				colvarRequirementName.AutoIncrement = false;
-				colvarRequirementName.IsNullable = true;
-				colvarRequirementName.IsPrimaryKey = false;
-				colvarRequirementName.IsForeignKey = false;
-				colvarRequirementName.IsReadOnly = false;
-				colvarRequirementName.DefaultSetting = @"";
-				colvarRequirementName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRequirementName);
-
-				TableSchema.TableColumn colvarCallCenterMessage = new TableSchema.TableColumn(schema);
-				colvarCallCenterMessage.ColumnName = "CallCenterMessage";
-				colvarCallCenterMessage.DataType = DbType.String;
-				colvarCallCenterMessage.MaxLength = -1;
-				colvarCallCenterMessage.AutoIncrement = false;
-				colvarCallCenterMessage.IsNullable = true;
-				colvarCallCenterMessage.IsPrimaryKey = false;
-				colvarCallCenterMessage.IsForeignKey = false;
-				colvarCallCenterMessage.IsReadOnly = false;
-				colvarCallCenterMessage.DefaultSetting = @"";
-				colvarCallCenterMessage.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCallCenterMessage);
-
-				TableSchema.TableColumn colvarStatus = new TableSchema.TableColumn(schema);
-				colvarStatus.ColumnName = "Status";
-				colvarStatus.DataType = DbType.String;
-				colvarStatus.MaxLength = 50;
-				colvarStatus.AutoIncrement = false;
-				colvarStatus.IsNullable = true;
-				colvarStatus.IsPrimaryKey = false;
-				colvarStatus.IsForeignKey = false;
-				colvarStatus.IsReadOnly = false;
-				colvarStatus.DefaultSetting = @"";
-				colvarStatus.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarStatus);
-
-				TableSchema.TableColumn colvarLicenseID = new TableSchema.TableColumn(schema);
-				colvarLicenseID.ColumnName = "LicenseID";
-				colvarLicenseID.DataType = DbType.Int32;
-				colvarLicenseID.MaxLength = 0;
-				colvarLicenseID.AutoIncrement = false;
-				colvarLicenseID.IsNullable = true;
-				colvarLicenseID.IsPrimaryKey = false;
-				colvarLicenseID.IsForeignKey = false;
-				colvarLicenseID.IsReadOnly = false;
-				colvarLicenseID.DefaultSetting = @"";
-				colvarLicenseID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLicenseID);
-
-				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LMRepLicenses",schema);
-			}
-		}
-		#endregion // Schema and Query Accessor
-
-
-		#region Properties
-		[DataMember]
-		public int? RequirementID { 
-			get { return GetColumnValue<int?>(Columns.RequirementID); }
-			set {
-				SetColumnValue(Columns.RequirementID, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.RequirementID));
-			}
-		}
-		[DataMember]
-		public string RequirementName { 
-			get { return GetColumnValue<string>(Columns.RequirementName); }
-			set {
-				SetColumnValue(Columns.RequirementName, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.RequirementName));
-			}
-		}
-		[DataMember]
-		public string CallCenterMessage { 
-			get { return GetColumnValue<string>(Columns.CallCenterMessage); }
-			set {
-				SetColumnValue(Columns.CallCenterMessage, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CallCenterMessage));
-			}
-		}
-		[DataMember]
-		public string Status { 
-			get { return GetColumnValue<string>(Columns.Status); }
-			set {
-				SetColumnValue(Columns.Status, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.Status));
-			}
-		}
-		[DataMember]
-		public int? LicenseID { 
-			get { return GetColumnValue<int?>(Columns.LicenseID); }
-			set {
-				SetColumnValue(Columns.LicenseID, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.LicenseID));
-			}
-		}
-
-		#endregion //Properties
-
-
-		public override string ToString()
-		{
-			return RequirementName;
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn RequirementIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn RequirementNameColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn CallCenterMessageColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn StatusColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn LicenseIDColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public static readonly string RequirementID = @"RequirementID";
-			public static readonly string RequirementName = @"RequirementName";
-			public static readonly string CallCenterMessage = @"CallCenterMessage";
-			public static readonly string Status = @"Status";
-			public static readonly string LicenseID = @"LicenseID";
-		}
-		#endregion Columns Struct
-
-		/*
-		public override object PrimaryKeyValue
-		{
-			get { return null; }
-		}
-		*/
-
-
-	}
-	/// <summary>
-	/// Strongly-typed collection for the LMTechLicense class.
-	/// </summary>
-	[DataContract]
-	public partial class LMTechLicenseCollection : ActiveList<LMTechLicense, LMTechLicenseCollection>
-	{
-		public static LMTechLicenseCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			LMTechLicenseCollection result = new LMTechLicenseCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-		public string GetInList(string columnName)
-		{
-			return JoinColumnList(columnName, ",");
-		}
-		public string JoinColumnList(string columnName, string seperator)
-		{
-			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
-		}
-		public IEnumerable<object> GetJoinColumnList(string columnName)
-		{
-			foreach (LMTechLicense item in this) {
-				object value = item.GetColumnValue<object>(columnName);
-				if (value != null) {
-					yield return value;
-				}
-			}
-		}
-	}
-	
-	/// <summary>
-	/// This is an ActiveRecord class which wraps the LMTechLicenses table.
-	/// </summary>
-	[DataContract]
-	public partial class LMTechLicense : ActiveRecord<LMTechLicense>, INotifyPropertyChanged
-	{
-
-
-		#region Events
-		public event PropertyChangedEventHandler PropertyChanged;
-		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, e);
-		}
-		#endregion Events
-
-		#region .ctors and Default Settings
-
-		public LMTechLicense()
-		{
-			SetSQLProps();InitSetDefaults();MarkNew();
-		}
-		private void InitSetDefaults() { SetDefaults(); }
-		protected static void SetSQLProps() { GetTableSchema(); }
-
-		#endregion
-
-		#region Schema and Query Accessor
-		public static Query CreateQuery() { return new Query(Schema); }
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema() 
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("LMTechLicenses", TableType.Table, DataService.GetInstance("LicensingProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"db_owner";
-				//columns
-
-				TableSchema.TableColumn colvarRequirementID = new TableSchema.TableColumn(schema);
-				colvarRequirementID.ColumnName = "RequirementID";
-				colvarRequirementID.DataType = DbType.Int32;
-				colvarRequirementID.MaxLength = 0;
-				colvarRequirementID.AutoIncrement = false;
-				colvarRequirementID.IsNullable = true;
-				colvarRequirementID.IsPrimaryKey = false;
-				colvarRequirementID.IsForeignKey = false;
-				colvarRequirementID.IsReadOnly = false;
-				colvarRequirementID.DefaultSetting = @"";
-				colvarRequirementID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRequirementID);
-
-				TableSchema.TableColumn colvarRequirementName = new TableSchema.TableColumn(schema);
-				colvarRequirementName.ColumnName = "RequirementName";
-				colvarRequirementName.DataType = DbType.String;
-				colvarRequirementName.MaxLength = -1;
-				colvarRequirementName.AutoIncrement = false;
-				colvarRequirementName.IsNullable = true;
-				colvarRequirementName.IsPrimaryKey = false;
-				colvarRequirementName.IsForeignKey = false;
-				colvarRequirementName.IsReadOnly = false;
-				colvarRequirementName.DefaultSetting = @"";
-				colvarRequirementName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRequirementName);
-
-				TableSchema.TableColumn colvarCallCenterMessage = new TableSchema.TableColumn(schema);
-				colvarCallCenterMessage.ColumnName = "CallCenterMessage";
-				colvarCallCenterMessage.DataType = DbType.String;
-				colvarCallCenterMessage.MaxLength = -1;
-				colvarCallCenterMessage.AutoIncrement = false;
-				colvarCallCenterMessage.IsNullable = true;
-				colvarCallCenterMessage.IsPrimaryKey = false;
-				colvarCallCenterMessage.IsForeignKey = false;
-				colvarCallCenterMessage.IsReadOnly = false;
-				colvarCallCenterMessage.DefaultSetting = @"";
-				colvarCallCenterMessage.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCallCenterMessage);
-
-				TableSchema.TableColumn colvarStatus = new TableSchema.TableColumn(schema);
-				colvarStatus.ColumnName = "Status";
-				colvarStatus.DataType = DbType.String;
-				colvarStatus.MaxLength = 50;
-				colvarStatus.AutoIncrement = false;
-				colvarStatus.IsNullable = true;
-				colvarStatus.IsPrimaryKey = false;
-				colvarStatus.IsForeignKey = false;
-				colvarStatus.IsReadOnly = false;
-				colvarStatus.DefaultSetting = @"";
-				colvarStatus.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarStatus);
-
-				TableSchema.TableColumn colvarLicenseID = new TableSchema.TableColumn(schema);
-				colvarLicenseID.ColumnName = "LicenseID";
-				colvarLicenseID.DataType = DbType.Int32;
-				colvarLicenseID.MaxLength = 0;
-				colvarLicenseID.AutoIncrement = false;
-				colvarLicenseID.IsNullable = true;
-				colvarLicenseID.IsPrimaryKey = false;
-				colvarLicenseID.IsForeignKey = false;
-				colvarLicenseID.IsReadOnly = false;
-				colvarLicenseID.DefaultSetting = @"";
-				colvarLicenseID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLicenseID);
-
-				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("LMTechLicenses",schema);
-			}
-		}
-		#endregion // Schema and Query Accessor
-
-
-		#region Properties
-		[DataMember]
-		public int? RequirementID { 
-			get { return GetColumnValue<int?>(Columns.RequirementID); }
-			set {
-				SetColumnValue(Columns.RequirementID, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.RequirementID));
-			}
-		}
-		[DataMember]
-		public string RequirementName { 
-			get { return GetColumnValue<string>(Columns.RequirementName); }
-			set {
-				SetColumnValue(Columns.RequirementName, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.RequirementName));
-			}
-		}
-		[DataMember]
-		public string CallCenterMessage { 
-			get { return GetColumnValue<string>(Columns.CallCenterMessage); }
-			set {
-				SetColumnValue(Columns.CallCenterMessage, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CallCenterMessage));
-			}
-		}
-		[DataMember]
-		public string Status { 
-			get { return GetColumnValue<string>(Columns.Status); }
-			set {
-				SetColumnValue(Columns.Status, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.Status));
-			}
-		}
-		[DataMember]
-		public int? LicenseID { 
-			get { return GetColumnValue<int?>(Columns.LicenseID); }
-			set {
-				SetColumnValue(Columns.LicenseID, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.LicenseID));
-			}
-		}
-
-		#endregion //Properties
-
-
-		public override string ToString()
-		{
-			return RequirementName;
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn RequirementIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn RequirementNameColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn CallCenterMessageColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn StatusColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn LicenseIDColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public static readonly string RequirementID = @"RequirementID";
-			public static readonly string RequirementName = @"RequirementName";
-			public static readonly string CallCenterMessage = @"CallCenterMessage";
-			public static readonly string Status = @"Status";
-			public static readonly string LicenseID = @"LicenseID";
-		}
-		#endregion Columns Struct
-
-		/*
-		public override object PrimaryKeyValue
-		{
-			get { return null; }
-		}
-		*/
-
-
-	}
-	/// <summary>
 	/// Strongly-typed collection for the SAE_LicenseIndex class.
 	/// </summary>
 	[DataContract]
@@ -6528,7 +5724,7 @@ namespace NXS.Data.Licensing
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("SAE_LicenseIndex", TableType.Table, DataService.GetInstance("LicensingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("SAE_LicenseIndex", TableType.Table, DataService.GetInstance("NxsLicensingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -6625,7 +5821,7 @@ namespace NXS.Data.Licensing
 				schema.Columns.Add(colvarTownship);
 
 				BaseSchema = schema;
-				DataService.Providers["LicensingProvider"].AddSchema("SAE_LicenseIndex",schema);
+				DataService.Providers["NxsLicensingProvider"].AddSchema("SAE_LicenseIndex",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor

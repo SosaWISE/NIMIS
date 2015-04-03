@@ -10,11 +10,16 @@ namespace SOS.Services.Interfaces.Models.Funding
 		public long CustomerNumber { get; set; }
 		public long CustomerId { get; set; }
 		public long AccountId { get; set; }
+		public string Csid { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public long? ReturnAccountFundingStatusId { get; set; }
 		public string AccountFundingShortDesc { get; set; }
 		public string AccountStatusNote { get; set; }
+		public string TransactionID { get; set; }
+		public string ReportGuid { get; set; }
+		public string Bureau { get; set; }
+		public string Gateway { get; set; }
 		public string ModifiedBy { get; set; }
 		public DateTime? ModifiedOn { get; set; }
 		public string CreatedBy { get; set; }
@@ -39,6 +44,9 @@ namespace SOS.Services.Interfaces.Models.Funding
 		long AccountId { get; set; }
 
 		[DataMember]
+		string Csid { get; set; }
+
+		[DataMember]
 		string FirstName { get; set; }
 
 		[DataMember]
@@ -52,6 +60,18 @@ namespace SOS.Services.Interfaces.Models.Funding
 
 		[DataMember]
 		string AccountStatusNote { get; set; }
+
+		[DataMember]
+		string TransactionID { get; set; }
+
+		[DataMember]
+		string ReportGuid { get; set; }
+
+		[DataMember]
+		string Bureau { get; set; }
+
+		[DataMember]
+		string Gateway { get; set; }
 
 		[DataMember]
 		string ModifiedBy { get; set; }

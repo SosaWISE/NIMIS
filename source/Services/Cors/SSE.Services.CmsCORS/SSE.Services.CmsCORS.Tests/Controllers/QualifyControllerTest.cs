@@ -81,7 +81,7 @@ namespace SSE.Services.CmsCORS.Tests.Controllers
 			addressparam.PhoneNumber = "801-221-1234";
 
 
-			CmsCORSResult<VerifyAddress>result= creditReportCntlr.VerifyAddress(addressparam);
+			CmsCORSResult<SOS.Services.Interfaces.Models.QualifyLead.QlAddress>result= creditReportCntlr.VerifyAddress(addressparam);
 
 			// ** Check my result
 			Assert.IsTrue(result.Code == (int)ErrorCodes.Success, "There was an error validating address");

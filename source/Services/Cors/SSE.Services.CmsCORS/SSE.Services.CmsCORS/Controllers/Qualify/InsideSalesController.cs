@@ -3,11 +3,7 @@ using SOS.FunctionalServices.Contracts;
 using SOS.FunctionalServices.Contracts.Models;
 using SSE.Services.CmsCORS.Helpers;
 using SSE.Services.CmsCORS.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace SSE.Services.CmsCORS.Controllers.Qualify

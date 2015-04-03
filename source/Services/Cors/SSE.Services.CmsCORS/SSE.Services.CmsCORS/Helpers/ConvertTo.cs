@@ -6,6 +6,7 @@ using SOS.FunctionalServices.Contracts.Models.Data;
 using SOS.FunctionalServices.Contracts.Models.Funding;
 using SOS.FunctionalServices.Contracts.Models.HumanResource;
 using SOS.FunctionalServices.Contracts.Models.InventoryEngine;
+using SOS.FunctionalServices.Contracts.Models.Licensing;
 using SOS.FunctionalServices.Contracts.Models.QualifyLead;
 using SOS.FunctionalServices.Contracts.Models.Reporting;
 using SOS.FunctionalServices.Contracts.Models.Swing;
@@ -15,11 +16,11 @@ using SOS.Services.Interfaces.Models.CmsModels;
 using SOS.Services.Interfaces.Models.Funding;
 using SOS.Services.Interfaces.Models.HumanResources;
 using SOS.Services.Interfaces.Models.InventoryEngine;
+using SOS.Services.Interfaces.Models.Licensing;
 using SOS.Services.Interfaces.Models.MonitoringStation;
 using SOS.Services.Interfaces.Models.QualifyLead;
 using SOS.Services.Interfaces.Models.SalesHareReportSrv;
 using SOS.Services.Interfaces.Models.Swing;
-using SSE.Services.CmsCORS.Models;
 using System.Collections.Generic;
 using System.Linq;
 using QlAddress = SSE.Services.CmsCORS.Models.QlAddress;
@@ -144,10 +145,51 @@ namespace SSE.Services.CmsCORS.Helpers
 
 		#region VerifyAddress
 
-		public static VerifyAddress CastFnsToVerifyAddress(IFnsVerifyAddress item)
+		//public static VerifyAddress CastFnsToVerifyAddress(IFnsVerifyAddress item)
+		//{
+		//	/** Init. */
+		//	var result = new VerifyAddress();
+		//	result.AddressID = item.AddressID;
+		//	result.DealerId = item.DealerId;
+		//	result.StreetAddress = item.StreetAddress;
+		//	result.StreetAddress2 = item.StreetAddress2;
+		//	result.StreetNumber = item.StreetNumber;
+		//	result.StreetName = item.StreetName;
+		//	result.City = item.City;
+		//	result.StateId = item.StateId;
+		//	result.PostalCode = item.PostalCode;
+		//	result.PlusFour = item.PlusFour;
+		//	result.County = item.County;
+		//	result.PreDirectional = item.PreDirectional;
+		//	result.PostDirectional = item.PostDirectional;
+		//	result.StreetType = item.StreetType;
+		//	result.Extension = item.Extension;
+		//	result.ExtensionNumber = item.ExtensionNumber;
+		//	result.CarrierRoute = item.CarrierRoute;
+		//	result.DPVResponse = item.DPVResponse;
+		//	result.PhoneNumber = item.Phone;
+		//	result.Latitude = item.Latitude;
+		//	result.Longitude = item.Longitude;
+		//	result.Validated = item.DPV;
+		//	result.SalesRepId = item.SalesRepId;
+		//	result.SeasonId = item.SeasonId;
+		//	result.TeamLocationId = item.TeamLocationId;
+		//	result.TimeZoneId = item.TimeZoneId;
+		//	//result.TimeZone = item.TimeZone;
+		//	result.IsActive = item.IsActive;
+		//	result.CreatedOn = item.CreatedOn;
+		//	result.CreatedBy = item.CreatedBy;
+		//	result.ModifiedOn = item.ModifiedOn;
+		//	result.ModifiedBy = item.ModifiedBy;
+
+		//	/** Return result. */
+		//	return result;
+		//}
+
+		public static SOS.Services.Interfaces.Models.QualifyLead.QlAddress CastFnsToVerifyAddress(IFnsVerifyAddress item)
 		{
 			/** Init. */
-			var result = new VerifyAddress();
+			var result = new SOS.Services.Interfaces.Models.QualifyLead.QlAddress();
 			result.AddressID = item.AddressID;
 			result.DealerId = item.DealerId;
 			result.StreetAddress = item.StreetAddress;
@@ -166,10 +208,10 @@ namespace SSE.Services.CmsCORS.Helpers
 			result.ExtensionNumber = item.ExtensionNumber;
 			result.CarrierRoute = item.CarrierRoute;
 			result.DPVResponse = item.DPVResponse;
-			result.PhoneNumber = item.Phone;
+			result.Phone = item.Phone;
 			result.Latitude = item.Latitude;
 			result.Longitude = item.Longitude;
-			result.Validated = item.DPV;
+			result.DPV = item.DPV;
 			result.SalesRepId = item.SalesRepId;
 			result.SeasonId = item.SeasonId;
 			result.TeamLocationId = item.TeamLocationId;
@@ -1474,11 +1516,16 @@ namespace SSE.Services.CmsCORS.Helpers
 				CustomerNumber = viewItem.CustomerNumber,
 				CustomerId = viewItem.CustomerId,
 				AccountId = viewItem.AccountId,
+				Csid = viewItem.Csid,
 				FirstName = viewItem.FirstName,
 				LastName = viewItem.LastName,
 				ReturnAccountFundingStatusId = viewItem.ReturnAccountFundingStatusId,
 				AccountFundingShortDesc = viewItem.AccountFundingShortDesc,
 				AccountStatusNote = viewItem.AccountStatusNote,
+				TransactionID = viewItem.TransactionID,
+				ReportGuid = viewItem.ReportGuid,
+				Bureau = viewItem.Bureau,
+				Gateway = viewItem.Gateway,
 				ModifiedBy = viewItem.ModifiedBy,
 				ModifiedOn = viewItem.ModifiedOn,
 				CreatedBy = viewItem.CreatedBy,
@@ -1516,6 +1563,22 @@ namespace SSE.Services.CmsCORS.Helpers
 				PSubmittedBy = viewItem.PSubmittedBy,
 				PCreatedOn = viewItem.PCreatedOn,
 				PCreatedBy = viewItem.CreatedBy
+			};
+		}
+
+		public static LmSalesRepRequirement CastFnsToLmSalesRepRequirement(IFnsLmSalesRepRequirementsView licItem)
+		{
+			return new LmSalesRepRequirement
+			{
+				RequirementID = licItem.RequirementID,
+				RequirementTypeName = licItem.RequirementTypeName,
+				LocationTypeName = licItem.LocationTypeName,
+				RequirementName = licItem.RequirementName,
+				LockID = licItem.LockID,
+				LockTypeName = licItem.LockTypeName,
+				CallCenterMessage = licItem.CallCenterMessage,
+				Status = licItem.Status,
+				LicenseID = licItem.LicenseID
 			};
 		}
 	}

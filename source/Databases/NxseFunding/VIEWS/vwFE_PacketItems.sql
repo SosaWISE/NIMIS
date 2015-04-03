@@ -51,11 +51,16 @@ AS
 		, CUST.CustomerMasterFileId AS [CustomerNumber]
 		, AECA.CustomerId
 		, FEPI.AccountId
+		, MSIA.Csid
 		, CUST.FirstName
 		, CUST.LastName
 		, FEPI.ReturnAccountFundingStatusId
 		, FEAFT.AccountFundingShortDesc
 		, FEAFS.AccountStatusNote
+		, [WISE_CRM].[dbo].fxQlCreditReportGetTransactionIdByMsAccountID(AECA.AccountId) AS [TransactionID]
+		, [WISE_CRM].[dbo].fxQlCreditReportGetReportGuidByMsAccountID(AECA.AccountId) AS [ReportGuid]
+		, [WISE_CRM].[dbo].fxQlCreditReportGetCreditBureauByMsAccountID(AECA.AccountId) AS [Bureau]
+		, [WISE_CRM].[dbo].fxQlCreditReportGetGatewayByMsAccountID(AECA.AccountId) AS [Gateway]
 		--, FEPI.IsDeleted
 		, FEPI.ModifiedBy
 		, FEPI.ModifiedOn
@@ -80,6 +85,9 @@ AS
 		LEFT OUTER JOIN [dbo].[FE_AccountFundingStatusTypes] AS FEAFT WITH (NOLOCK)
 		ON
 			(FEAFT.AccountFundingStatusTypeID = FEAFS.AccountFundingStatusTypeId)
+		LEFT OUTER JOIN [WISE_CRM].[dbo].[MS_IndustryAccounts] AS MSIA WITH (NOLOCK)
+		ON
+			(MSIA.AccountId = AECA.AccountId)
 GO
 /* TEST */
 -- SELECT * FROM vwFE_PacketItems

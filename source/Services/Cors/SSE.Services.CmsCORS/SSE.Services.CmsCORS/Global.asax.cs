@@ -7,7 +7,6 @@ using System.Web.Routing;
 using SOS.Data;
 using SOS.Data.Logging;
 using SOS.Lib.Core;
-using SSE.Services.CmsCORS.App_Start;
 using ConfigurationSettings = SOS.Lib.Util.Configuration.ConfigurationSettings;
 using NXS.Lib.Web;
 
@@ -23,7 +22,7 @@ namespace SSE.Services.CmsCORS
 			/**  Load configuration. */
 			string environment = ConfigurationManager.AppSettings["Environment"] ?? Environment.MachineName;
 			ConfigurationSettings.Current.SetProperties("Preferences", environment);
-			WebConfig.Init(Server.MapPath("~"), (val) =>
+			WebConfig.Init(Server.MapPath("~"), val =>
 			{
 				var decryptedVal = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(val, null);
 				// if decryption failed, return passed in value
@@ -33,8 +32,8 @@ namespace SSE.Services.CmsCORS
 			// Setup SubSonic Connections
 			SubSonicConfigHelper.SetupConnectionStrings();
 			//@HACK: to set connection strings
-			NXS.Data.Crm.CrmDb.ConnectionString = SubSonic.DataService.Providers[SOS.Data.SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME].DefaultConnectionString;
-			NXS.Data.AuthenticationControl.AuthControlDb.ConnectionString = SubSonic.DataService.Providers[SOS.Data.SubSonicConfigHelper.SOS_AUTH_CONTROL_PROVIDER_NAME].DefaultConnectionString;
+			NXS.Data.Crm.CrmDb.ConnectionString = SubSonic.DataService.Providers[SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME].DefaultConnectionString;
+			NXS.Data.AuthenticationControl.AuthControlDb.ConnectionString = SubSonic.DataService.Providers[SubSonicConfigHelper.SOS_AUTH_CONTROL_PROVIDER_NAME].DefaultConnectionString;
 
 			/** Initialize Fos Engine. */
 			SOS.FunctionalServices.SosServiceEngine.Instance.Initialize();

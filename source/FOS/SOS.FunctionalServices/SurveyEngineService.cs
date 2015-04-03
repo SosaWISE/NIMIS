@@ -6,8 +6,6 @@
  * Description:  Service that manages the Survey Engine.
  *********************************************************************************************************************/
 
-using SOS.Data.SosCrm;
-using SOS.Data.SosCrm.ControllerExtensions;
 using SOS.FunctionalServices.Contracts;
 using SOS.FunctionalServices.Contracts.Helper;
 using SOS.FunctionalServices.Contracts.Models;
@@ -18,13 +16,11 @@ using SOS.FunctionalServices.Models.SurveyEngine;
 using SOS.Lib.Util;
 using SSE.Data.SurveyEngine;
 using SSE.Data.SurveyEngine.ControllerExtensions;
-using SubSonic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
-using System.Transactions;
 using SurveyEngineContracts = SOS.FunctionalServices.Contracts.Models.SurveyEngine;
 using SurveyEngineModels = SOS.FunctionalServices.Models.SurveyEngine;
 
@@ -1959,7 +1955,7 @@ namespace SOS.FunctionalServices
 
 			try
 			{
-				DatabaseHelper.UseTransaction(SOS.Data.SubSonicConfigHelper.SSE_SURVEY_ENGINE_PROVIDER_NAME, () =>
+				DatabaseHelper.UseTransaction(Data.SubSonicConfigHelper.SSE_SURVEY_ENGINE_PROVIDER_NAME, () =>
 				{
 					// save MapToTokenAnswers (uses a transaction)
 					var resultMsg = SaveMapToTokenAnswers(input.MapToTokenAnswers, input.AccountId, user);

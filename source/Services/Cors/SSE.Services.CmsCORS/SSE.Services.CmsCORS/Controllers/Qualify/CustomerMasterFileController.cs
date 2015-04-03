@@ -2,7 +2,6 @@
 using System.Web.Http;
 using SOS.FunctionalServices;
 using SOS.FunctionalServices.Contracts;
-using SOS.FunctionalServices.Contracts.Models.QualifyLead;
 using SSE.Services.CmsCORS.Helpers;
 using SOS.FunctionalServices.Contracts.Models.AccountingEngine;
 using SOS.Lib.Core;

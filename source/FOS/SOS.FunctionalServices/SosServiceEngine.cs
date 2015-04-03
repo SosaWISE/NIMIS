@@ -124,6 +124,8 @@ namespace SOS.FunctionalServices
 				(Func<IConnextService>)(() => new ConnextService()));
 			oEngine.FunctionalServices.Register(
 				(Func<IFundingServices>)(() => new FundingServices()));
+			oEngine.FunctionalServices.Register(
+				(Func<ILicencingManagementService>)(() => new LicencingManagementService()));
 
 			AuthServiceConfig.Configure(oEngine.FunctionalServices);
 		}
