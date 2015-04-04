@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace SOS.FunctionalServices.Contracts.Models.CentralStation
+﻿namespace SOS.FunctionalServices.Contracts.Models.CentralStation
 {
 	public interface IFnsMsAccountEquipmentsView
 	{

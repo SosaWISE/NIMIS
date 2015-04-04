@@ -1,4 +1,5 @@
-﻿using AR = SOS.Data.SosCrm.MS_AccountEquipmentsView;
+﻿using System;
+using AR = SOS.Data.SosCrm.MS_AccountEquipmentsView;
 using ARCollection = SOS.Data.SosCrm.MS_AccountEquipmentsViewCollection;
 using ARController = SOS.Data.SosCrm.MS_AccountEquipmentsViewController;
 
@@ -26,6 +27,7 @@ namespace SOS.Data.SosCrm.ControllerExtensions
 			return cntlr.LoadCollection(qry);
 		}
 
+		[Obsolete("This is never used", true)]
 		public static MS_AccountEquipmentsView ExistingEquipmentAdd(this MS_AccountEquipmentsViewController cntlr, long? accountId, string equipmentID, int? equipmentLocationId, int? zoneEventTypeId, string zone, string comments, bool? isExisting, bool? isExistingWiring, bool? isMainPanel, string gpEmployeeId)
 		{
 			return cntlr.LoadSingle(SosCrmDataStoredProcedureManager.MS_AccountEquipmentsViewAddExistingEquipment(accountId, equipmentID, equipmentLocationId, zoneEventTypeId, zone, comments, isExisting, isExistingWiring, isMainPanel, gpEmployeeId));
