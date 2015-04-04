@@ -199,7 +199,34 @@ BEGIN
 
 		/*
 		* Next Step is to loop through all those Invoice Items that do not have an AccountEquipmentID
+		* DESC:  Only loop through things that are inventoried and have a cost
 		*/
+		DECLARE invoiceItemCursor CURSOR FOR
+		SELECT AEII.InvoiceItemId, AEII.ItemId AS EquipmentID, AEII.SystemPoints, AEII.ProductBarcodeId AS BarcodeId, AEIT.ItemSKU
+		FROM
+			[dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
+			INNER JOIN [dbo].[AE_Items] AS AEIT WITH (NOLOCK)
+			ON
+				(AEIT.ItemID = AEII.ItemId)
+		WHERE
+			(AEII.InvoiceId = @InvoiceID)
+			AND (AEII.IsActive = 1 AND AEII.IsDeleted = 0);
+
+		OPEN invoiceItemCursor;
+
+		FETCH NEXT FROM invoiceItemCursor
+		INTO @AccountEquipmentID, @EquipmentId, @ActualPoints, @BarcodeId, @ItemSKU
+
+		WHILE (@@FETCH_STATUS = 0)
+		BEGIN
+			
+			/** Move to next item */
+			FETCH NEXT FROM invoiceItemCursor
+			INTO @AccountEquipmentID, @EquipmentId, @ActualPoints, @BarcodeId, @ItemSKU
+		END
+
+		CLOSE invoiceItemCursor;
+		DEALLOCATE invoiceItemCursor;
 
 		COMMIT TRANSACTION
 	END TRY
