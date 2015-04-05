@@ -55,11 +55,13 @@ BEGIN
 	/** DECLARATIONS */
 	DECLARE @AccountEquipmentID BIGINT
 		, @EquipmentId VARCHAR(50)
+		, @ItemId VARCHAR(50)
 		, @ActualPoints FLOAT
 		, @BarcodeId NVARCHAR(25)
 		, @ItemSKU VARCHAR(20)
 		, @InvoiceID BIGINT
 		, @InvoiceItemID BIGINT
+		, @RetailPrice MONEY
 	
 	BEGIN TRY
 		BEGIN TRANSACTION
@@ -202,7 +204,7 @@ BEGIN
 		* DESC:  Only loop through things that are inventoried and have a cost
 		*/
 		DECLARE invoiceItemCursor CURSOR FOR
-		SELECT AEII.InvoiceItemId, AEII.ItemId AS EquipmentID, AEII.SystemPoints, AEII.ProductBarcodeId AS BarcodeId, AEIT.ItemSKU
+		SELECT AEII.InvoiceItemId, AEII.ItemId AS EquipmentID, AEII.SystemPoints, AEII.ProductBarcodeId, AEII.RetailPrice AS BarcodeId, AEIT.ItemSKU
 		FROM
 			[dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
 			INNER JOIN [dbo].[AE_Items] AS AEIT WITH (NOLOCK)
@@ -210,19 +212,105 @@ BEGIN
 				(AEIT.ItemID = AEII.ItemId)
 		WHERE
 			(AEII.InvoiceId = @InvoiceID)
+			AND (AEII.AccountEquipmentId IS NULL)
 			AND (AEII.IsActive = 1 AND AEII.IsDeleted = 0);
 
 		OPEN invoiceItemCursor;
 
 		FETCH NEXT FROM invoiceItemCursor
-		INTO @AccountEquipmentID, @EquipmentId, @ActualPoints, @BarcodeId, @ItemSKU
+		INTO @InvoiceItemId, @ItemID, @ActualPoints, @BarcodeId, @ItemSKU, @RetailPrice
 
 		WHILE (@@FETCH_STATUS = 0)
 		BEGIN
+			/** Check that there is a relationship otherwise create a row*/
+			SELECT @AccountEquipmentID = AccountEquipmentID
+			FROM
+				[dbo].[MS_AccountEquipment] AS MSAEQ WITH (NOLOCK)
+			WHERE
+				(MSAEQ.InvoiceItemId = @InvoiceItemId)
+				AND (MSAEQ.AccountId = @AccountID)
+				AND (MSAEQ.IsActive = 1 AND MSAEQ.IsDeleted = 0)
 			
+			/** Create or Update a record */
+			IF (@AccountEquipmentID IS NULL)
+			BEGIN
+				PRINT 'Creating a record';
+				INSERT INTO [dbo].[MS_AccountEquipment] ( 
+					[AccountId]
+					, [EquipmentId]
+					, [InvoiceItemId]
+					, [GPEmployeeId]
+					, [AccountEquipmentUpgradeTypeId]
+					, [Points]
+					, [ActualPoints]
+					, [Price]
+					, [IsExisting]
+					, [BarcodeId]
+					, [IsServiceUpgrade]
+					, [IsExistingWiring]
+					, [IsMainPanel]
+					, [ModifiedBy]
+					, [CreatedBy]
+				)
+				SELECT
+					@AccountID -- AccountId - bigint
+					, @ItemId -- EquipmentId - varchar(50)
+					, @InvoiceItemID -- InvoiceItemId - bigint
+					, CASE
+						WHEN AEII.SalesmanId IS NOT NULL THEN AEII.SalesmanId
+						WHEN AEII.TechnicianId IS NOT NULL THEN AEII.TechnicianId
+						ELSE NULL
+					  END --NULL -- GPEmployeeId - varchar(50)
+					, CASE
+						WHEN AEII.SalesmanId IS NOT NULL THEN 'SALESREP'
+						WHEN AEII.TechnicianId IS NOT NULL THEN 'TECH'
+						ELSE 'CUST'
+					  END -- AccountEquipmentUpgradeTypeId - varchar(10)
+					, @ActualPoints -- Points - int
+					, @ActualPoints -- ActualPoints - float
+					, @RetailPrice -- Price - money
+					, 0 -- IsExisting - bit
+					, @BarcodeId -- BarcodeId - nvarchar(25)
+					, 0 -- IsServiceUpgrade - bit
+					, 0 -- IsExistingWiring - bit
+					, 0 -- IsMainPanel - bit
+					, @GpEmployeeId -- ModifiedBy - nvarchar(50)
+					, @GpEmployeeId -- CreatedBy - nvarchar(50)
+				FROM
+					[dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
+				WHERE
+					(InvoiceItemID = @InvoiceItemID);
+			END
+			ELSE
+			BEGIN
+				PRINT 'Updating a record.';
+				UPDATE [dbo].[MS_AccountEquipment] SET
+					InvoiceItemId = @InvoiceItemId
+					, GPEmployeeId = CASE
+						WHEN AEII.SalesmanId IS NOT NULL THEN AEII.SalesmanId
+						WHEN AEII.TechnicianId IS NOT NULL THEN AEII.TechnicianId
+						ELSE NULL
+					  END
+					, AccountEquipmentUpgradeTypeId = CASE
+						WHEN AEII.SalesmanId IS NOT NULL THEN 'SALESREP'
+						WHEN AEII.TechnicianId IS NOT NULL THEN 'TECH'
+						ELSE 'CUST'
+					  END
+					, BarcodeId = @BarcodeId
+					, Points = @ActualPoints
+					, Price = @RetailPrice
+				FROM
+					[dbo].[MS_AccountEquipment] AS MSAE WITH (NOLOCK)
+					INNER JOIN [dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
+					ON
+						(AEII.AccountEquipmentId = MSAE.AccountEquipmentID)
+				WHERE
+					(MSAE.AccountEquipmentID = @AccountEquipmentId);
+			END
+
 			/** Move to next item */
 			FETCH NEXT FROM invoiceItemCursor
-			INTO @AccountEquipmentID, @EquipmentId, @ActualPoints, @BarcodeId, @ItemSKU
+			INTO @InvoiceItemId, @ItemID, @ActualPoints, @BarcodeId, @ItemSKU, @RetailPrice
 		END
 
 		CLOSE invoiceItemCursor;
