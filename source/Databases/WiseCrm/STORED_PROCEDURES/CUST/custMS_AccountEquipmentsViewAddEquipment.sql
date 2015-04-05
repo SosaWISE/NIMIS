@@ -1,18 +1,18 @@
 ﻿USE [WISE_CRM]
 GO
 
-IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'custMS_AccountSiteGeneralDispatchByAccountId')
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'custMS_AccountEquipmentsViewAddEquipment')
 	BEGIN
-		PRINT 'Dropping Procedure custMS_AccountSiteGeneralDispatchByAccountId'
-		DROP  Procedure  dbo.custMS_AccountSiteGeneralDispatchByAccountId
+		PRINT 'Dropping Procedure custMS_AccountEquipmentsViewAddEquipment'
+		DROP  Procedure  dbo.custMS_AccountEquipmentsViewAddEquipment
 	END
 GO
 
-PRINT 'Creating Procedure custMS_AccountSiteGeneralDispatchByAccountId'
+PRINT 'Creating Procedure custMS_AccountEquipmentsViewAddEquipment'
 GO
 /******************************************************************************
-**		File: custMS_AccountSiteGeneralDispatchByAccountId.sql
-**		Name: custMS_AccountSiteGeneralDispatchByAccountId
+**		File: custMS_AccountEquipmentsViewAddEquipment.sql
+**		Name: custMS_AccountEquipmentsViewAddEquipment
 **		Desc: 
 **
 **		This template can be customized:
@@ -35,7 +35,7 @@ GO
 **	04/02/2015	Andres Sosa		Created By
 **	
 *******************************************************************************/
-CREATE Procedure dbo.custMS_AccountSiteGeneralDispatchByAccountId
+CREATE Procedure dbo.custMS_AccountEquipmentsViewAddEquipment
 (
 	@AccountId BIGINT = NULL
 )
@@ -57,7 +57,7 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON dbo.custMS_AccountSiteGeneralDispatchByAccountId TO PUBLIC
+GRANT EXEC ON dbo.custMS_AccountEquipmentsViewAddEquipment TO PUBLIC
 GO
 
-/** EXEC dbo.custMS_AccountSiteGeneralDispatchByAccountId */
+/** EXEC dbo.custMS_AccountEquipmentsViewAddEquipment */

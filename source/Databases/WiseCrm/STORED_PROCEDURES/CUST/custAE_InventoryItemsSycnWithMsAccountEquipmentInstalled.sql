@@ -62,6 +62,7 @@ BEGIN
 		, @InvoiceID BIGINT
 		, @InvoiceItemID BIGINT
 		, @RetailPrice MONEY
+		, @Count INT = 0
 	
 	BEGIN TRY
 		BEGIN TRANSACTION
@@ -95,6 +96,7 @@ BEGIN
 		BEGIN
 			/** Initialize */
 			SET @InvoiceItemID = NULL;
+			SET @Count = @Count + 1;
 
 			/** Find a matching SKU with no barcode ID */
 			SELECT TOP 1 
@@ -198,13 +200,15 @@ BEGIN
 
 		CLOSE accountEqCursor;
 		DEALLOCATE accountEqCursor;
-
+		
+		PRINT 'Total Rows Modified: ' + CAST(@Count AS VARCHAR);
+		PRINT '============= NOW MOVING ON TO MS_AccountEquipment ==================='
 		/*
 		* Next Step is to loop through all those Invoice Items that do not have an AccountEquipmentID
 		* DESC:  Only loop through things that are inventoried and have a cost
 		*/
 		DECLARE invoiceItemCursor CURSOR FOR
-		SELECT AEII.InvoiceItemId, AEII.ItemId AS EquipmentID, AEII.SystemPoints, AEII.ProductBarcodeId, AEII.RetailPrice AS BarcodeId, AEIT.ItemSKU
+		SELECT AEII.InvoiceItemId, AEII.ItemId, AEII.SystemPoints, AEII.ProductBarcodeId, AEIT.ItemSKU, AEII.RetailPrice
 		FROM
 			[dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
 			INNER JOIN [dbo].[AE_Items] AS AEIT WITH (NOLOCK)
@@ -223,7 +227,8 @@ BEGIN
 		WHILE (@@FETCH_STATUS = 0)
 		BEGIN
 			/** Check that there is a relationship otherwise create a row*/
-			SELECT @AccountEquipmentID = AccountEquipmentID
+			SELECT TOP 1
+				@AccountEquipmentID = AccountEquipmentID
 			FROM
 				[dbo].[MS_AccountEquipment] AS MSAEQ WITH (NOLOCK)
 			WHERE
