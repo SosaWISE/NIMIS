@@ -76,16 +76,6 @@ namespace NXS.Data.Funding
 			}
 		}
 
-		FE_CriteriumController _FE_Criteria;
-		public FE_CriteriumController FE_Criteria
-		{
-			get
-			{
-				if (_FE_Criteria == null) _FE_Criteria = new FE_CriteriumController();
-				return _FE_Criteria;
-			}
-		}
-
 		FE_CriteriaItemController _FE_CriteriaItems;
 		public FE_CriteriaItemController FE_CriteriaItems
 		{
@@ -93,6 +83,16 @@ namespace NXS.Data.Funding
 			{
 				if (_FE_CriteriaItems == null) _FE_CriteriaItems = new FE_CriteriaItemController();
 				return _FE_CriteriaItems;
+			}
+		}
+
+		FE_CriteriaController _FE_Criterias;
+		public FE_CriteriaController FE_Criterias
+		{
+			get
+			{
+				if (_FE_Criterias == null) _FE_Criterias = new FE_CriteriaController();
+				return _FE_Criterias;
 			}
 		}
 
@@ -146,16 +146,6 @@ namespace NXS.Data.Funding
 			}
 		}
 
-		FE_PurchasedAccountController _FE_PurchasedAccounts;
-		public FE_PurchasedAccountController FE_PurchasedAccounts
-		{
-			get
-			{
-				if (_FE_PurchasedAccounts == null) _FE_PurchasedAccounts = new FE_PurchasedAccountController();
-				return _FE_PurchasedAccounts;
-			}
-		}
-
 		FE_PurchasedAccountMonitronicController _FE_PurchasedAccountMonitronics;
 		public FE_PurchasedAccountMonitronicController FE_PurchasedAccountMonitronics
 		{
@@ -163,6 +153,16 @@ namespace NXS.Data.Funding
 			{
 				if (_FE_PurchasedAccountMonitronics == null) _FE_PurchasedAccountMonitronics = new FE_PurchasedAccountMonitronicController();
 				return _FE_PurchasedAccountMonitronics;
+			}
+		}
+
+		FE_PurchasedAccountController _FE_PurchasedAccounts;
+		public FE_PurchasedAccountController FE_PurchasedAccounts
+		{
+			get
+			{
+				if (_FE_PurchasedAccounts == null) _FE_PurchasedAccounts = new FE_PurchasedAccountController();
+				return _FE_PurchasedAccounts;
 			}
 		}
 
@@ -270,6 +270,76 @@ namespace NXS.Data.Funding
 
 		#region View Controllers Properties
 
+		FE_BundleItemsViewController _FE_BundleItemsViews;
+		public FE_BundleItemsViewController FE_BundleItemsViews
+		{
+			get
+			{
+				if (_FE_BundleItemsViews == null) _FE_BundleItemsViews = new FE_BundleItemsViewController();
+				return _FE_BundleItemsViews;
+			}
+		}
+
+		FE_BundlesViewController _FE_BundlesViews;
+		public FE_BundlesViewController FE_BundlesViews
+		{
+			get
+			{
+				if (_FE_BundlesViews == null) _FE_BundlesViews = new FE_BundlesViewController();
+				return _FE_BundlesViews;
+			}
+		}
+
+		FE_CriteriasViewController _FE_CriteriasViews;
+		public FE_CriteriasViewController FE_CriteriasViews
+		{
+			get
+			{
+				if (_FE_CriteriasViews == null) _FE_CriteriasViews = new FE_CriteriasViewController();
+				return _FE_CriteriasViews;
+			}
+		}
+
+		FE_PacketItemsViewController _FE_PacketItemsViews;
+		public FE_PacketItemsViewController FE_PacketItemsViews
+		{
+			get
+			{
+				if (_FE_PacketItemsViews == null) _FE_PacketItemsViews = new FE_PacketItemsViewController();
+				return _FE_PacketItemsViews;
+			}
+		}
+
+		FE_PacketsViewController _FE_PacketsViews;
+		public FE_PacketsViewController FE_PacketsViews
+		{
+			get
+			{
+				if (_FE_PacketsViews == null) _FE_PacketsViews = new FE_PacketsViewController();
+				return _FE_PacketsViews;
+			}
+		}
+
+		FE_RejectedAccountsViewController _FE_RejectedAccountsViews;
+		public FE_RejectedAccountsViewController FE_RejectedAccountsViews
+		{
+			get
+			{
+				if (_FE_RejectedAccountsViews == null) _FE_RejectedAccountsViews = new FE_RejectedAccountsViewController();
+				return _FE_RejectedAccountsViews;
+			}
+		}
+
+		MS_AccountsViewController _MS_AccountsViews;
+		public MS_AccountsViewController MS_AccountsViews
+		{
+			get
+			{
+				if (_MS_AccountsViews == null) _MS_AccountsViews = new MS_AccountsViewController();
+				return _MS_AccountsViews;
+			}
+		}
+
 		#endregion //View Controllers Properties
 	}
 
@@ -279,15 +349,15 @@ namespace NXS.Data.Funding
 	public class FE_AccountFundingStatusTypeController : BaseTableController<FE_AccountFundingStatusType, FE_AccountFundingStatusTypeCollection> { }
 	public class FE_BundleItemController : BaseTableController<FE_BundleItem, FE_BundleItemCollection> { }
 	public class FE_BundleController : BaseTableController<FE_Bundle, FE_BundleCollection> { }
-	public class FE_CriteriumController : BaseTableController<FE_Criterium, FE_CriteriumCollection> { }
 	public class FE_CriteriaItemController : BaseTableController<FE_CriteriaItem, FE_CriteriaItemCollection> { }
+	public class FE_CriteriaController : BaseTableController<FE_Criteria, FE_CriteriaCollection> { }
 	public class FE_FundingHistoryController : BaseTableController<FE_FundingHistory, FE_FundingHistoryCollection> { }
 	public class FE_PacketItemController : BaseTableController<FE_PacketItem, FE_PacketItemCollection> { }
 	public class FE_PacketController : BaseTableController<FE_Packet, FE_PacketCollection> { }
 	public class FE_PurchaseContractMonitronicController : BaseTableController<FE_PurchaseContractMonitronic, FE_PurchaseContractMonitronicCollection> { }
 	public class FE_PurchaseContractController : BaseTableController<FE_PurchaseContract, FE_PurchaseContractCollection> { }
-	public class FE_PurchasedAccountController : BaseTableController<FE_PurchasedAccount, FE_PurchasedAccountCollection> { }
 	public class FE_PurchasedAccountMonitronicController : BaseTableController<FE_PurchasedAccountMonitronic, FE_PurchasedAccountMonitronicCollection> { }
+	public class FE_PurchasedAccountController : BaseTableController<FE_PurchasedAccount, FE_PurchasedAccountCollection> { }
 	public class FE_PurchaserController : BaseTableController<FE_Purchaser, FE_PurchaserCollection> { }
 	public class FE_RejectedAccountController : BaseTableController<FE_RejectedAccount, FE_RejectedAccountCollection> { }
 	public class FE_RejectionController : BaseTableController<FE_Rejection, FE_RejectionCollection> { }
@@ -303,6 +373,13 @@ namespace NXS.Data.Funding
 
 	#region View Controllers
 
+	public class FE_BundleItemsViewController : BaseViewController<FE_BundleItemsView, FE_BundleItemsViewCollection> { }
+	public class FE_BundlesViewController : BaseViewController<FE_BundlesView, FE_BundlesViewCollection> { }
+	public class FE_CriteriasViewController : BaseViewController<FE_CriteriasView, FE_CriteriasViewCollection> { }
+	public class FE_PacketItemsViewController : BaseViewController<FE_PacketItemsView, FE_PacketItemsViewCollection> { }
+	public class FE_PacketsViewController : BaseViewController<FE_PacketsView, FE_PacketsViewCollection> { }
+	public class FE_RejectedAccountsViewController : BaseViewController<FE_RejectedAccountsView, FE_RejectedAccountsViewCollection> { }
+	public class MS_AccountsViewController : BaseViewController<MS_AccountsView, MS_AccountsViewCollection> { }
 
 	#endregion //View Controllers
 }

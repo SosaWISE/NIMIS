@@ -2,7 +2,6 @@
 using System.Web.Http;
 using SOS.FunctionalServices;
 using SOS.FunctionalServices.Contracts;
-using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.CentralStation;
 using SOS.FunctionalServices.Models.CentralStation;
 using SSE.Services.CmsCORS.Helpers;
@@ -37,7 +36,7 @@ namespace SSE.Services.CmsCORS.Controllers.MsAccountSetup
 		[HttpPost]
 		public Result<IFnsMsAccountEquipmentsView> Create([FromBody]FnsMsAccountEquipmentsView equipment)
 		{
-			return this.Update((equipment != null) ? equipment.AccountEquipmentID : 0, equipment);
+			return Update((equipment != null) ? equipment.AccountEquipmentID : 0, equipment);
 		}
 		[Route("Equipments/{id}")]
 		[HttpPost]

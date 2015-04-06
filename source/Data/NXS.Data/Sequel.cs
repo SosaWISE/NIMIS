@@ -145,10 +145,16 @@ namespace NXS.Data
 			return this;
 		}
 
+		public Sequel With(string with)
+		{
+			_builder.Append(" WITH(");
+			_builder.Append(with);
+			_builder.Append(")");
+			return this;
+		}
 		public Sequel WithNoLock()
 		{
-			_builder.Append(" WITH(NOLOCK)");
-			return this;
+			return With("NOLOCK");
 		}
 
 		protected Sequel InternalFrom(string prefix, ITable qt, bool withNoLock)

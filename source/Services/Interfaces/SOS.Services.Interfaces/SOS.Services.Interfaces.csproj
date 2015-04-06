@@ -89,6 +89,11 @@
     </Compile>
     <Compile Include="Models\DocBarcode\BxBarcode.cs" />
     <Compile Include="Models\DoNotCall\DncPhoneNumber.cs" />
+    <Compile Include="Models\Funding\FeBundle.cs" />
+    <Compile Include="Models\Funding\FeBundleItems.cs" />
+    <Compile Include="Models\Funding\FeCriteria.cs" />
+    <Compile Include="Models\Funding\FePacket.cs" />
+    <Compile Include="Models\Funding\FePacketItem.cs" />
     <Compile Include="Models\GpsTracking\GsAccountGeoFence.cs" />
     <Compile Include="Models\GpsTracking\GsAccountGeoFenceCircles.cs" />
     <Compile Include="Models\GpsTracking\GsAccountGeoFencePoints.cs" />
@@ -122,6 +127,7 @@
     <Compile Include="Models\InventoryEngine\IePurchaseOrder.cs" />
     <Compile Include="Models\InventoryEngine\IePurchaseOrderItem.cs" />
     <Compile Include="Models\HumanResources\RuTeamLocation.cs" />
+    <Compile Include="Models\Licensing\LmSalesRepRequirement.cs" />
     <Compile Include="Models\MainCore\McDepartment.cs" />
     <Compile Include="Models\MonitoringStation\MsAccountOnlineStatusInfo.cs" />
     <Compile Include="Models\MonitoringStation\MsEmergencyContactAuthority.cs" />
@@ -146,6 +152,7 @@
     <Compile Include="Models\MonitoringStation\MsIndustryAccountReq.cs" />
     <Compile Include="Models\MonitoringStation\MsIndustryAccountWithReceiverLineInfo.cs" />
     <Compile Include="Models\MonitoringStation\MsSignalHistoryItem.cs" />
+    <Compile Include="Models\NxsVerifyAddressAndLicensing.cs" />
     <Compile Include="Models\QualifyLead\IQlQualifyCustomerInfo.cs" />
     <Compile Include="Models\QualifyLead\McLead.cs" />
     <Compile Include="Models\MainCore\McNote.cs" />
@@ -172,6 +179,7 @@
     <Compile Include="Models\MonitoringStation\MsEmergencyContact.cs" />
     <Compile Include="Models\MonitoringStation\MsVendorAlarmComPackage.cs" />
     <Compile Include="Models\OptionItemModels.cs" />
+    <Compile Include="Models\QualifyLead\QlAddress.cs" />
     <Compile Include="Models\RuModels.cs" />
     <Compile Include="Models\SalesHareReportSrv\CreditsAndInstallsRequest.cs" />
     <Compile Include="Models\SalesHareReportSrv\MsAccountCreditsAndInstalls.cs" />

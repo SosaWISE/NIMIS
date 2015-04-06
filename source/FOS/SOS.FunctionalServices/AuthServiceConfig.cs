@@ -1,6 +1,7 @@
 ﻿using Nancy.Authentication.Token;
 using NXS.Lib.Web;
 using NXS.Lib.Web.Authentication;
+using Tokenizer = NXS.Lib.Web.Authentication.Tokenizer;
 using NXS.Lib.Web.Caching;
 using SOS.Data.AuthenticationControl;
 using SOS.FunctionalServices.Contracts;
@@ -76,7 +77,7 @@ namespace SOS.FunctionalServices
 	{
 		public static void Configure(IFunctionalServiceFactory functionalServices)
 		{
-			var maxAge = TimeSpan.FromHours(24);
+			var maxAge = TimeSpan.FromHours(24); // this should match TokenExpiration
 			{
 				// Session Store
 				var sessionStore = CreateSessionStore(maxAge);
@@ -262,8 +263,41 @@ namespace SOS.FunctionalServices
 						return System.Web.HttpContext.Current.Request.Headers["User-Agent"];
 					return ctx.Request.Headers.UserAgent;
 				});
+
+				// length of time a token is valid for after its generating key has expired.
+				cfg.TokenExpiration(() => TimeSpan.FromHours(24));
+				// length of time a key can be used to generate new tokens
+				cfg.KeyExpiration(() => TimeSpan.FromHours(8));
+
+				// Save keys to db
+				cfg.WithKeyCache(new PersistentKeyStore(
+					update: (DateTime purgeExpiration, DateTime validExpiration, byte[] newKey) =>
+					{
+						var kvService = new NXS.DataServices.AuthenticationControl.KeyValueService();
+						var newKeyValue = (newKey == null) ? null : SOS.Lib.Util.Cryptography.TripleDES.EncryptString(newKey, null);
+						return ConvertKeyValues(kvService.UpdateAll(purgeExpiration, validExpiration, newKeyValue));
+					},
+					read: () =>
+					{
+						var kvService = new NXS.DataServices.AuthenticationControl.KeyValueService();
+						return ConvertKeyValues(kvService.ReadAll());
+					}
+				));
 			});
 			return tokenizer;
+		}
+
+		private static List<KeyValue> ConvertKeyValues(List<NXS.DataServices.AuthenticationControl.Models.AcKeyValue> items)
+		{
+			var list = new List<KeyValue>();
+			foreach (var item in items)
+			{
+				var kv = new KeyValue();
+				kv.Value = SOS.Lib.Util.Cryptography.TripleDES.DecryptBytes(item.KeyValue, null);
+				kv.CreatedOn = item.CreatedOn;
+				list.Add(kv);
+			}
+			return list;
 		}
 	}
 }

@@ -44,6 +44,11 @@ namespace SOS.FunctionalServices.Contracts.Models.CentralStation
 		string AMA { get; set; }
 		string NOC { get; set; }
 		string SOP { get; set; }
+		DateTime? ApprovedDate { get; set; }
+		string ApproverID { get; set; }
+		DateTime? NOCDate { get; set; }
+		bool? OptOutCorporate { get; set; }
+		bool? OptOutAffiliate { get; set; }
 
 		//bool IsActive { get; set; }
 		//bool IsDeleted { get; set; }

@@ -50,6 +50,7 @@
     <Compile Include="CrmDb.cs" />
     <Compile Include="Extensions\AE_CustomerAccountTableExtensions.cs" />
     <Compile Include="Extensions\MC_AddressTableExtensions.cs" />
+    <Compile Include="Extensions\MS_AccountHoldTableExtensions.cs" />
     <Compile Include="Extensions\TS_TeamTableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\AE_CustomerTableExtensions.cs" />

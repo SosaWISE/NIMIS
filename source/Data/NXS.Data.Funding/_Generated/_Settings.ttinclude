@@ -4,7 +4,7 @@
 		const string ConnectionStringName = "NxsFundingConnString";
 		const string DatabaseName = "NxseFundingData";
 
-		const string ProviderName = "NxseFundingProvider";
+		const string ProviderName = "NxsFundingProvider";
 
 		const string IncludeProcedureList = "^cust*";
 		const string ExcludeProcedureList = "^custFx*";

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NXS.Data.Crm.Repos
+namespace NXS.Data.Crm
 {
 	using AR = TS_Team;
 	using ARCollection = IEnumerable<TS_Team>;

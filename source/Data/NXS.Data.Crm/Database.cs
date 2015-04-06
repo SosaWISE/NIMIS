@@ -8,6 +8,9 @@ namespace NXS.Data.Crm
 		public AE_CustomerAccountTable AE_CustomerAccounts { get; set; }
 		public AE_CustomerTable AE_Customers { get; set; }
 		public MC_AddressTable MC_Addresses { get; set; }
+		public MS_AccountHoldCatg1Table MS_AccountHoldCatg1s { get; set; }
+		public MS_AccountHoldCatg2Table MS_AccountHoldCatg2s { get; set; }
+		public MS_AccountHoldTable MS_AccountHolds { get; set; }
 		public MS_AccountSalesInformationTable MS_AccountSalesInformations { get; set; }
 		public QL_AddressTable QL_Addresses { get; set; }
 		public QL_CustomerMasterLeadTable QL_CustomerMasterLeads { get; set; }
@@ -111,6 +114,59 @@ namespace NXS.Data.Crm
 			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
 		}
+		public partial class MS_AccountHoldCatg1Table : Table<MS_AccountHoldCatg1, int>
+		{
+			public CrmDb Db { get { return (CrmDb)_database; } }
+			public MS_AccountHoldCatg1Table(CrmDb db) : base(db, "MsAHC", "[dbo].[MS_AccountHoldCatg1]", "Catg1ID", "int") { }
+			public string Catg1ID { get { return _alias + "[Catg1ID]"; } }
+			public string CatgName { get { return _alias + "[CatgName]"; } }
+			public string CatgDescription { get { return _alias + "[CatgDescription]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+		}
+		public partial class MS_AccountHoldCatg2Table : Table<MS_AccountHoldCatg2, int>
+		{
+			public CrmDb Db { get { return (CrmDb)_database; } }
+			public MS_AccountHoldCatg2Table(CrmDb db) : base(db, "MsAcHoCa", "[dbo].[MS_AccountHoldCatg2]", "Catg2ID", "int") { }
+			public string Catg2ID { get { return _alias + "[Catg2ID]"; } }
+			public string CatgName { get { return _alias + "[CatgName]"; } }
+			public string Catg1Id { get { return _alias + "[Catg1Id]"; } }
+			public string RecruitFriendlyName { get { return _alias + "[RecruitFriendlyName]"; } }
+			public string CatgDescription { get { return _alias + "[CatgDescription]"; } }
+			public string IsRepFrontEndHold { get { return _alias + "[IsRepFrontEndHold]"; } }
+			public string IsRepBackEndHold { get { return _alias + "[IsRepBackEndHold]"; } }
+			public string IsTechFrontEndHold { get { return _alias + "[IsTechFrontEndHold]"; } }
+			public string IsTechBackEndHold { get { return _alias + "[IsTechBackEndHold]"; } }
+			public string PreventsContractSale { get { return _alias + "[PreventsContractSale]"; } }
+			public string IsAccountFlag { get { return _alias + "[IsAccountFlag]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+		}
+		public partial class MS_AccountHoldTable : Table<MS_AccountHold, int>
+		{
+			public CrmDb Db { get { return (CrmDb)_database; } }
+			public MS_AccountHoldTable(CrmDb db) : base(db, "MsAH", "[dbo].[MS_AccountHolds]", "AccountHoldID", "int") { }
+			public string AccountHoldID { get { return _alias + "[AccountHoldID]"; } }
+			public string AccountId { get { return _alias + "[AccountId]"; } }
+			public string Catg2Id { get { return _alias + "[Catg2Id]"; } }
+			public string HoldDescription { get { return _alias + "[HoldDescription]"; } }
+			public string FixedNote { get { return _alias + "[FixedNote]"; } }
+			public string FixedBy { get { return _alias + "[FixedBy]"; } }
+			public string FixedOn { get { return _alias + "[FixedOn]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+		}
 		public partial class MS_AccountSalesInformationTable : Table<MS_AccountSalesInformation, long>
 		{
 			public CrmDb Db { get { return (CrmDb)_database; } }
@@ -122,6 +178,7 @@ namespace NXS.Data.Crm
 			public string AccountCancelReasonId { get { return _alias + "[AccountCancelReasonId]"; } }
 			public string TechId { get { return _alias + "[TechId]"; } }
 			public string SalesRepId { get { return _alias + "[SalesRepId]"; } }
+			public string AccountFundingStatusId { get { return _alias + "[AccountFundingStatusId]"; } }
 			public string BillingDay { get { return _alias + "[BillingDay]"; } }
 			public string Email { get { return _alias + "[Email]"; } }
 			public string IsMoni { get { return _alias + "[IsMoni]"; } }
@@ -137,8 +194,11 @@ namespace NXS.Data.Crm
 			public string AMA { get { return _alias + "[AMA]"; } }
 			public string NOC { get { return _alias + "[NOC]"; } }
 			public string SOP { get { return _alias + "[SOP]"; } }
-			public string IsActive { get { return _alias + "[IsActive]"; } }
-			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ApprovedDate { get { return _alias + "[ApprovedDate]"; } }
+			public string ApproverID { get { return _alias + "[ApproverID]"; } }
+			public string NOCDate { get { return _alias + "[NOCDate]"; } }
+			public string OptOutCorporate { get { return _alias + "[OptOutCorporate]"; } }
+			public string OptOutAffiliate { get { return _alias + "[OptOutAffiliate]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
 			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
 			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }

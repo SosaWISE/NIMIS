@@ -44,6 +44,11 @@ namespace SOS.Services.Interfaces.Models.MonitoringStation
 		public string AMA { get; set; }
 		public string NOC { get; set; }
 		public string SOP { get; set; }
+		public DateTime? ApprovedDate { get; set; }
+		public string ApproverID { get; set; }
+		public DateTime? NOCDate { get; set; }
+		public bool OptOutCorporate { get; set; }
+		public bool OptOutAffiliate { get; set; }
 		#endregion Properties
 	}
 
@@ -87,5 +92,10 @@ namespace SOS.Services.Interfaces.Models.MonitoringStation
 		string AMA { get; set; }
 		string NOC { get; set; }
 		string SOP { get; set; }
+		DateTime? ApprovedDate { get; set; }
+		string ApproverID { get; set; }
+		DateTime? NOCDate { get; set; }
+		bool OptOutCorporate { get; set; }
+		bool OptOutAffiliate { get; set; }
 	}
 }

@@ -88,7 +88,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_AccountFundingStatus", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_AccountFundingStatus", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -161,7 +161,7 @@ namespace NXS.Data.Funding
 				TableSchema.TableColumn colvarAccountStatusNote = new TableSchema.TableColumn(schema);
 				colvarAccountStatusNote.ColumnName = "AccountStatusNote";
 				colvarAccountStatusNote.DataType = DbType.String;
-				colvarAccountStatusNote.MaxLength = 1073741823;
+				colvarAccountStatusNote.MaxLength = -1;
 				colvarAccountStatusNote.AutoIncrement = false;
 				colvarAccountStatusNote.IsNullable = true;
 				colvarAccountStatusNote.IsPrimaryKey = false;
@@ -198,7 +198,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_AccountFundingStatus",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_AccountFundingStatus",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -414,7 +414,7 @@ namespace NXS.Data.Funding
 		}
 
 		private FE_RejectedAccountCollection _FE_RejectedAccountsCol;
-		//Relationship: FK_FE_RejectedAccount_FE_AccountFundingStatus
+		//Relationship: FK_FE_RejectedAccounts_FE_AccountFundingStatus
 		public FE_RejectedAccountCollection FE_RejectedAccountsCol
 		{
 			get
@@ -459,7 +459,7 @@ namespace NXS.Data.Funding
 		}
 
 		private FE_SubmittedToPurchaserAccountCollection _FE_SubmittedToPurchaserAccountsCol;
-		//Relationship: FK_FE_SubmittedToPurchaserAccount_FE_AccountFundingStatus
+		//Relationship: FK_FE_SubmittedToPurchaserAccounts_FE_AccountFundingStatus
 		public FE_SubmittedToPurchaserAccountCollection FE_SubmittedToPurchaserAccountsCol
 		{
 			get
@@ -549,7 +549,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_AccountFundingStatusTypes", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_AccountFundingStatusTypes", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -620,7 +620,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarAccountFundingStatusDescription);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_AccountFundingStatusTypes",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_AccountFundingStatusTypes",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -821,7 +821,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_BundleItems", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_BundleItems", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -865,6 +865,19 @@ namespace NXS.Data.Funding
 				colvarPacketId.ForeignKeyTableName = "FE_Packets";
 				schema.Columns.Add(colvarPacketId);
 
+				TableSchema.TableColumn colvarIsDeleted = new TableSchema.TableColumn(schema);
+				colvarIsDeleted.ColumnName = "IsDeleted";
+				colvarIsDeleted.DataType = DbType.Boolean;
+				colvarIsDeleted.MaxLength = 0;
+				colvarIsDeleted.AutoIncrement = false;
+				colvarIsDeleted.IsNullable = false;
+				colvarIsDeleted.IsPrimaryKey = false;
+				colvarIsDeleted.IsForeignKey = false;
+				colvarIsDeleted.IsReadOnly = false;
+				colvarIsDeleted.DefaultSetting = @"((0))";
+				colvarIsDeleted.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarIsDeleted);
+
 				TableSchema.TableColumn colvarCreatedOn = new TableSchema.TableColumn(schema);
 				colvarCreatedOn.ColumnName = "CreatedOn";
 				colvarCreatedOn.DataType = DbType.DateTime;
@@ -892,7 +905,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_BundleItems",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_BundleItems",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -930,6 +943,14 @@ namespace NXS.Data.Funding
 			set {
 				SetColumnValue(Columns.PacketId, value);
 				OnPropertyChanged(new PropertyChangedEventArgs(Columns.PacketId));
+			}
+		}
+		[DataMember]
+		public bool IsDeleted {
+			get { return GetColumnValue<bool>(Columns.IsDeleted); }
+			set {
+				SetColumnValue(Columns.IsDeleted, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.IsDeleted));
 			}
 		}
 		[DataMember]
@@ -1010,13 +1031,17 @@ namespace NXS.Data.Funding
 		{
 			get { return Schema.Columns[2]; }
 		}
-		public static TableSchema.TableColumn CreatedOnColumn
+		public static TableSchema.TableColumn IsDeletedColumn
 		{
 			get { return Schema.Columns[3]; }
 		}
-		public static TableSchema.TableColumn CreatedByColumn
+		public static TableSchema.TableColumn CreatedOnColumn
 		{
 			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn CreatedByColumn
+		{
+			get { return Schema.Columns[5]; }
 		}
 
 		#endregion
@@ -1027,6 +1052,7 @@ namespace NXS.Data.Funding
 			public static readonly string BundleItemID = @"BundleItemID";
 			public static readonly string BundleId = @"BundleId";
 			public static readonly string PacketId = @"PacketId";
+			public static readonly string IsDeleted = @"IsDeleted";
 			public static readonly string CreatedOn = @"CreatedOn";
 			public static readonly string CreatedBy = @"CreatedBy";
 		}
@@ -1114,7 +1140,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_Bundles", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_Bundles", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -1198,7 +1224,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_Bundles",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_Bundles",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -1376,14 +1402,14 @@ namespace NXS.Data.Funding
 
 	}
 	/// <summary>
-	/// Strongly-typed collection for the FE_Criterium class.
+	/// Strongly-typed collection for the FE_CriteriaItem class.
 	/// </summary>
 	[DataContract]
-	public partial class FE_CriteriumCollection : ActiveList<FE_Criterium, FE_CriteriumCollection>
+	public partial class FE_CriteriaItemCollection : ActiveList<FE_CriteriaItem, FE_CriteriaItemCollection>
 	{
-		public static FE_CriteriumCollection LoadByStoredProcedure(StoredProcedure sp)
+		public static FE_CriteriaItemCollection LoadByStoredProcedure(StoredProcedure sp)
 		{
-			FE_CriteriumCollection result = new FE_CriteriumCollection();
+			FE_CriteriaItemCollection result = new FE_CriteriaItemCollection();
 			result.LoadAndCloseReader(sp.GetReader());
 			return result;
 		}
@@ -1397,7 +1423,7 @@ namespace NXS.Data.Funding
 		}
 		public IEnumerable<object> GetJoinColumnList(string columnName)
 		{
-			foreach (FE_Criterium item in this) {
+			foreach (FE_CriteriaItem item in this) {
 				object value = item.GetColumnValue<object>(columnName);
 				if (value != null) {
 					yield return value;
@@ -1407,10 +1433,10 @@ namespace NXS.Data.Funding
 	}
 
 	/// <summary>
-	/// This is an ActiveRecord class which wraps the FE_Criteria table.
+	/// This is an ActiveRecord class which wraps the FE_CriteriaItems table.
 	/// </summary>
 	[DataContract]
-	public partial class FE_Criterium : ActiveRecord<FE_Criterium>, INotifyPropertyChanged
+	public partial class FE_CriteriaItem : ActiveRecord<FE_CriteriaItem>, INotifyPropertyChanged
 	{
 
 
@@ -1425,7 +1451,7 @@ namespace NXS.Data.Funding
 
 		#region .ctors and Default Settings
 
-		public FE_Criterium()
+		public FE_CriteriaItem()
 		{
 			SetSQLProps();InitSetDefaults();MarkNew();
 		}
@@ -1448,7 +1474,308 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_Criteria", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_CriteriaItems", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarCriteraItemID = new TableSchema.TableColumn(schema);
+				colvarCriteraItemID.ColumnName = "CriteraItemID";
+				colvarCriteraItemID.DataType = DbType.Int32;
+				colvarCriteraItemID.MaxLength = 0;
+				colvarCriteraItemID.AutoIncrement = true;
+				colvarCriteraItemID.IsNullable = false;
+				colvarCriteraItemID.IsPrimaryKey = true;
+				colvarCriteraItemID.IsForeignKey = false;
+				colvarCriteraItemID.IsReadOnly = false;
+				colvarCriteraItemID.DefaultSetting = @"";
+				colvarCriteraItemID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCriteraItemID);
+
+				TableSchema.TableColumn colvarCriteriaId = new TableSchema.TableColumn(schema);
+				colvarCriteriaId.ColumnName = "CriteriaId";
+				colvarCriteriaId.DataType = DbType.Int32;
+				colvarCriteriaId.MaxLength = 0;
+				colvarCriteriaId.AutoIncrement = false;
+				colvarCriteriaId.IsNullable = false;
+				colvarCriteriaId.IsPrimaryKey = false;
+				colvarCriteriaId.IsForeignKey = true;
+				colvarCriteriaId.IsReadOnly = false;
+				colvarCriteriaId.DefaultSetting = @"";
+				colvarCriteriaId.ForeignKeyTableName = "FE_Criterias";
+				schema.Columns.Add(colvarCriteriaId);
+
+				TableSchema.TableColumn colvarColumnName = new TableSchema.TableColumn(schema);
+				colvarColumnName.ColumnName = "ColumnName";
+				colvarColumnName.DataType = DbType.String;
+				colvarColumnName.MaxLength = 50;
+				colvarColumnName.AutoIncrement = false;
+				colvarColumnName.IsNullable = false;
+				colvarColumnName.IsPrimaryKey = false;
+				colvarColumnName.IsForeignKey = false;
+				colvarColumnName.IsReadOnly = false;
+				colvarColumnName.DefaultSetting = @"";
+				colvarColumnName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarColumnName);
+
+				TableSchema.TableColumn colvarValueX = new TableSchema.TableColumn(schema);
+				colvarValueX.ColumnName = "Value";
+				colvarValueX.DataType = DbType.String;
+				colvarValueX.MaxLength = 50;
+				colvarValueX.AutoIncrement = false;
+				colvarValueX.IsNullable = false;
+				colvarValueX.IsPrimaryKey = false;
+				colvarValueX.IsForeignKey = false;
+				colvarValueX.IsReadOnly = false;
+				colvarValueX.DefaultSetting = @"";
+				colvarValueX.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarValueX);
+
+				TableSchema.TableColumn colvarOperatorX = new TableSchema.TableColumn(schema);
+				colvarOperatorX.ColumnName = "Operator";
+				colvarOperatorX.DataType = DbType.String;
+				colvarOperatorX.MaxLength = 50;
+				colvarOperatorX.AutoIncrement = false;
+				colvarOperatorX.IsNullable = false;
+				colvarOperatorX.IsPrimaryKey = false;
+				colvarOperatorX.IsForeignKey = false;
+				colvarOperatorX.IsReadOnly = false;
+				colvarOperatorX.DefaultSetting = @"";
+				colvarOperatorX.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarOperatorX);
+
+				TableSchema.TableColumn colvarNotMetMessage = new TableSchema.TableColumn(schema);
+				colvarNotMetMessage.ColumnName = "NotMetMessage";
+				colvarNotMetMessage.DataType = DbType.String;
+				colvarNotMetMessage.MaxLength = 50;
+				colvarNotMetMessage.AutoIncrement = false;
+				colvarNotMetMessage.IsNullable = true;
+				colvarNotMetMessage.IsPrimaryKey = false;
+				colvarNotMetMessage.IsForeignKey = false;
+				colvarNotMetMessage.IsReadOnly = false;
+				colvarNotMetMessage.DefaultSetting = @"";
+				colvarNotMetMessage.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarNotMetMessage);
+
+				BaseSchema = schema;
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_CriteriaItems",schema);
+			}
+		}
+		#endregion // Schema and Query Accessor
+
+		public static FE_CriteriaItem LoadFrom(FE_CriteriaItem item)
+		{
+			FE_CriteriaItem result = new FE_CriteriaItem();
+			if (item.CriteraItemID != default(int)) {
+				result.LoadByKey(item.CriteraItemID);
+			}
+			result.CopyFrom(item);
+			return result;
+		}
+
+		#region Properties
+		[DataMember]
+		public int CriteraItemID {
+			get { return GetColumnValue<int>(Columns.CriteraItemID); }
+			set {
+				SetColumnValue(Columns.CriteraItemID, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CriteraItemID));
+			}
+		}
+		[DataMember]
+		public int CriteriaId {
+			get { return GetColumnValue<int>(Columns.CriteriaId); }
+			set {
+				SetColumnValue(Columns.CriteriaId, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CriteriaId));
+			}
+		}
+		[DataMember]
+		public string ColumnName {
+			get { return GetColumnValue<string>(Columns.ColumnName); }
+			set {
+				SetColumnValue(Columns.ColumnName, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.ColumnName));
+			}
+		}
+		[DataMember]
+		public string ValueX {
+			get { return GetColumnValue<string>(Columns.ValueX); }
+			set {
+				SetColumnValue(Columns.ValueX, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.ValueX));
+			}
+		}
+		[DataMember]
+		public string OperatorX {
+			get { return GetColumnValue<string>(Columns.OperatorX); }
+			set {
+				SetColumnValue(Columns.OperatorX, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.OperatorX));
+			}
+		}
+		[DataMember]
+		public string NotMetMessage {
+			get { return GetColumnValue<string>(Columns.NotMetMessage); }
+			set {
+				SetColumnValue(Columns.NotMetMessage, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.NotMetMessage));
+			}
+		}
+
+		#endregion //Properties
+
+		#region ForeignKey Properties
+
+		private FE_Criteria _Criteria;
+		//Relationship: FK_FE_CriteriaItems_FE_Criteria
+		public FE_Criteria Criteria
+		{
+			get
+			{
+				if(_Criteria == null) {
+					_Criteria = FE_Criteria.FetchByID(this.CriteriaId);
+				}
+				return _Criteria;
+			}
+			set
+			{
+				SetColumnValue("CriteriaId", value.CriteriaID);
+				_Criteria = value;
+			}
+		}
+
+		#endregion //ForeignKey Properties
+
+		public override string ToString()
+		{
+			return CriteraItemID.ToString();
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn CriteraItemIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn CriteriaIdColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn ColumnNameColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn ValueXColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn OperatorXColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn NotMetMessageColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public static readonly string CriteraItemID = @"CriteraItemID";
+			public static readonly string CriteriaId = @"CriteriaId";
+			public static readonly string ColumnName = @"ColumnName";
+			public static readonly string ValueX = @"Value";
+			public static readonly string OperatorX = @"Operator";
+			public static readonly string NotMetMessage = @"NotMetMessage";
+		}
+		#endregion Columns Struct
+
+		/*
+		public override object PrimaryKeyValue
+		{
+			get { return CriteraItemID; }
+		}
+		*/
+
+
+	}
+	/// <summary>
+	/// Strongly-typed collection for the FE_Criteria class.
+	/// </summary>
+	[DataContract]
+	public partial class FE_CriteriaCollection : ActiveList<FE_Criteria, FE_CriteriaCollection>
+	{
+		public static FE_CriteriaCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			FE_CriteriaCollection result = new FE_CriteriaCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+		public string GetInList(string columnName)
+		{
+			return JoinColumnList(columnName, ",");
+		}
+		public string JoinColumnList(string columnName, string seperator)
+		{
+			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
+		}
+		public IEnumerable<object> GetJoinColumnList(string columnName)
+		{
+			foreach (FE_Criteria item in this) {
+				object value = item.GetColumnValue<object>(columnName);
+				if (value != null) {
+					yield return value;
+				}
+			}
+		}
+	}
+
+	/// <summary>
+	/// This is an ActiveRecord class which wraps the FE_Criterias table.
+	/// </summary>
+	[DataContract]
+	public partial class FE_Criteria : ActiveRecord<FE_Criteria>, INotifyPropertyChanged
+	{
+
+
+		#region Events
+		public event PropertyChangedEventHandler PropertyChanged;
+		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+		{
+			if (PropertyChanged != null)
+				PropertyChanged(this, e);
+		}
+		#endregion Events
+
+		#region .ctors and Default Settings
+
+		public FE_Criteria()
+		{
+			SetSQLProps();InitSetDefaults();MarkNew();
+		}
+		private void InitSetDefaults() { SetDefaults(); }
+		protected static void SetSQLProps() { GetTableSchema(); }
+
+		#endregion
+
+		#region Schema and Query Accessor
+		public static Query CreateQuery() { return new Query(Schema); }
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("FE_Criterias", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -1527,7 +1854,7 @@ namespace NXS.Data.Funding
 				colvarIsDeleted.IsPrimaryKey = false;
 				colvarIsDeleted.IsForeignKey = false;
 				colvarIsDeleted.IsReadOnly = false;
-				colvarIsDeleted.DefaultSetting = @"";
+				colvarIsDeleted.DefaultSetting = @"((0))";
 				colvarIsDeleted.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarIsDeleted);
 
@@ -1558,14 +1885,14 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedOn);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_Criteria",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_Criterias",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
 
-		public static FE_Criterium LoadFrom(FE_Criterium item)
+		public static FE_Criteria LoadFrom(FE_Criteria item)
 		{
-			FE_Criterium result = new FE_Criterium();
+			FE_Criteria result = new FE_Criteria();
 			if (item.CriteriaID != default(int)) {
 				result.LoadByKey(item.CriteriaID);
 			}
@@ -1762,307 +2089,6 @@ namespace NXS.Data.Funding
 
 	}
 	/// <summary>
-	/// Strongly-typed collection for the FE_CriteriaItem class.
-	/// </summary>
-	[DataContract]
-	public partial class FE_CriteriaItemCollection : ActiveList<FE_CriteriaItem, FE_CriteriaItemCollection>
-	{
-		public static FE_CriteriaItemCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			FE_CriteriaItemCollection result = new FE_CriteriaItemCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-		public string GetInList(string columnName)
-		{
-			return JoinColumnList(columnName, ",");
-		}
-		public string JoinColumnList(string columnName, string seperator)
-		{
-			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
-		}
-		public IEnumerable<object> GetJoinColumnList(string columnName)
-		{
-			foreach (FE_CriteriaItem item in this) {
-				object value = item.GetColumnValue<object>(columnName);
-				if (value != null) {
-					yield return value;
-				}
-			}
-		}
-	}
-
-	/// <summary>
-	/// This is an ActiveRecord class which wraps the FE_CriteriaItems table.
-	/// </summary>
-	[DataContract]
-	public partial class FE_CriteriaItem : ActiveRecord<FE_CriteriaItem>, INotifyPropertyChanged
-	{
-
-
-		#region Events
-		public event PropertyChangedEventHandler PropertyChanged;
-		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, e);
-		}
-		#endregion Events
-
-		#region .ctors and Default Settings
-
-		public FE_CriteriaItem()
-		{
-			SetSQLProps();InitSetDefaults();MarkNew();
-		}
-		private void InitSetDefaults() { SetDefaults(); }
-		protected static void SetSQLProps() { GetTableSchema(); }
-
-		#endregion
-
-		#region Schema and Query Accessor
-		public static Query CreateQuery() { return new Query(Schema); }
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema()
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_CriteriaItems", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"dbo";
-				//columns
-
-				TableSchema.TableColumn colvarCriteraItemID = new TableSchema.TableColumn(schema);
-				colvarCriteraItemID.ColumnName = "CriteraItemID";
-				colvarCriteraItemID.DataType = DbType.Int32;
-				colvarCriteraItemID.MaxLength = 0;
-				colvarCriteraItemID.AutoIncrement = true;
-				colvarCriteraItemID.IsNullable = false;
-				colvarCriteraItemID.IsPrimaryKey = true;
-				colvarCriteraItemID.IsForeignKey = false;
-				colvarCriteraItemID.IsReadOnly = false;
-				colvarCriteraItemID.DefaultSetting = @"";
-				colvarCriteraItemID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCriteraItemID);
-
-				TableSchema.TableColumn colvarCriteriaId = new TableSchema.TableColumn(schema);
-				colvarCriteriaId.ColumnName = "CriteriaId";
-				colvarCriteriaId.DataType = DbType.Int32;
-				colvarCriteriaId.MaxLength = 0;
-				colvarCriteriaId.AutoIncrement = false;
-				colvarCriteriaId.IsNullable = false;
-				colvarCriteriaId.IsPrimaryKey = false;
-				colvarCriteriaId.IsForeignKey = true;
-				colvarCriteriaId.IsReadOnly = false;
-				colvarCriteriaId.DefaultSetting = @"";
-				colvarCriteriaId.ForeignKeyTableName = "FE_Criteria";
-				schema.Columns.Add(colvarCriteriaId);
-
-				TableSchema.TableColumn colvarColumnName = new TableSchema.TableColumn(schema);
-				colvarColumnName.ColumnName = "ColumnName";
-				colvarColumnName.DataType = DbType.String;
-				colvarColumnName.MaxLength = 50;
-				colvarColumnName.AutoIncrement = false;
-				colvarColumnName.IsNullable = false;
-				colvarColumnName.IsPrimaryKey = false;
-				colvarColumnName.IsForeignKey = false;
-				colvarColumnName.IsReadOnly = false;
-				colvarColumnName.DefaultSetting = @"";
-				colvarColumnName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarColumnName);
-
-				TableSchema.TableColumn colvarValueX = new TableSchema.TableColumn(schema);
-				colvarValueX.ColumnName = "Value";
-				colvarValueX.DataType = DbType.String;
-				colvarValueX.MaxLength = 50;
-				colvarValueX.AutoIncrement = false;
-				colvarValueX.IsNullable = false;
-				colvarValueX.IsPrimaryKey = false;
-				colvarValueX.IsForeignKey = false;
-				colvarValueX.IsReadOnly = false;
-				colvarValueX.DefaultSetting = @"";
-				colvarValueX.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarValueX);
-
-				TableSchema.TableColumn colvarOperatorX = new TableSchema.TableColumn(schema);
-				colvarOperatorX.ColumnName = "Operator";
-				colvarOperatorX.DataType = DbType.String;
-				colvarOperatorX.MaxLength = 50;
-				colvarOperatorX.AutoIncrement = false;
-				colvarOperatorX.IsNullable = false;
-				colvarOperatorX.IsPrimaryKey = false;
-				colvarOperatorX.IsForeignKey = false;
-				colvarOperatorX.IsReadOnly = false;
-				colvarOperatorX.DefaultSetting = @"";
-				colvarOperatorX.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarOperatorX);
-
-				TableSchema.TableColumn colvarNotMetMessage = new TableSchema.TableColumn(schema);
-				colvarNotMetMessage.ColumnName = "NotMetMessage";
-				colvarNotMetMessage.DataType = DbType.String;
-				colvarNotMetMessage.MaxLength = 50;
-				colvarNotMetMessage.AutoIncrement = false;
-				colvarNotMetMessage.IsNullable = true;
-				colvarNotMetMessage.IsPrimaryKey = false;
-				colvarNotMetMessage.IsForeignKey = false;
-				colvarNotMetMessage.IsReadOnly = false;
-				colvarNotMetMessage.DefaultSetting = @"";
-				colvarNotMetMessage.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNotMetMessage);
-
-				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_CriteriaItems",schema);
-			}
-		}
-		#endregion // Schema and Query Accessor
-
-		public static FE_CriteriaItem LoadFrom(FE_CriteriaItem item)
-		{
-			FE_CriteriaItem result = new FE_CriteriaItem();
-			if (item.CriteraItemID != default(int)) {
-				result.LoadByKey(item.CriteraItemID);
-			}
-			result.CopyFrom(item);
-			return result;
-		}
-
-		#region Properties
-		[DataMember]
-		public int CriteraItemID {
-			get { return GetColumnValue<int>(Columns.CriteraItemID); }
-			set {
-				SetColumnValue(Columns.CriteraItemID, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CriteraItemID));
-			}
-		}
-		[DataMember]
-		public int CriteriaId {
-			get { return GetColumnValue<int>(Columns.CriteriaId); }
-			set {
-				SetColumnValue(Columns.CriteriaId, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CriteriaId));
-			}
-		}
-		[DataMember]
-		public string ColumnName {
-			get { return GetColumnValue<string>(Columns.ColumnName); }
-			set {
-				SetColumnValue(Columns.ColumnName, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.ColumnName));
-			}
-		}
-		[DataMember]
-		public string ValueX {
-			get { return GetColumnValue<string>(Columns.ValueX); }
-			set {
-				SetColumnValue(Columns.ValueX, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.ValueX));
-			}
-		}
-		[DataMember]
-		public string OperatorX {
-			get { return GetColumnValue<string>(Columns.OperatorX); }
-			set {
-				SetColumnValue(Columns.OperatorX, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.OperatorX));
-			}
-		}
-		[DataMember]
-		public string NotMetMessage {
-			get { return GetColumnValue<string>(Columns.NotMetMessage); }
-			set {
-				SetColumnValue(Columns.NotMetMessage, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.NotMetMessage));
-			}
-		}
-
-		#endregion //Properties
-
-		#region ForeignKey Properties
-
-		private FE_Criterium _Criteria;
-		//Relationship: FK_FE_CriteriaItems_FE_Criteria
-		public FE_Criterium Criteria
-		{
-			get
-			{
-				if(_Criteria == null) {
-					_Criteria = FE_Criterium.FetchByID(this.CriteriaId);
-				}
-				return _Criteria;
-			}
-			set
-			{
-				SetColumnValue("CriteriaId", value.CriteriaID);
-				_Criteria = value;
-			}
-		}
-
-		#endregion //ForeignKey Properties
-
-		public override string ToString()
-		{
-			return CriteraItemID.ToString();
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn CriteraItemIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn CriteriaIdColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn ColumnNameColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn ValueXColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn OperatorXColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-		public static TableSchema.TableColumn NotMetMessageColumn
-		{
-			get { return Schema.Columns[5]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public static readonly string CriteraItemID = @"CriteraItemID";
-			public static readonly string CriteriaId = @"CriteriaId";
-			public static readonly string ColumnName = @"ColumnName";
-			public static readonly string ValueX = @"Value";
-			public static readonly string OperatorX = @"Operator";
-			public static readonly string NotMetMessage = @"NotMetMessage";
-		}
-		#endregion Columns Struct
-
-		/*
-		public override object PrimaryKeyValue
-		{
-			get { return CriteraItemID; }
-		}
-		*/
-
-
-	}
-	/// <summary>
 	/// Strongly-typed collection for the FE_FundingHistory class.
 	/// </summary>
 	[DataContract]
@@ -2135,7 +2161,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_FundingHistory", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_FundingHistory", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -2206,7 +2232,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_FundingHistory",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_FundingHistory",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -2410,7 +2436,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_PacketItems", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_PacketItems", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -2476,7 +2502,7 @@ namespace NXS.Data.Funding
 				colvarIsDeleted.IsPrimaryKey = false;
 				colvarIsDeleted.IsForeignKey = false;
 				colvarIsDeleted.IsReadOnly = false;
-				colvarIsDeleted.DefaultSetting = @"";
+				colvarIsDeleted.DefaultSetting = @"((0))";
 				colvarIsDeleted.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarIsDeleted);
 
@@ -2533,7 +2559,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedOn);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_PacketItems",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_PacketItems",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -2735,7 +2761,7 @@ namespace NXS.Data.Funding
 		#region Foreign Collections
 
 		private FE_RejectedAccountCollection _FE_RejectedAccountsCol;
-		//Relationship: FK_FE_RejectedAccount_FE_PacketItems
+		//Relationship: FK_FE_RejectedAccounts_FE_PacketItems
 		public FE_RejectedAccountCollection FE_RejectedAccountsCol
 		{
 			get
@@ -2750,7 +2776,7 @@ namespace NXS.Data.Funding
 		}
 
 		private FE_RejectionCollection _FE_RejectionsCol;
-		//Relationship: FK_FE_Rejection_FE_PacketItems
+		//Relationship: FK_FE_Rejections_FE_PacketItems
 		public FE_RejectionCollection FE_RejectionsCol
 		{
 			get
@@ -2765,7 +2791,7 @@ namespace NXS.Data.Funding
 		}
 
 		private FE_SubmittedToPurchaserAccountCollection _FE_SubmittedToPurchaserAccountsCol;
-		//Relationship: FK_FE_SubmittedToPurchaserAccount_FE_PacketItems
+		//Relationship: FK_FE_SubmittedToPurchaserAccounts_FE_PacketItems
 		public FE_SubmittedToPurchaserAccountCollection FE_SubmittedToPurchaserAccountsCol
 		{
 			get
@@ -2855,7 +2881,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_Packets", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_Packets", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -2883,7 +2909,7 @@ namespace NXS.Data.Funding
 				colvarCriteriaId.IsForeignKey = true;
 				colvarCriteriaId.IsReadOnly = false;
 				colvarCriteriaId.DefaultSetting = @"";
-				colvarCriteriaId.ForeignKeyTableName = "FE_Criteria";
+				colvarCriteriaId.ForeignKeyTableName = "FE_Criterias";
 				schema.Columns.Add(colvarCriteriaId);
 
 				TableSchema.TableColumn colvarSubmittedOn = new TableSchema.TableColumn(schema);
@@ -2912,6 +2938,19 @@ namespace NXS.Data.Funding
 				colvarSubmittedBy.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarSubmittedBy);
 
+				TableSchema.TableColumn colvarIsDeleted = new TableSchema.TableColumn(schema);
+				colvarIsDeleted.ColumnName = "IsDeleted";
+				colvarIsDeleted.DataType = DbType.Boolean;
+				colvarIsDeleted.MaxLength = 0;
+				colvarIsDeleted.AutoIncrement = false;
+				colvarIsDeleted.IsNullable = false;
+				colvarIsDeleted.IsPrimaryKey = false;
+				colvarIsDeleted.IsForeignKey = false;
+				colvarIsDeleted.IsReadOnly = false;
+				colvarIsDeleted.DefaultSetting = @"((0))";
+				colvarIsDeleted.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarIsDeleted);
+
 				TableSchema.TableColumn colvarCreatedOn = new TableSchema.TableColumn(schema);
 				colvarCreatedOn.ColumnName = "CreatedOn";
 				colvarCreatedOn.DataType = DbType.DateTime;
@@ -2939,7 +2978,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_Packets",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_Packets",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -2988,6 +3027,14 @@ namespace NXS.Data.Funding
 			}
 		}
 		[DataMember]
+		public bool IsDeleted {
+			get { return GetColumnValue<bool>(Columns.IsDeleted); }
+			set {
+				SetColumnValue(Columns.IsDeleted, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.IsDeleted));
+			}
+		}
+		[DataMember]
 		public DateTime CreatedOn {
 			get { return GetColumnValue<DateTime>(Columns.CreatedOn); }
 			set {
@@ -3008,14 +3055,14 @@ namespace NXS.Data.Funding
 
 		#region ForeignKey Properties
 
-		private FE_Criterium _Criteria;
+		private FE_Criteria _Criteria;
 		//Relationship: FK_FE_Packets_FE_Criteria
-		public FE_Criterium Criteria
+		public FE_Criteria Criteria
 		{
 			get
 			{
 				if(_Criteria == null) {
-					_Criteria = FE_Criterium.FetchByID(this.CriteriaId);
+					_Criteria = FE_Criteria.FetchByID(this.CriteriaId);
 				}
 				return _Criteria;
 			}
@@ -3051,13 +3098,17 @@ namespace NXS.Data.Funding
 		{
 			get { return Schema.Columns[3]; }
 		}
-		public static TableSchema.TableColumn CreatedOnColumn
+		public static TableSchema.TableColumn IsDeletedColumn
 		{
 			get { return Schema.Columns[4]; }
 		}
-		public static TableSchema.TableColumn CreatedByColumn
+		public static TableSchema.TableColumn CreatedOnColumn
 		{
 			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn CreatedByColumn
+		{
+			get { return Schema.Columns[6]; }
 		}
 
 		#endregion
@@ -3069,6 +3120,7 @@ namespace NXS.Data.Funding
 			public static readonly string CriteriaId = @"CriteriaId";
 			public static readonly string SubmittedOn = @"SubmittedOn";
 			public static readonly string SubmittedBy = @"SubmittedBy";
+			public static readonly string IsDeleted = @"IsDeleted";
 			public static readonly string CreatedOn = @"CreatedOn";
 			public static readonly string CreatedBy = @"CreatedBy";
 		}
@@ -3189,7 +3241,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_PurchaseContractMonitronics", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_PurchaseContractMonitronics", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -3299,7 +3351,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarScheduleA);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_PurchaseContractMonitronics",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_PurchaseContractMonitronics",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -3542,7 +3594,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_PurchaseContracts", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_PurchaseContracts", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -3652,7 +3704,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedOn);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_PurchaseContracts",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_PurchaseContracts",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -3856,6 +3908,359 @@ namespace NXS.Data.Funding
 
 	}
 	/// <summary>
+	/// Strongly-typed collection for the FE_PurchasedAccountMonitronic class.
+	/// </summary>
+	[DataContract]
+	public partial class FE_PurchasedAccountMonitronicCollection : ActiveList<FE_PurchasedAccountMonitronic, FE_PurchasedAccountMonitronicCollection>
+	{
+		public static FE_PurchasedAccountMonitronicCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			FE_PurchasedAccountMonitronicCollection result = new FE_PurchasedAccountMonitronicCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+		public string GetInList(string columnName)
+		{
+			return JoinColumnList(columnName, ",");
+		}
+		public string JoinColumnList(string columnName, string seperator)
+		{
+			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
+		}
+		public IEnumerable<object> GetJoinColumnList(string columnName)
+		{
+			foreach (FE_PurchasedAccountMonitronic item in this) {
+				object value = item.GetColumnValue<object>(columnName);
+				if (value != null) {
+					yield return value;
+				}
+			}
+		}
+	}
+
+	/// <summary>
+	/// This is an ActiveRecord class which wraps the FE_PurchasedAccountMonitronics table.
+	/// </summary>
+	[DataContract]
+	public partial class FE_PurchasedAccountMonitronic : ActiveRecord<FE_PurchasedAccountMonitronic>, INotifyPropertyChanged
+	{
+
+
+		#region Events
+		public event PropertyChangedEventHandler PropertyChanged;
+		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+		{
+			if (PropertyChanged != null)
+				PropertyChanged(this, e);
+		}
+		#endregion Events
+
+		#region .ctors and Default Settings
+
+		public FE_PurchasedAccountMonitronic()
+		{
+			SetSQLProps();InitSetDefaults();MarkNew();
+		}
+		private void InitSetDefaults() { SetDefaults(); }
+		protected static void SetSQLProps() { GetTableSchema(); }
+
+		#endregion
+
+		#region Schema and Query Accessor
+		public static Query CreateQuery() { return new Query(Schema); }
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("FE_PurchasedAccountMonitronics", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarPurchasedAccountID = new TableSchema.TableColumn(schema);
+				colvarPurchasedAccountID.ColumnName = "PurchasedAccountID";
+				colvarPurchasedAccountID.DataType = DbType.Int64;
+				colvarPurchasedAccountID.MaxLength = 0;
+				colvarPurchasedAccountID.AutoIncrement = false;
+				colvarPurchasedAccountID.IsNullable = false;
+				colvarPurchasedAccountID.IsPrimaryKey = true;
+				colvarPurchasedAccountID.IsForeignKey = false;
+				colvarPurchasedAccountID.IsReadOnly = false;
+				colvarPurchasedAccountID.DefaultSetting = @"";
+				colvarPurchasedAccountID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPurchasedAccountID);
+
+				TableSchema.TableColumn colvarTypeTxt = new TableSchema.TableColumn(schema);
+				colvarTypeTxt.ColumnName = "TypeTxt";
+				colvarTypeTxt.DataType = DbType.String;
+				colvarTypeTxt.MaxLength = 50;
+				colvarTypeTxt.AutoIncrement = false;
+				colvarTypeTxt.IsNullable = true;
+				colvarTypeTxt.IsPrimaryKey = false;
+				colvarTypeTxt.IsForeignKey = false;
+				colvarTypeTxt.IsReadOnly = false;
+				colvarTypeTxt.DefaultSetting = @"";
+				colvarTypeTxt.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTypeTxt);
+
+				TableSchema.TableColumn colvarSubscriberNumber = new TableSchema.TableColumn(schema);
+				colvarSubscriberNumber.ColumnName = "SubscriberNumber";
+				colvarSubscriberNumber.DataType = DbType.String;
+				colvarSubscriberNumber.MaxLength = 50;
+				colvarSubscriberNumber.AutoIncrement = false;
+				colvarSubscriberNumber.IsNullable = true;
+				colvarSubscriberNumber.IsPrimaryKey = false;
+				colvarSubscriberNumber.IsForeignKey = false;
+				colvarSubscriberNumber.IsReadOnly = false;
+				colvarSubscriberNumber.DefaultSetting = @"";
+				colvarSubscriberNumber.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSubscriberNumber);
+
+				TableSchema.TableColumn colvarMonitoring = new TableSchema.TableColumn(schema);
+				colvarMonitoring.ColumnName = "Monitoring";
+				colvarMonitoring.DataType = DbType.Currency;
+				colvarMonitoring.MaxLength = 0;
+				colvarMonitoring.AutoIncrement = false;
+				colvarMonitoring.IsNullable = true;
+				colvarMonitoring.IsPrimaryKey = false;
+				colvarMonitoring.IsForeignKey = false;
+				colvarMonitoring.IsReadOnly = false;
+				colvarMonitoring.DefaultSetting = @"";
+				colvarMonitoring.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarMonitoring);
+
+				TableSchema.TableColumn colvarPurchaseMultiple = new TableSchema.TableColumn(schema);
+				colvarPurchaseMultiple.ColumnName = "PurchaseMultiple";
+				colvarPurchaseMultiple.DataType = DbType.Decimal;
+				colvarPurchaseMultiple.MaxLength = 0;
+				colvarPurchaseMultiple.AutoIncrement = false;
+				colvarPurchaseMultiple.IsNullable = true;
+				colvarPurchaseMultiple.IsPrimaryKey = false;
+				colvarPurchaseMultiple.IsForeignKey = false;
+				colvarPurchaseMultiple.IsReadOnly = false;
+				colvarPurchaseMultiple.DefaultSetting = @"";
+				colvarPurchaseMultiple.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPurchaseMultiple);
+
+				TableSchema.TableColumn colvarPurchasePrice = new TableSchema.TableColumn(schema);
+				colvarPurchasePrice.ColumnName = "PurchasePrice";
+				colvarPurchasePrice.DataType = DbType.Currency;
+				colvarPurchasePrice.MaxLength = 0;
+				colvarPurchasePrice.AutoIncrement = false;
+				colvarPurchasePrice.IsNullable = true;
+				colvarPurchasePrice.IsPrimaryKey = false;
+				colvarPurchasePrice.IsForeignKey = false;
+				colvarPurchasePrice.IsReadOnly = false;
+				colvarPurchasePrice.DefaultSetting = @"";
+				colvarPurchasePrice.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPurchasePrice);
+
+				TableSchema.TableColumn colvarTerm = new TableSchema.TableColumn(schema);
+				colvarTerm.ColumnName = "Term";
+				colvarTerm.DataType = DbType.Int32;
+				colvarTerm.MaxLength = 0;
+				colvarTerm.AutoIncrement = false;
+				colvarTerm.IsNullable = true;
+				colvarTerm.IsPrimaryKey = false;
+				colvarTerm.IsForeignKey = false;
+				colvarTerm.IsReadOnly = false;
+				colvarTerm.DefaultSetting = @"";
+				colvarTerm.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTerm);
+
+				TableSchema.TableColumn colvarDiscount = new TableSchema.TableColumn(schema);
+				colvarDiscount.ColumnName = "Discount";
+				colvarDiscount.DataType = DbType.Currency;
+				colvarDiscount.MaxLength = 0;
+				colvarDiscount.AutoIncrement = false;
+				colvarDiscount.IsNullable = true;
+				colvarDiscount.IsPrimaryKey = false;
+				colvarDiscount.IsForeignKey = false;
+				colvarDiscount.IsReadOnly = false;
+				colvarDiscount.DefaultSetting = @"";
+				colvarDiscount.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarDiscount);
+
+				BaseSchema = schema;
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_PurchasedAccountMonitronics",schema);
+			}
+		}
+		#endregion // Schema and Query Accessor
+
+		public static FE_PurchasedAccountMonitronic LoadFrom(FE_PurchasedAccountMonitronic item)
+		{
+			FE_PurchasedAccountMonitronic result = new FE_PurchasedAccountMonitronic();
+			if (item.PurchasedAccountID != default(long)) {
+				result.LoadByKey(item.PurchasedAccountID);
+			}
+			result.CopyFrom(item);
+			return result;
+		}
+
+		#region Properties
+		[DataMember]
+		public long PurchasedAccountID {
+			get { return GetColumnValue<long>(Columns.PurchasedAccountID); }
+			set {
+				SetColumnValue(Columns.PurchasedAccountID, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.PurchasedAccountID));
+			}
+		}
+		[DataMember]
+		public string TypeTxt {
+			get { return GetColumnValue<string>(Columns.TypeTxt); }
+			set {
+				SetColumnValue(Columns.TypeTxt, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.TypeTxt));
+			}
+		}
+		[DataMember]
+		public string SubscriberNumber {
+			get { return GetColumnValue<string>(Columns.SubscriberNumber); }
+			set {
+				SetColumnValue(Columns.SubscriberNumber, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.SubscriberNumber));
+			}
+		}
+		[DataMember]
+		public decimal? Monitoring {
+			get { return GetColumnValue<decimal?>(Columns.Monitoring); }
+			set {
+				SetColumnValue(Columns.Monitoring, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.Monitoring));
+			}
+		}
+		[DataMember]
+		public decimal? PurchaseMultiple {
+			get { return GetColumnValue<decimal?>(Columns.PurchaseMultiple); }
+			set {
+				SetColumnValue(Columns.PurchaseMultiple, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.PurchaseMultiple));
+			}
+		}
+		[DataMember]
+		public decimal? PurchasePrice {
+			get { return GetColumnValue<decimal?>(Columns.PurchasePrice); }
+			set {
+				SetColumnValue(Columns.PurchasePrice, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.PurchasePrice));
+			}
+		}
+		[DataMember]
+		public int? Term {
+			get { return GetColumnValue<int?>(Columns.Term); }
+			set {
+				SetColumnValue(Columns.Term, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.Term));
+			}
+		}
+		[DataMember]
+		public decimal? Discount {
+			get { return GetColumnValue<decimal?>(Columns.Discount); }
+			set {
+				SetColumnValue(Columns.Discount, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.Discount));
+			}
+		}
+
+		#endregion //Properties
+
+		#region ForeignKey Properties
+
+		private FE_PurchasedAccount _PurchasedAccount;
+		//Relationship: FK_FE_PurchasedAccountMonitronics_FE_PurchasedAccount
+		public FE_PurchasedAccount PurchasedAccount
+		{
+			get
+			{
+				if(_PurchasedAccount == null) {
+					_PurchasedAccount = FE_PurchasedAccount.FetchByID(this.PurchasedAccountID);
+				}
+				return _PurchasedAccount;
+			}
+			set
+			{
+				SetColumnValue("PurchasedAccountID", value.PurchasedAccountID);
+				_PurchasedAccount = value;
+			}
+		}
+
+		#endregion //ForeignKey Properties
+
+		public override string ToString()
+		{
+			return TypeTxt;
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn PurchasedAccountIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn TypeTxtColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn SubscriberNumberColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn MonitoringColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn PurchaseMultipleColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn PurchasePriceColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn TermColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+		public static TableSchema.TableColumn DiscountColumn
+		{
+			get { return Schema.Columns[7]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public static readonly string PurchasedAccountID = @"PurchasedAccountID";
+			public static readonly string TypeTxt = @"TypeTxt";
+			public static readonly string SubscriberNumber = @"SubscriberNumber";
+			public static readonly string Monitoring = @"Monitoring";
+			public static readonly string PurchaseMultiple = @"PurchaseMultiple";
+			public static readonly string PurchasePrice = @"PurchasePrice";
+			public static readonly string Term = @"Term";
+			public static readonly string Discount = @"Discount";
+		}
+		#endregion Columns Struct
+
+		/*
+		public override object PrimaryKeyValue
+		{
+			get { return PurchasedAccountID; }
+		}
+		*/
+
+
+	}
+	/// <summary>
 	/// Strongly-typed collection for the FE_PurchasedAccount class.
 	/// </summary>
 	[DataContract]
@@ -3887,7 +4292,7 @@ namespace NXS.Data.Funding
 	}
 
 	/// <summary>
-	/// This is an ActiveRecord class which wraps the FE_PurchasedAccount table.
+	/// This is an ActiveRecord class which wraps the FE_PurchasedAccounts table.
 	/// </summary>
 	[DataContract]
 	public partial class FE_PurchasedAccount : ActiveRecord<FE_PurchasedAccount>, INotifyPropertyChanged
@@ -3928,7 +4333,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_PurchasedAccount", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_PurchasedAccounts", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -4012,7 +4417,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedOn);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_PurchasedAccount",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_PurchasedAccounts",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -4208,359 +4613,6 @@ namespace NXS.Data.Funding
 
 	}
 	/// <summary>
-	/// Strongly-typed collection for the FE_PurchasedAccountMonitronic class.
-	/// </summary>
-	[DataContract]
-	public partial class FE_PurchasedAccountMonitronicCollection : ActiveList<FE_PurchasedAccountMonitronic, FE_PurchasedAccountMonitronicCollection>
-	{
-		public static FE_PurchasedAccountMonitronicCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			FE_PurchasedAccountMonitronicCollection result = new FE_PurchasedAccountMonitronicCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-		public string GetInList(string columnName)
-		{
-			return JoinColumnList(columnName, ",");
-		}
-		public string JoinColumnList(string columnName, string seperator)
-		{
-			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
-		}
-		public IEnumerable<object> GetJoinColumnList(string columnName)
-		{
-			foreach (FE_PurchasedAccountMonitronic item in this) {
-				object value = item.GetColumnValue<object>(columnName);
-				if (value != null) {
-					yield return value;
-				}
-			}
-		}
-	}
-
-	/// <summary>
-	/// This is an ActiveRecord class which wraps the FE_PurchasedAccountMonitronics table.
-	/// </summary>
-	[DataContract]
-	public partial class FE_PurchasedAccountMonitronic : ActiveRecord<FE_PurchasedAccountMonitronic>, INotifyPropertyChanged
-	{
-
-
-		#region Events
-		public event PropertyChangedEventHandler PropertyChanged;
-		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, e);
-		}
-		#endregion Events
-
-		#region .ctors and Default Settings
-
-		public FE_PurchasedAccountMonitronic()
-		{
-			SetSQLProps();InitSetDefaults();MarkNew();
-		}
-		private void InitSetDefaults() { SetDefaults(); }
-		protected static void SetSQLProps() { GetTableSchema(); }
-
-		#endregion
-
-		#region Schema and Query Accessor
-		public static Query CreateQuery() { return new Query(Schema); }
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema()
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_PurchasedAccountMonitronics", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"dbo";
-				//columns
-
-				TableSchema.TableColumn colvarPurchasedAccountID = new TableSchema.TableColumn(schema);
-				colvarPurchasedAccountID.ColumnName = "PurchasedAccountID";
-				colvarPurchasedAccountID.DataType = DbType.Int64;
-				colvarPurchasedAccountID.MaxLength = 0;
-				colvarPurchasedAccountID.AutoIncrement = false;
-				colvarPurchasedAccountID.IsNullable = false;
-				colvarPurchasedAccountID.IsPrimaryKey = true;
-				colvarPurchasedAccountID.IsForeignKey = false;
-				colvarPurchasedAccountID.IsReadOnly = false;
-				colvarPurchasedAccountID.DefaultSetting = @"";
-				colvarPurchasedAccountID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPurchasedAccountID);
-
-				TableSchema.TableColumn colvarTypeTxt = new TableSchema.TableColumn(schema);
-				colvarTypeTxt.ColumnName = "TypeTxt";
-				colvarTypeTxt.DataType = DbType.String;
-				colvarTypeTxt.MaxLength = 50;
-				colvarTypeTxt.AutoIncrement = false;
-				colvarTypeTxt.IsNullable = true;
-				colvarTypeTxt.IsPrimaryKey = false;
-				colvarTypeTxt.IsForeignKey = false;
-				colvarTypeTxt.IsReadOnly = false;
-				colvarTypeTxt.DefaultSetting = @"";
-				colvarTypeTxt.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarTypeTxt);
-
-				TableSchema.TableColumn colvarSubscriberNumber = new TableSchema.TableColumn(schema);
-				colvarSubscriberNumber.ColumnName = "SubscriberNumber";
-				colvarSubscriberNumber.DataType = DbType.String;
-				colvarSubscriberNumber.MaxLength = 50;
-				colvarSubscriberNumber.AutoIncrement = false;
-				colvarSubscriberNumber.IsNullable = true;
-				colvarSubscriberNumber.IsPrimaryKey = false;
-				colvarSubscriberNumber.IsForeignKey = false;
-				colvarSubscriberNumber.IsReadOnly = false;
-				colvarSubscriberNumber.DefaultSetting = @"";
-				colvarSubscriberNumber.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSubscriberNumber);
-
-				TableSchema.TableColumn colvarMonitoring = new TableSchema.TableColumn(schema);
-				colvarMonitoring.ColumnName = "Monitoring";
-				colvarMonitoring.DataType = DbType.Currency;
-				colvarMonitoring.MaxLength = 0;
-				colvarMonitoring.AutoIncrement = false;
-				colvarMonitoring.IsNullable = true;
-				colvarMonitoring.IsPrimaryKey = false;
-				colvarMonitoring.IsForeignKey = false;
-				colvarMonitoring.IsReadOnly = false;
-				colvarMonitoring.DefaultSetting = @"";
-				colvarMonitoring.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarMonitoring);
-
-				TableSchema.TableColumn colvarPurchaseMultiple = new TableSchema.TableColumn(schema);
-				colvarPurchaseMultiple.ColumnName = "PurchaseMultiple";
-				colvarPurchaseMultiple.DataType = DbType.Decimal;
-				colvarPurchaseMultiple.MaxLength = 0;
-				colvarPurchaseMultiple.AutoIncrement = false;
-				colvarPurchaseMultiple.IsNullable = true;
-				colvarPurchaseMultiple.IsPrimaryKey = false;
-				colvarPurchaseMultiple.IsForeignKey = false;
-				colvarPurchaseMultiple.IsReadOnly = false;
-				colvarPurchaseMultiple.DefaultSetting = @"";
-				colvarPurchaseMultiple.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPurchaseMultiple);
-
-				TableSchema.TableColumn colvarPurchasePrice = new TableSchema.TableColumn(schema);
-				colvarPurchasePrice.ColumnName = "PurchasePrice";
-				colvarPurchasePrice.DataType = DbType.Currency;
-				colvarPurchasePrice.MaxLength = 0;
-				colvarPurchasePrice.AutoIncrement = false;
-				colvarPurchasePrice.IsNullable = true;
-				colvarPurchasePrice.IsPrimaryKey = false;
-				colvarPurchasePrice.IsForeignKey = false;
-				colvarPurchasePrice.IsReadOnly = false;
-				colvarPurchasePrice.DefaultSetting = @"";
-				colvarPurchasePrice.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPurchasePrice);
-
-				TableSchema.TableColumn colvarTerm = new TableSchema.TableColumn(schema);
-				colvarTerm.ColumnName = "Term";
-				colvarTerm.DataType = DbType.Int32;
-				colvarTerm.MaxLength = 0;
-				colvarTerm.AutoIncrement = false;
-				colvarTerm.IsNullable = true;
-				colvarTerm.IsPrimaryKey = false;
-				colvarTerm.IsForeignKey = false;
-				colvarTerm.IsReadOnly = false;
-				colvarTerm.DefaultSetting = @"";
-				colvarTerm.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarTerm);
-
-				TableSchema.TableColumn colvarDiscount = new TableSchema.TableColumn(schema);
-				colvarDiscount.ColumnName = "Discount";
-				colvarDiscount.DataType = DbType.Currency;
-				colvarDiscount.MaxLength = 0;
-				colvarDiscount.AutoIncrement = false;
-				colvarDiscount.IsNullable = true;
-				colvarDiscount.IsPrimaryKey = false;
-				colvarDiscount.IsForeignKey = false;
-				colvarDiscount.IsReadOnly = false;
-				colvarDiscount.DefaultSetting = @"";
-				colvarDiscount.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarDiscount);
-
-				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_PurchasedAccountMonitronics",schema);
-			}
-		}
-		#endregion // Schema and Query Accessor
-
-		public static FE_PurchasedAccountMonitronic LoadFrom(FE_PurchasedAccountMonitronic item)
-		{
-			FE_PurchasedAccountMonitronic result = new FE_PurchasedAccountMonitronic();
-			if (item.PurchasedAccountID != default(long)) {
-				result.LoadByKey(item.PurchasedAccountID);
-			}
-			result.CopyFrom(item);
-			return result;
-		}
-
-		#region Properties
-		[DataMember]
-		public long PurchasedAccountID {
-			get { return GetColumnValue<long>(Columns.PurchasedAccountID); }
-			set {
-				SetColumnValue(Columns.PurchasedAccountID, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.PurchasedAccountID));
-			}
-		}
-		[DataMember]
-		public string TypeTxt {
-			get { return GetColumnValue<string>(Columns.TypeTxt); }
-			set {
-				SetColumnValue(Columns.TypeTxt, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.TypeTxt));
-			}
-		}
-		[DataMember]
-		public string SubscriberNumber {
-			get { return GetColumnValue<string>(Columns.SubscriberNumber); }
-			set {
-				SetColumnValue(Columns.SubscriberNumber, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.SubscriberNumber));
-			}
-		}
-		[DataMember]
-		public decimal? Monitoring {
-			get { return GetColumnValue<decimal?>(Columns.Monitoring); }
-			set {
-				SetColumnValue(Columns.Monitoring, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.Monitoring));
-			}
-		}
-		[DataMember]
-		public decimal? PurchaseMultiple {
-			get { return GetColumnValue<decimal?>(Columns.PurchaseMultiple); }
-			set {
-				SetColumnValue(Columns.PurchaseMultiple, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.PurchaseMultiple));
-			}
-		}
-		[DataMember]
-		public decimal? PurchasePrice {
-			get { return GetColumnValue<decimal?>(Columns.PurchasePrice); }
-			set {
-				SetColumnValue(Columns.PurchasePrice, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.PurchasePrice));
-			}
-		}
-		[DataMember]
-		public int? Term {
-			get { return GetColumnValue<int?>(Columns.Term); }
-			set {
-				SetColumnValue(Columns.Term, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.Term));
-			}
-		}
-		[DataMember]
-		public decimal? Discount {
-			get { return GetColumnValue<decimal?>(Columns.Discount); }
-			set {
-				SetColumnValue(Columns.Discount, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.Discount));
-			}
-		}
-
-		#endregion //Properties
-
-		#region ForeignKey Properties
-
-		private FE_PurchasedAccount _PurchasedAccount;
-		//Relationship: FK_FE_PurchasedAccountMonitronics_FE_PurchasedAccount
-		public FE_PurchasedAccount PurchasedAccount
-		{
-			get
-			{
-				if(_PurchasedAccount == null) {
-					_PurchasedAccount = FE_PurchasedAccount.FetchByID(this.PurchasedAccountID);
-				}
-				return _PurchasedAccount;
-			}
-			set
-			{
-				SetColumnValue("PurchasedAccountID", value.PurchasedAccountID);
-				_PurchasedAccount = value;
-			}
-		}
-
-		#endregion //ForeignKey Properties
-
-		public override string ToString()
-		{
-			return TypeTxt;
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn PurchasedAccountIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn TypeTxtColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn SubscriberNumberColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn MonitoringColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn PurchaseMultipleColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-		public static TableSchema.TableColumn PurchasePriceColumn
-		{
-			get { return Schema.Columns[5]; }
-		}
-		public static TableSchema.TableColumn TermColumn
-		{
-			get { return Schema.Columns[6]; }
-		}
-		public static TableSchema.TableColumn DiscountColumn
-		{
-			get { return Schema.Columns[7]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public static readonly string PurchasedAccountID = @"PurchasedAccountID";
-			public static readonly string TypeTxt = @"TypeTxt";
-			public static readonly string SubscriberNumber = @"SubscriberNumber";
-			public static readonly string Monitoring = @"Monitoring";
-			public static readonly string PurchaseMultiple = @"PurchaseMultiple";
-			public static readonly string PurchasePrice = @"PurchasePrice";
-			public static readonly string Term = @"Term";
-			public static readonly string Discount = @"Discount";
-		}
-		#endregion Columns Struct
-
-		/*
-		public override object PrimaryKeyValue
-		{
-			get { return PurchasedAccountID; }
-		}
-		*/
-
-
-	}
-	/// <summary>
 	/// Strongly-typed collection for the FE_Purchaser class.
 	/// </summary>
 	[DataContract]
@@ -4633,7 +4685,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_Purchasers", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_Purchasers", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -4665,7 +4717,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarPurchaserName);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_Purchasers",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_Purchasers",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -4751,18 +4803,18 @@ namespace NXS.Data.Funding
 			}
 		}
 
-		private FE_CriteriumCollection _FE_CriteriaCol;
+		private FE_CriteriaCollection _FE_CriteriasCol;
 		//Relationship: FK_FE_Criteria_FE_Purchasers
-		public FE_CriteriumCollection FE_CriteriaCol
+		public FE_CriteriaCollection FE_CriteriasCol
 		{
 			get
 			{
-				if(_FE_CriteriaCol == null) {
-					_FE_CriteriaCol = new FE_CriteriumCollection();
-					_FE_CriteriaCol.LoadAndCloseReader(FE_Criterium.Query()
-						.WHERE(FE_Criterium.Columns.PurchaserId, PurchaserID).ExecuteReader());
+				if(_FE_CriteriasCol == null) {
+					_FE_CriteriasCol = new FE_CriteriaCollection();
+					_FE_CriteriasCol.LoadAndCloseReader(FE_Criteria.Query()
+						.WHERE(FE_Criteria.Columns.PurchaserId, PurchaserID).ExecuteReader());
 				}
-				return _FE_CriteriaCol;
+				return _FE_CriteriasCol;
 			}
 		}
 
@@ -4778,6 +4830,21 @@ namespace NXS.Data.Funding
 						.WHERE(FE_PurchaseContract.Columns.PurchaserId, PurchaserID).ExecuteReader());
 				}
 				return _FE_PurchaseContractsCol;
+			}
+		}
+
+		private FE_RejectionCollection _FE_RejectionsCol;
+		//Relationship: FK_FE_Rejection_FE_Purchasers
+		public FE_RejectionCollection FE_RejectionsCol
+		{
+			get
+			{
+				if(_FE_RejectionsCol == null) {
+					_FE_RejectionsCol = new FE_RejectionCollection();
+					_FE_RejectionsCol.LoadAndCloseReader(FE_Rejection.Query()
+						.WHERE(FE_Rejection.Columns.PurchaserId, PurchaserID).ExecuteReader());
+				}
+				return _FE_RejectionsCol;
 			}
 		}
 
@@ -4808,343 +4875,6 @@ namespace NXS.Data.Funding
 						.WHERE(FE_ReturnManifest.Columns.PurchaserId, PurchaserID).ExecuteReader());
 				}
 				return _FE_ReturnManifestsCol;
-			}
-		}
-
-		#endregion Foreign Collections
-
-	}
-	/// <summary>
-	/// Strongly-typed collection for the FE_RejectedAccount class.
-	/// </summary>
-	[DataContract]
-	public partial class FE_RejectedAccountCollection : ActiveList<FE_RejectedAccount, FE_RejectedAccountCollection>
-	{
-		public static FE_RejectedAccountCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			FE_RejectedAccountCollection result = new FE_RejectedAccountCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-		public string GetInList(string columnName)
-		{
-			return JoinColumnList(columnName, ",");
-		}
-		public string JoinColumnList(string columnName, string seperator)
-		{
-			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
-		}
-		public IEnumerable<object> GetJoinColumnList(string columnName)
-		{
-			foreach (FE_RejectedAccount item in this) {
-				object value = item.GetColumnValue<object>(columnName);
-				if (value != null) {
-					yield return value;
-				}
-			}
-		}
-	}
-
-	/// <summary>
-	/// This is an ActiveRecord class which wraps the FE_RejectedAccount table.
-	/// </summary>
-	[DataContract]
-	public partial class FE_RejectedAccount : ActiveRecord<FE_RejectedAccount>, INotifyPropertyChanged
-	{
-
-
-		#region Events
-		public event PropertyChangedEventHandler PropertyChanged;
-		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, e);
-		}
-		#endregion Events
-
-		#region .ctors and Default Settings
-
-		public FE_RejectedAccount()
-		{
-			SetSQLProps();InitSetDefaults();MarkNew();
-		}
-		private void InitSetDefaults() { SetDefaults(); }
-		protected static void SetSQLProps() { GetTableSchema(); }
-
-		#endregion
-
-		#region Schema and Query Accessor
-		public static Query CreateQuery() { return new Query(Schema); }
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema()
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_RejectedAccount", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"dbo";
-				//columns
-
-				TableSchema.TableColumn colvarRejectedAccountID = new TableSchema.TableColumn(schema);
-				colvarRejectedAccountID.ColumnName = "RejectedAccountID";
-				colvarRejectedAccountID.DataType = DbType.Int64;
-				colvarRejectedAccountID.MaxLength = 0;
-				colvarRejectedAccountID.AutoIncrement = true;
-				colvarRejectedAccountID.IsNullable = false;
-				colvarRejectedAccountID.IsPrimaryKey = true;
-				colvarRejectedAccountID.IsForeignKey = false;
-				colvarRejectedAccountID.IsReadOnly = false;
-				colvarRejectedAccountID.DefaultSetting = @"";
-				colvarRejectedAccountID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRejectedAccountID);
-
-				TableSchema.TableColumn colvarAccountId = new TableSchema.TableColumn(schema);
-				colvarAccountId.ColumnName = "AccountId";
-				colvarAccountId.DataType = DbType.Int64;
-				colvarAccountId.MaxLength = 0;
-				colvarAccountId.AutoIncrement = false;
-				colvarAccountId.IsNullable = false;
-				colvarAccountId.IsPrimaryKey = false;
-				colvarAccountId.IsForeignKey = false;
-				colvarAccountId.IsReadOnly = false;
-				colvarAccountId.DefaultSetting = @"";
-				colvarAccountId.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarAccountId);
-
-				TableSchema.TableColumn colvarPacketItemId = new TableSchema.TableColumn(schema);
-				colvarPacketItemId.ColumnName = "PacketItemId";
-				colvarPacketItemId.DataType = DbType.Int64;
-				colvarPacketItemId.MaxLength = 0;
-				colvarPacketItemId.AutoIncrement = false;
-				colvarPacketItemId.IsNullable = true;
-				colvarPacketItemId.IsPrimaryKey = false;
-				colvarPacketItemId.IsForeignKey = true;
-				colvarPacketItemId.IsReadOnly = false;
-				colvarPacketItemId.DefaultSetting = @"";
-				colvarPacketItemId.ForeignKeyTableName = "FE_PacketItems";
-				schema.Columns.Add(colvarPacketItemId);
-
-				TableSchema.TableColumn colvarAccountFundingStatusId = new TableSchema.TableColumn(schema);
-				colvarAccountFundingStatusId.ColumnName = "AccountFundingStatusId";
-				colvarAccountFundingStatusId.DataType = DbType.Int64;
-				colvarAccountFundingStatusId.MaxLength = 0;
-				colvarAccountFundingStatusId.AutoIncrement = false;
-				colvarAccountFundingStatusId.IsNullable = true;
-				colvarAccountFundingStatusId.IsPrimaryKey = false;
-				colvarAccountFundingStatusId.IsForeignKey = true;
-				colvarAccountFundingStatusId.IsReadOnly = false;
-				colvarAccountFundingStatusId.DefaultSetting = @"";
-				colvarAccountFundingStatusId.ForeignKeyTableName = "FE_AccountFundingStatus";
-				schema.Columns.Add(colvarAccountFundingStatusId);
-
-				TableSchema.TableColumn colvarCreatedOn = new TableSchema.TableColumn(schema);
-				colvarCreatedOn.ColumnName = "CreatedOn";
-				colvarCreatedOn.DataType = DbType.DateTime;
-				colvarCreatedOn.MaxLength = 0;
-				colvarCreatedOn.AutoIncrement = false;
-				colvarCreatedOn.IsNullable = false;
-				colvarCreatedOn.IsPrimaryKey = false;
-				colvarCreatedOn.IsForeignKey = false;
-				colvarCreatedOn.IsReadOnly = false;
-				colvarCreatedOn.DefaultSetting = @"(getutcdate())";
-				colvarCreatedOn.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCreatedOn);
-
-				TableSchema.TableColumn colvarCreatedBy = new TableSchema.TableColumn(schema);
-				colvarCreatedBy.ColumnName = "CreatedBy";
-				colvarCreatedBy.DataType = DbType.String;
-				colvarCreatedBy.MaxLength = 50;
-				colvarCreatedBy.AutoIncrement = false;
-				colvarCreatedBy.IsNullable = false;
-				colvarCreatedBy.IsPrimaryKey = false;
-				colvarCreatedBy.IsForeignKey = false;
-				colvarCreatedBy.IsReadOnly = false;
-				colvarCreatedBy.DefaultSetting = @"(N'SYSTEM')";
-				colvarCreatedBy.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCreatedBy);
-
-				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_RejectedAccount",schema);
-			}
-		}
-		#endregion // Schema and Query Accessor
-
-		public static FE_RejectedAccount LoadFrom(FE_RejectedAccount item)
-		{
-			FE_RejectedAccount result = new FE_RejectedAccount();
-			if (item.RejectedAccountID != default(long)) {
-				result.LoadByKey(item.RejectedAccountID);
-			}
-			result.CopyFrom(item);
-			return result;
-		}
-
-		#region Properties
-		[DataMember]
-		public long RejectedAccountID {
-			get { return GetColumnValue<long>(Columns.RejectedAccountID); }
-			set {
-				SetColumnValue(Columns.RejectedAccountID, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.RejectedAccountID));
-			}
-		}
-		[DataMember]
-		public long AccountId {
-			get { return GetColumnValue<long>(Columns.AccountId); }
-			set {
-				SetColumnValue(Columns.AccountId, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.AccountId));
-			}
-		}
-		[DataMember]
-		public long? PacketItemId {
-			get { return GetColumnValue<long?>(Columns.PacketItemId); }
-			set {
-				SetColumnValue(Columns.PacketItemId, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.PacketItemId));
-			}
-		}
-		[DataMember]
-		public long? AccountFundingStatusId {
-			get { return GetColumnValue<long?>(Columns.AccountFundingStatusId); }
-			set {
-				SetColumnValue(Columns.AccountFundingStatusId, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.AccountFundingStatusId));
-			}
-		}
-		[DataMember]
-		public DateTime CreatedOn {
-			get { return GetColumnValue<DateTime>(Columns.CreatedOn); }
-			set {
-				SetColumnValue(Columns.CreatedOn, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CreatedOn));
-			}
-		}
-		[DataMember]
-		public string CreatedBy {
-			get { return GetColumnValue<string>(Columns.CreatedBy); }
-			set {
-				SetColumnValue(Columns.CreatedBy, value);
-				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CreatedBy));
-			}
-		}
-
-		#endregion //Properties
-
-		#region ForeignKey Properties
-
-		private FE_AccountFundingStatus _AccountFundingStatus;
-		//Relationship: FK_FE_RejectedAccount_FE_AccountFundingStatus
-		public FE_AccountFundingStatus AccountFundingStatus
-		{
-			get
-			{
-				if(_AccountFundingStatus == null) {
-					_AccountFundingStatus = FE_AccountFundingStatus.FetchByID(this.AccountFundingStatusId);
-				}
-				return _AccountFundingStatus;
-			}
-			set
-			{
-				SetColumnValue("AccountFundingStatusId", value.AccountFundingStatusID);
-				_AccountFundingStatus = value;
-			}
-		}
-
-		private FE_PacketItem _PacketItem;
-		//Relationship: FK_FE_RejectedAccount_FE_PacketItems
-		public FE_PacketItem PacketItem
-		{
-			get
-			{
-				if(_PacketItem == null) {
-					_PacketItem = FE_PacketItem.FetchByID(this.PacketItemId);
-				}
-				return _PacketItem;
-			}
-			set
-			{
-				SetColumnValue("PacketItemId", value.PacketItemID);
-				_PacketItem = value;
-			}
-		}
-
-		#endregion //ForeignKey Properties
-
-		public override string ToString()
-		{
-			return RejectedAccountID.ToString();
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn RejectedAccountIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn AccountIdColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn PacketItemIdColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn AccountFundingStatusIdColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn CreatedOnColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-		public static TableSchema.TableColumn CreatedByColumn
-		{
-			get { return Schema.Columns[5]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public static readonly string RejectedAccountID = @"RejectedAccountID";
-			public static readonly string AccountId = @"AccountId";
-			public static readonly string PacketItemId = @"PacketItemId";
-			public static readonly string AccountFundingStatusId = @"AccountFundingStatusId";
-			public static readonly string CreatedOn = @"CreatedOn";
-			public static readonly string CreatedBy = @"CreatedBy";
-		}
-		#endregion Columns Struct
-
-		/*
-		public override object PrimaryKeyValue
-		{
-			get { return RejectedAccountID; }
-		}
-		*/
-
-		#region Foreign Collections
-
-		private FE_RejectedAccountMonitronicCollection _FE_RejectedAccountMonitronicsCol;
-		//Relationship: FK_FE_RejectedAccountMonitronics_FE_RejectedAccount
-		public FE_RejectedAccountMonitronicCollection FE_RejectedAccountMonitronicsCol
-		{
-			get
-			{
-				if(_FE_RejectedAccountMonitronicsCol == null) {
-					_FE_RejectedAccountMonitronicsCol = new FE_RejectedAccountMonitronicCollection();
-					_FE_RejectedAccountMonitronicsCol.LoadAndCloseReader(FE_RejectedAccountMonitronic.Query()
-						.WHERE(FE_RejectedAccountMonitronic.Columns.RejectedAccountID, RejectedAccountID).ExecuteReader());
-				}
-				return _FE_RejectedAccountMonitronicsCol;
 			}
 		}
 
@@ -5224,7 +4954,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_RejectedAccountMonitronics", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_RejectedAccountMonitronics", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -5239,7 +4969,7 @@ namespace NXS.Data.Funding
 				colvarRejectedAccountID.IsForeignKey = true;
 				colvarRejectedAccountID.IsReadOnly = false;
 				colvarRejectedAccountID.DefaultSetting = @"";
-				colvarRejectedAccountID.ForeignKeyTableName = "FE_RejectedAccount";
+				colvarRejectedAccountID.ForeignKeyTableName = "FE_RejectedAccounts";
 				schema.Columns.Add(colvarRejectedAccountID);
 
 				TableSchema.TableColumn colvarComments = new TableSchema.TableColumn(schema);
@@ -5321,7 +5051,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarContractNumber);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_RejectedAccountMonitronics",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_RejectedAccountMonitronics",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -5390,7 +5120,7 @@ namespace NXS.Data.Funding
 		#region ForeignKey Properties
 
 		private FE_RejectedAccount _RejectedAccount;
-		//Relationship: FK_FE_RejectedAccountMonitronics_FE_RejectedAccount
+		//Relationship: FK_FE_RejectedAccountMonitronics_FE_RejectedAccounts
 		public FE_RejectedAccount RejectedAccount
 		{
 			get
@@ -5470,6 +5200,387 @@ namespace NXS.Data.Funding
 
 	}
 	/// <summary>
+	/// Strongly-typed collection for the FE_RejectedAccount class.
+	/// </summary>
+	[DataContract]
+	public partial class FE_RejectedAccountCollection : ActiveList<FE_RejectedAccount, FE_RejectedAccountCollection>
+	{
+		public static FE_RejectedAccountCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			FE_RejectedAccountCollection result = new FE_RejectedAccountCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+		public string GetInList(string columnName)
+		{
+			return JoinColumnList(columnName, ",");
+		}
+		public string JoinColumnList(string columnName, string seperator)
+		{
+			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
+		}
+		public IEnumerable<object> GetJoinColumnList(string columnName)
+		{
+			foreach (FE_RejectedAccount item in this) {
+				object value = item.GetColumnValue<object>(columnName);
+				if (value != null) {
+					yield return value;
+				}
+			}
+		}
+	}
+
+	/// <summary>
+	/// This is an ActiveRecord class which wraps the FE_RejectedAccounts table.
+	/// </summary>
+	[DataContract]
+	public partial class FE_RejectedAccount : ActiveRecord<FE_RejectedAccount>, INotifyPropertyChanged
+	{
+
+
+		#region Events
+		public event PropertyChangedEventHandler PropertyChanged;
+		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+		{
+			if (PropertyChanged != null)
+				PropertyChanged(this, e);
+		}
+		#endregion Events
+
+		#region .ctors and Default Settings
+
+		public FE_RejectedAccount()
+		{
+			SetSQLProps();InitSetDefaults();MarkNew();
+		}
+		private void InitSetDefaults() { SetDefaults(); }
+		protected static void SetSQLProps() { GetTableSchema(); }
+
+		#endregion
+
+		#region Schema and Query Accessor
+		public static Query CreateQuery() { return new Query(Schema); }
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("FE_RejectedAccounts", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarRejectedAccountID = new TableSchema.TableColumn(schema);
+				colvarRejectedAccountID.ColumnName = "RejectedAccountID";
+				colvarRejectedAccountID.DataType = DbType.Int64;
+				colvarRejectedAccountID.MaxLength = 0;
+				colvarRejectedAccountID.AutoIncrement = true;
+				colvarRejectedAccountID.IsNullable = false;
+				colvarRejectedAccountID.IsPrimaryKey = true;
+				colvarRejectedAccountID.IsForeignKey = false;
+				colvarRejectedAccountID.IsReadOnly = false;
+				colvarRejectedAccountID.DefaultSetting = @"";
+				colvarRejectedAccountID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRejectedAccountID);
+
+				TableSchema.TableColumn colvarRejectionId = new TableSchema.TableColumn(schema);
+				colvarRejectionId.ColumnName = "RejectionId";
+				colvarRejectionId.DataType = DbType.Int64;
+				colvarRejectionId.MaxLength = 0;
+				colvarRejectionId.AutoIncrement = false;
+				colvarRejectionId.IsNullable = false;
+				colvarRejectionId.IsPrimaryKey = false;
+				colvarRejectionId.IsForeignKey = true;
+				colvarRejectionId.IsReadOnly = false;
+				colvarRejectionId.DefaultSetting = @"";
+				colvarRejectionId.ForeignKeyTableName = "FE_Rejections";
+				schema.Columns.Add(colvarRejectionId);
+
+				TableSchema.TableColumn colvarAccountId = new TableSchema.TableColumn(schema);
+				colvarAccountId.ColumnName = "AccountId";
+				colvarAccountId.DataType = DbType.Int64;
+				colvarAccountId.MaxLength = 0;
+				colvarAccountId.AutoIncrement = false;
+				colvarAccountId.IsNullable = false;
+				colvarAccountId.IsPrimaryKey = false;
+				colvarAccountId.IsForeignKey = false;
+				colvarAccountId.IsReadOnly = false;
+				colvarAccountId.DefaultSetting = @"";
+				colvarAccountId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAccountId);
+
+				TableSchema.TableColumn colvarPacketItemId = new TableSchema.TableColumn(schema);
+				colvarPacketItemId.ColumnName = "PacketItemId";
+				colvarPacketItemId.DataType = DbType.Int64;
+				colvarPacketItemId.MaxLength = 0;
+				colvarPacketItemId.AutoIncrement = false;
+				colvarPacketItemId.IsNullable = true;
+				colvarPacketItemId.IsPrimaryKey = false;
+				colvarPacketItemId.IsForeignKey = true;
+				colvarPacketItemId.IsReadOnly = false;
+				colvarPacketItemId.DefaultSetting = @"";
+				colvarPacketItemId.ForeignKeyTableName = "FE_PacketItems";
+				schema.Columns.Add(colvarPacketItemId);
+
+				TableSchema.TableColumn colvarAccountFundingStatusId = new TableSchema.TableColumn(schema);
+				colvarAccountFundingStatusId.ColumnName = "AccountFundingStatusId";
+				colvarAccountFundingStatusId.DataType = DbType.Int64;
+				colvarAccountFundingStatusId.MaxLength = 0;
+				colvarAccountFundingStatusId.AutoIncrement = false;
+				colvarAccountFundingStatusId.IsNullable = true;
+				colvarAccountFundingStatusId.IsPrimaryKey = false;
+				colvarAccountFundingStatusId.IsForeignKey = true;
+				colvarAccountFundingStatusId.IsReadOnly = false;
+				colvarAccountFundingStatusId.DefaultSetting = @"";
+				colvarAccountFundingStatusId.ForeignKeyTableName = "FE_AccountFundingStatus";
+				schema.Columns.Add(colvarAccountFundingStatusId);
+
+				TableSchema.TableColumn colvarCreatedOn = new TableSchema.TableColumn(schema);
+				colvarCreatedOn.ColumnName = "CreatedOn";
+				colvarCreatedOn.DataType = DbType.DateTime;
+				colvarCreatedOn.MaxLength = 0;
+				colvarCreatedOn.AutoIncrement = false;
+				colvarCreatedOn.IsNullable = false;
+				colvarCreatedOn.IsPrimaryKey = false;
+				colvarCreatedOn.IsForeignKey = false;
+				colvarCreatedOn.IsReadOnly = false;
+				colvarCreatedOn.DefaultSetting = @"(getutcdate())";
+				colvarCreatedOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreatedOn);
+
+				TableSchema.TableColumn colvarCreatedBy = new TableSchema.TableColumn(schema);
+				colvarCreatedBy.ColumnName = "CreatedBy";
+				colvarCreatedBy.DataType = DbType.String;
+				colvarCreatedBy.MaxLength = 50;
+				colvarCreatedBy.AutoIncrement = false;
+				colvarCreatedBy.IsNullable = false;
+				colvarCreatedBy.IsPrimaryKey = false;
+				colvarCreatedBy.IsForeignKey = false;
+				colvarCreatedBy.IsReadOnly = false;
+				colvarCreatedBy.DefaultSetting = @"(N'SYSTEM')";
+				colvarCreatedBy.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreatedBy);
+
+				BaseSchema = schema;
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_RejectedAccounts",schema);
+			}
+		}
+		#endregion // Schema and Query Accessor
+
+		public static FE_RejectedAccount LoadFrom(FE_RejectedAccount item)
+		{
+			FE_RejectedAccount result = new FE_RejectedAccount();
+			if (item.RejectedAccountID != default(long)) {
+				result.LoadByKey(item.RejectedAccountID);
+			}
+			result.CopyFrom(item);
+			return result;
+		}
+
+		#region Properties
+		[DataMember]
+		public long RejectedAccountID {
+			get { return GetColumnValue<long>(Columns.RejectedAccountID); }
+			set {
+				SetColumnValue(Columns.RejectedAccountID, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.RejectedAccountID));
+			}
+		}
+		[DataMember]
+		public long RejectionId {
+			get { return GetColumnValue<long>(Columns.RejectionId); }
+			set {
+				SetColumnValue(Columns.RejectionId, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.RejectionId));
+			}
+		}
+		[DataMember]
+		public long AccountId {
+			get { return GetColumnValue<long>(Columns.AccountId); }
+			set {
+				SetColumnValue(Columns.AccountId, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.AccountId));
+			}
+		}
+		[DataMember]
+		public long? PacketItemId {
+			get { return GetColumnValue<long?>(Columns.PacketItemId); }
+			set {
+				SetColumnValue(Columns.PacketItemId, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.PacketItemId));
+			}
+		}
+		[DataMember]
+		public long? AccountFundingStatusId {
+			get { return GetColumnValue<long?>(Columns.AccountFundingStatusId); }
+			set {
+				SetColumnValue(Columns.AccountFundingStatusId, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.AccountFundingStatusId));
+			}
+		}
+		[DataMember]
+		public DateTime CreatedOn {
+			get { return GetColumnValue<DateTime>(Columns.CreatedOn); }
+			set {
+				SetColumnValue(Columns.CreatedOn, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CreatedOn));
+			}
+		}
+		[DataMember]
+		public string CreatedBy {
+			get { return GetColumnValue<string>(Columns.CreatedBy); }
+			set {
+				SetColumnValue(Columns.CreatedBy, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CreatedBy));
+			}
+		}
+
+		#endregion //Properties
+
+		#region ForeignKey Properties
+
+		private FE_AccountFundingStatus _AccountFundingStatus;
+		//Relationship: FK_FE_RejectedAccounts_FE_AccountFundingStatus
+		public FE_AccountFundingStatus AccountFundingStatus
+		{
+			get
+			{
+				if(_AccountFundingStatus == null) {
+					_AccountFundingStatus = FE_AccountFundingStatus.FetchByID(this.AccountFundingStatusId);
+				}
+				return _AccountFundingStatus;
+			}
+			set
+			{
+				SetColumnValue("AccountFundingStatusId", value.AccountFundingStatusID);
+				_AccountFundingStatus = value;
+			}
+		}
+
+		private FE_PacketItem _PacketItem;
+		//Relationship: FK_FE_RejectedAccounts_FE_PacketItems
+		public FE_PacketItem PacketItem
+		{
+			get
+			{
+				if(_PacketItem == null) {
+					_PacketItem = FE_PacketItem.FetchByID(this.PacketItemId);
+				}
+				return _PacketItem;
+			}
+			set
+			{
+				SetColumnValue("PacketItemId", value.PacketItemID);
+				_PacketItem = value;
+			}
+		}
+
+		private FE_Rejection _Rejection;
+		//Relationship: FK_FE_RejectedAccounts_FE_Rejections
+		public FE_Rejection Rejection
+		{
+			get
+			{
+				if(_Rejection == null) {
+					_Rejection = FE_Rejection.FetchByID(this.RejectionId);
+				}
+				return _Rejection;
+			}
+			set
+			{
+				SetColumnValue("RejectionId", value.RejectionID);
+				_Rejection = value;
+			}
+		}
+
+		#endregion //ForeignKey Properties
+
+		public override string ToString()
+		{
+			return RejectedAccountID.ToString();
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn RejectedAccountIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn RejectionIdColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn AccountIdColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn PacketItemIdColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn AccountFundingStatusIdColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn CreatedOnColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn CreatedByColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public static readonly string RejectedAccountID = @"RejectedAccountID";
+			public static readonly string RejectionId = @"RejectionId";
+			public static readonly string AccountId = @"AccountId";
+			public static readonly string PacketItemId = @"PacketItemId";
+			public static readonly string AccountFundingStatusId = @"AccountFundingStatusId";
+			public static readonly string CreatedOn = @"CreatedOn";
+			public static readonly string CreatedBy = @"CreatedBy";
+		}
+		#endregion Columns Struct
+
+		/*
+		public override object PrimaryKeyValue
+		{
+			get { return RejectedAccountID; }
+		}
+		*/
+
+		#region Foreign Collections
+
+		private FE_RejectedAccountMonitronicCollection _FE_RejectedAccountMonitronicsCol;
+		//Relationship: FK_FE_RejectedAccountMonitronics_FE_RejectedAccounts
+		public FE_RejectedAccountMonitronicCollection FE_RejectedAccountMonitronicsCol
+		{
+			get
+			{
+				if(_FE_RejectedAccountMonitronicsCol == null) {
+					_FE_RejectedAccountMonitronicsCol = new FE_RejectedAccountMonitronicCollection();
+					_FE_RejectedAccountMonitronicsCol.LoadAndCloseReader(FE_RejectedAccountMonitronic.Query()
+						.WHERE(FE_RejectedAccountMonitronic.Columns.RejectedAccountID, RejectedAccountID).ExecuteReader());
+				}
+				return _FE_RejectedAccountMonitronicsCol;
+			}
+		}
+
+		#endregion Foreign Collections
+
+	}
+	/// <summary>
 	/// Strongly-typed collection for the FE_Rejection class.
 	/// </summary>
 	[DataContract]
@@ -5501,7 +5612,7 @@ namespace NXS.Data.Funding
 	}
 
 	/// <summary>
-	/// This is an ActiveRecord class which wraps the FE_Rejection table.
+	/// This is an ActiveRecord class which wraps the FE_Rejections table.
 	/// </summary>
 	[DataContract]
 	public partial class FE_Rejection : ActiveRecord<FE_Rejection>, INotifyPropertyChanged
@@ -5542,14 +5653,14 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_Rejection", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_Rejections", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
 
 				TableSchema.TableColumn colvarRejectionID = new TableSchema.TableColumn(schema);
 				colvarRejectionID.ColumnName = "RejectionID";
-				colvarRejectionID.DataType = DbType.Int32;
+				colvarRejectionID.DataType = DbType.Int64;
 				colvarRejectionID.MaxLength = 0;
 				colvarRejectionID.AutoIncrement = true;
 				colvarRejectionID.IsNullable = false;
@@ -5562,7 +5673,7 @@ namespace NXS.Data.Funding
 
 				TableSchema.TableColumn colvarAccountId = new TableSchema.TableColumn(schema);
 				colvarAccountId.ColumnName = "AccountId";
-				colvarAccountId.DataType = DbType.Int32;
+				colvarAccountId.DataType = DbType.Int64;
 				colvarAccountId.MaxLength = 0;
 				colvarAccountId.AutoIncrement = false;
 				colvarAccountId.IsNullable = false;
@@ -5593,10 +5704,10 @@ namespace NXS.Data.Funding
 				colvarPurchaserId.AutoIncrement = false;
 				colvarPurchaserId.IsNullable = false;
 				colvarPurchaserId.IsPrimaryKey = false;
-				colvarPurchaserId.IsForeignKey = false;
+				colvarPurchaserId.IsForeignKey = true;
 				colvarPurchaserId.IsReadOnly = false;
 				colvarPurchaserId.DefaultSetting = @"";
-				colvarPurchaserId.ForeignKeyTableName = "";
+				colvarPurchaserId.ForeignKeyTableName = "FE_Purchasers";
 				schema.Columns.Add(colvarPurchaserId);
 
 				TableSchema.TableColumn colvarAccountFundingStatusId = new TableSchema.TableColumn(schema);
@@ -5691,7 +5802,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_Rejection",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_Rejections",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -5699,7 +5810,7 @@ namespace NXS.Data.Funding
 		public static FE_Rejection LoadFrom(FE_Rejection item)
 		{
 			FE_Rejection result = new FE_Rejection();
-			if (item.RejectionID != default(int)) {
+			if (item.RejectionID != default(long)) {
 				result.LoadByKey(item.RejectionID);
 			}
 			result.CopyFrom(item);
@@ -5708,16 +5819,16 @@ namespace NXS.Data.Funding
 
 		#region Properties
 		[DataMember]
-		public int RejectionID {
-			get { return GetColumnValue<int>(Columns.RejectionID); }
+		public long RejectionID {
+			get { return GetColumnValue<long>(Columns.RejectionID); }
 			set {
 				SetColumnValue(Columns.RejectionID, value);
 				OnPropertyChanged(new PropertyChangedEventArgs(Columns.RejectionID));
 			}
 		}
 		[DataMember]
-		public int AccountId {
-			get { return GetColumnValue<int>(Columns.AccountId); }
+		public long AccountId {
+			get { return GetColumnValue<long>(Columns.AccountId); }
 			set {
 				SetColumnValue(Columns.AccountId, value);
 				OnPropertyChanged(new PropertyChangedEventArgs(Columns.AccountId));
@@ -5818,21 +5929,21 @@ namespace NXS.Data.Funding
 			}
 		}
 
-		private FE_PacketItem _PacketItem;
-		//Relationship: FK_FE_Rejection_FE_PacketItems
-		public FE_PacketItem PacketItem
+		private FE_Purchaser _Purchaser;
+		//Relationship: FK_FE_Rejection_FE_Purchasers
+		public FE_Purchaser Purchaser
 		{
 			get
 			{
-				if(_PacketItem == null) {
-					_PacketItem = FE_PacketItem.FetchByID(this.PacketItemId);
+				if(_Purchaser == null) {
+					_Purchaser = FE_Purchaser.FetchByID(this.PurchaserId);
 				}
-				return _PacketItem;
+				return _Purchaser;
 			}
 			set
 			{
-				SetColumnValue("PacketItemId", value.PacketItemID);
-				_PacketItem = value;
+				SetColumnValue("PurchaserId", value.PurchaserID);
+				_Purchaser = value;
 			}
 		}
 
@@ -5851,6 +5962,24 @@ namespace NXS.Data.Funding
 			{
 				SetColumnValue("RejectionTypeId", value.RejectionTypeID);
 				_RejectionType = value;
+			}
+		}
+
+		private FE_PacketItem _PacketItem;
+		//Relationship: FK_FE_Rejections_FE_PacketItems
+		public FE_PacketItem PacketItem
+		{
+			get
+			{
+				if(_PacketItem == null) {
+					_PacketItem = FE_PacketItem.FetchByID(this.PacketItemId);
+				}
+				return _PacketItem;
+			}
+			set
+			{
+				SetColumnValue("PacketItemId", value.PacketItemID);
+				_PacketItem = value;
 			}
 		}
 
@@ -5934,6 +6063,24 @@ namespace NXS.Data.Funding
 		}
 		*/
 
+		#region Foreign Collections
+
+		private FE_RejectedAccountCollection _FE_RejectedAccountsCol;
+		//Relationship: FK_FE_RejectedAccounts_FE_Rejections
+		public FE_RejectedAccountCollection FE_RejectedAccountsCol
+		{
+			get
+			{
+				if(_FE_RejectedAccountsCol == null) {
+					_FE_RejectedAccountsCol = new FE_RejectedAccountCollection();
+					_FE_RejectedAccountsCol.LoadAndCloseReader(FE_RejectedAccount.Query()
+						.WHERE(FE_RejectedAccount.Columns.RejectionId, RejectionID).ExecuteReader());
+				}
+				return _FE_RejectedAccountsCol;
+			}
+		}
+
+		#endregion Foreign Collections
 
 	}
 	/// <summary>
@@ -6009,7 +6156,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_RejectionTypes", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_RejectionTypes", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -6080,7 +6227,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarRejectionTypeDescription);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_RejectionTypes",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_RejectionTypes",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -6240,7 +6387,7 @@ namespace NXS.Data.Funding
 	}
 
 	/// <summary>
-	/// This is an ActiveRecord class which wraps the FE_ReplacedAccount table.
+	/// This is an ActiveRecord class which wraps the FE_ReplacedAccounts table.
 	/// </summary>
 	[DataContract]
 	public partial class FE_ReplacedAccount : ActiveRecord<FE_ReplacedAccount>, INotifyPropertyChanged
@@ -6281,7 +6428,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_ReplacedAccount", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_ReplacedAccounts", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -6309,7 +6456,7 @@ namespace NXS.Data.Funding
 				colvarPurchasedAccountId.IsForeignKey = true;
 				colvarPurchasedAccountId.IsReadOnly = false;
 				colvarPurchasedAccountId.DefaultSetting = @"";
-				colvarPurchasedAccountId.ForeignKeyTableName = "FE_PurchasedAccount";
+				colvarPurchasedAccountId.ForeignKeyTableName = "FE_PurchasedAccounts";
 				schema.Columns.Add(colvarPurchasedAccountId);
 
 				TableSchema.TableColumn colvarReplacementAccountId = new TableSchema.TableColumn(schema);
@@ -6365,7 +6512,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_ReplacedAccount",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_ReplacedAccounts",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -6600,7 +6747,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_ReturnActions", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_ReturnActions", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -6723,7 +6870,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedOn);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_ReturnActions",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_ReturnActions",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -6997,7 +7144,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_ReturnManifestMonitronicsDetails", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_ReturnManifestMonitronicsDetails", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -7120,7 +7267,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarFullname);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_ReturnManifestMonitronicsDetails",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_ReturnManifestMonitronicsDetails",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -7376,7 +7523,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_ReturnManifests", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_ReturnManifests", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -7590,7 +7737,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedOn);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_ReturnManifests",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_ReturnManifests",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -7932,7 +8079,7 @@ namespace NXS.Data.Funding
 	}
 
 	/// <summary>
-	/// This is an ActiveRecord class which wraps the FE_SubmittedToPurchaserAccount table.
+	/// This is an ActiveRecord class which wraps the FE_SubmittedToPurchaserAccounts table.
 	/// </summary>
 	[DataContract]
 	public partial class FE_SubmittedToPurchaserAccount : ActiveRecord<FE_SubmittedToPurchaserAccount>, INotifyPropertyChanged
@@ -7973,7 +8120,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_SubmittedToPurchaserAccount", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_SubmittedToPurchaserAccounts", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -8044,7 +8191,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarCreatedBy);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_SubmittedToPurchaserAccount",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_SubmittedToPurchaserAccounts",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor
@@ -8106,7 +8253,7 @@ namespace NXS.Data.Funding
 		#region ForeignKey Properties
 
 		private FE_AccountFundingStatus _AccountFundingStatus;
-		//Relationship: FK_FE_SubmittedToPurchaserAccount_FE_AccountFundingStatus
+		//Relationship: FK_FE_SubmittedToPurchaserAccounts_FE_AccountFundingStatus
 		public FE_AccountFundingStatus AccountFundingStatus
 		{
 			get
@@ -8124,7 +8271,7 @@ namespace NXS.Data.Funding
 		}
 
 		private FE_PacketItem _PacketItem;
-		//Relationship: FK_FE_SubmittedToPurchaserAccount_FE_PacketItems
+		//Relationship: FK_FE_SubmittedToPurchaserAccounts_FE_PacketItems
 		public FE_PacketItem PacketItem
 		{
 			get
@@ -8225,7 +8372,7 @@ namespace NXS.Data.Funding
 	}
 
 	/// <summary>
-	/// This is an ActiveRecord class which wraps the FE_TrackingNumber table.
+	/// This is an ActiveRecord class which wraps the FE_TrackingNumbers table.
 	/// </summary>
 	[DataContract]
 	public partial class FE_TrackingNumber : ActiveRecord<FE_TrackingNumber>, INotifyPropertyChanged
@@ -8266,7 +8413,7 @@ namespace NXS.Data.Funding
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("FE_TrackingNumber", TableType.Table, DataService.GetInstance("NxseFundingProvider"));
+				TableSchema.Table schema = new TableSchema.Table("FE_TrackingNumbers", TableType.Table, DataService.GetInstance("NxsFundingProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -8324,7 +8471,7 @@ namespace NXS.Data.Funding
 				schema.Columns.Add(colvarDeliveryDate);
 
 				BaseSchema = schema;
-				DataService.Providers["NxseFundingProvider"].AddSchema("FE_TrackingNumber",schema);
+				DataService.Providers["NxsFundingProvider"].AddSchema("FE_TrackingNumbers",schema);
 			}
 		}
 		#endregion // Schema and Query Accessor

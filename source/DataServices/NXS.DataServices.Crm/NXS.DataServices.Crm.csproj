@@ -44,12 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountHoldsService.cs" />
     <Compile Include="ContractAdminService.cs" />
     <Compile Include="Models\AeCustomer.cs" />
     <Compile Include="Models\AeCustomerAccount.cs" />
     <Compile Include="Models\AeCustomerAccountInput.cs" />
+    <Compile Include="Models\Hold.cs" />
+    <Compile Include="Models\HoldCatg1.cs" />
+    <Compile Include="Models\HoldCatg2.cs" />
+    <Compile Include="Models\HoldNew.cs" />
+    <Compile Include="Models\HoldFix.cs" />
     <Compile Include="Models\McAddress.cs" />
+    <Compile Include="Models\MsAccountSalesInformation.cs" />
     <Compile Include="Models\MsAccountSalesInformationExtras.cs" />
+    <Compile Include="Models\Noc.cs" />
     <Compile Include="Models\QlLead.cs" />
     <Compile Include="Models\RuTeam.cs" />
     <Compile Include="Models\TsTeam.cs" />

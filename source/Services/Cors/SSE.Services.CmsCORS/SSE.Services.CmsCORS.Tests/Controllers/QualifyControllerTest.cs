@@ -50,7 +50,7 @@ namespace SSE.Services.CmsCORS.Tests.Controllers
 			param.SSN = "123-45-6789";
 			param.DOB = Convert.ToDateTime("01/01/1980");
 			param.DL = "Andres"; 
-			param.DLStateId = "Andres";
+			param.DLStateID = "Andres";
 			param.Email = "asosa@securitysciences.com";
 			param.PhoneHome = "801-221-1234";
 			param.PhoneWork = "801-224-1234";
@@ -81,7 +81,7 @@ namespace SSE.Services.CmsCORS.Tests.Controllers
 			addressparam.PhoneNumber = "801-221-1234";
 
 
-			CmsCORSResult<VerifyAddress>result= creditReportCntlr.VerifyAddress(addressparam);
+			CmsCORSResult<SOS.Services.Interfaces.Models.QualifyLead.QlAddress>result= creditReportCntlr.VerifyAddress(addressparam);
 
 			// ** Check my result
 			Assert.IsTrue(result.Code == (int)ErrorCodes.Success, "There was an error validating address");

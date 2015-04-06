@@ -88,6 +88,9 @@ AS
 		, dbo.fxGetMS_AccountEquipmentHasExistingEquipment(MCA.AccountID) AS [HasExistingEquipment]
 		, dbo.fxQlCreditReportGetScoreByMsAccountID(MCA.AccountID) AS [CreditScore]
 		, dbo.fxQlCreditReportGetTransactionIdByMsAccountID(MCA.AccountID) AS [TransactionID]
+		, dbo.fxQlCreditReportGetReportGuidByMsAccountID(MCA.AccountID) AS [ReportGuid]
+		, dbo.fxQlCreditReportGetCreditBureauByMsAccountID(MCA.AccountID) AS [Bureau]
+		, dbo.fxQlCreditReportGetGatewayByMsAccountID(MCA.AccountID) AS [Gateway]
 		, dbo.fxGetMS_AccountEquipmentPoints(MCA.AccountID) AS [Points]
 	FROM
 		[dbo].[MC_Accounts] AS MCA WITH (NOLOCK)
@@ -125,7 +128,7 @@ AS
 			(QL.LeadID = AEC.LeadId)
 GO
 /* TEST 
-SELECT * FROM [dbo].[vwAE_CustomerAccountInfoToGP] WHERE CUSTOMERMASTERFILEID = 3091442
+SELECT * FROM [dbo].[vwAE_CustomerAccountInfoToGP] WHERE CUSTOMERMASTERFILEID = 3091526
 WHERE INSTALLDATE BETWEEN '1/1/15' AND '3/31/15'
 WHERE [Transaction ID] IS NOT NULL ORDER BY CustomerMasterFileID DESC;
 */

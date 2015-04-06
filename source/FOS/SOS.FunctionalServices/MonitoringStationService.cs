@@ -1717,8 +1717,9 @@ namespace SOS.FunctionalServices
 						result.Message = string.Format("Barcode {0} not found.", item.BarcodeId);
 						return result;
 					}
-					else if (productBarcode.LastProductBarcodeTrackingId != null
-						&& string.Compare(productBarcode.LastProductBarcodeTracking.LocationTypeID, "Sold", true) == 0)
+					// Check that the barcode hasn't been sold already.
+					if (productBarcode.LastProductBarcodeTrackingId != null
+						&& String.Compare(productBarcode.LastProductBarcodeTracking.LocationTypeID, "Sold", StringComparison.OrdinalIgnoreCase) == 0)
 					{
 						result.Code = -1;
 						result.Message = string.Format("Barcode {0} is already assigned to Account# {1}.", item.BarcodeId, productBarcode.LastProductBarcodeTracking.LocationID);
@@ -1922,6 +1923,7 @@ namespace SOS.FunctionalServices
 			};
 		}
 
+		[Obsolete("This is not being used", true)]
 		public IFnsResult<IFnsMsAccountEquipmentsView> EquipmentExistingAdd(IFnsMsAccountEquipmentsView equipment, string gpEmployeeID)
 		{
 			#region INITIALIZATION

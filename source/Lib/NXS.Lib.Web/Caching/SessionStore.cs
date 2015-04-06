@@ -163,7 +163,7 @@ namespace NXS.Lib.Web.Caching
 				}
 
 				// validate expiration
-				if (_maxAge < DateTime.UtcNow.Subtract(sess.CreatedOn))
+				if (DateTime.UtcNow.Subtract(sess.CreatedOn) > _maxAge)
 				{
 					// session has expired
 					sess = default(Session);

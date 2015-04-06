@@ -3026,6 +3026,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		TS_TeamController _TS_Teams;
+		public TS_TeamController TS_Teams
+		{
+			get
+			{
+				if (_TS_Teams == null) _TS_Teams = new TS_TeamController();
+				return _TS_Teams;
+			}
+		}
+
 		TS_TechController _TS_Teches;
 		public TS_TechController TS_Teches
 		{
@@ -3870,6 +3880,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		TS_TeamViewController _TS_TeamViews;
+		public TS_TeamViewController TS_TeamViews
+		{
+			get
+			{
+				if (_TS_TeamViews == null) _TS_TeamViews = new TS_TeamViewController();
+				return _TS_TeamViews;
+			}
+		}
+
 		TS_TechViewController _TS_TechViews;
 		public TS_TechViewController TS_TechViews
 		{
@@ -4234,6 +4254,7 @@ namespace SOS.Data.SosCrm
 	public class TS_ServiceTypeController : BaseTableController<TS_ServiceType, TS_ServiceTypeCollection> { }
 	public class TS_SkillController : BaseTableController<TS_Skill, TS_SkillCollection> { }
 	public class TS_StatusCodeController : BaseTableController<TS_StatusCode, TS_StatusCodeCollection> { }
+	public class TS_TeamController : BaseTableController<TS_Team, TS_TeamCollection> { }
 	public class TS_TechController : BaseTableController<TS_Tech, TS_TechCollection> { }
 	public class TS_TechSkills_MapController : BaseTableController<TS_TechSkills_Map, TS_TechSkills_MapCollection> { }
 	public class TS_TechWeekDayController : BaseTableController<TS_TechWeekDay, TS_TechWeekDayCollection> { }
@@ -4323,6 +4344,7 @@ namespace SOS.Data.SosCrm
 	public class SE_TechnicianScheduleBlocksViewController : BaseViewController<SE_TechnicianScheduleBlocksView, SE_TechnicianScheduleBlocksViewCollection> { }
 	public class SE_TicketsViewController : BaseViewController<SE_TicketsView, SE_TicketsViewCollection> { }
 	public class TS_ServiceTicketStatusViewController : BaseViewController<TS_ServiceTicketStatusView, TS_ServiceTicketStatusViewCollection> { }
+	public class TS_TeamViewController : BaseViewController<TS_TeamView, TS_TeamViewCollection> { }
 	public class TS_TechViewController : BaseViewController<TS_TechView, TS_TechViewCollection> { }
 	public class UI_ApplicationMenuViewController : BaseViewController<UI_ApplicationMenuView, UI_ApplicationMenuViewCollection> { }
 	public class UI_ApplicationVersionsViewController : BaseViewController<UI_ApplicationVersionsView, UI_ApplicationVersionsViewCollection> { }

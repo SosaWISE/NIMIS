@@ -41,14 +41,14 @@ CREATE FUNCTION dbo.fxQlCreditReportGetTransactionIdByMsAccountID
 (
 	@AccountId BIGINT
 )
-RETURNS UNIQUEIDENTIFIER
+RETURNS VARCHAR(100)
 AS
 BEGIN
 	/** Declarations */
-	DECLARE @ReportID UNIQUEIDENTIFIER;
+	DECLARE @ReportID VARCHAR(100);
 
 	/** Execute actions. */
-	SELECT @ReportID = ReportGuid FROM dbo.fxQlCreditReportGetByMsAccountID(@AccountId);
+	SELECT @ReportID = CAST(ReportID AS VARCHAR(100)) FROM dbo.fxQlCreditReportGetByMsAccountID(@AccountId);
 
 	RETURN @ReportID;
 END

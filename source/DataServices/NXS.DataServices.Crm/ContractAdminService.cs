@@ -1,13 +1,9 @@
 ﻿using NXS.Data;
 using NXS.Data.Crm;
-using NXS.Data.Crm.Repos;
 using NXS.DataServices.Crm.Models;
 using SOS.Lib.Core;
 using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NXS.DataServices.Crm
@@ -396,8 +392,9 @@ namespace NXS.DataServices.Crm
 			mcAddress.DPVResponse = qlAddress.DPVResponse;
 			mcAddress.DPVFootNote = qlAddress.DPVFootnote;
 			mcAddress.CarrierRoute = qlAddress.CarrierRoute;
-			mcAddress.IsActive = qlAddress.IsActive;
-			mcAddress.IsDeleted = qlAddress.IsDeleted;
+			// make sure address is active even if the lead address is not
+			mcAddress.IsActive = true;// qlAddress.IsActive;
+			mcAddress.IsDeleted = false;// qlAddress.IsDeleted;
 		}
 
 		private static async Task<AE_Customer> CreateAeCustomer(string gpEmployeeId, CrmDb db, QL_Lead lead, MC_Address mcAddress)
@@ -512,6 +509,31 @@ namespace NXS.DataServices.Crm
 				// save
 				await tbl.UpdateAsync(accountId, snapShot.Diff()).ConfigureAwait(false);
 
+				return result;
+			}
+		}
+
+		//public async Task<Result<MsAccountSalesInformation>> AccountSalesInformation(long accountId)
+		//{
+		//	using (var db = CrmDb.Connect())
+		//	{
+		//		var result = new Result<MsAccountSalesInformation>();
+		//		var tbl = db.MS_AccountSalesInformations;
+		//
+		//		var msAcctSalesInfo = (await tbl.ByIdAsync(accountId).ConfigureAwait(false));
+		//		result.Value = MsAccountSalesInformation.FromDb(msAcctSalesInfo, true);
+		//		return result;
+		//	}
+		//}
+
+		public async Task<Result<Noc>> NocDate(DateTime startDate)
+		{
+			using (var db = CrmDb.Connect())
+			{
+				var result = new Result<Noc>();
+				const string sql = "SELECT WISE_CRM.dbo.fxGetLastNOCDate(@startDate)";
+				var nocDate= (await db.QueryAsync<DateTime>(sql, new { startDate }).ConfigureAwait(false)).First();
+				result.Value = new Noc() { NOCDate = nocDate };
 				return result;
 			}
 		}

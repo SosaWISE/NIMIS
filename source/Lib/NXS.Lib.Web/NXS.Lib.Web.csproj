@@ -54,7 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication\HttpContextExtensions.cs" />
+    <Compile Include="Authentication\IFarmTokenKeyStore.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Authentication\PersistentKeyStore.cs" />
     <Compile Include="Authentication\SystemUserIdentityResolver.cs" />
+    <Compile Include="Authentication\Tokenizer.cs" />
     <Compile Include="AuthModels.cs" />
     <Compile Include="Caching\UserStore.cs" />
     <Compile Include="LockBy.cs" />

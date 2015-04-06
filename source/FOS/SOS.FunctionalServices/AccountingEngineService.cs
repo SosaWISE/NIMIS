@@ -15,7 +15,6 @@ using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
 using SOS.Lib.Util;
-using SOS.Data.HumanResource;
 
 namespace SOS.FunctionalServices
 {

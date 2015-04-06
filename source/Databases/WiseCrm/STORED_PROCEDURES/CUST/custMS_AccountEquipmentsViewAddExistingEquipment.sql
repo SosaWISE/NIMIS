@@ -33,7 +33,7 @@ GO
 **	Date:		Author:			Description:
 **	-----------	---------------	-----------------------------------------------
 **	07/18/2014	Andres Sosa		Created By
-**	
+**	04/02/2015	Andres Sosa		This PROC is flagged as OBSOLETE and not used
 *******************************************************************************/
 CREATE Procedure dbo.custMS_AccountEquipmentsViewAddExistingEquipment
 (
@@ -66,7 +66,7 @@ BEGIN
 		BEGIN TRANSACTION;
 		INSERT INTO [dbo].[MS_AccountEquipment] (
 			[AccountId]
-			, [ItemId]
+			, [EquipmentId]
 			, [EquipmentLocationId]
 			, [Points]
 			, [Price]

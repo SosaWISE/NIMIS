@@ -25,11 +25,12 @@ namespace SOS.FunctionalServices.Models.QualifyLead
 			TimeZoneName = item.TimeZoneName;
 			PostalCode = item.PostalCode;
 			Phone = item.Phone;
+			CreditCreatedOn = item.CreditCreatedOn;
 			CreditReportID = item.CreditReportID;
 			IsHit = item.IsHit;
 			CRStatus = item.CRStatus;
 			Score = item.Score;
-			CreditGroup = SOS.Lib.Core.CreditReportService.CreditHelper.GetCreditScoreGroup(item.Score, item.IsHit,
+			CreditGroup = Lib.Core.CreditReportService.CreditHelper.GetCreditScoreGroup(item.Score, item.IsHit,
 				excellentCreditScore: item.ExcellentCreditScoreThreshold,
 				passCreditScore: item.PassCreditScoreThreshold,
 				subCreditScore: item.SubCreditScoreThreshold).ToString();
@@ -65,13 +66,14 @@ namespace SOS.FunctionalServices.Models.QualifyLead
 		public string TimeZoneName { get; private set; }
 		public string PostalCode { get; private set; }
 		public string Phone { get; private set; }
+		public DateTime CreditCreatedOn { get; private set; }
 		public long CreditReportID { get; private set; }
 		public bool IsHit { get; private set; }
 		public string CRStatus { get; private set; }
 		public int Score { get; private set; }
 		public string CreditGroup { get; private set; }
 		public string BureauName { get; private set; }
-		public int UserID { get; private set; }
+		public int? UserID { get; private set; }
 		public string CompanyID { get; private set; }
 		public string FirstName { get; private set; }
 		public string MiddleName { get; private set; }

@@ -54,4 +54,4 @@ BEGIN
 END
 GO
 
-SELECT dbo.fxQlCreditReportGetScoreByMsAccountID(12321) AS SCORE;
+SELECT dbo.fxQlCreditReportGetScoreByMsAccountID(191194) AS SCORE;

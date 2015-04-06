@@ -48,6 +48,11 @@ namespace SOS.FunctionalServices.Models.CentralStation
 			AMA = info.AMA;
 			NOC = info.NOC;
 			SOP = info.SOP;
+			ApprovedDate = info.ApprovedDate;
+			ApproverID = info.ApproverID;
+			NOCDate = info.NOCDate;
+			OptOutCorporate = info.OptOutCorporate;
+			OptOutAffiliate = info.OptOutAffiliate;
 		}
 
 
@@ -92,6 +97,11 @@ namespace SOS.FunctionalServices.Models.CentralStation
 		public string AMA { get; set; }
 		public string NOC { get; set; }
 		public string SOP { get; set; }
+		public DateTime? ApprovedDate { get; set; }
+		public string ApproverID { get; set; }
+		public DateTime? NOCDate { get; set; }
+		public bool? OptOutCorporate { get; set; }
+		public bool? OptOutAffiliate { get; set; }
 		#endregion Properties
 	}
 }

@@ -114,6 +114,28 @@ namespace NXS.Data
 			}
 			return false;
 		}
+		public bool Transaction(Func<bool> action, IsolationLevel isolation = IsolationLevel.ReadCommitted)
+		{
+			BeginTransaction(isolation);
+			try
+			{
+				// return true from `action` to signify it should be committed
+				if (action())
+				{
+					// commit the transaction
+					CommitTransaction();
+					return true;
+				}
+			}
+			//catch { } // no catch since we don't want to trap the exception
+			finally
+			{
+				// rollback the transaction on exception or false returned from action
+				if (_transaction != null)
+					RollbackTransaction();
+			}
+			return false;
+		}
 
 		protected Action<TDatabase> CreateTableConstructor(Type tableType)
 		{
@@ -161,9 +183,18 @@ namespace NXS.Data
 			return (Action<TDatabase>)dm.CreateDelegate(typeof(Action<TDatabase>));
 		}
 
+		public int Execute(string sql, dynamic param = null)
+		{
+			return _connection.Execute(sql, param as object, _transaction, this._commandTimeout);
+		}
 		public Task<int> ExecuteAsync(string sql, dynamic param = null)
 		{
 			return _connection.ExecuteAsync(sql, param as object, _transaction, this._commandTimeout);
+		}
+
+		public IEnumerable<T> Query<T>(string sql, dynamic param = null)
+		{
+			return _connection.Query<T>(sql, param as object, _transaction, commandTimeout: _commandTimeout);
 		}
 		public Task<IEnumerable<T>> QueryAsync<T>(string sql, dynamic param = null)
 		{
@@ -274,29 +305,64 @@ namespace NXS.Data
 			public string Star { get { return _alias + "*"; } }
 
 			/// <summary>
+			/// Insert a row into the db synchronously
+			/// </summary>
+			/// <param name="data">Either DynamicParameters or an anonymous type or concrete type</param>
+			/// <returns>SCOPE_IDENTITY() or default(TID)</returns>
+			public virtual TID Insert(dynamic data, bool hasIdentity = true)
+			{
+				var obj = (object)data;
+				var sql = InsertSql(obj, hasIdentity);
+				if (hasIdentity)
+					return _database.Query<TID>(sql, obj).FirstOrDefault();
+				else
+				{
+					_database.Execute(sql, obj);
+					return default(TID);
+				}
+			}
+			/// <summary>
 			/// Insert a row into the db asynchronously
 			/// </summary>
 			/// <param name="data">Either DynamicParameters or an anonymous type or concrete type</param>
 			/// <returns>SCOPE_IDENTITY() or default(TID)</returns>
 			public virtual async Task<TID> InsertAsync(dynamic data, bool hasIdentity = true)
 			{
-				List<string> paramNames = GetParamNames((object)data);
-				paramNames.Remove(PkName);
-
-				string cols = string.Join(",", paramNames);
-				string cols_params = string.Join(",", paramNames.Select(p => "@" + p));
-				var sql = "SET NOCOUNT ON INSERT " + TableName + " (" + cols + ") VALUES (" + cols_params + ")";
-
+				var sql = InsertSql((object)data, hasIdentity);
 				if (hasIdentity)
-				{
-					sql += " SELECT CAST(SCOPE_IDENTITY() AS " + _pkDbType + ")";
 					return (await _database.QueryAsync<TID>(sql, (object)data).ConfigureAwait(false)).FirstOrDefault();
-				}
 				else
 				{
 					await _database.ExecuteAsync(sql, (object)data).ConfigureAwait(false);
 					return default(TID);
 				}
+			}
+			private string InsertSql(object data, bool hasIdentity)
+			{
+				List<string> paramNames = GetParamNames(data)
+					.Where(name => !hasIdentity || name != _pkName).ToList();
+
+				string cols = string.Join(",", paramNames);
+				string cols_params = string.Join(",", paramNames.Select(p => "@" + p));
+				var sql = "SET NOCOUNT ON INSERT " + TableName + " (" + cols + ") VALUES (" + cols_params + ")";
+				if (hasIdentity)
+					sql += " SELECT CAST(SCOPE_IDENTITY() AS " + _pkDbType + ")";
+				return sql;
+			}
+
+			/// <summary>
+			/// Update a record in the DB synchronously
+			/// </summary>
+			/// <param name="id"></param>
+			/// <param name="data"></param>
+			/// <returns></returns>
+			public int Update(TID id, dynamic data)
+			{
+				DynamicParameters parameters;
+				var sql = UpdateSql(id, (object)data, out parameters);
+				if (sql == null)
+					return 0;
+				return _database.Execute(sql, parameters);
 			}
 			/// <summary>
 			/// Update a record in the DB asynchronously
@@ -306,22 +372,44 @@ namespace NXS.Data
 			/// <returns></returns>
 			public Task<int> UpdateAsync(TID id, dynamic data)
 			{
-				List<string> paramNames = GetParamNames((object)data);
-				if (paramNames.Count == 0)
+				DynamicParameters parameters;
+				var sql = UpdateSql(id, (object)data, out parameters);
+				if (sql == null)
 					return Task.FromResult(0);
+				return _database.ExecuteAsync(sql, parameters);
+			}
+			private string UpdateSql(TID id, object data, out DynamicParameters parameters)
+			{
+				List<string> paramNames = GetParamNames(data)
+					.Where(name => name != _pkName).ToList();
+				if (paramNames.Count == 0)
+				{
+					parameters = null;
+					return null;
+				}
 
 				var builder = new StringBuilder();
 				builder.Append("UPDATE ").Append(TableName).Append(" SET ");
-				builder.AppendLine(string.Join(",", paramNames.Where(n => n != PkName).Select(p => p + "= @" + p)));
+				builder.AppendLine(string.Join(",", paramNames.Select(p => p + "= @" + p)));
 				builder.Append("WHERE " + PkName + " = @id");
 
-				DynamicParameters parameters = new DynamicParameters(data);
+				parameters = new DynamicParameters(data);
 				parameters.Add("id", id);
 
-				return _database.ExecuteAsync(builder.ToString(), parameters);
+				return builder.ToString();
+			}
+
+			/// <summary>
+			/// Delete a record from the DB synchronously
+			/// </summary>
+			/// <param name="id"></param>
+			/// <returns></returns>
+			public bool Delete(TID id)
+			{
+				return _database.Execute("DELETE FROM " + TableName + " WHERE " + PkName + " = @id", new { id }) > 0;
 			}
 			/// <summary>
-			/// Delete a record for the DB asynchronously
+			/// Delete a record from the DB asynchronously
 			/// </summary>
 			/// <param name="id"></param>
 			/// <returns></returns>
@@ -342,29 +430,34 @@ namespace NXS.Data
 			{
 				return (await _database.QueryAsync<T>("SELECT TOP(1) * FROM " + TableName).ConfigureAwait(false)).FirstOrDefault();
 			}
+
+			public IEnumerable<T> All()
+			{
+				return _database.Query<T>("SELECT * FROM " + TableName);
+			}
 			public Task<IEnumerable<T>> AllAsync()
 			{
 				return _database.QueryAsync<T>("SELECT * FROM " + TableName);
 			}
 
-			static ConcurrentDictionary<Type, List<string>> paramNameCache = new ConcurrentDictionary<Type, List<string>>();
+			static ConcurrentDictionary<Type, string[]> paramNameCache = new ConcurrentDictionary<Type, string[]>();
 
-			public List<string> AsParamNames(object o)
-			{
-				return GetParamNames(o);
-			}
-			internal static List<string> GetParamNames(object o)
+			//public List<string> AsParamNames(object o)
+			//{
+			//	return GetParamNames(o);
+			//}
+			internal static IEnumerable<string> GetParamNames(object o)
 			{
 				if (o is DynamicParameters)
 				{
 					return (o as DynamicParameters).ParameterNames.ToList();
 				}
 
-				List<string> paramNames;
+				string[] paramNames;
 				var type = o.GetType();
 				if (!paramNameCache.TryGetValue(type, out paramNames))
 				{
-					paramNames = new List<string>();
+					var list = new List<string>();
 					foreach (var prop in type.GetProperties(BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Public))
 					{
 						if (DbHelper.ExcludeDict.Contains(prop.Name))
@@ -373,10 +466,10 @@ namespace NXS.Data
 						var attr = attribs.FirstOrDefault() as IgnorePropertyAttribute;
 						if (attr == null || (attr != null && !attr.Value))
 						{
-							paramNames.Add(prop.Name);
+							list.Add(prop.Name);
 						}
 					}
-					paramNameCache[type] = paramNames;
+					paramNameCache[type] = paramNames = list.ToArray();
 				}
 				return paramNames;
 			}
