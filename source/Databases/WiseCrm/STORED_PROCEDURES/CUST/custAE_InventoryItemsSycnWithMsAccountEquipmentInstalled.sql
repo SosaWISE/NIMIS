@@ -84,7 +84,7 @@ BEGIN
 				(AEI.ItemID = MSAE.EquipmentId)
 		WHERE
 			(AccountId = @AccountID) 
-			AND (InvoiceItemID IS NULL) 
+			AND (MSAE.InvoiceItemID IS NULL) 
 			AND (MSAE.IsActive = 1 AND MSAE.IsDeleted = 0);
 
 		OPEN accountEqCursor;
@@ -111,6 +111,7 @@ BEGIN
 			WHERE
 				(AEII.ItemId = @EquipmentId)
 				AND (AEII.ProductBarcodeId IS NULL)
+				AND (AEII.AccountEquipmentId IS NULL)
 				AND (AEI.IsActive = 1 AND AEI.IsDeleted = 0)
 				AND (AEII.IsActive = 1 AND AEII.IsDeleted = 0)
 
@@ -162,6 +163,8 @@ BEGIN
 						(AEIT.ItemID = MSAE.EquipmentId)
 				WHERE
 					(MSAE.AccountEquipmentID = @AccountEquipmentID);
+
+				SET @InvoiceItemID = SCOPE_IDENTITY();
 			END
 			ELSE
 			BEGIN
@@ -193,6 +196,9 @@ BEGIN
 					(AEII.InvoiceItemID = @InvoiceItemID);
 			END
 
+			/** Save InvoiceItemID into MS_AccountEquipments Tables*/
+			UPDATE [dbo].[MS_AccountEquipment] SET InvoiceItemId = @InvoiceItemID WHERE (AccountEquipmentID = @AccountEquipmentID);
+
 			/** Move to the next item. */
 			FETCH NEXT FROM accountEqCursor
 			INTO @AccountEquipmentID, @EquipmentId, @ActualPoints, @BarcodeId, @ItemSKU
@@ -214,7 +220,9 @@ BEGIN
 			INNER JOIN [dbo].[AE_Items] AS AEIT WITH (NOLOCK)
 			ON
 				(AEIT.ItemID = AEII.ItemId)
+				AND (AEIT.ItemTypeId = 'EQPM_INVT_MS')
 		WHERE
+		/** TODO:  Need to be able to flag only equipment not upgrades or deductions or mmr deductions. */
 			(AEII.InvoiceId = @InvoiceID)
 			AND (AEII.AccountEquipmentId IS NULL)
 			AND (AEII.IsActive = 1 AND AEII.IsDeleted = 0);
@@ -285,6 +293,8 @@ BEGIN
 					[dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
 				WHERE
 					(InvoiceItemID = @InvoiceItemID);
+
+				SET @AccountEquipmentId = SCOPE_IDENTITY();
 			END
 			ELSE
 			BEGIN
@@ -312,6 +322,9 @@ BEGIN
 				WHERE
 					(MSAE.AccountEquipmentID = @AccountEquipmentId);
 			END
+
+			/** Save information */
+			UPDATE [dbo].[AE_InvoiceItems] SET AccountEquipmentId = @AccountEquipmentId WHERE InvoiceItemID = @InvoiceItemID;
 
 			/** Move to next item */
 			FETCH NEXT FROM invoiceItemCursor
