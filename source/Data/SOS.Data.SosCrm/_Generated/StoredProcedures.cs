@@ -265,6 +265,12 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@CustomerID", CustomerID, DbType.Int64);
 			return sp;
 		}
+		public static StoredProcedure AE_InventoryItemsSycnWithMsAccountEquipmentInstalled(long? AccountID,string GpEmployeeId) {
+			StoredProcedure sp = new StoredProcedure("custAE_InventoryItemsSycnWithMsAccountEquipmentInstalled" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@AccountID", AccountID, DbType.Int64);
+			sp.Command.AddParameter("@GpEmployeeId", GpEmployeeId, DbType.AnsiString);
+			return sp;
+		}
 		public static StoredProcedure AE_InvoiceCalculatePrices(long? InvoiceID,string StateID,string PostalCode,bool? HideInvoiceHeader) {
 			StoredProcedure sp = new StoredProcedure("custAE_InvoiceCalculatePrices" ,DataService.GetInstance("SosCrmProvider"));
 			sp.Command.AddParameter("@InvoiceID", InvoiceID, DbType.Int64);

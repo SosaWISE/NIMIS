@@ -594,8 +594,8 @@ namespace SOS.Data.SosCrm
 
 				TableSchema.TableColumn colvarTransactionID = new TableSchema.TableColumn(schema);
 				colvarTransactionID.ColumnName = "TransactionID";
-				colvarTransactionID.DataType = DbType.Guid;
-				colvarTransactionID.MaxLength = 0;
+				colvarTransactionID.DataType = DbType.AnsiString;
+				colvarTransactionID.MaxLength = 100;
 				colvarTransactionID.AutoIncrement = false;
 				colvarTransactionID.IsNullable = true;
 				colvarTransactionID.IsPrimaryKey = false;
@@ -809,8 +809,8 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.CreditScore, value); }
 		}
 		[DataMember]
-		public Guid? TransactionID {
-			get { return GetColumnValue<Guid?>(Columns.TransactionID); }
+		public string TransactionID {
+			get { return GetColumnValue<string>(Columns.TransactionID); }
 			set { SetColumnValue(Columns.TransactionID, value); }
 		}
 		[DataMember]

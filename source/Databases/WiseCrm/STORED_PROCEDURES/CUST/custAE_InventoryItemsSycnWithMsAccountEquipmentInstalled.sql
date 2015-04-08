@@ -45,12 +45,12 @@ BEGIN
 	/** SET NO COUNTING */
 	SET NOCOUNT ON
 
-	/** Check that the account has not been submitted to CS. 
+	/** Check that the account has not been submitted to CS. */
 	IF(EXISTS(SELECT AccountID FROM [dbo].[MS_AccountSalesInformations] WHERE (AccountID = @AccountID) AND (InstallDate IS NOT NULL)))
 	BEGIN
 		RETURN;
 	END
-	*/
+	
 
 	/** DECLARATIONS */
 	DECLARE @AccountEquipmentID BIGINT
@@ -220,9 +220,8 @@ BEGIN
 			INNER JOIN [dbo].[AE_Items] AS AEIT WITH (NOLOCK)
 			ON
 				(AEIT.ItemID = AEII.ItemId)
-				AND (AEIT.ItemTypeId = 'EQPM_INVT_MS')
+				AND (AEIT.ItemTypeId = 'EQPM_INVT_MS' OR AEIT.ItemTypeId = 'EQPM_EXST_MS')
 		WHERE
-		/** TODO:  Need to be able to flag only equipment not upgrades or deductions or mmr deductions. */
 			(AEII.InvoiceId = @InvoiceID)
 			AND (AEII.AccountEquipmentId IS NULL)
 			AND (AEII.IsActive = 1 AND AEII.IsDeleted = 0);
@@ -342,6 +341,9 @@ BEGIN
 		EXEC dbo.wiseSP_ExceptionsThrown;
 		RETURN;
 	END CATCH
+
+	/** Return results */
+	SELECT * FROM [dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK) WHERE (AEII.InvoiceID = @InvoiceID) AND (AEII.IsActive = 1 AND AEII.IsDeleted = 0);
 END
 GO
 

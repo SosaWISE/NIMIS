@@ -1689,6 +1689,8 @@ namespace SOS.FunctionalServices
 
 		public IFnsResult<IFnsMsAccountEquipmentsView> EquipmentUpdate(IFnsMsAccountEquipmentsView acctEquipment, string gpEmployeeID)
 		{
+			#region INITIALIZATION
+			const string METHOD_NAME = "FOS EquipmentUpdate";
 			var result = new FnsResult<IFnsMsAccountEquipmentsView> { Message = "" };
 
 			var db = SosCrmDataContext.Instance;
@@ -1697,100 +1699,129 @@ namespace SOS.FunctionalServices
 
 			var isNew = (acctEquipment.AccountEquipmentID == 0);
 			var item = isNew ? new MS_AccountEquipment() : db.MS_AccountEquipments.LoadByPrimaryKey(acctEquipment.AccountEquipmentID);
-			if (item.BarcodeId != acctEquipment.BarcodeId)
-			{
-				if (!string.IsNullOrWhiteSpace(item.BarcodeId))
-				{
-					result.Code = -1;
-					result.Message = string.Format("Barcode cannot be changed. Current:{0} New:{1}", item.BarcodeId, acctEquipment.BarcodeId);
-					return result;
-				}
+			#endregion INITIALIZATION
 
-				item.BarcodeId = acctEquipment.BarcodeId;
-				if (!string.IsNullOrWhiteSpace(acctEquipment.BarcodeId))
+			#region TRY
+			try
+			{
+
+				if (item.BarcodeId != acctEquipment.BarcodeId)
 				{
-					// check if barcode is valid
-					productBarcode = db.IE_ProductBarcodes.LoadByPrimaryKey(item.BarcodeId);
-					if (productBarcode == null)
-					{
-						result.Code = (int)ErrorCodes.SqlItemNotFound;
-						result.Message = string.Format("Barcode {0} not found.", item.BarcodeId);
-						return result;
-					}
-					// Check that the barcode hasn't been sold already.
-					if (productBarcode.LastProductBarcodeTrackingId != null
-						&& String.Compare(productBarcode.LastProductBarcodeTracking.LocationTypeID, "Sold", StringComparison.OrdinalIgnoreCase) == 0)
+					if (!string.IsNullOrWhiteSpace(item.BarcodeId))
 					{
 						result.Code = -1;
-						result.Message = string.Format("Barcode {0} is already assigned to Account# {1}.", item.BarcodeId, productBarcode.LastProductBarcodeTracking.LocationID);
+						result.Message = string.Format("Barcode cannot be changed. Current:{0} New:{1}", item.BarcodeId, acctEquipment.BarcodeId);
 						return result;
 					}
-					// create barcode tracking
-					barcodeTracking = new IE_ProductBarcodeTracking
+
+					item.BarcodeId = acctEquipment.BarcodeId;
+					if (!string.IsNullOrWhiteSpace(acctEquipment.BarcodeId))
 					{
-						ProductBarcodeTrackingTypeId = "CUST",
-						ProductBarcodeId = acctEquipment.BarcodeId,
-						LocationTypeID = "Sold",
-						LocationID = acctEquipment.AccountId.ToString(CultureInfo.InvariantCulture),
-					};
+						// check if barcode is valid
+						productBarcode = db.IE_ProductBarcodes.LoadByPrimaryKey(item.BarcodeId);
+						if (productBarcode == null)
+						{
+							result.Code = (int)ErrorCodes.SqlItemNotFound;
+							result.Message = string.Format("Barcode {0} not found.", item.BarcodeId);
+							return result;
+						}
+						// Check that the barcode hasn't been sold already.
+						if (productBarcode.LastProductBarcodeTrackingId != null
+							&& String.Compare(productBarcode.LastProductBarcodeTracking.LocationTypeID, "Sold", StringComparison.OrdinalIgnoreCase) == 0)
+						{
+							result.Code = -1;
+							result.Message = string.Format("Barcode {0} is already assigned to Account# {1}.", item.BarcodeId, productBarcode.LastProductBarcodeTracking.LocationID);
+							return result;
+						}
+						// create barcode tracking
+						barcodeTracking = new IE_ProductBarcodeTracking
+						{
+							ProductBarcodeTrackingTypeId = "CUST",
+							ProductBarcodeId = acctEquipment.BarcodeId,
+							LocationTypeID = "Sold",
+							LocationID = acctEquipment.AccountId.ToString(CultureInfo.InvariantCulture),
+						};
+					}
 				}
-			}
-			MS_Equipment equipment = SosCrmDataContext.Instance.MS_Equipments.LoadByPrimaryKey(acctEquipment.EquipmentId);
-			if (isNew)
-			{
-				item.IsActive = true;
-
-			}
-			item.AccountId = acctEquipment.AccountId;
-			item.EquipmentId = acctEquipment.EquipmentId;
-			item.EquipmentLocationId = acctEquipment.EquipmentLocationId;
-			item.GPEmployeeId = acctEquipment.GPEmployeeId;
-			//item.OfficeReconciliationItemId = acctEquipment.OfficeReconciliationItemId;
-			item.AccountEquipmentUpgradeTypeId = acctEquipment.AccountEquipmentUpgradeTypeId;
-			//item.CustomerLocation = acctEquipment.CustomerLocation;
-			item.Points = acctEquipment.Points;
-			item.ActualPoints = acctEquipment.ActualPoints;
-			item.Price = acctEquipment.Price;
-			item.IsExisting = acctEquipment.IsExisting;
-			item.IsServiceUpgrade = acctEquipment.IsServiceUpgrade;
-			item.IsExistingWiring = acctEquipment.IsExistingWiring;
-			item.IsMainPanel = acctEquipment.IsMainPanel;
-
-			isNew = (acctEquipment.AccountZoneAssignmentID == 0);
-			var zone = isNew ? new MS_AccountZoneAssignment() : db.MS_AccountZoneAssignments.LoadByPrimaryKey(acctEquipment.AccountZoneAssignmentID);
-			if (isNew)
-			{
-				zone.IsActive = true;
-			}
-			zone.AccountZoneTypeId = acctEquipment.AccountZoneTypeId ?? equipment.AccountZoneTypeId;
-			zone.AccountEventId = acctEquipment.AccountEventId;
-			zone.Zone = acctEquipment.Zone;
-			zone.Comments = acctEquipment.Comments;
-			zone.IsExisting = acctEquipment.IsExisting;
-
-			DatabaseHelper.UseTransaction(Data.SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME, () =>
-			{
-				// save barcode tracking
-				if (barcodeTracking != null)
+				MS_Equipment equipment = SosCrmDataContext.Instance.MS_Equipments.LoadByPrimaryKey(acctEquipment.EquipmentId);
+				if (isNew)
 				{
-					barcodeTracking.Save(gpEmployeeID);
-					// update last barcode tracking
-					productBarcode.LastProductBarcodeTrackingId = barcodeTracking.ProductBarcodeTrackingID;
-					productBarcode.Save(gpEmployeeID);
-				}
-				// save equipment item
-				item.Save(gpEmployeeID);
-				// set foreign key and save zone
-				zone.AccountEquipmentId = item.AccountEquipmentID;
-				zone.Save(gpEmployeeID);
-				// commit transaction
-				return true;
-			});
+					item.IsActive = true;
 
-			// load and return items just added
-			//equipmentAndZone.AccountEquipment = new 
-			result.Value = new FnsMsAccountEquipmentsView(db.MS_AccountEquipmentsViews.ByAccountZoneAssignment(zone.AccountZoneAssignmentID));
+				}
+				item.AccountId = acctEquipment.AccountId;
+				item.EquipmentId = acctEquipment.EquipmentId;
+				item.EquipmentLocationId = acctEquipment.EquipmentLocationId;
+				item.GPEmployeeId = acctEquipment.GPEmployeeId;
+				//item.OfficeReconciliationItemId = acctEquipment.OfficeReconciliationItemId;
+				item.AccountEquipmentUpgradeTypeId = acctEquipment.AccountEquipmentUpgradeTypeId;
+				//item.CustomerLocation = acctEquipment.CustomerLocation;
+				item.Points = acctEquipment.Points;
+				item.ActualPoints = acctEquipment.ActualPoints;
+				item.Price = acctEquipment.Price;
+				item.IsExisting = acctEquipment.IsExisting;
+				item.IsServiceUpgrade = acctEquipment.IsServiceUpgrade;
+				item.IsExistingWiring = acctEquipment.IsExistingWiring;
+				item.IsMainPanel = acctEquipment.IsMainPanel;
+
+				isNew = (acctEquipment.AccountZoneAssignmentID == 0);
+				var zone = isNew ? new MS_AccountZoneAssignment() : db.MS_AccountZoneAssignments.LoadByPrimaryKey(acctEquipment.AccountZoneAssignmentID);
+				if (isNew)
+				{
+					zone.IsActive = true;
+				}
+				zone.AccountZoneTypeId = acctEquipment.AccountZoneTypeId ?? equipment.AccountZoneTypeId;
+				zone.AccountEventId = acctEquipment.AccountEventId;
+				zone.Zone = acctEquipment.Zone;
+				zone.Comments = acctEquipment.Comments;
+				zone.IsExisting = acctEquipment.IsExisting;
+
+				DatabaseHelper.UseTransaction(Data.SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME, () =>
+				{
+					// save barcode tracking
+					if (barcodeTracking != null)
+					{
+						barcodeTracking.Save(gpEmployeeID);
+						// update last barcode tracking
+						productBarcode.LastProductBarcodeTrackingId = barcodeTracking.ProductBarcodeTrackingID;
+						productBarcode.Save(gpEmployeeID);
+					}
+					// save equipment item
+					item.Save(gpEmployeeID);
+					// set foreign key and save zone
+					zone.AccountEquipmentId = item.AccountEquipmentID;
+					zone.Save(gpEmployeeID);
+					// commit transaction
+					return true;
+				});
+
+				/** Sync  InvoiceItems with AccountEquipments rows. */
+				SosCrmDataContext.Instance.AE_InvoiceItems.LoadCollection(
+					SosCrmDataStoredProcedureManager.AE_InventoryItemsSycnWithMsAccountEquipmentInstalled(acctEquipment.AccountId, gpEmployeeID));
+
+				result.Value = new FnsMsAccountEquipmentsView(db.MS_AccountEquipmentsViews.ByAccountZoneAssignment(zone.AccountZoneAssignmentID));
+			}
+			#endregion TRY
+			#region CATCH
+			catch (SqlException sqlEx)
+			{
+				var sqlUtil = MsSqlExceptionUtil.Parse(sqlEx.Message);
+				result.Code = sqlUtil.MessageID;
+				result.Message = string.Format("SQL Exception thrown at {0}: {1}", METHOD_NAME, sqlUtil.ErrorMessage);
+			}
+			catch (Exception ex)
+			{
+				result = new FnsResult<IFnsMsAccountEquipmentsView>
+				{
+					Code = (int)ErrorCodes.UnexpectedException,
+					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message)
+				};
+			}
+			#endregion CATCH
+
+			#region Returns
 			return result;
+			#endregion Returns
 		}
 
 		public IFnsResult<bool> EquipmentDelete(long accountEquipmentID, string gpEmployeeID)
