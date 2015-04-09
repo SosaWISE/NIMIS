@@ -63,6 +63,8 @@ AS
 		, [dbo].fxMsAccountSetupFeeGet(MSA.AccountID, 1) AS [SetupFee1stMonth]
 		, [dbo].fxMsAccountMMRGet(MSA.AccountID) AS [MMR]
 		, [dbo].fxMsAccountO3MGet(MSA.AccountID) AS [Over3Months]
+		, [dbo].fxMsAccountsTotalPoints(MSA.AccountID) AS [TotalPoints]
+		, [dbo].fxMsAccountTotalPointsAllowed(MSA.AccountID) AS [TotalPointsAllowed]
 		, CNTC.ContractLength
 		, MSA.ContractId
 		, ACT.ContractTemplateId
@@ -112,7 +114,7 @@ AS
 
 GO
 /* TEST 
-SELECT * FROM vwMS_AccountSalesInformations WHERE AccountID = 191101;
+SELECT * FROM vwMS_AccountSalesInformations WHERE AccountID = 191168; --191101;
 SELECT * FROM [dbo].[AE_Contracts] WHERE ContractID = 1000022;
 */
 
