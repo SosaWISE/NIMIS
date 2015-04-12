@@ -49,6 +49,7 @@ AS
 		AEQ.AccountEquipmentID
 		, AEQ.AccountId
 		, AEQ.EquipmentId
+		, AEQ.InvoiceItemId
 		, EQM.GPItemNmbr AS ItemSKU
 		, EQM.ItemDescription AS ItemDesc
 		, AEQ.EquipmentLocationId
@@ -62,6 +63,7 @@ AS
 		, AEQ.IsServiceUpgrade
 		, AEQ.IsExistingWiring
 		, AEQ.IsMainPanel
+		, AEQ.IsActive
 		, AEQ.IsDeleted
 		, AZA.AccountZoneAssignmentID
 		, EQM.AccountZoneTypeId
@@ -72,12 +74,12 @@ AS
 		, AZT.AccountZoneType
 	FROM
 		[dbo].[MS_AccountEquipment] AS AEQ WITH (NOLOCK)
-		INNER JOIN [dbo].MS_AccountZoneAssignments AS AZA WITH (NOLOCK)
-		ON
-			(AZA.AccountEquipmentId = AEQ.AccountEquipmentID)
 		INNER JOIN [dbo].MS_Equipments AS EQM WITH (NOLOCK)
 		ON
 			(EQM.EquipmentID = AEQ.EquipmentId)
+		INNER JOIN [dbo].MS_AccountZoneAssignments AS AZA WITH (NOLOCK)
+		ON
+			(AZA.AccountEquipmentId = AEQ.AccountEquipmentID)
 		INNER JOIN [dbo].MS_AccountZoneTypes AS AZT WITH (NOLOCK)
 		ON
 			(EQM.AccountZoneTypeId = AZT.AccountZoneTypeID)

@@ -65,6 +65,8 @@ AS
 		, [dbo].fxMsAccountO3MGet(MSA.AccountID) AS [Over3Months]
 		, [dbo].fxMsAccountsTotalPoints(MSA.AccountID) AS [TotalPoints]
 		, [dbo].fxMsAccountTotalPointsAllowed(MSA.AccountID) AS [TotalPointsAllowed]
+		, [dbo].fxMsAccountTotalPointsRep(MSA.AccountID) AS RepPoints
+		, CAST(0 AS DECIMAL(5,2)) AS TechPoints
 		, CNTC.ContractLength
 		, MSA.ContractId
 		, ACT.ContractTemplateId
@@ -115,6 +117,35 @@ AS
 GO
 /* TEST 
 SELECT * FROM vwMS_AccountSalesInformations WHERE AccountID = 191168; --191101;
+SELECT * FROM vwMS_AccountSalesInformations WHERE AccountID = 191168;
 SELECT * FROM [dbo].[AE_Contracts] WHERE ContractID = 1000022;
 */
 
+SELECT 
+	 AEII.InvoiceItemID ,
+	        AEII.InvoiceId ,
+	        AEII.ItemId ,
+			MSE.ItemSKU,
+			MSE.ItemDesc,
+	        AEII.ProductBarcodeId ,
+	        AEII.AccountEquipmentId ,
+	        AEII.TaxOptionId ,
+	        AEII.Qty ,
+	        AEII.Cost ,
+	        AEII.RetailPrice ,
+	        AEII.PriceWithTax ,
+	        AEII.SystemPoints ,
+	        AEII.SalesmanId ,
+	        AEII.TechnicianId
+FROM
+	[dbo].[AE_Invoices] AS AEI WITH (NOLOCK)
+	INNER JOIN [dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
+	ON
+		(AEII.InvoiceId = AEI.InvoiceID)
+		AND (AEI.InvoiceTypeId = 'INSTALL')
+		AND (AEI.IsActive = 1 AND AEI.IsDeleted = 0)
+		AND (AEII.IsActive = 1 AND AEII.IsDeleted = 0)
+		AND (AEI.AccountId = 191168)
+	INNER JOIN [dbo].[AE_Items] AS MSE WITH (NOLOCK)
+	ON
+		(AEII.ItemId = MSE.ItemID)

@@ -1743,6 +1743,7 @@ namespace SOS.FunctionalServices
 						};
 					}
 				}
+
 				MS_Equipment equipment = SosCrmDataContext.Instance.MS_Equipments.LoadByPrimaryKey(acctEquipment.EquipmentId);
 				if (isNew)
 				{

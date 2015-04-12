@@ -24,7 +24,7 @@ Version:10.4.8.62-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>02/10/2015 15:30:43</LastCompared>
+  <LastCompared>04/10/2015 11:02:51</LastCompared>
   <Options>Default, ObjectExistenceChecks, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
@@ -593,6 +593,18 @@ Version:10.4.8.62-->
     <value version="1" type="SelectTableEvent">
       <action>SelectItem</action>
       <val>[dbo].[MS_AccountCellularSubmitVendors]:[dbo].[MS_AccountCellularSubmitVendors]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_AccountPackageItems]:[dbo].[MS_AccountPackageItems]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_AccountPackageItemTypes]:[dbo].[MS_AccountPackageItemTypes]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_AccountPackages]:[dbo].[MS_AccountPackages]</val>
     </value>
   </TableActions>
   <SessionSettings>15</SessionSettings>
