@@ -58,22 +58,18 @@ namespace NXS.DataServices.Crm
 		//	}
 		//}
 
-
-
-
-
 		public async Task<Result<AeCustomerAccount>> CustomerAccountByTypeAsync(long accountId, string customerTypeId)
 		{
 			using (var db = CrmDb.Connect())
 			{
-				var item = (await db.AE_CustomerAccounts.ManyByAccountIdAndTypeAsync(accountId, customerTypeId).ConfigureAwait(false)).FirstOrDefault();
+				var item = (await db.AE_CustomerAccounts.ByAccountIdAndTypeAsync(accountId, customerTypeId).ConfigureAwait(false)).FirstOrDefault();
 				var result = new Result<AeCustomerAccount>(value: AeCustomerAccount.FromDb(item, nullable: true));
 				return result;
 			}
 		}
 		public async Task<Result<AeCustomer>> SetCustomerAccountAsync(long accountId, string customerTypeId, long leadId)
 		{
-			using (var db = CrmDb.Connect(360))
+			using (var db = CrmDb.Connect())
 			{
 				var result = new Result<AeCustomer>();
 				var lead = await db.QL_Leads.ByIdAsync(leadId).ConfigureAwait(false);
@@ -86,13 +82,14 @@ namespace NXS.DataServices.Crm
 				AE_Customer customer = null;
 				await db.TransactionAsync(async () =>
 				{
-					var custAccounts = (await db.AE_CustomerAccounts.ManyByAccountIdAndTypeAsync(accountId, customerTypeId).ConfigureAwait(false)).ToList();
+					var tbl = db.AE_CustomerAccounts;
+					var custAccounts = (await tbl.ByAccountIdAndTypeAsync(accountId, customerTypeId).ConfigureAwait(false)).ToList();
 					var custAcct = custAccounts.FirstOrDefault();
 					if (custAcct != null)
 						custAccounts.Remove(custAcct); // don't delete this one
 					// delete existing customer accounts except current (there should only be one but the db schema allows more than one)
 					foreach (var item in custAccounts)
-						await db.AE_CustomerAccounts.DeleteAsync(item.CustomerAccountID).ConfigureAwait(false);
+						await tbl.DeleteAsync(item.CustomerAccountID).ConfigureAwait(false);
 
 					// ensure MC_Address
 					var mcAddress = (await UpdateOrCreateMcAddress(_gpEmployeeId, db, qlAddress).ConfigureAwait(false));
@@ -103,18 +100,14 @@ namespace NXS.DataServices.Crm
 					{
 						custAcct = new AE_CustomerAccount();
 						CopyFrom(custAcct, accountId, customerTypeId, lead, customer, mcAddress);
-						custAcct.ModifiedOn = custAcct.CreatedOn = DateTime.UtcNow;
-						custAcct.ModifiedBy = custAcct.CreatedBy = _gpEmployeeId;
-						custAcct.CustomerAccountID = await db.AE_CustomerAccounts.InsertAsync(custAcct).ConfigureAwait(false);
+						await tbl.InsertAsync(custAcct, _gpEmployeeId).ConfigureAwait(false);
 					}
 					else
 					{
 						// update customer account
 						var snapShot = Snapshotter.Start(custAcct);
 						CopyFrom(custAcct, accountId, customerTypeId, lead, customer, mcAddress);
-						custAcct.ModifiedOn = DateTime.UtcNow;
-						custAcct.ModifiedBy = _gpEmployeeId;
-						await db.AE_CustomerAccounts.UpdateAsync(custAcct.CustomerAccountID, snapShot.Diff()).ConfigureAwait(false);
+						await tbl.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
 					}
 
 					// commit transaction
@@ -143,7 +136,7 @@ namespace NXS.DataServices.Crm
 				await db.TransactionAsync(async () =>
 				{
 					// delete existing customer accounts (there should only be one but the db schema allows more than one)
-					var custAccounts = (await db.AE_CustomerAccounts.ManyByAccountIdAndTypeAsync(accountId, customerTypeId).ConfigureAwait(false)).ToList();
+					var custAccounts = (await db.AE_CustomerAccounts.ByAccountIdAndTypeAsync(accountId, customerTypeId).ConfigureAwait(false)).ToList();
 					foreach (var custAcct in custAccounts)
 						await db.AE_CustomerAccounts.DeleteAsync(custAcct.CustomerAccountID).ConfigureAwait(false);
 
@@ -155,7 +148,6 @@ namespace NXS.DataServices.Crm
 				return result;
 			}
 		}
-
 
 		//private static int PrecedenceComparison(AeCustomerAccountInput a, AeCustomerAccountInput b)
 		//{
@@ -339,21 +331,14 @@ namespace NXS.DataServices.Crm
 			{
 				mcAddress = new MC_Address();
 				CopyFromLead(mcAddress, qlAddress);
-				// crate
-				mcAddress.ModifiedOn = mcAddress.CreatedOn = DateTime.UtcNow;
-				mcAddress.ModifiedBy = mcAddress.CreatedBy = gpEmployeeId;
-				mcAddress.AddressID = await tbl.InsertAsync(mcAddress).ConfigureAwait(false);
+				await tbl.InsertAsync(mcAddress, gpEmployeeId).ConfigureAwait(false);
 			}
 			else
 			{
 				var snapShot = Snapshotter.Start(mcAddress);
 				CopyFromLead(mcAddress, qlAddress);
-				// update
-				mcAddress.ModifiedOn = DateTime.UtcNow;
-				mcAddress.ModifiedBy = gpEmployeeId;
-				await tbl.UpdateAsync(mcAddress.AddressID, snapShot.Diff()).ConfigureAwait(false);
+				await tbl.UpdateAsync(snapShot, gpEmployeeId).ConfigureAwait(false);
 			}
-
 			return mcAddress;
 		}
 		private static void CopyFromLead(MC_Address mcAddress, QL_Address qlAddress)
@@ -399,17 +384,15 @@ namespace NXS.DataServices.Crm
 
 		private static async Task<AE_Customer> CreateAeCustomer(string gpEmployeeId, CrmDb db, QL_Lead lead, MC_Address mcAddress)
 		{
+			var tbl = db.AE_Customers;
 			// map lead to customer 1 to 1
 			// check if a customer already exists for the lead
-			var customer = (await db.AE_Customers.OneByLeadIdAsync(lead.LeadID).ConfigureAwait(false));
+			var customer = (await tbl.OneByLeadIdAsync(lead.LeadID).ConfigureAwait(false));
 			if (customer == null)
 			{
 				customer = new AE_Customer();
 				CopyFromLead(customer, lead, mcAddress);
-				// crate
-				customer.ModifiedOn = customer.CreatedOn = DateTime.UtcNow;
-				customer.ModifiedBy = customer.CreatedBy = gpEmployeeId;
-				customer.CustomerID = await db.AE_Customers.InsertAsync(customer).ConfigureAwait(false);
+				await tbl.InsertAsync(customer, gpEmployeeId).ConfigureAwait(false);
 			}
 			// lead data should not change but customer data can, so updating the customer should be unnecessary and may overwrite changed data
 			//@REVIEW: it may be possible to add data to a lead, but not modify, e.g.: change a null value to a non-null value
@@ -417,10 +400,7 @@ namespace NXS.DataServices.Crm
 			//{
 			//	var snapShot = Snapshotter.Start(customer);
 			//	CopyFromLead(customer, lead, mcAddress);
-			//	// update
-			//	customer.ModifiedOn = DateTime.UtcNow;
-			//	customer.ModifiedBy = gpEmployeeId;
-			//	await db.AE_Customers.UpdateAsync(customer.CustomerID, snapShot.Diff()).ConfigureAwait(false);
+			//	await tbl.UpdateAsync(snapShot, gpEmployeeId).ConfigureAwait(false);
 			//}
 
 			return customer;
@@ -480,16 +460,6 @@ namespace NXS.DataServices.Crm
 		//	return string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
 		//}
 
-
-
-
-
-
-
-
-
-
-
 		public async Task<Result<MsAccountSalesInformationExtras>> SaveAccountSalesInformationExtras(long accountId, MsAccountSalesInformationExtras data)
 		{
 			using (var db = CrmDb.Connect())
@@ -532,7 +502,7 @@ namespace NXS.DataServices.Crm
 			{
 				var result = new Result<Noc>();
 				const string sql = "SELECT WISE_CRM.dbo.fxGetLastNOCDate(@startDate)";
-				var nocDate= (await db.QueryAsync<DateTime>(sql, new { startDate }).ConfigureAwait(false)).First();
+				var nocDate = (await db.QueryAsync<DateTime>(sql, new { startDate }).ConfigureAwait(false)).First();
 				result.Value = new Noc() { NOCDate = nocDate };
 				return result;
 			}

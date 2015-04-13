@@ -284,11 +284,12 @@ namespace NXS.Data
 			internal string _name;
 			internal string _pkName;
 			internal string _pkDbType;
+			internal bool _hasIdentity;
 			protected readonly string _aliasNoDot;
 			protected readonly string _alias;
 
-			public Table(Database<TDatabase> database) : this(database, null, null, null) { }
-			public Table(Database<TDatabase> database, string alias, string name, string pkName = "ID", string pkDbType = "int")
+			//public Table(Database<TDatabase> database) : this(database, null, null, null) { }
+			public Table(Database<TDatabase> database, string alias, string name, string pkName = "ID", string pkDbType = "int", bool hasIdentity = true)
 			{
 				_aliasNoDot = alias;
 				_alias = string.IsNullOrEmpty(alias) ? "" : (alias + ".");
@@ -297,6 +298,7 @@ namespace NXS.Data
 				_name = name;
 				_pkName = pkName;
 				_pkDbType = pkDbType;
+				_hasIdentity = hasIdentity;
 			}
 
 			public string Alias { get { return _aliasNoDot; } }
@@ -309,11 +311,11 @@ namespace NXS.Data
 			/// </summary>
 			/// <param name="data">Either DynamicParameters or an anonymous type or concrete type</param>
 			/// <returns>SCOPE_IDENTITY() or default(TID)</returns>
-			public virtual TID Insert(dynamic data, bool hasIdentity = true)
+			public virtual TID Insert(dynamic data)
 			{
 				var obj = (object)data;
-				var sql = InsertSql(obj, hasIdentity);
-				if (hasIdentity)
+				var sql = InsertSql(obj);
+				if (_hasIdentity)
 					return _database.Query<TID>(sql, obj).FirstOrDefault();
 				else
 				{
@@ -326,10 +328,10 @@ namespace NXS.Data
 			/// </summary>
 			/// <param name="data">Either DynamicParameters or an anonymous type or concrete type</param>
 			/// <returns>SCOPE_IDENTITY() or default(TID)</returns>
-			public virtual async Task<TID> InsertAsync(dynamic data, bool hasIdentity = true)
+			public virtual async Task<TID> InsertAsync(dynamic data)
 			{
-				var sql = InsertSql((object)data, hasIdentity);
-				if (hasIdentity)
+				var sql = InsertSql((object)data);
+				if (_hasIdentity)
 					return (await _database.QueryAsync<TID>(sql, (object)data).ConfigureAwait(false)).FirstOrDefault();
 				else
 				{
@@ -337,15 +339,15 @@ namespace NXS.Data
 					return default(TID);
 				}
 			}
-			private string InsertSql(object data, bool hasIdentity)
+			private string InsertSql(object data)
 			{
 				List<string> paramNames = GetParamNames(data)
-					.Where(name => !hasIdentity || name != _pkName).ToList();
+					.Where(name => !_hasIdentity || name != _pkName).ToList();
 
 				string cols = string.Join(",", paramNames);
 				string cols_params = string.Join(",", paramNames.Select(p => "@" + p));
 				var sql = "SET NOCOUNT ON INSERT " + TableName + " (" + cols + ") VALUES (" + cols_params + ")";
-				if (hasIdentity)
+				if (_hasIdentity)
 					sql += " SELECT CAST(SCOPE_IDENTITY() AS " + _pkDbType + ")";
 				return sql;
 			}
@@ -479,6 +481,9 @@ namespace NXS.Data
 
 	internal class DbHelper
 	{
-		public readonly static HashSet<string> ExcludeDict = new HashSet<string>(new string[] { "DEX_ROW_TS" });
+		public readonly static HashSet<string> ExcludeDict = new HashSet<string>(new string[] {
+			"DEX_ROW_TS",
+			"DEX_ROW_ID",
+		});
 	}
 }

@@ -147,6 +147,8 @@ namespace NXS.Data
 
 		public Sequel With(string with)
 		{
+			if (with == null)
+				return this;
 			_builder.Append(" WITH(");
 			_builder.Append(with);
 			_builder.Append(")");

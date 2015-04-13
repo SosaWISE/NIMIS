@@ -26,7 +26,7 @@ namespace WebModules.Crm.Ms
 			Post["/{id:int}", true] = async (x, ct) =>
 			{
 				var srv = new AccountHoldsService(this.User.GPEmployeeID);
-				var input = this.Bind<HoldFix>();
+				var input = this.Bind<MsHoldFix>();
 				input.AccountHoldID = (int)x.id;
 				return await srv.FixHold(input).ConfigureAwait(false);
 			};

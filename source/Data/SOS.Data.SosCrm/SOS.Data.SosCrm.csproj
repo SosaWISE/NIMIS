@@ -75,17 +75,6 @@
     <Compile Include="ControllerExtensions\QL_CreditReportTransactionAndTokenControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\QL_CustomerMasterLeadControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\SAE_BillingHistoryViewControllerExtensions.cs" />
-    <Compile Include="ControllerExtensions\SE_TechnicianScheduleBlockViewControllerExtensions.cs" />
-    <Compile Include="ControllerExtensions\SE_TechnicianAvailabilityControllerExtensions.cs" />
-    <Compile Include="ControllerExtensions\SE_ScheduleBlockViewControllerExtensions.cs" />
-    <Compile Include="ControllerExtensions\SE_ScheduleTicketControllerExtensions.cs" />
-    <Compile Include="ControllerExtensions\SE_ScheduleBlockControllerExtensions.cs" />
-    <Compile Include="ControllerExtensions\SE_ScheduleBlockTicketViewControllerExtensions.cs" />
-    <Compile Include="ControllerExtensions\SE_AccountTicketViewControllerExtensions.cs" />
-    <Compile Include="ControllerExtensions\SE_TicketViewControllerExtensions.cs" />
-    <Compile Include="ControllerExtensions\SE_TicketControllerExtensions.cs" />
-    <Compile Include="ControllerExtensions\SE_TicketTypeControllerExtensions.cs" />
-    <Compile Include="ControllerExtensions\SE_TicketStatusControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\IE_VendorControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\IE_ProductBarcodeLocationViewControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\IE_LocationViewControllerExtensions.cs" />

@@ -1396,46 +1396,6 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
-		MS_AccountHoldCatg1Controller _MS_AccountHoldCatg1s;
-		public MS_AccountHoldCatg1Controller MS_AccountHoldCatg1s
-		{
-			get
-			{
-				if (_MS_AccountHoldCatg1s == null) _MS_AccountHoldCatg1s = new MS_AccountHoldCatg1Controller();
-				return _MS_AccountHoldCatg1s;
-			}
-		}
-
-		MS_AccountHoldCatg2Controller _MS_AccountHoldCatg2s;
-		public MS_AccountHoldCatg2Controller MS_AccountHoldCatg2s
-		{
-			get
-			{
-				if (_MS_AccountHoldCatg2s == null) _MS_AccountHoldCatg2s = new MS_AccountHoldCatg2Controller();
-				return _MS_AccountHoldCatg2s;
-			}
-		}
-
-		MS_AccountHoldController _MS_AccountHolds;
-		public MS_AccountHoldController MS_AccountHolds
-		{
-			get
-			{
-				if (_MS_AccountHolds == null) _MS_AccountHolds = new MS_AccountHoldController();
-				return _MS_AccountHolds;
-			}
-		}
-
-		MS_AccountHoldStockController _MS_AccountHoldStocks;
-		public MS_AccountHoldStockController MS_AccountHoldStocks
-		{
-			get
-			{
-				if (_MS_AccountHoldStocks == null) _MS_AccountHoldStocks = new MS_AccountHoldStockController();
-				return _MS_AccountHoldStocks;
-			}
-		}
-
 		MS_AccountPackageItemController _MS_AccountPackageItems;
 		public MS_AccountPackageItemController MS_AccountPackageItems
 		{
@@ -2876,86 +2836,6 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
-		SE_ScheduleBlockController _SE_ScheduleBlocks;
-		public SE_ScheduleBlockController SE_ScheduleBlocks
-		{
-			get
-			{
-				if (_SE_ScheduleBlocks == null) _SE_ScheduleBlocks = new SE_ScheduleBlockController();
-				return _SE_ScheduleBlocks;
-			}
-		}
-
-		SE_ScheduleColorIndicatorController _SE_ScheduleColorIndicators;
-		public SE_ScheduleColorIndicatorController SE_ScheduleColorIndicators
-		{
-			get
-			{
-				if (_SE_ScheduleColorIndicators == null) _SE_ScheduleColorIndicators = new SE_ScheduleColorIndicatorController();
-				return _SE_ScheduleColorIndicators;
-			}
-		}
-
-		SE_ScheduleTicketController _SE_ScheduleTickets;
-		public SE_ScheduleTicketController SE_ScheduleTickets
-		{
-			get
-			{
-				if (_SE_ScheduleTickets == null) _SE_ScheduleTickets = new SE_ScheduleTicketController();
-				return _SE_ScheduleTickets;
-			}
-		}
-
-		SE_TechnicianAvailabilityController _SE_TechnicianAvailabilities;
-		public SE_TechnicianAvailabilityController SE_TechnicianAvailabilities
-		{
-			get
-			{
-				if (_SE_TechnicianAvailabilities == null) _SE_TechnicianAvailabilities = new SE_TechnicianAvailabilityController();
-				return _SE_TechnicianAvailabilities;
-			}
-		}
-
-		SE_TicketController _SE_Tickets;
-		public SE_TicketController SE_Tickets
-		{
-			get
-			{
-				if (_SE_Tickets == null) _SE_Tickets = new SE_TicketController();
-				return _SE_Tickets;
-			}
-		}
-
-		SE_TicketStatusCodeController _SE_TicketStatusCodes;
-		public SE_TicketStatusCodeController SE_TicketStatusCodes
-		{
-			get
-			{
-				if (_SE_TicketStatusCodes == null) _SE_TicketStatusCodes = new SE_TicketStatusCodeController();
-				return _SE_TicketStatusCodes;
-			}
-		}
-
-		SE_TicketTypeController _SE_TicketTypes;
-		public SE_TicketTypeController SE_TicketTypes
-		{
-			get
-			{
-				if (_SE_TicketTypes == null) _SE_TicketTypes = new SE_TicketTypeController();
-				return _SE_TicketTypes;
-			}
-		}
-
-		SE_ZipCodeController _SE_ZipCodes;
-		public SE_ZipCodeController SE_ZipCodes
-		{
-			get
-			{
-				if (_SE_ZipCodes == null) _SE_ZipCodes = new SE_ZipCodeController();
-				return _SE_ZipCodes;
-			}
-		}
-
 		SP_AccountController _SP_Accounts;
 		public SP_AccountController SP_Accounts
 		{
@@ -3023,16 +2903,6 @@ namespace SOS.Data.SosCrm
 			{
 				if (_TS_StatusCodes == null) _TS_StatusCodes = new TS_StatusCodeController();
 				return _TS_StatusCodes;
-			}
-		}
-
-		TS_TeamController _TS_Teams;
-		public TS_TeamController TS_Teams
-		{
-			get
-			{
-				if (_TS_Teams == null) _TS_Teams = new TS_TeamController();
-				return _TS_Teams;
 			}
 		}
 
@@ -4091,10 +3961,6 @@ namespace SOS.Data.SosCrm
 	public class MS_AccountEquipmentController : BaseTableController<MS_AccountEquipment, MS_AccountEquipmentCollection> { }
 	public class MS_AccountEquipmentUpgradeTypeController : BaseTableController<MS_AccountEquipmentUpgradeType, MS_AccountEquipmentUpgradeTypeCollection> { }
 	public class MS_AccountEventController : BaseTableController<MS_AccountEvent, MS_AccountEventCollection> { }
-	public class MS_AccountHoldCatg1Controller : BaseTableController<MS_AccountHoldCatg1, MS_AccountHoldCatg1Collection> { }
-	public class MS_AccountHoldCatg2Controller : BaseTableController<MS_AccountHoldCatg2, MS_AccountHoldCatg2Collection> { }
-	public class MS_AccountHoldController : BaseTableController<MS_AccountHold, MS_AccountHoldCollection> { }
-	public class MS_AccountHoldStockController : BaseTableController<MS_AccountHoldStock, MS_AccountHoldStockCollection> { }
 	public class MS_AccountPackageItemController : BaseTableController<MS_AccountPackageItem, MS_AccountPackageItemCollection> { }
 	public class MS_AccountPackageItemTypeController : BaseTableController<MS_AccountPackageItemType, MS_AccountPackageItemTypeCollection> { }
 	public class MS_AccountPackageController : BaseTableController<MS_AccountPackage, MS_AccountPackageCollection> { }
@@ -4239,14 +4105,6 @@ namespace SOS.Data.SosCrm
 	public class SAE_CreditRportController : BaseTableController<SAE_CreditRport, SAE_CreditRportCollection> { }
 	public class SAE_InterimPanelTypeMapController : BaseTableController<SAE_InterimPanelTypeMap, SAE_InterimPanelTypeMapCollection> { }
 	public class SAE_TestNumberController : BaseTableController<SAE_TestNumber, SAE_TestNumberCollection> { }
-	public class SE_ScheduleBlockController : BaseTableController<SE_ScheduleBlock, SE_ScheduleBlockCollection> { }
-	public class SE_ScheduleColorIndicatorController : BaseTableController<SE_ScheduleColorIndicator, SE_ScheduleColorIndicatorCollection> { }
-	public class SE_ScheduleTicketController : BaseTableController<SE_ScheduleTicket, SE_ScheduleTicketCollection> { }
-	public class SE_TechnicianAvailabilityController : BaseTableController<SE_TechnicianAvailability, SE_TechnicianAvailabilityCollection> { }
-	public class SE_TicketController : BaseTableController<SE_Ticket, SE_TicketCollection> { }
-	public class SE_TicketStatusCodeController : BaseTableController<SE_TicketStatusCode, SE_TicketStatusCodeCollection> { }
-	public class SE_TicketTypeController : BaseTableController<SE_TicketType, SE_TicketTypeCollection> { }
-	public class SE_ZipCodeController : BaseTableController<SE_ZipCode, SE_ZipCodeCollection> { }
 	public class SP_AccountController : BaseTableController<SP_Account, SP_AccountCollection> { }
 	public class TS_AppointmentController : BaseTableController<TS_Appointment, TS_AppointmentCollection> { }
 	public class TS_ServiceTicketController : BaseTableController<TS_ServiceTicket, TS_ServiceTicketCollection> { }
@@ -4254,7 +4112,6 @@ namespace SOS.Data.SosCrm
 	public class TS_ServiceTypeController : BaseTableController<TS_ServiceType, TS_ServiceTypeCollection> { }
 	public class TS_SkillController : BaseTableController<TS_Skill, TS_SkillCollection> { }
 	public class TS_StatusCodeController : BaseTableController<TS_StatusCode, TS_StatusCodeCollection> { }
-	public class TS_TeamController : BaseTableController<TS_Team, TS_TeamCollection> { }
 	public class TS_TechController : BaseTableController<TS_Tech, TS_TechCollection> { }
 	public class TS_TechSkills_MapController : BaseTableController<TS_TechSkills_Map, TS_TechSkills_MapCollection> { }
 	public class TS_TechWeekDayController : BaseTableController<TS_TechWeekDay, TS_TechWeekDayCollection> { }

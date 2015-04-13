@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,41 +10,57 @@ namespace NXS.Data.Crm
 	using ARTable = CrmDb.QL_LeadTable;
 	public static class QL_LeadTableExtensions
 	{
+		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)
+		{
+			//item.ModifiedOn = 
+			item.CreatedOn = DateTime.UtcNow.RoundToSqlDateTime();
+			//item.ModifiedBy = 
+			item.CreatedBy = gpEmployeeId;
+			item.ID = await tbl.InsertAsync(item).ConfigureAwait(false);
+		}
+		//public static async Task UpdateAsync(this ARTable tbl, Snapshotter.Snapshot<AR> snapShot, string gpEmployeeId)
+		//{
+		//	var item = snapShot.Value;
+		//	item.ModifiedOn = DateTime.UtcNow.RoundToSqlDateTime();
+		//	item.ModifiedBy = gpEmployeeId;
+		//	await tbl.UpdateAsync(item.ID, snapShot.Diff()).ConfigureAwait(false);
+		//}
+
 		private static Sequel MasterFileLeadSql(this ARTable tbl, long cmfid, string top = null)
 		{
 			var L = tbl.Db.QL_Leads;
 			var ML = tbl.Db.QL_CustomerMasterLeads;
 
-			var qry = Sequel.NewSelect().Top(top)
+			var sql = Sequel.NewSelect().Top(top)
 			.Columns(
 				L.Star
 			).From(L)
 			.InnerJoin(ML)
 			.On(L.LeadID, Comparison.Equals, ML.LeadId, literalText: true)
 			.Where(ML.CustomerMasterFileId, Comparison.Equals, cmfid);
-			return qry;
+			return sql;
 		}
 
 		public static async Task<AR> MasterFileLeadAsync(this ARTable tbl, long cmfid, string customerTypeId)
 		{
 			var ML = tbl.Db.QL_CustomerMasterLeads;
-			var qry = tbl.MasterFileLeadSql(cmfid, "1");
+			var sql = tbl.MasterFileLeadSql(cmfid, "1");
 			if (string.Compare(customerTypeId, "PRI", System.StringComparison.OrdinalIgnoreCase) == 0)
-				qry.And(ML.CustomerTypeId, Comparison.In, new string[] { customerTypeId, "LEAD" });
+				sql.And(ML.CustomerTypeId, Comparison.In, new string[] { customerTypeId, "LEAD" });
 			else
-				qry.And(ML.CustomerTypeId, Comparison.Equals, customerTypeId);
-			qry.OrderBy(ML.CustomerTypeId.ASC()); // PRI before LEAD
+				sql.And(ML.CustomerTypeId, Comparison.Equals, customerTypeId);
+			sql.OrderBy(ML.CustomerTypeId.ASC()); // PRI before LEAD
 
-			return (await tbl.Db.QueryAsync<AR>(qry.Sql, qry.Params).ConfigureAwait(false)).FirstOrDefault();
+			return (await tbl.Db.QueryAsync<AR>(sql.Sql, sql.Params).ConfigureAwait(false)).FirstOrDefault();
 		}
 
 		public static Task<ARCollection> MasterFileLeadsAsync(this ARTable tbl, long cmfid)
 		{
 			var ML = tbl.Db.QL_CustomerMasterLeads;
-			var qry = tbl.MasterFileLeadSql(cmfid)
+			var sql = tbl.MasterFileLeadSql(cmfid)
 				.OrderBy(ML.CustomerTypeId.ASC()); // PRI before LEAD
 
-			return tbl.Db.QueryAsync<AR>(qry.Sql, qry.Params);
+			return tbl.Db.QueryAsync<AR>(sql.Sql, sql.Params);
 		}
 	}
 }

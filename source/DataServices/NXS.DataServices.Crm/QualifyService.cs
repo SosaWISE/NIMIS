@@ -9,6 +9,12 @@ namespace NXS.DataServices.Crm
 {
 	public class QualifyService
 	{
+		string _gpEmployeeId;
+		public QualifyService(string gpEmployeeId)
+		{
+			_gpEmployeeId = gpEmployeeId;
+		}
+
 		public async Task<Result<QlLead>> MasterFileLeadAsync(long cmfid, string customerTypeId)
 		{
 			using (var db = CrmDb.Connect())
@@ -33,7 +39,7 @@ namespace NXS.DataServices.Crm
 		{
 			using (var db = CrmDb.Connect())
 			{
-				var added = await db.QL_CustomerMasterLeads.AddCustomerMasterLeadAsync(cmfid, customerTypeId, leadID).ConfigureAwait(false);
+				var added = await db.QL_CustomerMasterLeads.AddCustomerMasterLeadAsync(cmfid, customerTypeId, leadID, _gpEmployeeId).ConfigureAwait(false);
 				var result = new Result<bool>(
 					code: added ? 0 : -1,
 					message: added ? "" :

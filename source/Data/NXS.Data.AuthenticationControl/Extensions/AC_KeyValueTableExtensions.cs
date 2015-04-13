@@ -13,8 +13,8 @@ namespace NXS.Data.AuthenticationControl
 		{
 			// load all and lock table so we're the exclusive editors/readers
 			// http://stackoverflow.com/a/4597035
-			var qry = Sequel.NewSelect(tbl.Star).From(tbl).With("UPDLOCK,TABLOCK");
-			return tbl.Db.Query<AR>(qry.Sql, qry.Params);
+			var sql = Sequel.NewSelect(tbl.Star).From(tbl).With("UPDLOCK,TABLOCK");
+			return tbl.Db.Query<AR>(sql.Sql, sql.Params);
 		}
 	}
 }

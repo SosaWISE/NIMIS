@@ -44,13 +44,20 @@
   <ItemGroup>
     <Compile Include="Classes.cs" />
     <Compile Include="Classes\AE_CustomerAccount.cs" />
+    <Compile Include="Classes\AE_Invoice.cs" />
+    <Compile Include="Classes\MS_AccountPackage.cs" />
     <Compile Include="Classes\RU_Team.cs" />
     <Compile Include="Classes\TS_Team.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="CrmDb.cs" />
     <Compile Include="Extensions\AE_CustomerAccountTableExtensions.cs" />
+    <Compile Include="Extensions\AE_InvoiceItemTableExtensions.cs" />
+    <Compile Include="Extensions\AE_InvoiceTableExtensions.cs" />
     <Compile Include="Extensions\MC_AddressTableExtensions.cs" />
     <Compile Include="Extensions\MS_AccountHoldTableExtensions.cs" />
+    <Compile Include="Extensions\MS_AccountPackageItemTableExtensions.cs" />
+    <Compile Include="Extensions\MS_AccountPackageTableExtensions.cs" />
+    <Compile Include="Extensions\MS_AccountTableExtensions.cs" />
     <Compile Include="Extensions\TS_TeamTableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\AE_CustomerTableExtensions.cs" />
@@ -58,6 +65,10 @@
     <Compile Include="Extensions\QL_LeadTableExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj">
+      <Project>{33a1b8c5-b37d-423e-b7fd-83ce1ec1d442}</Project>
+      <Name>SOS.Lib.Util</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NXS.Data\NXS.Data.csproj">
       <Project>{5465a862-bb78-4048-b39b-191be0e1d19c}</Project>
       <Name>NXS.Data</Name>
