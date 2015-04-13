@@ -29,7 +29,7 @@ SELECT
 FROM 
 	SC_CommissionsAdjustments
 WHERE 
-	CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId
+	(CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId);
 
 INSERT SC_WorkAccountLedger
 (
@@ -48,10 +48,16 @@ SELECT scwa.AccountID
 	, @commissionsAdjustmentId AS CommissionsDeductionId
 	, scca.CommissionAdjustmentAmount
 	, scca.CommissionsAdjustmentDescription
-FROM SC_WorkAccountAdjustments AS scwaa
-	JOIN SC_WorkAccounts AS scwa ON scwaa.WorkAccountId = scwa.WorkAccountID
-	JOIN SC_CommissionsAdjustments AS scca ON scwaa.CommissionsAdjustmentID = scca.CommissionsAdjustmentID
-WHERE scwaa.CommissionsAdjustmentID = @commissionsAdjustmentId
+FROM
+	SC_WorkAccountAdjustments AS scwaa
+	INNER JOIN SC_WorkAccounts AS scwa
+	ON
+		(scwaa.WorkAccountId = scwa.WorkAccountID)
+	INNER JOIN SC_CommissionsAdjustments AS scca
+	ON
+		(scwaa.CommissionsAdjustmentID = scca.CommissionsAdjustmentID)
+WHERE
+	(scwaa.CommissionsAdjustmentID = @commissionsAdjustmentId);
 
 /*******************
 ***	PAYMENT TYPE ***
@@ -193,12 +199,12 @@ FROM
 	SC_CommissionsAdjustments
 WHERE 
 	CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId
-
+/** TODO:  ROUND UP TO THE NEAREST Dollar. */
 SET @RMRChange = (
 	SELECT
 		CASE
-			WHEN (scwa.RMR > msap.MaxRMR) THEN (scwa.RMR - msap.MaxRMR)
-			WHEN (scwa.RMR < msap.MinRMR) THEN (msap.MinRMR - scwa.RMR)
+			WHEN (scwa.RMR > msap.MaxRMR) THEN CEILING(scwa.RMR - msap.MaxRMR)
+			WHEN (scwa.RMR < msap.MinRMR) THEN CEILING(msap.MinRMR - scwa.RMR)
 		END AS RMRChange
 		--,msap.BaseRMR
 		--,scwa.RMR

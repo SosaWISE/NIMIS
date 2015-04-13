@@ -25,7 +25,7 @@ SELECT
 FROM 
 	SC_CommissionsAdjustments
 WHERE 
-	CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId
+	(CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId);
 
 INSERT SC_workAccountAdjustments
 (
@@ -35,10 +35,13 @@ INSERT SC_workAccountAdjustments
 SELECT 
 	WorkAccountID,
 	@commissionsAdjustmentId
-FROM dbo.SC_workAccounts AS scwa
-	JOIN WISE_CRM.dbo.MS_AccountPackages AS msap ON scwa.AccountPackageId = msap.AccountPackageID
+FROM
+	dbo.SC_workAccounts AS scwa
+	INNER JOIN WISE_CRM.dbo.MS_AccountPackages AS msap
+	ON
+		(scwa.AccountPackageId = msap.AccountPackageID)
 WHERE 
-	(scwa.RMR > msap.BaseRMR)
+	(scwa.RMR > msap.BaseRMR);
 
 /************************
 ***	SELLING EQUIPMENT ***
@@ -60,11 +63,13 @@ INSERT SC_workAccountAdjustments
 	WorkAccountId,
 	CommissionsAdjustmentID
 )
-SELECT 
+SELECT TOP 1
 	WorkAccountID,
 	@commissionsAdjustmentId
 FROM dbo.SC_workAccounts AS scwa
-	JOIN WISE_CRM.dbo.MS_AccountEquipment AS msae ON scwa.AccountID = msae.AccountId
+	INNER JOIN WISE_CRM.dbo.MS_AccountEquipment AS msae
+	ON
+		(scwa.AccountID = msae.AccountId)
 WHERE
-	msae.AccountEquipmentUpgradeTypeId = 'SALESREP'
-		AND scwa.SalesRepId = msae.GPEmployeeId
+	(msae.AccountEquipmentUpgradeTypeId = 'SALESREP')
+	AND (scwa.SalesRepId = msae.GPEmployeeId);

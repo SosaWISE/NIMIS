@@ -19,17 +19,17 @@ DECLARE @commissionsAdjustmentId BIGINT
 ***  AGREEMENT LENGTH  ***
 *************************/
 -- GET CONTRACT LENGTHS
-UPDATE SC_workAccounts
-SET ContractLength = AE_Contracts.ContractLength
+UPDATE SC_workAccounts SET
+	ContractLength = AE_Contracts.ContractLength
 FROM 
 	dbo.SC_workAccounts
 	JOIN WISE_CRM.dbo.AE_Contracts
 	ON
-		SC_workAccounts.AccountID = AE_Contracts.AccountId
-		AND AE_Contracts.IsDeleted = 'FALSE'
+		(SC_workAccounts.AccountID = AE_Contracts.AccountId)
+		AND (AE_Contracts.IsDeleted = 'FALSE');
 
 -- DEDUCT FOR AGREEMENT LENGTH = 36
-SET @commissionsAdjustmentTypeId = 'AGRMT36'
+SET @commissionsAdjustmentTypeId = 'AGRMT36';
 
 -- get the id for this adjustment type so it can be inserted into the workAccountAdjustments table
 SELECT 
@@ -37,7 +37,7 @@ SELECT
 FROM 
 	SC_CommissionsAdjustments
 WHERE 
-	CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId
+	(CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId);
 
 INSERT SC_workAccountAdjustments
 (
@@ -47,9 +47,10 @@ INSERT SC_workAccountAdjustments
 SELECT 
 	WorkAccountID,
 	@commissionsAdjustmentId
-FROM dbo.SC_workAccounts
+FROM 
+	dbo.SC_workAccounts
 WHERE 
-	(ContractLength = 36)
+	(ContractLength = 36);
 
 /*******************
 ***	PAYMENT TYPE ***
@@ -64,7 +65,7 @@ SELECT
 FROM 
 	SC_CommissionsAdjustments
 WHERE 
-	CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId
+	(CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId);
 
 INSERT SC_workAccountAdjustments
 (
@@ -74,9 +75,10 @@ INSERT SC_workAccountAdjustments
 SELECT 
 	WorkAccountID,
 	@commissionsAdjustmentId
-FROM dbo.SC_workAccounts
+FROM
+	dbo.SC_workAccounts
 WHERE 
-	(PaymentType = 'CC')
+	(PaymentType = 'CC');
 
 /*********************
 ***	ACTIVATION FEE ***
@@ -91,7 +93,7 @@ SELECT
 FROM 
 	SC_CommissionsAdjustments
 WHERE 
-	CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId
+	(CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId);
 
 INSERT SC_workAccountAdjustments
 (
@@ -101,9 +103,10 @@ INSERT SC_workAccountAdjustments
 SELECT 
 	WorkAccountID,
 	@commissionsAdjustmentId
-FROM dbo.SC_workAccounts
+FROM
+	dbo.SC_workAccounts
 WHERE 
-	(ActivationFee = 0)
+	(ActivationFee = 0);
 
 /***************************
 ***	POINTS OF PROTECTION ***
@@ -124,7 +127,7 @@ SELECT
 FROM
 	SC_CommissionsAdjustments
 WHERE
-	CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId
+	(CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId);
 
 INSERT SC_workAccountAdjustments
 (
@@ -134,10 +137,13 @@ INSERT SC_workAccountAdjustments
 SELECT
 	WorkAccountID,
 	@commissionsAdjustmentId
-FROM dbo.SC_workAccounts AS scwa
-	JOIN WISE_CRM.dbo.MS_AccountPackages AS msap ON scwa.AccountPackageId = msap.AccountPackageID
+FROM
+	dbo.SC_workAccounts AS scwa
+	JOIN WISE_CRM.dbo.MS_AccountPackages AS msap WITH (NOLOCK)
+	ON
+		(scwa.AccountPackageId = msap.AccountPackageID)
 WHERE
-	scwa.RMR < msap.BaseRMR
+	(scwa.RMR < msap.BaseRMR);
 
 
 /*********************************
@@ -153,7 +159,7 @@ SELECT
 FROM
 	SC_CommissionsAdjustments
 WHERE
-	CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId
+	(CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId);
 
 INSERT SC_workAccountAdjustments
 (
@@ -163,11 +169,14 @@ INSERT SC_workAccountAdjustments
 SELECT
 	WorkAccountID,
 	@commissionsAdjustmentId
-FROM dbo.SC_workAccounts AS scwa
-	JOIN WISE_CRM.dbo.MS_AccountPackages AS msap ON scwa.AccountPackageId = msap.AccountPackageID
+FROM
+	dbo.SC_workAccounts AS scwa
+	INNER JOIN WISE_CRM.dbo.MS_AccountPackages AS msap
+	ON
+		(scwa.AccountPackageId = msap.AccountPackageID)
 WHERE
-	scwa.RMR < msap.MinRMR
-	or scwa.RMR > msap.MaxRMR
+	(scwa.RMR < msap.MinRMR)
+	OR (scwa.RMR > msap.MaxRMR);
 
 /********************
 ***	SPECIAL DEALS ***
@@ -186,7 +195,7 @@ SELECT
 FROM
 	SC_CommissionsAdjustments
 WHERE
-	CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId
+	(CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId);
 
 INSERT SC_workAccountAdjustments
 (
@@ -196,9 +205,10 @@ INSERT SC_workAccountAdjustments
 SELECT
 	WorkAccountID,
 	@commissionsAdjustmentId
-FROM dbo.SC_workAccounts
+FROM
+	dbo.SC_workAccounts
 WHERE
-	(Waive1stMonth = 1)
+	(Waive1stMonth = 1);
 
 /********************************************
 ***	Takeover buyout of existing agreement ***

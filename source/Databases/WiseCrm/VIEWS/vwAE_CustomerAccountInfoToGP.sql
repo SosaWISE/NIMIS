@@ -58,6 +58,7 @@ AS
 		, MSIA.Csid AS [CentralStationID]
 		, MSASI.CurrentMonitoringStation
 		, MSASI.ContractSignedDate AS [AMASignDate]
+		, MSASI.NOCDateCalculated
 		, MSASI.SalesRepId AS [SalesRepID]
 		, MSASI.InstallDate AS [InstallDate]
 		, MSASI.TechId AS [TechID]
@@ -85,6 +86,13 @@ AS
 		, MSASI.CancelDate AS [CancelledDate]
 		, MCACR.AccountCancelReason AS [CancelledReason]
 		, MSASI.IsTakeOver AS [TakeOver]
+		, MSASI.IsOwner
+		, MSASI.FriendsAndFamilyTypeId
+		, MSASI.AccountPackageId
+		, MSASI.AccountPackageName
+		, MSASI.[TotalPoints]
+		, MSASI.[TotalPointsAllowed]
+		, MSASI.RepPoints
 		, dbo.fxGetMS_AccountEquipmentHasExistingEquipment(MCA.AccountID) AS [HasExistingEquipment]
 		, dbo.fxQlCreditReportGetScoreByMsAccountID(MCA.AccountID) AS [CreditScore]
 		, dbo.fxQlCreditReportGetTransactionIdByMsAccountID(MCA.AccountID) AS [TransactionID]

@@ -17,6 +17,7 @@ GO
 
 DECLARE @CommissionPeriodID BIGINT
 	, @CommissionPeriodEndDate DATE
+	, @DEBUGGING VARCHAR(10) = 'TRUE';
 
 SELECT 
 	@CommissionPeriodID = CommissionPeriodID
@@ -28,7 +29,14 @@ WHERE
 GROUP BY
 	CommissionPeriodID
 /********************  END HEADER ********************/
-TRUNCATE TABLE .dbo.SC_workAccounts
+IF (@DEBUGGING = 'TRUE')
+BEGIN
+	TRUNCATE TABLE dbo.SC_WorkAccountAdjustments;
+	DBCC CHECKIDENT ('[dbo].[SC_WorkAccountAdjustments]', RESEED, 0);
+
+	DELETE dbo.SC_WorkAccounts;
+	DBCC CHECKIDENT ('[dbo].[SC_WorkAccounts]', RESEED, 0);
+END
 
 /******************
 ***  CUSTOMERS  ***
@@ -38,66 +46,84 @@ INSERT dbo.SC_workAccounts
 	CommissionPeriodId
 	, AccountID
 	, CustomerMasterFileId
+	, AccountPackageId
 	, SalesRepId
 	, TechId
 	, FriendsAndFamilyTypeId
+	, CreditScore
+	, ContractLength
 	, PaymentType
 	, RMR
 	, ActivationFee
+	, PointsOfProtection
+	, PointsAllowed
 )
 SELECT 
 	@CommissionPeriodID
-	, MS_AccountSalesInformations.AccountID
+	, MSASI.AccountID
 	, MC_Accounts.CustomerMasterFileId
-	, MS_AccountSalesInformations.SalesRepId
-	, MS_AccountSalesInformations.TechId
-	, MS_AccountSalesInformations.FriendsAndFamilyTypeId
-	, MS_AccountSalesInformations.PaymentTypeId
-	, WISE_CRM.dbo.fxMsAccountMMRGet(MS_AccountSalesInformations.AccountID)
-	, WISE_CRM.dbo.fxMsAccountSetupFeeGet(MS_AccountSalesInformations.AccountID, 0)
+	, MSASI.AccountPackageId
+	, MSASI.SalesRepId
+	, MSASI.TechId
+	, MSASI.FriendsAndFamilyTypeId
+	, MSASI.CreditScore
+	, MSASI.ContractLength
+	, MSASI.PaymentType
+	, WISE_CRM.dbo.fxMsAccountMMRGet(MSASI.AccountID)
+	, WISE_CRM.dbo.fxMsAccountSetupFeeGet(MSASI.AccountID, 0)
+	, MSASI.TotalPoints
+	, MSASI.TotalPointsAllowed
 FROM
 	-- MS_AccountSalesInformations
-	WISE_CRM.dbo.MS_AccountSalesInformations
+	[WISE_CRM].[dbo].vwAE_CustomerAccountInfoToGP AS MSASI WITH (NOLOCK)
 
 	-- MC_Accounts
-	JOIN WISE_CRM.dbo.MC_Accounts
+	INNER JOIN [WISE_CRM].[dbo].MC_Accounts
 	ON
-		(MS_AccountSalesInformations.AccountID = MC_Accounts.AccountID)
+		(MSASI.AccountID = MC_Accounts.AccountID)
 
 	-- ACCOUNTS ALREADY PAID
 	LEFT JOIN NXSE_SALES.dbo.SC_AccountCommissionHistory
 	ON
-		(MS_AccountSalesInformations.AccountID = SC_AccountCommissionHistory.AccountID)
+		(MSASI.AccountID = SC_AccountCommissionHistory.AccountID)
 
 	-- HOLDS
 	LEFT JOIN (
 		SELECT 
 			AccountId 
+			, MS_AccountHolds.FixedOn
 		FROM 
-			WISE_CRM.dbo.MS_AccountHolds
-			JOIN WISE_CRM.dbo.MS_AccountHoldCatg2
+			[WISE_CRM].[dbo].MS_AccountHolds
+			JOIN [WISE_CRM].[dbo].MS_AccountHoldCatg2
 			ON
 				(MS_AccountHolds.Catg2Id = MS_AccountHoldCatg2.Catg2ID)
 				AND (IsRepFrontEndHold = 'TRUE' OR IsRepBackEndHold = 'TRUE')
 		) AS hold_qry
-	ON MS_AccountSalesInformations.AccountId = hold_qry.AccountId
+	ON
+		(MSASI.AccountId = hold_qry.AccountId)
 WHERE 
 	-- HOMEOWNER
-	(MS_AccountSalesInformations.IsOwner = 'TRUE')
+	(MSASI.IsOwner = 'TRUE')
 
 	-- INSTALLED
-	AND (MS_AccountSalesInformations.InstallDate < @CommissionPeriodEndDate)
+	AND (MSASI.InstallDate < @CommissionPeriodEndDate)
 
 	-- PAPERWORK APPROVED
-	AND (MS_AccountSalesInformations.ContractSignedDate < @CommissionPeriodEndDate)
+	AND (MSASI.AMASignDate < @CommissionPeriodEndDate)
 
 	-- PAST THE 3 DAY CANCELLATION PERIOD
---	AND (MS_AccountSalesInformations.NOCDate < @CommissionPeriodEndDate)
+	AND (MSASI.NOCDateCalculated < @CommissionPeriodEndDate)
 
 	-- NOT CANCELLED
-	AND (MS_AccountSalesInformations.CancelDate IS NULL)
+	AND (MSASI.CancelledDate IS NULL)
 
 	-- NOT A PREVIOUSLY COMMISSIONED ACCOUNT
 	AND (SC_AccountCommissionHistory.AccountID IS NULL)
 
-	AND (hold_qry.AccountId IS NULL)
+	-- Has no holds
+	AND ((hold_qry.AccountId IS NULL) OR (hold_qry.FixedOn IS NOT NULL))
+
+IF (@DEBUGGING = 'TRUE')
+BEGIN
+	SELECT * FROM [dbo].SC_WorkAccounts;
+END

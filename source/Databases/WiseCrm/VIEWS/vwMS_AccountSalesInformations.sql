@@ -55,6 +55,8 @@ AS
 		, MSI.IsTakeOver
 		, MSI.IsOwner
 		, MSA.CellPackageItemId
+		, MSI.AccountPackageId
+		, MSAP.AccountPackageName
 		, CPKG.ItemDesc AS [CellServicePackage]
 		, MSA.CellularTypeId
 		, CTY.CellularTypeName
@@ -90,6 +92,7 @@ AS
 		, MSI.ApprovedDate
 		, MSI.ApproverID
 		, MSI.NOCDate
+		, [dbo].fxNocCalculationByDates(MSI.ContractSignedDate, MSI.InstallDate) AS [NOCDateCalculated]
 		, MSI.OptOutCorporate
 		, MSI.OptOutAffiliate
 	FROM
@@ -113,13 +116,16 @@ AS
 		LEFT OUTER JOIN [dbo].[vwMS_IndustryAccountNumbersWithReceiverLineInfo] AS MSIA WITH (NOLOCK)
 		ON
 			(MSA.IndustryAccountId = MSIA.IndustryAccountID)
+		LEFT OUTER JOIN [dbo].[MS_AccountPackages] AS MSAP WITH (NOLOCK)
+		ON
+			(MSAP.AccountPackageID = MSI.AccountPackageId)
 
 GO
 /* TEST 
 SELECT * FROM vwMS_AccountSalesInformations WHERE AccountID = 191168; --191101;
 SELECT * FROM vwMS_AccountSalesInformations WHERE AccountID = 191168;
 SELECT * FROM [dbo].[AE_Contracts] WHERE ContractID = 1000022;
-*/
+
 
 SELECT 
 	 AEII.InvoiceItemID ,
@@ -149,3 +155,4 @@ FROM
 	INNER JOIN [dbo].[AE_Items] AS MSE WITH (NOLOCK)
 	ON
 		(AEII.ItemId = MSE.ItemID)
+*/

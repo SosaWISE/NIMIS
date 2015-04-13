@@ -357,11 +357,11 @@ BEGIN
 		PRINT 'Total Rows Modified: ' + CAST(@Count AS VARCHAR);
 	/**
 	* DEBUGGING REMOVE LATER
-	*/
+	
 SELECT * FROM [dbo].[vwAE_InvoiceItems] AS AEII WITH (NOLOCK) WHERE (AEII.IsActive = 1 AND AEII.IsDeleted = 0) AND (AEII.InvoiceID = @InvoiceID);
 SELECT * FROM [dbo].[vwMS_AccountEquipmentsAll] AS MSAE WITH (NOLOCK) WHERE (MSAE.IsActive = 1 AND MSAE.IsDeleted = 0) AND (AccountId = @AccountId);
-	
-		ROLLBACK TRANSACTION
+	*/
+		COMMIT TRANSACTION
 	END TRY
 	BEGIN CATCH
 		ROLLBACK TRANSACTION
@@ -370,10 +370,10 @@ SELECT * FROM [dbo].[vwMS_AccountEquipmentsAll] AS MSAE WITH (NOLOCK) WHERE (MSA
 		RETURN;
 	END CATCH
 
-	/** Return results 
+	/** Return results */
 	SELECT * FROM [dbo].[vwAE_InvoiceItems] AS AEII WITH (NOLOCK) WHERE (AEII.IsActive = 1 AND AEII.IsDeleted = 0) AND (AEII.InvoiceID = @InvoiceID);
-	SELECT * FROM [dbo].[vwMS_AccountEquipmentsAll] AS MSAE WITH (NOLOCK) WHERE (MSAE.IsActive = 1 AND MSAE.IsDeleted = 0) AND (AccountId = @AccountId);
-		*/
+	--SELECT * FROM [dbo].[vwMS_AccountEquipmentsAll] AS MSAE WITH (NOLOCK) WHERE (MSAE.IsActive = 1 AND MSAE.IsDeleted = 0) AND (AccountId = @AccountId);
+		
 END
 GO
 
