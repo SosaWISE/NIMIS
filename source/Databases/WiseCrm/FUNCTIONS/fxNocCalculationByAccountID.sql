@@ -67,7 +67,7 @@ BEGIN
 			DECLARE @DayOfWeek VARCHAR(30);
 
 			SET @DayOfWeek  = DATENAME(dw, @DateTimeResult);
-			IF(@DayOfWeek <> 'SATURDAY' AND @DayOfWeek <> 'SUNDAY')
+			IF(/*@DayOfWeek <> 'SATURDAY' AND*/ @DayOfWeek <> 'SUNDAY')
 			BEGIN
 				SET @Count = @Count + 1;
 			END
