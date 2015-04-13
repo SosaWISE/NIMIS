@@ -112,13 +112,6 @@
     <Compile Include="Models\Reporting\FnsMsAccountCreditsAndInstalls.cs" />
     <Compile Include="Models\Reporting\FnsMsAccountOnlineStatusInfo.cs" />
     <Compile Include="Models\Reporting\FnsMsSystemStatusInfo.cs" />
-    <Compile Include="Models\ScheduleEngine\FnsSeScheduleTicket.cs" />
-    <Compile Include="Models\ScheduleEngine\FnsSeScheduleBlock.cs" />
-    <Compile Include="Models\ScheduleEngine\FnsSeTechnicianAvailability.cs" />
-    <Compile Include="Models\ScheduleEngine\FnsSeZipCode.cs" />
-    <Compile Include="Models\ScheduleEngine\FnsSeTicket.cs" />
-    <Compile Include="Models\ScheduleEngine\FnsSeTicketType.cs" />
-    <Compile Include="Models\ScheduleEngine\FnsSeTicketStatusCode.cs" />
     <Compile Include="Models\TicketService\CloseTicket.cs" />
     <Compile Include="Models\TicketService\ServiceTicket.cs" />
     <Compile Include="Models\TicketService\Tech.cs" />

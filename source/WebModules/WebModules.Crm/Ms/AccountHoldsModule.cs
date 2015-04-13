@@ -23,7 +23,7 @@ namespace WebModules.Crm.Ms
 			Post["/{id:long}/Holds", true] = async (x, ct) =>
 			{
 				var srv = new AccountHoldsService(this.User.GPEmployeeID);
-				var input = this.Bind<HoldNew>();
+				var input = this.Bind<MsHoldNew>();
 				input.AccountId = (long)x.id;
 				return await srv.NewHold(input).ConfigureAwait(false);
 			};

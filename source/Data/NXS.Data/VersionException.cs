@@ -25,13 +25,19 @@ namespace NXS.Data
 		}
 		public static void CheckModifiedOn(DateTime expectedDate, DateTime actualDate)
 		{
+			var errMsg = ModifiedOnErrMsg(expectedDate, actualDate);
+			if (!string.IsNullOrEmpty(errMsg))
+				throw new VersionException(errMsg);
+		}
+		public static string ModifiedOnErrMsg(DateTime expectedDate, DateTime actualDate)
+		{
 			if (expectedDate == actualDate)
-				return;
+				return "";
 
 			if (expectedDate < actualDate)
-				throw new VersionException("Outdated ModifiedOn. Get the latest version before making changes.");
+				return "Outdated ModifiedOn. Get the latest version before making changes.";
 			else
-				throw new VersionException("Invalid ModifiedOn");
+				return "Invalid ModifiedOn";
 		}
 	}
 }

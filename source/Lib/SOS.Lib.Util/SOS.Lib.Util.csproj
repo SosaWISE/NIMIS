@@ -76,6 +76,7 @@
     <Compile Include="Cryptography\SHA1.cs" />
     <Compile Include="Cryptography\TripleDES.cs" />
     <Compile Include="DateAndTimeUtility.cs" />
+    <Compile Include="DateExtensions.cs" />
     <Compile Include="DateSegment.cs" />
     <Compile Include="DateSpan.cs" />
     <Compile Include="DateUtility.cs" />

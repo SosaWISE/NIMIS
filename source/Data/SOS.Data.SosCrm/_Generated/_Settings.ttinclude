@@ -11,7 +11,8 @@
 
 		const string IncludeTableList = "*";
 		const string ExcludeTableList =
-			@"sysdiagrams,dtproperty,MSreplication_objects,MSreplication_subscriptions"
+			@"TS_Teams,^SE_,^MS_AccountHold"
+			+ ",sysdiagrams,dtproperty,MSreplication_objects,MSreplication_subscriptions"
 			+ ",MSsavedforeignkeycolumns,MSsavedforeignkeyextendedproperties,MSsavedforeignkeys"
 			+ ",MSsnapshotdeliveryprogress,MSsubscription_agents,MSsubscription_properties,^temp$";
 

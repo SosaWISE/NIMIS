@@ -43,11 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContractAdmin\AccountSalesInformationExtrasModule.cs" />
-    <Compile Include="ContractAdmin\AccountSalesInformationsModule.cs" />
+    <Compile Include="Ms\AccountSalesInformationsModule.cs" />
     <Compile Include="ContractAdmin\AccountsModule.cs" />
     <Compile Include="ContractAdmin\HelpersModule.cs" />
     <Compile Include="Ms\AccountHoldsModule.cs" />
+    <Compile Include="Ms\AccountInvoicesModule.cs" />
     <Compile Include="Ms\HoldsModule.cs" />
+    <Compile Include="Ms\InvoicesModule.cs" />
+    <Compile Include="Ms\PackagesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Qualify\CustomerMasterFilesModule.cs" />
     <Compile Include="Ticket\TeamsModule.cs" />

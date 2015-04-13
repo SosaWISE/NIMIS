@@ -1,4 +1,5 @@
-﻿using NXS.Data.Crm;
+﻿using NXS.Data;
+using NXS.Data.Crm;
 using NXS.DataServices.Crm.Models;
 using SOS.Lib.Core;
 using System;
@@ -37,19 +38,16 @@ namespace NXS.DataServices.Crm
 				{
 					item = new TS_Team();
 					team.ToDb(item);
-					item.ModifiedOn = item.CreatedOn = DateTime.UtcNow;
-					item.ModifiedBy = item.CreatedBy = _gpEmployeeId;
-					await tbl.InsertAsync(item, hasIdentity: false).ConfigureAwait(false);
+					await tbl.InsertAsync(item, _gpEmployeeId).ConfigureAwait(false);
 
 					item = await db.TS_Teams.ByIdFullAsync(team.TeamId).ConfigureAwait(false);
 					result.Value = TsTeam.FromDb(item);
 				}
 				else
 				{
+					var snapShot = Snapshotter.Start(item);
 					team.ToDb(item);
-					item.ModifiedOn = DateTime.UtcNow;
-					item.ModifiedBy = _gpEmployeeId;
-					await tbl.UpdateAsync(item.TeamId, item).ConfigureAwait(false);
+					await tbl.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
 
 					result.Value = TsTeam.FromDb(item);
 				}

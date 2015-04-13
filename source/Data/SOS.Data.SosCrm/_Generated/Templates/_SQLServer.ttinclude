@@ -671,6 +671,7 @@ ORDER BY
 			var results = new List<FKTable>();
 
 			var rowCollection = ForeignKeyRows.Where(a =>
+				ShouldGenerateTable(a.ThisTable) &&
 				(string.Compare(a.ThisTable, tableName, StringComparison.InvariantCultureIgnoreCase) == 0)
 				//&& (string.Compare(a.OtherTable, tableName, StringComparison.InvariantCultureIgnoreCase) != 0)//Don't match ThisTable-these are handled by many foreign keys
 			);
@@ -728,6 +729,7 @@ ORDER BY
 			var results = new List<FKTable>();
 
 			var rowCollection = ForeignKeyRows.Where(a =>
+				ShouldGenerateTable(a.ThisTable) &&
 				(string.Compare(a.OtherTable, tableName, StringComparison.InvariantCultureIgnoreCase) == 0));
 
 			Dictionary<string, int> propNameCount = new Dictionary<string, int>();

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -9,18 +10,32 @@ namespace NXS.Data.Crm
 	using ARTable = CrmDb.AE_CustomerAccountTable;
 	public static class AE_CustomerAccountTableExtensions
 	{
-		public static Task<ARCollection> ManyByAccountIdAsync(this ARTable tbl, long accountId)
+		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)
 		{
-			var qry = tbl.SelectFull()
-				.Where(tbl.AccountId, Comparison.Equals, accountId);
-			return tbl.LoadManyFull(qry);
+			item.ModifiedOn = item.CreatedOn = DateTime.UtcNow.RoundToSqlDateTime();
+			item.ModifiedBy = item.CreatedBy = gpEmployeeId;
+			item.ID = await tbl.InsertAsync(item).ConfigureAwait(false);
 		}
-		public static Task<ARCollection> ManyByAccountIdAndTypeAsync(this ARTable tbl, long accountId, string customerTypeId)
+		public static async Task UpdateAsync(this ARTable tbl, Snapshotter.Snapshot<AR> snapShot, string gpEmployeeId)
 		{
-			var qry = tbl.SelectFull()
+			var item = snapShot.Value;
+			item.ModifiedOn = DateTime.UtcNow.RoundToSqlDateTime();
+			item.ModifiedBy = gpEmployeeId;
+			await tbl.UpdateAsync(item.ID, snapShot.Diff()).ConfigureAwait(false);
+		}
+
+		public static Task<ARCollection> ByAccountIdAsync(this ARTable tbl, long accountId)
+		{
+			var sql = tbl.SelectFull()
+				.Where(tbl.AccountId, Comparison.Equals, accountId);
+			return tbl.LoadManyFull(sql);
+		}
+		public static Task<ARCollection> ByAccountIdAndTypeAsync(this ARTable tbl, long accountId, string customerTypeId)
+		{
+			var sql = tbl.SelectFull()
 				.Where(tbl.AccountId, Comparison.Equals, accountId)
 				.And(tbl.CustomerTypeId, Comparison.Equals, customerTypeId);
-			return tbl.LoadManyFull(qry);
+			return tbl.LoadManyFull(sql);
 		}
 		//public static async Task<AR> OneByAccountIdAndTypeAsync(this ARTable tbl, long accountId, string customerTypeId)
 		//{
@@ -28,10 +43,10 @@ namespace NXS.Data.Crm
 		//}
 		//public static Task<ARCollection> ManyByCustomerIdAndTypeAsync(this ARTable tbl, long customerId, string customerTypeId)
 		//{
-		//	var qry = tbl.SelectFull()
+		//	var sql = tbl.SelectFull()
 		//		.Where(tbl.CustomerId, Comparison.Equals, customerId)
 		//		.And(tbl.CustomerTypeId, Comparison.Equals, customerTypeId);
-		//	return tbl.LoadManyFull(qry);
+		//	return tbl.LoadManyFull(sql);
 		//}
 
 		//
@@ -45,22 +60,22 @@ namespace NXS.Data.Crm
 		//		tbl.Star
 		//	).From(tbl);
 		//}
-		//private static Task<ARCollection> LoadMany(this ARTable tbl, Sequel qry)
+		//private static Task<ARCollection> LoadMany(this ARTable tbl, Sequel sql)
 		//{
-		//	return tbl.Db.QueryAsync<AR>(qry.Sql, qry.Params);
+		//	return tbl.Db.QueryAsync<AR>(sql.Sql, sql.Params);
 		//}
-		//private static async Task<AR> LoadOne(this ARTable tbl, Sequel qry)
+		//private static async Task<AR> LoadOne(this ARTable tbl, Sequel sql)
 		//{
-		//	return (await tbl.LoadMany(qry).ConfigureAwait(false)).FirstOrDefault();
+		//	return (await tbl.LoadMany(sql).ConfigureAwait(false)).FirstOrDefault();
 		//}
 
-		// full load
-		private static Sequel SelectFull(this ARTable tbl)
+		#region full load
+		private static Sequel SelectFull(this ARTable tbl, Sequel sql = null)
 		{
 			var CUST = tbl.Db.AE_Customers;
 			var McA = tbl.Db.MC_Addresses;
 
-			return Sequel.NewSelect(
+			return (sql ?? Sequel.NewSelect()).Columns(
 				tbl.Star
 				, CUST.Star
 				, McA.Star
@@ -68,13 +83,12 @@ namespace NXS.Data.Crm
 			.InnerJoin(CUST).On(CUST.CustomerID, Comparison.Equals, tbl.CustomerId, literalText: true)
 			.InnerJoin(McA).On(McA.AddressID, Comparison.Equals, tbl.AddressId, literalText: true);
 		}
-		private static Task<ARCollection> LoadManyFull(this ARTable tbl, Sequel qry)
+		private static Task<ARCollection> LoadManyFull(this ARTable tbl, Sequel sql)
 		{
 			var CUST = tbl.Db.AE_Customers;
 			var McA = tbl.Db.MC_Addresses;
 
-			//return tbl.Db.QueryAsync<AR>(qry.Sql, qry.Params);
-			return tbl.Db.QueryAsync<AR, AE_Customer, MC_Address, AR>(qry.Sql, param: qry.Params,
+			return tbl.Db.QueryAsync<AR, AE_Customer, MC_Address, AR>(sql.Sql, param: sql.Params,
 				splitOn: new string[] { CUST.CustomerID, McA.AddressID },
 				map: (item, customer, address) =>
 				{
@@ -84,9 +98,10 @@ namespace NXS.Data.Crm
 				}
 			);
 		}
-		private static async Task<AR> LoadOneFull(this ARTable tbl, Sequel qry)
+		private static async Task<AR> LoadOneFull(this ARTable tbl, Sequel sql)
 		{
-			return (await tbl.LoadManyFull(qry).ConfigureAwait(false)).FirstOrDefault();
+			return (await tbl.LoadManyFull(sql).ConfigureAwait(false)).FirstOrDefault();
 		}
+		#endregion // full load
 	}
 }

@@ -17,40 +17,40 @@ namespace NXS.DataServices.Crm
 			_gpEmployeeId = gpEmployeeId;
 		}
 
-		public async Task<Result<List<HoldCatg1>>> Catg1s()
+		public async Task<Result<List<MsHoldCatg1>>> Catg1s()
 		{
 			using (var db = CrmDb.Connect())
 			{
 				var tbl = db.MS_AccountHoldCatg1s;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
-				var result = new Result<List<HoldCatg1>>(value: items.ConvertAll(item => HoldCatg1.FromDb(item)));
+				var result = new Result<List<MsHoldCatg1>>(value: items.ConvertAll(item => MsHoldCatg1.FromDb(item)));
 				return result;
 			}
 		}
 
-		public async Task<Result<List<HoldCatg2>>> Catg2s()
+		public async Task<Result<List<MsHoldCatg2>>> Catg2s()
 		{
 			using (var db = CrmDb.Connect())
 			{
 				var tbl = db.MS_AccountHoldCatg2s;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
-				var result = new Result<List<HoldCatg2>>(value: items.ConvertAll(item => HoldCatg2.FromDb(item)));
+				var result = new Result<List<MsHoldCatg2>>(value: items.ConvertAll(item => MsHoldCatg2.FromDb(item)));
 				return result;
 			}
 		}
 
-		public async Task<Result<List<Hold>>> Holds(long accountId)
+		public async Task<Result<List<MsHold>>> Holds(long accountId)
 		{
 			using (var db = CrmDb.Connect())
 			{
 				var tbl = db.MS_AccountHolds;
 				var items = await tbl.ByAccountIdAsync(accountId).ConfigureAwait(false);
-				var result = new Result<List<Hold>>(value: items.ConvertAll(item => Hold.FromDb(item)));
+				var result = new Result<List<MsHold>>(value: items.ConvertAll(item => MsHold.FromDb(item)));
 				return result;
 			}
 		}
 
-		public async Task<Result<Hold>> NewHold(HoldNew holdNew)
+		public async Task<Result<MsHold>> NewHold(MsHoldNew holdNew)
 		{
 			using (var db = CrmDb.Connect())
 			{
@@ -59,15 +59,13 @@ namespace NXS.DataServices.Crm
 				var item = new MS_AccountHold();
 				holdNew.ToDb(item);
 				item.IsActive = true;
-				item.ModifiedOn = item.CreatedOn = DateTime.UtcNow;
-				item.ModifiedBy = item.CreatedBy = _gpEmployeeId;
-				item.AccountHoldID = await tbl.InsertAsync(item).ConfigureAwait(false);
+				await tbl.InsertAsync(item, _gpEmployeeId);
 
-				var result = new Result<Hold>(value: Hold.FromDb(item));
+				var result = new Result<MsHold>(value: MsHold.FromDb(item));
 				return result;
 			}
 		}
-		public async Task<Result<Hold>> FixHold(HoldFix holdFix)
+		public async Task<Result<MsHold>> FixHold(MsHoldFix holdFix)
 		{
 			using (var db = CrmDb.Connect())
 			{
@@ -79,10 +77,9 @@ namespace NXS.DataServices.Crm
 				holdFix.ToDb(item);
 				item.FixedBy = _gpEmployeeId;
 				item.FixedOn = item.ModifiedOn = DateTime.UtcNow;
-				item.ModifiedBy = _gpEmployeeId;
-				await tbl.UpdateAsync(item.AccountHoldID, snapShot.Diff()).ConfigureAwait(false);
+				await tbl.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
 
-				var result = new Result<Hold>(value: Hold.FromDb(item));
+				var result = new Result<MsHold>(value: MsHold.FromDb(item));
 				return result;
 			}
 		}

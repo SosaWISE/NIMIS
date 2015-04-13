@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,27 +10,41 @@ namespace NXS.Data.Crm
 	using ARTable = CrmDb.TS_TeamTable;
 	public static class TS_TeamExtensions
 	{
+		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)
+		{
+			item.ModifiedOn = item.CreatedOn = DateTime.UtcNow.RoundToSqlDateTime();
+			item.ModifiedBy = item.CreatedBy = gpEmployeeId;
+			//item.ID = 
+			await tbl.InsertAsync(item).ConfigureAwait(false);
+		}
+		public static async Task UpdateAsync(this ARTable tbl, Snapshotter.Snapshot<AR> snapShot, string gpEmployeeId)
+		{
+			var item = snapShot.Value;
+			item.ModifiedOn = DateTime.UtcNow.RoundToSqlDateTime();
+			item.ModifiedBy = gpEmployeeId;
+			await tbl.UpdateAsync(item.ID, snapShot.Diff()).ConfigureAwait(false);
+		}
+
 		public static Task<ARCollection> AllFullAsync(this ARTable tbl)
 		{
-			var qry = tbl.SelectFull();
-			return tbl.LoadManyFull(qry);
+			var sql = tbl.SelectFull();
+			return tbl.LoadManyFull(sql);
 		}
 		public static Task<AR> ByIdFullAsync(this ARTable tbl, int id)
 		{
-			var qry = tbl.SelectFull()
-				.Where(tbl.PkName, Comparison.Equals, id);
-			return tbl.LoadOneFull(qry);
-			//return (await tbl.LoadOneFull(qry).ConfigureAwait(false));
+			var sql = tbl.SelectFull()
+				.Where(tbl.TeamId, Comparison.Equals, id);
+			return tbl.LoadOneFull(sql);
 		}
 
 
-		// full load
-		private static Sequel SelectFull(this ARTable tbl)
+		#region full load
+		private static Sequel SelectFull(this ARTable tbl, Sequel sql = null)
 		{
 			var ADDR = tbl.Db.QL_Addresses;
 			var RUT = tbl.Db.RU_Teams;
 
-			return Sequel.NewSelect(
+			return (sql ?? Sequel.NewSelect()).Columns(
 				RUT.TeamID
 				, RUT.Description
 				, tbl.Star
@@ -38,11 +53,11 @@ namespace NXS.Data.Crm
 			.LeftOuterJoin(tbl).On(RUT.TeamID, Comparison.Equals, tbl.TeamId, literalText: true)
 			.LeftOuterJoin(ADDR).On(ADDR.AddressID, Comparison.Equals, tbl.AddressId, literalText: true);
 		}
-		private static Task<ARCollection> LoadManyFull(this ARTable tbl, Sequel qry)
+		private static Task<ARCollection> LoadManyFull(this ARTable tbl, Sequel sql)
 		{
 			var ADDR = tbl.Db.QL_Addresses;
 
-			return tbl.Db.QueryAsync<RU_Team, AR, MC_Address, AR>(qry.Sql, param: qry.Params,
+			return tbl.Db.QueryAsync<RU_Team, AR, MC_Address, AR>(sql.Sql, param: sql.Params,
 				splitOn: new string[] { tbl.TeamId, ADDR.AddressID },
 				map: (team, item, address) =>
 				{
@@ -57,9 +72,10 @@ namespace NXS.Data.Crm
 				}
 			);
 		}
-		private static async Task<AR> LoadOneFull(this ARTable tbl, Sequel qry)
+		private static async Task<AR> LoadOneFull(this ARTable tbl, Sequel sql)
 		{
-			return (await tbl.LoadManyFull(qry).ConfigureAwait(false)).FirstOrDefault();
+			return (await tbl.LoadManyFull(sql).ConfigureAwait(false)).FirstOrDefault();
 		}
+		#endregion // full load
 	}
 }
