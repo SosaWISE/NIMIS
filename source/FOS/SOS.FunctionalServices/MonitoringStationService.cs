@@ -2048,6 +2048,10 @@ namespace SOS.FunctionalServices
 			var msXmlService = new Main(msChoice);
 			FosResult<MS_AccountSubmit> fosResult = shellAccount ? msXmlService.AccountShell(msAccountSubmit, gpEmployeeId) : msXmlService.AccountCreate(msAccountSubmit, gpEmployeeId);
 
+			/** Create holds by default.*/
+			SosCrmDataContext.Instance.MS_AccountHolds.Create(accountId, (int) MS_AccountHoldCatg2.Catg2Enum.AMA_Paperwork_Missing, null, gpEmployeeId);
+			SosCrmDataContext.Instance.MS_AccountHolds.Create(accountId, (int) MS_AccountHoldCatg2.Catg2Enum.SOP_Paperwork_Missing, null, gpEmployeeId);
+
 			// ** Build result
 			result.Code = fosResult.Code;
 			result.Message = fosResult.Message;
