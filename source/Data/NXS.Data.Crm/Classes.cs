@@ -263,6 +263,13 @@ namespace NXS.Data.Crm
 		public string ModifiedBy { get; set; }
 		public DateTime ModifiedOn { get; set; }
 	}
+	public partial class MC_FriendsAndFamilyType // MC_FriendsAndFamilyTypes
+	{
+		[IgnorePropertyAttribute(true)]
+		public string ID { get { return FriendsAndFamilyTypeID; } set { FriendsAndFamilyTypeID = value; } }
+		public string FriendsAndFamilyTypeID { get; set; }
+		public string FriendsAndFamilyType { get; set; }
+	}
 	public partial class MS_AccountHoldCatg1 // MS_AccountHoldCatg1
 	{
 		[IgnorePropertyAttribute(true)]

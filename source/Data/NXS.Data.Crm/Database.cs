@@ -15,6 +15,7 @@ namespace NXS.Data.Crm
 		public AE_ItemTable AE_Items { get; set; }
 		public MC_AccountTable MC_Accounts { get; set; }
 		public MC_AddressTable MC_Addresses { get; set; }
+		public MC_FriendsAndFamilyTypeTable MC_FriendsAndFamilyTypes { get; set; }
 		public MS_AccountHoldCatg1Table MS_AccountHoldCatg1s { get; set; }
 		public MS_AccountHoldCatg2Table MS_AccountHoldCatg2s { get; set; }
 		public MS_AccountHoldTable MS_AccountHolds { get; set; }
@@ -275,6 +276,13 @@ namespace NXS.Data.Crm
 			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
 			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+		}
+		public partial class MC_FriendsAndFamilyTypeTable : Table<MC_FriendsAndFamilyType, string>
+		{
+			public CrmDb Db { get { return (CrmDb)_database; } }
+			public MC_FriendsAndFamilyTypeTable(CrmDb db) : base(db, "McFAFT", "[dbo].[MC_FriendsAndFamilyTypes]", "FriendsAndFamilyTypeID", "varchar", false) { }
+			public string FriendsAndFamilyTypeID { get { return _alias + "[FriendsAndFamilyTypeID]"; } }
+			public string FriendsAndFamilyType { get { return _alias + "[FriendsAndFamilyType]"; } }
 		}
 		public partial class MS_AccountHoldCatg1Table : Table<MS_AccountHoldCatg1, int>
 		{

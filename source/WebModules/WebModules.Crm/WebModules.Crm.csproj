@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContractAdmin\AccountSalesInformationExtrasModule.cs" />
+    <Compile Include="Ms\EnumTypesModule.cs" />
     <Compile Include="Ms\AccountContractModules.cs" />
     <Compile Include="Ms\AccountSalesInformationsModule.cs" />
     <Compile Include="ContractAdmin\AccountsModule.cs" />
