@@ -48,9 +48,11 @@ AS
 	SELECT
 		IVTM.InvoiceItemID
 		, IVTM.InvoiceId
+		, IVTM.AccountEquipmentId
 		, IVTM.ItemId
 		, IVTM.ProductBarcodeId
 		, ITM.ItemSKU
+		, ITM.ModelNumber
 		, ITM.ItemDesc
 		, IVTM.TaxOptionId
 		, IVTM.Qty
@@ -74,5 +76,5 @@ AS
 			(ITM.ItemID = IVTM.ItemId)
 GO
 /* TEST 
-SELECT * FROM vwAE_InvoiceItems WHERE (InvoiceID = 10020156);
+SELECT * FROM vwAE_InvoiceItems WHERE (InvoiceID = 10060465) AND (IsActive = 1) AND (IsDeleted = 0);
 												   10020156) AND (ItemSku = 'GEC-TX4014012') */

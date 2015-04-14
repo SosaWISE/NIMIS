@@ -376,6 +376,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		AE_PaymentMethodController _AE_PaymentMethods;
+		public AE_PaymentMethodController AE_PaymentMethods
+		{
+			get
+			{
+				if (_AE_PaymentMethods == null) _AE_PaymentMethods = new AE_PaymentMethodController();
+				return _AE_PaymentMethods;
+			}
+		}
+
 		AE_PaymentController _AE_Payments;
 		public AE_PaymentController AE_Payments
 		{
@@ -1156,6 +1166,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MC_HolidayController _MC_Holidays;
+		public MC_HolidayController MC_Holidays
+		{
+			get
+			{
+				if (_MC_Holidays == null) _MC_Holidays = new MC_HolidayController();
+				return _MC_Holidays;
+			}
+		}
+
 		MC_LocalizationController _MC_Localizations;
 		public MC_LocalizationController MC_Localizations
 		{
@@ -1393,6 +1413,46 @@ namespace SOS.Data.SosCrm
 			{
 				if (_MS_AccountEvents == null) _MS_AccountEvents = new MS_AccountEventController();
 				return _MS_AccountEvents;
+			}
+		}
+
+		MS_AccountHoldCatg1Controller _MS_AccountHoldCatg1s;
+		public MS_AccountHoldCatg1Controller MS_AccountHoldCatg1s
+		{
+			get
+			{
+				if (_MS_AccountHoldCatg1s == null) _MS_AccountHoldCatg1s = new MS_AccountHoldCatg1Controller();
+				return _MS_AccountHoldCatg1s;
+			}
+		}
+
+		MS_AccountHoldCatg2Controller _MS_AccountHoldCatg2s;
+		public MS_AccountHoldCatg2Controller MS_AccountHoldCatg2s
+		{
+			get
+			{
+				if (_MS_AccountHoldCatg2s == null) _MS_AccountHoldCatg2s = new MS_AccountHoldCatg2Controller();
+				return _MS_AccountHoldCatg2s;
+			}
+		}
+
+		MS_AccountHoldController _MS_AccountHolds;
+		public MS_AccountHoldController MS_AccountHolds
+		{
+			get
+			{
+				if (_MS_AccountHolds == null) _MS_AccountHolds = new MS_AccountHoldController();
+				return _MS_AccountHolds;
+			}
+		}
+
+		MS_AccountHoldStockController _MS_AccountHoldStocks;
+		public MS_AccountHoldStockController MS_AccountHoldStocks
+		{
+			get
+			{
+				if (_MS_AccountHoldStocks == null) _MS_AccountHoldStocks = new MS_AccountHoldStockController();
+				return _MS_AccountHoldStocks;
 			}
 		}
 
@@ -3460,6 +3520,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MS_AccountEquipmentsAllViewController _MS_AccountEquipmentsAllViews;
+		public MS_AccountEquipmentsAllViewController MS_AccountEquipmentsAllViews
+		{
+			get
+			{
+				if (_MS_AccountEquipmentsAllViews == null) _MS_AccountEquipmentsAllViews = new MS_AccountEquipmentsAllViewController();
+				return _MS_AccountEquipmentsAllViews;
+			}
+		}
+
 		MS_AccountEventViewController _MS_AccountEventViews;
 		public MS_AccountEventViewController MS_AccountEventViews
 		{
@@ -3859,6 +3929,7 @@ namespace SOS.Data.SosCrm
 	public class AE_ItemController : BaseTableController<AE_Item, AE_ItemCollection> { }
 	public class AE_ItemTypeController : BaseTableController<AE_ItemType, AE_ItemTypeCollection> { }
 	public class AE_ManufacturerController : BaseTableController<AE_Manufacturer, AE_ManufacturerCollection> { }
+	public class AE_PaymentMethodController : BaseTableController<AE_PaymentMethod, AE_PaymentMethodCollection> { }
 	public class AE_PaymentController : BaseTableController<AE_Payment, AE_PaymentCollection> { }
 	public class AE_PaymentTypeController : BaseTableController<AE_PaymentType, AE_PaymentTypeCollection> { }
 	public class AE_ProductGroupController : BaseTableController<AE_ProductGroup, AE_ProductGroupCollection> { }
@@ -3937,6 +4008,7 @@ namespace SOS.Data.SosCrm
 	public class MC_DepartmentAccountNoteCat1Controller : BaseTableController<MC_DepartmentAccountNoteCat1, MC_DepartmentAccountNoteCat1Collection> { }
 	public class MC_DepartmentController : BaseTableController<MC_Department, MC_DepartmentCollection> { }
 	public class MC_FriendsAndFamilyTypeController : BaseTableController<MC_FriendsAndFamilyType, MC_FriendsAndFamilyTypeCollection> { }
+	public class MC_HolidayController : BaseTableController<MC_Holiday, MC_HolidayCollection> { }
 	public class MC_LocalizationController : BaseTableController<MC_Localization, MC_LocalizationCollection> { }
 	public class MC_MarketController : BaseTableController<MC_Market, MC_MarketCollection> { }
 	public class MC_PaymentBankAccountTypeController : BaseTableController<MC_PaymentBankAccountType, MC_PaymentBankAccountTypeCollection> { }
@@ -3961,6 +4033,10 @@ namespace SOS.Data.SosCrm
 	public class MS_AccountEquipmentController : BaseTableController<MS_AccountEquipment, MS_AccountEquipmentCollection> { }
 	public class MS_AccountEquipmentUpgradeTypeController : BaseTableController<MS_AccountEquipmentUpgradeType, MS_AccountEquipmentUpgradeTypeCollection> { }
 	public class MS_AccountEventController : BaseTableController<MS_AccountEvent, MS_AccountEventCollection> { }
+	public class MS_AccountHoldCatg1Controller : BaseTableController<MS_AccountHoldCatg1, MS_AccountHoldCatg1Collection> { }
+	public class MS_AccountHoldCatg2Controller : BaseTableController<MS_AccountHoldCatg2, MS_AccountHoldCatg2Collection> { }
+	public class MS_AccountHoldController : BaseTableController<MS_AccountHold, MS_AccountHoldCollection> { }
+	public class MS_AccountHoldStockController : BaseTableController<MS_AccountHoldStock, MS_AccountHoldStockCollection> { }
 	public class MS_AccountPackageItemController : BaseTableController<MS_AccountPackageItem, MS_AccountPackageItemCollection> { }
 	public class MS_AccountPackageItemTypeController : BaseTableController<MS_AccountPackageItemType, MS_AccountPackageItemTypeCollection> { }
 	public class MS_AccountPackageController : BaseTableController<MS_AccountPackage, MS_AccountPackageCollection> { }
@@ -4172,6 +4248,7 @@ namespace SOS.Data.SosCrm
 	public class MS_AccountDispatchAgencyAssignmentViewController : BaseViewController<MS_AccountDispatchAgencyAssignmentView, MS_AccountDispatchAgencyAssignmentViewCollection> { }
 	public class MS_AccountEquipmentInfoToGPViewController : BaseViewController<MS_AccountEquipmentInfoToGPView, MS_AccountEquipmentInfoToGPViewCollection> { }
 	public class MS_AccountEquipmentsViewController : BaseViewController<MS_AccountEquipmentsView, MS_AccountEquipmentsViewCollection> { }
+	public class MS_AccountEquipmentsAllViewController : BaseViewController<MS_AccountEquipmentsAllView, MS_AccountEquipmentsAllViewCollection> { }
 	public class MS_AccountEventViewController : BaseViewController<MS_AccountEventView, MS_AccountEventViewCollection> { }
 	public class MS_AccountMonitorInformationsViewController : BaseViewController<MS_AccountMonitorInformationsView, MS_AccountMonitorInformationsViewCollection> { }
 	public class MS_AccountOnlineStatusInfoViewController : BaseViewController<MS_AccountOnlineStatusInfoView, MS_AccountOnlineStatusInfoViewCollection> { }

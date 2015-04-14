@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--
-SQL Compare
-SQL Compare
-Version:10.7.0.18-->
+SQL Data Compare
+SQL Data Compare
+Version:10.4.8.62-->
 <Project version="2" type="SQLComparisonToolsProject">
   <DataSource1 version="3" type="LiveDatabaseSource">
     <ServerName>db1.dev.nexsense.com</ServerName>
-    <DatabaseName>WISE_CRM</DatabaseName>
+    <DatabaseName>NXSE_Sales</DatabaseName>
     <Username>sa</Username>
     <SavePassword>True</SavePassword>
     <Password encrypted="1">lof8lOoJ2pAV+FE+QwydUQ==</Password>
@@ -16,7 +16,7 @@ Version:10.7.0.18-->
   </DataSource1>
   <DataSource2 version="3" type="LiveDatabaseSource">
     <ServerName>db1.stg.nexsense.com</ServerName>
-    <DatabaseName>WISE_CRM</DatabaseName>
+    <DatabaseName>NXSE_Sales</DatabaseName>
     <Username>sa</Username>
     <SavePassword>True</SavePassword>
     <Password encrypted="1">lof8lOoJ2pAV+FE+QwydUQ==</Password>
@@ -24,7 +24,7 @@ Version:10.7.0.18-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>04/02/2015 12:09:35</LastCompared>
+  <LastCompared>04/14/2015 10:18:17</LastCompared>
   <Options>Default, ObjectExistenceChecks, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
@@ -167,9 +167,9 @@ Version:10.7.0.18-->
     <Schemas type="ListString" version="2">
       <value type="string">ZABiAG8A</value>
     </Schemas>
-    <ZABiAG8A>dRBraC04NHqKP5hIakGPOQIAAV0EHvft5f3cFP0Z32Ya6nECAgHEJtVIq+rDoTivv+sSOtLxBwAB57X+Q0FQtrBI8C2t6tS3sgQAAZjD58MbzYwYu3TmAmDs26wEAgElAUoPqP8MOoJ4qe/+iN6EAwIB+X0NMurNfHW45GA/mwD1BAIAAQ__</ZABiAG8A>
+    <ZABiAG8A>wFyenl9qAJP8PWIjB+EtAwQCAOPcfDZpp02MCilv5qb9stwDAgBfW0Hb2C+EnfvYrVAB3+H2AgIBY4sclBh3Vq8NVamQqSY2bQIBAR4AS+dlESiEO5UfCk6fUeYCAQFDQi3/qmbgP60lb6WAJsTlAgEBVciOBGT6yVImcWntirG/dgIBATO+Y1Tfnd7n4hWjoPfA/o8CAQE_</ZABiAG8A>
     <Grouping type="ListByte" version="2">
-      <value type="Byte">5</value>
+      <value type="Byte">3</value>
       <value type="Byte">0</value>
       <value type="Byte">0</value>
       <value type="Byte">0</value>
@@ -585,6 +585,18 @@ Version:10.7.0.18-->
     <value version="1" type="SelectTableEvent">
       <action>SelectItem</action>
       <val>[dbo].[MS_EquipmentMonitronicsDevices]:[dbo].[MS_EquipmentMonitronicsDevices]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[SC_GlobalProperties]:[dbo].[SC_GlobalProperties]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[SC_RateScale]:[dbo].[SC_RateScale]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[SC_CommissionsAdjustments]:[dbo].[SC_CommissionsAdjustments]</val>
     </value>
   </TableActions>
   <SessionSettings>15</SessionSettings>

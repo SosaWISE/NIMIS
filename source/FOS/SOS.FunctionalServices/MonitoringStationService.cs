@@ -1743,6 +1743,7 @@ namespace SOS.FunctionalServices
 						};
 					}
 				}
+
 				MS_Equipment equipment = SosCrmDataContext.Instance.MS_Equipments.LoadByPrimaryKey(acctEquipment.EquipmentId);
 				if (isNew)
 				{
@@ -2046,6 +2047,15 @@ namespace SOS.FunctionalServices
 
 			var msXmlService = new Main(msChoice);
 			FosResult<MS_AccountSubmit> fosResult = shellAccount ? msXmlService.AccountShell(msAccountSubmit, gpEmployeeId) : msXmlService.AccountCreate(msAccountSubmit, gpEmployeeId);
+
+			/** Create holds by default.*/
+			SosCrmDataContext.Instance.MS_AccountHolds.Create(accountId, (int) MS_AccountHoldCatg2.Catg2Enum.AMA_Paperwork_Missing, null, gpEmployeeId);
+			SosCrmDataContext.Instance.MS_AccountHolds.Create(accountId, (int) MS_AccountHoldCatg2.Catg2Enum.SOP_Paperwork_Missing, null, gpEmployeeId);
+			// // Check for ACH account
+			if (msAcctSlI.PaymentTypeId.Equals(AE_PaymentType.MetaData.AchID))
+			{
+				SosCrmDataContext.Instance.MS_AccountHolds.Create(accountId, (int)MS_AccountHoldCatg2.Catg2Enum.No_Voided_Check, null, gpEmployeeId);
+			}
 
 			// ** Build result
 			result.Code = fosResult.Code;

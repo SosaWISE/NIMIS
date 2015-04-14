@@ -687,6 +687,14 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@PurchaseDateEnd", PurchaseDateEnd, DbType.DateTime);
 			return sp;
 		}
+		public static StoredProcedure MS_AccountHoldsCreate(long? AccountId,int? Catg2Id,string HoldDescription,string CreatedBy) {
+			StoredProcedure sp = new StoredProcedure("custMS_AccountHoldsCreate" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@AccountId", AccountId, DbType.Int64);
+			sp.Command.AddParameter("@Catg2Id", Catg2Id, DbType.Int32);
+			sp.Command.AddParameter("@HoldDescription", HoldDescription, DbType.AnsiString);
+			sp.Command.AddParameter("@CreatedBy", CreatedBy, DbType.AnsiString);
+			return sp;
+		}
 		public static StoredProcedure MS_AccountMonitorInformationsByAccountID(long? AccountID) {
 			StoredProcedure sp = new StoredProcedure("custMS_AccountMonitorInformationsByAccountID" ,DataService.GetInstance("SosCrmProvider"));
 			sp.Command.AddParameter("@AccountID", AccountID, DbType.Int64);

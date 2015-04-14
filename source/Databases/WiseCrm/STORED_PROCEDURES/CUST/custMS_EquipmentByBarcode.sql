@@ -45,13 +45,14 @@ BEGIN
 
 	SELECT 
 		EQM.*
-	FROM MS_Equipments AS EQM WITH (NOLOCK)
-	INNER JOIN IE_PurchaseOrderItems AS IPOI WITH (NOLOCK)
-	ON
-		(EQM.EquipmentID = IPOI.ItemId)
-	INNER JOIN IE_ProductBarcodes AS IPB WITH (NOLOCK)
-	ON
-		(IPOI.PurchaseOrderItemID = IPB.PurchaseOrderItemId)
+	FROM
+		MS_Equipments AS EQM WITH (NOLOCK)
+		INNER JOIN IE_PurchaseOrderItems AS IPOI WITH (NOLOCK)
+		ON
+			(EQM.EquipmentID = IPOI.ItemId)
+		INNER JOIN IE_ProductBarcodes AS IPB WITH (NOLOCK)
+		ON
+			(IPOI.PurchaseOrderItemID = IPB.PurchaseOrderItemId)
 	WHERE
 		(IPB.ProductBarcodeID = @BarcodeNumber)
 

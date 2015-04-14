@@ -46,10 +46,10 @@ BEGIN
 	SET NOCOUNT ON
 
 	/** Check that the account has not been submitted to CS. */
-	IF(EXISTS(SELECT AccountID FROM [dbo].[MS_AccountSalesInformations] WHERE (AccountID = @AccountID) AND (InstallDate IS NOT NULL)))
-	BEGIN
-		RETURN;
-	END
+	--IF(EXISTS(SELECT AccountID FROM [dbo].[MS_AccountSalesInformations] WHERE (AccountID = @AccountID) AND (InstallDate IS NOT NULL)))
+	--BEGIN
+	--	RETURN;
+	--END
 	
 
 	/** DECLARATIONS */
@@ -62,6 +62,7 @@ BEGIN
 		, @InvoiceID BIGINT
 		, @InvoiceItemID BIGINT
 		, @RetailPrice MONEY
+		, @ModelNumber VARCHAR(30)
 		, @Count INT = 0
 	
 	BEGIN TRY
@@ -73,10 +74,11 @@ BEGIN
 			DECLARE @AccountIdStr VARCHAR(20) = CAST(@AccountID AS VARCHAR);
 			RAISERROR (N'The Account with MsAccountID of %s does not have an INSTALL invoice.', 18, 1, @AccountIdStr);
 		END
+		PRINT 'InvoiceID: ' + CAST(@InvoiceID AS VARCHAR);
 
 		/** Create a cursor */
 		DECLARE accountEqCursor CURSOR FOR
-		SELECT MSAE.AccountEquipmentID, MSAE.EquipmentId, MSAE.ActualPoints, MSAE.BarcodeId , AEI.ItemSKU
+		SELECT MSAE.AccountEquipmentID, MSAE.EquipmentId, MSAE.ActualPoints, MSAE.BarcodeId , AEI.ItemSKU, AEI.ModelNumber
 		FROM 
 			[dbo].[MS_AccountEquipment] AS MSAE WITH (NOLOCK)
 			INNER JOIN [dbo].[AE_Items] AS AEI WITH (NOLOCK)
@@ -90,35 +92,37 @@ BEGIN
 		OPEN accountEqCursor;
 
 		FETCH NEXT FROM accountEqCursor
-		INTO @AccountEquipmentID, @EquipmentId, @ActualPoints, @BarcodeId, @ItemSKU
+		INTO @AccountEquipmentID, @EquipmentId, @ActualPoints, @BarcodeId, @ItemSKU, @ModelNumber
 
 		WHILE(@@FETCH_STATUS = 0)
 		BEGIN
 			/** Initialize */
 			SET @InvoiceItemID = NULL;
 			SET @Count = @Count + 1;
+			DECLARE @Temp BIGINT = NULL;
 
 			/** Find a matching SKU with no barcode ID */
 			SELECT TOP 1 
-				@InvoiceItemID = InvoiceItemID 
+				@InvoiceItemID = AEII.InvoiceItemID
+				, @Temp = AEII.AccountEquipmentId
 			FROM
-				[dbo].[AE_Invoices] AS AEI WITH (NOLOCK)
-				INNER JOIN [dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
+				[dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
+				INNER JOIN [dbo].[AE_Items] AS AEIT WITH (NOLOCK)
 				ON
-					(AEII.InvoiceId = AEI.InvoiceID)
-					AND (AEI.InvoiceId = @InvoiceID)
-					AND (AEI.AccountId = @AccountID)
+					(AEIT.ItemID = AEII.ItemId)
 			WHERE
-				(AEII.ItemId = @EquipmentId)
+				(AEII.InvoiceId = @InvoiceID)
+				--AND (AEII.ItemId = @EquipmentId)
+				AND (AEIT.ModelNumber = @ModelNumber)
 				AND (AEII.ProductBarcodeId IS NULL)
 				AND (AEII.AccountEquipmentId IS NULL)
-				AND (AEI.IsActive = 1 AND AEI.IsDeleted = 0)
-				AND (AEII.IsActive = 1 AND AEII.IsDeleted = 0)
+				AND (AEII.IsActive = 1 AND AEII.IsDeleted = 0);
+
+			--PRINT 'InvoiceItemID Found ' + CAST(@InvoiceItemID AS VARCHAR)
 
 			/** Check that there is an invoiceitem otherwise create one. */
 			IF (@InvoiceItemID IS NULL)
 			BEGIN
-				PRINT 'No Invoice Item found for EquipmentID: ' + @EquipmentId + ',  AccountEquipmentID: ' + CAST(@AccountEquipmentID AS VARCHAR) + ', and Part #: ' + @ItemSKU;
 				INSERT INTO [dbo].[AE_InvoiceItems] (
 					[InvoiceId]
 					, [ItemId]
@@ -165,12 +169,16 @@ BEGIN
 					(MSAE.AccountEquipmentID = @AccountEquipmentID);
 
 				SET @InvoiceItemID = SCOPE_IDENTITY();
+				PRINT 'INSERT -- No Invoice Item found for EquipmentID: ' + @EquipmentId + ',  AccountEquipmentID: ' + CAST(@AccountEquipmentID AS VARCHAR) + ', and Part #: ' + @ItemSKU + ' | New InvoiceItemID: ' + CAST(@InvoiceItemID AS VARCHAR);
 			END
 			ELSE
 			BEGIN
-				PRINT 'Invoice Item ' + CAST(@InvoiceItemID AS VARCHAR) + ' for EquipmentID: ' + @EquipmentId + ', AccountEquipmentID: ' + CAST(@AccountEquipmentID AS VARCHAR) + ', and Part #: ' + @ItemSKU;
+				PRINT 'UPDATE -- Invoice Item ' + CAST(@InvoiceItemID AS VARCHAR) + ' for EquipmentID: ' + @EquipmentId + ', AccountEquipmentID: ' + CAST(@AccountEquipmentID AS VARCHAR) + ', and Part #: ' + @ItemSKU;
+
+				/** Figure out SalesmanId and TechnicianId */
 				UPDATE [dbo].[AE_InvoiceItems] SET 
-					ProductBarcodeId = MSAE.BarcodeId
+					AccountEquipmentId = MSAE.AccountEquipmentID
+					, ProductBarcodeId = MSAE.BarcodeId
 					, TaxOptionId = AEIT.TaxOptionId
 					, Cost = AEIT.Cost
 					, RetailPrice = AEIT.Price
@@ -188,20 +196,23 @@ BEGIN
 					[dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
 					INNER JOIN [dbo].[MS_AccountEquipment] AS MSAE WITH (NOLOCK)
 					ON
-						(MSAE.AccountEquipmentID = AEII.AccountEquipmentId)
+						(MSAE.AccountEquipmentID = @AccountEquipmentId)
 					INNER JOIN [dbo].[AE_Items] AS AEIT WITH (NOLOCK)
 					ON
-						(AEIT.ItemID = MSAE.EquipmentId)
+						(AEIT.ItemID = AEII.ItemId)
 				WHERE
 					(AEII.InvoiceItemID = @InvoiceItemID);
 			END
+
+			/** Check the Rowcount */
+			--PRINT 'UPDATE CHECK OF ROWCOUT: ' + CAST(@@ROWCOUNT AS VARCHAR);
 
 			/** Save InvoiceItemID into MS_AccountEquipments Tables*/
 			UPDATE [dbo].[MS_AccountEquipment] SET InvoiceItemId = @InvoiceItemID WHERE (AccountEquipmentID = @AccountEquipmentID);
 
 			/** Move to the next item. */
 			FETCH NEXT FROM accountEqCursor
-			INTO @AccountEquipmentID, @EquipmentId, @ActualPoints, @BarcodeId, @ItemSKU
+			INTO @AccountEquipmentID, @EquipmentId, @ActualPoints, @BarcodeId, @ItemSKU, @ModelNumber
 		END
 
 		CLOSE accountEqCursor;
@@ -220,7 +231,7 @@ BEGIN
 			INNER JOIN [dbo].[AE_Items] AS AEIT WITH (NOLOCK)
 			ON
 				(AEIT.ItemID = AEII.ItemId)
-				AND (AEIT.ItemTypeId = 'EQPM_INVT_MS' OR AEIT.ItemTypeId = 'EQPM_EXST_MS')
+				AND (AEIT.ItemTypeId = 'EQPM_INVT' OR AEIT.ItemTypeId = 'EQPM_INVT_MS' OR AEIT.ItemTypeId = 'EQPM_EXST' OR AEIT.ItemTypeId = 'EQPM_EXST_MS')
 		WHERE
 			(AEII.InvoiceId = @InvoiceID)
 			AND (AEII.AccountEquipmentId IS NULL)
@@ -231,15 +242,22 @@ BEGIN
 		FETCH NEXT FROM invoiceItemCursor
 		INTO @InvoiceItemId, @ItemID, @ActualPoints, @BarcodeId, @ItemSKU, @RetailPrice
 
+		SET @Count = 0;
+
 		WHILE (@@FETCH_STATUS = 0)
 		BEGIN
+			/** Initialize */
+			SET @Count = @Count + 1;
+			SET @AccountEquipmentID = NULL;
+
 			/** Check that there is a relationship otherwise create a row*/
 			SELECT TOP 1
 				@AccountEquipmentID = AccountEquipmentID
 			FROM
 				[dbo].[MS_AccountEquipment] AS MSAEQ WITH (NOLOCK)
 			WHERE
-				(MSAEQ.InvoiceItemId = @InvoiceItemId)
+				(MSAEQ.InvoiceItemId IS NULL)
+				AND (MSAEQ.EquipmentId = @ItemID)
 				AND (MSAEQ.AccountId = @AccountID)
 				AND (MSAEQ.IsActive = 1 AND MSAEQ.IsDeleted = 0)
 			
@@ -317,9 +335,12 @@ BEGIN
 					[dbo].[MS_AccountEquipment] AS MSAE WITH (NOLOCK)
 					INNER JOIN [dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
 					ON
-						(AEII.AccountEquipmentId = MSAE.AccountEquipmentID)
+						--(AEII.AccountEquipmentId = MSAE.AccountEquipmentID)
+						(AEII.InvoiceItemID = @InvoiceItemID)
 				WHERE
 					(MSAE.AccountEquipmentID = @AccountEquipmentId);
+
+				PRINT 'ROW COUNT: ' + CAST(@@ROWCOUNT AS VARCHAR);
 			END
 
 			/** Save information */
@@ -333,6 +354,13 @@ BEGIN
 		CLOSE invoiceItemCursor;
 		DEALLOCATE invoiceItemCursor;
 
+		PRINT 'Total Rows Modified: ' + CAST(@Count AS VARCHAR);
+	/**
+	* DEBUGGING REMOVE LATER
+	
+SELECT * FROM [dbo].[vwAE_InvoiceItems] AS AEII WITH (NOLOCK) WHERE (AEII.IsActive = 1 AND AEII.IsDeleted = 0) AND (AEII.InvoiceID = @InvoiceID);
+SELECT * FROM [dbo].[vwMS_AccountEquipmentsAll] AS MSAE WITH (NOLOCK) WHERE (MSAE.IsActive = 1 AND MSAE.IsDeleted = 0) AND (AccountId = @AccountId);
+	*/
 		COMMIT TRANSACTION
 	END TRY
 	BEGIN CATCH
@@ -343,11 +371,25 @@ BEGIN
 	END CATCH
 
 	/** Return results */
-	SELECT * FROM [dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK) WHERE (AEII.InvoiceID = @InvoiceID) AND (AEII.IsActive = 1 AND AEII.IsDeleted = 0);
+	SELECT * FROM [dbo].[vwAE_InvoiceItems] AS AEII WITH (NOLOCK) WHERE (AEII.IsActive = 1 AND AEII.IsDeleted = 0) AND (AEII.InvoiceID = @InvoiceID);
+	--SELECT * FROM [dbo].[vwMS_AccountEquipmentsAll] AS MSAE WITH (NOLOCK) WHERE (MSAE.IsActive = 1 AND MSAE.IsDeleted = 0) AND (AccountId = @AccountId);
+		
 END
 GO
 
 GRANT EXEC ON dbo.custAE_InventoryItemsSycnWithMsAccountEquipmentInstalled TO PUBLIC
 GO
 
-/** EXEC dbo.custAE_InventoryItemsSycnWithMsAccountEquipmentInstalled 150927, 'STAKE001' */
+/** EXEC dbo.custAE_InventoryItemsSycnWithMsAccountEquipmentInstalled 191168, 'STAKE001' */
+
+--SELECT AEII.InvoiceItemId, AEII.ItemId, AEII.SystemPoints, AEII.ProductBarcodeId, AEIT.ItemSKU, AEII.RetailPrice
+--		FROM
+--			[dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
+--			INNER JOIN [dbo].[AE_Items] AS AEIT WITH (NOLOCK)
+--			ON
+--				(AEIT.ItemID = AEII.ItemId)
+--				AND (AEIT.ItemTypeId = 'EQPM_INVT' OR AEIT.ItemTypeId = 'EQPM_INVT_MS' OR AEIT.ItemTypeId = 'EQPM_EXST' OR AEIT.ItemTypeId = 'EQPM_EXST_MS')
+--		WHERE
+--			(AEII.InvoiceId = 10060465)
+--			AND (AEII.AccountEquipmentId IS NULL)
+--			AND (AEII.IsActive = 1 AND AEII.IsDeleted = 0);
