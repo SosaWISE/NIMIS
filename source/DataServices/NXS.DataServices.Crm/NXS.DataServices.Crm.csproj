@@ -54,6 +54,7 @@
     <Compile Include="Models\AeCustomerAccount.cs" />
     <Compile Include="Models\AeCustomerAccountInput.cs" />
     <Compile Include="Models\AeItem.cs" />
+    <Compile Include="Models\AePaymentMethod.cs" />
     <Compile Include="Models\EnumType.cs" />
     <Compile Include="Models\MsHold.cs" />
     <Compile Include="Models\MsHoldCatg1.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Models\RuTeam.cs" />
     <Compile Include="Models\TsTeam.cs" />
     <Compile Include="PackagesService.cs" />
+    <Compile Include="PaymentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QualifyService.cs" />
     <Compile Include="TicketService.cs" />

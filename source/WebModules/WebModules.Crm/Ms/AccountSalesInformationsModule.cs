@@ -1,5 +1,4 @@
-﻿using Nancy.ModelBinding;
-using NXS.DataServices.Crm;
+﻿using NXS.DataServices.Crm;
 using NXS.DataServices.Crm.Models;
 
 namespace WebModules.Crm.Ms
@@ -19,7 +18,7 @@ namespace WebModules.Crm.Ms
 			Post["/{id:long}/AccountSalesInformations", true] = async (x, ct) =>
 			{
 				var srv = new AccountsService(this.User.GPEmployeeID);
-				var input = this.Bind<MsAccountSalesInformation>();
+				var input = this.BindBody<MsAccountSalesInformation>();
 				input.ID = x.id;
 				return await srv.SaveAccountSalesInformation(input).ConfigureAwait(false);
 			};

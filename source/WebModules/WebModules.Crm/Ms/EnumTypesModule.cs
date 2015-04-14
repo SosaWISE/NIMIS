@@ -1,6 +1,4 @@
 ﻿using NXS.DataServices.Crm;
-using SOS.Lib.Util;
-using System;
 
 namespace WebModules.Crm.ContractAdmin
 {
