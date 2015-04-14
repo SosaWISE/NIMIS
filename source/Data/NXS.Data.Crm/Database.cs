@@ -443,9 +443,7 @@ namespace NXS.Data.Crm
 			public string OptOutAffiliate { get { return _alias + "[OptOutAffiliate]"; } }
 			public string Waived1stmonth { get { return _alias + "[Waived1stmonth]"; } }
 			public string RMRIncreasePoints { get { return _alias + "[RMRIncreasePoints]"; } }
-			public string PackageId { get { return _alias + "[PackageId]"; } }
 			public string AccountCreationTypeId { get { return _alias + "[AccountCreationTypeId]"; } }
-			public string HasPackageUpgrades { get { return _alias + "[HasPackageUpgrades]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
 			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
 			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }

@@ -59,26 +59,27 @@ namespace NXS.Data.Crm
 		#region full load
 		private static Sequel SelectFull(this ARTable tbl, Sequel sql = null, string with = null)
 		{
-			var AeC = tbl.Db.AE_Contracts;
+			//var AeC = tbl.Db.AE_Contracts;
 
 			return (sql ?? Sequel.NewSelect()).Columns(
 				tbl.Star
-				, AeC.Star
-			).From(tbl).With(with)
-			.LeftOuterJoin(AeC).On(AeC.ContractID, Comparison.Equals, tbl.ContractId, literalText: true);
+				//, AeC.Star
+			).From(tbl).With(with);
+			//.LeftOuterJoin(AeC).On(AeC.ContractID, Comparison.Equals, tbl.ContractId, literalText: true);
 		}
 		private static async Task<ARCollection> LoadManyFull(this ARTable tbl, Sequel sql)
 		{
-			var AeC = tbl.Db.AE_Contracts;
+			//var AeC = tbl.Db.AE_Contracts;
 
-			var list = await tbl.Db.QueryAsync<AR, AE_Contract, AR>(sql.Sql, param: sql.Params,
-				splitOn: new string[] { AeC.ContractID },
-				map: (item, contract) =>
-				{
-					item.Contract = contract;
-					return item;
-				}
-			);
+			//var list = await tbl.Db.QueryAsync<AR, AE_Contract, AR>(sql.Sql, param: sql.Params,
+			//	splitOn: new string[] { AeC.ContractID },
+			//	map: (item, contract) =>
+			//	{
+			//		item.Contract = contract;
+			//		return item;
+			//	}
+			//);
+			var list = (await tbl.Db.QueryAsync<AR>(sql.Sql, sql.Params).ConfigureAwait(false));
 			// load invoice items
 			foreach (var item in list)
 				item.InvoiceItems = await tbl.Db.AE_InvoiceItems.ByInvoiceIdAsync(item.ID).ConfigureAwait(false);

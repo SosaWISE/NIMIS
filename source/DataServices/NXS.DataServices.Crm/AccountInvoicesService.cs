@@ -57,7 +57,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<AeInvoice>> SaveInvoice(AeInvoice inputItem)
 		{
-			using (var db = CrmDb.Connect(360))
+			using (var db = CrmDb.Connect())
 			{
 				var result = new Result<AeInvoice>();
 				AE_Invoice item = null;
@@ -76,7 +76,7 @@ namespace NXS.DataServices.Crm
 					// check ModifiedOn matches input
 					if (!string.IsNullOrEmpty((result.Message = VersionException.ModifiedOnErrMsg(item.ModifiedOn, inputItem.ModifiedOn))))
 					{
-						result.Fail(-1, result.Message);
+						result.Fail(-1, "Invoice(" + inputItem.ID + "): " + result.Message);
 						return false;
 					}
 
@@ -127,7 +127,7 @@ namespace NXS.DataServices.Crm
 					// check ModifiedOn matches input
 					if (!string.IsNullOrEmpty((result.Message = VersionException.ModifiedOnErrMsg(item.ModifiedOn, inputItem.ModifiedOn))))
 					{
-						result.Fail(-1, result.Message);
+						result.Fail(-1, "Invoice Item(" + inputItem.ID + "): " + result.Message);
 						return false;
 					}
 

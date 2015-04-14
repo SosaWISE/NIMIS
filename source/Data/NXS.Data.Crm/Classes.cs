@@ -430,9 +430,7 @@ namespace NXS.Data.Crm
 		public bool OptOutAffiliate { get; set; }
 		public bool? Waived1stmonth { get; set; }
 		public short? RMRIncreasePoints { get; set; }
-		public int? PackageId { get; set; }
 		public string AccountCreationTypeId { get; set; }
-		public bool HasPackageUpgrades { get; set; }
 		public DateTime ModifiedOn { get; set; }
 		public string ModifiedBy { get; set; }
 		public DateTime CreatedOn { get; set; }

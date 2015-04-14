@@ -33,14 +33,14 @@ namespace NXS.DataServices.Crm
 			{
 				var result = new Result<TsTeam>();
 				var tbl = db.TS_Teams;
-				var item = await db.TS_Teams.ByIdFullAsync(team.TeamId).ConfigureAwait(false);
+				var item = await tbl.ByIdFullAsync(team.TeamId).ConfigureAwait(false);
 				if (item == null)
 				{
 					item = new TS_Team();
 					team.ToDb(item);
 					await tbl.InsertAsync(item, _gpEmployeeId).ConfigureAwait(false);
 
-					item = await db.TS_Teams.ByIdFullAsync(team.TeamId).ConfigureAwait(false);
+					item = await tbl.ByIdFullAsync(team.TeamId).ConfigureAwait(false);
 					result.Value = TsTeam.FromDb(item);
 				}
 				else

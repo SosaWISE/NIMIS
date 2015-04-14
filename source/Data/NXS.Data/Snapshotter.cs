@@ -68,12 +68,17 @@ namespace NXS.Data
 			{
 				return typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public)
 					.Where(p =>
-						p.GetSetMethod() != null &&
-						p.GetGetMethod() != null &&
-						(p.PropertyType.IsValueType ||
-							p.PropertyType == typeof(string) ||
-							(p.PropertyType.IsGenericType && p.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>)))
-						).ToList();
+					{
+						// exclude ignored properties
+						var attr = p.GetCustomAttributes(typeof(IgnorePropertyAttribute), true).FirstOrDefault() as IgnorePropertyAttribute;
+						if (attr != null && attr.Value)
+							return false;
+
+						return p.GetSetMethod() != null && p.GetGetMethod() != null &&
+							(p.PropertyType.IsValueType ||
+								p.PropertyType == typeof(string) ||
+								(p.PropertyType.IsGenericType && p.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>)));
+					}).ToList();
 			}
 
 

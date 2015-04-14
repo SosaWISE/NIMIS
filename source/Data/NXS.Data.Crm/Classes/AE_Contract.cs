@@ -3,15 +3,8 @@ using System.Collections.Generic;
 
 namespace NXS.Data.Crm
 {
-	public partial class AE_Invoice
+	public partial class AE_Contract
 	{
-		//// many to one
-		//[IgnorePropertyAttribute(true)]
-		//public AE_Contract Contract { get; set; }
-		// one to many
-		[IgnorePropertyAttribute(true)]
-		public IEnumerable<AE_InvoiceItem> InvoiceItems { get; set; }
-
 		// Fix Modified/Created Field Names
 		[IgnorePropertyAttribute(true)]
 		public DateTime ModifiedOn { get { return ModifiedDate; } set { ModifiedDate = value; } }

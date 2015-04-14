@@ -16,6 +16,13 @@ namespace WebModules.Crm.Ms
 				var srv = new AccountsService(this.User.GPEmployeeID);
 				return await srv.AccountSalesInformation((long)x.id).ConfigureAwait(false);
 			};
+			Post["/{id:long}/AccountSalesInformations", true] = async (x, ct) =>
+			{
+				var srv = new AccountsService(this.User.GPEmployeeID);
+				var input = this.Bind<MsAccountSalesInformation>();
+				input.ID = x.id;
+				return await srv.SaveAccountSalesInformation(input).ConfigureAwait(false);
+			};
 		}
 	}
 }

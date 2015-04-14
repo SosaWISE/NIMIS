@@ -84,11 +84,11 @@ namespace SOS.Services.Interfaces.Models.AccountingEngine
 		[DataMember]
 		int DealerId { get; set; }
 
-		[DataMember]
-		string SalesmanID { get; set; }
+		//[DataMember]
+		//string SalesmanID { get; set; }
 
-		[DataMember]
-		string TechnicianID { get; set; }
+		//[DataMember]
+		//string TechnicianID { get; set; }
 
 		[DataMember]
 		string PaymentTypeId { get; set; }

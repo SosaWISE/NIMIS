@@ -26,5 +26,23 @@ namespace NXS.DataServices.Crm
 				return new Result<MsAccountSalesInformation>(value: MsAccountSalesInformation.FromDb(item, true));
 			}
 		}
+
+		public async Task<Result<MsAccountSalesInformation>> SaveAccountSalesInformation(MsAccountSalesInformation data)
+		{
+			using (var db = CrmDb.Connect())
+			{
+				var result = new Result<MsAccountSalesInformation>();
+				var tbl = db.MS_AccountSalesInformations;
+
+				var item = (await tbl.EnsureByIdAsync(data.ID, _gpEmployeeId).ConfigureAwait(false));
+
+				var snapShot = Snapshotter.Start(item);
+				data.ToDb(item);
+				await tbl.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
+
+				result.Value = MsAccountSalesInformation.FromDb(item);
+				return result;
+			}
+		}
 	}
 }

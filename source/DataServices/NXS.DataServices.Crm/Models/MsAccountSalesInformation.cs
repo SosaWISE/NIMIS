@@ -10,6 +10,7 @@ namespace NXS.DataServices.Crm.Models
 		public string FriendsAndFamilyTypeId { get; set; }
 		public long? AccountSubmitId { get; set; }
 		public string AccountCancelReasonId { get; set; }
+		public int? AccountPackageId { get; set; }
 		public string TechId { get; set; }
 		public string SalesRepId { get; set; }
 		public long? AccountFundingStatusId { get; set; }
@@ -33,6 +34,9 @@ namespace NXS.DataServices.Crm.Models
 		public DateTime? NOCDate { get; set; }
 		public bool OptOutCorporate { get; set; }
 		public bool OptOutAffiliate { get; set; }
+		public bool? Waived1stmonth { get; set; }
+		public short? RMRIncreasePoints { get; set; }
+		public string AccountCreationTypeId { get; set; }
 		public DateTime ModifiedOn { get; set; }
 		public string ModifiedBy { get; set; }
 		public DateTime CreatedOn { get; set; }
@@ -49,10 +53,12 @@ namespace NXS.DataServices.Crm.Models
 			}
 
 			var result = new MsAccountSalesInformation();
+			result.ID = item.ID;
 			result.PaymentTypeId = item.PaymentTypeId;
 			result.FriendsAndFamilyTypeId = item.FriendsAndFamilyTypeId;
 			result.AccountSubmitId = item.AccountSubmitId;
 			result.AccountCancelReasonId = item.AccountCancelReasonId;
+			result.AccountPackageId = item.AccountPackageId;
 			result.TechId = item.TechId;
 			result.SalesRepId = item.SalesRepId;
 			result.AccountFundingStatusId = item.AccountFundingStatusId;
@@ -76,6 +82,9 @@ namespace NXS.DataServices.Crm.Models
 			result.NOCDate = item.NOCDate;
 			result.OptOutCorporate = item.OptOutCorporate;
 			result.OptOutAffiliate = item.OptOutAffiliate;
+			result.Waived1stmonth = item.Waived1stmonth;
+			result.RMRIncreasePoints = item.RMRIncreasePoints;
+			result.AccountCreationTypeId = item.AccountCreationTypeId;
 			result.ModifiedOn = item.ModifiedOn;
 			result.ModifiedBy = item.ModifiedBy;
 			result.CreatedOn = item.CreatedOn;
@@ -89,10 +98,12 @@ namespace NXS.DataServices.Crm.Models
 				throw new Exception("IDs don't match");
 			NXS.Data.VersionException.CheckModifiedOn(item.ModifiedOn, this.ModifiedOn);
 
+			//item.ID = this.ID;
 			item.PaymentTypeId = this.PaymentTypeId;
 			item.FriendsAndFamilyTypeId = this.FriendsAndFamilyTypeId;
 			item.AccountSubmitId = this.AccountSubmitId;
 			item.AccountCancelReasonId = this.AccountCancelReasonId;
+			item.AccountPackageId = this.AccountPackageId;
 			item.TechId = this.TechId;
 			item.SalesRepId = this.SalesRepId;
 			item.AccountFundingStatusId = this.AccountFundingStatusId;
@@ -116,6 +127,9 @@ namespace NXS.DataServices.Crm.Models
 			item.NOCDate = this.NOCDate;
 			item.OptOutCorporate = this.OptOutCorporate;
 			item.OptOutAffiliate = this.OptOutAffiliate;
+			item.Waived1stmonth = this.Waived1stmonth;
+			item.RMRIncreasePoints = this.RMRIncreasePoints;
+			item.AccountCreationTypeId = this.AccountCreationTypeId;
 			//item.ModifiedOn = this.ModifiedOn;
 			//item.ModifiedBy = this.ModifiedBy;
 			//item.CreatedOn = this.CreatedOn;
