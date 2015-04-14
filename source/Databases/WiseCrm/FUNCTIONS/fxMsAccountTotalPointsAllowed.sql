@@ -114,16 +114,6 @@ BEGIN
 		(AEII.ItemId LIKE 'MON_CONT%')
 		OR (AEII.ItemId LIKE 'MMR_SREP%');
 
-	-- Get Base RMR
-	--SELECT
-	--	@BaseRMR = MSAP.BaseRMR
-	--FROM
-	--	[dbo].[MS_AccountSalesInformations] AS MSASI WITH (NOLOCK)
-	--	INNER JOIN [dbo].[MS_AccountPackages] AS MSAP WITH (NOLOCK)
-	--	ON
-	--		(MSAP.AccountPackageID = MSASI.AccountPackageID)
-	--		AND (MSASI.AccountID = @AccountID);
-
 	-- Get Credit Score
 	SELECT @CRScore = dbo.fxQlCreditReportGetScoreByMsAccountID(@AccountID);
 	SELECT
@@ -151,6 +141,11 @@ BEGIN
 			WHEN @ActivationFee = 199 AND (@CRScoreGroup = 'EXCELLENT' OR @CRScoreGroup = 'GOOD') THEN @BasePoints + 5
 			ELSE @BasePoints
 		END;
+
+	/** 
+		Figure out @RMRIncreasePoints Based on the actual MMR
+	*/
+
 
 	/** Calculate points on RMR fluctuations. */
 	SELECT

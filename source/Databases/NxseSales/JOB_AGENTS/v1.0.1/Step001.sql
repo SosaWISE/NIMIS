@@ -16,20 +16,23 @@ USE NXSE_Sales
 GO
 
 DECLARE @CommissionPeriodID BIGINT
-	, @CommissionPeriodEndDate DATE
-	, @DEBUGGING VARCHAR(10) = 'TRUE';
+	, @CommissionPeriodStrDate DATETIME
+	, @CommissionPeriodEndDate DATETIME
+	, @DEBUG_MODE VARCHAR(20) = 'OFF';
 
-SELECT 
+SELECT @DEBUG_MODE = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE (GlobalPropertyID = 'DEBUG_MODE');
+
+SELECT TOP 1
 	@CommissionPeriodID = CommissionPeriodID
-	, @CommissionPeriodEndDate = CONVERT(DATE,MIN(CommissionPeriodEndDate))
+	, @CommissionPeriodEndDate = CommissionPeriodEndDate
+	, @CommissionPeriodStrDate = DATEADD(d, -7, CommissionPeriodEndDate)
 FROM
 	NXSE_Sales.dbo.SC_CommissionPeriods 
-WHERE
-	CommissionPeriodEndDate >= GETDATE()
-GROUP BY
-	CommissionPeriodID
+ORDER BY
+	CommissionPeriodID DESC;
+
 /********************  END HEADER ********************/
-IF (@DEBUGGING = 'TRUE')
+IF (@DEBUG_MODE = 'ON')
 BEGIN
 	TRUNCATE TABLE dbo.SC_WorkAccountAdjustments;
 	DBCC CHECKIDENT ('[dbo].[SC_WorkAccountAdjustments]', RESEED, 0);
@@ -50,6 +53,8 @@ INSERT dbo.SC_workAccounts
 	, SalesRepId
 	, TechId
 	, FriendsAndFamilyTypeId
+	, InstallDate
+	, AMASignedDate
 	, CreditScore
 	, ContractLength
 	, PaymentType
@@ -57,6 +62,7 @@ INSERT dbo.SC_workAccounts
 	, ActivationFee
 	, PointsOfProtection
 	, PointsAllowed
+	, PointsAssignedToRep
 )
 SELECT 
 	@CommissionPeriodID
@@ -66,6 +72,8 @@ SELECT
 	, MSASI.SalesRepId
 	, MSASI.TechId
 	, MSASI.FriendsAndFamilyTypeId
+	, MSASI.InstallDate
+	, MSASI.AMASignDate
 	, MSASI.CreditScore
 	, MSASI.ContractLength
 	, MSASI.PaymentType
@@ -73,6 +81,7 @@ SELECT
 	, WISE_CRM.dbo.fxMsAccountSetupFeeGet(MSASI.AccountID, 0)
 	, MSASI.TotalPoints
 	, MSASI.TotalPointsAllowed
+	, MSASI.RepPoints
 FROM
 	-- MS_AccountSalesInformations
 	[WISE_CRM].[dbo].vwAE_CustomerAccountInfoToGP AS MSASI WITH (NOLOCK)
@@ -89,7 +98,7 @@ FROM
 
 	-- HOLDS
 	LEFT JOIN (
-		SELECT 
+		SELECT TOP 1
 			AccountId 
 			, MS_AccountHolds.FixedOn
 		FROM 
@@ -106,24 +115,25 @@ WHERE
 	(MSASI.IsOwner = 'TRUE')
 
 	-- INSTALLED
-	AND (MSASI.InstallDate < @CommissionPeriodEndDate)
+	AND (MSASI.InstallDate BETWEEN @CommissionPeriodStrDate AND @CommissionPeriodEndDate)
 
 	-- PAPERWORK APPROVED
-	AND (MSASI.AMASignDate < @CommissionPeriodEndDate)
+	--AND (MSASI.AMASignDate < @CommissionPeriodEndDate)
+--	AND (MSASI.AMASignDate IS NOT NULL)
 
 	-- PAST THE 3 DAY CANCELLATION PERIOD
-	AND (MSASI.NOCDateCalculated < @CommissionPeriodEndDate)
+--	AND (MSASI.NOCDateCalculated <= GETUTCDATE())
 
 	-- NOT CANCELLED
-	AND (MSASI.CancelledDate IS NULL)
+--	AND (MSASI.CancelledDate IS NULL)
 
 	-- NOT A PREVIOUSLY COMMISSIONED ACCOUNT
 	AND (SC_AccountCommissionHistory.AccountID IS NULL)
 
 	-- Has no holds
-	AND ((hold_qry.AccountId IS NULL) OR (hold_qry.FixedOn IS NOT NULL))
+--	AND ((hold_qry.AccountId IS NULL) OR (hold_qry.FixedOn IS NOT NULL))
 
-IF (@DEBUGGING = 'TRUE')
+IF (@DEBUG_MODE = 'ON')
 BEGIN
 	SELECT * FROM [dbo].SC_WorkAccounts;
 END

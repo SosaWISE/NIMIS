@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--
-SQL Data Compare
-SQL Data Compare
-Version:10.4.8.62-->
+SQL Compare
+SQL Compare
+Version:10.7.0.18-->
 <Project version="2" type="SQLComparisonToolsProject">
   <DataSource1 version="3" type="LiveDatabaseSource">
     <ServerName>db1.dev.nexsense.com</ServerName>
@@ -24,7 +24,7 @@ Version:10.4.8.62-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>04/13/2015 10:45:40</LastCompared>
+  <LastCompared>04/14/2015 12:37:54</LastCompared>
   <Options>Default, ObjectExistenceChecks, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
@@ -167,7 +167,7 @@ Version:10.4.8.62-->
     <Schemas type="ListString" version="2">
       <value type="string">ZABiAG8A</value>
     </Schemas>
-    <ZABiAG8A>TY6jsbvpb1uDSXpfphLVpQICAettQK7rNet/aVuyglzVkdsCAgF7KEdMPDh2p6rpLnwpJdiKAgAB</ZABiAG8A>
+    <ZABiAG8A>X1tB29gvhJ372K1QAd/h9gICAcVl36YeyAMJDUZRM2D2ldMHAgFyTh+vsJsMvDlQ8keCcCTgBwIB</ZABiAG8A>
     <Grouping type="ListByte" version="2">
       <value type="Byte">5</value>
       <value type="Byte">0</value>
@@ -605,6 +605,10 @@ Version:10.4.8.62-->
     <value version="1" type="SelectTableEvent">
       <action>SelectItem</action>
       <val>[dbo].[MS_AccountPackages]:[dbo].[MS_AccountPackages]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MC_Holidays]:[dbo].[MC_Holidays]</val>
     </value>
   </TableActions>
   <SessionSettings>15</SessionSettings>

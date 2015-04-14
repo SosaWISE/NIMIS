@@ -62,7 +62,7 @@ BEGIN
 --			PRINT 'COUNT: ' + CAST (@Count AS VARCHAR);
 			SELECT @DateTimeResult = DATEADD(dd, 1, @DateTimeResult);
 
-			IF(NOT EXISTS(SELECT * FROM [dbo].[MC_Holidays] WHERE (CAST(HolidayDate AS DATETIME) = CAST(@DateTimeResult AS DATETIME))))
+			IF(NOT EXISTS(SELECT * FROM [dbo].[MC_Holidays] WHERE (CAST(HolidayDate AS DATETIME) = CAST(@DateTimeResult AS DATETIME)) AND (IsActive = 1 AND IsDeleted = 0)))
 			BEGIN
 				/** Check to make sure it is not a Saturday or Sunday.*/
 				DECLARE @DayOfWeek VARCHAR(30);

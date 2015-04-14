@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--
-SQL Compare
-SQL Compare
-Version:10.7.0.18-->
+SQL Data Compare
+SQL Data Compare
+Version:10.4.8.62-->
 <Project version="2" type="SQLComparisonToolsProject">
   <DataSource1 version="3" type="LiveDatabaseSource">
     <ServerName>db1.dev.nexsense.com</ServerName>
-    <DatabaseName>WISE_CRM</DatabaseName>
+    <DatabaseName>NXSE_Sales</DatabaseName>
     <Username>sa</Username>
     <SavePassword>True</SavePassword>
     <Password encrypted="1">lof8lOoJ2pAV+FE+QwydUQ==</Password>
@@ -16,7 +16,7 @@ Version:10.7.0.18-->
   </DataSource1>
   <DataSource2 version="3" type="LiveDatabaseSource">
     <ServerName>db1.stg.nexsense.com</ServerName>
-    <DatabaseName>WISE_CRM</DatabaseName>
+    <DatabaseName>NXSE_Sales</DatabaseName>
     <Username>sa</Username>
     <SavePassword>True</SavePassword>
     <Password encrypted="1">lof8lOoJ2pAV+FE+QwydUQ==</Password>
@@ -24,7 +24,7 @@ Version:10.7.0.18-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>04/10/2015 11:02:15</LastCompared>
+  <LastCompared>04/14/2015 10:18:17</LastCompared>
   <Options>Default, ObjectExistenceChecks, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
@@ -585,6 +585,18 @@ Version:10.7.0.18-->
     <value version="1" type="SelectTableEvent">
       <action>SelectItem</action>
       <val>[dbo].[MS_EquipmentMonitronicsDevices]:[dbo].[MS_EquipmentMonitronicsDevices]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[SC_GlobalProperties]:[dbo].[SC_GlobalProperties]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[SC_RateScale]:[dbo].[SC_RateScale]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[SC_CommissionsAdjustments]:[dbo].[SC_CommissionsAdjustments]</val>
     </value>
   </TableActions>
   <SessionSettings>15</SessionSettings>
