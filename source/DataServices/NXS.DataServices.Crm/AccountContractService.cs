@@ -65,6 +65,7 @@ namespace NXS.DataServices.Crm
 						// create new
 						item = new AE_Contract();
 						item.AccountId = account.ID;
+						item.EffectiveDate = DateTime.UtcNow;
 						CopyFromTemplate(item, template);
 						await tbl.InsertAsync(item, _gpEmployeeId);
 					}
