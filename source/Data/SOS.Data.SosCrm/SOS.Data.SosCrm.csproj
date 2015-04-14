@@ -61,6 +61,7 @@
     <Compile Include="ControllerExtensions\MS_AccountCreditsAndInstallsViewControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_AccountDispatchAgencyAssignmentControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_AccountDispatchAgencyAssignmentViewControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_AccountHoldControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_AccountSiteGeneralDispatchControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_DealerControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_DispatchAgencyControllerExtensions.cs" />
