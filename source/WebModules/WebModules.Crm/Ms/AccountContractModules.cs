@@ -1,5 +1,4 @@
-﻿using Nancy.ModelBinding;
-using NXS.DataServices.Crm;
+﻿using NXS.DataServices.Crm;
 using NXS.DataServices.Crm.Models;
 
 namespace WebModules.Crm.Ms
@@ -22,9 +21,7 @@ namespace WebModules.Crm.Ms
 			{
 				var srv = new AccountContractService(this.User.GPEmployeeID);
 				long accountId = x.id;
-				var bindingConfig = new BindingConfig();
-				bindingConfig.BodyOnly = true;
-				var input = this.Bind<AeContract>(bindingConfig);
+				var input = this.BindBody<AeContract>();
 				return await srv.SaveContract(accountId, input).ConfigureAwait(false);
 			};
 		}

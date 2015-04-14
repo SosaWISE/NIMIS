@@ -55,6 +55,7 @@
     <Compile Include="Extensions\AE_CustomerAccountTableExtensions.cs" />
     <Compile Include="Extensions\AE_InvoiceItemTableExtensions.cs" />
     <Compile Include="Extensions\AE_InvoiceTableExtensions.cs" />
+    <Compile Include="Extensions\AE_PaymentMethodTableExtensions.cs" />
     <Compile Include="Extensions\MC_AddressTableExtensions.cs" />
     <Compile Include="Extensions\MS_AccountHoldTableExtensions.cs" />
     <Compile Include="Extensions\MS_AccountPackageItemTableExtensions.cs" />

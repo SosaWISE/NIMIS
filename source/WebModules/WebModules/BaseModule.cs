@@ -1,5 +1,6 @@
 ﻿using Nancy;
 using Nancy.Extensions;
+using Nancy.ModelBinding;
 using Nancy.Responses;
 using Nancy.Security;
 using NXS.Lib.Web;
@@ -18,6 +19,13 @@ namespace WebModules
 			//this.RequiresHttps();
 			//this.RequiresAuthentication();
 			//this.RequiresClaims(new [] { "Admin" });
+		}
+
+		static readonly BindingConfig _bodyBindingConfig = new BindingConfig();
+		protected TModel BindBody<TModel>()
+		{
+			_bodyBindingConfig.BodyOnly = true;
+			return this.Bind<TModel>(_bodyBindingConfig);
 		}
 
 		public SystemUserIdentity User

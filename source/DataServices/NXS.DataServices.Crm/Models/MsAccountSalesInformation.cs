@@ -11,6 +11,7 @@ namespace NXS.DataServices.Crm.Models
 		public long? AccountSubmitId { get; set; }
 		public string AccountCancelReasonId { get; set; }
 		public int? AccountPackageId { get; set; }
+		public int? PaymentMethodId { get; set; }
 		public string TechId { get; set; }
 		public string SalesRepId { get; set; }
 		public long? AccountFundingStatusId { get; set; }
@@ -59,6 +60,7 @@ namespace NXS.DataServices.Crm.Models
 			result.AccountSubmitId = item.AccountSubmitId;
 			result.AccountCancelReasonId = item.AccountCancelReasonId;
 			result.AccountPackageId = item.AccountPackageId;
+			result.PaymentMethodId = item.PaymentMethodId;
 			result.TechId = item.TechId;
 			result.SalesRepId = item.SalesRepId;
 			result.AccountFundingStatusId = item.AccountFundingStatusId;
@@ -104,6 +106,7 @@ namespace NXS.DataServices.Crm.Models
 			item.AccountSubmitId = this.AccountSubmitId;
 			item.AccountCancelReasonId = this.AccountCancelReasonId;
 			item.AccountPackageId = this.AccountPackageId;
+			//item.PaymentMethodId = this.PaymentMethodId; // cannot edit this directly
 			item.TechId = this.TechId;
 			item.SalesRepId = this.SalesRepId;
 			item.AccountFundingStatusId = this.AccountFundingStatusId;

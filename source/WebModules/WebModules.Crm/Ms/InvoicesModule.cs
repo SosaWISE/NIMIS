@@ -1,5 +1,4 @@
-﻿using Nancy.ModelBinding;
-using NXS.DataServices.Crm;
+﻿using NXS.DataServices.Crm;
 using NXS.DataServices.Crm.Models;
 
 namespace WebModules.Crm.Ms
@@ -21,7 +20,7 @@ namespace WebModules.Crm.Ms
 			{
 				var srv = new AccountInvoicesService(this.User.GPEmployeeID);
 				var accountId = (long)x.id;
-				var inv = this.Bind<AeInvoice>();
+				var inv = this.BindBody<AeInvoice>();
 				return await srv.SaveInvoice(inv).ConfigureAwait(false);
 			};
 		}

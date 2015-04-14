@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContractAdmin\AccountSalesInformationExtrasModule.cs" />
+    <Compile Include="ContractAdmin\PaymentMethodsModule.cs" />
     <Compile Include="Ms\EnumTypesModule.cs" />
     <Compile Include="Ms\AccountContractModules.cs" />
     <Compile Include="Ms\AccountSalesInformationsModule.cs" />
@@ -66,6 +67,10 @@
     <ProjectReference Include="..\..\DataServices\NXS.DataServices.Crm\NXS.DataServices.Crm.csproj">
       <Project>{726eb8be-e824-42a1-8e5f-2bac6373ad1c}</Project>
       <Name>NXS.DataServices.Crm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\NXS.Data.AuthenticationControl\NXS.Data.AuthenticationControl.csproj">
+      <Project>{b5f44294-2518-40d7-9b18-93e7a47ee993}</Project>
+      <Name>NXS.Data.AuthenticationControl</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Lib\NXS.Lib.Web\NXS.Lib.Web.csproj">
       <Project>{c067b3ab-3faf-40d7-98e9-5788768bd315}</Project>

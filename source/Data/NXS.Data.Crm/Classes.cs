@@ -197,6 +197,28 @@ namespace NXS.Data.Crm
 		public DateTime DEX_ROW_TS { get; set; }
 		public int DEX_ROW_ID { get; set; }
 	}
+	public partial class AE_PaymentMethod // AE_PaymentMethods
+	{
+		public int ID { get; set; }
+		public string PaymentTypeId { get; set; }
+		public int? CardTypeId { get; set; }
+		public string CardNumber { get; set; }
+		public string VerificationValue { get; set; }
+		public int? ExpirationMonth { get; set; }
+		public int? ExpirationYear { get; set; }
+		public string NameOnCard { get; set; }
+		public int? AccountTypeId { get; set; }
+		public string AccountNumber { get; set; }
+		public string RoutingNumber { get; set; }
+		public string NameOnAccount { get; set; }
+		public string CheckNumber { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+	}
 	public partial class MC_Account // MC_Accounts
 	{
 		[IgnorePropertyAttribute(true)]
@@ -309,8 +331,8 @@ namespace NXS.Data.Crm
 	public partial class MS_AccountHold // MS_AccountHolds
 	{
 		[IgnorePropertyAttribute(true)]
-		public int ID { get { return AccountHoldID; } set { AccountHoldID = value; } }
-		public int AccountHoldID { get; set; }
+		public long ID { get { return AccountHoldID; } set { AccountHoldID = value; } }
+		public long AccountHoldID { get; set; }
 		public long AccountId { get; set; }
 		public int Catg2Id { get; set; }
 		public string HoldDescription { get; set; }
@@ -412,6 +434,7 @@ namespace NXS.Data.Crm
 		public long? AccountSubmitId { get; set; }
 		public string AccountCancelReasonId { get; set; }
 		public int? AccountPackageId { get; set; }
+		public int? PaymentMethodId { get; set; }
 		public string TechId { get; set; }
 		public string SalesRepId { get; set; }
 		public long? AccountFundingStatusId { get; set; }

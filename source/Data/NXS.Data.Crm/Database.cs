@@ -13,6 +13,7 @@ namespace NXS.Data.Crm
 		public AE_InvoiceTable AE_Invoices { get; set; }
 		public AE_InvoiceTypeTable AE_InvoiceTypes { get; set; }
 		public AE_ItemTable AE_Items { get; set; }
+		public AE_PaymentMethodTable AE_PaymentMethods { get; set; }
 		public MC_AccountTable MC_Accounts { get; set; }
 		public MC_AddressTable MC_Addresses { get; set; }
 		public MC_FriendsAndFamilyTypeTable MC_FriendsAndFamilyTypes { get; set; }
@@ -211,6 +212,30 @@ namespace NXS.Data.Crm
 			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
 			public string DEX_ROW_ID { get { return _alias + "[DEX_ROW_ID]"; } }
 		}
+		public partial class AE_PaymentMethodTable : Table<AE_PaymentMethod, int>
+		{
+			public CrmDb Db { get { return (CrmDb)_database; } }
+			public AE_PaymentMethodTable(CrmDb db) : base(db, "AePM", "[dbo].[AE_PaymentMethods]", "ID", "int", true) { }
+			public string ID { get { return _alias + "[ID]"; } }
+			public string PaymentTypeId { get { return _alias + "[PaymentTypeId]"; } }
+			public string CardTypeId { get { return _alias + "[CardTypeId]"; } }
+			public string CardNumber { get { return _alias + "[CardNumber]"; } }
+			public string VerificationValue { get { return _alias + "[VerificationValue]"; } }
+			public string ExpirationMonth { get { return _alias + "[ExpirationMonth]"; } }
+			public string ExpirationYear { get { return _alias + "[ExpirationYear]"; } }
+			public string NameOnCard { get { return _alias + "[NameOnCard]"; } }
+			public string AccountTypeId { get { return _alias + "[AccountTypeId]"; } }
+			public string AccountNumber { get { return _alias + "[AccountNumber]"; } }
+			public string RoutingNumber { get { return _alias + "[RoutingNumber]"; } }
+			public string NameOnAccount { get { return _alias + "[NameOnAccount]"; } }
+			public string CheckNumber { get { return _alias + "[CheckNumber]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+		}
 		public partial class MC_AccountTable : Table<MC_Account, long>
 		{
 			public CrmDb Db { get { return (CrmDb)_database; } }
@@ -320,10 +345,10 @@ namespace NXS.Data.Crm
 			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
 		}
-		public partial class MS_AccountHoldTable : Table<MS_AccountHold, int>
+		public partial class MS_AccountHoldTable : Table<MS_AccountHold, long>
 		{
 			public CrmDb Db { get { return (CrmDb)_database; } }
-			public MS_AccountHoldTable(CrmDb db) : base(db, "MsAH", "[dbo].[MS_AccountHolds]", "AccountHoldID", "int", true) { }
+			public MS_AccountHoldTable(CrmDb db) : base(db, "MsAH", "[dbo].[MS_AccountHolds]", "AccountHoldID", "bigint", true) { }
 			public string AccountHoldID { get { return _alias + "[AccountHoldID]"; } }
 			public string AccountId { get { return _alias + "[AccountId]"; } }
 			public string Catg2Id { get { return _alias + "[Catg2Id]"; } }
@@ -426,6 +451,7 @@ namespace NXS.Data.Crm
 			public string AccountSubmitId { get { return _alias + "[AccountSubmitId]"; } }
 			public string AccountCancelReasonId { get { return _alias + "[AccountCancelReasonId]"; } }
 			public string AccountPackageId { get { return _alias + "[AccountPackageId]"; } }
+			public string PaymentMethodId { get { return _alias + "[PaymentMethodId]"; } }
 			public string TechId { get { return _alias + "[TechId]"; } }
 			public string SalesRepId { get { return _alias + "[SalesRepId]"; } }
 			public string AccountFundingStatusId { get { return _alias + "[AccountFundingStatusId]"; } }

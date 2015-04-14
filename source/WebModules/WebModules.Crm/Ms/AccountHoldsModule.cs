@@ -1,5 +1,4 @@
-﻿using Nancy.ModelBinding;
-using NXS.DataServices.Crm;
+﻿using NXS.DataServices.Crm;
 using NXS.DataServices.Crm.Models;
 
 namespace WebModules.Crm.Ms
@@ -23,7 +22,7 @@ namespace WebModules.Crm.Ms
 			Post["/{id:long}/Holds", true] = async (x, ct) =>
 			{
 				var srv = new AccountHoldsService(this.User.GPEmployeeID);
-				var input = this.Bind<MsHoldNew>();
+				var input = this.BindBody<MsHoldNew>();
 				input.AccountId = (long)x.id;
 				return await srv.NewHold(input).ConfigureAwait(false);
 			};

@@ -9,7 +9,7 @@ namespace NXS.DataServices.Crm.Models
 {
 	public class MsHold
 	{
-		public int AccountHoldID { get; set; }
+		public long AccountHoldID { get; set; }
 		public long AccountId { get; set; }
 		public int Catg2Id { get; set; }
 		public string HoldDescription { get; set; }

@@ -1,5 +1,4 @@
-﻿using Nancy.ModelBinding;
-using NXS.DataServices.Crm;
+﻿using NXS.DataServices.Crm;
 using NXS.DataServices.Crm.Models;
 
 namespace WebModules.Crm.ContractAdmin
@@ -14,7 +13,7 @@ namespace WebModules.Crm.ContractAdmin
 			Post["/{id:long}", true] = async (x, ct) =>
 			{
 				var srv = new ContractAdminService(this.User.GPEmployeeID);
-				var input = this.Bind<MsAccountSalesInformationExtras>();
+				var input = this.BindBody<MsAccountSalesInformationExtras>();
 				return await srv.SaveAccountSalesInformationExtras((long)x.id, input).ConfigureAwait(false);
 			};
 		}
