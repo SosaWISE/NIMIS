@@ -49,10 +49,12 @@ BEGIN
 	/** Declarations */
 	DECLARE @SeasonID INT
 		, @TotalPointsAllowed DECIMAL(5,2)
-		, @RMRIncreasePoints INT
+		, @RMRIncreasePoints DECIMAL(5,2)
 		, @BasePoints DECIMAL(5,2)
 		, @ActivationFee MONEY
+		, @MinRMR MONEY
 		, @BaseRMR MONEY
+		, @MaxRMR MONEY
 		, @ActlRMR MONEY
 		, @CRScore INT
 		, @AccountPackageId INT
@@ -70,7 +72,9 @@ BEGIN
 	-- Get Base RMR
 	SELECT 
 		@BasePoints = MSAP.BasePoints
+		, @MinRMR = MSAP.MinRMR
 		, @BaseRMR = MSAP.BaseRMR
+		, @MaxRMR = MSAP.MaxRMR
 	FROM
 		[dbo].[MS_AccountPackages] AS MSAP WITH (NOLOCK)
 	WHERE
@@ -145,7 +149,24 @@ BEGIN
 	/** 
 		Figure out @RMRIncreasePoints Based on the actual MMR
 	*/
-
+	DECLARE @DeltRMR MONEY = @ActlRMR - @BaseRMR;
+	/** POSITIVE RMR */
+	IF (@DeltRMR >= 0)
+	BEGIN
+		-- Check that the amount is in range 
+		IF (@ActlRMR > @MaxRMR)
+		BEGIN
+			--PRINT 'RETURN 0 Points because you are over by ' + CAST(@DeltRMR AS VARCHAR);
+			SET @RMRIncreasePoints = @RMRIncreasePoints + 0;
+		END
+		ELSE
+		BEGIN
+			DECLARE @DolVal MONEY;
+			SELECT @DolVal = FLOOR(@DeltRMR)
+			--PRINT 'DeltRMR: $' + CAST(@DeltRMR AS VARCHAR) + ' | @DolVal with FLOOR $' + CAST(@DolVal AS VARCHAR);
+			SET @RMRIncreasePoints = @RMRIncreasePoints + CAST(@DolVal AS DECIMAL(5,2));
+		END
+	END
 
 	/** Calculate points on RMR fluctuations. */
 	SELECT
