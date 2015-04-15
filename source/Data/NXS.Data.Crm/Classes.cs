@@ -435,6 +435,7 @@ namespace NXS.Data.Crm
 		public string AccountCancelReasonId { get; set; }
 		public int? AccountPackageId { get; set; }
 		public int? PaymentMethodId { get; set; }
+		public int? InitialPaymentMethodId { get; set; }
 		public string TechId { get; set; }
 		public string SalesRepId { get; set; }
 		public long? AccountFundingStatusId { get; set; }
@@ -459,7 +460,7 @@ namespace NXS.Data.Crm
 		public bool OptOutCorporate { get; set; }
 		public bool OptOutAffiliate { get; set; }
 		public bool? Waived1stmonth { get; set; }
-		public short? RMRIncreasePoints { get; set; }
+		public decimal? RMRIncreasePoints { get; set; }
 		public string AccountCreationTypeId { get; set; }
 		public DateTime ModifiedOn { get; set; }
 		public string ModifiedBy { get; set; }

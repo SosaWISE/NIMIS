@@ -17,7 +17,7 @@ namespace NXS.DataServices.Crm
 			_gpEmployeeId = gpEmployeeId;
 		}
 
-		public async Task<Result<AePaymentMethod>> AccountPaymentMethod(long accountId)
+		public async Task<Result<AePaymentMethod>> AccountPaymentMethod(long accountId, bool isInitial)
 		{
 			using (var db = CrmDb.Connect())
 			{
@@ -26,17 +26,18 @@ namespace NXS.DataServices.Crm
 				var msi = await db.MS_AccountSalesInformations.ByIdAsync(accountId).ConfigureAwait(false);
 				if (msi == null)
 					return result.Fail(-1, "Invalid Account Sales Information ID");
-				if (!msi.PaymentMethodId.HasValue)
+				var paymentMethodId = isInitial ? msi.InitialPaymentMethodId : msi.PaymentMethodId;
+				if (!paymentMethodId.HasValue)
 					return result;
 
 				var tbl = db.AE_PaymentMethods;
-				var item = (await tbl.ByIdAsync(msi.PaymentMethodId.Value).ConfigureAwait(false));
+				var item = (await tbl.ByIdAsync(paymentMethodId.Value).ConfigureAwait(false));
 				result.Value = AePaymentMethod.FromDb(item);
 				return result;
 			}
 		}
 
-		public async Task<Result<AePaymentMethod>> SavePaymentMethod(long accountId, AePaymentMethod inputItem)
+		public async Task<Result<AePaymentMethod>> SavePaymentMethod(long accountId, bool isInitial, AePaymentMethod inputItem)
 		{
 			using (var db = CrmDb.Connect())
 			{
@@ -81,10 +82,14 @@ namespace NXS.DataServices.Crm
 						await tbl.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
 					}
 
-					if (msi.PaymentMethodId != item.ID)
+					var paymentMethodId = isInitial ? msi.InitialPaymentMethodId : msi.PaymentMethodId;
+					if (paymentMethodId != item.ID)
 					{
 						var snapShot = Snapshotter.Start(msi);
-						msi.PaymentMethodId = item.ID;
+						if (isInitial)
+							msi.InitialPaymentMethodId = item.ID;
+						else
+							msi.PaymentMethodId = item.ID;
 						await db.MS_AccountSalesInformations.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
 					}
 
@@ -93,7 +98,7 @@ namespace NXS.DataServices.Crm
 				}).ConfigureAwait(false);
 
 				// return payment method
-				result.Value = AePaymentMethod.FromDb(item, true);
+				result.Value = AePaymentMethod.FromDb(item);
 				return result;
 			}
 		}

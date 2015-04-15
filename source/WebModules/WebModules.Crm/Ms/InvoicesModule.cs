@@ -19,8 +19,8 @@ namespace WebModules.Crm.Ms
 			Post["/{id:long}", true] = async (x, ct) =>
 			{
 				var srv = new AccountInvoicesService(this.User.GPEmployeeID);
-				var accountId = (long)x.id;
 				var inv = this.BindBody<AeInvoice>();
+				inv.ID = x.id;
 				return await srv.SaveInvoice(inv).ConfigureAwait(false);
 			};
 		}

@@ -452,6 +452,7 @@ namespace NXS.Data.Crm
 			public string AccountCancelReasonId { get { return _alias + "[AccountCancelReasonId]"; } }
 			public string AccountPackageId { get { return _alias + "[AccountPackageId]"; } }
 			public string PaymentMethodId { get { return _alias + "[PaymentMethodId]"; } }
+			public string InitialPaymentMethodId { get { return _alias + "[InitialPaymentMethodId]"; } }
 			public string TechId { get { return _alias + "[TechId]"; } }
 			public string SalesRepId { get { return _alias + "[SalesRepId]"; } }
 			public string AccountFundingStatusId { get { return _alias + "[AccountFundingStatusId]"; } }

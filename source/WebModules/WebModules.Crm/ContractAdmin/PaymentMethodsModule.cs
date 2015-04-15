@@ -18,13 +18,25 @@ namespace WebModules.Crm.Ms
 			Get["/{id:long}/PaymentMethod", true] = async (x, ct) =>
 			{
 				long accountId = x.id;
-				return await Srv.AccountPaymentMethod(accountId).ConfigureAwait(false);
+				return await Srv.AccountPaymentMethod(accountId, false).ConfigureAwait(false);
 			};
 			Post["/{id:long}/PaymentMethod", true] = async (x, ct) =>
 			{
-				long accountId = x.id;	
+				long accountId = x.id;
 				var input = this.BindBody<AePaymentMethod>();
-				return await Srv.SavePaymentMethod(accountId, input).ConfigureAwait(false);
+				return await Srv.SavePaymentMethod(accountId, false, input).ConfigureAwait(false);
+			};
+			// get initial payment method on an account
+			Get["/{id:long}/InitialPaymentMethod", true] = async (x, ct) =>
+			{
+				long accountId = x.id;
+				return await Srv.AccountPaymentMethod(accountId, true).ConfigureAwait(false);
+			};
+			Post["/{id:long}/InitialPaymentMethod", true] = async (x, ct) =>
+			{
+				long accountId = x.id;
+				var input = this.BindBody<AePaymentMethod>();
+				return await Srv.SavePaymentMethod(accountId, true, input).ConfigureAwait(false);
 			};
 		}
 	}
