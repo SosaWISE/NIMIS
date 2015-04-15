@@ -55,7 +55,9 @@ INSERT dbo.SC_workAccounts
 	, FriendsAndFamilyTypeId
 	, InstallDate
 	, AMASignedDate
+	, NOCDateCalculated
 	, CreditScore
+	, CreditCustomerType
 	, ContractLength
 	, PaymentType
 	, RMR
@@ -74,11 +76,21 @@ SELECT
 	, MSASI.FriendsAndFamilyTypeId
 	, MSASI.InstallDate
 	, MSASI.AMASignDate
+	, MSASI.NOCDateCalculated
 	, MSASI.CreditScore
+	, CASE
+			WHEN MSASI.CreditScore >= 700 THEN 'EXCELLENT'
+			WHEN MSASI.CreditScore BETWEEN 625 AND 699 THEN 'GOOD'
+		
+			WHEN MSASI.CreditScore BETWEEN 600 AND 624 THEN 'SUB'
+		
+			--WHEN MSASI.CreditScore < 600 THEN 'UNAPPROVED'
+			ELSE 'UNAPPROVED'
+		END
 	, MSASI.ContractLength
 	, MSASI.PaymentType
 	, WISE_CRM.dbo.fxMsAccountMMRGet(MSASI.AccountID)
-	, WISE_CRM.dbo.fxMsAccountSetupFeeGet(MSASI.AccountID, 0)
+	, MSASI.ActivationFee -- WISE_CRM.dbo.fxMsAccountSetupFeeGet(MSASI.AccountID, 0)
 	, MSASI.TotalPoints
 	, MSASI.TotalPointsAllowed
 	, MSASI.RepPoints
@@ -119,19 +131,38 @@ WHERE
 
 	-- PAPERWORK APPROVED
 	--AND (MSASI.AMASignDate < @CommissionPeriodEndDate)
---	AND (MSASI.AMASignDate IS NOT NULL)
+	AND (MSASI.AMASignDate IS NOT NULL)
 
 	-- PAST THE 3 DAY CANCELLATION PERIOD
---	AND (MSASI.NOCDateCalculated <= GETUTCDATE())
+	--AND (MSASI.NOCDateCalculated <= GETUTCDATE())
 
 	-- NOT CANCELLED
---	AND (MSASI.CancelledDate IS NULL)
+	AND (MSASI.CancelledDate IS NULL)
 
 	-- NOT A PREVIOUSLY COMMISSIONED ACCOUNT
 	AND (SC_AccountCommissionHistory.AccountID IS NULL)
 
 	-- Has no holds
---	AND ((hold_qry.AccountId IS NULL) OR (hold_qry.FixedOn IS NOT NULL))
+	AND ((hold_qry.AccountId IS NULL) OR (hold_qry.FixedOn IS NOT NULL))
+
+	/************************* Contract Length ********************************
+	* Only contracts greater than 36 months qualify for this commissions rules.
+	**************************************************************************/
+	AND (MSASI.ContractLength >= 36)
+
+	/************************** Payment Type *********************************
+	* Only allow those accounts that have CC and ACH
+	**************************************************************************/
+	AND (MSASI.PaymentType = 'CC' OR MSASI.PaymentType = 'ACH')
+
+	/************************* Activation Fee ********************************
+	* Only allow those accounts that have CC and ACH
+	**************************************************************************/
+	AND 
+		((MSASI.CreditScore < 600 AND MSASI.ActivationFee >= 299.00) 
+		OR (MSASI.CreditScore BETWEEN 600 AND 624 AND MSASI.ActivationFee >= 199.00)
+		OR (MSASI.CreditScore >= 625))
+
 
 IF (@DEBUG_MODE = 'ON')
 BEGIN

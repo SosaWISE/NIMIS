@@ -10,20 +10,21 @@ USE NXSE_Sales
 GO
 
 DECLARE @CommissionPeriodID BIGINT
-	, @CommissionPeriodEndDate DATE
+	, @CommissionPeriodStrDate DATETIME
+	, @CommissionPeriodEndDate DATETIME
 	, @DEBUG_MODE VARCHAR(20) = 'OFF';
 
 SELECT @DEBUG_MODE = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE (GlobalPropertyID = 'DEBUG_MODE');
 
-SELECT 
+SELECT TOP 1
 	@CommissionPeriodID = CommissionPeriodID
-	, @CommissionPeriodEndDate = CONVERT(DATE,MIN(CommissionPeriodEndDate))
+	, @CommissionPeriodEndDate = CommissionPeriodEndDate
+	, @CommissionPeriodStrDate = DATEADD(d, -7, CommissionPeriodEndDate)
 FROM
 	NXSE_Sales.dbo.SC_CommissionPeriods 
-WHERE
-	CommissionPeriodEndDate >= GETDATE()
-GROUP BY
-	CommissionPeriodID
+ORDER BY
+	CommissionPeriodID DESC;
+
 /********************  END HEADER ********************/
 ---- GET THE CREDIT SCORES FOR EACH ACCOUNT
 --UPDATE SC_workAccounts
@@ -36,17 +37,17 @@ GROUP BY
 	-- SUB CUSTOMERS (600-624)
 	-- GOOD CREDIT CUSTOMERS (625-699)
 	-- EXCELLENT CREDIT CUSTOMERS (700+)
-UPDATE SC_workAccounts
-SET CreditCustomerType =
-	CASE
-		WHEN CreditScore >= 700 THEN 'EXCELLENT'
-		WHEN CreditScore BETWEEN 625 AND 699 THEN 'GOOD'
+UPDATE SC_workAccounts SET
+	CreditCustomerType =
+		CASE
+			WHEN CreditScore >= 700 THEN 'EXCELLENT'
+			WHEN CreditScore BETWEEN 625 AND 699 THEN 'GOOD'
 		
-		WHEN CreditScore BETWEEN 600 AND 624 THEN 'SUB'
+			WHEN CreditScore BETWEEN 600 AND 624 THEN 'SUB'
 		
-		--WHEN CreditScore < 600 THEN 'UNAPPROVED'
-		ELSE 'UNAPPROVED'
-	END
+			--WHEN CreditScore < 600 THEN 'UNAPPROVED'
+			ELSE 'UNAPPROVED'
+		END
 FROM
 	dbo.SC_workAccounts
 WHERE

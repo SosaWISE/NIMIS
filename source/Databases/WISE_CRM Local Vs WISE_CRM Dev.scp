@@ -15,7 +15,7 @@ Version:10.7.0.18-->
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource1>
   <DataSource2 version="3" type="LiveDatabaseSource">
-    <ServerName>db1.stg.nexsense.com</ServerName>
+    <ServerName>db1.tst.nexsense.com</ServerName>
     <DatabaseName>WISE_CRM</DatabaseName>
     <Username>sa</Username>
     <SavePassword>True</SavePassword>
@@ -24,7 +24,7 @@ Version:10.7.0.18-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>04/14/2015 19:24:12</LastCompared>
+  <LastCompared>04/15/2015 10:46:28</LastCompared>
   <Options>Default, ObjectExistenceChecks, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
@@ -167,7 +167,7 @@ Version:10.7.0.18-->
     <Schemas type="ListString" version="2">
       <value type="string">ZABiAG8A</value>
     </Schemas>
-    <ZABiAG8A>YV0+FTSkIxo/uvNCe5cgYAIAAVbUOEwnKV+PFNpj6ICos5UCAgHogy263c/IJQv4BjUeIohUAwIBB3IsW2B2AhiFFPjLf2zKVwICAXoHUJ6o/rmrDzdZulMtPb8CAgEhxNeuI8HFt4LRdurg52QoAwABpQKSI9L53GdpoF3r905woQcCAQ__</ZABiAG8A>
+    <ZABiAG8A />
     <Grouping type="ListByte" version="2">
       <value type="Byte">5</value>
       <value type="Byte">0</value>
