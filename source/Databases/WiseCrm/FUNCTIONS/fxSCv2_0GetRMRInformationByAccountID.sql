@@ -160,5 +160,3 @@ END
 GO
 
 /** SELECT * FROM dbo.fxSCv2_0GetRMRInformationByAccountID(191205) */
-
-SELECT FLOOR(-1.0)

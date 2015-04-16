@@ -25,7 +25,7 @@ SELECT @DEBUG_MODE = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE 
 SELECT TOP 1
 	@CommissionPeriodID = CommissionPeriodID
 	, @CommissionPeriodEndDate = CommissionPeriodEndDate
-	, @CommissionPeriodStrDate = DATEADD(d, -7, CommissionPeriodEndDate)
+	, @CommissionPeriodStrDate = DATEADD(d, -11, CommissionPeriodEndDate)
 FROM
 	NXSE_Sales.dbo.SC_CommissionPeriods 
 ORDER BY
@@ -163,8 +163,18 @@ WHERE
 		OR (MSASI.CreditScore BETWEEN 600 AND 624 AND MSASI.ActivationFee >= 199.00)
 		OR (MSASI.CreditScore >= 625))
 
-
 IF (@DEBUG_MODE = 'ON')
 BEGIN
-	SELECT * FROM [dbo].SC_WorkAccounts;
+	--SELECT * FROM [dbo].SC_WorkAccounts;
+
+	SELECT
+		RU.FullName
+		,SCWA.*
+	FROM
+		[dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK)
+		INNER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS RU WITH (NOLOCK)
+		ON
+			(SCWA.SalesRepId = RU.GPEmployeeId)
+	ORDER BY
+		SCWA.InstallDate;
 END
