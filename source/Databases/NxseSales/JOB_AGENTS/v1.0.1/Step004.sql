@@ -132,15 +132,9 @@ WHERE
 *******************************/
 
 --DEDUCT FOR LOWERING RMR AND STAYING WITHIN THE ALLOWED RANGE
-SET @CommissionsAdjustmentID = 'LOWRMRINRANGE';
-
--- get the id for this adjustment type so it can be inserted into the workAccountAdjustments table
-SELECT
-	@commissionsAdjustmentId = CommissionsAdjustmentID
-FROM
-	SC_CommissionsAdjustments
-WHERE
-	CommissionsAdjustmentTypeId = @CommissionsAdjustmentID
+SET @CommissionsAdjustmentID = 'RMRLOWINRANGE';
+DECLARE @LowRMRPerDollarAmount MONEY = 30.00; -- Default value]
+SELECT @LowRMRPerDollarAmount = (-1) * CommissionAdjustmentAmount FROM [dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
 
 INSERT SC_workAccountAdjustments
 (
