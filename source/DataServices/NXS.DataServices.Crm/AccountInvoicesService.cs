@@ -86,13 +86,39 @@ namespace NXS.DataServices.Crm
 					if (!await SaveInvoiceItemsAsync(db, result, item.ID, invoiceItems, inputItem.InvoiceItems))
 						return false;
 
-					//@TODO:// update invoice totals
+					//@REVIEW: get the correct state and zip
+					// the current method in custAE_InvoiceItemRefreshMsAccountInstall001 will almost
+					// always use the below hardcoded values since ShipAddressId is almost always null
+					await tbl.InvoiceCalculatePrices(item.ID, "UT", "84097");
+
+					//@HACK: CellPackageItemId must be inferred from invoice items...
+					if (item.InvoiceTypeId == AE_InvoiceType.MetaData.SetupandInstallationID)
+					{
+						var acct = await db.MS_Accounts.ByIdAsync(item.AccountId).ConfigureAwait(false);
+						string cellPackageItemId = null;
+						foreach (var invItem in item.InvoiceItems)
+						{
+							if (!invItem.IsDeleted && invItem.ItemId.StartsWith("CELL_SRV"))
+							{
+								cellPackageItemId = invItem.ItemId;
+								break;
+							}
+						}
+
+						if (acct.CellPackageItemId != cellPackageItemId)
+						{
+							var snapShot = Snapshotter.Start(acct);
+							acct.CellPackageItemId = cellPackageItemId;
+							acct.CellularTypeId = (cellPackageItemId == null) ? null : "CELLPRI"; // ????????
+							await db.MS_Accounts.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
+						}
+					}
 
 					// commit transaction
 					return true;
 				}).ConfigureAwait(false);
 
-				//@TODO:// Return invoice & items
+				// Return invoice & items
 				result.Value = AeInvoice.FromDb(item, true);
 				return result;
 			}

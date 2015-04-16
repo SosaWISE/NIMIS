@@ -55,6 +55,16 @@ namespace NXS.Data.Crm
 			//item.InvoiceItems = new List<AE_InvoiceItem>();
 			return item;
 		}
+		public static async Task InvoiceCalculatePrices(this ARTable tbl, long invoiceId, string stateId, string postalCode)
+		{
+			//@TODO: generate SPROC wrapper methods
+			var p = new Dapper.DynamicParameters();
+			p.Add("@InvoiceID", invoiceId); // BIGINT
+			p.Add("@StateID", stateId); // VARCHAR(4)
+			p.Add("@PostalCode", postalCode); // VARCHAR(5)
+			p.Add("@HideInvoiceHeader", false); // BIT = true
+			await tbl.Db.QueryAsync<AE_Invoice>("custAE_InvoiceCalculatePrices", p, commandType: System.Data.CommandType.StoredProcedure).ConfigureAwait(false);
+		}
 
 		#region full load
 		private static Sequel SelectFull(this ARTable tbl, Sequel sql = null, string with = null)

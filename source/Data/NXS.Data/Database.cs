@@ -192,13 +192,13 @@ namespace NXS.Data
 			return _connection.ExecuteAsync(sql, param as object, _transaction, this._commandTimeout);
 		}
 
-		public IEnumerable<T> Query<T>(string sql, dynamic param = null)
+		public IEnumerable<T> Query<T>(string sql, dynamic param = null, CommandType? commandType = null)
 		{
-			return _connection.Query<T>(sql, param as object, _transaction, commandTimeout: _commandTimeout);
+			return _connection.Query<T>(sql, param as object, _transaction, commandTimeout: _commandTimeout, commandType: commandType);
 		}
-		public Task<IEnumerable<T>> QueryAsync<T>(string sql, dynamic param = null)
+		public Task<IEnumerable<T>> QueryAsync<T>(string sql, dynamic param = null, CommandType? commandType = null)
 		{
-			return _connection.QueryAsync<T>(sql, param as object, _transaction, _commandTimeout);
+			return _connection.QueryAsync<T>(sql, param as object, _transaction, _commandTimeout, commandType);
 		}
 
 		//public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "ID", int? commandTimeout = null)
