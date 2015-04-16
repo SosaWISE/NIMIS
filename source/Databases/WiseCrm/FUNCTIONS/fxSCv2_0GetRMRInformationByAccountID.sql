@@ -105,14 +105,16 @@ BEGIN
 		IF (@ActlRMR > @MaxRMR) 
 		BEGIN
 			SET @CommissionsAdjustmentID = 'RMRUPPOUTRANGE';
-			SET @Delta = FLOOR(@Delta);
+			SELECT @CommissionAdjustmentAmount = CommissionAdjustmentAmount FROM [NXSE_Sales].[dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+			SET @Delta = CEILING(@ActlRMR - @MaxRMR) * (-1);
+			SET @AdjustmentAmount = @Delta * @CommissionAdjustmentAmount;
 		END
 		ELSE
-			SET @CommissionsAdjustmentID = 'RMRUPPINRANGE';
-
-		IF (@Delta > 0) 
 		BEGIN
-			SET @CommissionsAdjustmentID = 'UPGRADE';
+			SET @CommissionsAdjustmentID = 'RMRUPPINRANGE';
+			SELECT @CommissionAdjustmentAmount = CommissionAdjustmentAmount FROM [NXSE_Sales].[dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+			SET @Delta = FLOOR(@ActlRMR - @BaseRMR);
+			SET @AdjustmentAmount = @Delta * @CommissionAdjustmentAmount;
 		END
 	END
 	ELSE IF (@Delta < 0)
