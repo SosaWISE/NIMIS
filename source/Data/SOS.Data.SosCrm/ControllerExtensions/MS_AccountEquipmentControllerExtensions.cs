@@ -18,6 +18,15 @@ namespace SOS.Data.SosCrm.ControllerExtensions
 			}
 			return false;
 		}
+
+		public static AR SyncAssignmentBetweenInvoiceItem(this ARController cntlr, long accountEquipmentId,
+			string gpEmployeeId)
+		{
+			return
+				cntlr.LoadSingle(
+					SosCrmDataStoredProcedureManager.MS_AccountEquipmentSyncAssignmetBetweenInvoiceItem(accountEquipmentId,
+						gpEmployeeId));
+		}
 	}
 }
 

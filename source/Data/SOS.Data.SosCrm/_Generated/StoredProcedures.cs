@@ -671,6 +671,12 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@CrmUserId", CrmUserId, DbType.AnsiString);
 			return sp;
 		}
+		public static StoredProcedure MS_AccountEquipmentSyncAssignmetBetweenInvoiceItem(long? AccountEquipmentID,string GpEmployeeId) {
+			StoredProcedure sp = new StoredProcedure("custMS_AccountEquipmentSyncAssignmetBetweenInvoiceItem" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@AccountEquipmentID", AccountEquipmentID, DbType.Int64);
+			sp.Command.AddParameter("@GpEmployeeId", GpEmployeeId, DbType.AnsiString);
+			return sp;
+		}
 		public static StoredProcedure MS_AccountEventViewByMonitoringStationOSIDAndEquipmentTypeId(string MonitoringStationOSID,int? EquipmentTypeID,string GpEmployeeId) {
 			StoredProcedure sp = new StoredProcedure("custMS_AccountEventViewByMonitoringStationOSIDAndEquipmentTypeId" ,DataService.GetInstance("SosCrmProvider"));
 			sp.Command.AddParameter("@MonitoringStationOSID", MonitoringStationOSID, DbType.AnsiString);
