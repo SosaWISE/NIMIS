@@ -2,15 +2,10 @@
 using Nancy.Authentication.Token;
 using Nancy.Bootstrapper;
 using Nancy.Diagnostics;
-using Nancy.Security;
 using Nancy.Serialization.JsonNet;
 using Nancy.TinyIoc;
 using Newtonsoft.Json;
 using SOS.FunctionalServices;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using WebModules;
 
 namespace SSE.Services.CmsCORS

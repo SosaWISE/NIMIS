@@ -11,64 +11,48 @@ USE NXSE_Sales
 GO
 
 DECLARE @CommissionPeriodID BIGINT
-	, @CommissionPeriodEndDate DATE
+	, @CommissionPeriodStrDate DATETIME
+	, @CommissionPeriodEndDate DATETIME
 	, @DEBUG_MODE VARCHAR(20) = 'OFF';
 
 SELECT @DEBUG_MODE = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE (GlobalPropertyID = 'DEBUG_MODE');
 
-SELECT 
+SELECT TOP 1
 	@CommissionPeriodID = CommissionPeriodID
-	, @CommissionPeriodEndDate = CONVERT(DATE,MIN(CommissionPeriodEndDate))
+	, @CommissionPeriodEndDate = CommissionPeriodEndDate
+	, @CommissionPeriodStrDate = DATEADD(d, -7, CommissionPeriodEndDate)
 FROM
 	NXSE_Sales.dbo.SC_CommissionPeriods 
-WHERE
-	CommissionPeriodEndDate >= GETDATE()
-GROUP BY
-	CommissionPeriodID
+ORDER BY
+	CommissionPeriodID DESC;
 
-DECLARE @commissionsAdjustmentTypeId VARCHAR(20)
-DECLARE @commissionsAdjustmentId BIGINT
+DECLARE @CommissionsAdjustmentID VARCHAR(20)
+	, @CommissionAdjustmentAmount MONEY;
 
 /********************  END HEADER ********************/
 
 /*************************
 ***  AGREEMENT LENGTH  ***
 *************************/
--- GET CONTRACT LENGTHS
-UPDATE SC_workAccounts SET
-	ContractLength = AE_Contracts.ContractLength
-FROM 
-	dbo.SC_workAccounts
-	JOIN WISE_CRM.dbo.AE_Contracts
-	ON
-		SC_workAccounts.AccountID = AE_Contracts.AccountId
-		AND AE_Contracts.IsDeleted = 'FALSE'
-WHERE
-	(CommissionPeriodId = @CommissionPeriodID);
+-- DEDUCT FOR AGREEMENT LENGTH = 36 or other than 
+SET @CommissionsAdjustmentID = 'CONLENLESS60';
+SELECT @CommissionAdjustmentAmount = (-1) * CommissionAdjustmentAmount FROM [dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
 
--- DEDUCT FOR AGREEMENT LENGTH = 36
-SET @commissionsAdjustmentTypeId = 'AGRMT36';
-
--- get the id for this adjustment type so it can be inserted into the workAccountAdjustments table
-SELECT 
-	@commissionsAdjustmentId = CommissionsAdjustmentID
-FROM 
-	SC_CommissionsAdjustments
-WHERE 
-	(CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId);
-
+-- Create entry for all accounts with contract length less than 60
 INSERT SC_workAccountAdjustments
 (
-	WorkAccountId,
-	CommissionsAdjustmentID
+	WorkAccountId
+	, CommissionsAdjustmentID
+	, AdjustmentAmount
 )
 SELECT 
-	WorkAccountID,
-	@commissionsAdjustmentId
+	WorkAccountID
+	, @CommissionsAdjustmentID
+	, @CommissionAdjustmentAmount
 FROM
 	dbo.SC_workAccounts
 WHERE 
-	(ContractLength = 36)
+	(ContractLength < 60)
 	AND (CommissionPeriodId = @CommissionPeriodID);
 
 /*******************
@@ -76,24 +60,20 @@ WHERE
 *******************/
 
 -- DEDUCT FOR PAYMENT TYPE IS CREDIT CARD
-SET @commissionsAdjustmentTypeId = 'PMTCC'
+SET @CommissionsAdjustmentID = 'PMTCC'
+SELECT @CommissionAdjustmentAmount = (-1) * CommissionAdjustmentAmount FROM [dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
 
--- get the id for this adjustment type so it can be inserted into the workAccountAdjustments table
-SELECT 
-	@commissionsAdjustmentId = CommissionsAdjustmentID
-FROM 
-	SC_CommissionsAdjustments
-WHERE 
-	CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId
-
+-- Create entry for payment types that are not ACH
 INSERT SC_workAccountAdjustments
 (
-	WorkAccountId,
-	CommissionsAdjustmentID
+	WorkAccountId
+	, CommissionsAdjustmentID
+	, AdjustmentAmount
 )
 SELECT 
-	WorkAccountID,
-	@commissionsAdjustmentId
+	WorkAccountID
+	, @CommissionsAdjustmentID
+	, @CommissionAdjustmentAmount
 FROM
 	dbo.SC_workAccounts
 WHERE 
@@ -105,49 +85,37 @@ WHERE
 *********************/
 
 -- DEDUCT FOR ACTIVATION FEE WAIVED
-SET @commissionsAdjustmentTypeId = 'ACTWAIVED'
+SET @CommissionsAdjustmentID = 'ACTWAIVED'
+SELECT @CommissionAdjustmentAmount = (-1) * CommissionAdjustmentAmount FROM [dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
 
--- get the id for this adjustment type so it can be inserted into the workAccountAdjustments table
-SELECT 
-	@commissionsAdjustmentId = CommissionsAdjustmentID
-FROM 
-	SC_CommissionsAdjustments
-WHERE 
-	CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId
-
+-- Create entry for waived activation fee
 INSERT SC_workAccountAdjustments
 (
-	WorkAccountId,
-	CommissionsAdjustmentID
+	WorkAccountId
+	, CommissionsAdjustmentID
+	, AdjustmentAmount
 )
 SELECT 
-	WorkAccountID,
-	@commissionsAdjustmentId
+	WorkAccountID
+	, @commissionsAdjustmentId
+	, @CommissionAdjustmentAmount
 FROM
 	dbo.SC_workAccounts
 WHERE 
-	(ActivationFee = 0)
+	(ActivationFee < 69.00)
 	AND (CommissionPeriodId = @CommissionPeriodID);
 
 /***************************
 ***	POINTS OF PROTECTION ***
 ***************************/
-SET @commissionsAdjustmentTypeId = 'POINTSGIVEN';
-DECLARE @PointDeductionInDollars MONEY = 30.00;
+SET @CommissionsAdjustmentID = 'POINTSGIVEN';
+DECLARE @PointDeductionInDollars MONEY = 30.00; -- Default value
+SELECT @PointDeductionInDollars = (-1) * CommissionAdjustmentAmount FROM [dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
 
--- get the id for this adjustment type so it can be inserted into the workAccountAdjustments table
-SELECT
-	@commissionsAdjustmentId = CommissionsAdjustmentID
-FROM
-	SC_CommissionsAdjustments
-WHERE
-	CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId
-
-INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionsAdjustmentID, IsDeduction, ComissionAdjustmentAmount) 
+INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionsAdjustmentID, AdjustmentAmount) 
 SELECT
 	WorkAccountId
 	, @commissionsAdjustmentId
-	, 1 -- This is a deduction
 	, CAST(SCWA.PointsAssignedToRep AS MONEY) * @PointDeductionInDollars
 FROM
 	[dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK)
@@ -164,15 +132,9 @@ WHERE
 *******************************/
 
 --DEDUCT FOR LOWERING RMR AND STAYING WITHIN THE ALLOWED RANGE
-SET @commissionsAdjustmentTypeId = 'LOWRMRINRANGE';
-
--- get the id for this adjustment type so it can be inserted into the workAccountAdjustments table
-SELECT
-	@commissionsAdjustmentId = CommissionsAdjustmentID
-FROM
-	SC_CommissionsAdjustments
-WHERE
-	CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId
+SET @CommissionsAdjustmentID = 'RMRLOWINRANGE';
+DECLARE @LowRMRPerDollarAmount MONEY = 30.00; -- Default value]
+SELECT @LowRMRPerDollarAmount = (-1) * CommissionAdjustmentAmount FROM [dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
 
 INSERT SC_workAccountAdjustments
 (
@@ -197,7 +159,7 @@ WHERE
 *********************************/
 
 --DEDUCT FOR LOWERING RMR AND GOING OUTSIDE THE ALLOWED RANGE OR GOING ABOVE THE MAX RMR
-SET @commissionsAdjustmentTypeId = 'ADJRMROUTRANGE';
+SET @CommissionsAdjustmentID = 'ADJRMROUTRANGE';
 
 -- get the id for this adjustment type so it can be inserted into the workAccountAdjustments table
 SELECT
@@ -205,7 +167,7 @@ SELECT
 FROM
 	SC_CommissionsAdjustments
 WHERE
-	(CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId);
+	(CommissionsAdjustmentTypeId = @CommissionsAdjustmentID);
 
 INSERT SC_workAccountAdjustments
 (
@@ -233,7 +195,7 @@ WHERE
 ********************************/
 
 --DEDUCT FOR WAIVING THE 1ST MONTH RMR
-SET @commissionsAdjustmentTypeId = 'WAIVED1STMONTH';
+SET @CommissionsAdjustmentID = 'WAIVED1STMONTH';
 
 -- get the id for this adjustment type so it can be inserted into the workAccountAdjustments table
 SELECT
@@ -241,7 +203,7 @@ SELECT
 FROM
 	SC_CommissionsAdjustments
 WHERE
-	(CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId);
+	(CommissionsAdjustmentTypeId = @CommissionsAdjustmentID);
 
 INSERT SC_workAccountAdjustments
 (

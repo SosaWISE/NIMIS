@@ -1800,6 +1800,9 @@ namespace SOS.FunctionalServices
 				SosCrmDataContext.Instance.AE_InvoiceItems.LoadCollection(
 					SosCrmDataStoredProcedureManager.AE_InventoryItemsSycnWithMsAccountEquipmentInstalled(acctEquipment.AccountId, gpEmployeeID));
 
+				/** Sync AccountEquipment Assignment with the InvoiceItem. */
+				SosCrmDataContext.Instance.MS_AccountEquipments.SyncAssignmentBetweenInvoiceItem(item.AccountEquipmentID, gpEmployeeID);
+
 				result.Value = new FnsMsAccountEquipmentsView(db.MS_AccountEquipmentsViews.ByAccountZoneAssignment(zone.AccountZoneAssignmentID));
 			}
 			#endregion TRY
