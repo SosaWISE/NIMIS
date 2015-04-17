@@ -86,6 +86,15 @@ namespace NXS.DataServices.Crm
 					if (!await SaveInvoiceItemsAsync(db, result, item.ID, invoiceItems, inputItem.InvoiceItems))
 						return false;
 
+					// ensure the invoice is active and not deleted
+					if (!item.IsActive || item.IsDeleted)
+					{
+						var snapShot = Snapshotter.Start(item);
+						item.IsActive = true;
+						item.IsDeleted = false;
+						await tbl.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
+					}
+
 					//@REVIEW: get the correct state and zip
 					// the current method in custAE_InvoiceItemRefreshMsAccountInstall001 will almost
 					// always use the below hardcoded values since ShipAddressId is almost always null

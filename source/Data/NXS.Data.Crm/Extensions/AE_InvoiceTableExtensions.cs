@@ -51,6 +51,7 @@ namespace NXS.Data.Crm
 			item.AccountId = accountId;
 			item.InvoiceTypeId = invoiceTypeId;
 			item.DocDate = DateTime.UtcNow.Date;
+			item.IsActive = true;
 			await tbl.InsertAsync(item, gpEmployeeId).ConfigureAwait(false);
 			//item.InvoiceItems = new List<AE_InvoiceItem>();
 			return item;
