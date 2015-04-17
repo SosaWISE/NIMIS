@@ -25,7 +25,7 @@ SELECT @DEBUG_MODE = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE 
 SELECT TOP 1
 	@CommissionPeriodID = CommissionPeriodID
 	, @CommissionPeriodEndDate = CommissionPeriodEndDate
-	, @CommissionPeriodStrDate = DATEADD(d, -11, CommissionPeriodEndDate)
+	, @CommissionPeriodStrDate = DATEADD(d, -7, CommissionPeriodEndDate)
 FROM
 	NXSE_Sales.dbo.SC_CommissionPeriods 
 ORDER BY
@@ -178,45 +178,45 @@ FROM
 		(QL.AccountId = MSASI.AccountID)
 		AND (QL.ROWNUM = 1)
 WHERE 
-	-- HOMEOWNER
-	(MSASI.IsOwner = 'TRUE')
-
 	-- INSTALLED
-	AND (MSASI.InstallDate BETWEEN @CommissionPeriodStrDate AND @CommissionPeriodEndDate)
+	(MSASI.InstallDate BETWEEN @CommissionPeriodStrDate AND @CommissionPeriodEndDate)
 
-	-- PAPERWORK APPROVED
-	--AND (MSASI.AMASignDate < @CommissionPeriodEndDate)
-	AND (MSASI.AMASignDate IS NOT NULL)
+	---- HOMEOWNER
+	--AND (MSASI.IsOwner = 'TRUE')
 
-	-- PAST THE 3 DAY CANCELLATION PERIOD
-	--AND (MSASI.NOCDateCalculated <= GETUTCDATE())
+	---- PAPERWORK APPROVED
+	----AND (MSASI.AMASignDate < @CommissionPeriodEndDate)
+	--AND (MSASI.AMASignDate IS NOT NULL)
 
-	-- NOT CANCELLED
-	AND (MSASI.CancelledDate IS NULL)
+	---- PAST THE 3 DAY CANCELLATION PERIOD
+	----AND (MSASI.NOCDateCalculated <= GETUTCDATE())
 
-	-- NOT A PREVIOUSLY COMMISSIONED ACCOUNT
-	AND (SC_AccountCommissionHistory.AccountID IS NULL)
+	---- NOT CANCELLED
+	--AND (MSASI.CancelledDate IS NULL)
 
-	-- Has no holds
-	AND ((hold_qry.AccountId IS NULL) OR (hold_qry.FixedOn IS NOT NULL))
+	---- NOT A PREVIOUSLY COMMISSIONED ACCOUNT
+	--AND (SC_AccountCommissionHistory.AccountID IS NULL)
 
-	/************************* Contract Length ********************************
-	* Only contracts greater than 36 months qualify for this commissions rules.
-	**************************************************************************/
-	AND (MSASI.ContractLength >= 36)
+	---- Has no holds
+	--AND ((hold_qry.AccountId IS NULL) OR (hold_qry.FixedOn IS NOT NULL))
 
-	/************************** Payment Type *********************************
-	* Only allow those accounts that have CC and ACH
-	**************************************************************************/
-	AND (MSASI.PaymentType = 'CC' OR MSASI.PaymentType = 'ACH')
+	--/************************* Contract Length ********************************
+	--* Only contracts greater than 36 months qualify for this commissions rules.
+	--**************************************************************************/
+	--AND (MSASI.ContractLength >= 36)
 
-	/************************* Activation Fee ********************************
-	* Only allow those accounts that have CC and ACH
-	**************************************************************************/
-	AND 
-		((MSASI.CreditScore < 600 AND MSASI.ActivationFee >= 299.00) 
-		OR (MSASI.CreditScore BETWEEN 600 AND 624 AND MSASI.ActivationFee >= 199.00)
-		OR (MSASI.CreditScore >= 625))
+	--/************************** Payment Type *********************************
+	--* Only allow those accounts that have CC and ACH
+	--**************************************************************************/
+	--AND (MSASI.PaymentType = 'CC' OR MSASI.PaymentType = 'ACH')
+
+	--/************************* Activation Fee ********************************
+	--* Activation Fee and Credit Score do not qualify
+	--**************************************************************************/
+	--AND 
+	--	((MSASI.CreditScore < 600 AND MSASI.ActivationFee >= 299.00) 
+	--	OR (MSASI.CreditScore BETWEEN 600 AND 624 AND MSASI.ActivationFee >= 199.00)
+	--	OR (MSASI.CreditScore >= 625))
 
 IF (@DEBUG_MODE = 'ON')
 BEGIN
