@@ -12,7 +12,7 @@ namespace WebModules.Crm.Ms
 		public PaymentMethodsModule()
 			: base("/Ms/Accounts")
 		{
-			this.RequiresPermission(applicationID: AuthApplications.ContractAdministrationID, actionID: null);
+			this.RequiresPermission(applicationID: null, actionID: null);
 
 			// get payment method on an account
 			Get["/{id:long}/PaymentMethod", true] = async (x, ct) =>
