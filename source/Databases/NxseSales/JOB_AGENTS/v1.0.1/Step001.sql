@@ -53,6 +53,9 @@ INSERT dbo.SC_workAccounts
 	, SalesRepId
 	, TechId
 	, FriendsAndFamilyTypeId
+	, QualifyDate
+	, SaleDate
+	, PostSurveyDate
 	, InstallDate
 	, AMASignedDate
 	, NOCDateCalculated
@@ -74,6 +77,9 @@ SELECT
 	, MSASI.SalesRepId
 	, MSASI.TechId
 	, MSASI.FriendsAndFamilyTypeId
+	, QL.QualifyDate
+	, SRV.SaleDate
+	, SRVPost.PostSurveyDate
 	, MSASI.InstallDate
 	, MSASI.AMASignDate
 	, MSASI.NOCDateCalculated
@@ -109,7 +115,7 @@ FROM
 		(MSASI.AccountID = SC_AccountCommissionHistory.AccountID)
 
 	-- HOLDS
-	LEFT JOIN (
+	LEFT OUTER JOIN (
 		SELECT TOP 1
 			AccountId 
 			, MS_AccountHolds.FixedOn
@@ -122,6 +128,55 @@ FROM
 		) AS hold_qry
 	ON
 		(MSASI.AccountId = hold_qry.AccountId)
+	LEFT OUTER JOIN (
+		SELECT
+			AccountID
+			, SurveyTypeId
+			, IsComplete
+			, Passed
+			, CreatedOn AS SaleDate
+			, ROW_NUMBER() OVER (PARTITION BY AccountID, SurveyTypeId ORDER BY CreatedOn DESC) AS ROWN
+		FROM
+			[WISE_SurveyEngine].[dbo].vwSV_Results
+		WHERE
+			(SurveyTypeId = 1000)  -- Pre Survey
+			AND (IsComplete = 1 AND Passed = 1)
+	) AS SRV
+	ON
+		(MSASI.AccountID = SRV.AccountID)
+		AND (SRV.ROWN = 1)
+	LEFT OUTER JOIN (
+		SELECT
+			AccountID
+			, SurveyTypeId
+			, IsComplete
+			, Passed
+			, CreatedOn AS PostSurveyDate
+			, ROW_NUMBER() OVER (PARTITION BY AccountID, SurveyTypeId ORDER BY CreatedOn DESC) AS ROWN
+		FROM
+			[WISE_SurveyEngine].[dbo].vwSV_Results
+		WHERE
+			(SurveyTypeId = 1001)  -- Post Survey
+			AND (IsComplete = 1 AND Passed = 1)
+	) AS SRVPost
+	ON
+		(MSASI.AccountID = SRVPost.AccountID)
+		AND (SRV.ROWN = 1)
+	LEFT OUTER JOIN (
+		SELECT
+			AECA.AccountId
+			, QL.LeadID
+			, QL.CreatedOn AS QualifyDate
+			, ROW_NUMBER() OVER (PARTITION BY AECA.AccountID, QL.LeadID ORDER BY QL.CreatedOn) AS ROWNUM
+		FROM
+			[WISE_CRM].[dbo].[AE_CustomerAccounts] AS AECA WITH (NOLOCK)
+			INNER JOIN [WISE_CRM].[dbo].[QL_Leads] AS QL WITH (NOLOCK)
+			ON
+				(QL.LeadID = AECA.LeadId)
+	) AS QL
+	ON
+		(QL.AccountId = MSASI.AccountID)
+		AND (QL.ROWNUM = 1)
 WHERE 
 	-- HOMEOWNER
 	(MSASI.IsOwner = 'TRUE')
