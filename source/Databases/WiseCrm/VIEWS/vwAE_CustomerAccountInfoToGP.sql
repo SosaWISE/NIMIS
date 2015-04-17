@@ -61,6 +61,8 @@ AS
 		, MSASI.NOCDateCalculated
 		, MSASI.SalesRepId AS [SalesRepID]
 		, MSASI.InstallDate AS [InstallDate]
+		, MSASI.ApprovedDate
+		, MSASI.ApproverID
 		, MSASI.TechId AS [TechID]
 		, MSASI.[MMR] AS RMR
 		, MSASI.BillingDay AS [BillingDay]

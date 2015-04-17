@@ -116,8 +116,8 @@ BEGIN
 
 	/** Return result */
 	SELECT * FROM [dbo].[MS_AccountEquipment] WHERE (AccountEquipmentID = @AccountEquipmentID);
-	/** DEGUG */
-	SELECT * FROM [dbo].[AE_InvoiceItems] WHERE (InvoiceItemID = @InvoiceItemId);
+	/** DEGUG 
+	SELECT * FROM [dbo].[AE_InvoiceItems] WHERE (InvoiceItemID = @InvoiceItemId);*/
 END
 GO
 

@@ -37,14 +37,14 @@ BEGIN
 	TRUNCATE TABLE dbo.SC_WorkAccountAdjustments;
 	DBCC CHECKIDENT ('[dbo].[SC_WorkAccountAdjustments]', RESEED, 0);
 
-	DELETE dbo.SC_WorkAccounts;
+	DELETE dbo.SC_WorkAccountsAll;
 	DBCC CHECKIDENT ('[dbo].[SC_WorkAccounts]', RESEED, 0);
 END
 
 /******************
 ***  CUSTOMERS  ***
 *******************/
-INSERT dbo.SC_workAccounts
+INSERT dbo.SC_workAccountsAll
 (
 	CommissionPeriodId
 	, AccountID
@@ -59,6 +59,9 @@ INSERT dbo.SC_workAccounts
 	, InstallDate
 	, AMASignedDate
 	, NOCDateCalculated
+	, ApprovedDate
+	, ApproverId
+	, SeasonId
 	, CreditScore
 	, CreditCustomerType
 	, ContractLength
@@ -69,7 +72,7 @@ INSERT dbo.SC_workAccounts
 	, PointsAllowed
 	, PointsAssignedToRep
 )
-SELECT 
+SELECT DISTINCT
 	@CommissionPeriodID
 	, MSASI.AccountID
 	, MC_Accounts.CustomerMasterFileId
@@ -83,6 +86,9 @@ SELECT
 	, MSASI.InstallDate
 	, MSASI.AMASignDate
 	, MSASI.NOCDateCalculated
+	, MSASI.ApprovedDate
+	, MSASI.ApproverID
+	, [WISE_CRM].[dbo].fxGetSeasonIDByAccountID(MSASI.AccountID)
 	, MSASI.CreditScore
 	, CASE
 			WHEN MSASI.CreditScore >= 700 THEN 'EXCELLENT'
@@ -163,7 +169,7 @@ FROM
 		(MSASI.AccountID = SRVPost.AccountID)
 		AND (SRV.ROWN = 1)
 	LEFT OUTER JOIN (
-		SELECT
+		SELECT TOP 1
 			AECA.AccountId
 			, QL.LeadID
 			, QL.CreatedOn AS QualifyDate
@@ -173,6 +179,8 @@ FROM
 			INNER JOIN [WISE_CRM].[dbo].[QL_Leads] AS QL WITH (NOLOCK)
 			ON
 				(QL.LeadID = AECA.LeadId)
+		ORDER BY
+			QL.CreatedOn
 	) AS QL
 	ON
 		(QL.AccountId = MSASI.AccountID)
@@ -226,7 +234,7 @@ BEGIN
 		RU.FullName
 		,SCWA.*
 	FROM
-		[dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK)
+		[dbo].[SC_WorkAccountsAll] AS SCWA WITH (NOLOCK)
 		INNER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS RU WITH (NOLOCK)
 		ON
 			(SCWA.SalesRepId = RU.GPEmployeeId)
