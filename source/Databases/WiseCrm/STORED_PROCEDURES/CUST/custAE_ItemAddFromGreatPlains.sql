@@ -160,6 +160,8 @@ BEGIN
 		JOIN WISE_CRM.dbo.AE_ITEMS AS CRM_SKUs WITH(NOLOCK)
 			ON GP_SKUs.ITEMNMBR = CRM_SKUs.ItemSKU
 			and GP_SKUs.MODIFDT > CRM_SKUs.ModifiedOn
+
+	/** TOOD:  Add Equipment to MS_Equipments Also update the Rep Bonus Upgrades as well as the Tech Minutes */
 	
 		COMMIT TRANSACTION;
 	END TRY

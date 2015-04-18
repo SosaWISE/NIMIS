@@ -410,6 +410,32 @@ namespace SOS.Data.SosCrm
 				colvarInstallDate.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarInstallDate);
 
+				TableSchema.TableColumn colvarApprovedDate = new TableSchema.TableColumn(schema);
+				colvarApprovedDate.ColumnName = "ApprovedDate";
+				colvarApprovedDate.DataType = DbType.DateTime;
+				colvarApprovedDate.MaxLength = 0;
+				colvarApprovedDate.AutoIncrement = false;
+				colvarApprovedDate.IsNullable = true;
+				colvarApprovedDate.IsPrimaryKey = false;
+				colvarApprovedDate.IsForeignKey = false;
+				colvarApprovedDate.IsReadOnly = false;
+				colvarApprovedDate.DefaultSetting = @"";
+				colvarApprovedDate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarApprovedDate);
+
+				TableSchema.TableColumn colvarApproverID = new TableSchema.TableColumn(schema);
+				colvarApproverID.ColumnName = "ApproverID";
+				colvarApproverID.DataType = DbType.AnsiString;
+				colvarApproverID.MaxLength = 50;
+				colvarApproverID.AutoIncrement = false;
+				colvarApproverID.IsNullable = true;
+				colvarApproverID.IsPrimaryKey = false;
+				colvarApproverID.IsForeignKey = false;
+				colvarApproverID.IsReadOnly = false;
+				colvarApproverID.DefaultSetting = @"";
+				colvarApproverID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarApproverID);
+
 				TableSchema.TableColumn colvarTechID = new TableSchema.TableColumn(schema);
 				colvarTechID.ColumnName = "TechID";
 				colvarTechID.DataType = DbType.AnsiString;
@@ -843,6 +869,16 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.InstallDate, value); }
 		}
 		[DataMember]
+		public DateTime? ApprovedDate {
+			get { return GetColumnValue<DateTime?>(Columns.ApprovedDate); }
+			set { SetColumnValue(Columns.ApprovedDate, value); }
+		}
+		[DataMember]
+		public string ApproverID {
+			get { return GetColumnValue<string>(Columns.ApproverID); }
+			set { SetColumnValue(Columns.ApproverID, value); }
+		}
+		[DataMember]
 		public string TechID {
 			get { return GetColumnValue<string>(Columns.TechID); }
 			set { SetColumnValue(Columns.TechID, value); }
@@ -1035,113 +1071,121 @@ namespace SOS.Data.SosCrm
 		{
 			get { return Schema.Columns[11]; }
 		}
-		public static TableSchema.TableColumn TechIDColumn
+		public static TableSchema.TableColumn ApprovedDateColumn
 		{
 			get { return Schema.Columns[12]; }
 		}
-		public static TableSchema.TableColumn RMRColumn
+		public static TableSchema.TableColumn ApproverIDColumn
 		{
 			get { return Schema.Columns[13]; }
 		}
-		public static TableSchema.TableColumn BillingDayColumn
+		public static TableSchema.TableColumn TechIDColumn
 		{
 			get { return Schema.Columns[14]; }
 		}
-		public static TableSchema.TableColumn PaymentTypeColumn
+		public static TableSchema.TableColumn RMRColumn
 		{
 			get { return Schema.Columns[15]; }
 		}
-		public static TableSchema.TableColumn ContractLengthColumn
+		public static TableSchema.TableColumn BillingDayColumn
 		{
 			get { return Schema.Columns[16]; }
 		}
-		public static TableSchema.TableColumn PanelTypeColumn
+		public static TableSchema.TableColumn PaymentTypeColumn
 		{
 			get { return Schema.Columns[17]; }
 		}
-		public static TableSchema.TableColumn SystemTypeColumn
+		public static TableSchema.TableColumn ContractLengthColumn
 		{
 			get { return Schema.Columns[18]; }
 		}
-		public static TableSchema.TableColumn ActivationCollectedColumn
+		public static TableSchema.TableColumn PanelTypeColumn
 		{
 			get { return Schema.Columns[19]; }
 		}
-		public static TableSchema.TableColumn ActivationFeeColumn
+		public static TableSchema.TableColumn SystemTypeColumn
 		{
 			get { return Schema.Columns[20]; }
 		}
-		public static TableSchema.TableColumn PaidFull3MonthsColumn
+		public static TableSchema.TableColumn ActivationCollectedColumn
 		{
 			get { return Schema.Columns[21]; }
 		}
-		public static TableSchema.TableColumn CancelledDateColumn
+		public static TableSchema.TableColumn ActivationFeeColumn
 		{
 			get { return Schema.Columns[22]; }
 		}
-		public static TableSchema.TableColumn CancelledReasonColumn
+		public static TableSchema.TableColumn PaidFull3MonthsColumn
 		{
 			get { return Schema.Columns[23]; }
 		}
-		public static TableSchema.TableColumn TakeOverColumn
+		public static TableSchema.TableColumn CancelledDateColumn
 		{
 			get { return Schema.Columns[24]; }
 		}
-		public static TableSchema.TableColumn IsOwnerColumn
+		public static TableSchema.TableColumn CancelledReasonColumn
 		{
 			get { return Schema.Columns[25]; }
 		}
-		public static TableSchema.TableColumn FriendsAndFamilyTypeIdColumn
+		public static TableSchema.TableColumn TakeOverColumn
 		{
 			get { return Schema.Columns[26]; }
 		}
-		public static TableSchema.TableColumn AccountPackageIdColumn
+		public static TableSchema.TableColumn IsOwnerColumn
 		{
 			get { return Schema.Columns[27]; }
 		}
-		public static TableSchema.TableColumn AccountPackageNameColumn
+		public static TableSchema.TableColumn FriendsAndFamilyTypeIdColumn
 		{
 			get { return Schema.Columns[28]; }
 		}
-		public static TableSchema.TableColumn TotalPointsColumn
+		public static TableSchema.TableColumn AccountPackageIdColumn
 		{
 			get { return Schema.Columns[29]; }
 		}
-		public static TableSchema.TableColumn TotalPointsAllowedColumn
+		public static TableSchema.TableColumn AccountPackageNameColumn
 		{
 			get { return Schema.Columns[30]; }
 		}
-		public static TableSchema.TableColumn RepPointsColumn
+		public static TableSchema.TableColumn TotalPointsColumn
 		{
 			get { return Schema.Columns[31]; }
 		}
-		public static TableSchema.TableColumn HasExistingEquipmentColumn
+		public static TableSchema.TableColumn TotalPointsAllowedColumn
 		{
 			get { return Schema.Columns[32]; }
 		}
-		public static TableSchema.TableColumn CreditScoreColumn
+		public static TableSchema.TableColumn RepPointsColumn
 		{
 			get { return Schema.Columns[33]; }
 		}
-		public static TableSchema.TableColumn TransactionIDColumn
+		public static TableSchema.TableColumn HasExistingEquipmentColumn
 		{
 			get { return Schema.Columns[34]; }
 		}
-		public static TableSchema.TableColumn ReportGuidColumn
+		public static TableSchema.TableColumn CreditScoreColumn
 		{
 			get { return Schema.Columns[35]; }
 		}
-		public static TableSchema.TableColumn BureauColumn
+		public static TableSchema.TableColumn TransactionIDColumn
 		{
 			get { return Schema.Columns[36]; }
 		}
-		public static TableSchema.TableColumn GatewayColumn
+		public static TableSchema.TableColumn ReportGuidColumn
 		{
 			get { return Schema.Columns[37]; }
 		}
-		public static TableSchema.TableColumn PointsColumn
+		public static TableSchema.TableColumn BureauColumn
 		{
 			get { return Schema.Columns[38]; }
+		}
+		public static TableSchema.TableColumn GatewayColumn
+		{
+			get { return Schema.Columns[39]; }
+		}
+		public static TableSchema.TableColumn PointsColumn
+		{
+			get { return Schema.Columns[40]; }
 		}
 
 		#endregion
@@ -1161,6 +1205,8 @@ namespace SOS.Data.SosCrm
 			public const string NOCDateCalculated = @"NOCDateCalculated";
 			public const string SalesRepID = @"SalesRepID";
 			public const string InstallDate = @"InstallDate";
+			public const string ApprovedDate = @"ApprovedDate";
+			public const string ApproverID = @"ApproverID";
 			public const string TechID = @"TechID";
 			public const string RMR = @"RMR";
 			public const string BillingDay = @"BillingDay";

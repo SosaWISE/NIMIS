@@ -121,70 +121,60 @@ FROM
 	[dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK)
 WHERE
 	(SCWA.PointsAssignedToRep IS NOT NULL)
-	AND (SCWA.PointsAssignedToRep > 0);
+	AND (SCWA.PointsAssignedToRep > 0)
+	AND (SCWA.CommissionPeriodId = @CommissionPeriodID);
+/********************************************** START CURSOR **********************************************************************************
+* Create a cursor looping through work accounts.
+***********************************************************************************************************************************************/
+DECLARE @AccountID BIGINT
+	, @WorkAccountID BIGINT;
+DECLARE workAccountCursor CURSOR FOR
+SELECT WorkAccountID, AccountID FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID);
+OPEN workAccountCursor;
 
-/*******************************
-***	CUSTOMER UPGRADE BONUSES ***
-*******************************/
+FETCH NEXT FROM workAccountCursor INTO @WorkAccountID, @AccountID;
+
+WHILE (@@FETCH_STATUS = 0)
+BEGIN
+	/*******************************
+	***	CUSTOMER UPGRADE BONUSES ***
+	*******************************/
+	SET @CommissionsAdjustmentID = 'EQUIPUPGRADE';
+	INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionsAdjustmentID, AdjustmentAmount) 
+	SELECT
+		@WorkAccountID
+		, @commissionsAdjustmentId
+		, RBUG.BonusUpgrade --  AS [Bonus Upgrade]
+	FROM
+		dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId(@AccountID) AS RBUG;
 	
-/*******************************
-***	LOWERED RMR WITHIN RANGE ***
-*******************************/
+	/*******************************
+	***	LOWERED RMR WITHIN RANGE ***
+	*******************************/
+	--DEDUCT Or Adjust based on the Points
+	INSERT SC_workAccountAdjustments
+	(
+		WorkAccountId,
+		CommissionsAdjustmentID
+	)
+	SELECT
+		@WorkAccountID
+		, @commissionsAdjustmentId
+		, RMRI.[AdjustmentAmount]
+	FROM
+		[WISE_CRM].[dbo].fxSCv2_0GetRMRInformationByAccountID(@AccountID) AS RMRI;
 
---DEDUCT FOR LOWERING RMR AND STAYING WITHIN THE ALLOWED RANGE
-SET @CommissionsAdjustmentID = 'RMRLOWINRANGE';
-DECLARE @LowRMRPerDollarAmount MONEY = 30.00; -- Default value]
-SELECT @LowRMRPerDollarAmount = (-1) * CommissionAdjustmentAmount FROM [dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+	/** Get Next Account */
+	FETCH NEXT FROM workAccountCursor INTO @WorkAccountID, @AccountID;
+END
 
-INSERT SC_workAccountAdjustments
-(
-	WorkAccountId,
-	CommissionsAdjustmentID
-)
-SELECT
-	WorkAccountID,
-	@commissionsAdjustmentId
-FROM
-	dbo.SC_workAccounts AS scwa
-	JOIN WISE_CRM.dbo.MS_AccountPackages AS msap 
-	ON
-		(scwa.AccountPackageId = msap.AccountPackageID)
-WHERE
-	(scwa.RMR < msap.BaseRMR)
-	AND (CommissionPeriodId = @CommissionPeriodID);
+CLOSE WorkAccountCursor;
+DEALLOCATE WorkAccountCursor;
 
+/**********************************************  END CURSOR  **********************************************************************************
+* Create a cursor looping through work accounts.
+***********************************************************************************************************************************************/
 
-/*********************************
-***	ADJUSTED RMR OUTSIDE RANGE ***
-*********************************/
-
---DEDUCT FOR LOWERING RMR AND GOING OUTSIDE THE ALLOWED RANGE OR GOING ABOVE THE MAX RMR
-SET @CommissionsAdjustmentID = 'ADJRMROUTRANGE';
-
--- get the id for this adjustment type so it can be inserted into the workAccountAdjustments table
-SELECT
-	@commissionsAdjustmentId = CommissionsAdjustmentID
-FROM
-	SC_CommissionsAdjustments
-WHERE
-	(CommissionsAdjustmentTypeId = @CommissionsAdjustmentID);
-
-INSERT SC_workAccountAdjustments
-(
-	WorkAccountId,
-	CommissionsAdjustmentID
-)
-SELECT
-	WorkAccountID,
-	@commissionsAdjustmentId
-FROM
-	dbo.SC_workAccounts AS scwa
-	JOIN WISE_CRM.dbo.MS_AccountPackages AS msap
-	ON
-		(scwa.AccountPackageId = msap.AccountPackageID)
-WHERE
-	((scwa.RMR < msap.MinRMR) OR (scwa.RMR > msap.MaxRMR))
-	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 
 /********************
 ***	SPECIAL DEALS ***
