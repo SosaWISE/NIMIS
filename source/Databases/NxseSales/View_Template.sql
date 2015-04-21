@@ -1,4 +1,4 @@
-USE [WISE_CRM]
+USE [NXSE_Sales]
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE type = 'V' AND name = 'vwMS_AccountOnlineStatusInfo')
@@ -34,13 +34,13 @@ GO
 **     ----------						-----------
 **
 **		Auth: Andres Sosa
-**		Date: 03/16/2015
+**		Date: 04/21/2015
 *******************************************************************************
 **	Change History
 *******************************************************************************
 **	Date:		Author:			Description:
 **	-----------	---------------	-----------------------------------------------
-**	03/16/2015	Andres Sosa		Created by
+**	04/21/2015	Andres Sosa		Created by
 *******************************************************************************/
 CREATE VIEW [dbo].[vwMS_AccountOnlineStatusInfo]
 AS

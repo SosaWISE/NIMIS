@@ -38,10 +38,10 @@ PRINT '************************************************************ START ******
 
 -- Figure out the number of accounts for this week
 DECLARE @NumThisWeekTbl TABLE (SalesRepID VARCHAR(50), NumThisWeek INT);
-INSERT INTO @NumThisWeekTbl (SalesRepID, NumThisWeek) SELECT SalesRepID, COUNT(*) FROM dbo.SC_WorkAccountsAll WHERE (CommissionPeriodId = @CommissionPeriodID) GROUP BY SalesRepID;
+INSERT INTO @NumThisWeekTbl (SalesRepID, NumThisWeek) SELECT SalesRepID, COUNT(*) FROM dbo.SC_WorkAccounts WHERE (CommissionPeriodId = @CommissionPeriodID) GROUP BY SalesRepID;
 
 /** LOOP THROUGH Each Account and Add the corresponding Rate by the number of sales per pay period. */
-DECLARE WorkAccountCursor CURSOR FOR SELECT WorkAccountID, AccountId, SalesRepID FROM dbo.SC_WorkAccountsAll WHERE (CommissionPeriodId = @CommissionPeriodID);
+DECLARE WorkAccountCursor CURSOR FOR SELECT WorkAccountID, AccountId, SalesRepID FROM dbo.SC_WorkAccounts WHERE (CommissionPeriodId = @CommissionPeriodID);
 DECLARE @SalesRepID VARCHAR(50)
 	, @WorkAccountId BIGINT
 	, @NumThisWeek INT
@@ -75,7 +75,7 @@ BEGIN
 	SELECT
 		@SigningBonusCount = COUNT(*)
 	FROM
-		[dbo].[SC_WorkAccountsAll] AS SWAA WITH (NOLOCK)
+		[dbo].[SC_WorkAccounts] AS SWAA WITH (NOLOCK)
 		INNER JOIN [dbo].[SC_WorkAccountSigningBonuses] AS SWASB WITH (NOLOCK)
 		ON
 			(SWASB.WorkAccountID = SWAA.WorkAccountID)

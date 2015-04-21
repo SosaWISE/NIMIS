@@ -39,13 +39,14 @@ PRINT '************************************************************ START ******
 /********************  END HEADER ********************/
 IF (@DEBUG_MODE = 'ON')
 BEGIN
-	TRUNCATE TABLE dbo.SC_WorkAccountAdjustments;
-	DBCC CHECKIDENT ('[dbo].[SC_WorkAccountAdjustments]', RESEED, 0);
+	PRINT 'NO TRUNCATING'
+	--TRUNCATE TABLE dbo.SC_WorkAccountAdjustments;
+	--DBCC CHECKIDENT ('[dbo].[SC_WorkAccountAdjustments]', RESEED, 0);
 
-	DELETE dbo.SC_WorkAccounts;
+	--DELETE dbo.SC_WorkAccounts;
 
-	DELETE dbo.SC_WorkAccountsAll;
-	DBCC CHECKIDENT ('[dbo].[SC_WorkAccountsAll]', RESEED, 0);
+	--DELETE dbo.SC_WorkAccountsAll;
+	--DBCC CHECKIDENT ('[dbo].[SC_WorkAccountsAll]', RESEED, 0);
 END
 
 /******************
@@ -178,22 +179,21 @@ FROM
 		(MSASI.AccountID = SRVPost.AccountID)
 		AND (SRV.ROWN = 1)
 	LEFT OUTER JOIN (
-		SELECT TOP 1
+		SELECT --TOP 1
 			AECA.AccountId
-			, QL.LeadID
-			, QL.CreatedOn AS QualifyDate
-			, ROW_NUMBER() OVER (PARTITION BY AECA.AccountID, QL.LeadID ORDER BY QL.CreatedOn) AS ROWNUM
+			, MIN(QL.CreatedOn) AS QualifyDate
 		FROM
 			[WISE_CRM].[dbo].[AE_CustomerAccounts] AS AECA WITH (NOLOCK)
 			INNER JOIN [WISE_CRM].[dbo].[QL_Leads] AS QL WITH (NOLOCK)
 			ON
 				(QL.LeadID = AECA.LeadId)
-		ORDER BY
-			QL.CreatedOn
-	) AS QL
+		WHERE
+			AECA.AccountId IN (191189,191186,191206,191205,191207,191209,191210)
+		GROUP BY
+			AECA.AccountId
+		) AS QL
 	ON
 		(QL.AccountId = MSASI.AccountID)
-		AND (QL.ROWNUM = 1)
 WHERE 
 	-- INSTALLED
 	(MSASI.InstallDate BETWEEN @CommissionPeriodStrDate AND @CommissionPeriodEndDate)
@@ -234,6 +234,7 @@ WHERE
 	--	((MSASI.CreditScore < 600 AND MSASI.ActivationFee >= 299.00) 
 	--	OR (MSASI.CreditScore BETWEEN 600 AND 624 AND MSASI.ActivationFee >= 199.00)
 	--	OR (MSASI.CreditScore >= 625))
+	;
 
 IF (@DEBUG_MODE = 'ON')
 BEGIN
