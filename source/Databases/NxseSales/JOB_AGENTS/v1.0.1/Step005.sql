@@ -6,70 +6,111 @@ Bonuses get applied for:
 USE NXSE_Sales
 GO
 
-DECLARE @commissionsAdjustmentTypeId VARCHAR(20)
-DECLARE @commissionsAdjustmentId BIGINT
+DECLARE @CommissionPeriodID BIGINT
+	, @CommissionPeriodStrDate DATETIME
+	, @CommissionPeriodEndDate DATETIME
+	, @DEBUG_MODE VARCHAR(20) = 'OFF';
 
+SELECT @DEBUG_MODE = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE (GlobalPropertyID = 'DEBUG_MODE');
+
+SELECT TOP 1
+	@CommissionPeriodID = CommissionPeriodID
+	, @CommissionPeriodEndDate = CommissionPeriodEndDate
+	, @CommissionPeriodStrDate = DATEADD(d, -7, CommissionPeriodEndDate)
+FROM
+	NXSE_Sales.dbo.SC_CommissionPeriods 
+ORDER BY
+	IsCurrent DESC
+	, CommissionPeriodID DESC;
+
+DECLARE @CommissionsAdjustmentID VARCHAR(20)
+	, @CommissionAdjustmentAmount MONEY;
+
+PRINT '************************************************************ START ************************************************************';
+PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR);
+PRINT '************************************************************ START ************************************************************';
 /********************  END HEADER ********************/
 
 
 /********************************
-***	INCREASE RMR WITHIN RANGE ***
+***	Adjustment for Package    ***
 ********************************/
 
--- Bonus for RMR Increase within the range
-SET @commissionsAdjustmentTypeId = 'RAISERMRINRANGE'
+-- Figure out the number of accounts for this week
+DECLARE @NumThisWeekTbl TABLE (SalesRepID VARCHAR(50), NumThisWeek INT);
+INSERT INTO @NumThisWeekTbl (SalesRepID, NumThisWeek) SELECT SalesRepID, COUNT(*) FROM dbo.SC_WorkAccountsAll WHERE (CommissionPeriodId = @CommissionPeriodID) GROUP BY SalesRepID;
 
--- get the id for this adjustment type so it can be inserted into the workAccountAdjustments table
-SELECT 
-	@commissionsAdjustmentId = CommissionsAdjustmentID
-FROM 
-	SC_CommissionsAdjustments
-WHERE 
-	(CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId);
+/** LOOP THROUGH Each Account and Add the corresponding Rate by the number of sales per pay period. */
+DECLARE WorkAccountCursor CURSOR FOR SELECT WorkAccountID, AccountId, SalesRepID FROM dbo.SC_WorkAccountsAll WHERE (CommissionPeriodId = @CommissionPeriodID);
+DECLARE @SalesRepID VARCHAR(50)
+	, @WorkAccountId BIGINT
+	, @NumThisWeek INT
+	, @AccountID BIGINT;
 
-INSERT SC_workAccountAdjustments
-(
-	WorkAccountId,
-	CommissionsAdjustmentID
-)
-SELECT 
-	WorkAccountID,
-	@commissionsAdjustmentId
-FROM
-	dbo.SC_workAccounts AS scwa
-	INNER JOIN WISE_CRM.dbo.MS_AccountPackages AS msap
-	ON
-		(scwa.AccountPackageId = msap.AccountPackageID)
-WHERE 
-	(scwa.RMR > msap.BaseRMR);
+OPEN WorkAccountCursor;
+FETCH NEXT FROM WorkAccountCursor INTO
+	@WorkAccountId
+	, @AccountID
+	, @SalesRepID;
 
-/************************
-***	SELLING EQUIPMENT ***
-************************/
+WHILE (@@FETCH_STATUS = 0)
+BEGIN
+	SET @CommissionsAdjustmentID = 'ACCTRATESCALEPAY';
+	SELECT @NumThisWeek = NumThisWeek FROM @NumThisWeekTbl WHERE (SalesRepID = @SalesRepID);
 
--- Bonus for RMR Increase within the range
-SET @commissionsAdjustmentTypeId = 'EQUIPUPGRADE'
+	INSERT SC_workAccountAdjustments (
+		WorkAccountId
+		, CommissionsAdjustmentID
+		, AdjustmentAmount
+	) VALUES (
+		@WorkAccountId
+		, @CommissionsAdjustmentID
+		, dbo.fxSCv2_0GetRateBasedOnScaleByAccountId(@AccountID, @NumThisWeek)
+	);
 
--- get the id for this adjustment type so it can be inserted into the workAccountAdjustments table
-SELECT 
-	@commissionsAdjustmentId = CommissionsAdjustmentID
-FROM 
-	SC_CommissionsAdjustments
-WHERE 
-	CommissionsAdjustmentTypeId = @commissionsAdjustmentTypeId
+	/********************************
+	***	Check for Siging Bonus    ***
+	********************************/
+	DECLARE @SigningBonusCount INT = 0;
+	SELECT
+		@SigningBonusCount = COUNT(*)
+	FROM
+		[dbo].[SC_WorkAccountsAll] AS SWAA WITH (NOLOCK)
+		INNER JOIN [dbo].[SC_WorkAccountSigningBonuses] AS SWASB WITH (NOLOCK)
+		ON
+			(SWASB.WorkAccountID = SWAA.WorkAccountID)
+	WHERE
+		(SWAA.SalesRepId = @SalesRepID);
 
-INSERT SC_workAccountAdjustments
-(
-	WorkAccountId,
-	CommissionsAdjustmentID
-)
-SELECT TOP 1
-	WorkAccountID,
-	@commissionsAdjustmentId
-FROM dbo.SC_workAccounts AS scwa
-	INNER JOIN WISE_CRM.dbo.MS_AccountEquipment AS msae
-	ON
-		(scwa.AccountID = msae.AccountId)
-WHERE
-	(msae.AccountEquipmentUpgradeTypeId = 'SALESREP')
-	AND (scwa.SalesRepId = msae.GPEmployeeId);
+	IF (@SigningBonusCount < 3)
+	BEGIN
+		SET @CommissionsAdjustmentID = 'SIGNINGBONUS';
+		SELECT @CommissionAdjustmentAmount = CommissionAdjustmentAmount FROM [dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+
+		INSERT INTO [dbo].[SC_WorkAccountAdjustments] (
+			[WorkAccountId]
+			, [CommissionsAdjustmentId]
+			, [AdjustmentAmount]
+		) VALUES (
+			@WorkAccountId -- WorkAccountId -- bigint
+			, @CommissionsAdjustmentID -- varchar(20)
+			, @CommissionAdjustmentAmount -- money
+		);
+	END
+
+	/** Move to the next record. */	
+	FETCH NEXT FROM WorkAccountCursor INTO
+		@WorkAccountId
+		, @AccountID
+		, @SalesRepID;
+END
+
+CLOSE WorkAccountCursor;
+DEALLOCATE WorkAccountCursor;
+
+
+IF (@DEBUG_MODE = 'ON')
+BEGIN
+	SELECT * FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID);
+	SELECT * FROM [dbo].[SC_workAccountAdjustments] WHERE (WorkAccountId IN (SELECT WorkAccountID FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID)));
+END

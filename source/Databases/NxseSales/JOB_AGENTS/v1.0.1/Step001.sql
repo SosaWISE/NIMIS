@@ -29,7 +29,12 @@ SELECT TOP 1
 FROM
 	NXSE_Sales.dbo.SC_CommissionPeriods 
 ORDER BY
-	CommissionPeriodID DESC;
+	IsCurrent DESC
+	, CommissionPeriodID DESC;
+
+PRINT '************************************************************ START ************************************************************';
+PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR);
+PRINT '************************************************************ START ************************************************************';
 
 /********************  END HEADER ********************/
 IF (@DEBUG_MODE = 'ON')
@@ -37,8 +42,10 @@ BEGIN
 	TRUNCATE TABLE dbo.SC_WorkAccountAdjustments;
 	DBCC CHECKIDENT ('[dbo].[SC_WorkAccountAdjustments]', RESEED, 0);
 
+	DELETE dbo.SC_WorkAccounts;
+
 	DELETE dbo.SC_WorkAccountsAll;
-	DBCC CHECKIDENT ('[dbo].[SC_WorkAccounts]', RESEED, 0);
+	DBCC CHECKIDENT ('[dbo].[SC_WorkAccountsAll]', RESEED, 0);
 END
 
 /******************
@@ -62,6 +69,7 @@ INSERT dbo.SC_workAccountsAll
 	, ApprovedDate
 	, ApproverId
 	, SeasonId
+	, DealerId
 	, CreditScore
 	, CreditCustomerType
 	, ContractLength
@@ -89,6 +97,7 @@ SELECT DISTINCT
 	, MSASI.ApprovedDate
 	, MSASI.ApproverID
 	, [WISE_CRM].[dbo].fxGetSeasonIDByAccountID(MSASI.AccountID)
+	, [WISE_CRM].[dbo].fxGetDealerIDByAccountID(MSASI.AccountID)
 	, MSASI.CreditScore
 	, CASE
 			WHEN MSASI.CreditScore >= 700 THEN 'EXCELLENT'
@@ -194,7 +203,7 @@ WHERE
 
 	---- PAPERWORK APPROVED
 	----AND (MSASI.AMASignDate < @CommissionPeriodEndDate)
-	--AND (MSASI.AMASignDate IS NOT NULL)
+	--AND (MSASI.ApprovedDate IS NOT NULL)
 
 	---- PAST THE 3 DAY CANCELLATION PERIOD
 	----AND (MSASI.NOCDateCalculated <= GETUTCDATE())
