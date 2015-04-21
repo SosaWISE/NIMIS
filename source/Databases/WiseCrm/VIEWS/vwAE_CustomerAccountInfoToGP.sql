@@ -138,7 +138,9 @@ AS
 			(QL.LeadID = AEC.LeadId)
 GO
 /* TEST 
-SELECT * FROM [dbo].[vwAE_CustomerAccountInfoToGP] WHERE CUSTOMERMASTERFILEID = 3091526
-WHERE INSTALLDATE BETWEEN '1/1/15' AND '3/31/15'
-WHERE [Transaction ID] IS NOT NULL ORDER BY CustomerMasterFileID DESC;
+DECLARE @AccountID BIGINT = 191186;
+SELECT CustomerMasterFileId, AccountID, TotalPoints FROM [dbo].[vwAE_CustomerAccountInfoToGP] WHERE AccountID = @AccountID;
+--WHERE CUSTOMERMASTERFILEID = 3091526
+--WHERE INSTALLDATE BETWEEN '1/1/15' AND '3/31/15'
+--WHERE [Transaction ID] IS NOT NULL ORDER BY CustomerMasterFileID DESC;
 */

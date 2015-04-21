@@ -18,9 +18,11 @@ GO
 DECLARE @CommissionPeriodID BIGINT
 	, @CommissionPeriodStrDate DATETIME
 	, @CommissionPeriodEndDate DATETIME
-	, @DEBUG_MODE VARCHAR(20) = 'OFF';
+	, @DEBUG_MODE VARCHAR(20) = 'OFF'
+	, @TRUNCATE VARCHAR(20) = 'OFF';
 
 SELECT @DEBUG_MODE = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE (GlobalPropertyID = 'DEBUG_MODE');
+SELECT @TRUNCATE   = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE (GlobalPropertyID = 'TRUNCATE');
 
 SELECT TOP 1
 	@CommissionPeriodID = CommissionPeriodID
@@ -37,16 +39,15 @@ PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | St
 PRINT '************************************************************ START ************************************************************';
 
 /********************  END HEADER ********************/
-IF (@DEBUG_MODE = 'ON')
+IF (@TRUNCATE = 'ON')
 BEGIN
-	PRINT 'NO TRUNCATING'
-	--TRUNCATE TABLE dbo.SC_WorkAccountAdjustments;
-	--DBCC CHECKIDENT ('[dbo].[SC_WorkAccountAdjustments]', RESEED, 0);
+	TRUNCATE TABLE dbo.SC_WorkAccountAdjustments;
+	DBCC CHECKIDENT ('[dbo].[SC_WorkAccountAdjustments]', RESEED, 0);
 
-	--DELETE dbo.SC_WorkAccounts;
+	DELETE dbo.SC_WorkAccounts;
 
-	--DELETE dbo.SC_WorkAccountsAll;
-	--DBCC CHECKIDENT ('[dbo].[SC_WorkAccountsAll]', RESEED, 0);
+	DELETE dbo.SC_WorkAccountsAll;
+	DBCC CHECKIDENT ('[dbo].[SC_WorkAccountsAll]', RESEED, 0);
 END
 
 /******************
@@ -251,3 +252,4 @@ BEGIN
 	ORDER BY
 		SCWA.InstallDate;
 END
+--SELECT TotalPoints FROM [WISE_CRM].[dbo].vwAE_CustomerAccountInfoToGP WHERE AccountID = 191168
