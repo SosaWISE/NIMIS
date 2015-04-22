@@ -24,7 +24,7 @@ Version:10.4.8.62-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>04/21/2015 11:17:40</LastCompared>
+  <LastCompared>04/21/2015 18:52:36</LastCompared>
   <Options>Default, ObjectExistenceChecks, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
@@ -597,6 +597,18 @@ Version:10.4.8.62-->
     <value version="1" type="SelectTableEvent">
       <action>SelectItem</action>
       <val>[dbo].[SC_CommissionsAdjustments]:[dbo].[SC_CommissionsAdjustments]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[SC_CommissionEngines]:[dbo].[SC_CommissionEngines]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[SC_CommissionContracts]:[dbo].[SC_CommissionContracts]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[SC_CommissionPeriods]:[dbo].[SC_CommissionPeriods]</val>
     </value>
   </TableActions>
   <SessionSettings>15</SessionSettings>

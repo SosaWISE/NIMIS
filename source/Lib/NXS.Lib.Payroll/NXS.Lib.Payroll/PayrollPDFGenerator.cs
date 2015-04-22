@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NXS.Lib.Payroll
 {
-    public class Class1
+    public class PayrollPDFGenerator
     {
     }
 }

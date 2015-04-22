@@ -96,6 +96,16 @@ BEGIN
 			, @CommissionsAdjustmentID -- varchar(20)
 			, @CommissionAdjustmentAmount -- money
 		);
+
+		INSERT INTO [dbo].[SC_WorkAccountSigningBonuses] (
+			[WorkAccountID]
+			, [CommissionPeriodId]
+			, [AccountID]
+		) VALUES (
+			@WorkAccountId -- bigint
+			, @CommissionPeriodId -- int
+			, @AccountID -- bigint
+        );
 	END
 
 	/** Move to the next record. */	

@@ -11,29 +11,34 @@ USE NXSE_Sales
 GO
 
 DECLARE @CommissionPeriodID BIGINT
+	, @CommissionEngineID VARCHAR(10) = 'SCv2.0'
 	, @CommissionPeriodStrDate DATETIME
 	, @CommissionPeriodEndDate DATETIME
-	, @DEBUG_MODE VARCHAR(20) = 'OFF';
+	, @DEBUG_MODE VARCHAR(20) = 'OFF'
+	, @TRUNCATE VARCHAR(20) = 'OFF';
 
 SELECT @DEBUG_MODE = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE (GlobalPropertyID = 'DEBUG_MODE');
+SELECT @TRUNCATE   = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE (GlobalPropertyID = 'TRUNCATE');
 
 SELECT TOP 1
 	@CommissionPeriodID = CommissionPeriodID
 	, @CommissionPeriodEndDate = CommissionPeriodEndDate
 	, @CommissionPeriodStrDate = DATEADD(d, -7, CommissionPeriodEndDate)
 FROM
-	NXSE_Sales.dbo.SC_CommissionPeriods 
+	NXSE_Sales.dbo.SC_CommissionPeriods
+WHERE
+	(CommissionEngineID = @CommissionEngineID)
 ORDER BY
 	IsCurrent DESC
 	, CommissionPeriodID DESC;
 
-DECLARE @CommissionsAdjustmentID VARCHAR(20)
-	, @CommissionAdjustmentAmount MONEY;
-
 PRINT '************************************************************ START ************************************************************';
-PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR);
+PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
 PRINT '************************************************************ START ************************************************************';
 /********************  END HEADER ********************/
+/** Local Declarations */
+DECLARE @CommissionsAdjustmentID VARCHAR(20)
+	, @CommissionAdjustmentAmount MONEY;
 
 PRINT '/*************************';
 PRINT '***  AGREEMENT LENGTH  ***';
@@ -143,15 +148,22 @@ BEGIN
 	PRINT '/*******************************';
 	PRINT '***	CUSTOMER UPGRADE BONUSES ***';
 	PRINT '*******************************/';
-	SET @CommissionsAdjustmentID = 'EQUIPUPGRADE';
-	INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionsAdjustmentID, AdjustmentAmount) 
-	SELECT
-		@WorkAccountID
-		, @commissionsAdjustmentId
-		, RBUG.BonusUpgrade --  AS [Bonus Upgrade]
-	FROM
-		dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId(@AccountID) AS RBUG;
-	
+
+	-- Check to see if there is a Equipment Upgrade
+	IF (EXISTS(SELECT * FROM dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId(@AccountID)))
+	BEGIN
+		SET @CommissionsAdjustmentID = 'EQUIPUPGRADE';
+		INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionsAdjustmentID, AdjustmentAmount) 
+		SELECT
+			@WorkAccountID
+			, @commissionsAdjustmentId
+			, RBUG.BonusUpgrade --  AS [Bonus Upgrade]
+		FROM
+			dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId(@AccountID) AS RBUG
+		WHERE
+			(RBUG.BonusUpgrade IS NOT NULL);
+	END
+		
 	PRINT '/*******************************';
 	PRINT '***	LOWERED RMR WITHIN RANGE ***';
 	PRINT '*******************************/';
@@ -164,10 +176,12 @@ BEGIN
 	)
 	SELECT
 		@WorkAccountID
-		, @commissionsAdjustmentId
+		, RMRI.CommissionsAdjustmentID
 		, RMRI.[AdjustmentAmount]
 	FROM
-		[WISE_CRM].[dbo].fxSCv2_0GetRMRInformationByAccountID(@AccountID) AS RMRI;
+		[WISE_CRM].[dbo].fxSCv2_0GetRMRInformationByAccountID(@AccountID) AS RMRI
+	WHERE
+		(RMRI.CommissionsAdjustmentID <> 'NONE');
 
 	/** Get Next Account */
 	FETCH NEXT FROM workAccountCursor INTO @WorkAccountID, @AccountID;

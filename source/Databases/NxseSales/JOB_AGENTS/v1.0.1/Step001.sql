@@ -16,6 +16,7 @@ USE NXSE_Sales
 GO
 
 DECLARE @CommissionPeriodID BIGINT
+	, @CommissionEngineID VARCHAR(10) = 'SCv2.0'
 	, @CommissionPeriodStrDate DATETIME
 	, @CommissionPeriodEndDate DATETIME
 	, @DEBUG_MODE VARCHAR(20) = 'OFF'
@@ -29,23 +30,22 @@ SELECT TOP 1
 	, @CommissionPeriodEndDate = CommissionPeriodEndDate
 	, @CommissionPeriodStrDate = DATEADD(d, -7, CommissionPeriodEndDate)
 FROM
-	NXSE_Sales.dbo.SC_CommissionPeriods 
+	NXSE_Sales.dbo.SC_CommissionPeriods
+WHERE
+	(CommissionEngineID = @CommissionEngineID)
 ORDER BY
 	IsCurrent DESC
 	, CommissionPeriodID DESC;
 
 PRINT '************************************************************ START ************************************************************';
-PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR);
+PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
 PRINT '************************************************************ START ************************************************************';
-
 /********************  END HEADER ********************/
 IF (@TRUNCATE = 'ON')
 BEGIN
+	TRUNCATE TABLE dbo.SC_WorkAccountSigningBonuses;
 	TRUNCATE TABLE dbo.SC_WorkAccountAdjustments;
-	DBCC CHECKIDENT ('[dbo].[SC_WorkAccountAdjustments]', RESEED, 0);
-
 	DELETE dbo.SC_WorkAccounts;
-
 	DELETE dbo.SC_WorkAccountsAll;
 	DBCC CHECKIDENT ('[dbo].[SC_WorkAccountsAll]', RESEED, 0);
 END
@@ -98,8 +98,8 @@ SELECT DISTINCT
 	, MSASI.NOCDateCalculated
 	, MSASI.ApprovedDate
 	, MSASI.ApproverID
-	, [WISE_CRM].[dbo].fxGetSeasonIDByAccountID(MSASI.AccountID)
-	, [WISE_CRM].[dbo].fxGetDealerIDByAccountID(MSASI.AccountID)
+	, MSASI.SeasonId
+	, MSASI.DealerId
 	, MSASI.CreditScore
 	, CASE
 			WHEN MSASI.CreditScore >= 700 THEN 'EXCELLENT'
@@ -125,6 +125,12 @@ FROM
 	INNER JOIN [WISE_CRM].[dbo].MC_Accounts
 	ON
 		(MSASI.AccountID = MC_Accounts.AccountID)
+
+	-- Tie SessionIDs or Contracts
+	INNER JOIN [dbo].fxSCV2_0GetSessionIdByPeriodId(@CommissionPeriodID) AS CNTENG
+	ON
+		(MSASI.SeasonId = CNTENG.SeasonId)
+		AND (MSASI.DealerId = CNTENG.DealerId)
 
 	-- ACCOUNTS ALREADY PAID
 	LEFT JOIN NXSE_SALES.dbo.SC_AccountCommissionHistory
@@ -188,8 +194,8 @@ FROM
 			INNER JOIN [WISE_CRM].[dbo].[QL_Leads] AS QL WITH (NOLOCK)
 			ON
 				(QL.LeadID = AECA.LeadId)
-		WHERE
-			AECA.AccountId IN (191189,191186,191206,191205,191207,191209,191210)
+		--WHERE
+		--	AECA.AccountId IN (191189,191186,191206,191205,191207,191209,191210)
 		GROUP BY
 			AECA.AccountId
 		) AS QL
@@ -198,6 +204,9 @@ FROM
 WHERE 
 	-- INSTALLED
 	(MSASI.InstallDate BETWEEN @CommissionPeriodStrDate AND @CommissionPeriodEndDate)
+
+	-- Right SessionID
+
 
 	---- HOMEOWNER
 	--AND (MSASI.IsOwner = 'TRUE')

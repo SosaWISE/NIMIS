@@ -60,6 +60,8 @@ AS
 		, CPKG.ItemDesc AS [CellServicePackage]
 		, MSA.CellularTypeId
 		, CTY.CellularTypeName
+		, [dbo].fxGetSeasonIDByAccountID(MSA.AccountID) AS [SeasonId]
+		, [dbo].fxGetDealerIDByAccountID(MSA.AccountID) AS [DealerId]
 		, [dbo].fxMsAccountCellUnitTypeGet(MSA.CellPackageItemId) AS [CellularVendor]
 		, [dbo].fxMsAccountSetupFeeGet(MSA.AccountID, 0) AS [SetupFee]
 		, [dbo].fxMsAccountSetupFeeGet(MSA.AccountID, 1) AS [SetupFee1stMonth]

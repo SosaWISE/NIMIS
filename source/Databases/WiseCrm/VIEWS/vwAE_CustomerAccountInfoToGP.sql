@@ -49,6 +49,8 @@ AS
 		MCA.CustomerMasterFileId AS [CustomerMasterFileID]
 		, MCA.AccountID AS [AccountID]
 		, AEC.CustomerId AS [PrimaryCustomerID]
+		, MSASI.SeasonId
+		, MSASI.DealerId
 		, AEC.FirstName + ' ' + AEC.LastName AS [PrimaryCustomerName]
 		, AEC2.CustomerID AS [SecondaryCustomerID]
 		, CASE

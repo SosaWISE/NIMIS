@@ -14,31 +14,34 @@ Additional Qualifications are as follows:
 1. Poor or Unapproved Credit Customers must pay a $299 activation fee
 2. Sub Credit Customers must pay a $199 activation fee
 ************************/
-
 USE NXSE_Sales
 GO
 
 DECLARE @CommissionPeriodID BIGINT
+	, @CommissionEngineID VARCHAR(10) = 'SCv2.0'
 	, @CommissionPeriodStrDate DATETIME
 	, @CommissionPeriodEndDate DATETIME
-	, @DEBUG_MODE VARCHAR(20) = 'OFF';
+	, @DEBUG_MODE VARCHAR(20) = 'OFF'
+	, @TRUNCATE VARCHAR(20) = 'OFF';
 
 SELECT @DEBUG_MODE = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE (GlobalPropertyID = 'DEBUG_MODE');
+SELECT @TRUNCATE   = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE (GlobalPropertyID = 'TRUNCATE');
 
 SELECT TOP 1
 	@CommissionPeriodID = CommissionPeriodID
 	, @CommissionPeriodEndDate = CommissionPeriodEndDate
 	, @CommissionPeriodStrDate = DATEADD(d, -7, CommissionPeriodEndDate)
 FROM
-	NXSE_Sales.dbo.SC_CommissionPeriods 
+	NXSE_Sales.dbo.SC_CommissionPeriods
+WHERE
+	(CommissionEngineID = @CommissionEngineID)
 ORDER BY
 	IsCurrent DESC
 	, CommissionPeriodID DESC;
 
 PRINT '************************************************************ START ************************************************************';
-PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR);
+PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
 PRINT '************************************************************ START ************************************************************';
-
 /********************  END HEADER ********************/
 
 --SELECT * FROM SC_WorkAccountsAll
