@@ -44,7 +44,8 @@ PRINT '************************************************************ START ******
 IF (@TRUNCATE = 'ON')
 BEGIN
 	TRUNCATE TABLE dbo.SC_WorkAccountSigningBonuses;
-	TRUNCATE TABLE dbo.SC_WorkAccountAdjustments;
+	DELETE dbo.SC_WorkAccountAdjustments;
+	DBCC CHECKIDENT('dbo.SC_WorkAccountAdjustments', RESEED, 0);
 	DELETE dbo.SC_WorkAccounts;
 	DELETE dbo.SC_WorkAccountsAll;
 	DBCC CHECKIDENT ('[dbo].[SC_WorkAccountsAll]', RESEED, 0);

@@ -45,7 +45,8 @@ DECLARE WorkAccountCursor CURSOR FOR SELECT WorkAccountID, AccountId, SalesRepID
 DECLARE @SalesRepID VARCHAR(50)
 	, @WorkAccountId BIGINT
 	, @NumThisWeek INT
-	, @AccountID BIGINT;
+	, @AccountID BIGINT
+	, @WorkAccountAdjustmentId BIGINT;
 
 OPEN WorkAccountCursor;
 FETCH NEXT FROM WorkAccountCursor INTO
@@ -96,13 +97,16 @@ BEGIN
 			, @CommissionsAdjustmentID -- varchar(20)
 			, @CommissionAdjustmentAmount -- money
 		);
+		SET @WorkAccountAdjustmentId = SCOPE_IDENTITY();
 
 		INSERT INTO [dbo].[SC_WorkAccountSigningBonuses] (
 			[WorkAccountID]
+			, [WorkAccountAdjustmentId]
 			, [CommissionPeriodId]
 			, [AccountID]
 		) VALUES (
 			@WorkAccountId -- bigint
+			, @WorkAccountAdjustmentId
 			, @CommissionPeriodId -- int
 			, @AccountID -- bigint
         );
