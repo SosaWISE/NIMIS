@@ -11,7 +11,7 @@ namespace WebModules.Crm.ContractAdmin
 		public TypesModule()
 			: base("/Ms/Types")
 		{
-			this.RequiresPermission(applicationID: AuthApplications.AdminID, actionID: AuthActions.CRM_ByPassCredit_RepExceptionID);
+			this.RequiresPermission(applicationID: null, actionID: null);
 
 			Get["/FriendsAndFamily", true] = async (x, ct) =>
 			{

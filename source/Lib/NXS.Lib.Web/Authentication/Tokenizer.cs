@@ -103,8 +103,17 @@ namespace NXS.Lib.Web.Authentication
 				return null;
 			}
 
-			var messagebytes = Convert.FromBase64String(tokenComponents[0]);
-			var hash = Convert.FromBase64String(tokenComponents[1]);
+			byte[] messagebytes;
+			byte[] hash;
+			try
+			{
+				messagebytes = Convert.FromBase64String(tokenComponents[0]);
+				hash = Convert.FromBase64String(tokenComponents[1]);
+			}
+			catch
+			{
+				return null;
+			}
 
 			if (!this.validator.IsValid(messagebytes, hash))
 			{
