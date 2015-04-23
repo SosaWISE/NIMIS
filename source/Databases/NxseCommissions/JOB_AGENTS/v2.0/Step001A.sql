@@ -59,7 +59,7 @@ PRINT '************************************************************ START ******
 ***	Customer is Not the Owner ***
 ********************************/
 UPDATE SCWAA SET 
-	HasHolds = 'TRUE'
+	NotOwner = 'TRUE'
 FROM 
 	[dbo].[SC_WorkAccountsAll] AS SCWAA WITH (NOLOCK)
 	INNER JOIN [WISE_CRM].[dbo].vwAE_CustomerAccountInfoToGP AS MSASI WITH (NOLOCK)
@@ -134,13 +134,10 @@ FROM
 	(hold_qry.AccountId = SCWAA.AccountID)
 WHERE
 	(SCWAA.CommissionPeriodId = @CommissionPeriodID);
---LOGIC FOR THE WHERE NEEDS TO BE WORKED ON
--- THERE ARE CURRENTLY 2 HOLDS ON 1 OF THE ACCOUNTS IN SC_WorkAccountsAll
 
 /*****************************************
 ***	ContractLength less than 36 Months ***
 *****************************************/
-
 UPDATE SC_WorkAccountsAll SET
 	ContractLengthLess36 = 'TRUE'
 WHERE 
@@ -150,7 +147,6 @@ WHERE
 /*******************************************
 ***	Payment Information Is not CC or ACH ***
 *******************************************/
-
 UPDATE SC_WorkAccountsAll SET
 	NoneCcOrAch = 'TRUE'
 WHERE
@@ -179,7 +175,6 @@ UPDATE SC_WorkAccountsAll SET
 WHERE
 	(CommissionPeriodId = @CommissionPeriodID)
 	AND (CreditCustomerType IN ('UNAPPROVED', 'SUB'));
-
 
 /*******************
 ***	Ignore Rules ***
