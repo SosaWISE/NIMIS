@@ -49,6 +49,7 @@ AS
 		MCA.CustomerMasterFileId AS [CustomerMasterFileID]
 		, MCA.AccountID AS [AccountID]
 		, AEC.CustomerId AS [PrimaryCustomerID]
+		, MSASI.AccountPayoutTypeId
 		, MSASI.SeasonId
 		, MSASI.DealerId
 		, AEC.FirstName + ' ' + AEC.LastName AS [PrimaryCustomerName]

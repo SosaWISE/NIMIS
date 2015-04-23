@@ -1,0 +1,4 @@
+/*
+There is a prorated scale on cancellations
+Determine the amount of time between install and cancellation and use the scale to determine the amount to deduct
+*/

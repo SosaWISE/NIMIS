@@ -59,6 +59,7 @@ AS
 		, MSAP.AccountPackageName
 		, CPKG.ItemDesc AS [CellServicePackage]
 		, MSA.CellularTypeId
+		, MSI.AccountPayoutTypeId
 		, CTY.CellularTypeName
 		, [dbo].fxGetSeasonIDByAccountID(MSA.AccountID) AS [SeasonId]
 		, [dbo].fxGetDealerIDByAccountID(MSA.AccountID) AS [DealerId]

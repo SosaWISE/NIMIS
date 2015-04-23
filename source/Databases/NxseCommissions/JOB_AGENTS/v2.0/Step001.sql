@@ -12,7 +12,7 @@
 *	
 *	Employee and Friends and Family accounts - must be done at full-price for a Nexsense package to be commissioned
 */
-USE [NXSE_Sales]
+USE [NXSE_Commissions]
 GO
 
 DECLARE @CommissionPeriodID BIGINT
@@ -22,20 +22,16 @@ DECLARE @CommissionPeriodID BIGINT
 	, @DEBUG_MODE VARCHAR(20) = 'OFF'
 	, @TRUNCATE VARCHAR(20) = 'OFF';
 
-SELECT @DEBUG_MODE = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE (GlobalPropertyID = 'DEBUG_MODE');
-SELECT @TRUNCATE   = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE (GlobalPropertyID = 'TRUNCATE');
 
 SELECT TOP 1
 	@CommissionPeriodID = CommissionPeriodID
+	, @CommissionEngineID = CommissionEngineID
+	, @CommissionPeriodStrDate = CommissionPeriodStrDate
 	, @CommissionPeriodEndDate = CommissionPeriodEndDate
-	, @CommissionPeriodStrDate = DATEADD(d, -7, CommissionPeriodEndDate)
+	, @DEBUG_MODE = DEBUG_MODE
+	, @TRUNCATE = [TRUNCATE]
 FROM
-	NXSE_Sales.dbo.SC_CommissionPeriods
-WHERE
-	(CommissionEngineID = @CommissionEngineID)
-ORDER BY
-	IsCurrent DESC
-	, CommissionPeriodID DESC;
+	[dbo].fxSCV2_0GetScriptHeaderInfo() AS PROP;
 
 PRINT '************************************************************ START ************************************************************';
 PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
@@ -134,7 +130,7 @@ FROM
 		AND (MSASI.DealerId = CNTENG.DealerId)
 
 	-- ACCOUNTS ALREADY PAID
-	LEFT JOIN NXSE_SALES.dbo.SC_AccountCommissionHistory
+	LEFT JOIN [NXSE_Commissions].dbo.SC_AccountCommissionHistory
 	ON
 		(MSASI.AccountID = SC_AccountCommissionHistory.AccountID)
 

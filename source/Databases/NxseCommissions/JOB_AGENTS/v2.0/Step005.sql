@@ -3,34 +3,33 @@ Bonuses get applied for:
 	Increasing the RMR and staying within the range
 	Selling equipment to the customer
 */
-USE [NXSE_Sales]
+USE [NXSE_Commissions]
 GO
 
 DECLARE @CommissionPeriodID BIGINT
+	, @CommissionEngineID VARCHAR(10) = 'SCv2.0'
 	, @CommissionPeriodStrDate DATETIME
 	, @CommissionPeriodEndDate DATETIME
-	, @DEBUG_MODE VARCHAR(20) = 'OFF';
+	, @DEBUG_MODE VARCHAR(20) = 'OFF'
+	, @TRUNCATE VARCHAR(20) = 'OFF';
 
-SELECT @DEBUG_MODE = GlobalPropertyValue FROM [dbo].[SC_GlobalProperties] WHERE (GlobalPropertyID = 'DEBUG_MODE');
 
 SELECT TOP 1
 	@CommissionPeriodID = CommissionPeriodID
+	, @CommissionEngineID = CommissionEngineID
+	, @CommissionPeriodStrDate = CommissionPeriodStrDate
 	, @CommissionPeriodEndDate = CommissionPeriodEndDate
-	, @CommissionPeriodStrDate = DATEADD(d, -7, CommissionPeriodEndDate)
+	, @DEBUG_MODE = DEBUG_MODE
+	, @TRUNCATE = [TRUNCATE]
 FROM
-	NXSE_Sales.dbo.SC_CommissionPeriods 
-ORDER BY
-	IsCurrent DESC
-	, CommissionPeriodID DESC;
-
-DECLARE @CommissionsAdjustmentID VARCHAR(20)
-	, @CommissionAdjustmentAmount MONEY;
+	[dbo].fxSCV2_0GetScriptHeaderInfo() AS PROP;
 
 PRINT '************************************************************ START ************************************************************';
-PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR);
+PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
 PRINT '************************************************************ START ************************************************************';
 /********************  END HEADER ********************/
-
+DECLARE @CommissionsAdjustmentID VARCHAR(20)
+	, @CommissionAdjustmentAmount MONEY;
 
 /********************************
 ***	Adjustment for Package    ***
@@ -86,7 +85,7 @@ BEGIN
 	IF (@SigningBonusCount < 3)
 	BEGIN
 		SET @CommissionsAdjustmentID = 'SIGNINGBONUS';
-		SELECT @CommissionAdjustmentAmount = CommissionAdjustmentAmount FROM [dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+		SELECT @CommissionAdjustmentAmount = CommissionAdjustmentAmount FROM [dbo].[SC_CommissionAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
 
 		INSERT INTO [dbo].[SC_WorkAccountAdjustments] (
 			[WorkAccountId]

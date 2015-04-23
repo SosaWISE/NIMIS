@@ -1,7 +1,7 @@
 USE [NXSE_Sales]
 GO
 
-DECLARE @CommPeriodID INT = 2;
+DECLARE @CommPeriodID INT = 1;
 
 SELECT
 	*
