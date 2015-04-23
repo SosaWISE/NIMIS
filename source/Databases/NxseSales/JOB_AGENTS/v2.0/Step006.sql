@@ -48,25 +48,18 @@ BEGIN
 
 	/** Check to see if the Commission has been paid. */
 	DECLARE @RecSalesRepID VARCHAR(25) = NULL;
-	SELECT TOP 1 @RecSalesRepID = GPEmployeeID FROM [WISE_HumanResource].[dbo].fxRU_UsersGetRecruitsBySalesRepID(@SalesRepID);
-	PRINT 'SalesRepID: ' + @SalesRepID;
-	SELECT
-		SCWAA.WorkAccountAdjustmentID
-		, SWCA.WorkAccountID
-		, SWCA.AccountID
-		, SWCA.SalesRepId
-		, ROW_NUMBER() OVER (PARTITION BY SWCA.WorkAccountID, SWCA.AccountID, SWCA.SalesRepId ORDER BY SWCA.WorkAccountID) AS [RowCount]
+	SELECT 
+		@RecSalesRepID = RU1.GPEmployeeID 
 	FROM
-		[dbo].[SC_WorkAccountAdjustments] AS SCWAA WITH (NOLOCK)
-		INNER JOIN [dbo].[SC_WorkAccounts] AS SWCA WITH (NOLOCK)
+		[WISE_HumanResource].[dbo].RU_Users AS RU WITH (NOLOCK)
+		INNER JOIN [WISE_HumanResource].[dbo].RU_Users AS RU1 WITH (NOLOCK)
 		ON
-			(SWCA.WorkAccountID = SCWAA.WorkAccountId)
-			AND (SCWAA.CommissionsAdjustmentId = 'ACCTRATESCALEPAY')
-		INNER JOIN [WISE_HumanResource].[dbo].fxRU_UsersGetRecruitsBySalesRepID(@SalesRepID) AS RRR
-		ON
-			(SWCA.SalesRepId = RRR.GPEmployeeId)
-	ORDER BY
-		SCWAA.WorkAccountAdjustmentID;
+			(RU1.UserID = RU.RecruitedById)
+	WHERE
+		(RU.GPEmployeeId = @SalesRepID);
+	PRINT 'SalesRepID: ' + @SalesRepID + ' | Recruited By: ' + @RecSalesRepID;
+	/** Assign recruiting bonus to RecSalesRepID*/
+
 
 	/******Get Next */
 	FETCH NEXT FROM workAccountCur INTO
