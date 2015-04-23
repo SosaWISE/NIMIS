@@ -36,22 +36,23 @@ namespace SSE.Services.CmsCORS.Controllers
 		{
 			public string Token { get; set; }
 			public string Username { get; set; }
-			public byte[] SessionNum { get; set; }
-			public string SessionKey { get; set; }
+			public byte[] AuthNum { get; set; }
+			public string AuthKey { get; set; }
 		}
 		[HttpGet, Route("SessionData")]
 		public Result<SessData> SessionData()
 		{
 			var result = new Result<SessData>();
 			string token, username;
-			byte[] sessionNum;
-			HttpContext.Current.GetSessionData(_tokenConfig.Tokenizer, out token, out username, out sessionNum);
+			AuthInformation authInfo;
+			if (!HttpContext.Current.GetSessionData(_tokenConfig.Tokenizer, out token, out username, out authInfo))
+				return result;
 			result.Value = new SessData
 			{
 				Token = token,
 				Username = username,
-				SessionNum = sessionNum,
-				SessionKey = sessionNum == null ? null : _authService.SessionNumToKey(sessionNum),
+				AuthNum = authInfo.AuthNum,
+				AuthKey = authInfo.AuthNum == null ? null : SystemUserIdentity.AuthNumToKey(authInfo.AuthNum),
 			};
 			return result;
 		}
@@ -87,13 +88,18 @@ namespace SSE.Services.CmsCORS.Controllers
 		public Result<AuthResult> UserAuth(Credentials credentials)
 		{
 			var result = new Result<AuthResult>();
+			if (credentials == null)
+			{
+				result.Code = -1;
+				result.Message = "Invalid credentials";
+				return result;
+			}
 			var authResult = _authService.Authenticate(credentials.Username, credentials.Password, IPAddressUtil.ClientIPAddress());
 			if (authResult.Success)
 			{
 				var identity = authResult.Value;
 				result.Value = new AuthResult() { User = _authService.ToUserModel(identity), };
-				identity.UseSessionNumAsClaims = true;
-				result.Value.Token = _tokenConfig.Tokenizer.Tokenize(identity, null);
+				result.Value.Token = _tokenConfig.Tokenizer.Tokenize(identity.ToTokenIdentity(), null);
 			}
 			else
 			{
@@ -110,10 +116,14 @@ namespace SSE.Services.CmsCORS.Controllers
 			try
 			{
 				string token, username;
-				byte[] sessionNum;
-				HttpContext.Current.GetSessionData(_tokenConfig.Tokenizer, out token, out username, out sessionNum);
-				_authService.EndSession(sessionNum);
-				result.Value = true;
+				AuthInformation authInfo;
+				if (!HttpContext.Current.GetSessionData(_tokenConfig.Tokenizer, out token, out username, out authInfo))
+					return result;
+				if (authInfo.AuthType == SystemUserIdentity.AuthTypes.Session)
+				{
+					_authService.EndSession(authInfo.AuthNum);
+					result.Value = true;
+				}
 			}
 			catch (Exception ex)
 			{

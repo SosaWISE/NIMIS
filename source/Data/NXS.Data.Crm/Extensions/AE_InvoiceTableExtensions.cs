@@ -45,7 +45,7 @@ namespace NXS.Data.Crm
 				.And(tbl.InvoiceTypeId, Comparison.Equals, invoiceTypeId);
 			return tbl.LoadOneFull(sql);
 		}
-		public static async Task<AE_Invoice> CreateInvoice(this ARTable tbl, long accountId, string invoiceTypeId, string gpEmployeeId)
+		public static async Task<AE_Invoice> CreateInvoiceAsync(this ARTable tbl, long accountId, string invoiceTypeId, string gpEmployeeId)
 		{
 			var item = new AE_Invoice();
 			item.AccountId = accountId;

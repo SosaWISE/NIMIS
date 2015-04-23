@@ -5,6 +5,8 @@ namespace WebModules.Crm.Ms
 {
 	public class PackagesModule : BaseModule
 	{
+		PackagesService Srv { get { return new PackagesService(this.User.GPEmployeeID); } }
+
 		public PackagesModule()
 			: base("/Ms/Packages")
 		{
@@ -12,8 +14,7 @@ namespace WebModules.Crm.Ms
 
 			Get["/", true] = async (x, ct) =>
 			{
-				var srv = new PackagesService(this.User.GPEmployeeID);
-				return await srv.Packages().ConfigureAwait(false);
+				return await Srv.Packages().ConfigureAwait(false);
 			};
 		}
 	}

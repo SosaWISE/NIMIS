@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\ActionRequestStore.cs" />
     <Compile Include="Authentication\HttpContextExtensions.cs" />
     <Compile Include="Authentication\IFarmTokenKeyStore.cs">
       <SubType>Code</SubType>

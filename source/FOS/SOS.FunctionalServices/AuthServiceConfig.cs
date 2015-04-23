@@ -9,6 +9,7 @@ using SOS.Lib.Util.ActiveDirectory;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using SOS.Lib.Core;
 
 namespace SOS.FunctionalServices
 {
@@ -88,37 +89,42 @@ namespace SOS.FunctionalServices
 				var userStore = CreateUserStore(mockADGroups);
 				functionalServices.Register(() => userStore);
 
+				// ActionRequest Store
+				var arStore = CreateActionRequestStore(maxAge);
+				functionalServices.Register(() => arStore);
+
 				//
-				var configuration = new TokenAuthenticationConfiguration(CreateTokenizer(), new SystemUserIdentityResolver(sessionStore, userStore));
+				var keyStore = CreateKeyStore();
+				var configuration = new TokenAuthenticationConfiguration(CreateAuthTokenizer(keyStore), new SystemUserIdentityResolver(sessionStore, userStore, arStore));
 				functionalServices.Register(() => configuration);
 			}
 			{ // Auth Service
-				var groupApps = new Dictionary<string, HashSet<string>>();
+				var groupApps = new StringInsensitiveDictionary<StringInsensitiveHashSet>();
 				foreach (var item in SosAuthControlDataContext.Instance.AC_GroupApplications.LoadAll())
 				{
 					if (!item.IsActive || item.IsDeleted) continue;
-					HashSet<string> hset;
-					var key = item.GroupName.ToLower();
-					if (!groupApps.TryGetValue(key, out hset))
+					StringInsensitiveHashSet hash;
+					var key = item.GroupName;
+					if (!groupApps.TryGetValue(key, out hash))
 					{
-						hset = new HashSet<string>();
-						groupApps.Add(key, hset);
+						hash = new StringInsensitiveHashSet();
+						groupApps.Add(key, hash);
 					}
-					hset.Add(item.ApplicationId.ToLower());
+					hash.Add(item.ApplicationId);
 				}
 
-				var groupActions = new Dictionary<string, HashSet<string>>();
+				var groupActions = new StringInsensitiveDictionary<StringInsensitiveHashSet>();
 				foreach (var item in SosAuthControlDataContext.Instance.AC_GroupActions.LoadAll())
 				{
 					if (!item.IsActive || item.IsDeleted) continue;
-					HashSet<string> hset;
-					var key = item.GroupName.ToLower();
-					if (!groupActions.TryGetValue(key, out hset))
+					StringInsensitiveHashSet hash;
+					var key = item.GroupName;
+					if (!groupActions.TryGetValue(key, out hash))
 					{
-						hset = new HashSet<string>();
-						groupActions.Add(key, hset);
+						hash = new StringInsensitiveHashSet();
+						groupActions.Add(key, hash);
 					}
-					hset.Add(item.ActionId.ToLower());
+					hash.Add(item.ActionId);
 				}
 
 				var authService = new AuthService(
@@ -230,6 +236,26 @@ namespace SOS.FunctionalServices
 			);
 		}
 
+		static ActionRequestStore CreateActionRequestStore(TimeSpan maxAge)
+		{
+			return new ActionRequestStore(
+				use: (actionKey, gpEmployeeId) =>
+				{
+					var arService = new NXS.DataServices.AuthenticationControl.ActionRequestsService(gpEmployeeId);
+					var result = arService.Use(actionKey);
+					if (result == null)
+						return default(ActionRequest);
+
+					var ar = new ActionRequest();
+					ar.UserId = result.UserId;
+					ar.Username = result.Username;
+					ar.ApplicationId = result.ApplicationId;
+					ar.ActionId = result.ActionId;
+					return ar;
+				}
+			);
+		}
+
 		private static List<string> GetGroupsForUser(string username, bool mockADGroups)
 		{
 			if (!mockADGroups)
@@ -252,41 +278,45 @@ namespace SOS.FunctionalServices
 			}
 		}
 
-		private static Tokenizer CreateTokenizer()
+		private static Tokenizer CreateAuthTokenizer(IFarmTokenKeyStore keyStore)
 		{
 			var tokenizer = new Tokenizer(cfg =>
 			{
-				cfg.AdditionalItems(ctx =>
-				{
-					//@HACK: for integration with non Nancy requests
-					if (ctx == null)
-						return System.Web.HttpContext.Current.Request.Headers["User-Agent"];
-					return ctx.Request.Headers.UserAgent;
-				});
-
-				// length of time a token is valid for after its generating key has expired.
-				cfg.TokenExpiration(() => TimeSpan.FromHours(24));
 				// length of time a key can be used to generate new tokens
 				cfg.KeyExpiration(() => TimeSpan.FromHours(8));
+				// length of time a token is valid for after its generating key has expired.
+				cfg.TokenExpiration(() => TimeSpan.FromHours(24));
+
+				cfg.AdditionalItems(IntegratedUserAgent);
 
 				// Save keys to db
-				cfg.WithKeyCache(new PersistentKeyStore(
-					update: (DateTime purgeExpiration, DateTime validExpiration, byte[] newKey) =>
-					{
-						var kvService = new NXS.DataServices.AuthenticationControl.KeyValueService();
-						var newKeyValue = (newKey == null) ? null : SOS.Lib.Util.Cryptography.TripleDES.EncryptString(newKey, null);
-						return ConvertKeyValues(kvService.UpdateAll(purgeExpiration, validExpiration, newKeyValue));
-					},
-					read: () =>
-					{
-						var kvService = new NXS.DataServices.AuthenticationControl.KeyValueService();
-						return ConvertKeyValues(kvService.ReadAll());
-					}
-				));
+				cfg.WithKeyCache(keyStore);
 			});
 			return tokenizer;
 		}
-
+		private static string IntegratedUserAgent(Nancy.NancyContext ctx)
+		{
+			//@HACK: for integration with non Nancy requests
+			if (ctx == null)
+				return System.Web.HttpContext.Current.Request.Headers["User-Agent"];
+			return ctx.Request.Headers.UserAgent;
+		}
+		private static PersistentKeyStore CreateKeyStore()
+		{
+			return new PersistentKeyStore(
+				update: (DateTime purgeExpiration, DateTime validExpiration, byte[] newKey) =>
+				{
+					var kvService = new NXS.DataServices.AuthenticationControl.KeyValueService();
+					var newKeyValue = (newKey == null) ? null : SOS.Lib.Util.Cryptography.TripleDES.EncryptString(newKey, null);
+					return ConvertKeyValues(kvService.UpdateAll(purgeExpiration, validExpiration, newKeyValue));
+				},
+				read: () =>
+				{
+					var kvService = new NXS.DataServices.AuthenticationControl.KeyValueService();
+					return ConvertKeyValues(kvService.ReadAll());
+				}
+			);
+		}
 		private static List<KeyValue> ConvertKeyValues(List<NXS.DataServices.AuthenticationControl.Models.AcKeyValue> items)
 		{
 			var list = new List<KeyValue>();

@@ -23,7 +23,7 @@ namespace SSE.Services.CmsCORS.Controllers.Surveys
 		[HttpGet, Route("PossibleAnswers")]
 		public Result<List<SvPossibleAnswer>> Get()
 		{
-			return CORSSecurity.Authorize("Get PossibleAnswers", null, null, user =>
+			return CORSSecurity.AuthorizeAny("Get PossibleAnswers", null, null, user =>
 			{
 				var fnsResult = Service.PossibleAnswersGet(user.UserID);
 				var result = new Result<List<SvPossibleAnswer>>(fnsResult.Code, fnsResult.Message);

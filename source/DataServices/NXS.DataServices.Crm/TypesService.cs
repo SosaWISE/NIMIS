@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NXS.DataServices.Crm
 {
-	public class EnumTypesService
+	public class TypesService
 	{
 		//string _gpEmployeeId;
 		//public TypesService(string gpEmployeeId)
@@ -17,13 +17,13 @@ namespace NXS.DataServices.Crm
 		//	_gpEmployeeId = gpEmployeeId;
 		//}
 
-		public async Task<Result<List<EnumType>>> FriendsAndFamilyTypes()
+		public async Task<Result<List<MetadataType>>> FriendsAndFamilyTypes()
 		{
 			using (var db = CrmDb.Connect())
 			{
 				var tbl = db.MC_FriendsAndFamilyTypes;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
-				var result = new Result<List<EnumType>>(value: items.ConvertAll(item => EnumType.FromFriendsAndFamilyType(item)));
+				var result = new Result<List<MetadataType>>(value: items.ConvertAll(item => MetadataType.FromFriendsAndFamilyType(item)));
 				return result;
 			}
 		}

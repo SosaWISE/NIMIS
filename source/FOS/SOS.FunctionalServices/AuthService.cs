@@ -1,7 +1,9 @@
 ﻿using NXS.Lib.Web;
+using NXS.Lib.Web.Authentication;
 using NXS.Lib.Web.Caching;
 using SOS.Lib.Core;
 using SOS.Lib.Util.ActiveDirectory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,21 +22,32 @@ namespace SOS.FunctionalServices
 		public int DealerId;
 	}
 
+	public class StringInsensitiveDictionary<TValue> : Dictionary<string, TValue>
+	{
+		public StringInsensitiveDictionary() : base(StringComparer.OrdinalIgnoreCase) { }
+		public StringInsensitiveDictionary(int capacity) : base(capacity, StringComparer.OrdinalIgnoreCase) { }
+	}
+	public class StringInsensitiveHashSet : HashSet<string>
+	{
+		public StringInsensitiveHashSet() : base(StringComparer.OrdinalIgnoreCase) { }
+		public StringInsensitiveHashSet(IEnumerable<string> collection) : base(collection, StringComparer.OrdinalIgnoreCase) { }
+	}
+
 	public class AuthService
 	{
 		SessionStore _sessionStore;
 		UserStore _userStore;
 
-		Dictionary<string, HashSet<string>> _groupApps;
-		Dictionary<string, HashSet<string>> _groupActions;
-		public AuthService(Dictionary<string, HashSet<string>> groupApps, Dictionary<string, HashSet<string>> groupActions)//,
-		//SessionStore sessionStore = null, UserStore userStore = null)
+		StringInsensitiveDictionary<StringInsensitiveHashSet> _groupApps;
+		StringInsensitiveDictionary<StringInsensitiveHashSet> _groupActions;
+		public AuthService(StringInsensitiveDictionary<StringInsensitiveHashSet> groupApps, StringInsensitiveDictionary<StringInsensitiveHashSet> groupActions,
+			SessionStore sessionStore = null, UserStore userStore = null)
 		{
 			_groupApps = groupApps;
 			_groupActions = groupActions;
 
-			_sessionStore = /*sessionStore ??*/ SosServiceEngine.Instance.FunctionalServices.Instance<SessionStore>();
-			_userStore = /*userStore ??*/ SosServiceEngine.Instance.FunctionalServices.Instance<UserStore>();
+			_sessionStore = sessionStore ?? SosServiceEngine.Instance.FunctionalServices.Instance<SessionStore>();
+			_userStore = userStore ?? SosServiceEngine.Instance.FunctionalServices.Instance<UserStore>();
 		}
 
 		public Result<SystemUserIdentity> Authenticate(string username, string password, string ipAddress)
@@ -51,7 +64,7 @@ namespace SOS.FunctionalServices
 					ADHelper.IsValidLogin(username, password, ADUtility.Domain))
 				{
 					var sessionNum = _sessionStore.Create(username, ipAddress);
-					result.Value = new SystemUserIdentity(sessionNum, user);
+					result.Value = new SystemUserIdentity(SystemUserIdentity.AuthTypes.Session, sessionNum, user, null, null);
 					return result;
 				}
 			}
@@ -79,44 +92,64 @@ namespace SOS.FunctionalServices
 			};
 			if (includeLists)
 			{
-				userModel.Apps = GetApps(identity.Claims);
-				userModel.Actions = GetActions(identity.Claims);
+				userModel.Apps = GetAppsHash(identity.Claims).ToList();
+				userModel.Actions = GetActionsHash(identity.Claims).ToList();
 			}
 			return userModel;
 		}
-		// get apps the user can open
-		private List<string> GetApps(IEnumerable<string> groups)
+
+		public bool HasPermission(IEnumerable<string> applicationIDs, IEnumerable<string> actionIDs, IEnumerable<string> userGroups, IEnumerable<string> userApplications, IEnumerable<string> userActions)
 		{
-			return GetPermissions(_groupApps, groups).ToList();
+			// applicationIDs must be null or empty or in apps list
+			// and actionIDs must be null or empty or in actions lists
+			var hasApps = applicationIDs != null && applicationIDs.Count() != 0;
+			var hasActions = actionIDs != null && actionIDs.Count() != 0;
+			if (!hasApps && !hasActions)
+				return true;
+
+			StringInsensitiveHashSet hash;
+			if (hasApps)
+			{
+				hash = GetAppsHash(userGroups);
+				if (userApplications != null)
+					hash.UnionWith(userApplications);
+				if (!applicationIDs.Any(item => hash.Contains(item)))
+					return false;
+			}
+			if (hasActions)
+			{
+				hash = GetActionsHash(userGroups);
+				if (userActions != null)
+					hash.UnionWith(userActions);
+				if (!actionIDs.Any(item => hash.Contains(item)))
+					return false;
+			}
+			return true;
+		}
+		// get apps the user can open
+		private StringInsensitiveHashSet GetAppsHash(IEnumerable<string> groups)
+		{
+			return GetPermissionsHash(_groupApps, groups);
 		}
 		// get actions the user can perform
-		private List<string> GetActions(IEnumerable<string> groups)
+		private StringInsensitiveHashSet GetActionsHash(IEnumerable<string> groups)
 		{
-			return GetPermissions(_groupActions, groups).ToList();
+			return GetPermissionsHash(_groupActions, groups);
 		}
-		private static HashSet<string> GetPermissions(Dictionary<string, HashSet<string>> dict, IEnumerable<string> groups)
+		private static StringInsensitiveHashSet GetPermissionsHash(StringInsensitiveDictionary<StringInsensitiveHashSet> dict, IEnumerable<string> groups)
 		{
-			var result = new HashSet<string>();
-			if (groups != null)
-			{
-				foreach (var grp in groups)
-				{
-					HashSet<string> hset;
-					if (!dict.TryGetValue(grp.ToLower(), out hset)) continue;
+			var result = new StringInsensitiveHashSet();
+			if (groups == null)
+				return result;
 
-					foreach (var id in hset)
-					{
-						result.Add(id);
-					}
-				}
+			foreach (var grp in groups)
+			{
+				StringInsensitiveHashSet hash;
+				if (!dict.TryGetValue(grp, out hash))
+					continue;
+				result.UnionWith(hash);
 			}
 			return result;
-		}
-		public bool HasPermission(IEnumerable<string> groups, string applicationID, string actionID)
-		{
-			//@REVIEW: this could be optimized...
-			return ((applicationID == null || GetApps(groups).Contains(applicationID.ToLower())) && // applicationID must be null or in list
-					(actionID == null || GetActions(groups).Contains(actionID.ToLower()))); // actionID must be null or in list
 		}
 
 		public void EndSession(byte[] sessionNum)
@@ -124,11 +157,6 @@ namespace SOS.FunctionalServices
 			if (sessionNum == null) return;
 
 			_sessionStore.Terminate(sessionNum);
-		}
-
-		public string SessionNumToKey(byte[] sessionNum)
-		{
-			return _sessionStore.SessionNumToKey(sessionNum);
 		}
 	}
 }

@@ -5,6 +5,8 @@ namespace WebModules.Crm.ContractAdmin
 {
 	public class AccountSalesInformationExtrasModule : BaseModule
 	{
+		ContractAdminService Srv { get { return new ContractAdminService(this.User.GPEmployeeID); } }
+
 		public AccountSalesInformationExtrasModule()
 			: base("/ContractAdmin/AccountSalesInformationExtras")
 		{
@@ -12,9 +14,8 @@ namespace WebModules.Crm.ContractAdmin
 
 			Post["/{id:long}", true] = async (x, ct) =>
 			{
-				var srv = new ContractAdminService(this.User.GPEmployeeID);
 				var input = this.BindBody<MsAccountSalesInformationExtras>();
-				return await srv.SaveAccountSalesInformationExtras((long)x.id, input).ConfigureAwait(false);
+				return await Srv.SaveAccountSalesInformationExtras((long)x.id, input).ConfigureAwait(false);
 			};
 		}
 	}

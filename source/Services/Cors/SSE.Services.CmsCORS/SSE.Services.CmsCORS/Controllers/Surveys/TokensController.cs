@@ -23,7 +23,7 @@ namespace SSE.Services.CmsCORS.Controllers.Surveys
 		[HttpGet, Route("Tokens")]
 		public Result<List<SvToken>> Get()
 		{
-			return CORSSecurity.Authorize("Get Tokens", null, null, user =>
+			return CORSSecurity.AuthorizeAny("Get Tokens", null, null, user =>
 			{
 				var fnsResult = Service.TokensGet(user.UserID);
 				var result = new Result<List<SvToken>>(fnsResult.Code, fnsResult.Message);

@@ -44,7 +44,10 @@
   <ItemGroup>
     <Compile Include="Classes.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="Classes\AC_ActionRequest.cs" />
+    <Compile Include="Extensions\AC_ActionRequestTableExtensions.cs" />
     <Compile Include="Extensions\AC_KeyValueTableExtensions.cs" />
+    <Compile Include="Extensions\AC_UserTableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

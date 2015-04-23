@@ -3,6 +3,7 @@ using Nancy.Bootstrapper;
 using Nancy.Responses;
 using SOS.Lib.Core;
 using System;
+using System.Security;
 
 namespace WebModules
 {
@@ -26,11 +27,17 @@ namespace WebModules
 
 		private static Response HandleError(NancyContext context, Exception ex, ISerializer serializer)
 		{
-			var result = new Result<object>()
+			Result<object> result;
+			if (ex is ResultException)
+				result = new Result<object>(((ResultException)ex).Code, ex.Message);
+			else
 			{
-				Code = (int)HttpStatusCode.InternalServerError,
-				Message = StaticConfiguration.DisableErrorTraces ? ex.Message : ex.ToString(),
-			};
+				result = new Result<object>()
+				{
+					Code = (int)HttpStatusCode.InternalServerError,
+					Message = StaticConfiguration.DisableErrorTraces ? ex.Message : ex.ToString(),
+				};
+			}
 			return new JsonResponse(result, serializer);
 		}
 	}

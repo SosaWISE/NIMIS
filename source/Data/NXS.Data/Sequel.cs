@@ -230,7 +230,7 @@ namespace NXS.Data
 			_builder.Append(GetComparisonOperator(comparison));
 			if (literalText)
 				_builder.Append(value);
-			else if (comparison == Comparison.In && (value is System.Collections.IEnumerable))
+			else if ((comparison == Comparison.In || comparison == Comparison.NotIn) && (value is System.Collections.IEnumerable))
 			{
 				_builder.Append("(");
 				_depth++;
@@ -253,6 +253,11 @@ namespace NXS.Data
 				_depth--;
 				if (_prettyPrint) _builder.Newline().Indent(_depth);
 				_builder.Append(")");
+			}
+			else if ((comparison == Comparison.Is || comparison == Comparison.IsNot) &&
+				(value == null || value == DBNull.Value))
+			{
+				_builder.Append("NULL");
 			}
 			else
 				this.NextParam(value);

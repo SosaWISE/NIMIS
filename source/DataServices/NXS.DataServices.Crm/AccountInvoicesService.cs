@@ -49,7 +49,7 @@ namespace NXS.DataServices.Crm
 				var invoiceTypeId = AE_InvoiceType.MetaData.SetupandInstallationID;
 				var item = (await tbl.ByAccountIdAndTypeFullAsync(accountId, invoiceTypeId).ConfigureAwait(false));
 				if (item == null && canCreate)
-					item = await tbl.CreateInvoice(accountId, invoiceTypeId, _gpEmployeeId).ConfigureAwait(false);
+					item = await tbl.CreateInvoiceAsync(accountId, invoiceTypeId, _gpEmployeeId).ConfigureAwait(false);
 				var result = new Result<AeInvoice>(value: AeInvoice.FromDb(item, true));
 				return result;
 			}

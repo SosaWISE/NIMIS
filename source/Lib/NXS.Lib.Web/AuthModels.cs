@@ -7,21 +7,34 @@ using System.Threading.Tasks;
 
 namespace NXS.Lib.Web
 {
-	public class SystemUserIdentity : IUserIdentity
+	public class TokenUserIdentity : IUserIdentity
 	{
-		public bool UseSessionNumAsClaims;
-		private string[] _groups;
+		public AuthInformation AuthInfo { get; private set; }
 		public IEnumerable<string> Claims
 		{
-			get
-			{
-				if (UseSessionNumAsClaims)
-					return new string[] { SessionNumToString(SessionNum) };
-				else
-					return _groups;
-			}
+			get { return new string[] { SystemUserIdentity.AuthNumToString(this.AuthInfo.AuthNum), this.AuthInfo.AuthType }; }
 		}
-		public byte[] SessionNum { get; private set; }
+		public string UserName { get; private set; }
+
+		public TokenUserIdentity(AuthInformation authInfo, string userName)
+		{
+			this.AuthInfo = authInfo;
+			this.UserName = userName;
+		}
+	}
+
+	public class SystemUserIdentity : IUserIdentity
+	{
+		public static class AuthTypes
+		{
+			public const string Session = "Session";
+			public const string ActionRequest = "ActionRequest";
+		}
+
+		public IEnumerable<string> Claims { get; private set; }
+		public IEnumerable<string> Applications { get; private set; }
+		public IEnumerable<string> Actions { get; private set; }
+		public AuthInformation AuthInfo { get; private set; }
 		public int UserID { get; private set; }
 		public string UserName { get; private set; }
 		public string FirstName { get; private set; }
@@ -29,10 +42,12 @@ namespace NXS.Lib.Web
 		public string GPEmployeeID { get; private set; }
 		public int DealerId { get; private set; }
 
-		public SystemUserIdentity(byte[] sessionNum, User user)
+		public SystemUserIdentity(string authType, byte[] authNum, User user, IEnumerable<string> applications, IEnumerable<string> actions)
 		{
-			_groups = user.Groups;
-			this.SessionNum = sessionNum;
+			this.AuthInfo = AuthInformation.Create(authType, authNum);
+			this.Claims = user.Groups;
+			this.Applications = applications;
+			this.Actions = actions;
 			this.UserID = user.UserID;
 			this.UserName = user.Username;
 			this.FirstName = user.FirstName;
@@ -40,20 +55,70 @@ namespace NXS.Lib.Web
 			this.GPEmployeeID = user.GPEmployeeID;
 			this.DealerId = user.DealerId;
 		}
+		public TokenUserIdentity ToTokenIdentity()
+		{
+			return new TokenUserIdentity(this.AuthInfo, this.UserName);
+		}
 
-		public static string SessionNumToString(byte[] sessionNum)
+		public static string AuthNumToString(byte[] authNum)
 		{
-			return Convert.ToBase64String(sessionNum);
+			return Convert.ToBase64String(authNum);
 		}
-		public static byte[] SessionNumFromString(string sessionStr)
+		public static byte[] AuthNumFromString(string authStr)
 		{
-			return Convert.FromBase64String(sessionStr);
+			return Convert.FromBase64String(authStr);
 		}
-		public static byte[] SessionNumFromClaims(IEnumerable<string> claims)
+		public static AuthInformation AuthInfoFromClaims(IEnumerable<string> claims)
 		{
-			var id = claims.FirstOrDefault();
-			if (id == null) return null;
-			return SystemUserIdentity.SessionNumFromString(id);
+			byte[] authNum = null;
+			string authType = null;
+			var index = 0;
+			foreach (var str in claims)
+			{
+				if (index == 0)
+					authNum = SystemUserIdentity.AuthNumFromString(str);
+				else if (index == 1)
+					authType = str;
+				else
+					break;
+				index++;
+			}
+			if (authNum != null)
+				return AuthInformation.Create(authType ?? AuthTypes.Session, authNum);
+			return null;
+		}
+
+		//private SHA1Managed _sha1 = new SHA1Managed();
+		public static string AuthNumToKey(byte[] authNum)
+		{
+			// SHA1Managed is not thread safe: http://stackoverflow.com/questions/12644257
+			// having this as a member variable caused random/wrong sessionKeys
+			var _sha1 = System.Security.Cryptography.SHA1.Create();
+			return Convert.ToBase64String(_sha1.ComputeHash(authNum));
+		}
+
+		private static readonly System.Security.Cryptography.RandomNumberGenerator _rnd = System.Security.Cryptography.RandomNumberGenerator.Create();
+		public static byte[] NewAuthNum()
+		{
+			var key = new byte[16]; // 128 / 8
+			_rnd.GetBytes(key);
+			return key;
+		}
+	}
+	public class AuthInformation
+	{
+		public string AuthType { get; private set; }
+		public byte[] AuthNum { get; private set; }
+
+		public static AuthInformation Create(string authType, byte[] authNum)
+		{
+			if (authType == null) throw new ArgumentNullException("authType");
+			if (authNum == null) throw new ArgumentNullException("authNum");
+
+			var result = new AuthInformation();
+			result.AuthType = authType;
+			result.AuthNum = authNum;
+			return result;
 		}
 	}
 
@@ -111,5 +176,13 @@ namespace NXS.Lib.Web
 		{
 			return SessionKey.GetHashCode();
 		}
+	}
+
+	public struct ActionRequest
+	{
+		public int UserId;
+		public string ActionId;
+		public string ApplicationId;
+		public string Username;
 	}
 }

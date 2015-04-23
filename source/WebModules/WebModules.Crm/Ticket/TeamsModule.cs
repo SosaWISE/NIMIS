@@ -4,6 +4,8 @@ namespace WebModules.Crm.Ticket
 {
 	public class TeamsModule : BaseModule
 	{
+		TicketService Srv { get { return new TicketService(this.User.GPEmployeeID); } }
+
 		public TeamsModule()
 			: base("/Ticket/Teams")
 		{
@@ -11,14 +13,12 @@ namespace WebModules.Crm.Ticket
 
 			Get["/", true] = async (x, ct) =>
 			{
-				var srv = new TicketService(this.User.GPEmployeeID);
-				return await srv.TeamsAsync().ConfigureAwait(false);
+				return await Srv.TeamsAsync().ConfigureAwait(false);
 			};
 			//Post["/{id:int}", true] = async (x, ct) =>
 			//{
-			//	var srv = new TicketService(this.User.GPEmployeeID);
 			//	var input = this.Bind<AeCustomerAccountInput>();
-			//	return await srv.SaveTeamAsync((int)x.id).ConfigureAwait(false);
+			//	return await Srv.SaveTeamAsync((int)x.id).ConfigureAwait(false);
 			//};
 		}
 	}

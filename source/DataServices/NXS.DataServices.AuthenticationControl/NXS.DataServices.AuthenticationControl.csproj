@@ -42,8 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionRequestsService.cs" />
+    <Compile Include="TypesService.cs" />
     <Compile Include="KeyValueService.cs" />
+    <Compile Include="Models\AcActionRequest.cs" />
     <Compile Include="Models\AcKeyValue.cs" />
+    <Compile Include="Models\EnumType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,28 +14,29 @@ namespace System.Web
 		private class LiteUserIdentityResolver : IUserIdentityResolver
 		{
 			public string UserName;
-			public byte[] SessionNum;
+			public AuthInformation AuthInfo;
 			public IUserIdentity GetUser(string userName, IEnumerable<string> claims, NancyContext context)
 			{
 				UserName = userName;
-				SessionNum = SystemUserIdentity.SessionNumFromClaims(claims);
+				AuthInfo = SystemUserIdentity.AuthInfoFromClaims(claims);
 				return null;
 			}
 		}
-		public static void GetSessionData(this HttpContext context, ITokenizer tokenizer, out string token, out string username, out byte[] sessionNum)
+		public static bool GetSessionData(this HttpContext context, ITokenizer tokenizer, out string token, out string username, out AuthInformation authInfo)
 		{
 			token = context.ExtractTokenFromHeader();
 			if (token == null)
 			{
 				username = null;
-				sessionNum = null;
-				return;
+				authInfo = null;
+				return false;
 			}
 
 			var sessionNumResolver = new LiteUserIdentityResolver();
 			tokenizer.Detokenize(token, context: null, userIdentityResolver: sessionNumResolver);
 			username = sessionNumResolver.UserName;
-			sessionNum = sessionNumResolver.SessionNum;
+			authInfo = sessionNumResolver.AuthInfo;
+			return authInfo != null;
 		}
 		public static SystemUserIdentity GetIdentity(this HttpContext context, TokenAuthenticationConfiguration configuration)
 		{

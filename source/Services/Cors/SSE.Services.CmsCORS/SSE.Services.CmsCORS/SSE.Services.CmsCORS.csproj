@@ -228,6 +228,7 @@
     <Compile Include="Controllers\Surveys\TokensController.cs" />
     <Compile Include="Controllers\Swing\SwingController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Helpers\ResultAny.cs" />
     <Compile Include="Helpers\ResultExtensions.cs" />
     <Compile Include="HttpCorsModule.cs" />
     <Compile Include="Global.asax.cs">
@@ -431,6 +432,10 @@
     <ProjectReference Include="..\..\..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj">
       <Project>{33a1b8c5-b37d-423e-b7fd-83ce1ec1d442}</Project>
       <Name>SOS.Lib.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\WebModules\WebModules.AuthControl\WebModules.AuthControl.csproj">
+      <Project>{dc40e527-1d22-448e-ac59-25fb5e181e72}</Project>
+      <Name>WebModules.AuthControl</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\WebModules\WebModules.Crm\WebModules.Crm.csproj">
       <Project>{72544965-d17c-4d5c-9361-f27ae1c93b3b}</Project>
