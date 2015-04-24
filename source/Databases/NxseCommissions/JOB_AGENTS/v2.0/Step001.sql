@@ -37,7 +37,7 @@ PRINT '************************************************************ START ******
 PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
 PRINT '************************************************************ START ************************************************************';
 /********************  END HEADER ********************/
-IF (@TRUNCATE = 'ON')
+IF (@TRUNCATE = 'ON' AND @CommissionPeriodID = 1)
 BEGIN
 	TRUNCATE TABLE dbo.SC_WorkAccountSigningBonuses;
 	DELETE dbo.SC_WorkAccountAdjustments;
