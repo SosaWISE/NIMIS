@@ -28,16 +28,42 @@ PRINT '************************************************************ START ******
 PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
 PRINT '************************************************************ START ************************************************************';
 /********************  END HEADER ********************/
-DECLARE @CommissionsAdjustmentID VARCHAR(20)
-	, @CommissionAdjustmentAmount MONEY;
+DECLARE @CommissionsBonusID VARCHAR(20)
+	, @BonusAmount MONEY
+	, @SeasonId INT
+	, @OfficialContractStartDate DATETIME;
 
 /********************************
 ***	Adjustment for Package    ***
 ********************************/
 
 -- Figure out the number of accounts for this week
-DECLARE @NumThisWeekTbl TABLE (SalesRepID VARCHAR(50), NumThisWeek INT);
+DECLARE @NumThisWeekTbl TABLE (SalesRepID VARCHAR(50), RepHireDate DATETIME, NumThisWeek INT);
 INSERT INTO @NumThisWeekTbl (SalesRepID, NumThisWeek) SELECT SalesRepID, COUNT(*) FROM dbo.SC_WorkAccounts WHERE (CommissionPeriodId = @CommissionPeriodID) GROUP BY SalesRepID;
+
+/** FIND Reps Hire Date. */
+UPDATE NTW SET 
+	RepHireDate = ISNULL(RUR.HireDate, RUR.CreatedOn) 
+FROM
+	@NumThisWeekTbl AS NTW
+	INNER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS RU WITH (NOLOCK)
+	ON
+		(RU.GPEmployeeId = NTW.SalesRepID)
+	INNER JOIN [WISE_HumanResource].[dbo].[RU_Recruits] AS RUR WITH (NOLOCK)
+	ON
+		(RUR.UserId = RU.UserID)
+		AND (RUR.SeasonId = @SeasonId);
+
+/** Get Season ID from the Commissions Engine that is being used. */
+SELECT 
+	@SeasonId = SCCC.SeasonId
+	, @OfficialContractStartDate = SCCC.OfficialStartDate
+FROM
+	[dbo].[SC_CommissionContracts] AS SCCC WITH (NOLOCK)
+	INNER JOIN [dbo].[SC_CommissionEngines] AS SCCE WITH (NOLOCK)
+	ON
+		(SCCE.CommissionEngineID = SCCC.CommissionEngineId)
+		AND (SCCE.CommissionEngineID = 'SCv2.0');
 
 /** LOOP THROUGH Each Account and Add the corresponding Rate by the number of sales per pay period. */
 DECLARE WorkAccountCursor CURSOR FOR SELECT WorkAccountID, AccountId, SalesRepID FROM dbo.SC_WorkAccounts WHERE (CommissionPeriodId = @CommissionPeriodID);
@@ -55,60 +81,74 @@ FETCH NEXT FROM WorkAccountCursor INTO
 
 WHILE (@@FETCH_STATUS = 0)
 BEGIN
-	SET @CommissionsAdjustmentID = 'ACCTRATESCALEPAY';
-	SELECT @NumThisWeek = NumThisWeek FROM @NumThisWeekTbl WHERE (SalesRepID = @SalesRepID);
+	/** LOCALS */
+	DECLARE @SigningBonusCount INT = 0
+		, @RepHireDate DATETIME;
 
-	INSERT SC_workAccountAdjustments (
-		WorkAccountId
-		, CommissionsAdjustmentID
-		, AdjustmentAmount
-	) VALUES (
-		@WorkAccountId
-		, @CommissionsAdjustmentID
-		, dbo.fxSCv2_0GetRateBasedOnScaleByAccountId(@AccountID, @NumThisWeek)
-	);
+	/** Get NumThisWeek and also the RepHireDate. */
+	SELECT @NumThisWeek = NumThisWeek, @RepHireDate = RepHireDate FROM @NumThisWeekTbl WHERE (SalesRepID = @SalesRepID);
 
 	/********************************
-	***	Check for Siging Bonus    ***
+	***	ADD Commission Base Rate  ***
 	********************************/
-	DECLARE @SigningBonusCount INT = 0;
+	INSERT SC_workAccountAdjustments (
+		WorkAccountId
+		, CommissionRateScaleId
+		, AdjustmentAmount
+	)
 	SELECT
-		@SigningBonusCount = COUNT(*)
+	 --VALUES (
+		@WorkAccountId
+		, CRS.CommissionRateScaleId
+		, CRS.CommissionAmount
 	FROM
-		[dbo].[SC_WorkAccounts] AS SWAA WITH (NOLOCK)
-		INNER JOIN [dbo].[SC_WorkAccountSigningBonuses] AS SWASB WITH (NOLOCK)
-		ON
-			(SWASB.WorkAccountID = SWAA.WorkAccountID)
-	WHERE
-		(SWAA.SalesRepId = @SalesRepID);
+		dbo.fxSCv2_0GetRateBasedOnScaleByAccountId(@SalesRepId, @SeasonId, @NumThisWeek) AS CRS;
 
-	IF (@SigningBonusCount < 3)
+	/********************************
+	***	ADD Signing Bonus		  ***
+	********************************/
+	-- Check to see if the rep qualifies for this bonus.
+	IF(@RepHireDate >= @OfficialContractStartDate)
 	BEGIN
-		SET @CommissionsAdjustmentID = 'SIGNINGBONUS';
-		SELECT @CommissionAdjustmentAmount = CommissionAdjustmentAmount FROM [dbo].[SC_CommissionAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+		-- Calculate number of total sales by rep.
+		SELECT
+			@SigningBonusCount = COUNT(*)
+		FROM
+			[dbo].[SC_WorkAccounts] AS SWAA WITH (NOLOCK)
+			INNER JOIN [dbo].[SC_WorkAccountSigningBonuses] AS SWASB WITH (NOLOCK)
+			ON
+				(SWASB.WorkAccountID = SWAA.WorkAccountID)
+		WHERE
+			(SWAA.SalesRepId = @SalesRepID);
 
-		INSERT INTO [dbo].[SC_WorkAccountAdjustments] (
-			[WorkAccountId]
-			, [CommissionsAdjustmentId]
-			, [AdjustmentAmount]
-		) VALUES (
-			@WorkAccountId -- WorkAccountId -- bigint
-			, @CommissionsAdjustmentID -- varchar(20)
-			, @CommissionAdjustmentAmount -- money
-		);
-		SET @WorkAccountAdjustmentId = SCOPE_IDENTITY();
+		IF (@SigningBonusCount < 3)
+		BEGIN
+			SET @CommissionsBonusID = 'SIGNINGBONUS';
+			SELECT @BonusAmount = BonusAmount FROM [dbo].SC_CommissionBonus WHERE (CommissionBonusID = @CommissionsBonusID);
 
-		INSERT INTO [dbo].[SC_WorkAccountSigningBonuses] (
-			[WorkAccountID]
-			, [WorkAccountAdjustmentId]
-			, [CommissionPeriodId]
-			, [AccountID]
-		) VALUES (
-			@WorkAccountId -- bigint
-			, @WorkAccountAdjustmentId
-			, @CommissionPeriodId -- int
-			, @AccountID -- bigint
-        );
+			INSERT INTO [dbo].[SC_WorkAccountAdjustments] (
+				[WorkAccountId]
+				, [CommissionBonusId]
+				, [AdjustmentAmount]
+			) VALUES (
+				@WorkAccountId -- WorkAccountId -- bigint
+				, @CommissionsBonusID -- varchar(20)
+				, @BonusAmount -- money
+			);
+			SET @WorkAccountAdjustmentId = SCOPE_IDENTITY();
+
+			INSERT INTO [dbo].[SC_WorkAccountSigningBonuses] (
+				[WorkAccountID]
+				, [WorkAccountAdjustmentId]
+				, [CommissionPeriodId]
+				, [AccountID]
+			) VALUES (
+				@WorkAccountId -- bigint
+				, @WorkAccountAdjustmentId
+				, @CommissionPeriodId -- int
+				, @AccountID -- bigint
+			);
+		END
 	END
 
 	/** Move to the next record. */	

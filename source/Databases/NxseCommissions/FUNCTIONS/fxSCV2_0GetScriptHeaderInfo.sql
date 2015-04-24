@@ -66,7 +66,7 @@ BEGIN
 	SELECT TOP 1
 		@CommissionPeriodID = CommissionPeriodID
 		, @CommissionPeriodEndDate = CommissionPeriodEndDate
-		, @CommissionPeriodStrDate = DATEADD(d, -7, CommissionPeriodEndDate)
+		, @CommissionPeriodStrDate = CommissionPeriodStartDate
 	FROM
 		dbo.SC_CommissionPeriods
 	WHERE

@@ -3,7 +3,7 @@ Bonuses get applied for:
 	Increasing the RMR and staying within the range
 	Selling equipment to the customer
 */
-USE [NXSE_Sales]
+USE [NXSE_Commissions]
 GO
 
 DECLARE @CommissionPeriodID BIGINT
@@ -28,8 +28,8 @@ PRINT '************************************************************ START ******
 PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
 PRINT '************************************************************ START ************************************************************';
 /********************  END HEADER ********************/
-DECLARE @CommissionsAdjustmentID VARCHAR(20)
-	, @CommissionAdjustmentAmount MONEY;
+DECLARE @CommissionsBonusID VARCHAR(20)
+	, @BonusAmount MONEY;
 
 /********************************
 ***	Adjustment for Package    ***
@@ -40,33 +40,38 @@ DECLARE @NumThisWeekTbl TABLE (SalesRepID VARCHAR(50), NumThisWeek INT);
 INSERT INTO @NumThisWeekTbl (SalesRepID, NumThisWeek) SELECT SalesRepID, COUNT(*) FROM dbo.SC_WorkAccounts WHERE (CommissionPeriodId = @CommissionPeriodID) GROUP BY SalesRepID;
 
 /** LOOP THROUGH Each Account and Add the corresponding Rate by the number of sales per pay period. */
-DECLARE WorkAccountCursor CURSOR FOR SELECT WorkAccountID, AccountId, SalesRepID FROM dbo.SC_WorkAccounts WHERE (CommissionPeriodId = @CommissionPeriodID);
+DECLARE WorkAccountCursor CURSOR FOR SELECT WorkAccountID, AccountId, SalesRepID, SeasonId FROM dbo.SC_WorkAccounts WHERE (CommissionPeriodId = @CommissionPeriodID);
 DECLARE @SalesRepID VARCHAR(50)
 	, @WorkAccountId BIGINT
 	, @NumThisWeek INT
 	, @AccountID BIGINT
+	, @SeasonId INT
 	, @WorkAccountAdjustmentId BIGINT;
 
 OPEN WorkAccountCursor;
 FETCH NEXT FROM WorkAccountCursor INTO
 	@WorkAccountId
 	, @AccountID
-	, @SalesRepID;
+	, @SalesRepID
+	, @SeasonId;
 
 WHILE (@@FETCH_STATUS = 0)
 BEGIN
-	SET @CommissionsAdjustmentID = 'ACCTRATESCALEPAY';
 	SELECT @NumThisWeek = NumThisWeek FROM @NumThisWeekTbl WHERE (SalesRepID = @SalesRepID);
 
 	INSERT SC_workAccountAdjustments (
 		WorkAccountId
-		, CommissionsAdjustmentID
+		, CommissionRateScaleId
 		, AdjustmentAmount
-	) VALUES (
+	)
+	SELECT
+	 --VALUES (
 		@WorkAccountId
-		, @CommissionsAdjustmentID
-		, dbo.fxSCv2_0GetRateBasedOnScaleByAccountId(@AccountID, @NumThisWeek)
-	);
+		, CRS.CommissionRateScaleId
+		, CRS.CommissionAmount
+	FROM
+		dbo.fxSCv2_0GetRateBasedOnScaleByAccountId(@SalesRepId, @SeasonId, @NumThisWeek) AS CRS;
+	
 
 	/********************************
 	***	Check for Siging Bonus    ***
@@ -84,17 +89,17 @@ BEGIN
 
 	IF (@SigningBonusCount < 3)
 	BEGIN
-		SET @CommissionsAdjustmentID = 'SIGNINGBONUS';
-		SELECT @CommissionAdjustmentAmount = BonusAmount FROM [dbo].SC_CommissionBonus WHERE (CommissionBonusID = @CommissionsAdjustmentID);
+		SET @CommissionsBonusID = 'SIGNINGBONUS';
+		SELECT @BonusAmount = BonusAmount FROM [dbo].SC_CommissionBonus WHERE (CommissionBonusID = @CommissionsBonusID);
 
 		INSERT INTO [dbo].[SC_WorkAccountAdjustments] (
 			[WorkAccountId]
-			, [CommissionsAdjustmentId]
+			, [CommissionBonusId]
 			, [AdjustmentAmount]
 		) VALUES (
 			@WorkAccountId -- WorkAccountId -- bigint
-			, @CommissionsAdjustmentID -- varchar(20)
-			, @CommissionAdjustmentAmount -- money
+			, @CommissionsBonusID -- varchar(20)
+			, @BonusAmount -- money
 		);
 		SET @WorkAccountAdjustmentId = SCOPE_IDENTITY();
 
@@ -115,7 +120,8 @@ BEGIN
 	FETCH NEXT FROM WorkAccountCursor INTO
 		@WorkAccountId
 		, @AccountID
-		, @SalesRepID;
+		, @SalesRepID
+		, @SeasonId;
 END
 
 CLOSE WorkAccountCursor;

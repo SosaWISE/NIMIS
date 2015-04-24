@@ -39,28 +39,55 @@ GO
 *******************************************************************************/
 CREATE FUNCTION dbo.fxSCv2_0GetRateBasedOnScaleByAccountId
 (
-	@AccountID BIGINT
+	@SalesRepId VARCHAR(25)
+	, @SessionId INT
 	, @NumThisWeek INT
 )
-RETURNS MONEY
+RETURNS 
+@ResultTable TABLE (
+	CommissionRateScaleId VARCHAR(20)
+	, CommissionAmount MONEY
+)
 AS
 BEGIN
 	/** Declarations */
 	DECLARE @Rate MONEY = 550.00
-		, @Deduction MONEY = 100.00;
+	, @CommissionRateScaleTypeId VARCHAR(20);
 
-	/** Execute actions. */
-	SELECT @Rate = CASE
-		WHEN @NumThisWeek <= 3  THEN 550.00
-		WHEN @NumThisWeek <= 5  THEN 650.00
-		WHEN @NumThisWeek <= 8  THEN 700.00
-		WHEN @NumThisWeek <= 11 THEN 750.00
-		WHEN @NumThisWeek >= 12 THEN 800.00
-	  END;
+	/** Find the type of rep this is */
+	SELECT
+		@CommissionRateScaleTypeId = CASE
+			WHEN RUR.UserTypeId =  2 /**Sales Manager*/				THEN 'SALES_MAN'
+			WHEN RUR.UserTypeId =  3 /**Sales Co-Manager*/			THEN 'SALES_MAN'
+			WHEN RUR.UserTypeId =  5 /**Sales Rep*/					THEN 'SALES_REP'
+			WHEN RUR.UserTypeId =  4 /**Sales Assistant Manager*/	THEN 'SALES_REP'
+			WHEN RUR.UserTypeId = 11 /**Regional Manager - Sales*/	THEN 'SALES_MAN'
+			WHEN RUR.UserTypeId = 18 /**Senior Regional - Sales*/	THEN 'SALES_MAN'
+			WHEN RUR.UserTypeId = 19 /**National Regional - Sales*/ THEN 'SALES_MAN'
+			ELSE 'SALES_REP'
+		  END
+	FROM
+		[WISE_HumanResource].[dbo].[RU_Users] AS RU WITH (NOLOCK)
+		INNER JOIN [WISE_HumanResource].[dbo].[RU_Recruits] AS RUR WITH (NOLOCK)
+		ON
+			(RUR.UserId = RU.UserID)
+	WHERE
+		(RU.GPEmployeeId = @SalesRepId);
+	
+	INSERT INTO @ResultTable (
+		CommissionRateScaleId ,
+		CommissionAmount
+	) SELECT 
+			SCCRS.CommissionRateScaleId -- varchar(20)
+			, SCCRS.CommissionAmt -- money
+		FROM 
+			[dbo].[SC_CommissionRateScales] AS SCCRS WITH (NOLOCK)
+		WHERE
+			(SCCRS.CommissionRateScaleTypeId = @CommissionRateScaleTypeId)
+			AND (SCCRS.CommissionEngineId = 'SCv2.0')
+			AND (@NumThisWeek BETWEEN SCCRS.Start AND SCCRS.[End]);
 
-	IF (@NumThisWeek < 3) SET @Rate = @Rate - @Deduction;
-
-	RETURN @Rate;
+	RETURN;
 END
 GO
 

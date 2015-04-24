@@ -42,7 +42,7 @@ PRINT '*************************/';
 
 -- DEDUCT FOR AGREEMENT LENGTH = 36 or other than 
 SET @CommissionsAdjustmentID = 'CONLENLESS60';
-SELECT @CommissionAdjustmentAmount = (-1) * CommissionAdjustmentAmount FROM [dbo].[SC_CommissionAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+SELECT @CommissionAdjustmentAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionsAdjustmentID);
 
 -- Create entry for all accounts with contract length less than 60
 INSERT SC_workAccountAdjustments
@@ -67,7 +67,7 @@ PRINT '*******************/'
 
 -- DEDUCT FOR PAYMENT TYPE IS CREDIT CARD
 SET @CommissionsAdjustmentID = 'PMTCC'
-SELECT @CommissionAdjustmentAmount = (-1) * CommissionAdjustmentAmount FROM [dbo].[SC_CommissionAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+SELECT @CommissionAdjustmentAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionsAdjustmentID);
 
 -- Create entry for payment types that are not ACH
 INSERT SC_workAccountAdjustments
@@ -91,7 +91,7 @@ PRINT '***	ACTIVATION FEE ***';
 PRINT '*********************/';
 -- DEDUCT FOR ACTIVATION FEE WAIVED
 SET @CommissionsAdjustmentID = 'ACTWAIVED'
-SELECT @CommissionAdjustmentAmount = (-1) * CommissionAdjustmentAmount FROM [dbo].[SC_CommissionAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+SELECT @CommissionAdjustmentAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionsAdjustmentID);
 
 -- Create entry for waived activation fee
 INSERT SC_workAccountAdjustments
@@ -115,7 +115,7 @@ PRINT '***	POINTS OF PROTECTION ***';
 PRINT '***************************/';
 SET @CommissionsAdjustmentID = 'POINTSGIVEN';
 DECLARE @PointDeductionInDollars MONEY = 30.00; -- Default value
-SELECT @PointDeductionInDollars = (-1) * CommissionAdjustmentAmount FROM [dbo].[SC_CommissionAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+SELECT @PointDeductionInDollars = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionsAdjustmentID);
 
 INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionsAdjustmentID, AdjustmentAmount) 
 SELECT
@@ -201,7 +201,7 @@ PRINT '********************************/';
 
 --DEDUCT FOR WAIVING THE 1ST MONTH RMR
 SET @CommissionsAdjustmentID = 'WAIVED1STMONTH';
-SELECT @CommissionAdjustmentAmount = (-1) * CommissionAdjustmentAmount FROM [dbo].[SC_CommissionAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+SELECT @CommissionAdjustmentAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionsAdjustmentID);
 
 INSERT SC_workAccountAdjustments
 (
