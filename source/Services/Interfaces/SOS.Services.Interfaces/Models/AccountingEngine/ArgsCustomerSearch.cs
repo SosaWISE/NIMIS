@@ -12,6 +12,7 @@ namespace SOS.Services.Interfaces.Models.AccountingEngine
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string PhoneNumber { get; set; }
+		public bool ExcludeLeads { get; set; }
 		public int PageSize { get; set; }
 		public int PageNumber { get; set; }
 		#endregion Properties
@@ -19,23 +20,15 @@ namespace SOS.Services.Interfaces.Models.AccountingEngine
 
 	public interface IArgsCustomerSearch
 	{
-		[DataMember]
 		string City { get; set; }
-		[DataMember]
 		string StateId { get; set; }
-		[DataMember]
 		string PostalCode { get; set; }
-		[DataMember]
 		string Email { get; set; }
-		[DataMember]
 		string FirstName { get; set; }
-		[DataMember]
 		string LastName { get; set; }
-		[DataMember]
 		string PhoneNumber { get; set; }
-		[DataMember]
+		bool ExcludeLeads { get; set; }
 		int PageSize { get; set; }
-		[DataMember]
 		int PageNumber { get; set; }
 	}
 }

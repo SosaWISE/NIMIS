@@ -45,6 +45,7 @@ CREATE Procedure dbo.custAE_CustomerMasterFileGeneralSearch
 	, @FirstName NVARCHAR(50) = NULL
 	, @LastName NVARCHAR(50) = NULL
 	, @PhoneNumber VARCHAR(30) = NULL
+	, @ExcludeLeads BIT = 0
 	, @PageSize INT = 30
 	, @PageNumber INT = 1
 )
@@ -141,7 +142,8 @@ BEGIN
 			ON
 				(ADRS1.AddressID = LED.AddressId)
 		WHERE
-				(LED.DealerId = @DealerId)
+				(@ExcludeLeads = 0)
+				AND (LED.DealerId = @DealerId)
 				-- Exclude all customers
 				AND (LED.LeadID NOT IN (SELECT LeadId FROM [dbo].[AE_Customers]))
 				AND ((@City IS NULL OR ADRS1.City LIKE @City)
@@ -177,3 +179,5 @@ GRANT EXEC ON dbo.custAE_CustomerMasterFileGeneralSearch TO PUBLIC
 GO
 
 /** EXEC dbo.custAE_CustomerMasterFileGeneralSearch @PageSize=200, @PageNumber=2; */
+
+/** EXEC dbo.custAE_CustomerMasterFileGeneralSearch @FirstName='a*'; */
