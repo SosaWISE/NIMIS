@@ -33,7 +33,8 @@ GO
 **	Date:		Author:			Description:
 **	-----------	---------------	-----------------------------------------------
 **	03/14/2014	Andres Sosa		Created By
-**	
+**	04/24/2015	Bob McFadden	Added where isDeleted = 'FALSE' to all tables
+**								that have isDeleted flags
 *******************************************************************************/
 CREATE Procedure dbo.custAE_CustomerMasterFileGeneralSearch
 (
@@ -88,21 +89,21 @@ BEGIN
 			INNER JOIN [dbo].[AE_Customers] AS CST WITH (NOLOCK)
 			ON
 				(CST.CustomerMasterFileId = CMF.CustomerMasterFileID)
+				AND (CST.IsActive = 'TRUE' AND CST.IsDeleted = 'FALSE')
 			INNER JOIN [dbo].[MC_Addresses] AS ADRS1 WITH (NOLOCK)
 			ON
 				(ADRS1.AddressID = CST.AddressId)
-				AND (ADRS1.IsActive = 1 AND ADRS1.IsDeleted = 0)
+				AND (ADRS1.IsActive = 'TRUE' AND ADRS1.IsDeleted = 'FALSE')
 			INNER JOIN [dbo].[AE_CustomerAccounts] AS ACA WITH (NOLOCK)
 			ON
 				(ACA.CustomerId = CST.CustomerID)
-				AND (CST.IsActive = 1 AND CST.IsDeleted = 0)
 			LEFT OUTER JOIN [dbo].[AE_CustomerAddress] AS ACAD WITH (NOLOCK)
 			ON
 				(ACAD.CustomerId = CST.CustomerID)
 			LEFT OUTER JOIN [dbo].[MC_Addresses] AS ADRS WITH (NOLOCK)
 			ON
 				(ADRS.AddressID = ACAD.AddressId)
-				AND (ADRS.IsActive = 1 AND ADRS.IsDeleted = 0)
+				AND (ADRS.IsActive = 'TRUE' AND ADRS.IsDeleted = 'FALSE')
 			INNER JOIN [dbo].[MC_Accounts] AS MCA WITH (NOLOCK)
 			ON
 				(MCA.AccountID = ACA.AccountId)
@@ -113,7 +114,9 @@ BEGIN
 			ON
 				(MCAC.AccountId = MCA.AccountID)
 		WHERE
-			(CMF.DealerId = @DealerId)
+			(CMF.IsDeleted = 'FALSE')
+			AND 
+			(@DealerId = 5000 OR CMF.DealerId = @DealerId)
 			AND ((@City IS NULL OR ADRS1.City LIKE @City)
 				AND (@StateId IS NULL OR ADRS1.StateId = @StateId)
 				AND (@PostalCode IS NULL OR ADRS1.PostalCode = @PostalCode)
@@ -143,7 +146,8 @@ BEGIN
 				(ADRS1.AddressID = LED.AddressId)
 		WHERE
 				(@ExcludeLeads = 0)
-				AND (LED.DealerId = @DealerId)
+				AND (LED.IsActive = 'TRUE' AND LED.IsDeleted = 'FALSE')
+				AND (@DealerId = 5000 OR LED.DealerId = @DealerId)
 				-- Exclude all customers
 				AND (LED.LeadID NOT IN (SELECT LeadId FROM [dbo].[AE_Customers]))
 				AND ((@City IS NULL OR ADRS1.City LIKE @City)
