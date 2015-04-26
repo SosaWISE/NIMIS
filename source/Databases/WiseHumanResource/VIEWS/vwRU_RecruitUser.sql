@@ -90,8 +90,8 @@ SELECT
 	, RUTTT.UserTypeTeamTypeID
 	, RUTTT.Description AS UserTypeTeamType
 	
-	, PS.PayscaleID
-	, PS.Name AS PayScaleName
+	--, PS.PayscaleID
+	--, PS.Name AS PayScaleName
 	, RR.AlternatePayScheduleID
 
 	, CAST(CASE
@@ -113,28 +113,35 @@ SELECT
 	, RS.IsDeleted AS SeasonIsDeleted
 	, RS.SeasonName AS SeasonName
 	
-	, MAP.TeamID AS ActualTeamID
-	, MAP.TeamLocationID AS ActualTeamLocationID
+	--, MAP.TeamID AS ActualTeamID
+	--, MAP.TeamLocationID AS ActualTeamLocationID
 
-FROM RU_Users AS RU WITH(NOLOCK)
-INNER JOIN RU_Recruits AS RR WITH(NOLOCK)
-ON
-	RU.UserID = RR.UserID
-INNER JOIN RU_UserType AS RUT WITH(NOLOCK)
-ON
-	RR.UserTypeID = RUT.UserTypeID	
-INNER JOIN RU_UserTypeTeamTypes AS RUTTT WITH(NOLOCK)
-ON
-	RUT.UserTypeTeamTypeID = RUTTT.UserTypeTeamTypeID
-INNER JOIN RU_Payscales AS PS WITH(NOLOCK)
-ON
-	(COALESCE(RR.PayscaleID, 1) = PS.PayscaleID)
-INNER JOIN RU_Season AS RS WITH (NOLOCK)
-ON
-	RR.SeasonID = RS.SeasonID
-LEFT OUTER JOIN SAE_RecruitTeamMappings AS MAP
-ON
-	RR.RecruitID = MAP.RecruitID
-
---SELECT * FROM vwRU_RecruitUser WHERE RecruitID = 113
+FROM 
+	RU_Users AS RU WITH(NOLOCK)
+	INNER JOIN RU_Recruits AS RR WITH(NOLOCK)
+	ON
+		RU.UserID = RR.UserID
+	INNER JOIN RU_UserType AS RUT WITH(NOLOCK)
+	ON
+		RR.UserTypeID = RUT.UserTypeID	
+	INNER JOIN RU_UserTypeTeamTypes AS RUTTT WITH(NOLOCK)
+	ON
+		RUT.UserTypeTeamTypeID = RUTTT.UserTypeTeamTypeID
+	--LEFT JOIN RU_Payscales AS PS WITH(NOLOCK)
+	--ON
+	--	(COALESCE(RR.PayscaleID, 1) = PS.PayscaleID)
+	INNER JOIN RU_Season AS RS WITH (NOLOCK)
+	ON
+		RR.SeasonID = RS.SeasonID
+	--LEFT OUTER JOIN SAE_RecruitTeamMappings AS MAP
+	--ON
+	--	RR.RecruitID = MAP.RecruitID
 GO
+
+SELECT 
+	*
+FROM
+	vwRU_RecruitUser AS VRUR
+WHERE
+	(VRUR.GPEmployeeID = 'LEDUM001')
+	AND (VRUR.SeasonID = 4)

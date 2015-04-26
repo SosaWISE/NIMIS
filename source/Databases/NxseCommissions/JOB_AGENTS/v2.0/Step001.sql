@@ -85,6 +85,7 @@ SELECT DISTINCT
 	, MC_Accounts.CustomerMasterFileId
 	, MSASI.AccountPackageId
 	, MSASI.SalesRepId
+	, '' AS [SaleManRepId]
 	, MSASI.TechId
 	, MSASI.FriendsAndFamilyTypeId
 	, QL.QualifyDate

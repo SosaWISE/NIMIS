@@ -60,7 +60,6 @@ BEGIN
 	PRINT 'SalesRepID: ' + @SalesRepID + ' | Recruited By: ' + @RecSalesRepID;
 	/** Assign recruiting bonus to RecSalesRepID*/
 
-
 	/******Get Next */
 	FETCH NEXT FROM workAccountCur INTO
 		@WorkAccountID, @AccountID, @SalesRepID;

@@ -1,4 +1,4 @@
-USE [WISE_AuthenticationControl]
+USE [WISE_HumanResource]
 GO
 
 -- TF = Table function
@@ -28,13 +28,13 @@ GO
 **     ----------						-----------
 **
 **		Auth: Andrés E. Sosa
-**		Date: 12/05/2013
+**		Date: 04/24/2015
 *******************************************************************************
 **	Change History
 *******************************************************************************
 **	Date:		Author:			Description:
 **	-----------	---------------	-----------------------------------------------
-**	12/05/2013	Andrés E. Sosa	Created By
+**	04/24/2015	Andrés E. Sosa	Created By
 **	
 *******************************************************************************/
 CREATE FUNCTION dbo.FUNCTION_TEMPLATE_TABLE
