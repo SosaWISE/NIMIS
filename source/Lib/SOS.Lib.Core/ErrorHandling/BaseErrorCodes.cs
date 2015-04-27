@@ -45,6 +45,7 @@ namespace SOS.Lib.Core.ErrorHandling
 			, ExecutionInProg = 5
 			, GeneralMessage = 10
 			, DuplicateItem = 20
+			, InvalidModifiedOn = 21
 			, GeneralException = 100
 			#endregion General Warnings
 

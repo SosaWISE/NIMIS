@@ -17,13 +17,23 @@ namespace NXS.DataServices.Crm
 		//	_gpEmployeeId = gpEmployeeId;
 		//}
 
-		public async Task<Result<List<MetadataType>>> FriendsAndFamilyTypes()
+		public async Task<Result<List<MetadataType>>> FriendsAndFamilyTypesAsync()
 		{
 			using (var db = CrmDb.Connect())
 			{
 				var tbl = db.MC_FriendsAndFamilyTypes;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
 				var result = new Result<List<MetadataType>>(value: items.ConvertAll(item => MetadataType.FromFriendsAndFamilyType(item)));
+				return result;
+			}
+		}
+		public async Task<Result<List<MetadataType>>> AccountCancelReasonsAsync()
+		{
+			using (var db = CrmDb.Connect())
+			{
+				var tbl = db.MC_AccountCancelReasons;
+				var items = await tbl.AllAsync().ConfigureAwait(false);
+				var result = new Result<List<MetadataType>>(value: items.ConvertAll(item => MetadataType.FromAccountCancelReason(item)));
 				return result;
 			}
 		}

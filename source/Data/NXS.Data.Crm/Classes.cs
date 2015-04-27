@@ -109,6 +109,7 @@ namespace NXS.Data.Crm
 		public decimal SystemPoints { get; set; }
 		public string SalesmanId { get; set; }
 		public string TechnicianId { get; set; }
+		public bool? IsCustomerPaying { get; set; }
 		public bool IsActive { get; set; }
 		public bool IsDeleted { get; set; }
 		public DateTime ModifiedOn { get; set; }
@@ -218,6 +219,13 @@ namespace NXS.Data.Crm
 		public string ModifiedBy { get; set; }
 		public DateTime CreatedOn { get; set; }
 		public string CreatedBy { get; set; }
+	}
+	public partial class MC_AccountCancelReason // MC_AccountCancelReasons
+	{
+		[IgnorePropertyAttribute(true)]
+		public string ID { get { return AccountCancelReasonID; } set { AccountCancelReasonID = value; } }
+		public string AccountCancelReasonID { get; set; }
+		public string AccountCancelReason { get; set; }
 	}
 	public partial class MC_Account // MC_Accounts
 	{
@@ -439,6 +447,7 @@ namespace NXS.Data.Crm
 		public string TechId { get; set; }
 		public string SalesRepId { get; set; }
 		public long? AccountFundingStatusId { get; set; }
+		public string AccountPayoutTypeId { get; set; }
 		public short BillingDay { get; set; }
 		public string Email { get; set; }
 		public bool IsMoni { get; set; }

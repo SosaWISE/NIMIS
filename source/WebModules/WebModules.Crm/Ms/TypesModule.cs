@@ -15,7 +15,11 @@ namespace WebModules.Crm.ContractAdmin
 
 			Get["/FriendsAndFamily", true] = async (x, ct) =>
 			{
-				return await Srv.FriendsAndFamilyTypes().ConfigureAwait(false);
+				return await Srv.FriendsAndFamilyTypesAsync().ConfigureAwait(false);
+			};
+			Get["/AccountCancelReasons", true] = async (x, ct) =>
+			{
+				return await Srv.AccountCancelReasonsAsync().ConfigureAwait(false);
 			};
 		}
 	}

@@ -29,5 +29,15 @@ namespace NXS.DataServices.Crm.Models
 			result.Name = item.FriendsAndFamilyType;
 			return result;
 		}
+
+		internal static MetadataType FromAccountCancelReason(MC_AccountCancelReason item, bool nullable = false)
+		{
+			if (NullCheck("AccountCancelReason", item, nullable))
+				return null;
+			var result = new MetadataType();
+			result.ID = item.ID;
+			result.Name = item.AccountCancelReason;
+			return result;
+		}
 	}
 }

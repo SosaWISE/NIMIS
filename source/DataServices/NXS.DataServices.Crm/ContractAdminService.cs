@@ -2,6 +2,7 @@
 using NXS.Data.Crm;
 using NXS.DataServices.Crm.Models;
 using SOS.Lib.Core;
+using SOS.Lib.Core.ErrorHandling;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -460,28 +461,31 @@ namespace NXS.DataServices.Crm
 		//	return string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
 		//}
 
-		public async Task<Result<MsAccountSalesInformationExtras>> SaveAccountSalesInformationExtras(long accountId, MsAccountSalesInformationExtras data)
-		{
-			using (var db = CrmDb.Connect())
-			{
-				var result = new Result<MsAccountSalesInformationExtras>();
-				var tbl = db.MS_AccountSalesInformations;
+		//public async Task<Result<MsAccountSalesInformationExtras>> SaveAccountSalesInformationExtras(long accountId, MsAccountSalesInformationExtras inputItem)
+		//{
+		//	using (var db = CrmDb.Connect())
+		//	{
+		//		var result = new Result<MsAccountSalesInformationExtras>();
+		//		var tbl = db.MS_AccountSalesInformations;
 
-				var msAcctSalesInfo = (await tbl.ByIdAsync(accountId).ConfigureAwait(false));
-				if (msAcctSalesInfo == null)
-					return result.Fail(-1, "Invalid AccountID");
+		//		var item = (await tbl.ByIdAsync(accountId).ConfigureAwait(false));
+		//		if (item == null)
+		//			return result.Fail(-1, "Invalid AccountID");
+		//		if (!string.IsNullOrEmpty((result.Message = VersionException.ModifiedOnErrMsg(item.ModifiedOn, inputItem.ModifiedOn))))
+		//		{
+		//			result.Value = MsAccountSalesInformationExtras.FromDb(item);
+		//			return result.Fail((int)BaseErrorCodes.ErrorCodes.InvalidModifiedOn, result.Message);
+		//		}
 
-				var snapShot = Snapshotter.Start(msAcctSalesInfo);
-				data.ToDb(msAcctSalesInfo);
-				// update
-				msAcctSalesInfo.ModifiedOn = DateTime.UtcNow;
-				msAcctSalesInfo.ModifiedBy = _gpEmployeeId;
-				// save
-				await tbl.UpdateAsync(accountId, snapShot.Diff()).ConfigureAwait(false);
+		//		var snapShot = Snapshotter.Start(item);
+		//		inputItem.ToDb(item);
+		//		// save
+		//		await tbl.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
 
-				return result;
-			}
-		}
+		//		result.Value = MsAccountSalesInformationExtras.FromDb(item);
+		//		return result;
+		//	}
+		//}
 
 		//public async Task<Result<MsAccountSalesInformation>> AccountSalesInformation(long accountId)
 		//{

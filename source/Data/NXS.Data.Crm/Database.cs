@@ -14,6 +14,7 @@ namespace NXS.Data.Crm
 		public AE_InvoiceTypeTable AE_InvoiceTypes { get; set; }
 		public AE_ItemTable AE_Items { get; set; }
 		public AE_PaymentMethodTable AE_PaymentMethods { get; set; }
+		public MC_AccountCancelReasonTable MC_AccountCancelReasons { get; set; }
 		public MC_AccountTable MC_Accounts { get; set; }
 		public MC_AddressTable MC_Addresses { get; set; }
 		public MC_FriendsAndFamilyTypeTable MC_FriendsAndFamilyTypes { get; set; }
@@ -137,6 +138,7 @@ namespace NXS.Data.Crm
 			public string SystemPoints { get { return _alias + "[SystemPoints]"; } }
 			public string SalesmanId { get { return _alias + "[SalesmanId]"; } }
 			public string TechnicianId { get { return _alias + "[TechnicianId]"; } }
+			public string IsCustomerPaying { get { return _alias + "[IsCustomerPaying]"; } }
 			public string IsActive { get { return _alias + "[IsActive]"; } }
 			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
@@ -235,6 +237,13 @@ namespace NXS.Data.Crm
 			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
 			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
 			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+		}
+		public partial class MC_AccountCancelReasonTable : Table<MC_AccountCancelReason, string>
+		{
+			public CrmDb Db { get { return (CrmDb)_database; } }
+			public MC_AccountCancelReasonTable(CrmDb db) : base(db, "McACR", "[dbo].[MC_AccountCancelReasons]", "AccountCancelReasonID", "varchar", false) { }
+			public string AccountCancelReasonID { get { return _alias + "[AccountCancelReasonID]"; } }
+			public string AccountCancelReason { get { return _alias + "[AccountCancelReason]"; } }
 		}
 		public partial class MC_AccountTable : Table<MC_Account, long>
 		{
@@ -456,6 +465,7 @@ namespace NXS.Data.Crm
 			public string TechId { get { return _alias + "[TechId]"; } }
 			public string SalesRepId { get { return _alias + "[SalesRepId]"; } }
 			public string AccountFundingStatusId { get { return _alias + "[AccountFundingStatusId]"; } }
+			public string AccountPayoutTypeId { get { return _alias + "[AccountPayoutTypeId]"; } }
 			public string BillingDay { get { return _alias + "[BillingDay]"; } }
 			public string Email { get { return _alias + "[Email]"; } }
 			public string IsMoni { get { return _alias + "[IsMoni]"; } }

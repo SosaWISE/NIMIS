@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,6 +18,7 @@ namespace NXS.Data.Crm
 		}
 		public static async Task UpdateAsync(this ARTable tbl, Snapshotter.Snapshot<AR> snapShot, string gpEmployeeId)
 		{
+			if (!snapShot.HasChange()) return;
 			var item = snapShot.Value;
 			item.ModifiedOn = DateTime.UtcNow.RoundToSqlDateTime();
 			item.ModifiedBy = gpEmployeeId;
