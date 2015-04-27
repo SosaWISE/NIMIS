@@ -30,13 +30,32 @@ PRINT '************************************************************ START ******
 /********************  END HEADER ********************/
 
 --DECLARE teamMembersCursor CURSOR FOR
+DECLARE @TeamSummary TABLE (TeamID INT, NumberOfAccounts INT, CommissionTeamOfficeOverrideScaleID VARCHAR(20), Amount MONEY);
+
+INSERT INTO @TeamSummary (TeamID, NumberOfAccounts)
 SELECT DISTINCT
-	TML.* 
-	, SCWA.WorkAccountID
-	, SCWA.AccountID
+	TML.TeamID
+	, COUNT(*) AS NumberOfAccounts
+	--, SCWA.WorkAccountID
+	--, SCWA.AccountID
 FROM
 	[dbo].fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID) AS TML
 	INNER JOIN [dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK)
 	ON
 		(SCWA.SalesRepId = TML.SalesRepId)
-		AND (SCWA.CommissionPeriodId = @CommissionPeriodID);
+		AND (SCWA.CommissionPeriodId = @CommissionPeriodID)
+GROUP BY
+	TML.TeamID;
+
+-- Update Values for the override
+UPDATE TSS SET
+	CommissionTeamOfficeOverrideScaleID = SCCT.CommissionTeamOfficeOverrideScaleID
+	, Amount = SCCT.Amount
+FROM 
+	@TeamSummary AS TSS
+	INNER JOIN [dbo].[SC_CommissionTeamOfficeOverrideScales] AS SCCT WITH (NOLOCK)
+	ON
+		(TSS.NumberOfAccounts BETWEEN SCCT.Start AND SCCT.[End]);
+
+SELECT * FROM @TeamSummary;
+SELECT * FROM fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID)

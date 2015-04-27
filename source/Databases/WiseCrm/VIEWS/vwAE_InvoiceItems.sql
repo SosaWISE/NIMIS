@@ -62,6 +62,7 @@ AS
 		, IVTM.SystemPoints
 		, IVTM.SalesmanId
 		, IVTM.TechnicianId
+		, IVTM.IsCustomerPaying
 		, IVTM.IsActive
 		, IVTM.IsDeleted
 		, IVTM.ModifiedOn
