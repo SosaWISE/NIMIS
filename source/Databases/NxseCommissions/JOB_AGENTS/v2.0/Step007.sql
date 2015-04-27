@@ -6,14 +6,16 @@
 USE [NXSE_Commissions]
 GO
 
-DECLARE @CommissionPeriodID BIGINT
+DECLARE	@CommissionContractID INT
+	, @CommissionPeriodID BIGINT
 	, @CommissionEngineID VARCHAR(10) = 'SCv2.0'
 	, @CommissionPeriodStrDate DATETIME
 	, @CommissionPeriodEndDate DATETIME
 	, @DEBUG_MODE VARCHAR(20) = 'OFF'
 	, @TRUNCATE VARCHAR(20) = 'OFF';
 SELECT TOP 1
-	@CommissionPeriodID = CommissionPeriodID
+	@CommissionContractID = CommissionContractID
+	, @CommissionPeriodID = CommissionPeriodID
 	, @CommissionEngineID = CommissionEngineID
 	, @CommissionPeriodStrDate = CommissionPeriodStrDate
 	, @CommissionPeriodEndDate = CommissionPeriodEndDate
@@ -27,3 +29,14 @@ PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Co
 PRINT '************************************************************ START ************************************************************';
 /********************  END HEADER ********************/
 
+--DECLARE teamMembersCursor CURSOR FOR
+SELECT DISTINCT
+	TML.* 
+	, SCWA.WorkAccountID
+	, SCWA.AccountID
+FROM
+	[dbo].fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID) AS TML
+	INNER JOIN [dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK)
+	ON
+		(SCWA.SalesRepId = TML.SalesRepId)
+		AND (SCWA.CommissionPeriodId = @CommissionPeriodID);

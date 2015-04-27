@@ -190,6 +190,7 @@ INSERT INTO [dbo].[SC_WorkAccounts] (
 	, [CustomerMasterFileId]
 	, [AccountPackageId]
 	, [SalesRepId]
+	, [ManSalesRepId]
 	, [TechId]
 	, [FriendsAndFamilyTypeId]
 	, [QualifyDate]
@@ -221,6 +222,7 @@ SELECT
 	, CustomerMasterFileId -- bigint
 	, AccountPackageId -- int
 	, SalesRepId -- varchar(25)
+	, ManSalesRepId
 	, TechId -- varchar(25)
 	, FriendsAndFamilyTypeId -- varchar(20)
 	, QualifyDate -- datetime

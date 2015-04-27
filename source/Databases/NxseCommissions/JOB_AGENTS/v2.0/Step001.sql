@@ -57,6 +57,7 @@ INSERT dbo.SC_workAccountsAll
 	, CustomerMasterFileId
 	, AccountPackageId
 	, SalesRepId
+	, ManSalesRepId
 	, TechId
 	, FriendsAndFamilyTypeId
 	, QualifyDate
@@ -85,7 +86,7 @@ SELECT DISTINCT
 	, MC_Accounts.CustomerMasterFileId
 	, MSASI.AccountPackageId
 	, MSASI.SalesRepId
-	, '' AS [SaleManRepId]
+	, '' AS [ManSaleRepId]
 	, MSASI.TechId
 	, MSASI.FriendsAndFamilyTypeId
 	, QL.QualifyDate

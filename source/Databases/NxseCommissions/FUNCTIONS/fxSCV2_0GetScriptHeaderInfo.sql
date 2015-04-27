@@ -43,7 +43,8 @@ CREATE FUNCTION dbo.fxSCV2_0GetScriptHeaderInfo
 RETURNS 
 @ResultList table
 (
-	CommissionPeriodID BIGINT
+	CommissionContractID INT
+	, CommissionPeriodID BIGINT
 	, CommissionEngineID VARCHAR(10)
 	, CommissionPeriodStrDate DATETIME
 	, CommissionPeriodEndDate DATETIME
@@ -53,7 +54,9 @@ RETURNS
 AS
 BEGIN
 	/** LOCALS */
-	DECLARE @CommissionPeriodID BIGINT
+	DECLARE
+		@CommissionContractID INT = 1
+		, @CommissionPeriodID BIGINT
 		, @CommissionEngineID VARCHAR(10) = 'SCv2.0'
 		, @CommissionPeriodStrDate DATETIME
 		, @CommissionPeriodEndDate DATETIME
@@ -77,14 +80,16 @@ BEGIN
 
 	/** INSERT INTO  */
 	INSERT INTO @ResultList (
-		CommissionPeriodID
+		CommissionContractID
+		, CommissionPeriodID
 		, CommissionEngineID
 		, CommissionPeriodStrDate
 		, CommissionPeriodEndDate
 		, DEBUG_MODE
 		, [TRUNCATE]
 	) VALUES (
-		@CommissionPeriodID
+		@CommissionContractID
+		, @CommissionPeriodID
 		, @CommissionEngineID
 		, @CommissionPeriodStrDate
 		, @CommissionPeriodEndDate
