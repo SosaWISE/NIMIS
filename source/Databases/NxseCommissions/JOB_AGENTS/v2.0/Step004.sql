@@ -3,9 +3,13 @@ Deductions get applied for:
 	Agreement length
 	Payment type
 	Activation fee
-	Points of protection	--STILL NEED TO DO THIS ONE
+	Points of protection
 	Lowered RMR
 	Special deals
+	Manager Deductions (Team):
+		Waived Activation Fees
+		Credit Scores Below 625
+		RMR lower than Package BaseRMR
 */
 USE [NXSE_Commissions]
 GO
@@ -224,6 +228,91 @@ WHERE
 ********************************************/
 
 --As a company we are not doing anything with this it's all between the rep and the customer.
+
+
+/*
+** Team Manager Deductions
+*/
+
+PRINT '/******************************';
+PRINT '***	Team Activations Waived ***';
+PRINT '******************************/';
+
+--DEDUCT FOR TEAM ACTIVATIONS WAIVED
+SET @CommissionsAdjustmentID = 'TEAMACTWAIVED'
+SELECT @CommissionAdjustmentAmount = (-1) * DeductionAmount FROM dbo.SC_CommissionDeductions WHERE (CommissionDeductionID = @CommissionsAdjustmentID)
+
+-- Create entry for team waived activation fee
+INSERT SC_workAccountAdjustments
+(
+	WorkAccountId
+	, CommissionsAdjustmentID
+	, AdjustmentAmount
+)
+SELECT 
+	WorkAccountID
+	, @commissionsAdjustmentId
+	, @CommissionAdjustmentAmount
+FROM
+	dbo.SC_WorkAccounts
+WHERE 
+	(ActivationFee < 69.00)
+	AND (CommissionPeriodId = @CommissionPeriodID);
+
+
+
+PRINT '/*****************************';
+PRINT '***	Team Credits below 625 ***';
+PRINT '*****************************/';
+
+--DEDUCT FOR TEAM CREDIT SCORES BELOW 625
+SET @CommissionsAdjustmentID = 'TEAMCREDITSUB625'
+SELECT @CommissionAdjustmentAmount = (-1) * DeductionAmount FROM dbo.SC_CommissionDeductions WHERE (CommissionDeductionID = @CommissionsAdjustmentID)
+
+-- Create entry for Team Credit below 625
+INSERT SC_workAccountAdjustments
+(
+	WorkAccountId
+	, CommissionsAdjustmentID
+	, AdjustmentAmount
+)
+SELECT 
+	WorkAccountID
+	, @commissionsAdjustmentId
+	, @CommissionAdjustmentAmount
+FROM
+	dbo.SC_WorkAccounts
+WHERE 
+	(CreditScore < 625)
+	AND (CommissionPeriodId = @CommissionPeriodID);
+
+
+PRINT '/***********************';
+PRINT '***	Team Lowered RMR ***';
+PRINT '***********************/';
+
+--DEDUCT FOR TEAM LOWERED RMR (This is a flat fee, it is not based off how much the rep lowered)
+SET @CommissionsAdjustmentID = 'TEAMLOWRMR'
+SELECT @CommissionAdjustmentAmount = (-1) * DeductionAmount FROM dbo.SC_CommissionDeductions WHERE (CommissionDeductionID = @CommissionsAdjustmentID)
+
+-- Create entry for Team Lowered RMR
+INSERT SC_workAccountAdjustments
+(
+	WorkAccountId
+	, CommissionsAdjustmentID
+	, AdjustmentAmount
+)
+SELECT 
+	WorkAccountID
+	, @commissionsAdjustmentId
+	, @CommissionAdjustmentAmount
+FROM
+	dbo.SC_WorkAccounts AS scwa
+	JOIN [WISE_CRM].dbo.[MS_AccountSalesInformations] AS msasi ON scwa.AccountID = msasi.AccountID
+	JOIN [WISE_CRM].dbo.[MS_AccountPackages] AS msap ON msasi.AccountPackageId = msap.AccountPackageID
+WHERE 
+	(scwa.RMR < msap.BaseRMR)
+	AND (CommissionPeriodId = @CommissionPeriodID);
 
 IF (@DEBUG_MODE = 'ON')
 BEGIN
