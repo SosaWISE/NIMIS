@@ -31,6 +31,14 @@ PRINT '************************************************************ START ******
 
 --DECLARE teamMembersCursor CURSOR FOR
 DECLARE @TeamSummary TABLE (TeamID INT, NumberOfAccounts INT, CommissionTeamOfficeOverrideScaleID VARCHAR(20), Amount MONEY);
+DECLARE @TeamID INT
+	, @WorkAccountID BIGINT
+	, @AccountId BIGINT
+	, @WorkAccountAdjustmentId BIGINT
+	, @CommissionTeamOfficeOverrideScaleID VARCHAR(20)
+	, @Amount MONEY
+	, @SalesRepID VARCHAR(25)
+	, @ManSalesRepID VARCHAR(25);
 
 INSERT INTO @TeamSummary (TeamID, NumberOfAccounts)
 SELECT DISTINCT
@@ -39,7 +47,11 @@ SELECT DISTINCT
 	--, SCWA.WorkAccountID
 	--, SCWA.AccountID
 FROM
-	[dbo].fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID) AS TML
+	(SELECT DISTINCT
+		TMLI.TeamID
+		, TMLI.SalesRepId
+	FROM
+		[dbo].fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID) AS TMLI) AS TML
 	INNER JOIN [dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK)
 	ON
 		(SCWA.SalesRepId = TML.SalesRepId)
@@ -57,5 +69,92 @@ FROM
 	ON
 		(TSS.NumberOfAccounts BETWEEN SCCT.Start AND SCCT.[End]);
 
-SELECT * FROM @TeamSummary;
-SELECT * FROM fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID)
+-- Add to WorkAcountTeamOfficeOverrideBonuses
+DECLARE teamSumCursor CURSOR FOR
+	SELECT TS.TeamID, TS.CommissionTeamOfficeOverrideScaleID, TS.Amount, TML.SalesRepID
+	FROM 
+		@TeamSummary AS TS
+		INNER JOIN [dbo].fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID) AS TML
+		ON
+			(TS.TeamID = TML.TeamID)
+
+OPEN teamSumCursor;
+FETCH NEXT FROM teamSumCursor INTO
+	@TeamID
+	, @CommissionTeamOfficeOverrideScaleID
+	, @Amount
+	, @SalesRepID;
+
+WHILE (@@FETCH_STATUS = 0)
+BEGIN
+	-- Get Manager ID
+	SELECT TOP 1
+		@ManSalesRepID = ManSalesRepID
+	FROM
+		[dbo].fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID)
+	WHERE
+		(TeamID = @TeamID);
+
+	/** Now have to loop because a rep can have more than one account in the WorkAccounts table. */
+	DECLARE workAccountBySalesRepCurosr CURSOR FOR
+		SELECT SCWA.WorkAccountID, SCWA.AccountID FROM [dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK) WHERE (SalesRepId = @SalesRepID);
+	OPEN workAccountBySalesRepCurosr;
+	FETCH NEXT FROM workAccountBySalesRepCurosr INTO @WorkAccountID, @AccountId;
+
+	WHILE(@@FETCH_STATUS = 0)
+	BEGIN
+		/** ADD THE APPROPIRATE ROWS */
+
+		-- Create the WorkAccountAdjustment
+		INSERT INTO [dbo].[SC_WorkAccountAdjustments] (
+			[WorkAccountId] ,
+			[CommissionTeamOfficeOverrideScaleId] ,
+			[AdjustmentAmount]
+		) VALUES (
+			@WorkAccountId -- bigint
+			, @CommissionTeamOfficeOverrideScaleId -- varchar(20)
+			, @Amount -- money
+		);
+
+		SET @WorkAccountAdjustmentId = SCOPE_IDENTITY();
+
+		-- Create the WorkAccountTeamOfficeOverrideBonuses
+		INSERT INTO [dbo].[SC_WorkAccountTeamOfficeOverrideBonuses] (
+			[WorkAccountID]
+			, [WorkAccountAdjustmentId]
+			, [CommissionPeriodId]
+			, [CommissionTeamOfficeOverrideScaleId]
+			, [AccountId]
+			, [PaidToSalesManRepId]
+		) VALUES (
+			@WorkAccountID
+			, @WorkAccountAdjustmentId
+			, @CommissionPeriodID
+			, @CommissionTeamOfficeOverrideScaleID
+			, @AccountId
+			, @ManSalesRepID
+		);
+		
+		-- Get next row
+		FETCH NEXT FROM workAccountBySalesRepCurosr INTO @WorkAccountID, @AccountId;
+	END
+
+	CLOSE workAccountBySalesRepCurosr;
+	DEALLOCATE workAccountBySalesRepCurosr;
+
+	-- Get next item	
+	FETCH NEXT FROM teamSumCursor INTO
+		@TeamID
+		, @CommissionTeamOfficeOverrideScaleID
+		, @Amount
+		, @SalesRepID;
+END
+CLOSE teamSumCursor;
+DEALLOCATE teamSumCursor;
+	
+IF (@DEBUG_MODE = 'ON')
+BEGIN
+	SELECT * FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID);
+	SELECT * FROM [dbo].[SC_workAccountAdjustments] WHERE (WorkAccountId IN (SELECT WorkAccountID FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID)));
+	SELECT * FROM [dbo].[SC_WorkAccountTeamOfficeOverrideBonuses] WHERE (WorkAccountId IN (SELECT WorkAccountID FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID)));
+END
