@@ -2,6 +2,8 @@
 using System.Data;
 using NXS.Logic.MonitoringStations.Helpers;
 using NXS.Logic.MonitoringStations.Models;
+using NXS.Logic.MonitoringStations.Models.Slammed;
+using NXS.Logic.MonitoringStations.MoniBounceAPI;
 using NXS.Logic.MonitoringStations.MoniWSI45;
 using NXS.Logic.MonitoringStations.Schemas;
 using SOS.Data.SosCrm;
@@ -278,7 +280,7 @@ namespace NXS.Logic.MonitoringStations
 		{
 			#region INITIALIZE
 			// ** Initialize
-			var hasErrors = false;
+			bool hasErrors;
 			var accountSubmit = MS_AccountSubmit.CreateFromParent(parentAccountSubmit, (short) MS_AccountSubmitType.AccountSubmitTypeEnum.Pull_Panel);
 			accountSubmit.Save(parentAccountSubmit.CreatedBy);
 			var services = new WSI();
@@ -308,6 +310,7 @@ namespace NXS.Logic.MonitoringStations
 			catch (Exception ex)
 			{
 				
+// ReSharper disable once PossibleIntendedRethrow
 				throw ex;
 			}
 
@@ -399,6 +402,62 @@ namespace NXS.Logic.MonitoringStations
 			//dtResult.AddTableRow(errorRow);
 			dsResult.Table.AddTableRow(errorRow);
 			return !hasErrors;
+		}
+
+		public MatchResultFields IsSlammedAccount(SlammedInputFields fields)
+		{
+			/** Locals. */
+			MatchResultFields result;
+			var service = new wwwBouncer();
+
+			var searchInfo = new SearchInfo
+			{
+				Address1 = fields.Address1,
+				City = fields.City,
+				State = fields.State,
+				Zip = fields.Zip,
+				ApplicationName = fields.ApplicationName,
+				ProcessName = fields.ProcessNameStr,
+				DealerName = fields.DealerName,
+				DealerNumber = fields.DealerNumber,
+				FirstName = fields.FirstName,
+				LastName = fields.LastName
+			};
+			
+			/** Get all the other fields that are not required. */
+			if (!string.IsNullOrEmpty(fields.Address2))
+				searchInfo.Address2 = fields.Address2;
+			if (!string.IsNullOrEmpty(fields.Phone1))
+				searchInfo.Phone1 = fields.Phone1;
+			if (!string.IsNullOrEmpty(fields.Phone2))
+				searchInfo.Phone1 = fields.Phone2;
+			if (fields.CurrentSiteID != 0)
+				searchInfo.CurrentSiteID = fields.CurrentSiteID;
+
+			MatchResult matchResult = service.Match(searchInfo);
+			result = new MatchResultFields(matchResult);
+
+			// ** Return result
+			return result;
+		}
+
+		public string SlammedReason(int matchId)
+		{
+			/** Locals*/
+			var result = string.Empty;
+			var service = new wwwBouncer();
+
+			/** Execute call. */
+			MatchComment[] matchResult = service.GetMatchComments(matchId, true);
+
+			/** Get the comments. */
+			foreach (var matchComment in matchResult)
+			{
+				result += string.Format("Comment: {0}\r\n", matchComment);
+			}
+
+			/** Return result. */
+			return result;
 		}
 
 		#endregion Methods

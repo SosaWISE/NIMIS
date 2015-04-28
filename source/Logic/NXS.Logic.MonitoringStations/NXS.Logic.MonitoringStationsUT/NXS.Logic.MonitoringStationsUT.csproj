@@ -62,6 +62,7 @@
     <Compile Include="GetEntitiesDependenciesTests.cs" />
     <Compile Include="OnBoardTests.cs" />
     <Compile Include="ImmediateTests.cs" />
+    <Compile Include="SlammedAccounts.cs" />
     <Compile Include="UpdateTests.cs" />
     <Compile Include="OosTests.cs" />
     <Compile Include="CreditRequestTests.cs" />

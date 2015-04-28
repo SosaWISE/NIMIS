@@ -32,5 +32,15 @@ namespace NXS.Logic.MonitoringStations.Properties {
                 return ((string)(this["NXS_Logic_MonitoringStations_MoniWSI45_WSI"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://wstest.monitronics.net/BounceServiceR2/wwwBouncer.svc")]
+        public string NXS_Logic_MonitoringStations_MoniBounceAPI_wwwBouncer {
+            get {
+                return ((string)(this["NXS_Logic_MonitoringStations_MoniBounceAPI_wwwBouncer"]));
+            }
+        }
     }
 }

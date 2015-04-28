@@ -29,6 +29,7 @@ using SOS.FunctionalServices.Models.Cms;
 using SOS.FunctionalServices.Models.QualifyLead;
 using SOS.FunctionalServices.Models.Receiver;
 using SOS.Lib.Core.CreditReportService;
+using SOS.Lib.Core.ErrorHandling;
 using SOS.Lib.Util;
 using SSE.FOS.AddressVerification.Interfaces;
 using SSE.FOS.AddressVerification.Models;
@@ -2384,6 +2385,15 @@ namespace SOS.FunctionalServices
 					result.Message = "Lead not found";
 					return result;
 				}
+
+				/** Call Monitronics and Check for Slammed Account. */
+				var centralStation = new FOS.MonitoringStationServices.Monitronics.CentralStation();
+				var csResult = centralStation.IsNotSlammedAccount(lead.Address, lead);
+				if (csResult.Code != BaseErrorCodes.ErrorCodes.Success.Code())
+				{
+					//TODO:  Flag this account as slammed account
+				}
+
 				IWSLead wsLead = new WSLead(lead);
 				IWSAddress wsAddress = new WSAddress(lead.Address);
 				string[] bureausList = NSE.FOS.RunCreditServices.Main.GetBureausList();

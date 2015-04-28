@@ -56,6 +56,8 @@
     <Compile Include="Models\Get\GetServiceCompanies.cs" />
     <Compile Include="Models\OnTests.cs" />
     <Compile Include="Models\OutOfServices.cs" />
+    <Compile Include="Models\Slammed\MatchResultFields.cs" />
+    <Compile Include="Models\Slammed\SlammedInputFields.cs" />
     <Compile Include="Models\TwoWays.cs" />
     <Compile Include="Schemas\GetServiceCompany.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -331,6 +333,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GetZoneStates.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\MoniBounceAPI\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\MoniWSI45\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -841,6 +848,26 @@
     <None Include="Schemas\GetZoneStates.xss">
       <DependentUpon>GetZoneStates.xsd</DependentUpon>
     </None>
+    <None Include="Web References\MoniBounceAPI\MatchComment.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\MoniBounceAPI\MatchResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\MoniBounceAPI\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\MoniBounceAPI\wwwBouncer.wsdl" />
+    <None Include="Web References\MoniBounceAPI\wwwBouncer.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\MoniBounceAPI\wwwBouncer0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\MoniBounceAPI\wwwBouncer1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web References\MoniWSI45\MIDI.wsdl" />
     <None Include="Web References\MoniWSI45\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -851,6 +878,17 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <WebReferenceUrl Include="https://wstest.monitronics.net/BounceServiceR2/wwwBouncer.svc">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\MoniBounceAPI\</RelPath>
+      <UpdateFromURL>https://wstest.monitronics.net/BounceServiceR2/wwwBouncer.svc</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NXS_Logic_MonitoringStations_MoniBounceAPI_wwwBouncer</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="https://wstest.monitronics.net/MIDI/MIDI.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\MoniWSI45\</RelPath>
@@ -879,6 +917,9 @@
       <Project>{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}</Project>
       <Name>SubSonic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\MoniBounceAPI\wwwBouncer.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

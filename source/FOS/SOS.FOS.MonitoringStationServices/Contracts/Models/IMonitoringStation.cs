@@ -29,5 +29,7 @@ namespace SOS.FOS.MonitoringStationServices.Contracts.Models
 		FosResult<bool> GenerateMetaData(long? accountId = null, string username = "SYSTEM");
 
 		FosResult<List<MS_DispatchAgency>> FindDispatchAgency(string agencyTypeId, string phone, string city, string state, string zip, string gpEmployeeId);
+
+		FosResult<bool> IsNotSlammedAccount(QL_Address address, QL_Lead lead);
 	}
 }

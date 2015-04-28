@@ -161,7 +161,6 @@ END
 CLOSE WorkAccountCursor;
 DEALLOCATE WorkAccountCursor;
 
-
 IF (@DEBUG_MODE = 'ON')
 BEGIN
 	SELECT * FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID);

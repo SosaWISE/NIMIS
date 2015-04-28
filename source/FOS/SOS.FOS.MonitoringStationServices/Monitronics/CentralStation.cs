@@ -2,6 +2,7 @@
 using NXS.Logic.MonitoringStations.Helpers;
 using NXS.Logic.MonitoringStations.Models;
 using NXS.Logic.MonitoringStations.Models.Get;
+using NXS.Logic.MonitoringStations.Models.Slammed;
 using NXS.Logic.MonitoringStations.Schemas;
 using SOS.Data.SosCrm;
 using SOS.Data.SosCrm.ControllerExtensions;
@@ -1352,6 +1353,55 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			}
 			// ** Return result
 			return result;
+		}
+
+		public FosResult<bool> IsNotSlammedAccount(QL_Address address, QL_Lead lead)
+		{
+			/** Locals */
+			var fosResult = new FosResult<bool>
+			{
+				Code = BaseErrorCodes.ErrorCodes.Initializing.Code(),
+				Message = string.Format(BaseErrorCodes.ErrorCodes.Initializing.Message(), "IsNotSlammedAccount"),
+				Value = false
+			};
+
+			try
+			{
+				/** Check to see if this is a good account. */
+				var moniService = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+
+				var fields = new SlammedInputFields
+				{
+					Address1 = address.StreetAddress
+					, City = address.City
+					, State = address.State.StateAB
+					, Zip = address.PostalCode
+					, ApplicationName = "Nexsense Application"
+					, ProcessName = SlammedInputFields.ProcessNameEnum.CreditCheck
+					, DealerNumber = "12345678"
+					, DealerName = "Nexsense"
+					, FirstName = lead.FirstName
+					, LastName = lead.LastName
+				};
+				var result = moniService.IsSlammedAccount(fields);
+
+				fosResult.Code = result.MatchCode == 0 
+					? BaseErrorCodes.ErrorCodes.Success.Code()
+					: BaseErrorCodes.ErrorCodes.GeneralMessage.Code();
+				fosResult.Message = result.MatchCode == 0
+					? BaseErrorCodes.ErrorCodes.Success.Message()
+					: "This account is already on Monitronics System.";
+
+			}
+			catch (Exception ex)
+			{
+				fosResult.Code = BaseErrorCodes.ErrorCodes.ExceptionThrown.Code();
+				fosResult.Message = string.Format(BaseErrorCodes.ErrorCodes.ExceptionThrown.Message(), "Monitronics CentralStation class IsNotSlammedAccount", ex.Message);
+				fosResult.Value = false;
+			}
+
+			/** Return result. */
+			return fosResult;
 		}
 
 		#region Private

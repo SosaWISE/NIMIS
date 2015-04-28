@@ -8,6 +8,7 @@ using SOS.Data.SosCrm.ControllerExtensions;
 using SOS.FOS.MonitoringStationServices.AGSiteService;
 using SOS.FOS.MonitoringStationServices.AvantGuard.Models;
 using SOS.FOS.MonitoringStationServices.Contracts.Models;
+using SOS.Lib.Core.ErrorHandling;
 using Stages;
 
 namespace SOS.FOS.MonitoringStationServices.AvantGuard
@@ -985,6 +986,16 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 		public FosResult<List<MS_DispatchAgency>> FindDispatchAgency(string agencyTypeId, string phone, string city, string state, string zip, string gpEmployeeId)
 		{
 			throw new NotImplementedException();
+		}
+
+		public FosResult<bool> IsNotSlammedAccount(QL_Address address, QL_Lead lead)
+		{
+			return new FosResult<bool>
+			{
+				Code = BaseErrorCodes.ErrorCodes.Success.Code(),
+				Message = "Avantguard won't care if this is one of their existing customers.",
+				Value = true
+			};
 		}
 
 		#endregion Implemented Members

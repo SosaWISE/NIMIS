@@ -5,5 +5,8 @@
     <Setting Name="NXS_Logic_MonitoringStations_MoniWSI45_WSI" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">https://wstest.monitronics.net/MIDI/MIDI.asmx</Value>
     </Setting>
+    <Setting Name="NXS_Logic_MonitoringStations_MoniBounceAPI_wwwBouncer" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://wstest.monitronics.net/BounceServiceR2/wwwBouncer.svc</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

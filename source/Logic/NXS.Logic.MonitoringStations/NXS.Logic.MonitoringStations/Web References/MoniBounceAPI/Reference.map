@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://wstest.monitronics.net/BounceServiceR2/wwwBouncer.svc?xsd=xsd2" filename="wwwBouncer.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://wstest.monitronics.net/BounceServiceR2/wwwBouncer.svc?xsd=xsd0" filename="wwwBouncer0.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="https://wstest.monitronics.net/BounceServiceR2/wwwBouncer.svc?disco" filename="wwwBouncer.disco" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="https://wstest.monitronics.net/BounceServiceR2/wwwBouncer.svc?wsdl" filename="wwwBouncer.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://wstest.monitronics.net/BounceServiceR2/wwwBouncer.svc?xsd=xsd1" filename="wwwBouncer1.xsd" />
+  </Results>
+</DiscoveryClientResultsFile>
