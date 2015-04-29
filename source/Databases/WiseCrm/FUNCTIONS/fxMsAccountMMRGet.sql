@@ -82,7 +82,7 @@ GO
 /*
 SELECT [dbo].fxMsAccountMMRGet(191217) AS [MMR 150925];
 SELECT [dbo].fxMsAccountMMRGet(100288) AS [MMR 100288];
-SELECT [dbo].fxMsAccountMMRGet(100274) AS [MMR 100274];*/
+SELECT [dbo].fxMsAccountMMRGet(100274) AS [MMR 100274];
 DECLARE @AccountID BIGINT = 191217;
 
 		SELECT
@@ -112,5 +112,4 @@ DECLARE @AccountID BIGINT = 191217;
 		--	INV.[InvoiceID]
 		--	, INV.[AccountId]
 		--	, INV.[InvoiceTypeId];
-
-
+*/
