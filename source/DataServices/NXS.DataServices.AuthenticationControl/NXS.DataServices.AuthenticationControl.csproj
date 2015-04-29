@@ -43,6 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionRequestsService.cs" />
+    <Compile Include="AdminService.cs" />
+    <Compile Include="Models\GroupItem.cs" />
+    <Compile Include="Models\MetadataType.cs" />
     <Compile Include="TypesService.cs" />
     <Compile Include="KeyValueService.cs" />
     <Compile Include="Models\AcActionRequest.cs" />

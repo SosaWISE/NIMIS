@@ -44,7 +44,7 @@ namespace NXS.Data.AuthenticationControl
 		{
 			public const string AdminID = "ADMIN";
 			public const string ContractAdministrationID = "CONTRACT_ADMIN";
-			public const string FundingAdminID = "FUNDING_ADMIN";
+			public const string FundingAdministratorID = "FUNDING_ADMIN";
 			public const string HiringManagerID = "HR_MAN";
 			public const string NXSConnextCORSID = "NXS_CONNEXT_CORS";
 			public const string SOSCRMID = "SOS_CRM";
@@ -69,6 +69,34 @@ namespace NXS.Data.AuthenticationControl
 		}
 		public int ID { get; set; }
 		public string Name { get; set; }
+	}
+	public partial class AC_GroupAction // AC_GroupActions
+	{
+		[IgnorePropertyAttribute(true)]
+		public int ID { get { return UserActionID; } set { UserActionID = value; } }
+		public int UserActionID { get; set; }
+		public string GroupName { get; set; }
+		public string ActionId { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime ModifiedOn { get; set; }
+	}
+	public partial class AC_GroupApplication // AC_GroupApplications
+	{
+		[IgnorePropertyAttribute(true)]
+		public int ID { get { return UserApplicationID; } set { UserApplicationID = value; } }
+		public int UserApplicationID { get; set; }
+		public string GroupName { get; set; }
+		public string ApplicationId { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime ModifiedOn { get; set; }
 	}
 	public partial class AC_KeyValue // AC_KeyValues
 	{

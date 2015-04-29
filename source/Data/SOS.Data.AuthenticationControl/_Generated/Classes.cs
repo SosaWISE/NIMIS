@@ -57,6 +57,7 @@ namespace SOS.Data.AuthenticationControl
 		[DataContract]
 		public static class MetaData
 		{
+			[EnumMember()] public const string CRM_ByPassCredit_RepExceptionID = "CRM_ByPassCredit_RepException";
 			[EnumMember()] public const string Hr_Team_EditID = "Hr_Team_Edit";
 			[EnumMember()] public const string Hr_User_EditID = "Hr_User_Edit";
 		}
@@ -248,8 +249,23 @@ namespace SOS.Data.AuthenticationControl
 			get { return ActionID; }
 		}
 		*/
-
+		/*
 		#region Foreign Collections
+
+		private AC_ActionRequestCollection _AC_ActionRequestsCol;
+		//Relationship: FK_AC_ActionRequests_AC_Actions
+		public AC_ActionRequestCollection AC_ActionRequestsCol
+		{
+			get
+			{
+				if(_AC_ActionRequestsCol == null) {
+					_AC_ActionRequestsCol = new AC_ActionRequestCollection();
+					_AC_ActionRequestsCol.LoadAndCloseReader(AC_ActionRequest.Query()
+						.WHERE(AC_ActionRequest.Columns.ActionId, ActionID).ExecuteReader());
+				}
+				return _AC_ActionRequestsCol;
+			}
+		}
 
 		private AC_GroupActionCollection _AC_GroupActionsCol;
 		//Relationship: FK_ActionId_AC_GroupActions_AC_Actions
@@ -282,7 +298,7 @@ namespace SOS.Data.AuthenticationControl
 		}
 
 		#endregion Foreign Collections
-
+		*/
 	}
 	/// <summary>
 	/// Strongly-typed collection for the AC_Application class.
@@ -326,6 +342,9 @@ namespace SOS.Data.AuthenticationControl
 		[DataContract]
 		public static class MetaData
 		{
+			[EnumMember()] public const string AdminID = "ADMIN";
+			[EnumMember()] public const string ContractAdministrationID = "CONTRACT_ADMIN";
+			[EnumMember()] public const string FundingAdministratorID = "FUNDING_ADMIN";
 			[EnumMember()] public const string HiringManagerID = "HR_MAN";
 			[EnumMember()] public const string NXSConnextCORSID = "NXS_CONNEXT_CORS";
 			[EnumMember()] public const string SOSCRMID = "SOS_CRM";
@@ -522,8 +541,23 @@ namespace SOS.Data.AuthenticationControl
 			get { return ApplicationID; }
 		}
 		*/
-
+		/*
 		#region Foreign Collections
+
+		private AC_ActionRequestCollection _AC_ActionRequestsCol;
+		//Relationship: FK_AC_ActionRequests_AC_Applications
+		public AC_ActionRequestCollection AC_ActionRequestsCol
+		{
+			get
+			{
+				if(_AC_ActionRequestsCol == null) {
+					_AC_ActionRequestsCol = new AC_ActionRequestCollection();
+					_AC_ActionRequestsCol.LoadAndCloseReader(AC_ActionRequest.Query()
+						.WHERE(AC_ActionRequest.Columns.ApplicationId, ApplicationID).ExecuteReader());
+				}
+				return _AC_ActionRequestsCol;
+			}
+		}
 
 		private AC_SessionCollection _AC_SessionsCol;
 		//Relationship: FK_AC_Sessions_AC_Applications
@@ -571,7 +605,7 @@ namespace SOS.Data.AuthenticationControl
 		}
 
 		#endregion Foreign Collections
-
+		*/
 	}
 	/// <summary>
 	/// Strongly-typed collection for the AC_Authentication class.
@@ -915,8 +949,8 @@ namespace SOS.Data.AuthenticationControl
 			get { return AuthenticationID; }
 		}
 		*/
-
-
+		/*
+		*/
 	}
 	/// <summary>
 	/// Strongly-typed collection for the AC_GroupAction class.
@@ -1063,15 +1097,15 @@ namespace SOS.Data.AuthenticationControl
 
 				TableSchema.TableColumn colvarCreatedBy = new TableSchema.TableColumn(schema);
 				colvarCreatedBy.ColumnName = "CreatedBy";
-				colvarCreatedBy.DataType = DbType.Int32;
-				colvarCreatedBy.MaxLength = 0;
+				colvarCreatedBy.DataType = DbType.String;
+				colvarCreatedBy.MaxLength = 50;
 				colvarCreatedBy.AutoIncrement = false;
 				colvarCreatedBy.IsNullable = false;
 				colvarCreatedBy.IsPrimaryKey = false;
-				colvarCreatedBy.IsForeignKey = true;
+				colvarCreatedBy.IsForeignKey = false;
 				colvarCreatedBy.IsReadOnly = false;
 				colvarCreatedBy.DefaultSetting = @"";
-				colvarCreatedBy.ForeignKeyTableName = "AC_Users";
+				colvarCreatedBy.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarCreatedBy);
 
 				TableSchema.TableColumn colvarCreatedOn = new TableSchema.TableColumn(schema);
@@ -1089,15 +1123,15 @@ namespace SOS.Data.AuthenticationControl
 
 				TableSchema.TableColumn colvarModifiedBy = new TableSchema.TableColumn(schema);
 				colvarModifiedBy.ColumnName = "ModifiedBy";
-				colvarModifiedBy.DataType = DbType.Int32;
-				colvarModifiedBy.MaxLength = 0;
+				colvarModifiedBy.DataType = DbType.String;
+				colvarModifiedBy.MaxLength = 50;
 				colvarModifiedBy.AutoIncrement = false;
 				colvarModifiedBy.IsNullable = false;
 				colvarModifiedBy.IsPrimaryKey = false;
-				colvarModifiedBy.IsForeignKey = true;
+				colvarModifiedBy.IsForeignKey = false;
 				colvarModifiedBy.IsReadOnly = false;
 				colvarModifiedBy.DefaultSetting = @"";
-				colvarModifiedBy.ForeignKeyTableName = "AC_Users";
+				colvarModifiedBy.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarModifiedBy);
 
 				TableSchema.TableColumn colvarModifiedOn = new TableSchema.TableColumn(schema);
@@ -1171,8 +1205,8 @@ namespace SOS.Data.AuthenticationControl
 			}
 		}
 		[DataMember]
-		public int CreatedBy {
-			get { return GetColumnValue<int>(Columns.CreatedBy); }
+		public string CreatedBy {
+			get { return GetColumnValue<string>(Columns.CreatedBy); }
 			set {
 				SetColumnValue(Columns.CreatedBy, value);
 				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CreatedBy));
@@ -1187,8 +1221,8 @@ namespace SOS.Data.AuthenticationControl
 			}
 		}
 		[DataMember]
-		public int ModifiedBy {
-			get { return GetColumnValue<int>(Columns.ModifiedBy); }
+		public string ModifiedBy {
+			get { return GetColumnValue<string>(Columns.ModifiedBy); }
 			set {
 				SetColumnValue(Columns.ModifiedBy, value);
 				OnPropertyChanged(new PropertyChangedEventArgs(Columns.ModifiedBy));
@@ -1222,42 +1256,6 @@ namespace SOS.Data.AuthenticationControl
 			{
 				SetColumnValue("ActionId", value.ActionID);
 				_Action = value;
-			}
-		}
-
-		private AC_User _CreatedByValue;
-		//Relationship: FK_CreatedBy_AC_GroupActions_AC_Users
-		public AC_User CreatedByValue
-		{
-			get
-			{
-				if(_CreatedByValue == null) {
-					_CreatedByValue = AC_User.FetchByID(this.CreatedBy);
-				}
-				return _CreatedByValue;
-			}
-			set
-			{
-				SetColumnValue("CreatedBy", value.UserID);
-				_CreatedByValue = value;
-			}
-		}
-
-		private AC_User _ModifiedByValue;
-		//Relationship: FK_ModifiedBy_AC_GroupActions_AC_Users
-		public AC_User ModifiedByValue
-		{
-			get
-			{
-				if(_ModifiedByValue == null) {
-					_ModifiedByValue = AC_User.FetchByID(this.ModifiedBy);
-				}
-				return _ModifiedByValue;
-			}
-			set
-			{
-				SetColumnValue("ModifiedBy", value.UserID);
-				_ModifiedByValue = value;
 			}
 		}
 
@@ -1330,8 +1328,8 @@ namespace SOS.Data.AuthenticationControl
 			get { return UserActionID; }
 		}
 		*/
-
-
+		/*
+		*/
 	}
 	/// <summary>
 	/// Strongly-typed collection for the AC_GroupApplication class.
@@ -1478,15 +1476,15 @@ namespace SOS.Data.AuthenticationControl
 
 				TableSchema.TableColumn colvarCreatedBy = new TableSchema.TableColumn(schema);
 				colvarCreatedBy.ColumnName = "CreatedBy";
-				colvarCreatedBy.DataType = DbType.Int32;
-				colvarCreatedBy.MaxLength = 0;
+				colvarCreatedBy.DataType = DbType.String;
+				colvarCreatedBy.MaxLength = 50;
 				colvarCreatedBy.AutoIncrement = false;
 				colvarCreatedBy.IsNullable = false;
 				colvarCreatedBy.IsPrimaryKey = false;
-				colvarCreatedBy.IsForeignKey = true;
+				colvarCreatedBy.IsForeignKey = false;
 				colvarCreatedBy.IsReadOnly = false;
 				colvarCreatedBy.DefaultSetting = @"";
-				colvarCreatedBy.ForeignKeyTableName = "AC_Users";
+				colvarCreatedBy.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarCreatedBy);
 
 				TableSchema.TableColumn colvarCreatedOn = new TableSchema.TableColumn(schema);
@@ -1504,15 +1502,15 @@ namespace SOS.Data.AuthenticationControl
 
 				TableSchema.TableColumn colvarModifiedBy = new TableSchema.TableColumn(schema);
 				colvarModifiedBy.ColumnName = "ModifiedBy";
-				colvarModifiedBy.DataType = DbType.Int32;
-				colvarModifiedBy.MaxLength = 0;
+				colvarModifiedBy.DataType = DbType.String;
+				colvarModifiedBy.MaxLength = 50;
 				colvarModifiedBy.AutoIncrement = false;
 				colvarModifiedBy.IsNullable = false;
 				colvarModifiedBy.IsPrimaryKey = false;
-				colvarModifiedBy.IsForeignKey = true;
+				colvarModifiedBy.IsForeignKey = false;
 				colvarModifiedBy.IsReadOnly = false;
 				colvarModifiedBy.DefaultSetting = @"";
-				colvarModifiedBy.ForeignKeyTableName = "AC_Users";
+				colvarModifiedBy.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarModifiedBy);
 
 				TableSchema.TableColumn colvarModifiedOn = new TableSchema.TableColumn(schema);
@@ -1586,8 +1584,8 @@ namespace SOS.Data.AuthenticationControl
 			}
 		}
 		[DataMember]
-		public int CreatedBy {
-			get { return GetColumnValue<int>(Columns.CreatedBy); }
+		public string CreatedBy {
+			get { return GetColumnValue<string>(Columns.CreatedBy); }
 			set {
 				SetColumnValue(Columns.CreatedBy, value);
 				OnPropertyChanged(new PropertyChangedEventArgs(Columns.CreatedBy));
@@ -1602,8 +1600,8 @@ namespace SOS.Data.AuthenticationControl
 			}
 		}
 		[DataMember]
-		public int ModifiedBy {
-			get { return GetColumnValue<int>(Columns.ModifiedBy); }
+		public string ModifiedBy {
+			get { return GetColumnValue<string>(Columns.ModifiedBy); }
 			set {
 				SetColumnValue(Columns.ModifiedBy, value);
 				OnPropertyChanged(new PropertyChangedEventArgs(Columns.ModifiedBy));
@@ -1637,42 +1635,6 @@ namespace SOS.Data.AuthenticationControl
 			{
 				SetColumnValue("ApplicationId", value.ApplicationID);
 				_Application = value;
-			}
-		}
-
-		private AC_User _CreatedByValue;
-		//Relationship: FK_CreatedBy_AC_GroupApplications_AC_Users
-		public AC_User CreatedByValue
-		{
-			get
-			{
-				if(_CreatedByValue == null) {
-					_CreatedByValue = AC_User.FetchByID(this.CreatedBy);
-				}
-				return _CreatedByValue;
-			}
-			set
-			{
-				SetColumnValue("CreatedBy", value.UserID);
-				_CreatedByValue = value;
-			}
-		}
-
-		private AC_User _ModifiedByValue;
-		//Relationship: FK_ModifiedBy_AC_GroupApplications_AC_Users
-		public AC_User ModifiedByValue
-		{
-			get
-			{
-				if(_ModifiedByValue == null) {
-					_ModifiedByValue = AC_User.FetchByID(this.ModifiedBy);
-				}
-				return _ModifiedByValue;
-			}
-			set
-			{
-				SetColumnValue("ModifiedBy", value.UserID);
-				_ModifiedByValue = value;
 			}
 		}
 
@@ -1745,8 +1707,8 @@ namespace SOS.Data.AuthenticationControl
 			get { return UserApplicationID; }
 		}
 		*/
-
-
+		/*
+		*/
 	}
 	/// <summary>
 	/// Strongly-typed collection for the AC_Session class.
@@ -2124,7 +2086,7 @@ namespace SOS.Data.AuthenticationControl
 			get { return SessionID; }
 		}
 		*/
-
+		/*
 		#region Foreign Collections
 
 		private AC_AuthenticationCollection _AC_AuthenticationsCol;
@@ -2143,7 +2105,7 @@ namespace SOS.Data.AuthenticationControl
 		}
 
 		#endregion Foreign Collections
-
+		*/
 	}
 	/// <summary>
 	/// Strongly-typed collection for the AC_UserACL class.
@@ -2539,8 +2501,8 @@ namespace SOS.Data.AuthenticationControl
 			get { return ACLID; }
 		}
 		*/
-
-
+		/*
+		*/
 	}
 	/// <summary>
 	/// Strongly-typed collection for the AC_UserAction class.
@@ -2972,8 +2934,8 @@ namespace SOS.Data.AuthenticationControl
 			get { return UserActionID; }
 		}
 		*/
-
-
+		/*
+		*/
 	}
 	/// <summary>
 	/// Strongly-typed collection for the AC_User class.
@@ -3434,8 +3396,23 @@ namespace SOS.Data.AuthenticationControl
 			get { return UserID; }
 		}
 		*/
-
+		/*
 		#region Foreign Collections
+
+		private AC_ActionRequestCollection _AC_ActionRequestsCol;
+		//Relationship: FK_AC_ActionRequests_AC_Users
+		public AC_ActionRequestCollection AC_ActionRequestsCol
+		{
+			get
+			{
+				if(_AC_ActionRequestsCol == null) {
+					_AC_ActionRequestsCol = new AC_ActionRequestCollection();
+					_AC_ActionRequestsCol.LoadAndCloseReader(AC_ActionRequest.Query()
+						.WHERE(AC_ActionRequest.Columns.UserId, UserID).ExecuteReader());
+				}
+				return _AC_ActionRequestsCol;
+			}
+		}
 
 		private AC_AuthenticationCollection _AC_AuthenticationsCol;
 		//Relationship: FK_AC_Authentications_AC_Users
@@ -3467,36 +3444,6 @@ namespace SOS.Data.AuthenticationControl
 			}
 		}
 
-		private AC_GroupActionCollection _AC_GroupActionsCol;
-		//Relationship: FK_CreatedBy_AC_GroupActions_AC_Users
-		public AC_GroupActionCollection AC_GroupActionsCol
-		{
-			get
-			{
-				if(_AC_GroupActionsCol == null) {
-					_AC_GroupActionsCol = new AC_GroupActionCollection();
-					_AC_GroupActionsCol.LoadAndCloseReader(AC_GroupAction.Query()
-						.WHERE(AC_GroupAction.Columns.CreatedBy, UserID).ExecuteReader());
-				}
-				return _AC_GroupActionsCol;
-			}
-		}
-
-		private AC_GroupApplicationCollection _AC_GroupApplicationsCol;
-		//Relationship: FK_CreatedBy_AC_GroupApplications_AC_Users
-		public AC_GroupApplicationCollection AC_GroupApplicationsCol
-		{
-			get
-			{
-				if(_AC_GroupApplicationsCol == null) {
-					_AC_GroupApplicationsCol = new AC_GroupApplicationCollection();
-					_AC_GroupApplicationsCol.LoadAndCloseReader(AC_GroupApplication.Query()
-						.WHERE(AC_GroupApplication.Columns.CreatedBy, UserID).ExecuteReader());
-				}
-				return _AC_GroupApplicationsCol;
-			}
-		}
-
 		private AC_UserActionCollection _AC_UserActionsCol;
 		//Relationship: FK_CreatedBy_AC_UserActions_AC_Users
 		public AC_UserActionCollection AC_UserActionsCol
@@ -3509,36 +3456,6 @@ namespace SOS.Data.AuthenticationControl
 						.WHERE(AC_UserAction.Columns.CreatedBy, UserID).ExecuteReader());
 				}
 				return _AC_UserActionsCol;
-			}
-		}
-
-		private AC_GroupActionCollection _AC_GroupActions02Col;
-		//Relationship: FK_ModifiedBy_AC_GroupActions_AC_Users
-		public AC_GroupActionCollection AC_GroupActions02Col
-		{
-			get
-			{
-				if(_AC_GroupActions02Col == null) {
-					_AC_GroupActions02Col = new AC_GroupActionCollection();
-					_AC_GroupActions02Col.LoadAndCloseReader(AC_GroupAction.Query()
-						.WHERE(AC_GroupAction.Columns.ModifiedBy, UserID).ExecuteReader());
-				}
-				return _AC_GroupActions02Col;
-			}
-		}
-
-		private AC_GroupApplicationCollection _AC_GroupApplications02Col;
-		//Relationship: FK_ModifiedBy_AC_GroupApplications_AC_Users
-		public AC_GroupApplicationCollection AC_GroupApplications02Col
-		{
-			get
-			{
-				if(_AC_GroupApplications02Col == null) {
-					_AC_GroupApplications02Col = new AC_GroupApplicationCollection();
-					_AC_GroupApplications02Col.LoadAndCloseReader(AC_GroupApplication.Query()
-						.WHERE(AC_GroupApplication.Columns.ModifiedBy, UserID).ExecuteReader());
-				}
-				return _AC_GroupApplications02Col;
 			}
 		}
 
@@ -3573,7 +3490,7 @@ namespace SOS.Data.AuthenticationControl
 		}
 
 		#endregion Foreign Collections
-
+		*/
 	}
 	/// <summary>
 	/// Strongly-typed collection for the AC_UserSession class.
@@ -3878,7 +3795,7 @@ namespace SOS.Data.AuthenticationControl
 			get { return ID; }
 		}
 		*/
-
-
+		/*
+		*/
 	}
 }

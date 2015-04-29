@@ -261,7 +261,7 @@ namespace <#=Namespace#>
 <#}#>
 		}
 		*/
-
+		/*
 <#if(tbl.QueryableFKTables.Count > 0) {#>
 		#region Foreign Collections
 <#foreach(FKTable fk2 in tbl.QueryableFKTables) {#>
@@ -284,7 +284,7 @@ namespace <#=Namespace#>
 
 		#endregion Foreign Collections
 <#}#>
-
+		*/
 	}
 <#}#>
 <#else{#>

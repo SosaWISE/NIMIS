@@ -9,6 +9,8 @@ namespace NXS.Data.AuthenticationControl
 		public AC_ActionTable AC_Actions { get; set; }
 		public AC_ApplicationTable AC_Applications { get; set; }
 		public AC_DeniedReasonTable AC_DeniedReasons { get; set; }
+		public AC_GroupActionTable AC_GroupActions { get; set; }
+		public AC_GroupApplicationTable AC_GroupApplications { get; set; }
 		public AC_KeyValueTable AC_KeyValues { get; set; }
 		public AC_RequestReasonTable AC_RequestReasons { get; set; }
 		public AC_UserTable AC_Users { get; set; }
@@ -59,6 +61,34 @@ namespace NXS.Data.AuthenticationControl
 			public AC_DeniedReasonTable(AuthControlDb db) : base(db, "AcDR", "[dbo].[AC_DeniedReasons]", "ID", "int", false) { }
 			public string ID { get { return _alias + "[ID]"; } }
 			public string Name { get { return _alias + "[Name]"; } }
+		}
+		public partial class AC_GroupActionTable : Table<AC_GroupAction, int>
+		{
+			public AuthControlDb Db { get { return (AuthControlDb)_database; } }
+			public AC_GroupActionTable(AuthControlDb db) : base(db, "AcGA", "[dbo].[AC_GroupActions]", "UserActionID", "int", true) { }
+			public string UserActionID { get { return _alias + "[UserActionID]"; } }
+			public string GroupName { get { return _alias + "[GroupName]"; } }
+			public string ActionId { get { return _alias + "[ActionId]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+		}
+		public partial class AC_GroupApplicationTable : Table<AC_GroupApplication, int>
+		{
+			public AuthControlDb Db { get { return (AuthControlDb)_database; } }
+			public AC_GroupApplicationTable(AuthControlDb db) : base(db, "AcGrAp", "[dbo].[AC_GroupApplications]", "UserApplicationID", "int", true) { }
+			public string UserApplicationID { get { return _alias + "[UserApplicationID]"; } }
+			public string GroupName { get { return _alias + "[GroupName]"; } }
+			public string ApplicationId { get { return _alias + "[ApplicationId]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
 		}
 		public partial class AC_KeyValueTable : Table<AC_KeyValue, int>
 		{
