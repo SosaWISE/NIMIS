@@ -48,6 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionRequestsModule.cs" />
+    <Compile Include="Admin\ActionsModule.cs" />
+    <Compile Include="Admin\ApplicationsModule.cs" />
+    <Compile Include="Admin\GroupItemsModule.cs" />
     <Compile Include="TypesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
