@@ -15,16 +15,16 @@
 USE [NXSE_Commissions]
 GO
 
-DECLARE @CommissionPeriodID BIGINT
+DECLARE	@CommissionContractID INT
+	, @CommissionPeriodID BIGINT
 	, @CommissionEngineID VARCHAR(10) = 'SCv2.0'
 	, @CommissionPeriodStrDate DATETIME
 	, @CommissionPeriodEndDate DATETIME
 	, @DEBUG_MODE VARCHAR(20) = 'OFF'
 	, @TRUNCATE VARCHAR(20) = 'OFF';
-
-
 SELECT TOP 1
-	@CommissionPeriodID = CommissionPeriodID
+	@CommissionContractID = CommissionContractID
+	, @CommissionPeriodID = CommissionPeriodID
 	, @CommissionEngineID = CommissionEngineID
 	, @CommissionPeriodStrDate = CommissionPeriodStrDate
 	, @CommissionPeriodEndDate = CommissionPeriodEndDate
@@ -39,13 +39,33 @@ PRINT '************************************************************ START ******
 /********************  END HEADER ********************/
 IF (@TRUNCATE = 'ON' AND @CommissionPeriodID = 1)
 BEGIN
-	TRUNCATE TABLE dbo.SC_WorkAccountSigningBonuses;
-	DELETE dbo.SC_WorkAccountAdjustments;
-	DBCC CHECKIDENT('dbo.SC_WorkAccountAdjustments', RESEED, 0);
-	DELETE dbo.SC_WorkAccounts;
-	DELETE dbo.SC_WorkAccountsAll;
-	DBCC CHECKIDENT ('[dbo].[SC_WorkAccountsAll]', RESEED, 0);
+	PRINT '|* -DELETING  [dbo].[SC_WorkAccounts]- *|';
+	DELETE [dbo].[SC_WorkAccounts];
 END
+/** Reset the CommissionPeriods table to 1 for first pass.*/
+IF (@TRUNCATE = 'ON' AND @CommissionPeriodID = 1)
+BEGIN
+	DECLARE @FirstPeriodID INT;
+	SELECT TOP 1 @FirstPeriodID = CommissionPeriodID FROM [dbo].[SC_CommissionPeriods] WHERE (CommissionEngineId = @CommissionEngineId) ORDER BY CommissionPeriodID;
+	PRINT '|* -RESETTING  [dbo].[SC_CommissionPeriods]- *|';
+	UPDATE [dbo].[SC_CommissionPeriods] SET IsCurrent = NULL WHERE (CommissionEngineId = @CommissionEngineId);
+	UPDATE [dbo].[SC_CommissionPeriods] SET IsCurrent = 'TRUE' WHERE (CommissionEngineId = @CommissionEngineId) AND (CommissionPeriodID = @FirstPeriodID);
+
+	SELECT TOP 1
+		@CommissionContractID = CommissionContractID
+		, @CommissionPeriodID = CommissionPeriodID
+		, @CommissionEngineID = CommissionEngineID
+		, @CommissionPeriodStrDate = CommissionPeriodStrDate
+		, @CommissionPeriodEndDate = CommissionPeriodEndDate
+		, @DEBUG_MODE = DEBUG_MODE
+		, @TRUNCATE = [TRUNCATE]
+	FROM
+		[dbo].fxSCV2_0GetScriptHeaderInfo() AS PROP;
+	PRINT '************************************************************ START ************************************************************';
+	PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
+	PRINT '************************************************************ START ************************************************************';
+END
+
 
 /******************
 ***  CUSTOMERS  ***

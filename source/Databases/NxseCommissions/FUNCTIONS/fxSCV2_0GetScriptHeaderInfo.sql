@@ -76,7 +76,7 @@ BEGIN
 		(CommissionEngineID = @CommissionEngineID)
 	ORDER BY
 		IsCurrent DESC
-		, CommissionPeriodID DESC;
+		, CommissionPeriodID;
 
 	/** INSERT INTO  */
 	INSERT INTO @ResultList (

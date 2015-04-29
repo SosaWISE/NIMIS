@@ -4,16 +4,16 @@
 USE [NXSE_Commissions]
 GO
 
-DECLARE @CommissionPeriodID BIGINT
+DECLARE	@CommissionContractID INT
+	, @CommissionPeriodID BIGINT
 	, @CommissionEngineID VARCHAR(10) = 'SCv2.0'
 	, @CommissionPeriodStrDate DATETIME
 	, @CommissionPeriodEndDate DATETIME
 	, @DEBUG_MODE VARCHAR(20) = 'OFF'
 	, @TRUNCATE VARCHAR(20) = 'OFF';
-
-
 SELECT TOP 1
-	@CommissionPeriodID = CommissionPeriodID
+	@CommissionContractID = CommissionContractID
+	, @CommissionPeriodID = CommissionPeriodID
 	, @CommissionEngineID = CommissionEngineID
 	, @CommissionPeriodStrDate = CommissionPeriodStrDate
 	, @CommissionPeriodEndDate = CommissionPeriodEndDate
@@ -21,7 +21,6 @@ SELECT TOP 1
 	, @TRUNCATE = [TRUNCATE]
 FROM
 	[dbo].fxSCV2_0GetScriptHeaderInfo() AS PROP;
-
 
 PRINT '************************************************************ START ************************************************************';
 PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
@@ -32,7 +31,7 @@ DECLARE @WorkAccountID BIGINT
 	, @SalesRepID VARCHAR(25);
 DECLARE workAccountCur CURSOR FOR
 SELECT WorkAccountID, AccountID, SalesRepId FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID);
-SELECT WorkAccountID, AccountID, SalesRepId FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID);
+--SELECT WorkAccountID, AccountID, SalesRepId FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID);
 
 OPEN workAccountCur;
 

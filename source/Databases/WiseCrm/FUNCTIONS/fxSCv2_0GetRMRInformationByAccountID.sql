@@ -48,7 +48,8 @@ CREATE FUNCTION dbo.fxSCv2_0GetRMRInformationByAccountID
 RETURNS 
 @ResultList table
 (
-	[CommissionsAdjustmentID] VARCHAR(20)
+	[CommissionDeductionID] VARCHAR(20)
+	, [CommissionBonusID] VARCHAR(20)
 	, [AccountPackageID] INT
 	, [ActualRMR] MONEY
 	, [BaseRMR] MONEY
@@ -60,7 +61,8 @@ AS
 BEGIN
 	/** DECLARATIONS */
 	DECLARE @Delta MONEY
-		, @CommissionsAdjustmentID VARCHAR(20) = 'NONE'
+		, @CommissionDeductionID VARCHAR(20) = NULL
+		, @CommissionBonusID VARCHAR(20) = NULL
 		, @ActlRMR MONEY
 		, @MaxRMR MONEY
 		, @BaseRMR MONEY
@@ -109,32 +111,15 @@ BEGIN
 		IF (@ActlRMR > @MaxRMR) 
 		BEGIN
 			-- Figure out the Out of Range Portion
-			SET @CommissionsAdjustmentID = 'RMRUPPOUTRANGE';
-			SELECT @CommissionAdjustmentAmount = CommissionAdjustmentAmount FROM [NXSE_Sales].[dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+			SET @CommissionDeductionID = 'RMRUPPOUTRANGE';
+			SELECT @CommissionAdjustmentAmount = DeductionAmount FROM [NXSE_Commissions].[dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionDeductionID);
 			SET @Delta = CEILING(@ActlRMR - @MaxRMR) * (-1);
 			SET @AdjustmentAmount = @Delta * @CommissionAdjustmentAmount;
-			
-			--INSERT INTO @ResultList (CommissionsAdjustmentID, AccountPackageID, BaseRMR, ActualRMR, MaxRMR, MinRMR, AdjustmentAmount) VALUES (
-			--	@CommissionsAdjustmentID
-			--	, @AccountPackageID
-			--	, @BaseRMR -- money
-			--	, @ActlRMR -- money
-			--	, @MaxRMR -- money
-			--	, @MinRMR -- money
-			--	, @AdjustmentAmount
-			--);
-
-			---- Figure out the Out of Range Portion
-			--SET @CommissionsAdjustmentID = 'RMRUPPINRANGE';
-			--SELECT @CommissionAdjustmentAmount = CommissionAdjustmentAmount FROM [NXSE_Sales].[dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
-			--SET @Delta = FLOOR(@MaxRMR - @BaseRMR);
-			--SET @AdjustmentAmount = @Delta * @CommissionAdjustmentAmount;
-
 		END
 		ELSE
 		BEGIN
-			SET @CommissionsAdjustmentID = 'RMRUPPINRANGE';
-			SELECT @CommissionAdjustmentAmount = CommissionAdjustmentAmount FROM [NXSE_Sales].[dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+			SET @CommissionBonusID = 'RMRUPPINRANGE';
+			SELECT @CommissionAdjustmentAmount = BonusAmount FROM [NXSE_Commissions].[dbo].[SC_CommissionBonus] WHERE (CommissionBonusID = @CommissionBonusID);
 			SET @Delta = FLOOR(@ActlRMR - @BaseRMR);
 			SET @AdjustmentAmount = @Delta * @CommissionAdjustmentAmount;
 		END
@@ -145,13 +130,14 @@ BEGIN
 		IF (@ActlRMR < @MinRMR)
 		BEGIN
 			-- Figure out the Out of Range Portion
-			SET @CommissionsAdjustmentID = 'RMRLOWOUTRANGE';
-			SELECT @CommissionAdjustmentAmount = CommissionAdjustmentAmount FROM [NXSE_Sales].[dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+			SET @CommissionDeductionID = 'RMRLOWOUTRANGE';
+			SELECT @CommissionAdjustmentAmount = DeductionAmount FROM [NXSE_Commissions].[dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionDeductionID);
 			SET @Delta = FLOOR(@ActlRMR - @MinRMR);
 			SET @AdjustmentAmount = @Delta * @CommissionAdjustmentAmount;
 
-				INSERT INTO @ResultList (CommissionsAdjustmentID, AccountPackageID, BaseRMR, ActualRMR, MaxRMR, MinRMR, AdjustmentAmount) VALUES (
-					@CommissionsAdjustmentID
+				INSERT INTO @ResultList (CommissionDeductionID, CommissionBonusID, AccountPackageID, BaseRMR, ActualRMR, MaxRMR, MinRMR, AdjustmentAmount) VALUES (
+					@CommissionDeductionID
+					, @CommissionBonusID
 					, @AccountPackageID
 					, @BaseRMR -- money
 					, @ActlRMR -- money
@@ -162,22 +148,23 @@ BEGIN
 
 			-- Figure out the In Range Portion
 			SET @Delta = FLOOR(@MinRMR - @BaseRMR);
-			SET @CommissionsAdjustmentID = 'RMRLOWINRANGE';
-			SELECT @CommissionAdjustmentAmount = CommissionAdjustmentAmount FROM [NXSE_Sales].[dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = 'RMRLOWINRANGE');
+			SET @CommissionDeductionID = 'RMRLOWINRANGE';
+			SELECT @CommissionAdjustmentAmount = DeductionAmount FROM [NXSE_Commissions].[dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionDeductionID);
 			SET @AdjustmentAmount = @Delta * @CommissionAdjustmentAmount;
 
 		END
 		ELSE
 		BEGIN
-			SET @CommissionsAdjustmentID = 'RMRLOWINRANGE';
+			SET @CommissionDeductionID = 'RMRLOWINRANGE';
 			SET @Delta = FLOOR(@ActlRMR - @BaseRMR);
-			SELECT @CommissionAdjustmentAmount = CommissionAdjustmentAmount FROM [NXSE_Sales].[dbo].[SC_CommissionsAdjustments] WHERE (CommissionsAdjustmentID = @CommissionsAdjustmentID);
+			SELECT @CommissionAdjustmentAmount = DeductionAmount FROM [NXSE_Commissions].[dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionDeductionID);
 			SET @AdjustmentAmount = @Delta * @CommissionAdjustmentAmount;
 		END
 	END
 
-	INSERT INTO @ResultList (CommissionsAdjustmentID, AccountPackageID, BaseRMR, ActualRMR, MaxRMR, MinRMR, AdjustmentAmount) VALUES (
-		@CommissionsAdjustmentID
+	INSERT INTO @ResultList (CommissionDeductionID, CommissionBonusID, AccountPackageID, BaseRMR, ActualRMR, MaxRMR, MinRMR, AdjustmentAmount) VALUES (
+		@CommissionDeductionID
+		, @CommissionBonusID
 		, @AccountPackageID
 		, @BaseRMR -- money
 		, @ActlRMR -- money

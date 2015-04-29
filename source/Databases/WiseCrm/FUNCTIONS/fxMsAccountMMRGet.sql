@@ -80,7 +80,37 @@ BEGIN
 END
 GO
 /*
-SELECT [dbo].fxMsAccountMMRGet(150925) AS [MMR 150925];
+SELECT [dbo].fxMsAccountMMRGet(191217) AS [MMR 150925];
 SELECT [dbo].fxMsAccountMMRGet(100288) AS [MMR 100288];
-SELECT [dbo].fxMsAccountMMRGet(100274) AS [MMR 100274];
-*/
+SELECT [dbo].fxMsAccountMMRGet(100274) AS [MMR 100274];*/
+DECLARE @AccountID BIGINT = 191217;
+
+		SELECT
+			INV.[InvoiceID]
+			, INV.[AccountId]
+			, INV.[InvoiceTypeId]
+			, INVT.ItemId
+			, INVT.RetailPrice
+			--SUM(INVT.RetailPrice)
+			--, SUM(ITM.SystemPoints) AS SystemPoints
+		FROM
+			[dbo].[AE_Invoices] AS INV WITH (NOLOCK)
+			INNER JOIN [dbo].[AE_InvoiceItems] AS INVT WITH (NOLOCK)
+			ON
+				(INVT.InvoiceId = INV.InvoiceID)
+				AND (INV.AccountId = @AccountID)
+				AND (INV.IsActive = 1) AND (INV.IsDeleted = 0)
+				AND (INVT.IsActive = 1) AND (INVT.IsDeleted = 0)
+				AND (INV.InvoiceTypeId = 'INSTALL')
+			INNER JOIN [dbo].[AE_Items] AS ITM WITH (NOLOCK)
+			ON
+				(ITM.ItemID = INVT.ItemId)
+		WHERE
+			(ITM.ItemTypeId = 'MON_CONT')
+			OR (ITM.ItemTypeId LIKE 'MMR_SREP%')
+		--GROUP BY
+		--	INV.[InvoiceID]
+		--	, INV.[AccountId]
+		--	, INV.[InvoiceTypeId];
+
+

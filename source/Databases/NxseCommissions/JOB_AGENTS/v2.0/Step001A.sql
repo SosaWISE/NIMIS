@@ -17,16 +17,16 @@ Additional Qualifications are as follows:
 USE [NXSE_Commissions]
 GO
 
-DECLARE @CommissionPeriodID BIGINT
+DECLARE	@CommissionContractID INT
+	, @CommissionPeriodID BIGINT
 	, @CommissionEngineID VARCHAR(10) = 'SCv2.0'
 	, @CommissionPeriodStrDate DATETIME
 	, @CommissionPeriodEndDate DATETIME
 	, @DEBUG_MODE VARCHAR(20) = 'OFF'
 	, @TRUNCATE VARCHAR(20) = 'OFF';
-
-
 SELECT TOP 1
-	@CommissionPeriodID = CommissionPeriodID
+	@CommissionContractID = CommissionContractID
+	, @CommissionPeriodID = CommissionPeriodID
 	, @CommissionEngineID = CommissionEngineID
 	, @CommissionPeriodStrDate = CommissionPeriodStrDate
 	, @CommissionPeriodEndDate = CommissionPeriodEndDate
@@ -171,9 +171,11 @@ UPDATE SC_WorkAccountsAll SET
 				CreditCustomerType = 'SUB'
 					AND (ActivationFee <> 199)
 			THEN 'TRUE'
+			ELSE 'FALSE'
 		END
 WHERE
 	(CommissionPeriodId = @CommissionPeriodID)
+	--(CommissionPeriodId = 3)
 	AND (CreditCustomerType IN ('UNAPPROVED', 'SUB'));
 
 /*******************

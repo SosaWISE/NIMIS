@@ -6,16 +6,16 @@ Bonuses get applied for:
 USE [NXSE_Commissions]
 GO
 
-DECLARE @CommissionPeriodID BIGINT
+DECLARE	@CommissionContractID INT
+	, @CommissionPeriodID BIGINT
 	, @CommissionEngineID VARCHAR(10) = 'SCv2.0'
 	, @CommissionPeriodStrDate DATETIME
 	, @CommissionPeriodEndDate DATETIME
 	, @DEBUG_MODE VARCHAR(20) = 'OFF'
 	, @TRUNCATE VARCHAR(20) = 'OFF';
-
-
 SELECT TOP 1
-	@CommissionPeriodID = CommissionPeriodID
+	@CommissionContractID = CommissionContractID
+	, @CommissionPeriodID = CommissionPeriodID
 	, @CommissionEngineID = CommissionEngineID
 	, @CommissionPeriodStrDate = CommissionPeriodStrDate
 	, @CommissionPeriodEndDate = CommissionPeriodEndDate

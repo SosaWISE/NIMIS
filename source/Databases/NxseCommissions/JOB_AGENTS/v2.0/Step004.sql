@@ -14,16 +14,16 @@ Deductions get applied for:
 USE [NXSE_Commissions]
 GO
 
-DECLARE @CommissionPeriodID BIGINT
+DECLARE	@CommissionContractID INT
+	, @CommissionPeriodID BIGINT
 	, @CommissionEngineID VARCHAR(10) = 'SCv2.0'
 	, @CommissionPeriodStrDate DATETIME
 	, @CommissionPeriodEndDate DATETIME
 	, @DEBUG_MODE VARCHAR(20) = 'OFF'
 	, @TRUNCATE VARCHAR(20) = 'OFF';
-
-
 SELECT TOP 1
-	@CommissionPeriodID = CommissionPeriodID
+	@CommissionContractID = CommissionContractID
+	, @CommissionPeriodID = CommissionPeriodID
 	, @CommissionEngineID = CommissionEngineID
 	, @CommissionPeriodStrDate = CommissionPeriodStrDate
 	, @CommissionPeriodEndDate = CommissionPeriodEndDate
@@ -37,28 +37,28 @@ PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Co
 PRINT '************************************************************ START ************************************************************';
 /********************  END HEADER ********************/
 /** Local Declarations */
-DECLARE @CommissionsAdjustmentID VARCHAR(20)
-	, @CommissionAdjustmentAmount MONEY;
+DECLARE @CommissionDeductionID VARCHAR(20)
+	, @DeductionAmount MONEY;
 
 PRINT '/*************************';
 PRINT '***  AGREEMENT LENGTH  ***';
 PRINT '*************************/';
 
 -- DEDUCT FOR AGREEMENT LENGTH = 36 or other than 
-SET @CommissionsAdjustmentID = 'CONLENLESS60';
-SELECT @CommissionAdjustmentAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionsAdjustmentID);
+SET @CommissionDeductionID = 'CONLENLESS60';
+SELECT @DeductionAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionDeductionID);
 
 -- Create entry for all accounts with contract length less than 60
 INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
-	, CommissionsAdjustmentID
+	, CommissionDeductionId
 	, AdjustmentAmount
 )
 SELECT 
 	WorkAccountID
-	, @CommissionsAdjustmentID
-	, @CommissionAdjustmentAmount
+	, @CommissionDeductionID
+	, @DeductionAmount
 FROM
 	dbo.SC_WorkAccounts
 WHERE 
@@ -70,20 +70,20 @@ PRINT '***	PAYMENT TYPE ***';
 PRINT '*******************/'
 
 -- DEDUCT FOR PAYMENT TYPE IS CREDIT CARD
-SET @CommissionsAdjustmentID = 'PMTCC'
-SELECT @CommissionAdjustmentAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionsAdjustmentID);
+SET @CommissionDeductionID = 'PMTCC'
+SELECT @DeductionAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionDeductionID);
 
 -- Create entry for payment types that are not ACH
 INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
-	, CommissionsAdjustmentID
+	, CommissionDeductionId
 	, AdjustmentAmount
 )
 SELECT 
 	WorkAccountID
-	, @CommissionsAdjustmentID
-	, @CommissionAdjustmentAmount
+	, @CommissionDeductionID
+	, @DeductionAmount
 FROM
 	dbo.SC_WorkAccounts
 WHERE 
@@ -94,20 +94,20 @@ PRINT '/*********************';
 PRINT '***	ACTIVATION FEE ***';
 PRINT '*********************/';
 -- DEDUCT FOR ACTIVATION FEE WAIVED
-SET @CommissionsAdjustmentID = 'ACTWAIVED'
-SELECT @CommissionAdjustmentAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionsAdjustmentID);
+SET @CommissionDeductionID = 'ACTWAIVED'
+SELECT @DeductionAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionDeductionID);
 
 -- Create entry for waived activation fee
 INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
-	, CommissionsAdjustmentID
+	, CommissionDeductionId
 	, AdjustmentAmount
 )
 SELECT 
 	WorkAccountID
-	, @commissionsAdjustmentId
-	, @CommissionAdjustmentAmount
+	, @CommissionDeductionID
+	, @DeductionAmount
 FROM
 	dbo.SC_WorkAccounts
 WHERE 
@@ -117,14 +117,14 @@ WHERE
 PRINT '/***************************';
 PRINT '***	POINTS OF PROTECTION ***';
 PRINT '***************************/';
-SET @CommissionsAdjustmentID = 'POINTSGIVEN';
+SET @CommissionDeductionID = 'POINTSGIVEN';
 DECLARE @PointDeductionInDollars MONEY = 30.00; -- Default value
-SELECT @PointDeductionInDollars = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionsAdjustmentID);
+SELECT @PointDeductionInDollars = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionDeductionID);
 
-INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionsAdjustmentID, AdjustmentAmount) 
+INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionDeductionId, AdjustmentAmount) 
 SELECT
 	WorkAccountId
-	, @commissionsAdjustmentId
+	, @CommissionDeductionID
 	, CAST(SCWA.PointsAssignedToRep AS MONEY) * @PointDeductionInDollars
 FROM
 	[dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK)
@@ -152,11 +152,11 @@ BEGIN
 	-- Check to see if there is a Equipment Upgrade
 	IF (EXISTS(SELECT * FROM dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId(@AccountID)))
 	BEGIN
-		SET @CommissionsAdjustmentID = 'EQUIPUPGRADE';
-		INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionsAdjustmentID, AdjustmentAmount) 
+		SET @CommissionDeductionID = 'EQUIPUPGRADE';
+		INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionDeductionId, AdjustmentAmount) 
 		SELECT
 			@WorkAccountID
-			, @commissionsAdjustmentId
+			, @CommissionDeductionID
 			, RBUG.BonusUpgrade --  AS [Bonus Upgrade]
 		FROM
 			dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId(@AccountID) AS RBUG
@@ -167,21 +167,24 @@ BEGIN
 	PRINT '/*******************************';
 	PRINT '***	LOWERED RMR WITHIN RANGE ***';
 	PRINT '*******************************/';
+	PRINT 'ACCOUNTID: ' + CAST(@AccountID AS VARCHAR);
 	--DEDUCT Or Adjust based on the Points
 	INSERT SC_WorkAccountAdjustments
 	(
 		WorkAccountId
-		, CommissionsAdjustmentID
+		, CommissionDeductionId
+		, CommissionBonusId
 		, AdjustmentAmount
 	)
 	SELECT
 		@WorkAccountID
-		, RMRI.CommissionsAdjustmentID
+		, RMRI.CommissionDeductionId
+		, RMRI.CommissionBonusId
 		, RMRI.[AdjustmentAmount]
 	FROM
 		[WISE_CRM].[dbo].fxSCv2_0GetRMRInformationByAccountID(@AccountID) AS RMRI
 	WHERE
-		(RMRI.CommissionsAdjustmentID <> 'NONE');
+		(RMRI.CommissionDeductionID IS NOT NULL OR RMRI.CommissionBonusID IS NOT NULL);
 
 	/** Get Next Account */
 	FETCH NEXT FROM workAccountCursor INTO @WorkAccountID, @AccountID;
@@ -204,19 +207,19 @@ PRINT '***	waiving first month''s RMR ***';
 PRINT '********************************/';
 
 --DEDUCT FOR WAIVING THE 1ST MONTH RMR
-SET @CommissionsAdjustmentID = 'WAIVED1STMONTH';
-SELECT @CommissionAdjustmentAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionsAdjustmentID);
+SET @CommissionDeductionID = 'WAIVED1STMONTH';
+SELECT @DeductionAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionDeductionID);
 
 INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
-	, CommissionsAdjustmentID
+	, CommissionDeductionId
 	, AdjustmentAmount
 )
 SELECT
 	WorkAccountID
-	, @CommissionsAdjustmentID
-	, @CommissionAdjustmentAmount
+	, @CommissionDeductionID
+	, @DeductionAmount
 FROM
 	dbo.SC_WorkAccounts
 WHERE
@@ -239,25 +242,25 @@ PRINT '***	Team Activations Waived ***';
 PRINT '******************************/';
 
 --DEDUCT FOR TEAM ACTIVATIONS WAIVED
-SET @CommissionsAdjustmentID = 'TEAMACTWAIVED'
-SELECT @CommissionAdjustmentAmount = (-1) * DeductionAmount FROM dbo.SC_CommissionDeductions WHERE (CommissionDeductionID = @CommissionsAdjustmentID)
+SET @CommissionDeductionID = 'TEAMACTWAIVED'
+SELECT @DeductionAmount = (-1) * DeductionAmount FROM dbo.SC_CommissionDeductions WHERE (CommissionDeductionID = @CommissionDeductionID)
 
 -- Create entry for team waived activation fee
 INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
-	, CommissionsAdjustmentID
+	, CommissionDeductionId
 	, AdjustmentAmount
 )
 SELECT 
-	WorkAccountID
-	, @commissionsAdjustmentId
-	, @CommissionAdjustmentAmount
+	SCWA.WorkAccountID
+	, @CommissionDeductionID
+	, @DeductionAmount
 FROM
-	dbo.SC_WorkAccounts
+	dbo.SC_WorkAccounts AS SCWA WITH (NOLOCK)
 WHERE 
-	(ActivationFee < 69.00)
-	AND (CommissionPeriodId = @CommissionPeriodID);
+	(SCWA.ActivationFee < 69.00)
+	AND (SCWA.CommissionPeriodId = @CommissionPeriodID);
 
 
 
@@ -266,20 +269,20 @@ PRINT '***	Team Credits below 625 ***';
 PRINT '*****************************/';
 
 --DEDUCT FOR TEAM CREDIT SCORES BELOW 625
-SET @CommissionsAdjustmentID = 'TEAMCREDITSUB625'
-SELECT @CommissionAdjustmentAmount = (-1) * DeductionAmount FROM dbo.SC_CommissionDeductions WHERE (CommissionDeductionID = @CommissionsAdjustmentID)
+SET @CommissionDeductionID = 'TEAMCREDITSUB625'
+SELECT @DeductionAmount = (-1) * DeductionAmount FROM dbo.SC_CommissionDeductions WHERE (CommissionDeductionID = @CommissionDeductionID)
 
 -- Create entry for Team Credit below 625
 INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
-	, CommissionsAdjustmentID
+	, CommissionDeductionId
 	, AdjustmentAmount
 )
 SELECT 
 	WorkAccountID
-	, @commissionsAdjustmentId
-	, @CommissionAdjustmentAmount
+	, @CommissionDeductionID
+	, @DeductionAmount
 FROM
 	dbo.SC_WorkAccounts
 WHERE 
@@ -292,20 +295,20 @@ PRINT '***	Team Lowered RMR ***';
 PRINT '***********************/';
 
 --DEDUCT FOR TEAM LOWERED RMR (This is a flat fee, it is not based off how much the rep lowered)
-SET @CommissionsAdjustmentID = 'TEAMLOWRMR'
-SELECT @CommissionAdjustmentAmount = (-1) * DeductionAmount FROM dbo.SC_CommissionDeductions WHERE (CommissionDeductionID = @CommissionsAdjustmentID)
+SET @CommissionDeductionID = 'TEAMLOWRMR'
+SELECT @DeductionAmount = (-1) * DeductionAmount FROM dbo.SC_CommissionDeductions WHERE (CommissionDeductionID = @CommissionDeductionID)
 
 -- Create entry for Team Lowered RMR
 INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
-	, CommissionsAdjustmentID
+	, CommissionDeductionId
 	, AdjustmentAmount
 )
 SELECT 
 	WorkAccountID
-	, @commissionsAdjustmentId
-	, @CommissionAdjustmentAmount
+	, @CommissionDeductionID
+	, @DeductionAmount
 FROM
 	dbo.SC_WorkAccounts AS scwa
 	JOIN [WISE_CRM].dbo.[MS_AccountSalesInformations] AS msasi ON scwa.AccountID = msasi.AccountID
