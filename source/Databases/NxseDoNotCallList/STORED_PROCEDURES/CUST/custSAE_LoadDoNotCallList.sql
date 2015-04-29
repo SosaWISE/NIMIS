@@ -59,9 +59,11 @@ BEGIN
 		DECLARE @NumberRemoved BIGINT
 		DECLARE @TotalCurrentDNC BIGINT
 		DECLARE @TransactionID BIGINT
+		DECLARE @listsource INT
 
 	BEGIN TRY
 		BEGIN TRANSACTION;
+		SET @listsource = 1 -- DO NOT CALL.GOV
 
 		-- Add the PhoneNumberID column to the SAE_DoNotCall table
 		--ALTER TABLE SAE_DoNotCall ADD PhoneNumberID CHAR(10)
@@ -75,6 +77,7 @@ BEGIN
 	***  ADD AREA CODES  ***
 	************************/
 	-- IF THE DNC LIST COMES IN WITH ADDITIONAL AREA CODES, ADD THE AREA CODES TO THE AREA CODE TABLE
+/*
 	INSERT dbo.DC_AreaCodes
 		(
 		AreaCodeID
@@ -85,23 +88,26 @@ BEGIN
 		LEFT JOIN dbo.DC_AreaCodes
 			ON dbo.SAE_DoNotCall.AreaCode = dbo.DC_AreaCodes.AreaCodeID
 	WHERE dbo.DC_AreaCodes.AreaCodeID IS NULL
+*/
 
 	/**********************
 	INSERT TRANSACTION  ***
 	***********************/
 	INSERT DC_Transactions
-		( 
-		TransactionDate ,
-		NumberAdded ,
-		NumberRemoved ,
-		TotalDncRecords
+		(
+		DNCListSourceId
+		,TransactionDate
+		,NumberAdded
+		,NumberRemoved
+		,TotalDncRecords
 		)
 	VALUES  
 		( 
-		GETDATE() , -- TransactionDate - datetime
-		0 , -- Set NumberAdded to 0 and update later in the add DNC step
-		0 , -- Set NumberRemoved to 0 and update later in the remove DNC step
-		@TotalCurrentDNC  -- Set TotalDncRecords to the number of rows in the current DNC list
+		@listsource
+		,GETDATE() -- TransactionDate - datetime
+		,0 -- Set NumberAdded to 0 and update later in the add DNC step
+		,0 -- Set NumberRemoved to 0 and update later in the remove DNC step
+		,@TotalCurrentDNC  -- Set TotalDncRecords to the number of rows in the current DNC list
 		)
 
 	SET @TransactionID = SCOPE_IDENTITY();
