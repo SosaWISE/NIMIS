@@ -191,6 +191,7 @@ INSERT INTO [dbo].[SC_WorkAccounts] (
 	, [AccountID]
 	, [CustomerMasterFileId]
 	, [AccountPackageId]
+	, [SalesTeamId]
 	, [SalesRepId]
 	, [ManSalesRepId]
 	, [TechId]
@@ -223,6 +224,7 @@ SELECT
 	, AccountID -- bigint
 	, CustomerMasterFileId -- bigint
 	, AccountPackageId -- int
+	, SalesTeamId
 	, SalesRepId -- varchar(25)
 	, ManSalesRepId
 	, TechId -- varchar(25)

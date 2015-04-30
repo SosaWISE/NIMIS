@@ -29,6 +29,49 @@ PRINT '************************************************************ START ******
 /********************  END HEADER ********************/
 DECLARE @OldCommissionPeriodID INT = @CommissionPeriodID;
 
+/** Save all information into History */
+INSERT INTO [dbo].[SC_WorkAccountsHistory] (
+	[WorkAccountId] ,
+	[CommissionPeriodId] ,
+	[AccountID] ,
+	[CustomerMasterFileId] ,
+	[AccountPackageId] ,
+	[SalesTeamId] ,
+	[SalesRepId] ,
+	[ManSalesRepId] ,
+	[TechId] ,
+	[ManTechId] ,
+	[FriendsAndFamilyTypeId] ,
+	[QualifyDate] ,
+	[SaleDate] ,
+	[PostSurveyDate] ,
+	[InstallDate] ,
+	[AMASignedDate] ,
+	[NOCDateCalculated] ,
+	[ApprovedDate] ,
+	[ApproverId] ,
+	[SeasonId] ,
+	[DealerId] ,
+	[CreditScore] ,
+	[CreditCustomerType] ,
+	[ContractLength] ,
+	[PaymentType] ,
+	[PointsOfProtection] ,
+	[PointsAllowed] ,
+	[PointsAssignedToRep] ,
+	[ActivationFee] ,
+	[RMR] ,
+	[DoNotPay] ,
+	[Waive1stMonth]
+)
+	SELECT
+		*
+	FROM
+		[dbo].[SC_WorkAccounts]
+	WHERE
+		(CommissionPeriodId = @CommissionPeriodID);
+--PRINT 'JUST Saved to History for Period ID of : ' + CAST(@CommissionPeriodID AS VARCHAR);
+
 /** Initialize */
 IF (@OldCommissionPeriodID IS NOT NULL)
 BEGIN
@@ -55,4 +98,3 @@ FROM
 PRINT '************************************************************ START ************************************************************';
 PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
 PRINT '************************************************************ START ************************************************************';
-/********************  END HEADER ********************/

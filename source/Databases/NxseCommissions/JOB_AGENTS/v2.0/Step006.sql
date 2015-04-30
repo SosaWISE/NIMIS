@@ -29,7 +29,7 @@ PRINT '************************************************************ START ******
 /********************  END HEADER ********************/
 
 DECLARE @TeamSummary TABLE (TeamID INT, NumberOfAccounts INT, CommissionTeamOfficeOverrideScaleID VARCHAR(20), Amount MONEY);
-DECLARE @TeamID INT
+DECLARE @ManSalesRepId INT
 	, @WorkAccountID BIGINT
 	, @AccountId BIGINT
 	, @WorkAccountAdjustmentId BIGINT
@@ -78,7 +78,7 @@ DECLARE teamSumCursor CURSOR FOR
 
 OPEN teamSumCursor;
 FETCH NEXT FROM teamSumCursor INTO
-	@TeamID
+	@ManSalesRepId
 	, @CommissionTeamOfficeOverrideScaleID
 	, @Amount
 	, @SalesRepID;
@@ -91,7 +91,7 @@ BEGIN
 	FROM
 		[dbo].fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID)
 	WHERE
-		(TeamID = @TeamID);
+		(TeamID = @ManSalesRepId);
 
 	/** Now have to loop because a rep can have more than one account in the WorkAccounts table. */
 	DECLARE workAccountBySalesRepCurosr CURSOR FOR
@@ -142,7 +142,7 @@ BEGIN
 
 	-- Get next item	
 	FETCH NEXT FROM teamSumCursor INTO
-		@TeamID
+		@ManSalesRepId
 		, @CommissionTeamOfficeOverrideScaleID
 		, @Amount
 		, @SalesRepID;

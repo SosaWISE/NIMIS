@@ -38,6 +38,10 @@ DELETE dbo.SC_WorkAccountAdjustments;
 DBCC CHECKIDENT('dbo.SC_WorkAccountAdjustments', RESEED, 0);
 
 DELETE dbo.SC_WorkAccounts;
+DELETE dbo.SC_WorkAccountsHistory;
+DBCC CHECKIDENT ('[dbo].[SC_WorkAccountsHistory]', RESEED, 1);
 
 DELETE dbo.SC_WorkAccountsAll;
 DBCC CHECKIDENT ('[dbo].[SC_WorkAccountsAll]', RESEED, 0);
+
+UPDATE [dbo].[SC_CommissionPeriods] SET IsCurrent = NULL;

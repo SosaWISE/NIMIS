@@ -3,18 +3,18 @@ GO
 
 -- TF = Table function
 -- IF = Inline Table function
-IF EXISTS (SELECT * FROM sysobjects WHERE (type = 'TF' OR type = 'IF' OR type = 'FN') AND name = 'FUNCTION_TEMPLATE')
+IF EXISTS (SELECT * FROM sysobjects WHERE (type = 'TF' OR type = 'IF' OR type = 'FN') AND name = 'fxSCv2_0GetManSalesRepIdBySalesRepIdAndSeasonId')
 	BEGIN
-		PRINT 'Dropping FUNCTION FUNCTION_TEMPLATE'
-		DROP FUNCTION  dbo.FUNCTION_TEMPLATE
+		PRINT 'Dropping FUNCTION fxSCv2_0GetManSalesRepIdBySalesRepIdAndSeasonId'
+		DROP FUNCTION  dbo.fxSCv2_0GetManSalesRepIdBySalesRepIdAndSeasonId
 	END
 GO
 
-PRINT 'Creating FUNCTION FUNCTION_TEMPLATE'
+PRINT 'Creating FUNCTION fxSCv2_0GetManSalesRepIdBySalesRepIdAndSeasonId'
 GO
 /******************************************************************************
-**		File: FUNCTION_TEMPLATE.sql
-**		Name: FUNCTION_TEMPLATE
+**		File: fxSCv2_0GetManSalesRepIdBySalesRepIdAndSeasonId.sql
+**		Name: fxSCv2_0GetManSalesRepIdBySalesRepIdAndSeasonId
 **		Desc: 
 **
 **		This template can be customized:
@@ -37,19 +37,22 @@ GO
 **	04/29/2015	Andrés E. Sosa	Created By
 **	
 *******************************************************************************/
-CREATE FUNCTION dbo.FUNCTION_TEMPLATE
+CREATE FUNCTION dbo.fxSCv2_0GetManSalesRepIdBySalesRepIdAndSeasonId
 (
-	@CustomerId BIGINT
+	@SalesRepId VARCHAR(25)
+	, @SeasonId INT
 )
-RETURNS INT
+RETURNS VARCHAR(25)
 AS
 BEGIN
 	/** Declarations */
-	DECLARE @Score INT;
+	DECLARE @ManSalesRepId VARCHAR(25);
 
 	/** Execute actions. */
-	SELECT @Score = Score FROM dbo.fxQlCreditReportGetByMsAccountID(@CustomerId);
+	SELECT @ManSalesRepId = ManSalesRepId FROM dbo.fxSCv2_0GetTeamIdAndManagerTableBySalesRepIdAndSeasonId(@SalesRepId, @SeasonId);
 
-	RETURN @Score;
+	RETURN @ManSalesRepId;
 END
 GO
+
+SELECT dbo.fxSCv2_0GetManSalesRepIdBySalesRepIdAndSeasonId('SHERJ001', 4) AS ManSalesRepId;

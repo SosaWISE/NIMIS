@@ -76,9 +76,11 @@ INSERT dbo.SC_workAccountsAll
 	, AccountID
 	, CustomerMasterFileId
 	, AccountPackageId
+	, SalesTeamId
 	, SalesRepId
 	, ManSalesRepId
 	, TechId
+	, ManTechId
 	, FriendsAndFamilyTypeId
 	, QualifyDate
 	, SaleDate
@@ -105,9 +107,11 @@ SELECT DISTINCT
 	, MSASI.AccountID
 	, MC_Accounts.CustomerMasterFileId
 	, MSASI.AccountPackageId
+	, dbo.fxSCv2_0GetManagerBySalesRepIdAndSeasonId(MSASI.SalesRepId, MSASI.SeasonId) AS SalesTeamId
 	, MSASI.SalesRepId
-	, '' AS [ManSaleRepId]
+	, NULL AS [ManSaleRepId]
 	, MSASI.TechId
+	, NULL AS [ManTechId]
 	, MSASI.FriendsAndFamilyTypeId
 	, QL.QualifyDate
 	, SRV.SaleDate
@@ -220,7 +224,7 @@ FROM
 		) AS QL
 	ON
 		(QL.AccountId = MSASI.AccountID)
-WHERE 
+WHERE
 	-- INSTALLED
 	(MSASI.InstallDate BETWEEN @CommissionPeriodStrDate AND @CommissionPeriodEndDate)
 
