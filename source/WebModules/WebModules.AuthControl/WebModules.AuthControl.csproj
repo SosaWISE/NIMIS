@@ -50,7 +50,8 @@
     <Compile Include="ActionRequestsModule.cs" />
     <Compile Include="Admin\ActionsModule.cs" />
     <Compile Include="Admin\ApplicationsModule.cs" />
-    <Compile Include="Admin\GroupItemsModule.cs" />
+    <Compile Include="Admin\GroupActionItemsModule.cs" />
+    <Compile Include="Admin\UsersModule.cs" />
     <Compile Include="TypesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -62,6 +63,10 @@
     <ProjectReference Include="..\..\Data\NXS.Data.AuthenticationControl\NXS.Data.AuthenticationControl.csproj">
       <Project>{b5f44294-2518-40d7-9b18-93e7a47ee993}</Project>
       <Name>NXS.Data.AuthenticationControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FOS\SOS.FunctionalServices\SOS.FunctionalServices.csproj">
+      <Project>{2ce00a6b-c0ac-44ab-b80f-9e58865ad3bd}</Project>
+      <Name>SOS.FunctionalServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Lib\NXS.Lib.Web\NXS.Lib.Web.csproj">
       <Project>{c067b3ab-3faf-40d7-98e9-5788768bd315}</Project>

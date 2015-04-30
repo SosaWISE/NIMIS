@@ -23,5 +23,31 @@ namespace NXS.Data.AuthenticationControl
 			item.ModifiedBy = gpEmployeeId;
 			await tbl.UpdateAsync(item.ID, snapShot.Diff()).ConfigureAwait(false);
 		}
+
+		public static Task<ARCollection> ByGroupNameWithUpdateLockFullAsync(this ARTable tbl, string groupName)
+		{
+			// load and lock row so we're the exclusive editors/readers
+			var sql = tbl.SelectFull(with: "UPDLOCK,ROWLOCK")
+				.Where(tbl.GroupName, Comparison.Equals, groupName);
+			return tbl.LoadManyFull(sql);
+		}
+
+		#region full load
+		private static Sequel SelectFull(this ARTable tbl, Sequel sql = null, string with = null)
+		{
+			return (sql ?? Sequel.NewSelect()).Columns(
+				tbl.Star
+			).From(tbl).With(with);
+		}
+		private static async Task<ARCollection> LoadManyFull(this ARTable tbl, Sequel sql)
+		{
+			var list = (await tbl.Db.QueryAsync<AR>(sql.Sql, sql.Params).ConfigureAwait(false));
+			return list;
+		}
+		private static async Task<AR> LoadOneFull(this ARTable tbl, Sequel sql)
+		{
+			return (await tbl.LoadManyFull(sql).ConfigureAwait(false)).FirstOrDefault();
+		}
+		#endregion // full load
 	}
 }
