@@ -69,8 +69,8 @@ BEGIN
 	) RR
 	-- last = 1
 	WHERE
-		RecruitOrder = 1
-		AND RoleLocationID = @RoleLocationID
+		RR.RecruitOrder = 1
+		AND RR.RoleLocationID = @RoleLocationID
 
 
 	SELECT
@@ -100,7 +100,8 @@ BEGIN
 	ON
 		RU.UserID = Recruits.RecruitedByID
 	WHERE
-		RU.RecruitedByID = @UserID
+		(RU.IsDeleted = 'FALSE')
+		AND (RU.RecruitedByID = @UserID)
 	ORDER BY
 		RU.FullName
 

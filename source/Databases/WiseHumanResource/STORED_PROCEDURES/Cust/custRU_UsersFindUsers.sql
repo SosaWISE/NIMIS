@@ -78,7 +78,6 @@ BEGIN
 	--SET @RecruitID = NULL
 	--SET @SeasonID = NULL
 	--SET @UserTypeID = NULL
-	
 
 	SELECT TOP 300
 		RU.*
@@ -100,7 +99,8 @@ BEGIN
 					RU.UserID = RR.UserID
 				WHERE
 					--User
-					(@FirstName IS NULL OR ((RU.FirstName LIKE @FirstName) OR (RU.PreferredName LIKE @FirstName)))
+					(RU.IsDeleted = 'FALSE')
+					AND (@FirstName IS NULL OR ((RU.FirstName LIKE @FirstName) OR (RU.PreferredName LIKE @FirstName)))
 					AND (@LastName IS NULL OR (RU.LastName LIKE @LastName))
 					AND (@CompanyID IS NULL OR (RU.GPEmployeeID LIKE @CompanyID))
 					AND (@SSN IS NULL OR (RU.SSN = @SSN))
