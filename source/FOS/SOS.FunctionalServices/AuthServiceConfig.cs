@@ -99,40 +99,36 @@ namespace SOS.FunctionalServices
 				functionalServices.Register(() => configuration);
 			}
 			{ // Auth Service
-				var groupApps = new StringInsensitiveDictionary<StringInsensitiveHashSet>();
-				foreach (var item in SosAuthControlDataContext.Instance.AC_GroupApplications.LoadAll())
-				{
-					if (!item.IsActive || item.IsDeleted) continue;
-					StringInsensitiveHashSet hash;
-					var key = item.GroupName;
-					if (!groupApps.TryGetValue(key, out hash))
-					{
-						hash = new StringInsensitiveHashSet();
-						groupApps.Add(key, hash);
-					}
-					hash.Add(item.ApplicationId);
-				}
-
-				var groupActions = new StringInsensitiveDictionary<StringInsensitiveHashSet>();
-				foreach (var item in SosAuthControlDataContext.Instance.AC_GroupActions.LoadAll())
-				{
-					if (!item.IsActive || item.IsDeleted) continue;
-					StringInsensitiveHashSet hash;
-					var key = item.GroupName;
-					if (!groupActions.TryGetValue(key, out hash))
-					{
-						hash = new StringInsensitiveHashSet();
-						groupActions.Add(key, hash);
-					}
-					hash.Add(item.ActionId);
-				}
-
 				var authService = new AuthService(
-					groupApps: groupApps,
-					groupActions: groupActions
+					getGroupApps: () =>
+					{
+						var dict = new StringInsensitiveDictionary<StringInsensitiveHashSet>();
+						foreach (var item in SosAuthControlDataContext.Instance.AC_GroupApplications.LoadAll())
+							AddToDict(dict, item.GroupName, item.ApplicationId, item.IsActive, item.IsDeleted);
+						return dict;
+					},
+					getGroupActions: () =>
+					{
+						var dict = new StringInsensitiveDictionary<StringInsensitiveHashSet>();
+						foreach (var item in SosAuthControlDataContext.Instance.AC_GroupActions.LoadAll())
+							AddToDict(dict, item.GroupName, item.ActionId, item.IsActive, item.IsDeleted);
+						return dict;
+					}
 				);
 				functionalServices.Register(() => authService);
 			}
+		}
+		static void AddToDict(StringInsensitiveDictionary<StringInsensitiveHashSet> dict, string key, string id, bool isActive, bool isDeleted)
+		{
+			if (!isActive || isDeleted)
+				return;
+			StringInsensitiveHashSet hash;
+			if (!dict.TryGetValue(key, out hash))
+			{
+				hash = new StringInsensitiveHashSet();
+				dict.Add(key, hash);
+			}
+			hash.Add(id);
 		}
 
 		static SessionStore CreateSessionStore(TimeSpan maxAge)

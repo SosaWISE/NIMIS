@@ -109,7 +109,7 @@ namespace SOS.FunctionalServices.Tests
 		{
 			var sessionStore = new SessionStore(null, null, null, null, TimeSpan.FromDays(1), TimeSpan.FromDays(1));
 			var userStore = new UserStore(null, TimeSpan.FromDays(1));
-			return new AuthService(groupApps, groupActions, sessionStore, userStore);
+			return new AuthService(() => groupApps, () => groupActions, sessionStore, userStore);
 		}
 	}
 }

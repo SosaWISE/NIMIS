@@ -1,4 +1,5 @@
-﻿using NXS.Data.AuthenticationControl;
+﻿using NXS.Data;
+using NXS.Data.AuthenticationControl;
 using NXS.DataServices.AuthenticationControl.Models;
 using SOS.Lib.Core;
 using System;
@@ -36,39 +37,154 @@ namespace NXS.DataServices.AuthenticationControl
 			}
 		}
 
-		public async Task<Result<List<GroupItem>>> GroupItemsAsync()
+		public async Task<Result<List<GroupActionItem>>> GroupActionItemsAsync()
 		{
 			using (var db = AuthControlDb.Connect())
 			{
 				// fetch both
-				var actions = await db.AC_GroupActions.AllAsync().ConfigureAwait(false);
-				var applications = await db.AC_GroupApplications.AllAsync().ConfigureAwait(false);
+				var actions = (await db.AC_GroupActions.AllAsync().ConfigureAwait(false)).ToList();
+				var applications = (await db.AC_GroupApplications.AllAsync().ConfigureAwait(false)).ToList();
 				// convert all
-				var items = actions.ConvertAll(item => GroupItem.FromGroupAction(item));
-				items.AddRange(applications.ConvertAll(item => GroupItem.FromGroupAction(item)));
-				return new Result<List<GroupItem>>(value: items);
+				var both = new ActsAndApps(actions, applications);
+				return new Result<List<GroupActionItem>>(value: ToGroupActionItems(both));
 			}
 		}
+		public async Task<Result<List<GroupActionItem>>> SaveGroupActionItems(string groupName, List<GroupActionItem> inputItems)
+		{
+			var result = new Result<List<GroupActionItem>>();
+			foreach (var inputItem in inputItems)
+				if (inputItem.GroupName != groupName)
+					return result.Fail(-1, "Input item GroupName does not match group name");
 
-		//public async Task<Result<List<GroupItem>>> SaveGroupItems(string groupName, List<GroupItem> inputItems)
-		//{
-		//	using (var db = AuthControlDb.Connect())
-		//	{
-		//		// start fetching both
-		//		var tActions = db.AC_GroupActions.AllAsync();
-		//		var tApplications = db.AC_GroupApplications.AllAsync();
-		//		// await
-		//		var actions = await tActions.ConfigureAwait(false);
-		//		var applications = await tApplications.ConfigureAwait(false);
+			using (var db = AuthControlDb.Connect(360))
+			{
+				ActsAndApps both = null;
+				await db.TransactionAsync(async () =>
+				{
+					// fetch both
+					var actions = (await db.AC_GroupActions.ByGroupNameWithUpdateLockFullAsync(groupName).ConfigureAwait(false)).ToList();
+					var applications = (await db.AC_GroupApplications.ByGroupNameWithUpdateLockFullAsync(groupName).ConfigureAwait(false)).ToList();
 
-		//		var item = new MS_AccountHold();
-		//		holdNew.ToDb(item);
-		//		item.IsActive = true;
-		//		await tbl.InsertAsync(item, _gpEmployeeId);
+					// update all
+					foreach (var inputItem in inputItems)
+					{
+						switch (inputItem.RefType)
+						{
+							case "Actions":
+								if (!await SaveGroupActionAsync(db, result, inputItem, actions))
+									return false;
+								break;
+							case "Applications":
+								if (!await SaveGroupApplicationAsync(db, result, inputItem, applications))
+									return false;
+								break;
+							default:
+								result.Fail(-1, "Invalid RefType");
+								return false;
+						}
+					}
 
-		//		var result = new Result<MsHold>(value: MsHold.FromDb(item));
-		//		return result;
-		//	}
-		//}
+					both = new ActsAndApps(actions, applications);
+					return true;
+				});
+
+				// convert all
+				if (both != null)
+					result.Value = ToGroupActionItems(both);
+				return result;
+			}
+		}
+		private async Task<bool> SaveGroupActionAsync<T>(AuthControlDb db, Result<T> result, GroupActionItem inputItem, List<AC_GroupAction> items)
+		{
+			var tbl = db.AC_GroupActions;
+
+			AC_GroupAction item;
+			if (inputItem.ID <= 0)
+			{
+				// create new
+				item = new AC_GroupAction();
+				inputItem.ToDb(item);
+				item.IsActive = true;
+				await tbl.InsertAsync(item, _gpEmployeeId);
+				// add to list
+				items.Add(item);
+			}
+			else
+			{
+				// find item
+				item = items.Where(a => a.ID == inputItem.ID).FirstOrDefault();
+				if (item == null)
+				{
+					result.Fail(-1, "Invalid Group Action ID");
+					return false;
+				}
+				// check ModifiedOn matches input
+				if (!string.IsNullOrEmpty((result.Message = VersionException.ModifiedOnErrMsg(item.ModifiedOn, inputItem.ModifiedOn))))
+				{
+					result.Fail(-1, "Group Action(" + inputItem.ID + "): " + result.Message);
+					return false;
+				}
+
+				// update item
+				var snapShot = Snapshotter.Start(item);
+				inputItem.ToDb(item);
+				item.IsActive = true;
+				await tbl.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
+			}
+
+			return true;
+		}
+		private async Task<bool> SaveGroupApplicationAsync<T>(AuthControlDb db, Result<T> result, GroupActionItem inputItem, List<AC_GroupApplication> items)
+		{
+			var tbl = db.AC_GroupApplications;
+
+			AC_GroupApplication item;
+			if (inputItem.ID <= 0)
+			{
+				// create new
+				item = new AC_GroupApplication();
+				inputItem.ToDb(item);
+				item.IsActive = true;
+				await tbl.InsertAsync(item, _gpEmployeeId);
+				// add to list
+				items.Add(item);
+			}
+			else
+			{
+				// find item
+				item = items.Where(a => a.ID == inputItem.ID).FirstOrDefault();
+				if (item == null)
+				{
+					result.Fail(-1, "Invalid Group Application ID");
+					return false;
+				}
+				// check ModifiedOn matches input
+				if (!string.IsNullOrEmpty((result.Message = VersionException.ModifiedOnErrMsg(item.ModifiedOn, inputItem.ModifiedOn))))
+				{
+					result.Fail(-1, "Group Application(" + inputItem.ID + "): " + result.Message);
+					return false;
+				}
+
+				// update item
+				var snapShot = Snapshotter.Start(item);
+				inputItem.ToDb(item);
+				item.IsActive = true;
+				await tbl.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
+			}
+
+			return true;
+		}
+
+		private List<GroupActionItem> ToGroupActionItems(ActsAndApps both)
+		{
+			// convert all
+			var items = both.Item1.ConvertAll(item => GroupActionItem.FromDb(item));
+			items.AddRange(both.Item2.ConvertAll(item => GroupActionItem.FromDb(item)));
+			return items;
+		}
+		class ActsAndApps : Tuple<List<AC_GroupAction>, List<AC_GroupApplication>>
+		{
+			public ActsAndApps(List<AC_GroupAction> actions, List<AC_GroupApplication> apps) : base(actions, apps) { }
+		}
 	}
 }

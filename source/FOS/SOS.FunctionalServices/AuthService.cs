@@ -38,16 +38,33 @@ namespace SOS.FunctionalServices
 		SessionStore _sessionStore;
 		UserStore _userStore;
 
+		object _loadLocker = new object();
+		Func<StringInsensitiveDictionary<StringInsensitiveHashSet>> _getGroupApps;
+		Func<StringInsensitiveDictionary<StringInsensitiveHashSet>> _getGroupActions;
 		StringInsensitiveDictionary<StringInsensitiveHashSet> _groupApps;
 		StringInsensitiveDictionary<StringInsensitiveHashSet> _groupActions;
-		public AuthService(StringInsensitiveDictionary<StringInsensitiveHashSet> groupApps, StringInsensitiveDictionary<StringInsensitiveHashSet> groupActions,
+		public AuthService(
+			Func<StringInsensitiveDictionary<StringInsensitiveHashSet>> getGroupApps,
+			Func<StringInsensitiveDictionary<StringInsensitiveHashSet>> getGroupActions,
 			SessionStore sessionStore = null, UserStore userStore = null)
 		{
-			_groupApps = groupApps;
-			_groupActions = groupActions;
+			_getGroupApps = getGroupApps;
+			_getGroupActions = getGroupActions;
+			ReloadGroupActionItems();
 
 			_sessionStore = sessionStore ?? SosServiceEngine.Instance.FunctionalServices.Instance<SessionStore>();
 			_userStore = userStore ?? SosServiceEngine.Instance.FunctionalServices.Instance<UserStore>();
+		}
+
+		public void ReloadGroupActionItems()
+		{
+			lock (_loadLocker)
+			{
+				var groupApp = _getGroupApps();
+				var groupActions = _getGroupActions();
+				_groupApps = groupApp;
+				_groupActions = groupActions;
+			}
 		}
 
 		public Result<SystemUserIdentity> Authenticate(string username, string password, string ipAddress)
@@ -58,7 +75,7 @@ namespace SOS.FunctionalServices
 				//
 				RemoveCachedUser(username);
 				//
-				var user = _userStore.Get(username);
+				var user = GetUser(username);
 				// compare passwords (first to password in database, then in active directory)
 				if (BCrypt.Net.BCrypt.HashAndPasswordAreEqual(password, user.Password) ||
 					ADHelper.IsValidLogin(username, password, ADUtility.Domain))
@@ -73,10 +90,13 @@ namespace SOS.FunctionalServices
 			result.Message = "Login failed";
 			return result;
 		}
-
 		public void RemoveCachedUser(string username)
 		{
 			_userStore.RemoveCached(username);
+		}
+		public User GetUser(string username)
+		{
+			return _userStore.Get(username);
 		}
 
 		public UserModel ToUserModel(SystemUserIdentity identity, bool includeLists = true)
