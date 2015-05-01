@@ -121,9 +121,10 @@ SET @CommissionDeductionID = 'POINTSGIVEN';
 DECLARE @PointDeductionInDollars MONEY = 30.00; -- Default value
 SELECT @PointDeductionInDollars = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionDeductionID);
 
-INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionDeductionId, AdjustmentAmount) 
+INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionPeriodId, CommissionDeductionId, AdjustmentAmount) 
 SELECT
 	WorkAccountId
+	, @CommissionPeriodID
 	, @CommissionDeductionID
 	, CAST(SCWA.PointsAssignedToRep AS MONEY) * @PointDeductionInDollars
 FROM
@@ -172,12 +173,14 @@ BEGIN
 	INSERT SC_WorkAccountAdjustments
 	(
 		WorkAccountId
+		, CommissionPeriodId
 		, CommissionDeductionId
 		, CommissionBonusId
 		, AdjustmentAmount
 	)
 	SELECT
 		@WorkAccountID
+		, @CommissionPeriodID
 		, RMRI.CommissionDeductionId
 		, RMRI.CommissionBonusId
 		, RMRI.[AdjustmentAmount]

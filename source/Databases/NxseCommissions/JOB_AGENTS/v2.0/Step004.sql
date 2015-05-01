@@ -93,12 +93,14 @@ BEGIN
 	********************************/
 	INSERT SC_workAccountAdjustments (
 		WorkAccountId
+		, CommissionPeriodId
 		, CommissionRateScaleId
 		, AdjustmentAmount
 	)
 	SELECT
 	 --VALUES (
 		@WorkAccountId
+		, @CommissionPeriodId
 		, CRS.CommissionRateScaleId
 		, CRS.CommissionAmount
 	FROM

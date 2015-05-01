@@ -55,4 +55,4 @@ BEGIN
 END
 GO
 
-SELECT dbo.fxSCv2_0GetManagerBySalesRepIdAndSeasonId('EDOUE001', 4) AS ManSalesRepId;
+SELECT dbo.fxSCv2_0GetManagerBySalesRepIdAndSeasonId('SHERJ001', 4) AS ManSalesRepId;

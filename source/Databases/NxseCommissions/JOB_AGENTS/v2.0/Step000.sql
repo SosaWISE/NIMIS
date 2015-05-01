@@ -44,4 +44,5 @@ DBCC CHECKIDENT ('[dbo].[SC_WorkAccountsHistory]', RESEED, 1);
 DELETE dbo.SC_WorkAccountsAll;
 DBCC CHECKIDENT ('[dbo].[SC_WorkAccountsAll]', RESEED, 0);
 
+PRINT '';
 UPDATE [dbo].[SC_CommissionPeriods] SET IsCurrent = NULL;

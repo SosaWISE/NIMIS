@@ -1,4 +1,4 @@
-﻿USE [NXSE_Sales]
+﻿USE [NXSE_Commissions]
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'SCv2_0_SC_WorkAccountRecruitingBonusReconciliation')

@@ -29,14 +29,13 @@ PRINT '************************************************************ START ******
 /********************  END HEADER ********************/
 
 DECLARE @TeamSummary TABLE (TeamID INT, NumberOfAccounts INT, CommissionTeamOfficeOverrideScaleID VARCHAR(20), Amount MONEY);
-DECLARE @ManSalesRepId INT
+DECLARE @ManSalesRepId VARCHAR(25)
 	, @WorkAccountID BIGINT
 	, @AccountId BIGINT
 	, @WorkAccountAdjustmentId BIGINT
 	, @CommissionTeamOfficeOverrideScaleID VARCHAR(20)
 	, @Amount MONEY
-	, @SalesRepID VARCHAR(25)
-	, @ManSalesRepID VARCHAR(25);
+	, @SalesRepID VARCHAR(25);
 
 INSERT INTO @TeamSummary (TeamID, NumberOfAccounts)
 SELECT DISTINCT
@@ -105,11 +104,13 @@ BEGIN
 
 		-- Create the WorkAccountAdjustment
 		INSERT INTO [dbo].[SC_WorkAccountAdjustments] (
-			[WorkAccountId] ,
-			[CommissionTeamOfficeOverrideScaleId] ,
-			[AdjustmentAmount]
+			[WorkAccountId]
+			, [CommissionPeriodId]
+			, [CommissionTeamOfficeOverrideScaleId]
+			, [AdjustmentAmount]
 		) VALUES (
 			@WorkAccountId -- bigint
+			, @CommissionPeriodID
 			, @CommissionTeamOfficeOverrideScaleId -- varchar(20)
 			, @Amount -- money
 		);

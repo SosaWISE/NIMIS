@@ -66,10 +66,9 @@ BEGIN
 	PRINT '************************************************************ START ************************************************************';
 END
 
-
-/******************
-***  CUSTOMERS  ***
-*******************/
+PRINT N'/******************';
+PRINT N'***  CUSTOMERS  ***';
+PRINT N'*******************/';
 INSERT dbo.SC_workAccountsAll
 (
 	CommissionPeriodId
@@ -103,13 +102,13 @@ INSERT dbo.SC_workAccountsAll
 	, PointsAssignedToRep
 )
 SELECT DISTINCT
-	@CommissionPeriodID
+	@CommissionPeriodID AS CommissionPeriodId
 	, MSASI.AccountID
 	, MC_Accounts.CustomerMasterFileId
 	, MSASI.AccountPackageId
-	, dbo.fxSCv2_0GetManagerBySalesRepIdAndSeasonId(MSASI.SalesRepId, MSASI.SeasonId) AS SalesTeamId
+	, dbo.fxSCv2_0GetTeamIdBySalesRepIdAndSeasonId(MSASI.SalesRepId, MSASI.SeasonId) AS SalesTeamId
 	, MSASI.SalesRepId
-	, NULL AS [ManSaleRepId]
+	, dbo.fxSCv2_0GetManagerBySalesRepIdAndSeasonId(MSASI.SalesRepId, MSASI.SeasonId) AS [ManSaleRepId]
 	, MSASI.TechId
 	, NULL AS [ManTechId]
 	, MSASI.FriendsAndFamilyTypeId
