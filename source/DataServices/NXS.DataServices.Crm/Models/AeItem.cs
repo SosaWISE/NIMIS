@@ -36,8 +36,8 @@ namespace NXS.DataServices.Crm.Models
 			}
 
 			var result = new AeItem();
-			result.ID = item.ID;
-			result.ItemTypeId = item.ItemTypeId;
+			result.ID = item.ID.Trim(); // ensure no trailing space since sql doesn't use it when comparing
+			result.ItemTypeId = item.ItemTypeId.Trim();
 			result.TaxOptionId = item.TaxOptionId;
 			result.AccountZoneTypeId = item.AccountZoneTypeId;
 			result.VerticalId = item.VerticalId;
