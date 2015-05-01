@@ -78,6 +78,7 @@ INSERT dbo.SC_workAccountsAll
 	, SalesTeamId
 	, SalesRepId
 	, ManSalesRepId
+	, RecByRepId
 	, TechId
 	, ManTechId
 	, FriendsAndFamilyTypeId
@@ -109,6 +110,7 @@ SELECT DISTINCT
 	, dbo.fxSCv2_0GetTeamIdBySalesRepIdAndSeasonId(MSASI.SalesRepId, MSASI.SeasonId) AS SalesTeamId
 	, MSASI.SalesRepId
 	, dbo.fxSCv2_0GetManagerBySalesRepIdAndSeasonId(MSASI.SalesRepId, MSASI.SeasonId) AS [ManSaleRepId]
+	, dbo.fxSCv2_0GetRecByRepIdBySalesRepId(MSASI.SalesRepId) AS RecByRepId
 	, MSASI.TechId
 	, NULL AS [ManTechId]
 	, MSASI.FriendsAndFamilyTypeId

@@ -66,8 +66,9 @@ FROM
 		AND (SCCE.CommissionEngineID = 'SCv2.0');
 
 /** LOOP THROUGH Each Account and Add the corresponding Rate by the number of sales per pay period. */
-DECLARE WorkAccountCursor CURSOR FOR SELECT WorkAccountID, AccountId, SalesRepID FROM dbo.SC_WorkAccounts WHERE (CommissionPeriodId = @CommissionPeriodID);
-DECLARE @SalesRepID VARCHAR(50)
+DECLARE WorkAccountCursor CURSOR FOR SELECT WorkAccountID, AccountId, SalesRepID, RecByRepID FROM dbo.SC_WorkAccounts WHERE (CommissionPeriodId = @CommissionPeriodID);
+DECLARE @SalesRepID VARCHAR(25)
+	, @RecByRepID VARCHAR(25)
 	, @WorkAccountId BIGINT
 	, @NumThisWeek INT
 	, @AccountID BIGINT
@@ -77,7 +78,8 @@ OPEN WorkAccountCursor;
 FETCH NEXT FROM WorkAccountCursor INTO
 	@WorkAccountId
 	, @AccountID
-	, @SalesRepID;
+	, @SalesRepID
+	, @RecByRepID;
 
 WHILE (@@FETCH_STATUS = 0)
 BEGIN
@@ -153,11 +155,21 @@ BEGIN
 		END
 	END
 
+	/********************************
+	***	ADD Recruiting Bonus	  ***
+	********************************/
+	EXEC [dbo]. SCv2_0_SC_WorkAccountRecruitingBonusReconciliation @WorkAccountId
+		, @CommissionPeriodId
+		, @AccountID
+		, @SalesRepId
+		, @RecByRepID;
+
 	/** Move to the next record. */	
 	FETCH NEXT FROM WorkAccountCursor INTO
 		@WorkAccountId
 		, @AccountID
-		, @SalesRepID;
+		, @SalesRepID
+		, @RecByRepID;
 END
 
 CLOSE WorkAccountCursor;

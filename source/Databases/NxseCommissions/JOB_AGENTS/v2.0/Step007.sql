@@ -35,7 +35,8 @@ DECLARE @CommissionCycleStrDate DATETIME
 IF (EXISTS(SELECT * FROM [dbo].[SC_CommissionCyclePeriods] WHERE (CommissionPayPeriodId = @CommissionPeriodID)))
 BEGIN
 	/** TODO: MAGIC NUMBER NEEDS TO BE CHANGED.  */
-	SELECT @CommissionCycleStrDate = Start, @CommissionCycleEndDate = [End] FROM [dbo].[SC_CommissionCyclePeriods] WHERE CommissionCyclePeriodID = 1;
+	PRINT '|- *Get the right Cycle period for the date ranges...';
+	SELECT @CommissionCycleStrDate = Start, @CommissionCycleEndDate = [End] FROM [dbo].[SC_CommissionCyclePeriods] WHERE (CommissionPayPeriodId = @CommissionPeriodID);
 
 	INSERT INTO @TeamResidualRates (TeamID, Volume, ManSalesRepId) 
 	SELECT

@@ -38,6 +38,7 @@ GO
 CREATE Procedure dbo.SCv2_0_SC_WorkAccountRecruitingBonusReconciliation
 (
 	@WorkAccountID BIGINT
+	, @CommissionPeriodId BIGINT = 1
 	, @AccountId BIGINT = NULL
 	, @SalesRepId VARCHAR(25)
 	, @PaidToSalesRepId VARCHAR(25) -- Recruiter
@@ -61,7 +62,7 @@ BEGIN
 					SCWA.AccountID
 				FROM
 					[dbo].SC_WorkAccountAdjustments AS SCWAA WITH (NOLOCK)
-					INNER JOIN [dbo].SC_WorkAccounts AS SCWA WITH (NOLOCK)
+					INNER JOIN [dbo].SC_WorkAccountsAll AS SCWA WITH (NOLOCK)
 					ON
 						(SCWA.WorkAccountID = SCWAA.WorkAccountId)
 				WHERE
@@ -73,13 +74,15 @@ BEGIN
 				(RRL.AccountID = @AccountId)
 				AND (RRL.AccountID NOT IN (SELECT AccountId FROM [dbo].[SC_WorkAccountRecruitingBonuses] WHERE AccountId = @AccountId)))
 		BEGIN
-			/** Pay the RecSalesRepId */
+			/** Pay the RecSalesRepId for the first account. */
 			INSERT INTO [dbo].[SC_WorkAccountAdjustments] (
 				[WorkAccountId]
+				, [CommissionPeriodId]
 				, [CommissionBonusId]
 				, [AdjustmentAmount])
 				SELECT 
 					@WorkAccountId -- bigint
+					, @CommissionPeriodId -- bigint
 					, SCCA.CommissionBonusID -- varchar(20)
 					, SCCA.BonusAmount -- money
 				FROM
@@ -91,30 +94,79 @@ BEGIN
 			INSERT INTO [dbo].[SC_WorkAccountRecruitingBonuses] (
 				[WorkAccountAdjustmentId]
 				, [AccountId]
+				, [SalesRepId]
 				, [PaidToSalesRepId]
 			) VALUES (
 				@WorkAccountAdjustmentID -- bigint
 				, @AccountId -- bigint
+				, @SalesRepId
 				, @PaidToSalesRepId -- varchar(25)
 			);
 		END
 
-		/** Now check to see if there is a third account. */
-		SELECT DISTINCT
-			SCWA.SalesRepId
-			, SCWA.AccountID
-			, ROW_NUMBER() OVER (PARTITION BY SCWA.SalesRepId, SCWA.AccountID ORDER BY SCWA.InstallDate) AS [AcctOrdNumber]
-		FROM
-			[dbo].SC_WorkAccountAdjustments AS SCWAA WITH (NOLOCK)
-			INNER JOIN [dbo].SC_WorkAccountsAll AS SCWA WITH (NOLOCK)
-			ON
-				(SCWA.WorkAccountID = SCWAA.WorkAccountId)
-		WHERE
-			(SCWAA.CommissionRateScaleId IS NOT NULL) -- This checks to see that the rep has a quailified account being paid on for.
-			AND (SCWA.SalesRepId = @SalesRepId)
-		ORDER BY
-			SCWA.WorkAccountID ASC;
+		/** Check to see if the RECSIGNBONUSSECN has not been paid out for this SalesRepId */
+		IF (EXISTS(
+			SELECT 
+				*
+			FROM
+				[dbo].[SC_WorkAccountRecruitingBonuses] AS SCWARB WITH (NOLOCK)
+				INNER JOIN [dbo].[SC_WorkAccountAdjustments] AS SCWAA WITH (NOLOCK)
+				ON
+					(SCWAA.WorkAccountAdjustmentID = SCWARB.WorkAccountAdjustmentId)
+			WHERE
+				(SCWARB.SalesRepId = @SalesRepID) 
+				AND (SCWAA.CommissionBonusId = 'RECSIGNBONUSSECN')))
+			BEGIN
+				PRINT 'This Recruiting Bonus has already been paid from SalesRepID: ' + @SalesRepId + ' to @PaidToSalesRepId: ' + @PaidToSalesRepId;
+				RETURN;
+			END
 
+		/** Now check to see if there is a third account. */
+		IF (EXISTS(SELECT 
+				*
+			FROM
+				(SELECT DISTINCT
+					SCWA.SalesRepId
+					, SCWA.WorkAccountID
+					, SCWA.AccountID
+					, ROW_NUMBER() OVER (PARTITION BY SCWA.SalesRepId ORDER BY SCWA.InstallDate) AS [AcctOrdNumber]
+				FROM
+					[dbo].SC_WorkAccountsAll AS SCWA WITH (NOLOCK)
+				WHERE
+					(SCWA.SalesRepId = @SalesRepId)) AS COMACCT
+			WHERE
+				(COMACCT.AcctOrdNumber = 3)
+				AND (COMACCT.AccountID = @AccountId))) -- Want to make sure that this is the third account.
+		BEGIN
+			/** Pay the RecSalesRepId for the first account. */
+			INSERT INTO [dbo].[SC_WorkAccountAdjustments] (
+				[WorkAccountId]
+				, [CommissionPeriodId]
+				, [CommissionBonusId]
+				, [AdjustmentAmount])
+				SELECT 
+					@WorkAccountId -- bigint
+					, @CommissionPeriodId -- bigint
+					, SCCA.CommissionBonusID -- varchar(20)
+					, SCCA.BonusAmount -- money
+				FROM
+					[dbo].[SC_CommissionBonus] AS SCCA WITH (NOLOCK)
+				WHERE
+					(SCCA.CommissionBonusID = 'RECSIGNBONUSSECN');
+			SET @WorkAccountAdjustmentID = SCOPE_IDENTITY();
+
+			INSERT INTO [dbo].[SC_WorkAccountRecruitingBonuses] (
+				[WorkAccountAdjustmentId]
+				, [AccountId]
+				, [SalesRepId]
+				, [PaidToSalesRepId]
+			) VALUES (
+				@WorkAccountAdjustmentID -- bigint
+				, @AccountId -- bigint
+				, @SalesRepId
+				, @PaidToSalesRepId -- varchar(25)
+			);
+		END
 	END TRY
 	BEGIN CATCH
 		EXEC dbo.wiseSP_ExceptionsThrown;
@@ -126,4 +178,32 @@ GO
 GRANT EXEC ON dbo.SCv2_0_SC_WorkAccountRecruitingBonusReconciliation TO PUBLIC
 GO
 
-/** EXEC dbo.SCv2_0_SC_WorkAccountRecruitingBonusReconciliation */
+/** TEST 
+DECLARE @WorkAccountID BIGINT = 14
+	, @CommissionPeriodId BIGINT = 1
+	, @AccountId BIGINT = 191207
+	, @SalesRepId VARCHAR(25) = 'SHERJ001'
+	, @PaidToSalesRepId VARCHAR(25) = 'VAZQA001'; -- Recruiter
+	
+--EXEC dbo.SCv2_0_SC_WorkAccountRecruitingBonusReconciliation @WorkAccountID
+--	, @CommissionPeriodId
+--	, @AccountId
+--	, @SalesRepId
+--	, @PaidToSalesRepId;
+
+SELECT 
+				*
+			FROM
+				(SELECT DISTINCT
+					SCWA.SalesRepId
+					, SCWA.WorkAccountID
+					, SCWA.AccountID
+					, ROW_NUMBER() OVER (PARTITION BY SCWA.SalesRepId ORDER BY SCWA.InstallDate) AS [AcctOrdNumber]
+				FROM
+					[dbo].SC_WorkAccountsAll AS SCWA WITH (NOLOCK)
+				WHERE
+					(SCWA.SalesRepId = @SalesRepId)) AS COMACCT
+			WHERE
+				(COMACCT.AcctOrdNumber = 3)
+				AND (COMACCT.AccountID = @AccountId)
+*/
