@@ -19,7 +19,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<AeContract>> AccountContract(long accountId)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<AeContract>();
 
@@ -38,7 +38,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<AeContract>> SaveContract(long accountId, AeContract inputItem)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<AeContract>();
 				AE_Contract item = null;

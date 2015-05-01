@@ -61,7 +61,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<AeCustomerAccount>> CustomerAccountByTypeAsync(long accountId, string customerTypeId)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var item = (await db.AE_CustomerAccounts.ByAccountIdAndTypeAsync(accountId, customerTypeId).ConfigureAwait(false)).FirstOrDefault();
 				var result = new Result<AeCustomerAccount>(value: AeCustomerAccount.FromDb(item, nullable: true));
@@ -70,7 +70,7 @@ namespace NXS.DataServices.Crm
 		}
 		public async Task<Result<AeCustomer>> SetCustomerAccountAsync(long accountId, string customerTypeId, long leadId)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<AeCustomer>();
 				var lead = await db.QL_Leads.ByIdAsync(leadId).ConfigureAwait(false);
@@ -130,7 +130,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<bool>> DeleteCustomerAccountAsync(long accountId, string customerTypeId)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<bool>();
 
@@ -322,7 +322,7 @@ namespace NXS.DataServices.Crm
 		//	}
 		//}
 
-		private static async Task<MC_Address> UpdateOrCreateMcAddress(string gpEmployeeId, CrmDb db, QL_Address qlAddress)
+		private static async Task<MC_Address> UpdateOrCreateMcAddress(string gpEmployeeId, DBase db, QL_Address qlAddress)
 		{
 			var tbl = db.MC_Addresses;
 			// map ql_address to mc_address 1 to 1
@@ -383,7 +383,7 @@ namespace NXS.DataServices.Crm
 			mcAddress.IsDeleted = false;// qlAddress.IsDeleted;
 		}
 
-		private static async Task<AE_Customer> CreateAeCustomer(string gpEmployeeId, CrmDb db, QL_Lead lead, MC_Address mcAddress)
+		private static async Task<AE_Customer> CreateAeCustomer(string gpEmployeeId, DBase db, QL_Lead lead, MC_Address mcAddress)
 		{
 			var tbl = db.AE_Customers;
 			// map lead to customer 1 to 1
@@ -502,7 +502,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<Noc>> NocDate(DateTime startDate)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<Noc>();
 				const string sql = "SELECT WISE_CRM.dbo.fxGetLastNOCDate(@startDate)";

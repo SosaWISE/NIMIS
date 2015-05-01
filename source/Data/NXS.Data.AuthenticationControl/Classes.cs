@@ -1,5 +1,5 @@
-﻿using System;
 using NXS.Data;
+using System;
 
 namespace NXS.Data.AuthenticationControl
 {
@@ -31,8 +31,7 @@ namespace NXS.Data.AuthenticationControl
 			public const string Hr_Team_EditID = "Hr_Team_Edit";
 			public const string Hr_User_EditID = "Hr_User_Edit";
 		}
-		[IgnorePropertyAttribute(true)]
-		public string ID { get { return ActionID; } set { ActionID = value; } }
+		[IgnorePropertyAttribute(true)] public string ID { get { return ActionID; } set { ActionID = value; } }
 		public string ActionID { get; set; }
 		public string Name { get; set; }
 		public bool IsActive { get; set; }
@@ -46,15 +45,17 @@ namespace NXS.Data.AuthenticationControl
 			public const string ContractAdministrationID = "CONTRACT_ADMIN";
 			public const string FundingAdministratorID = "FUNDING_ADMIN";
 			public const string HiringManagerID = "HR_MAN";
+			public const string InventoryScreenID = "INV";
 			public const string NXSConnextCORSID = "NXS_CONNEXT_CORS";
+			public const string ScheduleAdminID = "SCHED_MAN";
 			public const string SOSCRMID = "SOS_CRM";
 			public const string SOSGPSClientID = "SOS_GPS_CLNT";
 			public const string SSECmsCORSID = "SSE_CMS_CORS";
 			public const string SSEMainPortalAppID = "SSE_MAIN_PORTAL";
 			public const string SurveyManagerID = "SURVEY_MAN";
+			public const string SwingScreenID = "SWING";
 		}
-		[IgnorePropertyAttribute(true)]
-		public string ID { get { return ApplicationID; } set { ApplicationID = value; } }
+		[IgnorePropertyAttribute(true)] public string ID { get { return ApplicationID; } set { ApplicationID = value; } }
 		public string ApplicationID { get; set; }
 		public string ApplicationName { get; set; }
 		public string ApplicationDesc { get; set; }
@@ -72,8 +73,7 @@ namespace NXS.Data.AuthenticationControl
 	}
 	public partial class AC_GroupAction // AC_GroupActions
 	{
-		[IgnorePropertyAttribute(true)]
-		public int ID { get { return UserActionID; } set { UserActionID = value; } }
+		[IgnorePropertyAttribute(true)] public int ID { get { return UserActionID; } set { UserActionID = value; } }
 		public int UserActionID { get; set; }
 		public string GroupName { get; set; }
 		public string ActionId { get; set; }
@@ -86,8 +86,7 @@ namespace NXS.Data.AuthenticationControl
 	}
 	public partial class AC_GroupApplication // AC_GroupApplications
 	{
-		[IgnorePropertyAttribute(true)]
-		public int ID { get { return UserApplicationID; } set { UserApplicationID = value; } }
+		[IgnorePropertyAttribute(true)] public int ID { get { return UserApplicationID; } set { UserApplicationID = value; } }
 		public int UserApplicationID { get; set; }
 		public string GroupName { get; set; }
 		public string ApplicationId { get; set; }
@@ -115,8 +114,7 @@ namespace NXS.Data.AuthenticationControl
 	}
 	public partial class AC_User // AC_Users
 	{
-		[IgnorePropertyAttribute(true)]
-		public int ID { get { return UserID; } set { UserID = value; } }
+		[IgnorePropertyAttribute(true)] public int ID { get { return UserID; } set { UserID = value; } }
 		public int UserID { get; set; }
 		public int DealerId { get; set; }
 		public int? HRUserId { get; set; }

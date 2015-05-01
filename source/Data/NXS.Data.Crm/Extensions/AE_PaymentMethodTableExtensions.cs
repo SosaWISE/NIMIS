@@ -7,7 +7,7 @@ namespace NXS.Data.Crm
 {
 	using AR = AE_PaymentMethod;
 	using ARCollection = IEnumerable<AE_PaymentMethod>;
-	using ARTable = CrmDb.AE_PaymentMethodTable;
+	using ARTable = DBase.AE_PaymentMethodTable;
 	public static class AE_PaymentMethodTableExtensions
 	{
 		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)

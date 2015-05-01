@@ -30,8 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper">
-      <HintPath>..\..\Services\Cors\corspackages\Dapper.1.39\lib\net45\Dapper.dll</HintPath>
+    <Reference Include="Dapper, Version=1.38.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Services\Cors\corspackages\Dapper.1.38\lib\net45\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,15 +52,16 @@
     <Compile Include="Extensions\AC_KeyValueTableExtensions.cs" />
     <Compile Include="Extensions\AC_UserTableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="Sprocs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NXS.Data\NXS.Data.csproj">
       <Project>{5465a862-bb78-4048-b39b-191be0e1d19c}</Project>
       <Name>NXS.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

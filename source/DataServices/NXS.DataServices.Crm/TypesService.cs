@@ -19,7 +19,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<List<MetadataType>>> FriendsAndFamilyTypesAsync()
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.MC_FriendsAndFamilyTypes;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
@@ -29,7 +29,7 @@ namespace NXS.DataServices.Crm
 		}
 		public async Task<Result<List<MetadataType>>> AccountCancelReasonsAsync()
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.MC_AccountCancelReasons;
 				var items = await tbl.AllAsync().ConfigureAwait(false);

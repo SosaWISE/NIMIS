@@ -7,7 +7,7 @@ namespace NXS.Data.Crm
 {
 	using AR = MC_Address;
 	using ARCollection = IEnumerable<MC_Address>;
-	using ARTable = CrmDb.MC_AddressTable;
+	using ARTable = DBase.MC_AddressTable;
 	public static class MC_AddressTableExtensions
 	{
 		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)

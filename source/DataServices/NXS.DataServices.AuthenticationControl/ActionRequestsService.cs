@@ -20,7 +20,7 @@ namespace NXS.DataServices.AuthenticationControl
 
 		public async Task<Result<AcActionRequest>> CreateActionRequestAsync(AcActionRequestNew inputItem)//, )Func<byte[],string> authNumToKey)
 		{
-			using (var db = AuthControlDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<AcActionRequest>();
 				var tbl = db.AC_ActionRequests;
@@ -39,7 +39,7 @@ namespace NXS.DataServices.AuthenticationControl
 
 		public AcActionRequest Use(string actionKey)
 		{
-			using (var db = AuthControlDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				AC_ActionRequest item = null;
 				db.Transaction(() =>
@@ -103,7 +103,7 @@ namespace NXS.DataServices.AuthenticationControl
 
 		private static readonly string SystemAutoSigner = "SYSTEMAUTOSIGNER";
 
-		private static async Task AutoSignSync(AuthControlDb.AC_ActionRequestTable tbl, AC_ActionRequest item)
+		private static async Task AutoSignSync(DBase.AC_ActionRequestTable tbl, AC_ActionRequest item)
 		{
 			//
 			if (item.ActionId == AC_Action.MetaData.CRM_ByPassCredit_RepExceptionID &&

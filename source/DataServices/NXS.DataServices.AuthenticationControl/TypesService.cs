@@ -19,7 +19,7 @@ namespace NXS.DataServices.AuthenticationControl
 
 		public async Task<Result<List<EnumType>>> RequestReasons()
 		{
-			using (var db = AuthControlDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.AC_RequestReasons;
 				var items = await tbl.AllAsync().ConfigureAwait(false);

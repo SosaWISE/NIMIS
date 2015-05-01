@@ -7,7 +7,7 @@ namespace NXS.Data.AuthenticationControl
 {
 	using AR = AC_GroupAction;
 	using ARCollection = IEnumerable<AC_GroupAction>;
-	using ARTable = AuthControlDb.AC_GroupActionTable;
+	using ARTable = DBase.AC_GroupActionTable;
 	public static class AC_GroupActionTableExtensions
 	{
 		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)

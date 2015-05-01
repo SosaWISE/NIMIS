@@ -30,7 +30,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<List<AeItem>>> Items()
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.AE_Items;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
@@ -41,7 +41,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<AeInvoice>> InstallInvoice(long accountId, bool canCreate)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var account = await db.MS_Accounts.EnsureByIdAsync(accountId, _gpEmployeeId).ConfigureAwait(false);
 
@@ -57,7 +57,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<AeInvoice>> SaveInvoice(AeInvoice inputItem)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<AeInvoice>();
 				AE_Invoice item = null;
@@ -132,7 +132,7 @@ namespace NXS.DataServices.Crm
 				return result;
 			}
 		}
-		private async Task<bool> SaveInvoiceItemsAsync<T>(CrmDb db, Result<T> result, long invoiceId, List<AE_InvoiceItem> items, List<AeInvoiceItem> inputItems)
+		private async Task<bool> SaveInvoiceItemsAsync<T>(DBase db, Result<T> result, long invoiceId, List<AE_InvoiceItem> items, List<AeInvoiceItem> inputItems)
 		{
 			var tbl = db.AE_InvoiceItems;
 

@@ -17,7 +17,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<QlLead>> MasterFileLeadAsync(long cmfid, string customerTypeId)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var item = await db.QL_Leads.MasterFileLeadAsync(cmfid, customerTypeId).ConfigureAwait(false);
 				var result = new Result<QlLead>(value: QlLead.FromDb(item, nullable: true));
@@ -27,7 +27,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<List<QlLead>>> MasterFileLeadsAsync(long cmfid)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var items = await db.QL_Leads.MasterFileLeadsAsync(cmfid).ConfigureAwait(false);
 				var result = new Result<List<QlLead>>(value: items.ConvertAll(item => QlLead.FromDb(item)));
@@ -37,7 +37,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<bool>> AddCustomerMasterLeadAsync(long cmfid, string customerTypeId, long leadID)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var added = await db.QL_CustomerMasterLeads.AddCustomerMasterLeadAsync(cmfid, customerTypeId, leadID, _gpEmployeeId).ConfigureAwait(false);
 				var result = new Result<bool>(

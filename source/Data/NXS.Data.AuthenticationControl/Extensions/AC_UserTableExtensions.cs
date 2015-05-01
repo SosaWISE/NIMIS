@@ -7,7 +7,7 @@ namespace NXS.Data.AuthenticationControl
 {
 	using AR = AC_User;
 	using ARCollection = IEnumerable<AC_User>;
-	using ARTable = AuthControlDb.AC_UserTable;
+	using ARTable = DBase.AC_UserTable;
 	public static class AC_UserTableExtensions
 	{
 		//public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)

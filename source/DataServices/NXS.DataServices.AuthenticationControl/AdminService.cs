@@ -20,7 +20,7 @@ namespace NXS.DataServices.AuthenticationControl
 
 		public async Task<Result<List<MetadataType>>> ActionsAsync()
 		{
-			using (var db = AuthControlDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.AC_Actions;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
@@ -29,7 +29,7 @@ namespace NXS.DataServices.AuthenticationControl
 		}
 		public async Task<Result<List<MetadataType>>> ApplicationsAsync()
 		{
-			using (var db = AuthControlDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.AC_Applications;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
@@ -39,7 +39,7 @@ namespace NXS.DataServices.AuthenticationControl
 
 		public async Task<Result<List<GroupActionItem>>> GroupActionItemsAsync()
 		{
-			using (var db = AuthControlDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				// fetch both
 				var actions = (await db.AC_GroupActions.AllAsync().ConfigureAwait(false)).ToList();
@@ -56,7 +56,7 @@ namespace NXS.DataServices.AuthenticationControl
 				if (inputItem.GroupName != groupName)
 					return result.Fail(-1, "Input item GroupName does not match group name");
 
-			using (var db = AuthControlDb.Connect(360))
+			using (var db = DBase.Connect(360))
 			{
 				ActsAndApps both = null;
 				await db.TransactionAsync(async () =>
@@ -94,7 +94,7 @@ namespace NXS.DataServices.AuthenticationControl
 				return result;
 			}
 		}
-		private async Task<bool> SaveGroupActionAsync<T>(AuthControlDb db, Result<T> result, GroupActionItem inputItem, List<AC_GroupAction> items)
+		private async Task<bool> SaveGroupActionAsync<T>(DBase db, Result<T> result, GroupActionItem inputItem, List<AC_GroupAction> items)
 		{
 			var tbl = db.AC_GroupActions;
 
@@ -134,7 +134,7 @@ namespace NXS.DataServices.AuthenticationControl
 
 			return true;
 		}
-		private async Task<bool> SaveGroupApplicationAsync<T>(AuthControlDb db, Result<T> result, GroupActionItem inputItem, List<AC_GroupApplication> items)
+		private async Task<bool> SaveGroupApplicationAsync<T>(DBase db, Result<T> result, GroupActionItem inputItem, List<AC_GroupApplication> items)
 		{
 			var tbl = db.AC_GroupApplications;
 

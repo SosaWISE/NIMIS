@@ -20,7 +20,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<MsAccountSalesInformation>> AccountSalesInformation(long accountId)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.MS_AccountSalesInformations;
 				var item = (await tbl.ByIdAsync(accountId).ConfigureAwait(false));
@@ -30,7 +30,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<MsAccountSalesInformation>> SaveAccountSalesInformation(MsAccountSalesInformation inputItem)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<MsAccountSalesInformation>();
 				var tbl = db.MS_AccountSalesInformations;
