@@ -40,7 +40,7 @@ CREATE Procedure dbo.SCv2_0_SC_WorkAccountRecruitingBonusReconciliation
 	@WorkAccountID BIGINT
 	, @AccountId BIGINT = NULL
 	, @SalesRepId VARCHAR(25)
-	, @PaidToSalesRepId VARCHAR(25)
+	, @PaidToSalesRepId VARCHAR(25) -- Recruiter
 )
 AS
 BEGIN
@@ -65,7 +65,7 @@ BEGIN
 					ON
 						(SCWA.WorkAccountID = SCWAA.WorkAccountId)
 				WHERE
-					(SCWAA.CommissionBonusId LIKE 'ACCTRATESCALE%') -- This checks to see that the rep has a quailified account being paid on for.
+					(SCWAA.CommissionRateScaleId IS NOT NULL) -- This checks to see that the rep has a quailified account being paid on for.
 					AND (SCWA.SalesRepId = @SalesRepId)
 				ORDER BY
 					SCWA.WorkAccountID ASC) AS RRL
@@ -76,17 +76,18 @@ BEGIN
 			/** Pay the RecSalesRepId */
 			INSERT INTO [dbo].[SC_WorkAccountAdjustments] (
 				[WorkAccountId]
-				, [CommissionsAdjustmentId]
+				, [CommissionBonusId]
 				, [AdjustmentAmount])
 				SELECT 
 					@WorkAccountId -- bigint
-					, SCCA.CommissionsAdjustmentId -- varchar(20)
-					, SCCA.CommissionAdjustmentAmount -- money
+					, SCCA.CommissionBonusID -- varchar(20)
+					, SCCA.BonusAmount -- money
 				FROM
-					[dbo].[SC_CommissionsAdjustments] AS SCCA WITH (NOLOCK)
+					[dbo].[SC_CommissionBonus] AS SCCA WITH (NOLOCK)
 				WHERE
-					(SCCA.CommissionsAdjustmentID = 'RECSIGNBONUSFIRST');
+					(SCCA.CommissionBonusID = 'RECSIGNBONUSFIRST');
 			SET @WorkAccountAdjustmentID = SCOPE_IDENTITY();
+
 			INSERT INTO [dbo].[SC_WorkAccountRecruitingBonuses] (
 				[WorkAccountAdjustmentId]
 				, [AccountId]
@@ -99,27 +100,20 @@ BEGIN
 		END
 
 		/** Now check to see if there is a third account. */
-		SELECT 
-			*
+		SELECT DISTINCT
+			SCWA.SalesRepId
+			, SCWA.AccountID
+			, ROW_NUMBER() OVER (PARTITION BY SCWA.SalesRepId, SCWA.AccountID ORDER BY SCWA.InstallDate) AS [AcctOrdNumber]
 		FROM
-			(SELECT
-				SCWA.SalesRepId
-				, SCWA.AccountID
-				, SCWA.WorkAccountID
-				, ROW_NUMBER() OVER (PARTITION BY SCWA.SalesRepId ORDER BY SCWA.AccountID) AS RWNuber
-	--			, COUNT(*) AS SalesCount
-			FROM
-				[dbo].SC_WorkAccountAdjustments AS SCWAA WITH (NOLOCK)
-				INNER JOIN [dbo].SC_WorkAccounts AS SCWA WITH (NOLOCK)
-				ON
-					(SCWA.WorkAccountID = SCWAA.WorkAccountId)
-			WHERE
-				(SCWAA.CommissionsAdjustmentId LIKE 'ACCTRATESCALE%')
-				AND (SCWA.SalesRepId = @SalesRepId)) AS RWCNT
+			[dbo].SC_WorkAccountAdjustments AS SCWAA WITH (NOLOCK)
+			INNER JOIN [dbo].SC_WorkAccountsAll AS SCWA WITH (NOLOCK)
+			ON
+				(SCWA.WorkAccountID = SCWAA.WorkAccountId)
 		WHERE
-			(RWCNT.RWNuber = 3);
-			--GROUP BY
-			--	SCWA.SalesRepId;
+			(SCWAA.CommissionRateScaleId IS NOT NULL) -- This checks to see that the rep has a quailified account being paid on for.
+			AND (SCWA.SalesRepId = @SalesRepId)
+		ORDER BY
+			SCWA.WorkAccountID ASC;
 
 	END TRY
 	BEGIN CATCH

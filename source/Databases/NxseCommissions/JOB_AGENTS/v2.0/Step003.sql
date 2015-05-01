@@ -52,11 +52,13 @@ SELECT @DeductionAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeduct
 INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
+	, CommissionPeriodId
 	, CommissionDeductionId
 	, AdjustmentAmount
 )
 SELECT 
 	WorkAccountID
+	, @CommissionPeriodID
 	, @CommissionDeductionID
 	, @DeductionAmount
 FROM
@@ -77,11 +79,13 @@ SELECT @DeductionAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeduct
 INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
+	, CommissionPeriodId
 	, CommissionDeductionId
 	, AdjustmentAmount
 )
 SELECT 
 	WorkAccountID
+	,@CommissionPeriodID
 	, @CommissionDeductionID
 	, @DeductionAmount
 FROM
@@ -101,11 +105,13 @@ SELECT @DeductionAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeduct
 INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
+	, CommissionPeriodId
 	, CommissionDeductionId
 	, AdjustmentAmount
 )
 SELECT 
 	WorkAccountID
+	, @CommissionPeriodID
 	, @CommissionDeductionID
 	, @DeductionAmount
 FROM
@@ -216,11 +222,13 @@ SELECT @DeductionAmount = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeduct
 INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
+	, CommissionPeriodId
 	, CommissionDeductionId
 	, AdjustmentAmount
 )
 SELECT
 	WorkAccountID
+	, @CommissionPeriodID
 	, @CommissionDeductionID
 	, @DeductionAmount
 FROM
@@ -252,11 +260,13 @@ SELECT @DeductionAmount = (-1) * DeductionAmount FROM dbo.SC_CommissionDeduction
 INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
+	, CommissionPeriodId
 	, CommissionDeductionId
 	, AdjustmentAmount
 )
 SELECT 
 	SCWA.WorkAccountID
+	, @CommissionPeriodID
 	, @CommissionDeductionID
 	, @DeductionAmount
 FROM
@@ -279,11 +289,13 @@ SELECT @DeductionAmount = (-1) * DeductionAmount FROM dbo.SC_CommissionDeduction
 INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
+	, CommissionPeriodId
 	, CommissionDeductionId
 	, AdjustmentAmount
 )
 SELECT 
 	WorkAccountID
+	, @CommissionPeriodID
 	, @CommissionDeductionID
 	, @DeductionAmount
 FROM
@@ -305,11 +317,13 @@ SELECT @DeductionAmount = (-1) * DeductionAmount FROM dbo.SC_CommissionDeduction
 INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
+	, CommissionPeriodId
 	, CommissionDeductionId
 	, AdjustmentAmount
 )
 SELECT 
 	WorkAccountID
+	, @CommissionPeriodID
 	, @CommissionDeductionID
 	, @DeductionAmount
 FROM
