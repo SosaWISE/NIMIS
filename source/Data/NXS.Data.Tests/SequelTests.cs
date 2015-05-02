@@ -11,17 +11,17 @@ namespace NXS.Data.Tests
 	{
 		public Table1Table Table1s { get; set; }
 		public Table2Table Table2s { get; set; }
-		public Table<Table1Table, int> Table3 { get; set; }
+		//public Table<Table1Table, int> Table3 { get; set; }
 
 		public class Table1Table : Table<object, int>
 		{
-			public Table1Table(Database<Db1> db) : base(db, "t1", "Table1") { }
+			public Table1Table(Db1 db) : base(db, "t1", "Table1") { }
 			public string ID { get { return _alias + "ID"; } }
 			public string Name { get { return _alias + "Name"; } }
 		}
 		public class Table2Table : Table<object, int>
 		{
-			public Table2Table(Database<Db1> db) : base(db, "t2", "Table2") { }
+			public Table2Table(Db1 db) : base(db, "t2", "Table2") { }
 			public string Col1 { get { return _alias + "Col1"; } }
 			public string T1ColId { get { return _alias + "T1ColId"; } }
 			public string Col2 { get { return _alias + "Col2"; } }
@@ -394,6 +394,37 @@ WHERE
 			Assert.Equal(@"SELECT T2.ID FROM (SELECT T.ID FROM [dbo].[Table] AS T) AS T2 WHERE (T2.ID = @0)", qry.Sql);
 		}
 
+
+
+
+		public Sequel GetIsNullSql(bool prettyPrint)
+		{
+			var db = Db1.Init(null);
+			var t = new Db1.Table<object, int>(db, "T", "[dbo].[Table]");
+			return Sequel.NewSelect(prettyPrint,
+				"T.*"
+			).From(t)
+			.Where("T.Col1", Comparison.Is, null)
+			.And("T.Col2", Comparison.IsNot, null);
+		}
+		[Fact]
+		public void Test_IsNull_With_PrettyPrint()
+		{
+			var qry = GetIsNullSql(true);
+			Assert.Equal(
+@"SELECT
+	T.*
+FROM [dbo].[Table] AS T
+WHERE
+	(T.Col1 IS NULL)
+	AND (T.Col2 IS NOT NULL)", qry.Sql);
+		}
+		[Fact]
+		public void Test_IsNull_No_PrettyPrint()
+		{
+			var qry = GetIsNullSql(false);
+			Assert.Equal(@"SELECT T.* FROM [dbo].[Table] AS T WHERE (T.Col1 IS NULL) AND (T.Col2 IS NOT NULL)", qry.Sql);
+		}
 
 
 

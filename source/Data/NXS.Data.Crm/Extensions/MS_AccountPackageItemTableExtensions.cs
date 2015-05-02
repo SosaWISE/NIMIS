@@ -7,7 +7,7 @@ namespace NXS.Data.Crm
 {
 	using AR = MS_AccountPackageItem;
 	using ARCollection = IEnumerable<MS_AccountPackageItem>;
-	using ARTable = CrmDb.MS_AccountPackageItemTable;
+	using ARTable = DBase.MS_AccountPackageItemTable;
 	public static class MS_AccountPackageItemTableExtensions
 	{
 		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)

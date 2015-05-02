@@ -12,9 +12,11 @@ namespace NXS.DataServices.Crm.Models
 		public string AccountCancelReasonId { get; set; }
 		public int? AccountPackageId { get; set; }
 		public int? PaymentMethodId { get; set; }
+		public int? InitialPaymentMethodId { get; set; }
 		public string TechId { get; set; }
 		public string SalesRepId { get; set; }
 		public long? AccountFundingStatusId { get; set; }
+		public string AccountPayoutTypeId { get; set; }
 		public short BillingDay { get; set; }
 		public string Email { get; set; }
 		public bool IsMoni { get; set; }
@@ -61,9 +63,11 @@ namespace NXS.DataServices.Crm.Models
 			result.AccountCancelReasonId = item.AccountCancelReasonId;
 			result.AccountPackageId = item.AccountPackageId;
 			result.PaymentMethodId = item.PaymentMethodId;
+			result.InitialPaymentMethodId = item.InitialPaymentMethodId;
 			result.TechId = item.TechId;
 			result.SalesRepId = item.SalesRepId;
 			result.AccountFundingStatusId = item.AccountFundingStatusId;
+			result.AccountPayoutTypeId = item.AccountPayoutTypeId;
 			result.BillingDay = item.BillingDay;
 			result.Email = item.Email;
 			result.IsMoni = item.IsMoni;
@@ -98,7 +102,6 @@ namespace NXS.DataServices.Crm.Models
 		{
 			if (item.ID != this.ID)
 				throw new Exception("IDs don't match");
-			NXS.Data.VersionException.CheckModifiedOn(item.ModifiedOn, this.ModifiedOn);
 
 			//item.ID = this.ID;
 			item.PaymentTypeId = this.PaymentTypeId;
@@ -107,9 +110,11 @@ namespace NXS.DataServices.Crm.Models
 			item.AccountCancelReasonId = this.AccountCancelReasonId;
 			item.AccountPackageId = this.AccountPackageId;
 			//item.PaymentMethodId = this.PaymentMethodId; // cannot edit this directly
+			//item.InitialPaymentMethodId = this.InitialPaymentMethodId; // cannot edit this directly
 			item.TechId = this.TechId;
 			item.SalesRepId = this.SalesRepId;
 			item.AccountFundingStatusId = this.AccountFundingStatusId;
+			item.AccountPayoutTypeId = this.AccountPayoutTypeId;
 			item.BillingDay = this.BillingDay;
 			item.Email = this.Email;
 			item.IsMoni = this.IsMoni;

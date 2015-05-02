@@ -30,7 +30,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<List<MsPackage>>> Packages()
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.MS_AccountPackages;
 				var items = await tbl.AllFullAsync().ConfigureAwait(false);

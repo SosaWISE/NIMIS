@@ -24,7 +24,7 @@ namespace SOS.FunctionalServices
 	{
 		#region Search Customers
 
-		public IFnsResult<List<IFnsCustomerMasterFileGeneral>> CustomerGeneralSearch(int dealerId, string city, string stateId, string postalCode, string email, string firstName, string lastName, string phoneNumber, int pageSize, int pageNumber, string gpEmployeeId)
+		public IFnsResult<List<IFnsCustomerMasterFileGeneral>> CustomerGeneralSearch(int dealerId, string city, string stateId, string postalCode, string email, string firstName, string lastName, string phoneNumber, bool excludeLeads, int pageSize, int pageNumber, string gpEmployeeId)
 		{
 			#region INITIALIZATION
 
@@ -43,7 +43,7 @@ namespace SOS.FunctionalServices
 			{
 
 				// ** Get instance of the AddressVerification service.
-				AE_CustomerMasterFileGeneralViewCollection aeList = SosCrmDataContext.Instance.AE_CustomerMasterFileGeneralViews.Search(dealerId, city, stateId, postalCode, email, firstName, lastName, phoneNumber, pageSize, pageNumber);
+				AE_CustomerMasterFileGeneralViewCollection aeList = SosCrmDataContext.Instance.AE_CustomerMasterFileGeneralViews.Search(dealerId, city, stateId, postalCode, email, firstName, lastName, phoneNumber, excludeLeads, pageSize, pageNumber);
 				var resultList = aeList.Select(item => new FnsCustomerMasterFileGeneral(item)).Cast<IFnsCustomerMasterFileGeneral>().ToList();
 				// ** Build result
 

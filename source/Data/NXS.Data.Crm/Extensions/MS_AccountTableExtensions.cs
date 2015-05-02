@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace NXS.Data.Crm
 {
 	using AR = MS_Account;
-	using ARTable = CrmDb.MS_AccountTable;
+	using ARTable = DBase.MS_AccountTable;
 	public static class MS_AccountTableExtensions
 	{
 		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)

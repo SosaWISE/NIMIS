@@ -5,6 +5,8 @@ namespace WebModules.Crm.Ms
 {
 	public class InvoicesModule : BaseModule
 	{
+		AccountInvoicesService Srv { get { return new AccountInvoicesService(this.User.GPEmployeeID); } }
+
 		public InvoicesModule()
 			: base("/Ms/Invoices")
 		{
@@ -12,16 +14,14 @@ namespace WebModules.Crm.Ms
 
 			Get["/Items", true] = async (x, ct) =>
 			{
-				var srv = new AccountInvoicesService(this.User.GPEmployeeID);
-				return await srv.Items().ConfigureAwait(false);
+				return await Srv.Items().ConfigureAwait(false);
 			};
 			// update invoice
 			Post["/{id:long}", true] = async (x, ct) =>
 			{
-				var srv = new AccountInvoicesService(this.User.GPEmployeeID);
 				var inv = this.BindBody<AeInvoice>();
 				inv.ID = x.id;
-				return await srv.SaveInvoice(inv).ConfigureAwait(false);
+				return await Srv.SaveInvoice(inv).ConfigureAwait(false);
 			};
 		}
 	}

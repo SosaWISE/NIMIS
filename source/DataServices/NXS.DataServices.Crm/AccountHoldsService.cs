@@ -19,7 +19,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<List<MsHoldCatg1>>> Catg1s()
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.MS_AccountHoldCatg1s;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
@@ -30,7 +30,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<List<MsHoldCatg2>>> Catg2s()
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.MS_AccountHoldCatg2s;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
@@ -41,7 +41,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<List<MsHold>>> Holds(long accountId)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.MS_AccountHolds;
 				var items = await tbl.ByAccountIdAsync(accountId).ConfigureAwait(false);
@@ -52,7 +52,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<MsHold>> NewHold(MsHoldNew holdNew)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.MS_AccountHolds;
 
@@ -67,7 +67,7 @@ namespace NXS.DataServices.Crm
 		}
 		public async Task<Result<MsHold>> FixHold(MsHoldFix holdFix)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.MS_AccountHolds;
 

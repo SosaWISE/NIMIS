@@ -7,7 +7,7 @@ namespace NXS.Data.Crm
 {
 	using AR = AE_Contract;
 	using ARCollection = IEnumerable<AE_Contract>;
-	using ARTable = CrmDb.AE_ContractTable;
+	using ARTable = DBase.AE_ContractTable;
 	public static class AE_ContractTableExtensions
 	{
 		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)

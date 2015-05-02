@@ -6,7 +6,7 @@ namespace NXS.Data.AuthenticationControl
 {
 	using AR = AC_KeyValue;
 	using ARCollection = IEnumerable<AC_KeyValue>;
-	using ARTable = AuthControlDb.AC_KeyValueTable;
+	using ARTable = DBase.AC_KeyValueTable;
 	public static class AC_KeyValueTableExtensions
 	{
 		public static ARCollection AllWithUpdateLock(this ARTable tbl)

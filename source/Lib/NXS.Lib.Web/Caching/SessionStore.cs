@@ -68,8 +68,6 @@ namespace NXS.Lib.Web.Caching
 
 			_idlocker.Dispose();
 			_cache.Dispose();
-			_rnd.Dispose();
-			//_sha1.Dispose();
 		}
 
 		// add new session
@@ -77,8 +75,8 @@ namespace NXS.Lib.Web.Caching
 		{
 			if (_disposed) throw new Exception("SessionStore is disposed");
 
-			var sessionNum = NewSessionNum();
-			var sessionKey = SessionNumToKey(sessionNum);
+			var sessionNum = SystemUserIdentity.NewAuthNum();
+			var sessionKey = SystemUserIdentity.AuthNumToKey(sessionNum);
 			_idlocker.Lock(sessionKey, () =>
 			{
 				// save to disk
@@ -140,7 +138,7 @@ namespace NXS.Lib.Web.Caching
 			if (_disposed) throw new Exception("SessionStore is disposed");
 
 			Session sess = default(Session);
-			var sessionKey = SessionNumToKey(sessionNum);
+			var sessionKey = SystemUserIdentity.AuthNumToKey(sessionNum);
 			_idlocker.Lock(sessionKey, () =>
 			{
 				if (_cache.Contains(sessionKey))
@@ -197,7 +195,7 @@ namespace NXS.Lib.Web.Caching
 		{
 			if (_disposed) throw new Exception("SessionStore is disposed");
 
-			var sessionKey = SessionNumToKey(sessionNum);
+			var sessionKey = SystemUserIdentity.AuthNumToKey(sessionNum);
 			_idlocker.Lock(sessionKey, () =>
 			{
 				// remove from cache
@@ -210,27 +208,6 @@ namespace NXS.Lib.Web.Caching
 		public long GetCount()
 		{
 			return _cache.GetCount();
-		}
-
-		private RandomNumberGenerator _rnd = RandomNumberGenerator.Create();
-		private byte[] NewSessionNum()
-		{
-			if (_disposed) throw new Exception("SessionStore is disposed");
-
-			var key = new byte[16]; // 128 / 8
-			_rnd.GetBytes(key);
-			return key;
-		}
-
-		//private SHA1Managed _sha1 = new SHA1Managed();
-		public string SessionNumToKey(byte[] sessionNum)
-		{
-			if (_disposed) throw new Exception("SessionStore is disposed");
-
-			// SHA1Managed is not thread safe: http://stackoverflow.com/questions/12644257
-			// having this as a member variable caused random/wrong sessionKeys
-			var _sha1 = SHA1.Create();
-			return Convert.ToBase64String(_sha1.ComputeHash(sessionNum));
 		}
 	}
 }

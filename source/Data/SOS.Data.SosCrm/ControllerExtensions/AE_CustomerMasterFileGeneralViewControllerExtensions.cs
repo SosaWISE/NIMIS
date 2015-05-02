@@ -7,11 +7,11 @@ namespace SOS.Data.SosCrm.ControllerExtensions
 	// ReSharper disable once InconsistentNaming
 	public static class AE_CustomerMasterFileGeneralViewControllerExtensions
 	{
-		public static AE_CustomerMasterFileGeneralViewCollection Search(this AE_CustomerMasterFileGeneralViewController cntlr, long? dealerId, string city, string stateId, string postalCode, string email, string firstName, string lastName, string phoneNumber, int? pageSize, int? pageNumber)
+		public static AE_CustomerMasterFileGeneralViewCollection Search(this AE_CustomerMasterFileGeneralViewController cntlr, long? dealerId, string city, string stateId, string postalCode, string email, string firstName, string lastName, string phoneNumber, bool excludeLeads, int? pageSize, int? pageNumber)
 		{
 			return
 				cntlr.LoadCollection(SosCrmDataStoredProcedureManager.AE_CustomerMasterFileGeneralSearch(dealerId, city, stateId,
-					postalCode, email, firstName, lastName, phoneNumber, pageSize, pageNumber));
+					postalCode, email, firstName, lastName, phoneNumber, excludeLeads, pageSize, pageNumber));
 		}
 	}
 }

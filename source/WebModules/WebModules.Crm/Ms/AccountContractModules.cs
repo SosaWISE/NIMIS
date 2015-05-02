@@ -5,6 +5,8 @@ namespace WebModules.Crm.Ms
 {
 	public class AccountContractModules : BaseModule
 	{
+		AccountContractService Srv { get { return new AccountContractService(this.User.GPEmployeeID); } }
+
 		public AccountContractModules()
 			: base("/Ms/Accounts")
 		{
@@ -13,16 +15,14 @@ namespace WebModules.Crm.Ms
 			// get contract on an account
 			Get["/{id:long}/Contract", true] = async (x, ct) =>
 			{
-				var srv = new AccountContractService(this.User.GPEmployeeID);
 				long accountId = x.id;
-				return await srv.AccountContract(accountId).ConfigureAwait(false);
+				return await Srv.AccountContract(accountId).ConfigureAwait(false);
 			};
 			Post["/{id:long}/Contract", true] = async (x, ct) =>
 			{
-				var srv = new AccountContractService(this.User.GPEmployeeID);
 				long accountId = x.id;
 				var input = this.BindBody<AeContract>();
-				return await srv.SaveContract(accountId, input).ConfigureAwait(false);
+				return await Srv.SaveContract(accountId, input).ConfigureAwait(false);
 			};
 		}
 	}

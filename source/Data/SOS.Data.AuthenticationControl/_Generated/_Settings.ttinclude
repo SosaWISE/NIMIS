@@ -13,7 +13,8 @@
 		const string ExcludeTableList =
 			@"sysdiagrams,dtproperty,MSreplication_objects,MSreplication_subscriptions"
 			+ ",MSsavedforeignkeycolumns,MSsavedforeignkeyextendedproperties,MSsavedforeignkeys"
-			+ ",MSsnapshotdeliveryprogress,MSsubscription_agents,MSsubscription_properties,^temp$";
+			+ ",MSsnapshotdeliveryprogress,MSsubscription_agents,MSsubscription_properties,^temp$"
+			+ ",AC_ActionRequests,AC_DeniedReasons,AC_RequestReasons,AC_KeyValues";
 
 		const string RegexReplaceExpression = "";
 		const string RegexMatchExpression = "";

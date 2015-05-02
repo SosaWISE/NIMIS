@@ -7,7 +7,7 @@ namespace NXS.Data.Crm
 {
 	using AR = TS_Team;
 	using ARCollection = IEnumerable<TS_Team>;
-	using ARTable = CrmDb.TS_TeamTable;
+	using ARTable = DBase.TS_TeamTable;
 	public static class TS_TeamExtensions
 	{
 		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)
@@ -42,7 +42,7 @@ namespace NXS.Data.Crm
 		private static Sequel SelectFull(this ARTable tbl, Sequel sql = null)
 		{
 			var ADDR = tbl.Db.QL_Addresses;
-			var RUT = tbl.Db.RU_Teams;
+			var RUT = tbl.Db.HrDb.RU_Teams;
 
 			return (sql ?? Sequel.NewSelect()).Columns(
 				RUT.TeamID

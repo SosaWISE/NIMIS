@@ -4,8 +4,6 @@ using NXS.DataServices.Crm.Models;
 using SOS.Lib.Core;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NXS.DataServices.Crm
@@ -20,7 +18,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<List<TsTeam>>> TeamsAsync()
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var items = await db.TS_Teams.AllFullAsync().ConfigureAwait(false);
 				var result = new Result<List<TsTeam>>(value: items.ConvertAll(item => TsTeam.FromDb(item)));
@@ -29,7 +27,7 @@ namespace NXS.DataServices.Crm
 		}
 		public async Task<Result<TsTeam>> SaveTeamAsync(TsTeam team)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<TsTeam>();
 				var tbl = db.TS_Teams;

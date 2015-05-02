@@ -145,14 +145,16 @@ namespace NXS.Data
 			var setters = GetType().GetProperties()
 				.Where(p =>
 				{
-					return (p.PropertyType.IsGenericType && p.PropertyType.GetGenericTypeDefinition() == tableType) ||
-						tableType.IsAssignableFrom(p.PropertyType);
+					return (
+							(p.PropertyType.IsGenericType && p.PropertyType.GetGenericTypeDefinition() == tableType) ||
+							tableType.IsAssignableFrom(p.PropertyType)
+						) && null != p.PropertyType.GetConstructor(new Type[] { p.DeclaringType });
 				})
 				.Select(p => Tuple.Create(
-						p.GetSetMethod(true),
-						p.PropertyType.GetConstructor(new Type[] { typeof(TDatabase) }),
-						p.DeclaringType
-				 ));
+					p.GetSetMethod(true),
+					p.PropertyType.GetConstructor(new Type[] { p.DeclaringType }),
+					p.DeclaringType
+				));
 
 			foreach (var setter in setters)
 			{

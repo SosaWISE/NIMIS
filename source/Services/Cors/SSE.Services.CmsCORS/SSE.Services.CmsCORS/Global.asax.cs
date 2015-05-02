@@ -32,8 +32,9 @@ namespace SSE.Services.CmsCORS
 			// Setup SubSonic Connections
 			SubSonicConfigHelper.SetupConnectionStrings();
 			//@HACK: to set connection strings
-			NXS.Data.Crm.CrmDb.ConnectionString = SubSonic.DataService.Providers[SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME].DefaultConnectionString;
-			NXS.Data.AuthenticationControl.AuthControlDb.ConnectionString = SubSonic.DataService.Providers[SubSonicConfigHelper.SOS_AUTH_CONTROL_PROVIDER_NAME].DefaultConnectionString;
+			NXS.Data.Crm.DBase.ConnectionString = SubSonic.DataService.Providers[SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME].DefaultConnectionString;
+			NXS.Data.AuthenticationControl.DBase.ConnectionString = SubSonic.DataService.Providers[SubSonicConfigHelper.SOS_AUTH_CONTROL_PROVIDER_NAME].DefaultConnectionString;
+			NXS.Data.HumanResource.DBase.ConnectionString = SubSonic.DataService.Providers[SubSonicConfigHelper.SOS_HUMAN_RESOURCE_PROVIDER_NAME].DefaultConnectionString;
 
 			/** Initialize Fos Engine. */
 			SOS.FunctionalServices.SosServiceEngine.Instance.Initialize();

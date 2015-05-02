@@ -5,6 +5,8 @@ namespace WebModules.Crm.Ms
 {
 	public class HoldsModule : BaseModule
 	{
+		AccountHoldsService Srv { get { return new AccountHoldsService(this.User.GPEmployeeID); } }
+
 		public HoldsModule()
 			: base("/Ms/Holds")
 		{
@@ -12,22 +14,19 @@ namespace WebModules.Crm.Ms
 
 			Get["/Catg1s", true] = async (x, ct) =>
 			{
-				var srv = new AccountHoldsService(this.User.GPEmployeeID);
-				return await srv.Catg1s().ConfigureAwait(false);
+				return await Srv.Catg1s().ConfigureAwait(false);
 			};
 			Get["/Catg2s", true] = async (x, ct) =>
 			{
-				var srv = new AccountHoldsService(this.User.GPEmployeeID);
-				return await srv.Catg2s().ConfigureAwait(false);
+				return await Srv.Catg2s().ConfigureAwait(false);
 			};
 
 			// fix an account hold
 			Post["/{id:int}", true] = async (x, ct) =>
 			{
-				var srv = new AccountHoldsService(this.User.GPEmployeeID);
 				var input = this.BindBody<MsHoldFix>();
 				input.AccountHoldID = (int)x.id;
-				return await srv.FixHold(input).ConfigureAwait(false);
+				return await Srv.FixHold(input).ConfigureAwait(false);
 			};
 		}
 	}

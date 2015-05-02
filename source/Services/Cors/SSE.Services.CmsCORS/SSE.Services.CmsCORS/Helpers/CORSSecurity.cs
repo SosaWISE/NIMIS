@@ -11,6 +11,8 @@ using System.Web;
 using NXS.Lib.Web;
 using NXS.Lib.Web.Caching;
 using Nancy.Authentication.Token;
+using System.Collections.Generic;
+using Nancy;
 
 namespace SSE.Services.CmsCORS.Helpers
 {
@@ -27,16 +29,36 @@ namespace SSE.Services.CmsCORS.Helpers
 		/// <returns>Returns the results from the action</returns>
 		public static Result<T> Authorize<T>(string functionName, string applicationID, string actionID, Func<SseCmsUser, Result<T>> action)
 		{
+			var appIDs = applicationID == null ? null : new string[] { applicationID };
+			var actionIDs = actionID == null ? null : new string[] { actionID };
+			return AuthorizeAny(functionName, appIDs, actionIDs, action);
+		}
+		/// <summary>
+		/// Authorize request to perform action
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="functionName">Name of calling function</param>
+		/// <param name="applicationIDs">IDs of applications. The logged in user needs rights to atleast ONE in order to perform the action.</param>
+		/// <param name="actionIDs">IDs of actions. The logged in user needs rights to atleast ONE in order to perform the action.</param>
+		/// <param name="action">Action to perform</param>
+		/// <returns>Returns the results from the action</returns>
+		public static Result<T> AuthorizeAny<T>(string functionName, IEnumerable<string> applicationIDs, IEnumerable<string> actionIDs, Func<SseCmsUser, Result<T>> action)
+		{
 			try
 			{
 				// ** Initialize
 				var user = GetUnitTestUser();
-				if (user == null && !Authorize(applicationID, actionID, out user))
+				WebModules.AuthNeeds authNeeds;
+				if (user == null && !Authorize(applicationIDs, actionIDs, out user, out authNeeds))
 				{
-					return new Result<T>((int)CmsResultCodes.NotAuthorized, String.Format("Authorization Failed for '{0}'", functionName));
+					return new ResultAny<T>((int)HttpStatusCode.Unauthorized, string.Format("Authorization Failed for '{0}'", functionName), authNeeds);
 				}
 				/** Perform action. */
 				return action(user);
+			}
+			catch (ResultException rex)
+			{
+				return new Result<T>(rex.Code, rex.Message);
 			}
 			catch (Exception ex)
 			{
@@ -60,15 +82,19 @@ namespace SSE.Services.CmsCORS.Helpers
 			try
 			{
 				// ** Initialize
-				var oUser = GetUnitTestUser();
-				if (oUser == null && !Authorize(null, null, out oUser))
+				var user = GetUnitTestUser();
+				WebModules.AuthNeeds authNeeds;
+				if (user == null && !Authorize(null, null, out user, out authNeeds))
 				{
-					return new CmsCORSResult<T>((int)CmsResultCodes.NotAuthorized,
+					return new CmsCORSResult<T>((int)HttpStatusCode.Unauthorized,
 						string.Format("Validating Authentication Failed for '{0}'", functionName), typeof(T).ToString());
 				}
 				/** Perform action. */
-				return action(oUser);
-
+				return action(user);
+			}
+			catch (ResultException rex)
+			{
+				return new CmsCORSResult<T>(rex.Code, rex.Message);
 			}
 			catch (Exception ex)
 			{
@@ -80,12 +106,18 @@ namespace SSE.Services.CmsCORS.Helpers
 			}
 		}
 
-		private static bool Authorize(string applicationID, string actionID, out SseCmsUser user)
+		private static bool Authorize(IEnumerable<string> applicationIDs, IEnumerable<string> actionIDs, out SseCmsUser user, out WebModules.AuthNeeds authNeeds)
 		{
 			var tokenConfig = SosServiceEngine.Instance.FunctionalServices.Instance<TokenAuthenticationConfiguration>();
 			var identity = HttpContext.Current.GetIdentity(tokenConfig);
 			var authService = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
-			if (identity != null && authService.HasPermission(identity.Claims, applicationID, actionID))
+			if (identity == null)
+			{
+				user = null;
+				authNeeds = new WebModules.AuthNeeds(null, null);
+				return false;
+			}
+			if (authService.HasPermission(applicationIDs, actionIDs, identity.Claims, identity.Applications, identity.Actions))
 			{
 				user = new SseCmsUser
 				{
@@ -96,10 +128,12 @@ namespace SSE.Services.CmsCORS.Helpers
 					GPEmployeeID = identity.GPEmployeeID,
 					DealerId = identity.DealerId,
 				};
+				authNeeds = null;
 				return true;
 			}
 
 			user = null;
+			authNeeds = new WebModules.AuthNeeds(applicationIDs, actionIDs);
 			return false;
 		}
 

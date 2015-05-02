@@ -30,8 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper">
-      <HintPath>..\..\Services\Cors\corspackages\Dapper.1.39\lib\net45\Dapper.dll</HintPath>
+    <Reference Include="Dapper, Version=1.38.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Services\Cors\corspackages\Dapper.1.38\lib\net45\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,8 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionRequestsService.cs" />
+    <Compile Include="AdminService.cs" />
+    <Compile Include="Models\GroupActionItem.cs" />
+    <Compile Include="Models\MetadataType.cs" />
+    <Compile Include="TypesService.cs" />
     <Compile Include="KeyValueService.cs" />
+    <Compile Include="Models\AcActionRequest.cs" />
     <Compile Include="Models\AcKeyValue.cs" />
+    <Compile Include="Models\EnumType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
