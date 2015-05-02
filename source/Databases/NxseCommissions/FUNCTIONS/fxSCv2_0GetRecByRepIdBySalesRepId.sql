@@ -61,3 +61,6 @@ BEGIN
 	RETURN @RecByRepId;
 END
 GO
+/** TEST
+SELECT dbo.fxSCv2_0GetRecByRepIdBySalesRepId('SHERJ001')
+ */

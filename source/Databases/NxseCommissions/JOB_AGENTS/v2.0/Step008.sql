@@ -38,6 +38,7 @@ INSERT INTO [dbo].[SC_WorkAccountsHistory] (
 	[AccountPackageId] ,
 	[SalesTeamId] ,
 	[SalesRepId] ,
+	[RecByRepId] ,
 	[ManSalesRepId] ,
 	[TechId] ,
 	[ManTechId] ,

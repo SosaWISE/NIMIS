@@ -34,6 +34,7 @@ PRINT '************************************************************ START ******
 TRUNCATE TABLE [dbo].[SC_WorkAccountSigningBonuses];
 TRUNCATE TABLE [dbo].[SC_WorkAccountsNonCommissioned];
 TRUNCATE TABLE [dbo].[SC_WorkAccountTeamOfficeOverrideBonuses];
+TRUNCATE TABLE [dbo].[SC_WorkAccountRecruitingBonuses];
 DELETE dbo.SC_WorkAccountAdjustments;
 DBCC CHECKIDENT('dbo.SC_WorkAccountAdjustments', RESEED, 0);
 

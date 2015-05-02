@@ -28,15 +28,15 @@ PRINT '************************************************************ START ******
 /********************  END HEADER ********************/
 DECLARE @WorkAccountID BIGINT
 	, @AccountID BIGINT
-	, @SalesRepID VARCHAR(25);
+	, @SalesRepID VARCHAR(25)
+	, @RecByRepID VARCHAR(25);
 DECLARE workAccountCur CURSOR FOR
-SELECT WorkAccountID, AccountID, SalesRepId FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID);
---SELECT WorkAccountID, AccountID, SalesRepId FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID);
+SELECT WorkAccountID, AccountID, SalesRepId, RecByRepId FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID);
 
 OPEN workAccountCur;
 
 FETCH NEXT FROM workAccountCur INTO
-	@WorkAccountID, @AccountID, @SalesRepID;
+	@WorkAccountID, @AccountID, @SalesRepID, @RecByRepID;
 
 WHILE (@@FETCH_STATUS = 0)
 BEGIN
@@ -45,24 +45,26 @@ BEGIN
 	*************************/
 	PRINT 'Calculating Recruiting Bonus for ' + @SalesRepID;
 
-	/** Check to see if the Commission has been paid. */
-	DECLARE @RecSalesRepID VARCHAR(25) = NULL;
-	SELECT 
-		@RecSalesRepID = RU1.GPEmployeeID 
-	FROM
-		[WISE_HumanResource].[dbo].RU_Users AS RU WITH (NOLOCK)
-		INNER JOIN [WISE_HumanResource].[dbo].RU_Users AS RU1 WITH (NOLOCK)
-		ON
-			(RU1.UserID = RU.RecruitedById)
-	WHERE
-		(RU.GPEmployeeId = @SalesRepID);
-	PRINT 'SalesRepID: ' + @SalesRepID + ' | Recruited By: ' + @RecSalesRepID;
+	PRINT 'SalesRepID: ' + @SalesRepID + ' | Recruited By: ' + @RecByRepID;
+
 	/** Assign recruiting bonus to RecSalesRepID*/
+	EXEC [dbo]. SCv2_0_SC_WorkAccountRecruitingBonusReconciliation @WorkAccountId
+		, @CommissionPeriodId
+		, @AccountID
+		, @SalesRepId
+		, @RecByRepID;
 
 	/******Get Next */
 	FETCH NEXT FROM workAccountCur INTO
-		@WorkAccountID, @AccountID, @SalesRepID;
+		@WorkAccountID, @AccountID, @SalesRepID, @RecByRepID;
 END
 
 CLOSE workAccountCur;
 DEALLOCATE workAccountCur;
+
+IF (@DEBUG_MODE = 'ON')
+BEGIN
+	SELECT * FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID);
+	SELECT * FROM [dbo].[SC_workAccountAdjustments] WHERE (WorkAccountId IN (SELECT WorkAccountID FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID)));
+	SELECT * FROM [dbo].[SC_WorkAccountRecruitingBonuses]
+END

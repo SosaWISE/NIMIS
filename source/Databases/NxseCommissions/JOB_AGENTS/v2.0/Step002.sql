@@ -193,6 +193,7 @@ INSERT INTO [dbo].[SC_WorkAccounts] (
 	, [AccountPackageId]
 	, [SalesTeamId]
 	, [SalesRepId]
+	, [RecByRepId]
 	, [ManSalesRepId]
 	, [TechId]
 	, [FriendsAndFamilyTypeId]
@@ -226,6 +227,7 @@ SELECT
 	, AccountPackageId -- int
 	, SalesTeamId
 	, SalesRepId -- varchar(25)
+	, RecByRepId -- varchar(25)
 	, ManSalesRepId
 	, TechId -- varchar(25)
 	, FriendsAndFamilyTypeId -- varchar(20)

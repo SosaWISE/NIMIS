@@ -211,9 +211,9 @@ DEALLOCATE WorkAccountCursor;
 ***	SPECIAL DEALS ***
 ********************/
 
-PRINT '/********************************';
-PRINT '***	waiving first month''s RMR ***';
-PRINT '********************************/';
+PRINT '/**********************************';
+PRINT '***	Waiving first month''s RMR ***';
+PRINT '***********************************/';
 
 --DEDUCT FOR WAIVING THE 1ST MONTH RMR
 SET @CommissionDeductionID = 'WAIVED1STMONTH';

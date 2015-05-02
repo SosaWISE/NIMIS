@@ -155,15 +155,6 @@ BEGIN
 		END
 	END
 
-	/********************************
-	***	ADD Recruiting Bonus	  ***
-	********************************/
-	EXEC [dbo]. SCv2_0_SC_WorkAccountRecruitingBonusReconciliation @WorkAccountId
-		, @CommissionPeriodId
-		, @AccountID
-		, @SalesRepId
-		, @RecByRepID;
-
 	/** Move to the next record. */	
 	FETCH NEXT FROM WorkAccountCursor INTO
 		@WorkAccountId
