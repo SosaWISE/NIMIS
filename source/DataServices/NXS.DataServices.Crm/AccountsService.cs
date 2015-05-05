@@ -2,6 +2,7 @@
 using NXS.Data.Crm;
 using NXS.DataServices.Crm.Models;
 using SOS.Lib.Core;
+using SOS.Lib.Core.ErrorHandling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<MsAccountSalesInformation>> AccountSalesInformation(long accountId)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.MS_AccountSalesInformations;
 				var item = (await tbl.ByIdAsync(accountId).ConfigureAwait(false));
@@ -27,17 +28,26 @@ namespace NXS.DataServices.Crm
 			}
 		}
 
-		public async Task<Result<MsAccountSalesInformation>> SaveAccountSalesInformation(MsAccountSalesInformation data)
+		public async Task<Result<MsAccountSalesInformation>> SaveAccountSalesInformation(MsAccountSalesInformation inputItem)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<MsAccountSalesInformation>();
 				var tbl = db.MS_AccountSalesInformations;
 
-				var item = (await tbl.EnsureByIdAsync(data.ID, _gpEmployeeId).ConfigureAwait(false));
+				var item = (await tbl.EnsureByIdAsync(inputItem.ID, _gpEmployeeId).ConfigureAwait(false));
+				if (!item.IsNew())
+				{
+					var tmpMsg = VersionException.ModifiedOnErrMsg(item.ModifiedOn, inputItem.ModifiedOn);
+					if (!string.IsNullOrEmpty((tmpMsg)))
+					{
+						result.Value = MsAccountSalesInformation.FromDb(item);
+						return result.Fail((int)BaseErrorCodes.ErrorCodes.InvalidModifiedOn, tmpMsg);
+					}
+				}
 
 				var snapShot = Snapshotter.Start(item);
-				data.ToDb(item);
+				inputItem.ToDb(item);
 				await tbl.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
 
 				result.Value = MsAccountSalesInformation.FromDb(item);

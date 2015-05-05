@@ -2,6 +2,7 @@
 using NXS.Data.Crm;
 using NXS.DataServices.Crm.Models;
 using SOS.Lib.Core;
+using SOS.Lib.Core.ErrorHandling;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -60,7 +61,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<AeCustomerAccount>> CustomerAccountByTypeAsync(long accountId, string customerTypeId)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var item = (await db.AE_CustomerAccounts.ByAccountIdAndTypeAsync(accountId, customerTypeId).ConfigureAwait(false)).FirstOrDefault();
 				var result = new Result<AeCustomerAccount>(value: AeCustomerAccount.FromDb(item, nullable: true));
@@ -69,7 +70,7 @@ namespace NXS.DataServices.Crm
 		}
 		public async Task<Result<AeCustomer>> SetCustomerAccountAsync(long accountId, string customerTypeId, long leadId)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<AeCustomer>();
 				var lead = await db.QL_Leads.ByIdAsync(leadId).ConfigureAwait(false);
@@ -129,7 +130,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<bool>> DeleteCustomerAccountAsync(long accountId, string customerTypeId)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<bool>();
 
@@ -321,7 +322,7 @@ namespace NXS.DataServices.Crm
 		//	}
 		//}
 
-		private static async Task<MC_Address> UpdateOrCreateMcAddress(string gpEmployeeId, CrmDb db, QL_Address qlAddress)
+		private static async Task<MC_Address> UpdateOrCreateMcAddress(string gpEmployeeId, DBase db, QL_Address qlAddress)
 		{
 			var tbl = db.MC_Addresses;
 			// map ql_address to mc_address 1 to 1
@@ -382,7 +383,7 @@ namespace NXS.DataServices.Crm
 			mcAddress.IsDeleted = false;// qlAddress.IsDeleted;
 		}
 
-		private static async Task<AE_Customer> CreateAeCustomer(string gpEmployeeId, CrmDb db, QL_Lead lead, MC_Address mcAddress)
+		private static async Task<AE_Customer> CreateAeCustomer(string gpEmployeeId, DBase db, QL_Lead lead, MC_Address mcAddress)
 		{
 			var tbl = db.AE_Customers;
 			// map lead to customer 1 to 1
@@ -460,28 +461,31 @@ namespace NXS.DataServices.Crm
 		//	return string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
 		//}
 
-		public async Task<Result<MsAccountSalesInformationExtras>> SaveAccountSalesInformationExtras(long accountId, MsAccountSalesInformationExtras data)
-		{
-			using (var db = CrmDb.Connect())
-			{
-				var result = new Result<MsAccountSalesInformationExtras>();
-				var tbl = db.MS_AccountSalesInformations;
+		//public async Task<Result<MsAccountSalesInformationExtras>> SaveAccountSalesInformationExtras(long accountId, MsAccountSalesInformationExtras inputItem)
+		//{
+		//	using (var db = CrmDb.Connect())
+		//	{
+		//		var result = new Result<MsAccountSalesInformationExtras>();
+		//		var tbl = db.MS_AccountSalesInformations;
 
-				var msAcctSalesInfo = (await tbl.ByIdAsync(accountId).ConfigureAwait(false));
-				if (msAcctSalesInfo == null)
-					return result.Fail(-1, "Invalid AccountID");
+		//		var item = (await tbl.ByIdAsync(accountId).ConfigureAwait(false));
+		//		if (item == null)
+		//			return result.Fail(-1, "Invalid AccountID");
+		//		if (!string.IsNullOrEmpty((result.Message = VersionException.ModifiedOnErrMsg(item.ModifiedOn, inputItem.ModifiedOn))))
+		//		{
+		//			result.Value = MsAccountSalesInformationExtras.FromDb(item);
+		//			return result.Fail((int)BaseErrorCodes.ErrorCodes.InvalidModifiedOn, result.Message);
+		//		}
 
-				var snapShot = Snapshotter.Start(msAcctSalesInfo);
-				data.ToDb(msAcctSalesInfo);
-				// update
-				msAcctSalesInfo.ModifiedOn = DateTime.UtcNow;
-				msAcctSalesInfo.ModifiedBy = _gpEmployeeId;
-				// save
-				await tbl.UpdateAsync(accountId, snapShot.Diff()).ConfigureAwait(false);
+		//		var snapShot = Snapshotter.Start(item);
+		//		inputItem.ToDb(item);
+		//		// save
+		//		await tbl.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
 
-				return result;
-			}
-		}
+		//		result.Value = MsAccountSalesInformationExtras.FromDb(item);
+		//		return result;
+		//	}
+		//}
 
 		//public async Task<Result<MsAccountSalesInformation>> AccountSalesInformation(long accountId)
 		//{
@@ -498,7 +502,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<Noc>> NocDate(DateTime startDate)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<Noc>();
 				const string sql = "SELECT WISE_CRM.dbo.fxGetLastNOCDate(@startDate)";

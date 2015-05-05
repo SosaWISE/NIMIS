@@ -62,7 +62,7 @@ namespace SSE.Services.CmsCORS.Controllers.AccountingEngine
 						IAccountingEngineService mcService = SosServiceEngine.Instance.FunctionalServices.Instance<IAccountingEngineService>();
 						IFnsResult<List<IFnsCustomerMasterFileGeneral>> fnsResult = mcService.CustomerGeneralSearch(user.DealerId,
 							args.City, args.StateId, args.PostalCode, args.Email, args.FirstName, args.LastName, args.PhoneNumber,
-							args.PageSize, args.PageNumber, user.GPEmployeeID);
+							args.ExcludeLeads, args.PageSize, args.PageNumber, user.GPEmployeeID);
 
 						// ** Save result
 						result.Code = fnsResult.Code;

@@ -22,7 +22,7 @@ namespace SSE.Services.CmsCORS.Controllers.Surveys
 		[HttpPost, Route("SurveySrv/Results")]
 		public Result<SurveyEngineContracts.IFnsResult> Post([FromBody]SvResult body)
 		{
-			return CORSSecurity.Authorize("Post Survey Results", null, null, user =>
+			return CORSSecurity.AuthorizeAny("Post Survey Results", null, null, user =>
 			{
 				var result = new Result<SurveyEngineContracts.IFnsResult>();
 				if (CORSArg.ArgumentValidation(new List<CORSArg>() {

@@ -118,7 +118,7 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@CustomerID", CustomerID, DbType.Int64);
 			return sp;
 		}
-		public static StoredProcedure AE_CustomerMasterFileGeneralSearch(long? DealerId,string City,string StateId,string PostalCode,string Email,string FirstName,string LastName,string PhoneNumber,int? PageSize,int? PageNumber) {
+		public static StoredProcedure AE_CustomerMasterFileGeneralSearch(long? DealerId,string City,string StateId,string PostalCode,string Email,string FirstName,string LastName,string PhoneNumber,bool? ExcludeLeads,int? PageSize,int? PageNumber) {
 			StoredProcedure sp = new StoredProcedure("custAE_CustomerMasterFileGeneralSearch" ,DataService.GetInstance("SosCrmProvider"));
 			sp.Command.AddParameter("@DealerId", DealerId, DbType.Int64);
 			sp.Command.AddParameter("@City", City, DbType.String);
@@ -128,6 +128,7 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@FirstName", FirstName, DbType.String);
 			sp.Command.AddParameter("@LastName", LastName, DbType.String);
 			sp.Command.AddParameter("@PhoneNumber", PhoneNumber, DbType.AnsiString);
+			sp.Command.AddParameter("@ExcludeLeads", ExcludeLeads, DbType.Boolean);
 			sp.Command.AddParameter("@PageSize", PageSize, DbType.Int32);
 			sp.Command.AddParameter("@PageNumber", PageNumber, DbType.Int32);
 			return sp;

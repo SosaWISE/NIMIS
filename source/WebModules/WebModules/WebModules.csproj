@@ -48,6 +48,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthNeeds.cs" />
     <Compile Include="StatusCodeHandler.cs" />
     <Compile Include="JsonErrors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -40,6 +40,10 @@ namespace NXS.Data
 				public object NewValue { get; set; }
 			}
 
+			public bool HasChange()
+			{
+				return HasChange(_memberWiseClone, _trackedObject);
+			}
 			public DynamicParameters Diff()
 			{
 				return Diff(_memberWiseClone, _trackedObject);
@@ -52,6 +56,11 @@ namespace NXS.Data
 				return _cloner(myObject);
 			}
 
+			private static bool HasChange(T original, T current)
+			{
+				_differ = _differ ?? GenerateDiffer();
+				return _differ(original, current).Count > 0;
+			}
 			private static DynamicParameters Diff(T original, T current)
 			{
 				var dm = new DynamicParameters();

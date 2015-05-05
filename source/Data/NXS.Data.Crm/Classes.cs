@@ -1,12 +1,11 @@
-﻿using System;
 using NXS.Data;
+using System;
 
 namespace NXS.Data.Crm
 {
 	public partial class AE_Contract // AE_Contracts
 	{
-		[IgnorePropertyAttribute(true)]
-		public int ID { get { return ContractID; } set { ContractID = value; } }
+		[IgnorePropertyAttribute(true)] public int ID { get { return ContractID; } set { ContractID = value; } }
 		public int ContractID { get; set; }
 		public int ContractTemplateId { get; set; }
 		public long? AccountId { get; set; }
@@ -25,8 +24,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class AE_ContractTemplate // AE_ContractTemplates
 	{
-		[IgnorePropertyAttribute(true)]
-		public int ID { get { return ContractTemplateID; } set { ContractTemplateID = value; } }
+		[IgnorePropertyAttribute(true)] public int ID { get { return ContractTemplateID; } set { ContractTemplateID = value; } }
 		public int ContractTemplateID { get; set; }
 		public string ContractName { get; set; }
 		public short ContractLength { get; set; }
@@ -44,8 +42,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class AE_CustomerAccount // AE_CustomerAccounts
 	{
-		[IgnorePropertyAttribute(true)]
-		public long ID { get { return CustomerAccountID; } set { CustomerAccountID = value; } }
+		[IgnorePropertyAttribute(true)] public long ID { get { return CustomerAccountID; } set { CustomerAccountID = value; } }
 		public long CustomerAccountID { get; set; }
 		public long LeadId { get; set; }
 		public long AccountId { get; set; }
@@ -60,8 +57,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class AE_Customer // AE_Customers
 	{
-		[IgnorePropertyAttribute(true)]
-		public long ID { get { return CustomerID; } set { CustomerID = value; } }
+		[IgnorePropertyAttribute(true)] public long ID { get { return CustomerID; } set { CustomerID = value; } }
 		public long CustomerID { get; set; }
 		public string CustomerTypeId { get; set; }
 		public long CustomerMasterFileId { get; set; }
@@ -94,8 +90,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class AE_InvoiceItem // AE_InvoiceItems
 	{
-		[IgnorePropertyAttribute(true)]
-		public long ID { get { return InvoiceItemID; } set { InvoiceItemID = value; } }
+		[IgnorePropertyAttribute(true)] public long ID { get { return InvoiceItemID; } set { InvoiceItemID = value; } }
 		public long InvoiceItemID { get; set; }
 		public long InvoiceId { get; set; }
 		public string ItemId { get; set; }
@@ -109,6 +104,7 @@ namespace NXS.Data.Crm
 		public decimal SystemPoints { get; set; }
 		public string SalesmanId { get; set; }
 		public string TechnicianId { get; set; }
+		public bool? IsCustomerPaying { get; set; }
 		public bool IsActive { get; set; }
 		public bool IsDeleted { get; set; }
 		public DateTime ModifiedOn { get; set; }
@@ -119,8 +115,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class AE_Invoice // AE_Invoices
 	{
-		[IgnorePropertyAttribute(true)]
-		public long ID { get { return InvoiceID; } set { InvoiceID = value; } }
+		[IgnorePropertyAttribute(true)] public long ID { get { return InvoiceID; } set { InvoiceID = value; } }
 		public long InvoiceID { get; set; }
 		public long AccountId { get; set; }
 		public string InvoiceTypeId { get; set; }
@@ -159,8 +154,7 @@ namespace NXS.Data.Crm
 			public const string SiteSurveyID = "SITE_SURVEY";
 			public const string UpgradeID = "UPGRAGE";
 		}
-		[IgnorePropertyAttribute(true)]
-		public string ID { get { return InvoiceTypeID; } set { InvoiceTypeID = value; } }
+		[IgnorePropertyAttribute(true)] public string ID { get { return InvoiceTypeID; } set { InvoiceTypeID = value; } }
 		public string InvoiceTypeID { get; set; }
 		public string InvoiceType { get; set; }
 		public bool IsActive { get; set; }
@@ -174,8 +168,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class AE_Item // AE_Items
 	{
-		[IgnorePropertyAttribute(true)]
-		public string ID { get { return ItemID; } set { ItemID = value; } }
+		[IgnorePropertyAttribute(true)] public string ID { get { return ItemID; } set { ItemID = value; } }
 		public string ItemID { get; set; }
 		public string ItemTypeId { get; set; }
 		public string TaxOptionId { get; set; }
@@ -219,10 +212,15 @@ namespace NXS.Data.Crm
 		public DateTime CreatedOn { get; set; }
 		public string CreatedBy { get; set; }
 	}
+	public partial class MC_AccountCancelReason // MC_AccountCancelReasons
+	{
+		[IgnorePropertyAttribute(true)] public string ID { get { return AccountCancelReasonID; } set { AccountCancelReasonID = value; } }
+		public string AccountCancelReasonID { get; set; }
+		public string AccountCancelReason { get; set; }
+	}
 	public partial class MC_Account // MC_Accounts
 	{
-		[IgnorePropertyAttribute(true)]
-		public long ID { get { return AccountID; } set { AccountID = value; } }
+		[IgnorePropertyAttribute(true)] public long ID { get { return AccountID; } set { AccountID = value; } }
 		public long AccountID { get; set; }
 		public long? CustomerMasterFileId { get; set; }
 		public string AccountTypeId { get; set; }
@@ -241,8 +239,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class MC_Address // MC_Addresses
 	{
-		[IgnorePropertyAttribute(true)]
-		public long ID { get { return AddressID; } set { AddressID = value; } }
+		[IgnorePropertyAttribute(true)] public long ID { get { return AddressID; } set { AddressID = value; } }
 		public long AddressID { get; set; }
 		public long? QlAddressId { get; set; }
 		public int DealerId { get; set; }
@@ -287,15 +284,13 @@ namespace NXS.Data.Crm
 	}
 	public partial class MC_FriendsAndFamilyType // MC_FriendsAndFamilyTypes
 	{
-		[IgnorePropertyAttribute(true)]
-		public string ID { get { return FriendsAndFamilyTypeID; } set { FriendsAndFamilyTypeID = value; } }
+		[IgnorePropertyAttribute(true)] public string ID { get { return FriendsAndFamilyTypeID; } set { FriendsAndFamilyTypeID = value; } }
 		public string FriendsAndFamilyTypeID { get; set; }
 		public string FriendsAndFamilyType { get; set; }
 	}
 	public partial class MS_AccountHoldCatg1 // MS_AccountHoldCatg1
 	{
-		[IgnorePropertyAttribute(true)]
-		public int ID { get { return Catg1ID; } set { Catg1ID = value; } }
+		[IgnorePropertyAttribute(true)] public int ID { get { return Catg1ID; } set { Catg1ID = value; } }
 		public int Catg1ID { get; set; }
 		public string CatgName { get; set; }
 		public string CatgDescription { get; set; }
@@ -308,8 +303,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class MS_AccountHoldCatg2 // MS_AccountHoldCatg2
 	{
-		[IgnorePropertyAttribute(true)]
-		public int ID { get { return Catg2ID; } set { Catg2ID = value; } }
+		[IgnorePropertyAttribute(true)] public int ID { get { return Catg2ID; } set { Catg2ID = value; } }
 		public int Catg2ID { get; set; }
 		public string CatgName { get; set; }
 		public int Catg1Id { get; set; }
@@ -330,8 +324,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class MS_AccountHold // MS_AccountHolds
 	{
-		[IgnorePropertyAttribute(true)]
-		public long ID { get { return AccountHoldID; } set { AccountHoldID = value; } }
+		[IgnorePropertyAttribute(true)] public long ID { get { return AccountHoldID; } set { AccountHoldID = value; } }
 		public long AccountHoldID { get; set; }
 		public long AccountId { get; set; }
 		public int Catg2Id { get; set; }
@@ -347,8 +340,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class MS_AccountPackageItem // MS_AccountPackageItems
 	{
-		[IgnorePropertyAttribute(true)]
-		public int ID { get { return AccountPackageItemID; } set { AccountPackageItemID = value; } }
+		[IgnorePropertyAttribute(true)] public int ID { get { return AccountPackageItemID; } set { AccountPackageItemID = value; } }
 		public int AccountPackageItemID { get; set; }
 		public int AccountPackageId { get; set; }
 		public string AccountPackageItemTypeId { get; set; }
@@ -363,8 +355,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class MS_AccountPackageItemType // MS_AccountPackageItemTypes
 	{
-		[IgnorePropertyAttribute(true)]
-		public string ID { get { return AccountPackageItemTypeID; } set { AccountPackageItemTypeID = value; } }
+		[IgnorePropertyAttribute(true)] public string ID { get { return AccountPackageItemTypeID; } set { AccountPackageItemTypeID = value; } }
 		public string AccountPackageItemTypeID { get; set; }
 		public string PackageItemTypeName { get; set; }
 		public bool IsActive { get; set; }
@@ -375,8 +366,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class MS_AccountPackage // MS_AccountPackages
 	{
-		[IgnorePropertyAttribute(true)]
-		public int ID { get { return AccountPackageID; } set { AccountPackageID = value; } }
+		[IgnorePropertyAttribute(true)] public int ID { get { return AccountPackageID; } set { AccountPackageID = value; } }
 		public int AccountPackageID { get; set; }
 		public string AccountPackageName { get; set; }
 		public string ShortName { get; set; }
@@ -392,8 +382,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class MS_Account // MS_Accounts
 	{
-		[IgnorePropertyAttribute(true)]
-		public long ID { get { return AccountID; } set { AccountID = value; } }
+		[IgnorePropertyAttribute(true)] public long ID { get { return AccountID; } set { AccountID = value; } }
 		public long AccountID { get; set; }
 		public long? PremiseAddressId { get; set; }
 		public long? IndustryAccountId { get; set; }
@@ -426,8 +415,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class MS_AccountSalesInformation // MS_AccountSalesInformations
 	{
-		[IgnorePropertyAttribute(true)]
-		public long ID { get { return AccountID; } set { AccountID = value; } }
+		[IgnorePropertyAttribute(true)] public long ID { get { return AccountID; } set { AccountID = value; } }
 		public long AccountID { get; set; }
 		public string PaymentTypeId { get; set; }
 		public string FriendsAndFamilyTypeId { get; set; }
@@ -439,6 +427,7 @@ namespace NXS.Data.Crm
 		public string TechId { get; set; }
 		public string SalesRepId { get; set; }
 		public long? AccountFundingStatusId { get; set; }
+		public string AccountPayoutTypeId { get; set; }
 		public short BillingDay { get; set; }
 		public string Email { get; set; }
 		public bool IsMoni { get; set; }
@@ -471,8 +460,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class QL_Address // QL_Address
 	{
-		[IgnorePropertyAttribute(true)]
-		public long ID { get { return AddressID; } set { AddressID = value; } }
+		[IgnorePropertyAttribute(true)] public long ID { get { return AddressID; } set { AddressID = value; } }
 		public long AddressID { get; set; }
 		public int DealerId { get; set; }
 		public string ValidationVendorId { get; set; }
@@ -518,8 +506,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class QL_CustomerMasterLead // QL_CustomerMasterLeads
 	{
-		[IgnorePropertyAttribute(true)]
-		public Guid ID { get { return CustomerMasterLeadID; } set { CustomerMasterLeadID = value; } }
+		[IgnorePropertyAttribute(true)] public Guid ID { get { return CustomerMasterLeadID; } set { CustomerMasterLeadID = value; } }
 		public Guid CustomerMasterLeadID { get; set; }
 		public long CustomerMasterFileId { get; set; }
 		public long LeadId { get; set; }
@@ -527,8 +514,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class QL_LeadAddress // QL_LeadAddress
 	{
-		[IgnorePropertyAttribute(true)]
-		public long ID { get { return LeadAddressID; } set { LeadAddressID = value; } }
+		[IgnorePropertyAttribute(true)] public long ID { get { return LeadAddressID; } set { LeadAddressID = value; } }
 		public long LeadAddressID { get; set; }
 		public long LeadId { get; set; }
 		public long AddressId { get; set; }
@@ -538,8 +524,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class QL_Lead // QL_Leads
 	{
-		[IgnorePropertyAttribute(true)]
-		public long ID { get { return LeadID; } set { LeadID = value; } }
+		[IgnorePropertyAttribute(true)] public long ID { get { return LeadID; } set { LeadID = value; } }
 		public long LeadID { get; set; }
 		public long AddressId { get; set; }
 		public string CustomerTypeId { get; set; }
@@ -575,8 +560,7 @@ namespace NXS.Data.Crm
 	}
 	public partial class TS_Team // TS_Teams
 	{
-		[IgnorePropertyAttribute(true)]
-		public int ID { get { return TeamId; } set { TeamId = value; } }
+		[IgnorePropertyAttribute(true)] public int ID { get { return TeamId; } set { TeamId = value; } }
 		public int TeamId { get; set; }
 		public long AddressId { get; set; }
 		public int Version { get; set; }

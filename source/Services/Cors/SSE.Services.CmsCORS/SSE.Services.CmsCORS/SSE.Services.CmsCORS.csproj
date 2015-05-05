@@ -228,6 +228,7 @@
     <Compile Include="Controllers\Surveys\TokensController.cs" />
     <Compile Include="Controllers\Swing\SwingController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Helpers\ResultAny.cs" />
     <Compile Include="Helpers\ResultExtensions.cs" />
     <Compile Include="HttpCorsModule.cs" />
     <Compile Include="Global.asax.cs">
@@ -368,6 +369,10 @@
       <Project>{9a891e70-afea-46b9-b9a4-b8445c9925ad}</Project>
       <Name>NXS.Data.Funding</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Data\NXS.Data.HumanResource\NXS.Data.HumanResource.csproj">
+      <Project>{18d0eee1-c805-4c19-a344-5423428dcda6}</Project>
+      <Name>NXS.Data.HumanResource</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Data\NXS.Data\NXS.Data.csproj">
       <Project>{5465a862-bb78-4048-b39b-191be0e1d19c}</Project>
       <Name>NXS.Data</Name>
@@ -432,9 +437,17 @@
       <Project>{33a1b8c5-b37d-423e-b7fd-83ce1ec1d442}</Project>
       <Name>SOS.Lib.Util</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\WebModules\WebModules.AuthControl\WebModules.AuthControl.csproj">
+      <Project>{dc40e527-1d22-448e-ac59-25fb5e181e72}</Project>
+      <Name>WebModules.AuthControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\WebModules\WebModules.Crm\WebModules.Crm.csproj">
       <Project>{72544965-d17c-4d5c-9361-f27ae1c93b3b}</Project>
       <Name>WebModules.Crm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\WebModules\WebModules.HumanResource\WebModules.HumanResource.csproj">
+      <Project>{4a3c5dbf-11ac-4cb0-ac9e-d52cc4fcf7a6}</Project>
+      <Name>WebModules.HumanResource</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\WebModules\WebModules\WebModules.csproj">
       <Project>{799603c8-07f9-48fd-9f07-5929f1e542a2}</Project>

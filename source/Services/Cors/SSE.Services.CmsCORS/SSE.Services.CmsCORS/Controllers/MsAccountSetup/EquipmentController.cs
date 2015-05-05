@@ -25,7 +25,7 @@ namespace SSE.Services.CmsCORS.Controllers.MsAccountSetup
 		[HttpDelete]
 		public Result<bool> Delete(long id)
 		{
-			return CORSSecurity.Authorize("Delete", null, null, user =>
+			return CORSSecurity.AuthorizeAny("Delete", null, null, user =>
 			{
 				var fnsResult = Service.EquipmentDelete(id, user.GPEmployeeID);
 				return new Result<bool>().FromFnsResult(fnsResult);
@@ -42,7 +42,7 @@ namespace SSE.Services.CmsCORS.Controllers.MsAccountSetup
 		[HttpPost]
 		public Result<IFnsMsAccountEquipmentsView> Update(long id, [FromBody]FnsMsAccountEquipmentsView equipment)
 		{
-			return CORSSecurity.Authorize("Create", null, null, user =>
+			return CORSSecurity.AuthorizeAny("Create", null, null, user =>
 			{
 				var argArray = new List<CORSArg>();
 				if (equipment == null)
@@ -75,7 +75,7 @@ namespace SSE.Services.CmsCORS.Controllers.MsAccountSetup
 		[HttpGet]
 		public Result<object> EquipmentAccountZoneTypes(string equipmentId)
 		{
-			return CORSSecurity.Authorize("EquipmentAccountZoneTypes", null, null, user =>
+			return CORSSecurity.AuthorizeAny("EquipmentAccountZoneTypes", null, null, user =>
 			{
 				var fnsResult = Service.EquipmentAccountZoneTypes(equipmentId);
 				return new Result<object>().FromFnsResult(fnsResult);
@@ -85,7 +85,7 @@ namespace SSE.Services.CmsCORS.Controllers.MsAccountSetup
 		[HttpGet]
 		public Result<object> EquipmentAccountZoneTypeEvents(string equipmentId, int equipmentAccountZoneTypeId, string monitoringStationOSId)
 		{
-			return CORSSecurity.Authorize("EquipmentAccountZoneTypeEvents", null, null, user =>
+			return CORSSecurity.AuthorizeAny("EquipmentAccountZoneTypeEvents", null, null, user =>
 			{
 				var fnsResult = Service.EquipmentAccountZoneTypeEvents(equipmentId, equipmentAccountZoneTypeId, monitoringStationOSId);
 				return new Result<object>().FromFnsResult(fnsResult);
@@ -97,7 +97,7 @@ namespace SSE.Services.CmsCORS.Controllers.MsAccountSetup
 		[HttpGet]
 		public Result<object> ByEquipmentID(string id)
 		{
-			return CORSSecurity.Authorize("ByEquipmentID", null, null, user =>
+			return CORSSecurity.AuthorizeAny("ByEquipmentID", null, null, user =>
 			{
 				var fnsResult = Service.EquipmentByEquipmentID(id);
 				return new Result<object>().FromFnsResult(fnsResult);
@@ -107,7 +107,7 @@ namespace SSE.Services.CmsCORS.Controllers.MsAccountSetup
 		[HttpGet]
 		public Result<object> ByPartNumber(string id)
 		{
-			return CORSSecurity.Authorize("ByPartNumber", null, null, user =>
+			return CORSSecurity.AuthorizeAny("ByPartNumber", null, null, user =>
 			{
 				var fnsResult = Service.EquipmentByPartNumber(id);
 				return new Result<object>().FromFnsResult(fnsResult);
@@ -117,7 +117,7 @@ namespace SSE.Services.CmsCORS.Controllers.MsAccountSetup
 		[HttpGet]
 		public Result<object> ByBarcode(string id)
 		{
-			return CORSSecurity.Authorize("ByBarcode", null, null, user =>
+			return CORSSecurity.AuthorizeAny("ByBarcode", null, null, user =>
 			{
 				var fnsResult = Service.EquipmentByBarcode(id);
 				return new Result<object>().FromFnsResult(fnsResult);

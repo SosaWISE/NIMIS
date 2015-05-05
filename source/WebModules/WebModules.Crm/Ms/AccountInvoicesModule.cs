@@ -5,6 +5,8 @@ namespace WebModules.Crm.Ms
 {
 	public class AccountInvoicesModule : BaseModule
 	{
+		AccountInvoicesService Srv { get { return new AccountInvoicesService(this.User.GPEmployeeID); } }
+
 		public AccountInvoicesModule()
 			: base("/Ms/Accounts")
 		{
@@ -13,18 +15,16 @@ namespace WebModules.Crm.Ms
 			//// get invoices on an account
 			//Get["/{id:long}/Invoices", true] = async (x, ct) =>
 			//{
-			//	var srv = new AccountInvoicesService(this.User.GPEmployeeID);
 			//	long accountId = x.id;
-			//	return await srv.Invoices(accountId).ConfigureAwait(false);
+			//	return await Srv.Invoices(accountId).ConfigureAwait(false);
 			//};
 
 			// get invoice with type of INSTALL on an account
 			Get["/{id:long}/Invoices/INSTALL", true] = async (x, ct) =>
 			{
-				var srv = new AccountInvoicesService(this.User.GPEmployeeID);
 				var accountId = (long)x.id;
 				bool canCreate = this.Request.Query.canCreate;
-				return await srv.InstallInvoice(accountId, canCreate).ConfigureAwait(false);
+				return await Srv.InstallInvoice(accountId, canCreate).ConfigureAwait(false);
 			};
 		}
 	}

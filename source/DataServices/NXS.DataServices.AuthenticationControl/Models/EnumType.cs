@@ -1,11 +1,11 @@
-﻿using NXS.Data.Crm;
+﻿using NXS.Data.AuthenticationControl;
 using System;
 
-namespace NXS.DataServices.Crm.Models
+namespace NXS.DataServices.AuthenticationControl.Models
 {
 	public class EnumType
 	{
-		public string ID { get; set; }
+		public int ID { get; set; }
 		public string Name { get; set; }
 
 		static bool NullCheck(string name, object item, bool nullable)
@@ -20,13 +20,13 @@ namespace NXS.DataServices.Crm.Models
 			return false;
 		}
 
-		internal static EnumType FromFriendsAndFamilyType(MC_FriendsAndFamilyType item, bool nullable = false)
+		internal static EnumType FromRequestReason(AC_RequestReason item, bool nullable = false)
 		{
-			if (NullCheck("FriendsAndFamilyType", item, nullable))
+			if (NullCheck("RequestReason", item, nullable))
 				return null;
 			var result = new EnumType();
 			result.ID = item.ID;
-			result.Name = item.FriendsAndFamilyType;
+			result.Name = item.Name;
 			return result;
 		}
 	}

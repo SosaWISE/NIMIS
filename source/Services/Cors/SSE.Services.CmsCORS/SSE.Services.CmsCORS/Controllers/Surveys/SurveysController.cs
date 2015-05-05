@@ -39,7 +39,7 @@ namespace SSE.Services.CmsCORS.Controllers.Surveys
 		[HttpGet, Route("Surveys/{id}")]
 		public Result<SvSurvey> Get(int id)
 		{
-			return CORSSecurity.Authorize("Get Survey", null, null, user =>
+			return CORSSecurity.AuthorizeAny("Get Survey", null, null, user =>
 			{
 				var fnsResult = Service.SurveysGet(id, user.UserID);
 				var result = new Result<SvSurvey>(fnsResult.Code, fnsResult.Message);
@@ -88,7 +88,7 @@ namespace SSE.Services.CmsCORS.Controllers.Surveys
 		[HttpGet, Route("Surveys/{id}/SurveyType")]
 		public Result<SvSurveyType> SurveyType(int id)
 		{
-			return CORSSecurity.Authorize("Get SurveyType for SurveyID", null, null, user =>
+			return CORSSecurity.AuthorizeAny("Get SurveyType for SurveyID", null, null, user =>
 			{
 				var result = new Result<SvSurveyType>();
 				if (CORSArg.ArgumentValidation(new List<CORSArg>() {
@@ -110,7 +110,7 @@ namespace SSE.Services.CmsCORS.Controllers.Surveys
 		[HttpGet, Route("Surveys/{id}/Questions")]
 		public Result<List<SvQuestion>> Questions(int id)
 		{
-			return CORSSecurity.Authorize("Get Questions for SurveyID", null, null, user =>
+			return CORSSecurity.AuthorizeAny("Get Questions for SurveyID", null, null, user =>
 			{
 				var result = new Result<List<SvQuestion>>();
 				if (CORSArg.ArgumentValidation(new List<CORSArg>() {
@@ -132,7 +132,7 @@ namespace SSE.Services.CmsCORS.Controllers.Surveys
 		[HttpGet, Route("Surveys/{id}/SurveyTranslations")]
 		public Result<List<SvSurveyTranslations>> SurveyTranslations(int id)
 		{
-			return CORSSecurity.Authorize("Get SurveyTranslations for SurveyID", null, null, user =>
+			return CORSSecurity.AuthorizeAny("Get SurveyTranslations for SurveyID", null, null, user =>
 			{
 				var result = new Result<List<SvSurveyTranslations>>();
 				if (CORSArg.ArgumentValidation(new List<CORSArg>() {

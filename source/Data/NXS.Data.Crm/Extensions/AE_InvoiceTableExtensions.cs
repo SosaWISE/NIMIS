@@ -7,7 +7,7 @@ namespace NXS.Data.Crm
 {
 	using AR = AE_Invoice;
 	using ARCollection = IEnumerable<AE_Invoice>;
-	using ARTable = CrmDb.AE_InvoiceTable;
+	using ARTable = DBase.AE_InvoiceTable;
 	public static class AE_InvoiceTableExtensions
 	{
 		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)
@@ -45,7 +45,7 @@ namespace NXS.Data.Crm
 				.And(tbl.InvoiceTypeId, Comparison.Equals, invoiceTypeId);
 			return tbl.LoadOneFull(sql);
 		}
-		public static async Task<AE_Invoice> CreateInvoice(this ARTable tbl, long accountId, string invoiceTypeId, string gpEmployeeId)
+		public static async Task<AE_Invoice> CreateInvoiceAsync(this ARTable tbl, long accountId, string invoiceTypeId, string gpEmployeeId)
 		{
 			var item = new AE_Invoice();
 			item.AccountId = accountId;
@@ -58,13 +58,7 @@ namespace NXS.Data.Crm
 		}
 		public static async Task InvoiceCalculatePrices(this ARTable tbl, long invoiceId, string stateId, string postalCode)
 		{
-			//@TODO: generate SPROC wrapper methods
-			var p = new Dapper.DynamicParameters();
-			p.Add("@InvoiceID", invoiceId); // BIGINT
-			p.Add("@StateID", stateId); // VARCHAR(4)
-			p.Add("@PostalCode", postalCode); // VARCHAR(5)
-			p.Add("@HideInvoiceHeader", false); // BIT = true
-			await tbl.Db.QueryAsync<AE_Invoice>("custAE_InvoiceCalculatePrices", p, commandType: System.Data.CommandType.StoredProcedure).ConfigureAwait(false);
+			await tbl.Db.Sprocs.AE_InvoiceCalculatePrices<AE_Invoice>(invoiceId, stateId, postalCode, false).ConfigureAwait(false);
 		}
 
 		#region full load

@@ -41,7 +41,7 @@ namespace WebModules
 		public void RequiresHttps()
 		{
 			this.Before.AddItemToEndOfPipeline(
-				HttpStatusCodeIfNot(HttpStatusCode.Forbidden, ctx => ctx.Request.Url.IsSecure));
+				HttpStatusCodeIfNot(HttpStatusCode.Forbidden, ctx => ctx.Request.Url.IsSecure, () => "Must use https://", () => null));
 		}
 		//public void RequiresAuthentication()
 		//{
@@ -64,47 +64,50 @@ namespace WebModules
 		//		HttpStatusCodeIfNot(HttpStatusCode.Forbidden, ctx => ctx.CurrentUser.HasValidClaims(isValid)), "Validated Claim Required");
 		//}
 
+		//RequiresAnyAppAndAction
 		public void RequiresPermission(string applicationID, string actionID)
 		{
+			var appIDs = applicationID == null ? null : new string[] { applicationID };
+			var actionIDs = actionID == null ? null : new string[] { actionID };
+			this.RequiresPermission(appIDs, actionIDs);
+		}
+		public void RequiresPermission(IEnumerable<string> applicationIDs, IEnumerable<string> actionIDs)
+		{
 			this.AddBeforeHookOrExecute(
-				HttpStatusCodeIfNot(HttpStatusCode.Forbidden, ctx =>
+				HttpStatusCodeIfNot(HttpStatusCode.Unauthorized, ctx =>
 				{
 					var user = this.User;// ctx.CurrentUser;
-					if (user == null) return false;
+					if (user == null)
+						return false;
 
 					var authService = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
-					return authService.HasPermission(user.Claims, applicationID, actionID);
+					return authService.HasPermission(applicationIDs, actionIDs, user.Claims, user.Applications, user.Actions);
 				}, () =>
 				{
-					string format = "";
-					if (applicationID != null)
-					{
-						format += " application {0}";
-					}
-					if (actionID != null)
-					{
-						if (format.Length > 0)
-						{
-							format += " and";
-						}
-						format += " action {1}";
-					}
-					if (format.Length == 0)
-					{
-					}
-					return "Not authorized for" + string.Format(format, applicationID, actionID);
-				}), "Permission Required");
+					if (this.User == null)
+						return "Not authorized";
+					return "Not authorized for applications and actions";
+				}, () =>
+				{
+					if (this.User == null)
+						return null;
+					return new AuthNeeds(applicationIDs, actionIDs);
+				}),
+				"Permission Required");
 		}
 
-		private Func<NancyContext, Response> HttpStatusCodeIfNot(HttpStatusCode statusCode, Func<NancyContext, bool> test, Func<string> getMessage = null)
+		private Func<NancyContext, Response> HttpStatusCodeIfNot(HttpStatusCode statusCode, Func<NancyContext, bool> test, Func<string> getMessage, Func<object> getValue)
 		{
 			return (ctx) =>
 			{
 				Response response = null;
 				if (!test(ctx))
 				{
-					response = this.Response.AsJson(new Result<object>(code: (int)statusCode,
-						message: getMessage == null ? statusCode.ToString() : getMessage()));
+					response = this.Response.AsJson(new Result<object>(
+						code: (int)statusCode,
+						message: getMessage(),
+						value: getValue()
+					));
 				}
 				return response;
 			};

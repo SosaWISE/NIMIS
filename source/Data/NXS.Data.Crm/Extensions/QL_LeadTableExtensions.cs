@@ -7,7 +7,7 @@ namespace NXS.Data.Crm
 {
 	using AR = QL_Lead;
 	using ARCollection = IEnumerable<QL_Lead>;
-	using ARTable = CrmDb.QL_LeadTable;
+	using ARTable = DBase.QL_LeadTable;
 	public static class QL_LeadTableExtensions
 	{
 		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)

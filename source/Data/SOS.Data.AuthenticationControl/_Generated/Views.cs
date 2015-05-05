@@ -213,8 +213,8 @@ namespace SOS.Data.AuthenticationControl
 
 				TableSchema.TableColumn colvarPassword = new TableSchema.TableColumn(schema);
 				colvarPassword.ColumnName = "Password";
-				colvarPassword.DataType = DbType.String;
-				colvarPassword.MaxLength = 20;
+				colvarPassword.DataType = DbType.AnsiString;
+				colvarPassword.MaxLength = 60;
 				colvarPassword.AutoIncrement = false;
 				colvarPassword.IsNullable = false;
 				colvarPassword.IsPrimaryKey = false;
@@ -656,7 +656,7 @@ namespace SOS.Data.AuthenticationControl
 				colvarGPEmployeeID.DataType = DbType.String;
 				colvarGPEmployeeID.MaxLength = 25;
 				colvarGPEmployeeID.AutoIncrement = false;
-				colvarGPEmployeeID.IsNullable = true;
+				colvarGPEmployeeID.IsNullable = false;
 				colvarGPEmployeeID.IsPrimaryKey = false;
 				colvarGPEmployeeID.IsForeignKey = false;
 				colvarGPEmployeeID.IsReadOnly = false;
@@ -692,8 +692,8 @@ namespace SOS.Data.AuthenticationControl
 
 				TableSchema.TableColumn colvarPassword = new TableSchema.TableColumn(schema);
 				colvarPassword.ColumnName = "Password";
-				colvarPassword.DataType = DbType.String;
-				colvarPassword.MaxLength = 20;
+				colvarPassword.DataType = DbType.AnsiString;
+				colvarPassword.MaxLength = 60;
 				colvarPassword.AutoIncrement = false;
 				colvarPassword.IsNullable = false;
 				colvarPassword.IsPrimaryKey = false;
@@ -1116,8 +1116,8 @@ namespace SOS.Data.AuthenticationControl
 
 				TableSchema.TableColumn colvarPassword = new TableSchema.TableColumn(schema);
 				colvarPassword.ColumnName = "Password";
-				colvarPassword.DataType = DbType.String;
-				colvarPassword.MaxLength = 20;
+				colvarPassword.DataType = DbType.AnsiString;
+				colvarPassword.MaxLength = 60;
 				colvarPassword.AutoIncrement = false;
 				colvarPassword.IsNullable = false;
 				colvarPassword.IsPrimaryKey = false;

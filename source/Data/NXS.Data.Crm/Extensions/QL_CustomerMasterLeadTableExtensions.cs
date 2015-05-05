@@ -7,7 +7,7 @@ namespace NXS.Data.Crm
 {
 	using AR = QL_CustomerMasterLead;
 	using ARCollection = IEnumerable<QL_CustomerMasterLead>;
-	using ARTable = CrmDb.QL_CustomerMasterLeadTable;
+	using ARTable = DBase.QL_CustomerMasterLeadTable;
 	public static class QL_CustomerMasterLeadTableExtensions
 	{
 		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)

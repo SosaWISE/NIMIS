@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace NXS.Data.Crm
 {
 	using AR = MS_AccountSalesInformation;
-	using ARTable = CrmDb.MS_AccountSalesInformationTable;
+	using ARTable = DBase.MS_AccountSalesInformationTable;
 	public static class MS_AccountSalesInformationTableExtensions
 	{
 		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)
@@ -17,6 +18,7 @@ namespace NXS.Data.Crm
 		}
 		public static async Task UpdateAsync(this ARTable tbl, Snapshotter.Snapshot<AR> snapShot, string gpEmployeeId)
 		{
+			if (!snapShot.HasChange()) return;
 			var item = snapShot.Value;
 			item.ModifiedOn = DateTime.UtcNow.RoundToSqlDateTime();
 			item.ModifiedBy = gpEmployeeId;

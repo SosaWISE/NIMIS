@@ -19,7 +19,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<AePaymentMethod>> AccountPaymentMethod(long accountId, bool isInitial)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<AePaymentMethod>();
 
@@ -39,7 +39,7 @@ namespace NXS.DataServices.Crm
 
 		public async Task<Result<AePaymentMethod>> SavePaymentMethod(long accountId, bool isInitial, AePaymentMethod inputItem)
 		{
-			using (var db = CrmDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var result = new Result<AePaymentMethod>();
 				AE_PaymentMethod item = null;

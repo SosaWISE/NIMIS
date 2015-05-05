@@ -45,9 +45,11 @@ namespace SSE.Services.CmsCORS
 		{
 			StaticConfiguration.DisableErrorTraces = true;
 
-			var configuration = SosServiceEngine.Instance.FunctionalServices.Instance<TokenAuthenticationConfiguration>();
-			container.Register(configuration);
+			// compat with old way of doing thangs
+			container.Register(SosServiceEngine.Instance.FunctionalServices.Instance<TokenAuthenticationConfiguration>());
+			container.Register(SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>());
 
+			//
 			container.Register<ISerializer>(new JsonNetSerializer(container.Resolve<JsonSerializer>()));
 
 			//container.Register<System.Data.IDbConnection, System.Data.SqlClient.SqlConnection>().AsMultiInstance();

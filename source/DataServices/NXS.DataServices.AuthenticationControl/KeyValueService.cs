@@ -14,7 +14,7 @@ namespace NXS.DataServices.AuthenticationControl
 	{
 		public List<AcKeyValue> UpdateAll(DateTime purgeExpiration, DateTime validExpiration, string newKeyValue)
 		{
-			using (var db = AuthControlDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.AC_KeyValues;
 				db.Transaction(() =>
@@ -51,7 +51,7 @@ namespace NXS.DataServices.AuthenticationControl
 
 		public List<AcKeyValue> ReadAll()
 		{
-			using (var db = AuthControlDb.Connect())
+			using (var db = DBase.Connect())
 			{
 				var tbl = db.AC_KeyValues;
 				return ConvertKeyValues(tbl.All());

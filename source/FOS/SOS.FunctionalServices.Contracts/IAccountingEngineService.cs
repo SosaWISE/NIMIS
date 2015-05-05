@@ -9,7 +9,7 @@ namespace SOS.FunctionalServices.Contracts
 	{
 		#region Search Customers
 		IFnsResult<List<IFnsCustomerMasterFileGeneral>> CustomerGeneralSearch(int dealerId, string city, string stateId, string postalCode,
-			string email, string firstName, string lastName, string phoneNumber, int pageSize, int pageNumber,
+			string email, string firstName, string lastName, string phoneNumber, bool excludeLeads, int pageSize, int pageNumber,
 			string gpEmployeeId);
 
 		//IFnsResult<IFnsAeCustomerCardInfo> CustomerCardInfoGet(long cmfid, string gpEmployeeID);

@@ -146,18 +146,31 @@ namespace SOS.FunctionalServices
 			});
 
 			// ** Monitoring Station Status
-			var statusGroup = "Good";
-			if (!status.Value.InService) 
-				statusGroup = "Critical";
-			else if (status.Value.OnTest)
-				statusGroup = "Warning";
-			resultList.Add(new FnsMsAccountOnlineStatusInfo
 			{
-				KeyName = "Monitoring Status",
-				Text = string.Format("Monitoring: {0} | On Test: {1}", status.Value.InService ? "On Line" : "Offline", status.Value.OnTest ? "Yes" : "No"),
-				Status = statusGroup,
-				Value = string.Format("Monitoring: {0} | On Test: {1}", status.Value.InService ? "On Line" : "Offline", status.Value.OnTest ? "Yes" : "No"),
-			});
+				string statusGroup, text;
+				if (status.Value == null)
+				{
+					statusGroup = "Unknown";
+					text = "Monitoring: Unknown | On Test: Unknown";
+				}
+				else
+				{
+					if (!status.Value.InService)
+						statusGroup = "Critical";
+					else if (status.Value.OnTest)
+						statusGroup = "Warning";
+					else
+						statusGroup = "Good";
+					text = string.Format("Monitoring: {0} | On Test: {1}", status.Value.InService ? "On Line" : "Offline", status.Value.OnTest ? "Yes" : "No");
+				}
+				resultList.Add(new FnsMsAccountOnlineStatusInfo
+				{
+					KeyName = "Monitoring Status",
+					Text = text,
+					Status = statusGroup,
+					Value = text,
+				});
+			}
 			#endregion Get Central Station Status
 
 			#endregion Build result
@@ -166,55 +179,47 @@ namespace SOS.FunctionalServices
 			return resultList;
 		}
 
-// ReSharper disable once UnusedMethodReturnValue.Local
-		private bool GetCellularDeviceInfo(MS_Account msAccount, List<IFnsMsAccountOnlineStatusInfo> resultList)
+		// ReSharper disable once UnusedMethodReturnValue.Local
+		private void GetCellularDeviceInfo(MS_Account msAccount, List<IFnsMsAccountOnlineStatusInfo> resultList)
 		{
-			#region Initialize
-			var result = false;
-			#endregion Initialize
+			#region Get Cellular Device Status
 
-			try
+			var cellServices = new CellStationService();
+			var cellStation = cellServices.GetStation(msAccount.AccountID);
+			if (cellStation.Failure)
 			{
-				#region Get Cellular Device Status
-
-				var cellServices = new CellStationService();
-				var cellStation = cellServices.GetStation(msAccount.AccountID);
-				var cellDevStat = new AlarmComDeviceStatus(cellStation.Value.Account);
-				cellDevStat.RetrieveDeviceStatus(cellStation.Value.Account);
-
-				// TODO:  ANDRES
-				// ** Add result to list.
 				resultList.Add(new FnsMsAccountOnlineStatusInfo
 				{
-					KeyName = string.Format("Cellular Provider: {0}", "Alarm.Com"),
-					Text = string.Format("Cellular Vendor: {0}", "Alarm.Com"),
-					Status = "Good",
-					Value = string.Format("Cellular Vendor: {0}", "Alarm.Com"),
+					KeyName = "Cellular Provider: Unknown",
+					Text = cellStation.Message,
+					Status = "Unknown",
+					Value = cellStation.Message,
 				});
-
-				resultList.Add(new FnsMsAccountOnlineStatusInfo
-				{
-					KeyName = string.Format("Device Status: {0}", cellDevStat.IsRegistered ? "Registered" : "Unregistered"),
-					Text = string.Format("Device: {0}", cellDevStat.IsRegistered),
-					Status = cellDevStat.IsRegistered ? "Good" : "Warning",
-					Value = string.Format("Serial Number: {0}", cellDevStat.ModemSerial),
-				});
-
-				#endregion Get Cellular Device Status
-
-				result = true;
+				return;
 			}
-			catch (Exception ex)
+
+			var cellDevStat = new AlarmComDeviceStatus(cellStation.Value.Account);
+			cellDevStat.RetrieveDeviceStatus(cellStation.Value.Account);
+
+			// TODO:  ANDRES
+			// ** Add result to list.
+			resultList.Add(new FnsMsAccountOnlineStatusInfo
 			{
-				Console.WriteLine("Error gathering cellular device information: {0}", ex.Message);
-			}
+				KeyName = string.Format("Cellular Provider: {0}", "Alarm.Com"),
+				Text = string.Format("Cellular Vendor: {0}", "Alarm.Com"),
+				Status = "Good",
+				Value = string.Format("Cellular Vendor: {0}", "Alarm.Com"),
+			});
 
-			#region Return result
+			resultList.Add(new FnsMsAccountOnlineStatusInfo
+			{
+				KeyName = string.Format("Device Status: {0}", cellDevStat.IsRegistered ? "Registered" : "Unregistered"),
+				Text = string.Format("Device: {0}", cellDevStat.IsRegistered),
+				Status = cellDevStat.IsRegistered ? "Good" : "Warning",
+				Value = string.Format("Serial Number: {0}", cellDevStat.ModemSerial),
+			});
 
-			return result;
-
-			#endregion Return result
-
+			#endregion Get Cellular Device Status
 		}
 
 		#endregion #Central Station information
