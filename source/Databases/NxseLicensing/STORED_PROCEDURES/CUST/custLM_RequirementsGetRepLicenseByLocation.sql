@@ -33,7 +33,7 @@ GO
 **	Date:		Author:			Description:
 **	-----------	---------------	-----------------------------------------------
 **	10/15/2014	Andres Sosa		Created By
-** EXEC dbo.custLM_RequirementsGetRepLicenseByLocation 'UNITED STATES OF AMERICA', 'VIRGINIA', 'PORTSMOUTH CITY COUNTY', 'PORTSMOUTH', NULL, 'SOSAA001'
+** EXEC dbo.custLM_RequirementsGetRepLicenseByLocation 'UNITED STATES OF AMERICA', 'UTAH', 'UTAH', 'SPANISH FORK', NULL, 'BLEGT001'
 *******************************************************************************/
 CREATE Procedure dbo.custLM_RequirementsGetRepLicenseByLocation
 (

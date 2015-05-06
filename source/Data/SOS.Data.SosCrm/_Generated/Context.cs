@@ -1506,6 +1506,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MS_AccountPayoutTypeController _MS_AccountPayoutTypes;
+		public MS_AccountPayoutTypeController MS_AccountPayoutTypes
+		{
+			get
+			{
+				if (_MS_AccountPayoutTypes == null) _MS_AccountPayoutTypes = new MS_AccountPayoutTypeController();
+				return _MS_AccountPayoutTypes;
+			}
+		}
+
 		MS_AccountController _MS_Accounts;
 		public MS_AccountController MS_Accounts
 		{
@@ -1643,6 +1653,16 @@ namespace SOS.Data.SosCrm
 			{
 				if (_MS_AccountZoneTypes == null) _MS_AccountZoneTypes = new MS_AccountZoneTypeController();
 				return _MS_AccountZoneTypes;
+			}
+		}
+
+		MS_AlarmCompanyController _MS_AlarmCompanies;
+		public MS_AlarmCompanyController MS_AlarmCompanies
+		{
+			get
+			{
+				if (_MS_AlarmCompanies == null) _MS_AlarmCompanies = new MS_AlarmCompanyController();
+				return _MS_AlarmCompanies;
 			}
 		}
 
@@ -1973,6 +1993,16 @@ namespace SOS.Data.SosCrm
 			{
 				if (_MS_IndustryAccounts == null) _MS_IndustryAccounts = new MS_IndustryAccountController();
 				return _MS_IndustryAccounts;
+			}
+		}
+
+		MS_LeadTakeOverController _MS_LeadTakeOvers;
+		public MS_LeadTakeOverController MS_LeadTakeOvers
+		{
+			get
+			{
+				if (_MS_LeadTakeOvers == null) _MS_LeadTakeOvers = new MS_LeadTakeOverController();
+				return _MS_LeadTakeOvers;
 			}
 		}
 
@@ -4042,6 +4072,7 @@ namespace SOS.Data.SosCrm
 	public class MS_AccountPackageController : BaseTableController<MS_AccountPackage, MS_AccountPackageCollection> { }
 	public class MS_AccountPanelTypePanicZoneController : BaseTableController<MS_AccountPanelTypePanicZone, MS_AccountPanelTypePanicZoneCollection> { }
 	public class MS_AccountPanelTypeController : BaseTableController<MS_AccountPanelType, MS_AccountPanelTypeCollection> { }
+	public class MS_AccountPayoutTypeController : BaseTableController<MS_AccountPayoutType, MS_AccountPayoutTypeCollection> { }
 	public class MS_AccountController : BaseTableController<MS_Account, MS_AccountCollection> { }
 	public class MS_AccountSalesInformationController : BaseTableController<MS_AccountSalesInformation, MS_AccountSalesInformationCollection> { }
 	public class MS_AccountSignalFormatTypeController : BaseTableController<MS_AccountSignalFormatType, MS_AccountSignalFormatTypeCollection> { }
@@ -4056,6 +4087,7 @@ namespace SOS.Data.SosCrm
 	public class MS_AccountSystemTypeController : BaseTableController<MS_AccountSystemType, MS_AccountSystemTypeCollection> { }
 	public class MS_AccountZoneAssignmentController : BaseTableController<MS_AccountZoneAssignment, MS_AccountZoneAssignmentCollection> { }
 	public class MS_AccountZoneTypeController : BaseTableController<MS_AccountZoneType, MS_AccountZoneTypeCollection> { }
+	public class MS_AlarmCompanyController : BaseTableController<MS_AlarmCompany, MS_AlarmCompanyCollection> { }
 	public class MS_AvantGuardAccountStateController : BaseTableController<MS_AvantGuardAccountState, MS_AvantGuardAccountStateCollection> { }
 	public class MS_AvantGuardEventCodeController : BaseTableController<MS_AvantGuardEventCode, MS_AvantGuardEventCodeCollection> { }
 	public class MS_AvantGuardRelationController : BaseTableController<MS_AvantGuardRelation, MS_AvantGuardRelationCollection> { }
@@ -4089,6 +4121,7 @@ namespace SOS.Data.SosCrm
 	public class MS_EquipmentTypeController : BaseTableController<MS_EquipmentType, MS_EquipmentTypeCollection> { }
 	public class MS_EquipmentTypesZoneEventTypeController : BaseTableController<MS_EquipmentTypesZoneEventType, MS_EquipmentTypesZoneEventTypeCollection> { }
 	public class MS_IndustryAccountController : BaseTableController<MS_IndustryAccount, MS_IndustryAccountCollection> { }
+	public class MS_LeadTakeOverController : BaseTableController<MS_LeadTakeOver, MS_LeadTakeOverCollection> { }
 	public class MS_MarketController : BaseTableController<MS_Market, MS_MarketCollection> { }
 	public class MS_MarketSubConversionController : BaseTableController<MS_MarketSubConversion, MS_MarketSubConversionCollection> { }
 	public class MS_MonitoringStationOssController : BaseTableController<MS_MonitoringStationOss, MS_MonitoringStationOssCollection> { }

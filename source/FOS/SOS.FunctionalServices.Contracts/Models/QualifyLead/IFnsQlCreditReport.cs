@@ -48,5 +48,7 @@ namespace SOS.FunctionalServices.Contracts.Models.QualifyLead
 		bool IsHit { get; set; }
 		[DataMember]
 		string CreditGroup { get; set; }
+		[DataMember]
+		string TakeOverFromCompanyName { get; set; }
 	}
 }
