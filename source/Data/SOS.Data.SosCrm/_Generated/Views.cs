@@ -24474,6 +24474,249 @@ namespace SOS.Data.SosCrm
 		#endregion Columns Struct
 	}
 	/// <summary>
+	/// Strongly-typed collection for the MS_LeadTakeOversView class.
+	/// </summary>
+	[DataContract]
+	public partial class MS_LeadTakeOversViewCollection : ReadOnlyList<MS_LeadTakeOversView, MS_LeadTakeOversViewCollection>
+	{
+		public static MS_LeadTakeOversViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			MS_LeadTakeOversViewCollection result = new MS_LeadTakeOversViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwMS_LeadTakeOvers view.
+	/// </summary>
+	[DataContract]
+	public partial class MS_LeadTakeOversView : ReadOnlyRecord<MS_LeadTakeOversView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwMS_LeadTakeOvers", TableType.Table, DataService.GetInstance("SosCrmProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarAccountId = new TableSchema.TableColumn(schema);
+				colvarAccountId.ColumnName = "AccountId";
+				colvarAccountId.DataType = DbType.Int64;
+				colvarAccountId.MaxLength = 0;
+				colvarAccountId.AutoIncrement = false;
+				colvarAccountId.IsNullable = false;
+				colvarAccountId.IsPrimaryKey = false;
+				colvarAccountId.IsForeignKey = false;
+				colvarAccountId.IsReadOnly = false;
+				colvarAccountId.DefaultSetting = @"";
+				colvarAccountId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAccountId);
+
+				TableSchema.TableColumn colvarLeadID = new TableSchema.TableColumn(schema);
+				colvarLeadID.ColumnName = "LeadID";
+				colvarLeadID.DataType = DbType.Int64;
+				colvarLeadID.MaxLength = 0;
+				colvarLeadID.AutoIncrement = false;
+				colvarLeadID.IsNullable = false;
+				colvarLeadID.IsPrimaryKey = false;
+				colvarLeadID.IsForeignKey = false;
+				colvarLeadID.IsReadOnly = false;
+				colvarLeadID.DefaultSetting = @"";
+				colvarLeadID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLeadID);
+
+				TableSchema.TableColumn colvarFullName = new TableSchema.TableColumn(schema);
+				colvarFullName.ColumnName = "FullName";
+				colvarFullName.DataType = DbType.String;
+				colvarFullName.MaxLength = 250;
+				colvarFullName.AutoIncrement = false;
+				colvarFullName.IsNullable = true;
+				colvarFullName.IsPrimaryKey = false;
+				colvarFullName.IsForeignKey = false;
+				colvarFullName.IsReadOnly = false;
+				colvarFullName.DefaultSetting = @"";
+				colvarFullName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarFullName);
+
+				TableSchema.TableColumn colvarStreetAddress = new TableSchema.TableColumn(schema);
+				colvarStreetAddress.ColumnName = "StreetAddress";
+				colvarStreetAddress.DataType = DbType.String;
+				colvarStreetAddress.MaxLength = 50;
+				colvarStreetAddress.AutoIncrement = false;
+				colvarStreetAddress.IsNullable = false;
+				colvarStreetAddress.IsPrimaryKey = false;
+				colvarStreetAddress.IsForeignKey = false;
+				colvarStreetAddress.IsReadOnly = false;
+				colvarStreetAddress.DefaultSetting = @"";
+				colvarStreetAddress.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarStreetAddress);
+
+				TableSchema.TableColumn colvarCityStZip = new TableSchema.TableColumn(schema);
+				colvarCityStZip.ColumnName = "CityStZip";
+				colvarCityStZip.DataType = DbType.String;
+				colvarCityStZip.MaxLength = 150;
+				colvarCityStZip.AutoIncrement = false;
+				colvarCityStZip.IsNullable = true;
+				colvarCityStZip.IsPrimaryKey = false;
+				colvarCityStZip.IsForeignKey = false;
+				colvarCityStZip.IsReadOnly = false;
+				colvarCityStZip.DefaultSetting = @"";
+				colvarCityStZip.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCityStZip);
+
+				TableSchema.TableColumn colvarAlarmCompanyId = new TableSchema.TableColumn(schema);
+				colvarAlarmCompanyId.ColumnName = "AlarmCompanyId";
+				colvarAlarmCompanyId.DataType = DbType.Int32;
+				colvarAlarmCompanyId.MaxLength = 0;
+				colvarAlarmCompanyId.AutoIncrement = false;
+				colvarAlarmCompanyId.IsNullable = false;
+				colvarAlarmCompanyId.IsPrimaryKey = false;
+				colvarAlarmCompanyId.IsForeignKey = false;
+				colvarAlarmCompanyId.IsReadOnly = false;
+				colvarAlarmCompanyId.DefaultSetting = @"";
+				colvarAlarmCompanyId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAlarmCompanyId);
+
+				TableSchema.TableColumn colvarAlarmCompanyName = new TableSchema.TableColumn(schema);
+				colvarAlarmCompanyName.ColumnName = "AlarmCompanyName";
+				colvarAlarmCompanyName.DataType = DbType.AnsiString;
+				colvarAlarmCompanyName.MaxLength = 100;
+				colvarAlarmCompanyName.AutoIncrement = false;
+				colvarAlarmCompanyName.IsNullable = false;
+				colvarAlarmCompanyName.IsPrimaryKey = false;
+				colvarAlarmCompanyName.IsForeignKey = false;
+				colvarAlarmCompanyName.IsReadOnly = false;
+				colvarAlarmCompanyName.DefaultSetting = @"";
+				colvarAlarmCompanyName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAlarmCompanyName);
+
+				BaseSchema = schema;
+				DataService.Providers["SosCrmProvider"].AddSchema("vwMS_LeadTakeOvers",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public MS_LeadTakeOversView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public long AccountId {
+			get { return GetColumnValue<long>(Columns.AccountId); }
+			set { SetColumnValue(Columns.AccountId, value); }
+		}
+		[DataMember]
+		public long LeadID {
+			get { return GetColumnValue<long>(Columns.LeadID); }
+			set { SetColumnValue(Columns.LeadID, value); }
+		}
+		[DataMember]
+		public string FullName {
+			get { return GetColumnValue<string>(Columns.FullName); }
+			set { SetColumnValue(Columns.FullName, value); }
+		}
+		[DataMember]
+		public string StreetAddress {
+			get { return GetColumnValue<string>(Columns.StreetAddress); }
+			set { SetColumnValue(Columns.StreetAddress, value); }
+		}
+		[DataMember]
+		public string CityStZip {
+			get { return GetColumnValue<string>(Columns.CityStZip); }
+			set { SetColumnValue(Columns.CityStZip, value); }
+		}
+		[DataMember]
+		public int AlarmCompanyId {
+			get { return GetColumnValue<int>(Columns.AlarmCompanyId); }
+			set { SetColumnValue(Columns.AlarmCompanyId, value); }
+		}
+		[DataMember]
+		public string AlarmCompanyName {
+			get { return GetColumnValue<string>(Columns.AlarmCompanyName); }
+			set { SetColumnValue(Columns.AlarmCompanyName, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return AccountId.ToString();
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn AccountIdColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn LeadIDColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn FullNameColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn StreetAddressColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn CityStZipColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn AlarmCompanyIdColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn AlarmCompanyNameColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string AccountId = @"AccountId";
+			public const string LeadID = @"LeadID";
+			public const string FullName = @"FullName";
+			public const string StreetAddress = @"StreetAddress";
+			public const string CityStZip = @"CityStZip";
+			public const string AlarmCompanyId = @"AlarmCompanyId";
+			public const string AlarmCompanyName = @"AlarmCompanyName";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
 	/// Strongly-typed collection for the MS_MonitronicsEntitySystemTypeXRefView class.
 	/// </summary>
 	[DataContract]

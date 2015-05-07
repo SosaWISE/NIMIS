@@ -28,18 +28,18 @@ GO
 **     ----------						-----------
 **
 **		Auth: Andrés E. Sosa
-**		Date: 01/21/2014
+**		Date: 05/07/2015
 *******************************************************************************
 **	Change History
 *******************************************************************************
 **	Date:		Author:			Description:
 **	-----------	---------------	-------------------------------------------
-**	01/21/2014	Andrés E. Sosa	Created By
+**	05/07/2015	Andrés E. Sosa	Created By
 **	
 *******************************************************************************/
 CREATE FUNCTION dbo.FUNCTION_TEMPLATE_TABLE
 (
-	@IDList NVARCHAR(MAX)
+	@AccountID BIGINT
 )
 RETURNS 
 @ParsedList table

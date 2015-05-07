@@ -144,5 +144,8 @@ namespace SOS.FunctionalServices.Contracts
 
 		#endregion Dispatch Agency Assignments
 
+		#region Slammed Accounts
+		IFnsResult<IFnsMsLeadTakeOver> SlammedAccountsCheck(long? accountId, string gpEmployeeId);
+		#endregion Slammed Accounts
 	}
 }

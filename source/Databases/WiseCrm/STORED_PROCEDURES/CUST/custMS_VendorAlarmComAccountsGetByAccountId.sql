@@ -45,30 +45,48 @@ BEGIN
 	SET NOCOUNT ON
 
 	/** DECLARATIONS */
-	DECLARE @DealerId INT;
+	DECLARE @AlarmComAccountID INT;
 	
 	BEGIN TRY
 	
-		/** Find DealerId */
-		SELECT 
-			@DealerId = CMF.DealerId
-		FROM
-			[dbo].[AE_CustomerAccounts] AS MAC WITH (NOLOCK)
-			INNER JOIN [dbo].[AE_Customers] AS CUST WITH (NOLOCK)
-			ON
-				(CUST.CustomerID = MAC.CustomerId)
-				AND (MAC.AccountId  = @AccountId)
-			INNER JOIN [dbo].[AE_CustomerMasterFiles] AS CMF WITH (NOLOCK)
-			ON
-				(CMF.CustomerMasterFileID = CUST.CustomerMasterFileId);
+		--/** Find DealerId */
+		--SELECT 
+		--	@DealerId = CMF.DealerId
+		--FROM
+		--	[dbo].[AE_CustomerAccounts] AS MAC WITH (NOLOCK)
+		--	INNER JOIN [dbo].[AE_Customers] AS CUST WITH (NOLOCK)
+		--	ON
+		--		(CUST.CustomerID = MAC.CustomerId)
+		--		AND (MAC.AccountId  = @AccountId)
+		--	INNER JOIN [dbo].[AE_CustomerMasterFiles] AS CMF WITH (NOLOCK)
+		--	ON
+		--		(CMF.CustomerMasterFileID = CUST.CustomerMasterFileId);
 	
-		/** Get the Account row. */
-		IF (NOT EXISTS(SELECT * FROM [dbo].[MS_VendorAlarmComAccounts] AS VAC WITH (NOLOCK) WHERE (DealerId = @DealerId)))
-		BEGIN
-			SET @DealerId = 5000;
-		END
+		--/** Get the Account row. */
+		--IF (NOT EXISTS(SELECT * FROM [dbo].[MS_VendorAlarmComAccounts] AS VAC WITH (NOLOCK) WHERE (DealerId = @DealerId)))
+		--BEGIN
+		--	SET @DealerId = 5000;
+		--END
 
-		SELECT * FROM [dbo].[MS_VendorAlarmComAccounts] AS VAC WITH (NOLOCK) WHERE (DealerId = @DealerId)
+		SELECT
+			@AlarmComAccountID = MSVACA.AlarmComAccountID
+--			MSIA.*
+		FROM
+			[dbo].[MS_Accounts] AS MSA WITH (NOLOCK)
+			INNER JOIN [dbo].[MS_IndustryAccounts] AS MSIA WITH (NOLOCK)
+			ON
+				(MSIA.IndustryAccountID = MSA.IndustryAccountId)
+			INNER JOIN [dbo].[MS_ReceiverLineVendorAlarmComAccountsMap] AS MSMAP WITH (NOLOCK)
+			ON
+				(MSMAP.ReceiverLineId = MSIA.ReceiverLineId)
+			INNER JOIN [dbo].[MS_VendorAlarmComAccounts] AS MSVACA WITH (NOLOCK)
+			ON
+				(MSVACA.AlarmComAccountID = MSMAP.AlarmComAccountId)
+		WHERE
+--			(MSA.AccountID = 211217)
+			(MSA.AccountID = @AccountId);
+
+		SELECT * FROM [dbo].[MS_VendorAlarmComAccounts] AS VAC WITH (NOLOCK) WHERE (AlarmComAccountID = @AlarmComAccountID)
 	END TRY
 	BEGIN CATCH
 		EXEC dbo.wiseSP_ExceptionsThrown;
@@ -80,4 +98,4 @@ GO
 GRANT EXEC ON dbo.custMS_VendorAlarmComAccountsGetByAccountId TO PUBLIC
 GO
 
-/** EXEC dbo.custMS_VendorAlarmComAccountsGetByAccountId 140544*/
+/** EXEC dbo.custMS_VendorAlarmComAccountsGetByAccountId 211217 */
