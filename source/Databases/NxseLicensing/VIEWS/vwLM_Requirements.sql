@@ -47,6 +47,7 @@ AS
 	-- Enter Query here
 	SELECT
 		LMR.RequirementID
+		, LMR.DealerId
 		, LMR.LocationID
 		, LML.LocationName
 		, LMLT.LocationTypeName

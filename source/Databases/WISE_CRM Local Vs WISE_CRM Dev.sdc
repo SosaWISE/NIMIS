@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--
-SQL Compare
-SQL Compare
-Version:10.7.0.18-->
+SQL Data Compare
+SQL Data Compare
+Version:10.4.8.62-->
 <Project version="2" type="SQLComparisonToolsProject">
   <DataSource1 version="3" type="LiveDatabaseSource">
     <ServerName>db1.dev.nexsense.com</ServerName>
@@ -24,7 +24,7 @@ Version:10.7.0.18-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>04/14/2015 12:37:54</LastCompared>
+  <LastCompared>05/07/2015 17:02:06</LastCompared>
   <Options>Default, ObjectExistenceChecks, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
@@ -609,6 +609,14 @@ Version:10.7.0.18-->
     <value version="1" type="SelectTableEvent">
       <action>SelectItem</action>
       <val>[dbo].[MC_Holidays]:[dbo].[MC_Holidays]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_VendorAlarmComAccounts]:[dbo].[MS_VendorAlarmComAccounts]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_ReceiverLineVendorAlarmComAccountsMap]:[dbo].[MS_ReceiverLineVendorAlarmComAccountsMap]</val>
     </value>
   </TableActions>
   <SessionSettings>15</SessionSettings>

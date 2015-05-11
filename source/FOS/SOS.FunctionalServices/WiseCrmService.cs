@@ -2113,7 +2113,7 @@ namespace SOS.FunctionalServices
 			var result = new FnsResult<IFnsVerifyAddress>
 				{
 					Code = (int)ErrorCodes.GeneralMessage,
-					Message = "Initializing UpdateDevice"
+					Message = "Initializing AddressVerify"
 				};
 
 			#endregion INITIALIZATION

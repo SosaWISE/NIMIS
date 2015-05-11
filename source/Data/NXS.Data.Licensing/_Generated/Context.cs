@@ -126,6 +126,16 @@ namespace NXS.Data.Licensing
 			}
 		}
 
+		LM_MessageTokenController _LM_MessageTokens;
+		public LM_MessageTokenController LM_MessageTokens
+		{
+			get
+			{
+				if (_LM_MessageTokens == null) _LM_MessageTokens = new LM_MessageTokenController();
+				return _LM_MessageTokens;
+			}
+		}
+
 		LM_NoteController _LM_Notes;
 		public LM_NoteController LM_Notes
 		{
@@ -254,6 +264,7 @@ namespace NXS.Data.Licensing
 	public class LM_LocationController : BaseTableController<LM_Location, LM_LocationCollection> { }
 	public class LM_LocationTypeController : BaseTableController<LM_LocationType, LM_LocationTypeCollection> { }
 	public class LM_LockController : BaseTableController<LM_Lock, LM_LockCollection> { }
+	public class LM_MessageTokenController : BaseTableController<LM_MessageToken, LM_MessageTokenCollection> { }
 	public class LM_NoteController : BaseTableController<LM_Note, LM_NoteCollection> { }
 	public class LM_NoteTypeController : BaseTableController<LM_NoteType, LM_NoteTypeCollection> { }
 	public class LM_RequirementItemController : BaseTableController<LM_RequirementItem, LM_RequirementItemCollection> { }
