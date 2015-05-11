@@ -8,25 +8,25 @@ namespace SOS.FunctionalServices.Models.HumanResource
 	{
 		#region .ctor
 
-		public FnsConnextSalesRanking (RU_UsersSalesRankingConnextView view)
-		{
-			UserID = view.UserID;
-			FirstName = view.FirstName;
-			MiddleName = view.MiddleName;
-			LastName = view.LastName;
-            PhotoURL = view.PhotoURL;
-		    PeriodEndingDate = view.PeriodEndingDate;
-            ResultsType = view.ResultsType;
-			RankingGroup = view.RankingGroup;
-		    RankingPeriod = view.RankingPeriod;
-		    CurrentResults = view.CurrentResults;
-		    CurrentSequence = view.CurrentSequence;
-		    CurrentRanking = view.CurrentRanking;
-            PreviousResults = view.PreviousResults;
-            PreviousSequence = view.PreviousSequence;
-            PreviousRanking = view.PreviousRanking;
+		//public FnsConnextSalesRanking (RU_UsersSalesRankingConnextView view)
+		//{
+		//	UserID = view.UserID;
+		//	FirstName = view.FirstName;
+		//	MiddleName = view.MiddleName;
+		//	LastName = view.LastName;
+		//	PhotoURL = view.PhotoURL;
+		//	PeriodEndingDate = view.PeriodEndingDate;
+		//	ResultsType = view.ResultsType;
+		//	RankingGroup = view.RankingGroup;
+		//	RankingPeriod = view.RankingPeriod;
+		//	CurrentResults = view.CurrentResults;
+		//	CurrentSequence = view.CurrentSequence;
+		//	CurrentRanking = view.CurrentRanking;
+		//	PreviousResults = view.PreviousResults;
+		//	PreviousSequence = view.PreviousSequence;
+		//	PreviousRanking = view.PreviousRanking;
 
-		}
+		//}
 
 		#endregion .ctor
 

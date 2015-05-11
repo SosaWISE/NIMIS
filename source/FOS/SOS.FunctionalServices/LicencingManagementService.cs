@@ -24,7 +24,7 @@ namespace SOS.FunctionalServices
 {
 	public class LicencingManagementService : ILicencingManagementService
 	{
-		public IFnsResult<List<IFnsLmSalesRepRequirementsView>> SalesRepComplianceGet(string salesRepId, string countryId, string stateId, string countyName,
+		public IFnsResult<List<IFnsLmSalesRepRequirementsView>> SalesRepComplianceGet(string salesRepId, int dealerId, string countryId, string stateId, string countyName,
 			string cityName, string townshipName, string gpEmployeeId)
 		{
 			#region INITIALIZATION
@@ -43,7 +43,7 @@ namespace SOS.FunctionalServices
 			{
 				var countryName = SosCrmDataContext.Instance.MC_PoliticalCountries.LoadByPrimaryKey(countryId);
 				var stateName = SosCrmDataContext.Instance.MC_PoliticalStates.LoadByPrimaryKey(stateId);
-				var lmSalesRepRequirementsViewCol = LicensingDataContext.Instance.LM_SalesRepRequirementsViews.GetSalesRepCompliance(countryName.CountryName, stateName.StateName, countyName, cityName, townshipName, salesRepId);
+				var lmSalesRepRequirementsViewCol = LicensingDataContext.Instance.LM_SalesRepRequirementsViews.GetSalesRepCompliance(countryName.CountryName, stateName.StateName, countyName, cityName, townshipName, salesRepId, dealerId);
 				var fnsList = lmSalesRepRequirementsViewCol.Select(feCriteria => new FnsLmSalesRepRequirementsView(feCriteria)).Cast<IFnsLmSalesRepRequirementsView>().ToList();
 
 				result.Message = BaseErrorCodes.ErrorCodes.Success.Message();

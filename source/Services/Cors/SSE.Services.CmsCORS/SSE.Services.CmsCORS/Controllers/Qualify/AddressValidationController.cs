@@ -71,7 +71,7 @@ namespace SSE.Services.CmsCORS.Controllers.Qualify
 				// ** Verify that the Rep Can Sale here
 				var fnsResultValue = (IFnsVerifyAddress)fnsResult.GetValue();
 				var lService = SosServiceEngine.Instance.FunctionalServices.Instance<ILicencingManagementService>();
-				var fnsLResult = lService.SalesRepComplianceGet(fnsResultValue.SalesRepId, fnsResultValue.CountryId,
+				var fnsLResult = lService.SalesRepComplianceGet(fnsResultValue.SalesRepId, address.DealerId, fnsResultValue.CountryId,
 					fnsResultValue.StateId,
 					fnsResultValue.County, fnsResultValue.City, null, user.GPEmployeeID);
 				// // **  Check result
@@ -142,7 +142,7 @@ namespace SSE.Services.CmsCORS.Controllers.Qualify
 				if (fnsResultValue != null)
 				{
 					var lService = SosServiceEngine.Instance.FunctionalServices.Instance<ILicencingManagementService>();
-					var fnsLResult = lService.SalesRepComplianceGet(fnsResultValue.SalesRepId, fnsResultValue.CountryId,
+					var fnsLResult = lService.SalesRepComplianceGet(fnsResultValue.SalesRepId, addressToVerify.DealerId, fnsResultValue.CountryId,
 						fnsResultValue.StateId,
 						fnsResultValue.County, fnsResultValue.City, null, user.GPEmployeeID);
 					// // **  Check result

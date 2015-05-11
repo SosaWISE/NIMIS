@@ -5,6 +5,7 @@ namespace SOS.FunctionalServices.Contracts.Models.HumanResource
 	public interface IFnsSeason
 	{
 		int SeasonID { get; set; }
+		int DealerId { get; set; }
 		int? PreSeasonID { get; set; }
 		string SeasonName { get; set; }
 		DateTime? StartDate { get; set; }
