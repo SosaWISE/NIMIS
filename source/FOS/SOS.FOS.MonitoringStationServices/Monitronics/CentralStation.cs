@@ -101,10 +101,10 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				: "NONE";
 
 
-		    var MoniPanelSysTypeId = msAccount.GetMoniSysTypeId();
-            if (MoniPanelSysTypeId == null)
-                throw new Exception("Main Panel is Missing");
-            var sysTypeId = MoniPanelSysTypeId.SystemTypeID; // SysTypeId = "A1S001"
+			var MoniPanelSysTypeId = msAccount.GetMoniSysTypeId();
+			if (MoniPanelSysTypeId == null)
+				throw new Exception("Main Panel is Missing");
+			var sysTypeId = MoniPanelSysTypeId.SystemTypeID; // SysTypeId = "A1S001"
 			var secSysTypeId = string.Empty;
 			if (msAccount.CellularTypeId.Equals(MS_AccountCellularType.MetaData.Cell_PrimaryID))
 			{
@@ -376,7 +376,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 					ZoneId = zoneInt.ToString(CultureInfo.InvariantCulture),
 					EquipmentLocationId = acctEquipment.EquipmentLocation.MonitronicsCode,
 					EquipmentTypeId = acctEquipment.Equipment.EquipmentType.MonitronicsCode,
-					ZoneComment = zone.Comments,
+					ZoneComment = zone.Comments != null ? zone.Comments.Trim() : null,
 					ZoneStateId = "A"
 				};
 
@@ -448,7 +448,27 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			DataSet dsRaw;
 			string confirmationNumber;
 			string firstErrorMsg;
-			if (!moniService.AccountOnlineTry(msAccount.IndustryAccount.Csid, xmlizedString, out dsRaw, out confirmationNumber, out firstErrorMsg, creditRequestXml, purchaseInfoXml))
+			bool submitted;
+			try
+			{
+				submitted = moniService.AccountOnlineTry(msAccount.IndustryAccount.Csid, xmlizedString, out dsRaw, out confirmationNumber, out firstErrorMsg, creditRequestXml, purchaseInfoXml);
+			}
+			catch (Exception ex)
+			{
+				msAccountSubmit.WasSuccessfull = false;
+				msAccountSubmit.IndustryAccountId = msAccount.IndustryAccountId;
+				msAccountSubmit.DateSubmitted = DateTime.UtcNow;
+				msAccountSubmit.Message = ex.Message;
+				msAccountSubmit.Save(gpEmployeeId);
+
+				return new FosResult<MS_AccountSubmit>
+				{
+					Code = BaseErrorCodes.ErrorCodes.MSAccountOnboardError.Code(),
+					Message = ex.Message,
+					Value = msAccountSubmit,
+				};
+			}
+			if (!submitted)
 			{
 				msAccountSubmit.WasSuccessfull = false;
 				msAccountSubmit.IndustryAccountId = msAccount.IndustryAccountId;
@@ -483,10 +503,8 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 
 				return new FosResult<MS_AccountSubmit>
 				{
-					Code = BaseErrorCodes.ErrorCodes.MSAccountOnboardError.Code()
-					,
-					Message = string.Format(BaseErrorCodes.ErrorCodes.MSAccountOnboardError.Message(), msAccount.AccountID, msAccount.IndustryAccount.Csid, sb)
-					,
+					Code = BaseErrorCodes.ErrorCodes.MSAccountOnboardError.Code(),
+					Message = string.Format(BaseErrorCodes.ErrorCodes.MSAccountOnboardError.Message(), msAccount.AccountID, msAccount.IndustryAccount.Csid, sb),
 					Value = msAccountSubmit
 				};
 			}
@@ -499,10 +517,8 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 
 				return new FosResult<MS_AccountSubmit>
 				{
-					Code = BaseErrorCodes.ErrorCodes.MSAccountOnboardMissingConfNumber.Code()
-					,
-					Message = string.Format(BaseErrorCodes.ErrorCodes.MSAccountOnboardMissingConfNumber.Message(), msAccount.AccountID, msAccount.IndustryAccount.Csid, firstErrorMsg)
-					,
+					Code = BaseErrorCodes.ErrorCodes.MSAccountOnboardMissingConfNumber.Code(),
+					Message = string.Format(BaseErrorCodes.ErrorCodes.MSAccountOnboardMissingConfNumber.Message(), msAccount.AccountID, msAccount.IndustryAccount.Csid, firstErrorMsg),
 					Value = msAccountSubmit
 				};
 			}
