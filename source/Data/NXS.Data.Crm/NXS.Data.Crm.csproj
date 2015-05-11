@@ -48,6 +48,7 @@
     <Compile Include="Classes\AE_Invoice.cs" />
     <Compile Include="Classes\Location.cs" />
     <Compile Include="Classes\MS_AccountPackage.cs" />
+    <Compile Include="Classes\ProductBarcodeLocation.cs" />
     <Compile Include="Classes\RU_Team.cs" />
     <Compile Include="Classes\TS_Team.cs" />
     <Compile Include="Database.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Extensions\AE_InvoiceTableExtensions.cs" />
     <Compile Include="Extensions\AE_PaymentMethodTableExtensions.cs" />
     <Compile Include="Extensions\IE_LocationTypeTableExtensions.cs" />
+    <Compile Include="Extensions\IE_ProductBarcodeTrackingTableExtensions.cs" />
     <Compile Include="Extensions\MC_AddressTableExtensions.cs" />
     <Compile Include="Extensions\MS_AccountHoldTableExtensions.cs" />
     <Compile Include="Extensions\MS_AccountPackageItemTableExtensions.cs" />
