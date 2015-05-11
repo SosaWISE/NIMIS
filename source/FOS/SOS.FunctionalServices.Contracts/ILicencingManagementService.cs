@@ -14,7 +14,7 @@ namespace SOS.FunctionalServices.Contracts
 {
 	public interface ILicencingManagementService : IFunctionalService
 	{
-		IFnsResult<List<IFnsLmSalesRepRequirementsView>> SalesRepComplianceGet(string salesRepId, string countryName, string stateName,
+		IFnsResult<List<IFnsLmSalesRepRequirementsView>> SalesRepComplianceGet(string salesRepId, int dealerId, string countryName, string stateName,
 			string countyName, string cityName, string townshipName, string gpEmployeeId);
 	}
 }
