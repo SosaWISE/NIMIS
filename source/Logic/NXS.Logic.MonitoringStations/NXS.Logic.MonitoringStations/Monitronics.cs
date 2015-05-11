@@ -117,19 +117,18 @@ namespace NXS.Logic.MonitoringStations
 			// ** Initialize
 			var result = false;
 			var services = new WSI();
-			var appIdHeader = new ApplicationIDHeader {appID = "WSI"};
+			var appIdHeader = new ApplicationIDHeader { appID = "WSI" };
 			services.ApplicationIDHeaderValue = appIdHeader;
 			dsResult = null;
 			confirmatioNumber = null;
 			firstErrorMsg = null;
 
+			// ** get something
+			dsResult = services.AccountOnline(_userId, _password, csNo, xmlData, creditRequestXml, purchaseInfoXml);
+			ErrorsOnBoardAccount dsErrors;
+			result = !Utils.ErrorsOnBoardAccountTry(dsResult, out dsErrors, out firstErrorMsg, out confirmatioNumber);
 			try
 			{
-				// ** get something
-				dsResult = services.AccountOnline(_userId, _password, csNo, xmlData, creditRequestXml, purchaseInfoXml);
-				ErrorsOnBoardAccount dsErrors;
-				result = !Utils.ErrorsOnBoardAccountTry(dsResult, out dsErrors, out firstErrorMsg, out confirmatioNumber);
-
 				// ** For debugging
 				if (!result)
 				{
@@ -138,10 +137,10 @@ namespace NXS.Logic.MonitoringStations
 						Console.WriteLine("TableName: {0} | EntryId: {1} | SiteNo: {2} | CsNo: {3} | ErrNo: {4} | MsgType: {5} | ErrText: {6} | ErrDate: {7}"
 							, row.Istable_nameNull() ? null : row.table_name
 							, row.Isentry_idNull() ? null : row.entry_id
-							, row.Issite_noNull() ? (int?) null : row.site_no
+							, row.Issite_noNull() ? (int?)null : row.site_no
 							, row.Iscs_noNull() ? null : row.cs_no
-							, row.Iserr_noNull() ? (int?) null : row.err_no
-							, row.Ismsg_typeNull() ? (byte?) null : row.msg_type
+							, row.Iserr_noNull() ? (int?)null : row.err_no
+							, row.Ismsg_typeNull() ? (byte?)null : row.msg_type
 							, row.Iserr_textNull() ? null : row.err_text
 							, row.Iserr_dateNull() ? (DateTime?)null : row.err_date);
 					}
@@ -161,7 +160,7 @@ namespace NXS.Logic.MonitoringStations
 			// ** Initialize
 			var hasErrors = false;
 			var services = new WSI();
-			var appIdHeader = new ApplicationIDHeader {appID = "WSI"};
+			var appIdHeader = new ApplicationIDHeader { appID = "WSI" };
 			dsResult = null;
 			services.ApplicationIDHeaderValue = appIdHeader;
 
@@ -262,17 +261,17 @@ namespace NXS.Logic.MonitoringStations
 		{
 			return new MS_AccountSubmitM
 			{
-					AccountSubmitId = msAccountSubmit.AccountSubmitID,
-					TableName = row.table_name,
-					EntryId = row.entry_id,
-					SiteNo = row.site_no,
-					CsNo = row.cs_no,
-					ErrNo = row.err_no,
-					MsgType = row.msg_type,
-					ErrText = row.err_text,
-					ErrDate = row.err_date,
-					CreatedBy = msAccountSubmit.CreatedBy,
-					CreatedOn = DateTime.UtcNow
+				AccountSubmitId = msAccountSubmit.AccountSubmitID,
+				TableName = row.table_name,
+				EntryId = row.entry_id,
+				SiteNo = row.site_no,
+				CsNo = row.cs_no,
+				ErrNo = row.err_no,
+				MsgType = row.msg_type,
+				ErrText = row.err_text,
+				ErrDate = row.err_date,
+				CreatedBy = msAccountSubmit.CreatedBy,
+				CreatedOn = DateTime.UtcNow
 			};
 		}
 
@@ -281,7 +280,7 @@ namespace NXS.Logic.MonitoringStations
 			#region INITIALIZE
 			// ** Initialize
 			bool hasErrors;
-			var accountSubmit = MS_AccountSubmit.CreateFromParent(parentAccountSubmit, (short) MS_AccountSubmitType.AccountSubmitTypeEnum.Pull_Panel);
+			var accountSubmit = MS_AccountSubmit.CreateFromParent(parentAccountSubmit, (short)MS_AccountSubmitType.AccountSubmitTypeEnum.Pull_Panel);
 			accountSubmit.Save(parentAccountSubmit.CreatedBy);
 			var services = new WSI();
 			var appIdHeader = new ApplicationIDHeader { appID = "WSI" };
@@ -309,7 +308,7 @@ namespace NXS.Logic.MonitoringStations
 			}
 			catch (Exception ex)
 			{
-				
+
 // ReSharper disable once PossibleIntendedRethrow
 				throw ex;
 			}
