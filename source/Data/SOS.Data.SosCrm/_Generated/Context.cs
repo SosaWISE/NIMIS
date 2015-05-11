@@ -2546,6 +2546,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MS_ReceiverLineVendorAlarmComAccountsMapController _MS_ReceiverLineVendorAlarmComAccountsMaps;
+		public MS_ReceiverLineVendorAlarmComAccountsMapController MS_ReceiverLineVendorAlarmComAccountsMaps
+		{
+			get
+			{
+				if (_MS_ReceiverLineVendorAlarmComAccountsMaps == null) _MS_ReceiverLineVendorAlarmComAccountsMaps = new MS_ReceiverLineVendorAlarmComAccountsMapController();
+				return _MS_ReceiverLineVendorAlarmComAccountsMaps;
+			}
+		}
+
 		MS_TimeZoneLookupController _MS_TimeZoneLookups;
 		public MS_TimeZoneLookupController MS_TimeZoneLookups
 		{
@@ -3690,6 +3700,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MS_LeadTakeOversViewController _MS_LeadTakeOversViews;
+		public MS_LeadTakeOversViewController MS_LeadTakeOversViews
+		{
+			get
+			{
+				if (_MS_LeadTakeOversViews == null) _MS_LeadTakeOversViews = new MS_LeadTakeOversViewController();
+				return _MS_LeadTakeOversViews;
+			}
+		}
+
 		MS_MonitronicsEntitySystemTypeXRefViewController _MS_MonitronicsEntitySystemTypeXRefViews;
 		public MS_MonitronicsEntitySystemTypeXRefViewController MS_MonitronicsEntitySystemTypeXRefViews
 		{
@@ -4176,6 +4196,7 @@ namespace SOS.Data.SosCrm
 	public class MS_ReceiverLineBlockTelguardController : BaseTableController<MS_ReceiverLineBlockTelguard, MS_ReceiverLineBlockTelguardCollection> { }
 	public class MS_ReceiverLineController : BaseTableController<MS_ReceiverLine, MS_ReceiverLineCollection> { }
 	public class MS_ReceiverLineTypeController : BaseTableController<MS_ReceiverLineType, MS_ReceiverLineTypeCollection> { }
+	public class MS_ReceiverLineVendorAlarmComAccountsMapController : BaseTableController<MS_ReceiverLineVendorAlarmComAccountsMap, MS_ReceiverLineVendorAlarmComAccountsMapCollection> { }
 	public class MS_TimeZoneLookupController : BaseTableController<MS_TimeZoneLookup, MS_TimeZoneLookupCollection> { }
 	public class MS_VendorAlarmComAccountController : BaseTableController<MS_VendorAlarmComAccount, MS_VendorAlarmComAccountCollection> { }
 	public class MS_VendorAlarmComAddOnFeatureController : BaseTableController<MS_VendorAlarmComAddOnFeature, MS_VendorAlarmComAddOnFeatureCollection> { }
@@ -4295,6 +4316,7 @@ namespace SOS.Data.SosCrm
 	public class MS_IndustryAccountNumbersViewController : BaseViewController<MS_IndustryAccountNumbersView, MS_IndustryAccountNumbersViewCollection> { }
 	public class MS_IndustryAccountNumbersWithReceiverLineInfoViewController : BaseViewController<MS_IndustryAccountNumbersWithReceiverLineInfoView, MS_IndustryAccountNumbersWithReceiverLineInfoViewCollection> { }
 	public class MS_IndustryNumberByCallerIdViewController : BaseViewController<MS_IndustryNumberByCallerIdView, MS_IndustryNumberByCallerIdViewCollection> { }
+	public class MS_LeadTakeOversViewController : BaseViewController<MS_LeadTakeOversView, MS_LeadTakeOversViewCollection> { }
 	public class MS_MonitronicsEntitySystemTypeXRefViewController : BaseViewController<MS_MonitronicsEntitySystemTypeXRefView, MS_MonitronicsEntitySystemTypeXRefViewCollection> { }
 	public class MS_ReceiverBlockCellDeviceInfoViewController : BaseViewController<MS_ReceiverBlockCellDeviceInfoView, MS_ReceiverBlockCellDeviceInfoViewCollection> { }
 	public class QL_CreditReportTransactionAndTokenViewController : BaseViewController<QL_CreditReportTransactionAndTokenView, QL_CreditReportTransactionAndTokenViewCollection> { }

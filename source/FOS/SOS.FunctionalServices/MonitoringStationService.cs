@@ -2788,5 +2788,58 @@ namespace SOS.FunctionalServices
 		}
 
 		#endregion Dispatch Agency Assignments
+
+		#region Slammed Accounts
+		public IFnsResult<IFnsMsLeadTakeOver> SlammedAccountsCheck(long? accountId, string gpEmployeeId)
+		{
+			#region INITIALIZATION
+
+			// ** Initialize 
+			const string METHOD_NAME = "SlammedAccountsCheck";
+			var result = new FnsResult<IFnsMsLeadTakeOver>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+				Message = string.Format("Initializing '{0}'", METHOD_NAME)
+			};
+
+			#endregion INITIALIZATION
+
+			#region TRY
+			try
+			{
+				// ** Get tuple
+				var tuple = SosCrmDataContext.Instance.MS_LeadTakeOversViews.LoadSingle(SosCrmDataStoredProcedureManager.MS_LeadTakeOverViewGetByAccountId(accountId));
+
+				if (!tuple.IsLoaded)
+					return new FnsResult<IFnsMsLeadTakeOver>
+					{
+						Code = (int)ErrorCodes.SqlItemNotFound,
+						Message = "Sorry but that AccountID did not return any sales information."
+					};
+
+				// ** Set result values
+				result.Code = (int)ErrorCodes.Success;
+				result.Message = "Success";
+				result.Value = new FnsMsLeadTakeOver(tuple);
+			}
+			#endregion TRY
+
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<IFnsMsLeadTakeOver>
+				{
+					Code = (int)ErrorCodes.UnexpectedException,
+					Message = string.Format("Exception thrown at '{1}': {0}", ex.Message, METHOD_NAME)
+				};
+			}
+
+			#endregion CATCH
+
+			// ** Return result
+			return result;
+		}
+
+		#endregion Slammed Accounts
 	}
 }

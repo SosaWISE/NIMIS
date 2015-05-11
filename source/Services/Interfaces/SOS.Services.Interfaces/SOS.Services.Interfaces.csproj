@@ -151,6 +151,7 @@
     <Compile Include="Models\MonitoringStation\MsIndustryAccount.cs" />
     <Compile Include="Models\MonitoringStation\MsIndustryAccountReq.cs" />
     <Compile Include="Models\MonitoringStation\MsIndustryAccountWithReceiverLineInfo.cs" />
+    <Compile Include="Models\MonitoringStation\MsLeadTakeOver.cs" />
     <Compile Include="Models\MonitoringStation\MsSignalHistoryItem.cs" />
     <Compile Include="Models\NxsVerifyAddressAndLicensing.cs" />
     <Compile Include="Models\QualifyLead\IQlQualifyCustomerInfo.cs" />
