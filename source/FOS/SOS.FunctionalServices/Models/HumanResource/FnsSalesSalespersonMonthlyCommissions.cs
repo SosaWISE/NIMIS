@@ -9,27 +9,28 @@ namespace SOS.FunctionalServices.Models.HumanResource
     {
         #region .ctor
 
-        public FnsSalesSalespersonMonthlyCommissions(SAE_SalesSalespersonMonthlyCommissionsView view)
-        {
-	        UserID = view.UserID;
-	        ContractDate = view.ContractDate;
-	        SalesMonth = view.SalesMonth;
-	        SalesYear = view.SalesYear;
-	        CustomerMasterFileID = view.CustomerMasterFileID;
-	        CustomerFirstName = view.CustomerFirstName;
-	        CustomerMiddleName = view.CustomerMiddleName;
-	        CustomerLastName = view.CustomerLastName;
-	        CreditRating = view.CreditRating;
-	        ActivationFeeAmt = view.ActivationFeeAmt;
-	        ContractLength = view.ContractLength;
-	        ServiceType = view.ServiceType;
-	        MonthlyPaymentAmt = view.MonthlyPaymentAmt;
-	        PaymentMethod = view.PaymentMethod;
-	        SalesCommissionAmt = view.SalesCommissionAmt;
-	        RecurringCommissionAmt = view.RecurringCommissionAmt;
-	        IsActive = view.isActive;
-        }
-        #endregion .ctor
+		//public FnsSalesSalespersonMonthlyCommissions(SAE_SalesSalespersonMonthlyCommissionsView view)
+		//{
+		//	UserID = view.UserID;
+		//	ContractDate = view.ContractDate;
+		//	SalesMonth = view.SalesMonth;
+		//	SalesYear = view.SalesYear;
+		//	CustomerMasterFileID = view.CustomerMasterFileID;
+		//	CustomerFirstName = view.CustomerFirstName;
+		//	CustomerMiddleName = view.CustomerMiddleName;
+		//	CustomerLastName = view.CustomerLastName;
+		//	CreditRating = view.CreditRating;
+		//	ActivationFeeAmt = view.ActivationFeeAmt;
+		//	ContractLength = view.ContractLength;
+		//	ServiceType = view.ServiceType;
+		//	MonthlyPaymentAmt = view.MonthlyPaymentAmt;
+		//	PaymentMethod = view.PaymentMethod;
+		//	SalesCommissionAmt = view.SalesCommissionAmt;
+		//	RecurringCommissionAmt = view.RecurringCommissionAmt;
+		//	IsActive = view.isActive;
+		//}
+
+		#endregion .ctor
 
         #region Properties
         public int UserID { get; private set; }

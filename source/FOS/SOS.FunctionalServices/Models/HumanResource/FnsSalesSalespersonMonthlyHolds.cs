@@ -9,22 +9,23 @@ namespace SOS.FunctionalServices.Models.HumanResource
     {
         #region .ctor
 
-        public FnsSalesSalespersonMonthlyHolds(SAE_SalesSalespersonMonthlyHoldsView view)
-        {
-	    UserID = view.UserID;
-	    ContractDate = view.ContractDate;
-	    SalesMonth = view.SalesMonth;
-	    SalesYear = view.SalesYear;
-	    CustomerMasterFileID = view.CustomerMasterFileID;
-	    AccountID = view.AccountID;
-	    CustomerFirstName = view.CustomerFirstName;
-	    CustomerMiddleName = view.CustomerMiddleName;
-	    CustomerLastName = view.CustomerLastName;
-	    HoldName = view.HoldName;
-	    HoldDescription = view.HoldDescription;
-	    HoldAmt = view.HoldAmt;
-        }
-        #endregion .ctor
+		//public FnsSalesSalespersonMonthlyHolds(SAE_SalesSalespersonMonthlyHoldsView view)
+		//{
+		//UserID = view.UserID;
+		//ContractDate = view.ContractDate;
+		//SalesMonth = view.SalesMonth;
+		//SalesYear = view.SalesYear;
+		//CustomerMasterFileID = view.CustomerMasterFileID;
+		//AccountID = view.AccountID;
+		//CustomerFirstName = view.CustomerFirstName;
+		//CustomerMiddleName = view.CustomerMiddleName;
+		//CustomerLastName = view.CustomerLastName;
+		//HoldName = view.HoldName;
+		//HoldDescription = view.HoldDescription;
+		//HoldAmt = view.HoldAmt;
+		//}
+
+		#endregion .ctor
 
         #region Properties
         public int UserID { get; private set; }

@@ -8,21 +8,22 @@ namespace SOS.FunctionalServices.Models.HumanResource
     {
         #region .ctor
 
-        public FnsSalesSalespersonMonthlyEarningsSummary(SAE_SalesSalespersonMonthlyEarningsView view)
-        {
-	        UserID = view.UserID;
-	        SalesMonth = view.SalesMonth;
-	        SalesYear = view.SalesYear;
-	        SalesAmt = view.SalesAmt;
-	        RecurringAmt = view.RecurringAmt;
-	        RecruitingAmt = view.RecruitingAmt;
-	        BonusAmt = view.BonusAmt;
-	        DeductionAmt = view.DeductionAmt;
-	        HoldAmt = view.HoldAmt;
-	        TotalCommissionAmt = view.TotalCommissionAmt;
-	        YTDIncentiveBonusAmt = view.YTDIncentiveBonusAmt;
-        }
-        #endregion .ctor
+		//public FnsSalesSalespersonMonthlyEarningsSummary(SAE_SalesSalespersonMonthlyEarningsView view)
+		//{
+		//	UserID = view.UserID;
+		//	SalesMonth = view.SalesMonth;
+		//	SalesYear = view.SalesYear;
+		//	SalesAmt = view.SalesAmt;
+		//	RecurringAmt = view.RecurringAmt;
+		//	RecruitingAmt = view.RecruitingAmt;
+		//	BonusAmt = view.BonusAmt;
+		//	DeductionAmt = view.DeductionAmt;
+		//	HoldAmt = view.HoldAmt;
+		//	TotalCommissionAmt = view.TotalCommissionAmt;
+		//	YTDIncentiveBonusAmt = view.YTDIncentiveBonusAmt;
+		//}
+
+		#endregion .ctor
 
         #region Properties
         public int UserID { get; private set; }

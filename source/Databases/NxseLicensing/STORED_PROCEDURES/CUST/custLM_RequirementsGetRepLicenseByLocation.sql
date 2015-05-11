@@ -33,7 +33,7 @@ GO
 **	Date:		Author:			Description:
 **	-----------	---------------	-----------------------------------------------
 **	10/15/2014	Andres Sosa		Created By
-** EXEC dbo.custLM_RequirementsGetRepLicenseByLocation 'UNITED STATES OF AMERICA', 'VIRGINIA', 'PORTSMOUTH CITY COUNTY', 'PORTSMOUTH', NULL, 'SOSAA001'
+** EXEC dbo.custLM_RequirementsGetRepLicenseByLocation 'UNITED STATES OF AMERICA', 'VIRGINIA', 'PORTSMOUTH CITY COUNTY', 'PORTSMOUTH', NULL, 'SOSAA001', 5001
 *******************************************************************************/
 CREATE Procedure dbo.custLM_RequirementsGetRepLicenseByLocation
 (
@@ -43,6 +43,7 @@ CREATE Procedure dbo.custLM_RequirementsGetRepLicenseByLocation
 	, @CityName NVARCHAR(MAX) = NULL
 	, @TownshipName NVARCHAR(MAX) = NULL
 	, @GPEmployeeID NVARCHAR(10) = NULL
+	, @DealerId INT = 5000
 )
 AS
 BEGIN
@@ -95,6 +96,7 @@ BEGIN
 			LEFT OUTER JOIN LM_Licenses AS LML WITH (NOLOCK)
 			ON	
 				(LMR.RequirementID = LML.RequirementID)
+				AND (LMR.DealerId = @DealerId)
 				AND (LML.IsActive = 1)
 				AND (LML.IsDeleted = 0)
 				AND (LMR.IsActive = 1)
@@ -144,6 +146,7 @@ BEGIN
 			INNER JOIN vwLM_Requirements AS LMR WITH (NOLOCK)
 			ON
 				(Country.LocationID = LMR.LocationID)
+				AND (LMR.DealerId = @DealerId)
 				AND (LMR.IsActive = 1)
 				AND (LMR.IsDeleted = 0)
 			LEFT OUTER JOIN LM_Licenses AS LML WITH (NOLOCK)
@@ -202,6 +205,7 @@ BEGIN
 			INNER JOIN vwLM_Requirements AS LMR WITH (NOLOCK)
 			ON
 				([State].LocationID = LMR.LocationID)
+				AND (LMR.DealerId = @DealerId)
 				AND (LMR.IsActive = 1)
 				AND (LMR.IsDeleted = 0)
 			LEFT OUTER JOIN LM_Licenses AS LML WITH (NOLOCK)
@@ -267,6 +271,7 @@ BEGIN
 			INNER JOIN vwLM_Requirements AS LMR WITH (NOLOCK)
 			ON
 				(County.LocationID = LMR.LocationID)
+				AND (LMR.DealerId = @DealerId)
 				AND (LMR.RequirementTypeID = @SalesRepReqTypeID) -- Rep Requirement
 				AND (LMR.IsActive = 1)
 				AND (LMR.IsDeleted = 0)
@@ -332,6 +337,7 @@ BEGIN
 			INNER JOIN vwLM_Requirements AS LMR WITH (NOLOCK)
 			ON
 				(City.LocationID = LMR.LocationID)
+				AND (LMR.DealerId = @DealerId)
 				AND (LMR.IsActive = 1)
 				AND (LMR.IsDeleted = 0)
 			LEFT OUTER JOIN LM_Licenses AS LML WITH (NOLOCK)
@@ -405,6 +411,7 @@ BEGIN
 			INNER JOIN vwLM_Requirements AS LMR WITH (NOLOCK)
 			ON
 				Township.LocationID = LMR.LocationID
+				AND (LMR.DealerId = @DealerId)
 				AND LMR.IsActive = 1
 				AND LMR.IsDeleted = 0 
 			LEFT OUTER JOIN LM_Licenses AS LML WITH (NOLOCK)

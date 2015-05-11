@@ -11,6 +11,7 @@ namespace SOS.FunctionalServices.Models.HumanResource
 		public FnsSeason(RU_Season season)
 		{
 			SeasonID = season.SeasonID;
+			DealerId = season.DealerId;
 			PreSeasonID = season.PreSeasonID;
 			SeasonName = season.SeasonName;
 			StartDate = season.StartDate;
@@ -38,6 +39,7 @@ namespace SOS.FunctionalServices.Models.HumanResource
 		#region Properties
 		
 		public int SeasonID { get; set; }
+		public int DealerId { get; set; }
 		public int? PreSeasonID { get; set; }
 		public string SeasonName { get; set; }
 		public DateTime? StartDate { get; set; }
