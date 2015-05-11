@@ -126,7 +126,7 @@ namespace NXS.Data.Licensing {
 			sp.Command.AddParameter("@GPEmployeeID", GPEmployeeID, DbType.String);
 			return sp;
 		}
-		public static StoredProcedure LM_RequirementsGetRepLicenseByLocation(string CountryName,string StateName,string CountyName,string CityName,string TownshipName,string GPEmployeeID,int? SeasonId) {
+		public static StoredProcedure LM_RequirementsGetRepLicenseByLocation(string CountryName,string StateName,string CountyName,string CityName,string TownshipName,string GPEmployeeID,int? DealerId) {
 			StoredProcedure sp = new StoredProcedure("custLM_RequirementsGetRepLicenseByLocation" ,DataService.GetInstance("NxsLicensingProvider"));
 			sp.Command.AddParameter("@CountryName", CountryName, DbType.String);
 			sp.Command.AddParameter("@StateName", StateName, DbType.String);
@@ -134,7 +134,7 @@ namespace NXS.Data.Licensing {
 			sp.Command.AddParameter("@CityName", CityName, DbType.String);
 			sp.Command.AddParameter("@TownshipName", TownshipName, DbType.String);
 			sp.Command.AddParameter("@GPEmployeeID", GPEmployeeID, DbType.String);
-			sp.Command.AddParameter("@SeasonId", SeasonId, DbType.Int32);
+			sp.Command.AddParameter("@DealerId", DealerId, DbType.Int32);
 			return sp;
 		}
 		public static StoredProcedure LM_RequirementsGetTechLicenseByCityName(string CityName,string GPEmployeeID) {

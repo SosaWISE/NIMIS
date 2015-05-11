@@ -7,73 +7,73 @@ namespace SOS.FunctionalServices.Models.HumanResource
 	public class FnsConnextSalesRepExtendedInfo : IFnsConnextSalesRepExtendedInfo
 	{
 		#region .ctor
-		public FnsConnextSalesRepExtendedInfo(RU_UsersSalesInfoConnextView view)
-		{
-			UserID = view.UserID;
-			FirstName = view.FirstName;
-			MiddleName = view.MiddleName;
-			LastName = view.LastName;
-            PhotoURL = view.PhotoURL;
-            MLMDepth = view.MLMDepth;
-			ManagerHasOwnTeam = view.ManagerHasOwnTeam;
-		    RegionName = view.RegionName;
-		    OfficeName = view.OfficeName;
-		    TeamName = view.TeamName;
-		    CurrentNationalRank = view.CurrentNationalRank;
-		    PreviousNationalRank = view.PreviousNationalRank;
-		    CurrentRegionalRank = view.CurrentRegionalRank;
-		    PreviousRegionalRank = view.PreviousRegionalRank;
-		    CurrentOfficeRank = view.CurrentOfficeRank;
-		    PreviousOfficeRank = view.PreviousOfficeRank;
-		    CurrentTeamRank = view.CurrentTeamRank;
-		    PreviousTeamRank = view.PreviousTeamRank;
-		    StartDate = view.StartDate;
-		    Email = view.Email;
+		//public FnsConnextSalesRepExtendedInfo(RU_UsersSalesInfoConnextView view)
+		//{
+		//	UserID = view.UserID;
+		//	FirstName = view.FirstName;
+		//	MiddleName = view.MiddleName;
+		//	LastName = view.LastName;
+		//	PhotoURL = view.PhotoURL;
+		//	MLMDepth = view.MLMDepth;
+		//	ManagerHasOwnTeam = view.ManagerHasOwnTeam;
+		//	RegionName = view.RegionName;
+		//	OfficeName = view.OfficeName;
+		//	TeamName = view.TeamName;
+		//	CurrentNationalRank = view.CurrentNationalRank;
+		//	PreviousNationalRank = view.PreviousNationalRank;
+		//	CurrentRegionalRank = view.CurrentRegionalRank;
+		//	PreviousRegionalRank = view.PreviousRegionalRank;
+		//	CurrentOfficeRank = view.CurrentOfficeRank;
+		//	PreviousOfficeRank = view.PreviousOfficeRank;
+		//	CurrentTeamRank = view.CurrentTeamRank;
+		//	PreviousTeamRank = view.PreviousTeamRank;
+		//	StartDate = view.StartDate;
+		//	Email = view.Email;
 
-		}
+		//}
 
-		public FnsConnextSalesRepExtendedInfo(RU_UsersSalesInfoExtendedConnextView view)
-		{
-    	    UserID = view.UserID;
-	        FirstName = view.FirstName;
-	        MiddleName = view.MiddleName;
-	        LastName = view.LastName;
-	        PhotoURL = view.PhotoURL;
-	        MLMDepth = view.MLMDepth;
-	        ManagerHasOwnTeam = view.ManagerHasOwnTeam;
-	        RegionName = view.RegionName;
-	        OfficeName = view.OfficeName;
-	        TeamName = view.TeamName;
-	        CurrentNationalRank = view.CurrentNationalRank;
-	        PreviousNationalRank = view.PreviousNationalRank;
-	        CurrentRegionalRank = view.CurrentRegionalRank;
-	        PreviousRegionalRank = view.PreviousRegionalRank;
-	        CurrentOfficeRank = view.CurrentOfficeRank;
-	        PreviousOfficeRank = view.PreviousOfficeRank;
-	        CurrentTeamRank = view.CurrentTeamRank;
-	        PreviousTeamRank = view.PreviousTeamRank;
-	        StartDate = view.StartDate;
-	        Phone = view.Phone;
-	        Email = view.Email;
-	        StreetAddress = view.StreetAddress;
-	        StreetAddress2 = view.StreetAddress2;
-	        City = view.City;
-	        State = view.State;
-	        Zip = view.Zip;
-	        WeeklySalesGoal = view.WeeklySalesGoal;
-	        MonthlySalesGoal = view.MonthlySalesGoal;
-	        YearlySalesGoal = view.YearlySalesGoal;
-	        WeeklyQualityGoal = view.WeeklyQualityGoal;
-	        MonthlyQualityGoal = view.MonthlyQualityGoal;
-	        YearlyQualityGoal = view.YearlyQualityGoal;
-	        License1 = view.License1;
-	        License1URL = view.License1URL;
-	        License2 = view.License2;
-	        License2URL = view.License2URL;
-	        License3 = view.License3;
-	        License3URL = view.License3URL;
+		//public FnsConnextSalesRepExtendedInfo(RU_UsersSalesInfoExtendedConnextView view)
+		//{
+		//	UserID = view.UserID;
+		//	FirstName = view.FirstName;
+		//	MiddleName = view.MiddleName;
+		//	LastName = view.LastName;
+		//	PhotoURL = view.PhotoURL;
+		//	MLMDepth = view.MLMDepth;
+		//	ManagerHasOwnTeam = view.ManagerHasOwnTeam;
+		//	RegionName = view.RegionName;
+		//	OfficeName = view.OfficeName;
+		//	TeamName = view.TeamName;
+		//	CurrentNationalRank = view.CurrentNationalRank;
+		//	PreviousNationalRank = view.PreviousNationalRank;
+		//	CurrentRegionalRank = view.CurrentRegionalRank;
+		//	PreviousRegionalRank = view.PreviousRegionalRank;
+		//	CurrentOfficeRank = view.CurrentOfficeRank;
+		//	PreviousOfficeRank = view.PreviousOfficeRank;
+		//	CurrentTeamRank = view.CurrentTeamRank;
+		//	PreviousTeamRank = view.PreviousTeamRank;
+		//	StartDate = view.StartDate;
+		//	Phone = view.Phone;
+		//	Email = view.Email;
+		//	StreetAddress = view.StreetAddress;
+		//	StreetAddress2 = view.StreetAddress2;
+		//	City = view.City;
+		//	State = view.State;
+		//	Zip = view.Zip;
+		//	WeeklySalesGoal = view.WeeklySalesGoal;
+		//	MonthlySalesGoal = view.MonthlySalesGoal;
+		//	YearlySalesGoal = view.YearlySalesGoal;
+		//	WeeklyQualityGoal = view.WeeklyQualityGoal;
+		//	MonthlyQualityGoal = view.MonthlyQualityGoal;
+		//	YearlyQualityGoal = view.YearlyQualityGoal;
+		//	License1 = view.License1;
+		//	License1URL = view.License1URL;
+		//	License2 = view.License2;
+		//	License2URL = view.License2URL;
+		//	License3 = view.License3;
+		//	License3URL = view.License3URL;
 
-		}
+		//}
 
 		#endregion .ctor
 

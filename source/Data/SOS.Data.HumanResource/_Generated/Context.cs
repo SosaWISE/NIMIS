@@ -2126,16 +2126,6 @@ namespace SOS.Data.HumanResource
 			}
 		}
 
-		SAE_GPBulkCopyTestTableController _SAE_GPBulkCopyTestTables;
-		public SAE_GPBulkCopyTestTableController SAE_GPBulkCopyTestTables
-		{
-			get
-			{
-				if (_SAE_GPBulkCopyTestTables == null) _SAE_GPBulkCopyTestTables = new SAE_GPBulkCopyTestTableController();
-				return _SAE_GPBulkCopyTestTables;
-			}
-		}
-
 		SAE_GPRM00103Controller _SAE_GPRM00103S;
 		public SAE_GPRM00103Controller SAE_GPRM00103S
 		{
@@ -2400,16 +2390,6 @@ namespace SOS.Data.HumanResource
 			}
 		}
 
-		AE_CustomersGetCustomerInfoConnextViewController _AE_CustomersGetCustomerInfoConnextViews;
-		public AE_CustomersGetCustomerInfoConnextViewController AE_CustomersGetCustomerInfoConnextViews
-		{
-			get
-			{
-				if (_AE_CustomersGetCustomerInfoConnextViews == null) _AE_CustomersGetCustomerInfoConnextViews = new AE_CustomersGetCustomerInfoConnextViewController();
-				return _AE_CustomersGetCustomerInfoConnextViews;
-			}
-		}
-
 		RU_RecruitUserViewController _RU_RecruitUserViews;
 		public RU_RecruitUserViewController RU_RecruitUserViews
 		{
@@ -2500,13 +2480,13 @@ namespace SOS.Data.HumanResource
 			}
 		}
 
-		RU_UsersAccountListConnextViewController _RU_UsersAccountListConnextViews;
-		public RU_UsersAccountListConnextViewController RU_UsersAccountListConnextViews
+		RU_UserSalesInfoConnextViewController _RU_UserSalesInfoConnextViews;
+		public RU_UserSalesInfoConnextViewController RU_UserSalesInfoConnextViews
 		{
 			get
 			{
-				if (_RU_UsersAccountListConnextViews == null) _RU_UsersAccountListConnextViews = new RU_UsersAccountListConnextViewController();
-				return _RU_UsersAccountListConnextViews;
+				if (_RU_UserSalesInfoConnextViews == null) _RU_UserSalesInfoConnextViews = new RU_UserSalesInfoConnextViewController();
+				return _RU_UserSalesInfoConnextViews;
 			}
 		}
 
@@ -2520,46 +2500,6 @@ namespace SOS.Data.HumanResource
 			}
 		}
 
-		RU_UsersGetDetailedStatisticsConnextViewController _RU_UsersGetDetailedStatisticsConnextViews;
-		public RU_UsersGetDetailedStatisticsConnextViewController RU_UsersGetDetailedStatisticsConnextViews
-		{
-			get
-			{
-				if (_RU_UsersGetDetailedStatisticsConnextViews == null) _RU_UsersGetDetailedStatisticsConnextViews = new RU_UsersGetDetailedStatisticsConnextViewController();
-				return _RU_UsersGetDetailedStatisticsConnextViews;
-			}
-		}
-
-		RU_UsersSalesInfoConnextViewController _RU_UsersSalesInfoConnextViews;
-		public RU_UsersSalesInfoConnextViewController RU_UsersSalesInfoConnextViews
-		{
-			get
-			{
-				if (_RU_UsersSalesInfoConnextViews == null) _RU_UsersSalesInfoConnextViews = new RU_UsersSalesInfoConnextViewController();
-				return _RU_UsersSalesInfoConnextViews;
-			}
-		}
-
-		RU_UsersSalesInfoExtendedConnextViewController _RU_UsersSalesInfoExtendedConnextViews;
-		public RU_UsersSalesInfoExtendedConnextViewController RU_UsersSalesInfoExtendedConnextViews
-		{
-			get
-			{
-				if (_RU_UsersSalesInfoExtendedConnextViews == null) _RU_UsersSalesInfoExtendedConnextViews = new RU_UsersSalesInfoExtendedConnextViewController();
-				return _RU_UsersSalesInfoExtendedConnextViews;
-			}
-		}
-
-		RU_UsersSalesRankingConnextViewController _RU_UsersSalesRankingConnextViews;
-		public RU_UsersSalesRankingConnextViewController RU_UsersSalesRankingConnextViews
-		{
-			get
-			{
-				if (_RU_UsersSalesRankingConnextViews == null) _RU_UsersSalesRankingConnextViews = new RU_UsersSalesRankingConnextViewController();
-				return _RU_UsersSalesRankingConnextViews;
-			}
-		}
-
 		RU_UsersTechViewController _RU_UsersTechViews;
 		public RU_UsersTechViewController RU_UsersTechViews
 		{
@@ -2570,33 +2510,13 @@ namespace SOS.Data.HumanResource
 			}
 		}
 
-		SAE_SalesSalespersonMonthlyCommissionsViewController _SAE_SalesSalespersonMonthlyCommissionsViews;
-		public SAE_SalesSalespersonMonthlyCommissionsViewController SAE_SalesSalespersonMonthlyCommissionsViews
+		TechniciansViewController _TechniciansViews;
+		public TechniciansViewController TechniciansViews
 		{
 			get
 			{
-				if (_SAE_SalesSalespersonMonthlyCommissionsViews == null) _SAE_SalesSalespersonMonthlyCommissionsViews = new SAE_SalesSalespersonMonthlyCommissionsViewController();
-				return _SAE_SalesSalespersonMonthlyCommissionsViews;
-			}
-		}
-
-		SAE_SalesSalespersonMonthlyEarningsViewController _SAE_SalesSalespersonMonthlyEarningsViews;
-		public SAE_SalesSalespersonMonthlyEarningsViewController SAE_SalesSalespersonMonthlyEarningsViews
-		{
-			get
-			{
-				if (_SAE_SalesSalespersonMonthlyEarningsViews == null) _SAE_SalesSalespersonMonthlyEarningsViews = new SAE_SalesSalespersonMonthlyEarningsViewController();
-				return _SAE_SalesSalespersonMonthlyEarningsViews;
-			}
-		}
-
-		SAE_SalesSalespersonMonthlyHoldsViewController _SAE_SalesSalespersonMonthlyHoldsViews;
-		public SAE_SalesSalespersonMonthlyHoldsViewController SAE_SalesSalespersonMonthlyHoldsViews
-		{
-			get
-			{
-				if (_SAE_SalesSalespersonMonthlyHoldsViews == null) _SAE_SalesSalespersonMonthlyHoldsViews = new SAE_SalesSalespersonMonthlyHoldsViewController();
-				return _SAE_SalesSalespersonMonthlyHoldsViews;
+				if (_TechniciansViews == null) _TechniciansViews = new TechniciansViewController();
+				return _TechniciansViews;
 			}
 		}
 
@@ -2814,7 +2734,6 @@ namespace SOS.Data.HumanResource
 	public class SAE_AccountInformationController : BaseTableController<SAE_AccountInformation, SAE_AccountInformationCollection> { }
 	public class SAE_AccountsInstalledController : BaseTableController<SAE_AccountsInstalled, SAE_AccountsInstalledCollection> { }
 	public class SAE_DateController : BaseTableController<SAE_Date, SAE_DateCollection> { }
-	public class SAE_GPBulkCopyTestTableController : BaseTableController<SAE_GPBulkCopyTestTable, SAE_GPBulkCopyTestTableCollection> { }
 	public class SAE_GPRM00103Controller : BaseTableController<SAE_GPRM00103, SAE_GPRM00103Collection> { }
 	public class SAE_IndividualSalesRecordController : BaseTableController<SAE_IndividualSalesRecord, SAE_IndividualSalesRecordCollection> { }
 	public class SAE_MaxCreditController : BaseTableController<SAE_MaxCredit, SAE_MaxCreditCollection> { }
@@ -2846,7 +2765,6 @@ namespace SOS.Data.HumanResource
 	public class RecruitUserViewController : BaseViewController<RecruitUserView, RecruitUserViewCollection> { }
 	public class TeamsViewController : BaseViewController<TeamsView, TeamsViewCollection> { }
 	public class TeamSalesManagersViewController : BaseViewController<TeamSalesManagersView, TeamSalesManagersViewCollection> { }
-	public class AE_CustomersGetCustomerInfoConnextViewController : BaseViewController<AE_CustomersGetCustomerInfoConnextView, AE_CustomersGetCustomerInfoConnextViewCollection> { }
 	public class RU_RecruitUserViewController : BaseViewController<RU_RecruitUserView, RU_RecruitUserViewCollection> { }
 	public class RU_RollCallRecordsLatestByRecruitViewController : BaseViewController<RU_RollCallRecordsLatestByRecruitView, RU_RollCallRecordsLatestByRecruitViewCollection> { }
 	public class RU_TeamLocationViewController : BaseViewController<RU_TeamLocationView, RU_TeamLocationViewCollection> { }
@@ -2856,16 +2774,10 @@ namespace SOS.Data.HumanResource
 	public class RU_TechniciansViewController : BaseViewController<RU_TechniciansView, RU_TechniciansViewCollection> { }
 	public class RU_TerminationStatusCurrentStatusViewController : BaseViewController<RU_TerminationStatusCurrentStatusView, RU_TerminationStatusCurrentStatusViewCollection> { }
 	public class RU_TerminationsWithStatusViewController : BaseViewController<RU_TerminationsWithStatusView, RU_TerminationsWithStatusViewCollection> { }
-	public class RU_UsersAccountListConnextViewController : BaseViewController<RU_UsersAccountListConnextView, RU_UsersAccountListConnextViewCollection> { }
+	public class RU_UserSalesInfoConnextViewController : BaseViewController<RU_UserSalesInfoConnextView, RU_UserSalesInfoConnextViewCollection> { }
 	public class RU_UsersCallerIDViewController : BaseViewController<RU_UsersCallerIDView, RU_UsersCallerIDViewCollection> { }
-	public class RU_UsersGetDetailedStatisticsConnextViewController : BaseViewController<RU_UsersGetDetailedStatisticsConnextView, RU_UsersGetDetailedStatisticsConnextViewCollection> { }
-	public class RU_UsersSalesInfoConnextViewController : BaseViewController<RU_UsersSalesInfoConnextView, RU_UsersSalesInfoConnextViewCollection> { }
-	public class RU_UsersSalesInfoExtendedConnextViewController : BaseViewController<RU_UsersSalesInfoExtendedConnextView, RU_UsersSalesInfoExtendedConnextViewCollection> { }
-	public class RU_UsersSalesRankingConnextViewController : BaseViewController<RU_UsersSalesRankingConnextView, RU_UsersSalesRankingConnextViewCollection> { }
 	public class RU_UsersTechViewController : BaseViewController<RU_UsersTechView, RU_UsersTechViewCollection> { }
-	public class SAE_SalesSalespersonMonthlyCommissionsViewController : BaseViewController<SAE_SalesSalespersonMonthlyCommissionsView, SAE_SalesSalespersonMonthlyCommissionsViewCollection> { }
-	public class SAE_SalesSalespersonMonthlyEarningsViewController : BaseViewController<SAE_SalesSalespersonMonthlyEarningsView, SAE_SalesSalespersonMonthlyEarningsViewCollection> { }
-	public class SAE_SalesSalespersonMonthlyHoldsViewController : BaseViewController<SAE_SalesSalespersonMonthlyHoldsView, SAE_SalesSalespersonMonthlyHoldsViewCollection> { }
+	public class TechniciansViewController : BaseViewController<TechniciansView, TechniciansViewCollection> { }
 
 	#endregion //View Controllers
 }

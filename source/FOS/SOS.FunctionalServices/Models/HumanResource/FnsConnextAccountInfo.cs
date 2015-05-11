@@ -8,23 +8,23 @@ namespace SOS.FunctionalServices.Models.HumanResource
     {
         #region .ctor
 
-        public FnsConnextAccountList(RU_UsersAccountListConnextView view)
-        {
-            UserID = view.UserID;
-	        CustomerID = view.CustomerID;
-	        CustomerFirstName = view.CustomerFirstName;
-	        CustomerMiddleName = view.CustomerMiddleName;
-	        CustomerLastName = view.CustomerLastName;
-	        ContractDate = view.ContractDate;
-	        CreditQuality = view.CreditQuality;
-	        ActivationFee = view.ActivationFee;
-	        ContractLength = view.ContractLength;
-	        ServiceType = view.ServiceType;
-	        MonthlyPayment = view.MonthlyPayment;
-	        PaymentMethod = view.PaymentMethod;
-	        TotalCommission = view.TotalCommission;
-	        IsActive = view.isActive;
-        }
+		//public FnsConnextAccountList(RU_UsersAccountListConnextView view)
+		//{
+		//	UserID = view.UserID;
+		//	CustomerID = view.CustomerID;
+		//	CustomerFirstName = view.CustomerFirstName;
+		//	CustomerMiddleName = view.CustomerMiddleName;
+		//	CustomerLastName = view.CustomerLastName;
+		//	ContractDate = view.ContractDate;
+		//	CreditQuality = view.CreditQuality;
+		//	ActivationFee = view.ActivationFee;
+		//	ContractLength = view.ContractLength;
+		//	ServiceType = view.ServiceType;
+		//	MonthlyPayment = view.MonthlyPayment;
+		//	PaymentMethod = view.PaymentMethod;
+		//	TotalCommission = view.TotalCommission;
+		//	IsActive = view.isActive;
+		//}
         #endregion .ctor
 
         #region Properties
