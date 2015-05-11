@@ -960,6 +960,12 @@ namespace NXS.Data.Crm
 			p.Add("@GpEmployeeID", GpEmployeeID);
 			return db.QueryAsync<T>("custMS_IndustryAccountNumbersWithReceiverLineInfoViewByAccountID", p, commandType: System.Data.CommandType.StoredProcedure);
 		}
+		public Task<IEnumerable<T>> MS_LeadTakeOverViewGetByAccountId<T>(long? AccountId)
+		{
+			var p = new Dapper.DynamicParameters();
+			p.Add("@AccountId", AccountId);
+			return db.QueryAsync<T>("custMS_LeadTakeOverViewGetByAccountId", p, commandType: System.Data.CommandType.StoredProcedure);
+		}
 		public Task<IEnumerable<T>> MS_MonitronicsBusRulesNuke<T>()
 		{
 			var p = new Dapper.DynamicParameters();

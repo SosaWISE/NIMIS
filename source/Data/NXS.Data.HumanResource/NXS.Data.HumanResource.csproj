@@ -60,6 +60,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="dbsettings.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

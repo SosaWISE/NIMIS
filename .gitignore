@@ -39,6 +39,8 @@ corspackages
 packages
 webenv
 keyStore/
+source/Clients/Console/SonicDb/Testing/
+dbconfig-creds.json
 
 source.other*/
 *.userprefs

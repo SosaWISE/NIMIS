@@ -212,6 +212,224 @@ namespace NXS.Data.Crm
 		public DateTime CreatedOn { get; set; }
 		public string CreatedBy { get; set; }
 	}
+	public partial class IE_LocationType // IE_LocationTypes
+	{
+		[IgnorePropertyAttribute(true)] public string ID { get { return LocationTypeID; } set { LocationTypeID = value; } }
+		public string LocationTypeID { get; set; }
+		public string LocationTypeName { get; set; }
+		public string TableName { get; set; }
+		public string FieldID { get; set; }
+		public string FieldName { get; set; }
+		public string Comment { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+		public long DEX_ROW_ID { get; set; }
+	}
+	public partial class IE_PackingSlipItem // IE_PackingSlipItems
+	{
+		[IgnorePropertyAttribute(true)] public long ID { get { return PackingSlipItemID; } set { PackingSlipItemID = value; } }
+		public long PackingSlipItemID { get; set; }
+		public int PackingSlipId { get; set; }
+		public string ProductSkwId { get; set; }
+		public string ItemId { get; set; }
+		public int Quantity { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+	}
+	public partial class IE_PackingSlip // IE_PackingSlips
+	{
+		[IgnorePropertyAttribute(true)] public int ID { get { return PackingSlipID; } set { PackingSlipID = value; } }
+		public int PackingSlipID { get; set; }
+		public int PurchaseOrderId { get; set; }
+		public DateTime ArrivalDate { get; set; }
+		public DateTime? CloseDate { get; set; }
+		public string PackingSlipNumber { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+	}
+	public partial class IE_ProductBarcodeBundle // IE_ProductBarcodeBundles
+	{
+		[IgnorePropertyAttribute(true)] public string ID { get { return ProductBarcodeBundleID; } set { ProductBarcodeBundleID = value; } }
+		public string ProductBarcodeBundleID { get; set; }
+		public string ProductBarcodeId { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+		public long DEX_ROW_ID { get; set; }
+	}
+	public partial class IE_ProductBarcode // IE_ProductBarcodes
+	{
+		[IgnorePropertyAttribute(true)] public string ID { get { return ProductBarcodeID; } set { ProductBarcodeID = value; } }
+		public string ProductBarcodeID { get; set; }
+		public long PurchaseOrderItemId { get; set; }
+		public long? PackingSlipItemId { get; set; }
+		public long? LastProductBarcodeTrackingId { get; set; }
+		public string ProductBarcodeBundleId { get; set; }
+		public string SimGUID { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+		public long DEX_ROW_ID { get; set; }
+	}
+	public partial class IE_ProductBarcodeTracking // IE_ProductBarcodeTracking
+	{
+		[IgnorePropertyAttribute(true)] public long ID { get { return ProductBarcodeTrackingID; } set { ProductBarcodeTrackingID = value; } }
+		public long ProductBarcodeTrackingID { get; set; }
+		public string ProductBarcodeTrackingTypeId { get; set; }
+		public string ProductBarcodeId { get; set; }
+		public string LocationTypeID { get; set; }
+		public string LocationID { get; set; }
+		public string Comment { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+	}
+	public partial class IE_ProductBarcodeTrackingType // IE_ProductBarcodeTrackingTypes
+	{
+		[IgnorePropertyAttribute(true)] public string ID { get { return ProductBarcodeTrackingTypeID; } set { ProductBarcodeTrackingTypeID = value; } }
+		public string ProductBarcodeTrackingTypeID { get; set; }
+		public string ProductBarcodeTrackingTypeName { get; set; }
+		public string Comment { get; set; }
+		public bool IsInventoryMove { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+		public long DEX_ROW_ID { get; set; }
+	}
+	public partial class IE_PurchaseOrderItem // IE_PurchaseOrderItems
+	{
+		[IgnorePropertyAttribute(true)] public long ID { get { return PurchaseOrderItemID; } set { PurchaseOrderItemID = value; } }
+		public long PurchaseOrderItemID { get; set; }
+		public int PurchaseOrderId { get; set; }
+		public string ItemId { get; set; }
+		public string WarehouseSiteId { get; set; }
+		public int Quantity { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+	}
+	public partial class IE_PurchaseOrder // IE_PurchaseOrders
+	{
+		[IgnorePropertyAttribute(true)] public int ID { get { return PurchaseOrderID; } set { PurchaseOrderID = value; } }
+		public int PurchaseOrderID { get; set; }
+		public string VendorId { get; set; }
+		public string GPPONumber { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+	}
+	public partial class IE_Received // IE_Received
+	{
+		[IgnorePropertyAttribute(true)] public string ID { get { return WarehouseID; } set { WarehouseID = value; } }
+		public string WarehouseID { get; set; }
+	}
+	public partial class IE_ReturnToManufacturerItem // IE_ReturnToManufacturerItems
+	{
+		[IgnorePropertyAttribute(true)] public string ID { get { return SerialNumberID; } set { SerialNumberID = value; } }
+		public string SerialNumberID { get; set; }
+		public string RtmaNumberID { get; set; }
+		public string Description { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+		public long DEX_ROW_ID { get; set; }
+	}
+	public partial class IE_ReturnToManufacturer // IE_ReturnToManufacturers
+	{
+		[IgnorePropertyAttribute(true)] public string ID { get { return RtmaNumberID; } set { RtmaNumberID = value; } }
+		public string RtmaNumberID { get; set; }
+		public string ManufacturerId { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+		public long DEX_ROW_ID { get; set; }
+	}
+	public partial class IE_StockingLevel // IE_StockingLevels
+	{
+		[IgnorePropertyAttribute(true)] public int ID { get { return StockingLevelID; } set { StockingLevelID = value; } }
+		public int StockingLevelID { get; set; }
+		public string LocationTypeId { get; set; }
+		public string LocationId { get; set; }
+		public string ItemId { get; set; }
+		public int ReorderLevel { get; set; }
+		public int StockingLevel { get; set; }
+		public int OrderQuantity { get; set; }
+		public string Comment { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+	}
+	public partial class IE_Vendor // IE_Vendors
+	{
+		[IgnorePropertyAttribute(true)] public string ID { get { return VendorID; } set { VendorID = value; } }
+		public string VendorID { get; set; }
+		public string VendorName { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+		public long DEX_ROW_ID { get; set; }
+	}
+	public partial class IE_WarehouseSite // IE_WarehouseSites
+	{
+		[IgnorePropertyAttribute(true)] public string ID { get { return WarehouseSiteID; } set { WarehouseSiteID = value; } }
+		public string WarehouseSiteID { get; set; }
+		public string WarehouseSiteName { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+		public long DEX_ROW_ID { get; set; }
+	}
 	public partial class MC_AccountCancelReason // MC_AccountCancelReasons
 	{
 		[IgnorePropertyAttribute(true)] public string ID { get { return AccountCancelReasonID; } set { AccountCancelReasonID = value; } }
@@ -568,5 +786,12 @@ namespace NXS.Data.Crm
 		public string CreatedBy { get; set; }
 		public DateTime ModifiedOn { get; set; }
 		public string ModifiedBy { get; set; }
+	}
+	public partial class IE_ProductBarcodeLocationView // vwIE_ProductBarcodeLocation
+	{
+		public string ProductBarcodeId { get; set; }
+		public string ItemSKU { get; set; }
+		public string ItemDesc { get; set; }
+		public string LocationID { get; set; }
 	}
 }

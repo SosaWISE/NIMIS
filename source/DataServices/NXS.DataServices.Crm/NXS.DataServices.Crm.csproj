@@ -49,6 +49,7 @@
     <Compile Include="AccountInvoicesService.cs" />
     <Compile Include="AccountsService.cs" />
     <Compile Include="ContractAdminService.cs" />
+    <Compile Include="InventoryService.cs" />
     <Compile Include="Models\AeContract.cs" />
     <Compile Include="Models\AeCustomer.cs" />
     <Compile Include="Models\AeCustomerAccount.cs" />

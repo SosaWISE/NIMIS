@@ -1,0 +1,14 @@
+﻿{
+  "dev": {
+    "Username": "",
+    "Password": "",
+  },
+  "stg": {
+    "Username": "",
+    "Password": "",
+  },
+  "local": {
+    "Username": "",
+    "Password": "",
+  },
+}

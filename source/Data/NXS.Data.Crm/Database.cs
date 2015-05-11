@@ -20,6 +20,21 @@ namespace NXS.Data.Crm
 		public AE_InvoiceTypeTable AE_InvoiceTypes { get; set; }
 		public AE_ItemTable AE_Items { get; set; }
 		public AE_PaymentMethodTable AE_PaymentMethods { get; set; }
+		public IE_LocationTypeTable IE_LocationTypes { get; set; }
+		public IE_PackingSlipItemTable IE_PackingSlipItems { get; set; }
+		public IE_PackingSlipTable IE_PackingSlips { get; set; }
+		public IE_ProductBarcodeBundleTable IE_ProductBarcodeBundles { get; set; }
+		public IE_ProductBarcodeTable IE_ProductBarcodes { get; set; }
+		public IE_ProductBarcodeTrackingTable IE_ProductBarcodeTrackings { get; set; }
+		public IE_ProductBarcodeTrackingTypeTable IE_ProductBarcodeTrackingTypes { get; set; }
+		public IE_PurchaseOrderItemTable IE_PurchaseOrderItems { get; set; }
+		public IE_PurchaseOrderTable IE_PurchaseOrders { get; set; }
+		public IE_ReceivedTable IE_Receiveds { get; set; }
+		public IE_ReturnToManufacturerItemTable IE_ReturnToManufacturerItems { get; set; }
+		public IE_ReturnToManufacturerTable IE_ReturnToManufacturers { get; set; }
+		public IE_StockingLevelTable IE_StockingLevels { get; set; }
+		public IE_VendorTable IE_Vendors { get; set; }
+		public IE_WarehouseSiteTable IE_WarehouseSites { get; set; }
 		public MC_AccountCancelReasonTable MC_AccountCancelReasons { get; set; }
 		public MC_AccountTable MC_Accounts { get; set; }
 		public MC_AddressTable MC_Addresses { get; set; }
@@ -37,6 +52,7 @@ namespace NXS.Data.Crm
 		public QL_LeadAddressTable QL_LeadAddresses { get; set; }
 		public QL_LeadTable QL_Leads { get; set; }
 		public TS_TeamTable TS_Teams { get; set; }
+		public IE_ProductBarcodeLocationViewTable IE_ProductBarcodeLocationViews { get; set; }
 
 		public partial class AE_ContractTable : Table<AE_Contract, int>
 		{
@@ -243,6 +259,239 @@ namespace NXS.Data.Crm
 			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
 			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
 			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+		}
+		public partial class IE_LocationTypeTable : Table<IE_LocationType, string>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_LocationTypeTable(DBase db) : base(db, "IeLT", "[WISE_CRM].[dbo].[IE_LocationTypes]", "LocationTypeID", "varchar", false) { }
+			public string LocationTypeID { get { return _alias + "[LocationTypeID]"; } }
+			public string LocationTypeName { get { return _alias + "[LocationTypeName]"; } }
+			public string TableName { get { return _alias + "[TableName]"; } }
+			public string FieldID { get { return _alias + "[FieldID]"; } }
+			public string FieldName { get { return _alias + "[FieldName]"; } }
+			public string Comment { get { return _alias + "[Comment]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+			public string DEX_ROW_ID { get { return _alias + "[DEX_ROW_ID]"; } }
+		}
+		public partial class IE_PackingSlipItemTable : Table<IE_PackingSlipItem, long>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_PackingSlipItemTable(DBase db) : base(db, "IePSI", "[WISE_CRM].[dbo].[IE_PackingSlipItems]", "PackingSlipItemID", "bigint", true) { }
+			public string PackingSlipItemID { get { return _alias + "[PackingSlipItemID]"; } }
+			public string PackingSlipId { get { return _alias + "[PackingSlipId]"; } }
+			public string ProductSkwId { get { return _alias + "[ProductSkwId]"; } }
+			public string ItemId { get { return _alias + "[ItemId]"; } }
+			public string Quantity { get { return _alias + "[Quantity]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+		}
+		public partial class IE_PackingSlipTable : Table<IE_PackingSlip, int>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_PackingSlipTable(DBase db) : base(db, "IePS", "[WISE_CRM].[dbo].[IE_PackingSlips]", "PackingSlipID", "int", true) { }
+			public string PackingSlipID { get { return _alias + "[PackingSlipID]"; } }
+			public string PurchaseOrderId { get { return _alias + "[PurchaseOrderId]"; } }
+			public string ArrivalDate { get { return _alias + "[ArrivalDate]"; } }
+			public string CloseDate { get { return _alias + "[CloseDate]"; } }
+			public string PackingSlipNumber { get { return _alias + "[PackingSlipNumber]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+		}
+		public partial class IE_ProductBarcodeBundleTable : Table<IE_ProductBarcodeBundle, string>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_ProductBarcodeBundleTable(DBase db) : base(db, "IePBB", "[WISE_CRM].[dbo].[IE_ProductBarcodeBundles]", "ProductBarcodeBundleID", "nvarchar", false) { }
+			public string ProductBarcodeBundleID { get { return _alias + "[ProductBarcodeBundleID]"; } }
+			public string ProductBarcodeId { get { return _alias + "[ProductBarcodeId]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+			public string DEX_ROW_ID { get { return _alias + "[DEX_ROW_ID]"; } }
+		}
+		public partial class IE_ProductBarcodeTable : Table<IE_ProductBarcode, string>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_ProductBarcodeTable(DBase db) : base(db, "IePB", "[WISE_CRM].[dbo].[IE_ProductBarcodes]", "ProductBarcodeID", "nvarchar", false) { }
+			public string ProductBarcodeID { get { return _alias + "[ProductBarcodeID]"; } }
+			public string PurchaseOrderItemId { get { return _alias + "[PurchaseOrderItemId]"; } }
+			public string PackingSlipItemId { get { return _alias + "[PackingSlipItemId]"; } }
+			public string LastProductBarcodeTrackingId { get { return _alias + "[LastProductBarcodeTrackingId]"; } }
+			public string ProductBarcodeBundleId { get { return _alias + "[ProductBarcodeBundleId]"; } }
+			public string SimGUID { get { return _alias + "[SimGUID]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+			public string DEX_ROW_ID { get { return _alias + "[DEX_ROW_ID]"; } }
+		}
+		public partial class IE_ProductBarcodeTrackingTable : Table<IE_ProductBarcodeTracking, long>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_ProductBarcodeTrackingTable(DBase db) : base(db, "IePBT", "[WISE_CRM].[dbo].[IE_ProductBarcodeTracking]", "ProductBarcodeTrackingID", "bigint", true) { }
+			public string ProductBarcodeTrackingID { get { return _alias + "[ProductBarcodeTrackingID]"; } }
+			public string ProductBarcodeTrackingTypeId { get { return _alias + "[ProductBarcodeTrackingTypeId]"; } }
+			public string ProductBarcodeId { get { return _alias + "[ProductBarcodeId]"; } }
+			public string LocationTypeID { get { return _alias + "[LocationTypeID]"; } }
+			public string LocationID { get { return _alias + "[LocationID]"; } }
+			public string Comment { get { return _alias + "[Comment]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+		}
+		public partial class IE_ProductBarcodeTrackingTypeTable : Table<IE_ProductBarcodeTrackingType, string>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_ProductBarcodeTrackingTypeTable(DBase db) : base(db, "IePBTT", "[WISE_CRM].[dbo].[IE_ProductBarcodeTrackingTypes]", "ProductBarcodeTrackingTypeID", "varchar", false) { }
+			public string ProductBarcodeTrackingTypeID { get { return _alias + "[ProductBarcodeTrackingTypeID]"; } }
+			public string ProductBarcodeTrackingTypeName { get { return _alias + "[ProductBarcodeTrackingTypeName]"; } }
+			public string Comment { get { return _alias + "[Comment]"; } }
+			public string IsInventoryMove { get { return _alias + "[IsInventoryMove]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+			public string DEX_ROW_ID { get { return _alias + "[DEX_ROW_ID]"; } }
+		}
+		public partial class IE_PurchaseOrderItemTable : Table<IE_PurchaseOrderItem, long>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_PurchaseOrderItemTable(DBase db) : base(db, "IePOI", "[WISE_CRM].[dbo].[IE_PurchaseOrderItems]", "PurchaseOrderItemID", "bigint", true) { }
+			public string PurchaseOrderItemID { get { return _alias + "[PurchaseOrderItemID]"; } }
+			public string PurchaseOrderId { get { return _alias + "[PurchaseOrderId]"; } }
+			public string ItemId { get { return _alias + "[ItemId]"; } }
+			public string WarehouseSiteId { get { return _alias + "[WarehouseSiteId]"; } }
+			public string Quantity { get { return _alias + "[Quantity]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+		}
+		public partial class IE_PurchaseOrderTable : Table<IE_PurchaseOrder, int>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_PurchaseOrderTable(DBase db) : base(db, "IePO", "[WISE_CRM].[dbo].[IE_PurchaseOrders]", "PurchaseOrderID", "int", true) { }
+			public string PurchaseOrderID { get { return _alias + "[PurchaseOrderID]"; } }
+			public string VendorId { get { return _alias + "[VendorId]"; } }
+			public string GPPONumber { get { return _alias + "[GPPONumber]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+		}
+		public partial class IE_ReceivedTable : Table<IE_Received, string>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_ReceivedTable(DBase db) : base(db, "IeR", "[WISE_CRM].[dbo].[IE_Received]", "WarehouseID", "varchar", false) { }
+			public string WarehouseID { get { return _alias + "[WarehouseID]"; } }
+		}
+		public partial class IE_ReturnToManufacturerItemTable : Table<IE_ReturnToManufacturerItem, string>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_ReturnToManufacturerItemTable(DBase db) : base(db, "IeRTMI", "[WISE_CRM].[dbo].[IE_ReturnToManufacturerItems]", "SerialNumberID", "varchar", false) { }
+			public string SerialNumberID { get { return _alias + "[SerialNumberID]"; } }
+			public string RtmaNumberID { get { return _alias + "[RtmaNumberID]"; } }
+			public string Description { get { return _alias + "[Description]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+			public string DEX_ROW_ID { get { return _alias + "[DEX_ROW_ID]"; } }
+		}
+		public partial class IE_ReturnToManufacturerTable : Table<IE_ReturnToManufacturer, string>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_ReturnToManufacturerTable(DBase db) : base(db, "IeRTM", "[WISE_CRM].[dbo].[IE_ReturnToManufacturers]", "RtmaNumberID", "nvarchar", false) { }
+			public string RtmaNumberID { get { return _alias + "[RtmaNumberID]"; } }
+			public string ManufacturerId { get { return _alias + "[ManufacturerId]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+			public string DEX_ROW_ID { get { return _alias + "[DEX_ROW_ID]"; } }
+		}
+		public partial class IE_StockingLevelTable : Table<IE_StockingLevel, int>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_StockingLevelTable(DBase db) : base(db, "IeSL", "[WISE_CRM].[dbo].[IE_StockingLevels]", "StockingLevelID", "int", true) { }
+			public string StockingLevelID { get { return _alias + "[StockingLevelID]"; } }
+			public string LocationTypeId { get { return _alias + "[LocationTypeId]"; } }
+			public string LocationId { get { return _alias + "[LocationId]"; } }
+			public string ItemId { get { return _alias + "[ItemId]"; } }
+			public string ReorderLevel { get { return _alias + "[ReorderLevel]"; } }
+			public string StockingLevel { get { return _alias + "[StockingLevel]"; } }
+			public string OrderQuantity { get { return _alias + "[OrderQuantity]"; } }
+			public string Comment { get { return _alias + "[Comment]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+		}
+		public partial class IE_VendorTable : Table<IE_Vendor, string>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_VendorTable(DBase db) : base(db, "IeV", "[WISE_CRM].[dbo].[IE_Vendors]", "VendorID", "varchar", false) { }
+			public string VendorID { get { return _alias + "[VendorID]"; } }
+			public string VendorName { get { return _alias + "[VendorName]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+			public string DEX_ROW_ID { get { return _alias + "[DEX_ROW_ID]"; } }
+		}
+		public partial class IE_WarehouseSiteTable : Table<IE_WarehouseSite, string>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_WarehouseSiteTable(DBase db) : base(db, "IeWS", "[WISE_CRM].[dbo].[IE_WarehouseSites]", "WarehouseSiteID", "varchar", false) { }
+			public string WarehouseSiteID { get { return _alias + "[WarehouseSiteID]"; } }
+			public string WarehouseSiteName { get { return _alias + "[WarehouseSiteName]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+			public string DEX_ROW_ID { get { return _alias + "[DEX_ROW_ID]"; } }
 		}
 		public partial class MC_AccountCancelReasonTable : Table<MC_AccountCancelReason, string>
 		{
@@ -617,6 +866,14 @@ namespace NXS.Data.Crm
 			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
 			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+		}
+		public partial class IE_ProductBarcodeLocationViewTable : Table<IE_ProductBarcodeLocationView, string>
+		{
+			public IE_ProductBarcodeLocationViewTable(DBase db) : base(db, "IePBL", "[WISE_CRM].[dbo].[vwIE_ProductBarcodeLocation]", "ProductBarcodeId", "nvarchar", false) { }
+			public string ProductBarcodeId { get { return _alias + "[ProductBarcodeId]"; } }
+			public string ItemSKU { get { return _alias + "[ItemSKU]"; } }
+			public string ItemDesc { get { return _alias + "[ItemDesc]"; } }
+			public string LocationID { get { return _alias + "[LocationID]"; } }
 		}
 
 	}

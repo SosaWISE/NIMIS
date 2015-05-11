@@ -16,5 +16,13 @@ namespace NXS.Data.Crm
 				return _hrDb;
 			}
 		}
+
+		public class LocationTable : Table<Location, int>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public LocationTable(DBase db, string tableName) : base(db, "L", tableName, "ID", "string", false) { }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+		}
 	}
 }

@@ -39,5 +39,24 @@ namespace NXS.DataServices.Crm.Models
 			result.Name = item.AccountCancelReason;
 			return result;
 		}
+
+		internal static MetadataType FromLocationType(IE_LocationType item, bool nullable = false)
+		{
+			if (NullCheck("LocationType", item, nullable))
+				return null;
+			var result = new MetadataType();
+			result.ID = item.ID;
+			result.Name = item.LocationTypeName;
+			return result;
+		}
+		internal static MetadataType FromLocation(Location item, bool nullable = false)
+		{
+			if (NullCheck("Location", item, nullable))
+				return null;
+			var result = new MetadataType();
+			result.ID = item.ID;
+			result.Name = item.Name;
+			return result;
+		}
 	}
 }
