@@ -36,7 +36,7 @@ SELECT TOP 1
 	, @DEBUG_MODE = DEBUG_MODE
 	, @TRUNCATE = [TRUNCATE]
 FROM
-	[dbo].fxSCV2_0GetScriptHeaderInfo() AS PROP;
+	[dbo].fxSCV3_0GetScriptHeaderInfo() AS PROP;
 
 PRINT '************************************************************ START ************************************************************';
 PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
