@@ -8,27 +8,27 @@ namespace SOS.FunctionalServices.Models.HumanResource
     {
         #region .ctor
 
-        public FnsConnextCustomerInfo(AE_CustomersGetCustomerInfoConnextView view)
-        {
-            CustomerMasterFileID = view.CustomerMasterFileID;
-            CustomerID = view.CustomerID;
-            FirstName = view.FirstName;
-            MiddleName = view.MiddleName;
-            LastName = view.LastName;
-            StreetAddress = view.StreetAddress;
-            StreetAddress2 = view.StreetAddress2;
-            City = view.City;
-            State = view.State;
-            PostalCode = view.PostalCode;
-            PhoneHome = view.PhoneHome;
-            PhoneWork = view.PhoneWork;
-            PhoneMobile = view.PhoneMobile;
-            Email = view.Email;
-            ContractDate = view.ContractDate;
-            AccountStatus = view.AccountStatus;
-            TotalCommission = view.TotalCommission;
-            NumberReferralsMade = view.NumberReferralsMade;
-        }
+		//public FnsConnextCustomerInfo(AE_CustomersGetCustomerInfoConnextView view)
+		//{
+		//	CustomerMasterFileID = view.CustomerMasterFileID;
+		//	CustomerID = view.CustomerID;
+		//	FirstName = view.FirstName;
+		//	MiddleName = view.MiddleName;
+		//	LastName = view.LastName;
+		//	StreetAddress = view.StreetAddress;
+		//	StreetAddress2 = view.StreetAddress2;
+		//	City = view.City;
+		//	State = view.State;
+		//	PostalCode = view.PostalCode;
+		//	PhoneHome = view.PhoneHome;
+		//	PhoneWork = view.PhoneWork;
+		//	PhoneMobile = view.PhoneMobile;
+		//	Email = view.Email;
+		//	ContractDate = view.ContractDate;
+		//	AccountStatus = view.AccountStatus;
+		//	TotalCommission = view.TotalCommission;
+		//	NumberReferralsMade = view.NumberReferralsMade;
+		//}
         #endregion .ctor
 
         #region Properties

@@ -75,6 +75,7 @@ namespace SSE.Services.CmsCORS.Controllers.Qualify
 							seasonsList.Add(new RuSeason
 							{
 								SeasonID = fnsSeason.SeasonID,
+								DealerId = fnsSeason.DealerId,
 								PreSeasonID = fnsSeason.PreSeasonID,
 								SeasonName = fnsSeason.SeasonName,
 								StartDate = fnsSeason.StartDate,

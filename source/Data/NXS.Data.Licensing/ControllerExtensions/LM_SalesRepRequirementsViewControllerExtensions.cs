@@ -7,11 +7,11 @@ namespace NXS.Data.Licensing.ControllerExtensions
 // ReSharper disable once InconsistentNaming
 	public static class LM_SalesRepRequirementsViewControllerExtensions
 	{
-		public static ARCollection GetSalesRepCompliance(this ARController cntlr, string countryName, string stateName, string countyName, string cityName, string townshipName, string salesRepId)
+		public static ARCollection GetSalesRepCompliance(this ARController cntlr, string countryName, string stateName, string countyName, string cityName, string townshipName, string salesRepId, int dealerId)
 		{
 			return
 				cntlr.LoadCollection(LicensingDataStoredProcedureManager.LM_RequirementsGetRepLicenseByLocation(countryName,
-					stateName, countyName, cityName, townshipName, salesRepId));
+					stateName, countyName, cityName, townshipName, salesRepId, dealerId));
 		}
 	}
 }

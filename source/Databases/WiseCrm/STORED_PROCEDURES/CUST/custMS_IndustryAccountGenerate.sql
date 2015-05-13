@@ -16,11 +16,11 @@ GO
 **		Desc: 
 **
 **		This template can be customized:
-**              
+**
 **		Return values:
-** 
-**		Called by:   
-**              
+**
+**		Called by:
+**
 **		Parameters:
 **		Input							Output
 **     ----------						-----------
@@ -33,7 +33,8 @@ GO
 **	Date:		Author:			Description:
 **	-----------	---------------	-----------------------------------------------
 **	01/13/2014	Andres Sosa		Created By
-**	
+**	05/07/2015	Andres Sosa		Added mechanism for Moni Takeovers.
+**
 *******************************************************************************/
 CREATE Procedure dbo.custMS_IndustryAccountGenerate
 (
@@ -57,16 +58,29 @@ BEGIN
 	, @Subscriber VARCHAR(6)
 	, @CSID VARCHAR(12)
 	, @IndustryAccountID BIGINT
-	, @SubscriberLength SMALLINT;
+	, @SubscriberLength SMALLINT
+	, @DealerId INT
+	, @AlarmCompanyID INT;
 
 	/** Initialize */
-	--SET @ReceiverLineId = 'AG_ALARMSYS:BD';
-	--SET @ReceiverLineId = 'AG_ALARMSYS:I3';
-	SET @ReceiverLineId = 'MI_MASTER:76826:DC2:AN';
+	-- SET @ReceiverLineId = 'AG_ALARMSYS:I3';
+	SET @ReceiverLineId = 'MI_MASTER:76826:DC2:AN';  -- Monitronics DIGCELLTWOWAY
+
+	/** Get the AlarmCompanyID */
+	SELECT TOP 1 
+		@AlarmCompanyID = MLT.AlarmCompanyId
+	FROM 
+		dbo.fxGetLeadTakeOverByAccountId(@AccountID) AS MLT;
 
 	/** FOR DEBUGGING PURPUSES ONLY. */
 	-- SELECT * FROM [dbo].[vwMS_IndustryAccountNumbers] WHERE (IndustryAccountID = 30223);
 	
+	/** Assign the correct Receiver Line */
+	IF (@AlarmCompanyID IS NOT NULL AND @AlarmCompanyID = 1) -- 1: Monitronics Take Over Account
+	BEGIN
+		SET @ReceiverLineId = 'AG_ALARMSYS:I3';
+	END
+
 	BEGIN TRY
 		BEGIN TRANSACTION;
 	
@@ -183,4 +197,4 @@ GO
 GRANT EXEC ON dbo.custMS_IndustryAccountGenerate TO PUBLIC
 GO
 
-/** EXEC dbo.custMS_IndustryAccountGenerate 130532, 1, 'CELLDIGTWOTWAY', 'AG_ALARMSYS', 'PRIVIT'; */
+/** EXEC dbo.custMS_IndustryAccountGenerate 211217, 0, 'CELLDIGTWOTWAY', 'AG_ALARMSYS', 'PRIVIT'; */

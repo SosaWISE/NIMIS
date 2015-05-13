@@ -8,11 +8,6 @@ using SubSonic.Utilities;
 
 namespace SOS.Data.HumanResource {
 	public partial class HumanResourceDataStoredProcedureManager {
-		public static StoredProcedure AE_CustomersGetCustomerInfoConnext(long? CustomerMasterFileID) {
-			StoredProcedure sp = new StoredProcedure("custAE_CustomersGetCustomerInfoConnext" ,DataService.GetInstance("SosHumanResourceProvider"));
-			sp.Command.AddParameter("@CustomerMasterFileID", CustomerMasterFileID, DbType.Int64);
-			return sp;
-		}
 		public static StoredProcedure DocLinkGetDocumentsByID(int? DocumentID) {
 			StoredProcedure sp = new StoredProcedure("custDocLinkGetDocumentsByID" ,DataService.GetInstance("SosHumanResourceProvider"));
 			sp.Command.AddParameter("@DocumentID", DocumentID, DbType.Int32);
@@ -720,12 +715,9 @@ namespace SOS.Data.HumanResource {
 			sp.Command.AddParameter("@TeamId", TeamId, DbType.Int32);
 			return sp;
 		}
-		public static StoredProcedure RU_UsersAccountListConnextGetByUserID(int? UserID,DateTime BeginDate,DateTime EndDate,bool? isActive) {
-			StoredProcedure sp = new StoredProcedure("custRU_UsersAccountListConnextGetByUserID" ,DataService.GetInstance("SosHumanResourceProvider"));
+		public static StoredProcedure RU_UserSalesInfoConnextGetByUserID(int? UserID) {
+			StoredProcedure sp = new StoredProcedure("custRU_UserSalesInfoConnextGetByUserID" ,DataService.GetInstance("SosHumanResourceProvider"));
 			sp.Command.AddParameter("@UserID", UserID, DbType.Int32);
-			sp.Command.AddParameter("@BeginDate", BeginDate, DbType.AnsiString);
-			sp.Command.AddParameter("@EndDate", EndDate, DbType.AnsiString);
-			sp.Command.AddParameter("@isActive", isActive, DbType.Boolean);
 			return sp;
 		}
 		public static StoredProcedure RU_UsersFindByEmailAndSSN(string Email,string SSN,string SSNEncrypted) {
@@ -883,54 +875,6 @@ namespace SOS.Data.HumanResource {
 		public static StoredProcedure RU_UsersLoadByMultiplePrimaryKeys(string UserIDList) {
 			StoredProcedure sp = new StoredProcedure("custRU_UsersLoadByMultiplePrimaryKeys" ,DataService.GetInstance("SosHumanResourceProvider"));
 			sp.Command.AddParameter("@UserIDList", UserIDList, DbType.String);
-			return sp;
-		}
-		public static StoredProcedure RU_UsersSalesDetailedStatisticsConnextGetByUserID(int? UserID,int? SalesMonth,int? SalesYear,bool? OfficeRollup) {
-			StoredProcedure sp = new StoredProcedure("custRU_UsersSalesDetailedStatisticsConnextGetByUserID" ,DataService.GetInstance("SosHumanResourceProvider"));
-			sp.Command.AddParameter("@UserID", UserID, DbType.Int32);
-			sp.Command.AddParameter("@SalesMonth", SalesMonth, DbType.Int32);
-			sp.Command.AddParameter("@SalesYear", SalesYear, DbType.Int32);
-			sp.Command.AddParameter("@OfficeRollup", OfficeRollup, DbType.Boolean);
-			return sp;
-		}
-		public static StoredProcedure RU_UsersSalesInfoConnextGetByUserID(int? UserID) {
-			StoredProcedure sp = new StoredProcedure("custRU_UsersSalesInfoConnextGetByUserID" ,DataService.GetInstance("SosHumanResourceProvider"));
-			sp.Command.AddParameter("@UserID", UserID, DbType.Int32);
-			return sp;
-		}
-		public static StoredProcedure RU_UsersSalesInfoExtendedConnextGetByUserID(int? UserID) {
-			StoredProcedure sp = new StoredProcedure("custRU_UsersSalesInfoExtendedConnextGetByUserID" ,DataService.GetInstance("SosHumanResourceProvider"));
-			sp.Command.AddParameter("@UserID", UserID, DbType.Int32);
-			return sp;
-		}
-		public static StoredProcedure RU_UsersSalesRankingConnextGetbyUserID(int? UserId,string resultstype,string rankinggroup,string rankingperiod,int? rows) {
-			StoredProcedure sp = new StoredProcedure("custRU_UsersSalesRankingConnextGetbyUserID" ,DataService.GetInstance("SosHumanResourceProvider"));
-			sp.Command.AddParameter("@UserId", UserId, DbType.Int32);
-			sp.Command.AddParameter("@resultstype", resultstype, DbType.AnsiString);
-			sp.Command.AddParameter("@rankinggroup", rankinggroup, DbType.AnsiString);
-			sp.Command.AddParameter("@rankingperiod", rankingperiod, DbType.AnsiString);
-			sp.Command.AddParameter("@rows", rows, DbType.Int32);
-			return sp;
-		}
-		public static StoredProcedure SAE_SalesSalespersonMonthlyCommissions(int? UserID,int? SalesMonth,int? SalesYear) {
-			StoredProcedure sp = new StoredProcedure("custSAE_SalesSalespersonMonthlyCommissions" ,DataService.GetInstance("SosHumanResourceProvider"));
-			sp.Command.AddParameter("@UserID", UserID, DbType.Int32);
-			sp.Command.AddParameter("@SalesMonth", SalesMonth, DbType.Int32);
-			sp.Command.AddParameter("@SalesYear", SalesYear, DbType.Int32);
-			return sp;
-		}
-		public static StoredProcedure SAE_SalesSalespersonMonthlyEarnings(int? UserID,int? SalesMonth,int? SalesYear) {
-			StoredProcedure sp = new StoredProcedure("custSAE_SalesSalespersonMonthlyEarnings" ,DataService.GetInstance("SosHumanResourceProvider"));
-			sp.Command.AddParameter("@UserID", UserID, DbType.Int32);
-			sp.Command.AddParameter("@SalesMonth", SalesMonth, DbType.Int32);
-			sp.Command.AddParameter("@SalesYear", SalesYear, DbType.Int32);
-			return sp;
-		}
-		public static StoredProcedure SAE_SalesSalespersonMonthlyHolds(int? UserID,int? SalesMonth,int? SalesYear) {
-			StoredProcedure sp = new StoredProcedure("custSAE_SalesSalespersonMonthlyHolds" ,DataService.GetInstance("SosHumanResourceProvider"));
-			sp.Command.AddParameter("@UserID", UserID, DbType.Int32);
-			sp.Command.AddParameter("@SalesMonth", SalesMonth, DbType.Int32);
-			sp.Command.AddParameter("@SalesYear", SalesYear, DbType.Int32);
 			return sp;
 		}
 		public static StoredProcedure VW_RecruitingStructureGetManageableTeams(int? SeasonID,int? RoleLocationID,int? RecruitID,int? TeamLocationID) {

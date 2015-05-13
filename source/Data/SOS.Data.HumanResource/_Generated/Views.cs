@@ -1128,8 +1128,8 @@ namespace SOS.Data.HumanResource
 
 				TableSchema.TableColumn colvarPassword = new TableSchema.TableColumn(schema);
 				colvarPassword.ColumnName = "Password";
-				colvarPassword.DataType = DbType.String;
-				colvarPassword.MaxLength = 50;
+				colvarPassword.DataType = DbType.AnsiString;
+				colvarPassword.MaxLength = 60;
 				colvarPassword.AutoIncrement = false;
 				colvarPassword.IsNullable = false;
 				colvarPassword.IsPrimaryKey = false;
@@ -3938,7 +3938,7 @@ namespace SOS.Data.HumanResource
 				colvarTeamType.DataType = DbType.String;
 				colvarTeamType.MaxLength = 50;
 				colvarTeamType.AutoIncrement = false;
-				colvarTeamType.IsNullable = true;
+				colvarTeamType.IsNullable = false;
 				colvarTeamType.IsPrimaryKey = false;
 				colvarTeamType.IsForeignKey = false;
 				colvarTeamType.IsReadOnly = false;
@@ -4545,502 +4545,6 @@ namespace SOS.Data.HumanResource
 			public const string PayScaleID = @"PayScaleID";
 			public const string IsRecruiter = @"IsRecruiter";
 			public const string GPEmployeeID = @"GPEmployeeID";
-		}
-		#endregion Columns Struct
-	}
-	/// <summary>
-	/// Strongly-typed collection for the AE_CustomersGetCustomerInfoConnextView class.
-	/// </summary>
-	[DataContract]
-	public partial class AE_CustomersGetCustomerInfoConnextViewCollection : ReadOnlyList<AE_CustomersGetCustomerInfoConnextView, AE_CustomersGetCustomerInfoConnextViewCollection>
-	{
-		public static AE_CustomersGetCustomerInfoConnextViewCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			AE_CustomersGetCustomerInfoConnextViewCollection result = new AE_CustomersGetCustomerInfoConnextViewCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-	}
-
-	/// <summary>
-	/// This is a Read-only wrapper class for the vwAE_CustomersGetCustomerInfoConnext view.
-	/// </summary>
-	[DataContract]
-	public partial class AE_CustomersGetCustomerInfoConnextView : ReadOnlyRecord<AE_CustomersGetCustomerInfoConnextView>
-	{
-		#region Default Settings
-		protected static void SetSQLProps() { GetTableSchema(); }
-		#endregion
-
-		#region Schema Accessor
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema()
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwAE_CustomersGetCustomerInfoConnext", TableType.Table, DataService.GetInstance("SosHumanResourceProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"dbo";
-				//columns
-
-				TableSchema.TableColumn colvarCustomerMasterFileID = new TableSchema.TableColumn(schema);
-				colvarCustomerMasterFileID.ColumnName = "CustomerMasterFileID";
-				colvarCustomerMasterFileID.DataType = DbType.Int64;
-				colvarCustomerMasterFileID.MaxLength = 0;
-				colvarCustomerMasterFileID.AutoIncrement = false;
-				colvarCustomerMasterFileID.IsNullable = false;
-				colvarCustomerMasterFileID.IsPrimaryKey = false;
-				colvarCustomerMasterFileID.IsForeignKey = false;
-				colvarCustomerMasterFileID.IsReadOnly = false;
-				colvarCustomerMasterFileID.DefaultSetting = @"";
-				colvarCustomerMasterFileID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerMasterFileID);
-
-				TableSchema.TableColumn colvarCustomerID = new TableSchema.TableColumn(schema);
-				colvarCustomerID.ColumnName = "CustomerID";
-				colvarCustomerID.DataType = DbType.Int64;
-				colvarCustomerID.MaxLength = 0;
-				colvarCustomerID.AutoIncrement = false;
-				colvarCustomerID.IsNullable = false;
-				colvarCustomerID.IsPrimaryKey = false;
-				colvarCustomerID.IsForeignKey = false;
-				colvarCustomerID.IsReadOnly = false;
-				colvarCustomerID.DefaultSetting = @"";
-				colvarCustomerID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerID);
-
-				TableSchema.TableColumn colvarFirstName = new TableSchema.TableColumn(schema);
-				colvarFirstName.ColumnName = "FirstName";
-				colvarFirstName.DataType = DbType.String;
-				colvarFirstName.MaxLength = 50;
-				colvarFirstName.AutoIncrement = false;
-				colvarFirstName.IsNullable = false;
-				colvarFirstName.IsPrimaryKey = false;
-				colvarFirstName.IsForeignKey = false;
-				colvarFirstName.IsReadOnly = false;
-				colvarFirstName.DefaultSetting = @"";
-				colvarFirstName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarFirstName);
-
-				TableSchema.TableColumn colvarMiddleName = new TableSchema.TableColumn(schema);
-				colvarMiddleName.ColumnName = "MiddleName";
-				colvarMiddleName.DataType = DbType.String;
-				colvarMiddleName.MaxLength = 50;
-				colvarMiddleName.AutoIncrement = false;
-				colvarMiddleName.IsNullable = true;
-				colvarMiddleName.IsPrimaryKey = false;
-				colvarMiddleName.IsForeignKey = false;
-				colvarMiddleName.IsReadOnly = false;
-				colvarMiddleName.DefaultSetting = @"";
-				colvarMiddleName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarMiddleName);
-
-				TableSchema.TableColumn colvarLastName = new TableSchema.TableColumn(schema);
-				colvarLastName.ColumnName = "LastName";
-				colvarLastName.DataType = DbType.String;
-				colvarLastName.MaxLength = 50;
-				colvarLastName.AutoIncrement = false;
-				colvarLastName.IsNullable = false;
-				colvarLastName.IsPrimaryKey = false;
-				colvarLastName.IsForeignKey = false;
-				colvarLastName.IsReadOnly = false;
-				colvarLastName.DefaultSetting = @"";
-				colvarLastName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLastName);
-
-				TableSchema.TableColumn colvarStreetAddress = new TableSchema.TableColumn(schema);
-				colvarStreetAddress.ColumnName = "StreetAddress";
-				colvarStreetAddress.DataType = DbType.String;
-				colvarStreetAddress.MaxLength = 50;
-				colvarStreetAddress.AutoIncrement = false;
-				colvarStreetAddress.IsNullable = false;
-				colvarStreetAddress.IsPrimaryKey = false;
-				colvarStreetAddress.IsForeignKey = false;
-				colvarStreetAddress.IsReadOnly = false;
-				colvarStreetAddress.DefaultSetting = @"";
-				colvarStreetAddress.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarStreetAddress);
-
-				TableSchema.TableColumn colvarStreetAddress2 = new TableSchema.TableColumn(schema);
-				colvarStreetAddress2.ColumnName = "StreetAddress2";
-				colvarStreetAddress2.DataType = DbType.String;
-				colvarStreetAddress2.MaxLength = 50;
-				colvarStreetAddress2.AutoIncrement = false;
-				colvarStreetAddress2.IsNullable = true;
-				colvarStreetAddress2.IsPrimaryKey = false;
-				colvarStreetAddress2.IsForeignKey = false;
-				colvarStreetAddress2.IsReadOnly = false;
-				colvarStreetAddress2.DefaultSetting = @"";
-				colvarStreetAddress2.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarStreetAddress2);
-
-				TableSchema.TableColumn colvarCity = new TableSchema.TableColumn(schema);
-				colvarCity.ColumnName = "City";
-				colvarCity.DataType = DbType.String;
-				colvarCity.MaxLength = 50;
-				colvarCity.AutoIncrement = false;
-				colvarCity.IsNullable = false;
-				colvarCity.IsPrimaryKey = false;
-				colvarCity.IsForeignKey = false;
-				colvarCity.IsReadOnly = false;
-				colvarCity.DefaultSetting = @"";
-				colvarCity.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCity);
-
-				TableSchema.TableColumn colvarState = new TableSchema.TableColumn(schema);
-				colvarState.ColumnName = "State";
-				colvarState.DataType = DbType.AnsiStringFixedLength;
-				colvarState.MaxLength = 2;
-				colvarState.AutoIncrement = false;
-				colvarState.IsNullable = false;
-				colvarState.IsPrimaryKey = false;
-				colvarState.IsForeignKey = false;
-				colvarState.IsReadOnly = false;
-				colvarState.DefaultSetting = @"";
-				colvarState.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarState);
-
-				TableSchema.TableColumn colvarPostalCode = new TableSchema.TableColumn(schema);
-				colvarPostalCode.ColumnName = "PostalCode";
-				colvarPostalCode.DataType = DbType.AnsiString;
-				colvarPostalCode.MaxLength = 5;
-				colvarPostalCode.AutoIncrement = false;
-				colvarPostalCode.IsNullable = false;
-				colvarPostalCode.IsPrimaryKey = false;
-				colvarPostalCode.IsForeignKey = false;
-				colvarPostalCode.IsReadOnly = false;
-				colvarPostalCode.DefaultSetting = @"";
-				colvarPostalCode.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPostalCode);
-
-				TableSchema.TableColumn colvarPhoneHome = new TableSchema.TableColumn(schema);
-				colvarPhoneHome.ColumnName = "PhoneHome";
-				colvarPhoneHome.DataType = DbType.AnsiString;
-				colvarPhoneHome.MaxLength = 20;
-				colvarPhoneHome.AutoIncrement = false;
-				colvarPhoneHome.IsNullable = false;
-				colvarPhoneHome.IsPrimaryKey = false;
-				colvarPhoneHome.IsForeignKey = false;
-				colvarPhoneHome.IsReadOnly = false;
-				colvarPhoneHome.DefaultSetting = @"";
-				colvarPhoneHome.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPhoneHome);
-
-				TableSchema.TableColumn colvarPhoneWork = new TableSchema.TableColumn(schema);
-				colvarPhoneWork.ColumnName = "PhoneWork";
-				colvarPhoneWork.DataType = DbType.AnsiString;
-				colvarPhoneWork.MaxLength = 30;
-				colvarPhoneWork.AutoIncrement = false;
-				colvarPhoneWork.IsNullable = false;
-				colvarPhoneWork.IsPrimaryKey = false;
-				colvarPhoneWork.IsForeignKey = false;
-				colvarPhoneWork.IsReadOnly = false;
-				colvarPhoneWork.DefaultSetting = @"";
-				colvarPhoneWork.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPhoneWork);
-
-				TableSchema.TableColumn colvarPhoneMobile = new TableSchema.TableColumn(schema);
-				colvarPhoneMobile.ColumnName = "PhoneMobile";
-				colvarPhoneMobile.DataType = DbType.AnsiString;
-				colvarPhoneMobile.MaxLength = 20;
-				colvarPhoneMobile.AutoIncrement = false;
-				colvarPhoneMobile.IsNullable = false;
-				colvarPhoneMobile.IsPrimaryKey = false;
-				colvarPhoneMobile.IsForeignKey = false;
-				colvarPhoneMobile.IsReadOnly = false;
-				colvarPhoneMobile.DefaultSetting = @"";
-				colvarPhoneMobile.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPhoneMobile);
-
-				TableSchema.TableColumn colvarEmail = new TableSchema.TableColumn(schema);
-				colvarEmail.ColumnName = "Email";
-				colvarEmail.DataType = DbType.AnsiString;
-				colvarEmail.MaxLength = 256;
-				colvarEmail.AutoIncrement = false;
-				colvarEmail.IsNullable = true;
-				colvarEmail.IsPrimaryKey = false;
-				colvarEmail.IsForeignKey = false;
-				colvarEmail.IsReadOnly = false;
-				colvarEmail.DefaultSetting = @"";
-				colvarEmail.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarEmail);
-
-				TableSchema.TableColumn colvarContractDate = new TableSchema.TableColumn(schema);
-				colvarContractDate.ColumnName = "ContractDate";
-				colvarContractDate.DataType = DbType.DateTime;
-				colvarContractDate.MaxLength = 0;
-				colvarContractDate.AutoIncrement = false;
-				colvarContractDate.IsNullable = true;
-				colvarContractDate.IsPrimaryKey = false;
-				colvarContractDate.IsForeignKey = false;
-				colvarContractDate.IsReadOnly = false;
-				colvarContractDate.DefaultSetting = @"";
-				colvarContractDate.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarContractDate);
-
-				TableSchema.TableColumn colvarAccountStatus = new TableSchema.TableColumn(schema);
-				colvarAccountStatus.ColumnName = "AccountStatus";
-				colvarAccountStatus.DataType = DbType.AnsiString;
-				colvarAccountStatus.MaxLength = 20;
-				colvarAccountStatus.AutoIncrement = false;
-				colvarAccountStatus.IsNullable = true;
-				colvarAccountStatus.IsPrimaryKey = false;
-				colvarAccountStatus.IsForeignKey = false;
-				colvarAccountStatus.IsReadOnly = false;
-				colvarAccountStatus.DefaultSetting = @"";
-				colvarAccountStatus.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarAccountStatus);
-
-				TableSchema.TableColumn colvarTotalCommission = new TableSchema.TableColumn(schema);
-				colvarTotalCommission.ColumnName = "TotalCommission";
-				colvarTotalCommission.DataType = DbType.Currency;
-				colvarTotalCommission.MaxLength = 0;
-				colvarTotalCommission.AutoIncrement = false;
-				colvarTotalCommission.IsNullable = true;
-				colvarTotalCommission.IsPrimaryKey = false;
-				colvarTotalCommission.IsForeignKey = false;
-				colvarTotalCommission.IsReadOnly = false;
-				colvarTotalCommission.DefaultSetting = @"";
-				colvarTotalCommission.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarTotalCommission);
-
-				TableSchema.TableColumn colvarNumberReferralsMade = new TableSchema.TableColumn(schema);
-				colvarNumberReferralsMade.ColumnName = "NumberReferralsMade";
-				colvarNumberReferralsMade.DataType = DbType.Int32;
-				colvarNumberReferralsMade.MaxLength = 0;
-				colvarNumberReferralsMade.AutoIncrement = false;
-				colvarNumberReferralsMade.IsNullable = true;
-				colvarNumberReferralsMade.IsPrimaryKey = false;
-				colvarNumberReferralsMade.IsForeignKey = false;
-				colvarNumberReferralsMade.IsReadOnly = false;
-				colvarNumberReferralsMade.DefaultSetting = @"";
-				colvarNumberReferralsMade.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberReferralsMade);
-
-				BaseSchema = schema;
-				DataService.Providers["SosHumanResourceProvider"].AddSchema("vwAE_CustomersGetCustomerInfoConnext",schema);
-			}
-		}
-		#endregion //Schema Accessor
-
-		#region Query Accessor
-		public static Query CreateQuery()
-		{
-			return new Query(Schema);
-		}
-		#endregion //Query Accessor
-
-		#region .ctors
-		public AE_CustomersGetCustomerInfoConnextView()
-		{
-			SetSQLProps();SetDefaults();MarkNew();
-		}
-		#endregion
-
-		#region Properties
-		[DataMember]
-		public long CustomerMasterFileID {
-			get { return GetColumnValue<long>(Columns.CustomerMasterFileID); }
-			set { SetColumnValue(Columns.CustomerMasterFileID, value); }
-		}
-		[DataMember]
-		public long CustomerID {
-			get { return GetColumnValue<long>(Columns.CustomerID); }
-			set { SetColumnValue(Columns.CustomerID, value); }
-		}
-		[DataMember]
-		public string FirstName {
-			get { return GetColumnValue<string>(Columns.FirstName); }
-			set { SetColumnValue(Columns.FirstName, value); }
-		}
-		[DataMember]
-		public string MiddleName {
-			get { return GetColumnValue<string>(Columns.MiddleName); }
-			set { SetColumnValue(Columns.MiddleName, value); }
-		}
-		[DataMember]
-		public string LastName {
-			get { return GetColumnValue<string>(Columns.LastName); }
-			set { SetColumnValue(Columns.LastName, value); }
-		}
-		[DataMember]
-		public string StreetAddress {
-			get { return GetColumnValue<string>(Columns.StreetAddress); }
-			set { SetColumnValue(Columns.StreetAddress, value); }
-		}
-		[DataMember]
-		public string StreetAddress2 {
-			get { return GetColumnValue<string>(Columns.StreetAddress2); }
-			set { SetColumnValue(Columns.StreetAddress2, value); }
-		}
-		[DataMember]
-		public string City {
-			get { return GetColumnValue<string>(Columns.City); }
-			set { SetColumnValue(Columns.City, value); }
-		}
-		[DataMember]
-		public string State {
-			get { return GetColumnValue<string>(Columns.State); }
-			set { SetColumnValue(Columns.State, value); }
-		}
-		[DataMember]
-		public string PostalCode {
-			get { return GetColumnValue<string>(Columns.PostalCode); }
-			set { SetColumnValue(Columns.PostalCode, value); }
-		}
-		[DataMember]
-		public string PhoneHome {
-			get { return GetColumnValue<string>(Columns.PhoneHome); }
-			set { SetColumnValue(Columns.PhoneHome, value); }
-		}
-		[DataMember]
-		public string PhoneWork {
-			get { return GetColumnValue<string>(Columns.PhoneWork); }
-			set { SetColumnValue(Columns.PhoneWork, value); }
-		}
-		[DataMember]
-		public string PhoneMobile {
-			get { return GetColumnValue<string>(Columns.PhoneMobile); }
-			set { SetColumnValue(Columns.PhoneMobile, value); }
-		}
-		[DataMember]
-		public string Email {
-			get { return GetColumnValue<string>(Columns.Email); }
-			set { SetColumnValue(Columns.Email, value); }
-		}
-		[DataMember]
-		public DateTime ContractDate {
-			get { return GetColumnValue<DateTime>(Columns.ContractDate); }
-			set { SetColumnValue(Columns.ContractDate, value); }
-		}
-		[DataMember]
-		public string AccountStatus {
-			get { return GetColumnValue<string>(Columns.AccountStatus); }
-			set { SetColumnValue(Columns.AccountStatus, value); }
-		}
-		[DataMember]
-		public decimal TotalCommission {
-			get { return GetColumnValue<decimal>(Columns.TotalCommission); }
-			set { SetColumnValue(Columns.TotalCommission, value); }
-		}
-		[DataMember]
-		public int NumberReferralsMade {
-			get { return GetColumnValue<int>(Columns.NumberReferralsMade); }
-			set { SetColumnValue(Columns.NumberReferralsMade, value); }
-		}
-
-		#endregion //Properties
-
-		public override string ToString()
-		{
-			return CustomerMasterFileID.ToString();
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn CustomerMasterFileIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn CustomerIDColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn FirstNameColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn MiddleNameColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn LastNameColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-		public static TableSchema.TableColumn StreetAddressColumn
-		{
-			get { return Schema.Columns[5]; }
-		}
-		public static TableSchema.TableColumn StreetAddress2Column
-		{
-			get { return Schema.Columns[6]; }
-		}
-		public static TableSchema.TableColumn CityColumn
-		{
-			get { return Schema.Columns[7]; }
-		}
-		public static TableSchema.TableColumn StateColumn
-		{
-			get { return Schema.Columns[8]; }
-		}
-		public static TableSchema.TableColumn PostalCodeColumn
-		{
-			get { return Schema.Columns[9]; }
-		}
-		public static TableSchema.TableColumn PhoneHomeColumn
-		{
-			get { return Schema.Columns[10]; }
-		}
-		public static TableSchema.TableColumn PhoneWorkColumn
-		{
-			get { return Schema.Columns[11]; }
-		}
-		public static TableSchema.TableColumn PhoneMobileColumn
-		{
-			get { return Schema.Columns[12]; }
-		}
-		public static TableSchema.TableColumn EmailColumn
-		{
-			get { return Schema.Columns[13]; }
-		}
-		public static TableSchema.TableColumn ContractDateColumn
-		{
-			get { return Schema.Columns[14]; }
-		}
-		public static TableSchema.TableColumn AccountStatusColumn
-		{
-			get { return Schema.Columns[15]; }
-		}
-		public static TableSchema.TableColumn TotalCommissionColumn
-		{
-			get { return Schema.Columns[16]; }
-		}
-		public static TableSchema.TableColumn NumberReferralsMadeColumn
-		{
-			get { return Schema.Columns[17]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public const string CustomerMasterFileID = @"CustomerMasterFileID";
-			public const string CustomerID = @"CustomerID";
-			public const string FirstName = @"FirstName";
-			public const string MiddleName = @"MiddleName";
-			public const string LastName = @"LastName";
-			public const string StreetAddress = @"StreetAddress";
-			public const string StreetAddress2 = @"StreetAddress2";
-			public const string City = @"City";
-			public const string State = @"State";
-			public const string PostalCode = @"PostalCode";
-			public const string PhoneHome = @"PhoneHome";
-			public const string PhoneWork = @"PhoneWork";
-			public const string PhoneMobile = @"PhoneMobile";
-			public const string Email = @"Email";
-			public const string ContractDate = @"ContractDate";
-			public const string AccountStatus = @"AccountStatus";
-			public const string TotalCommission = @"TotalCommission";
-			public const string NumberReferralsMade = @"NumberReferralsMade";
 		}
 		#endregion Columns Struct
 	}
@@ -8497,24 +8001,24 @@ namespace SOS.Data.HumanResource
 		#endregion Columns Struct
 	}
 	/// <summary>
-	/// Strongly-typed collection for the RU_UsersAccountListConnextView class.
+	/// Strongly-typed collection for the RU_UserSalesInfoConnextView class.
 	/// </summary>
 	[DataContract]
-	public partial class RU_UsersAccountListConnextViewCollection : ReadOnlyList<RU_UsersAccountListConnextView, RU_UsersAccountListConnextViewCollection>
+	public partial class RU_UserSalesInfoConnextViewCollection : ReadOnlyList<RU_UserSalesInfoConnextView, RU_UserSalesInfoConnextViewCollection>
 	{
-		public static RU_UsersAccountListConnextViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		public static RU_UserSalesInfoConnextViewCollection LoadByStoredProcedure(StoredProcedure sp)
 		{
-			RU_UsersAccountListConnextViewCollection result = new RU_UsersAccountListConnextViewCollection();
+			RU_UserSalesInfoConnextViewCollection result = new RU_UserSalesInfoConnextViewCollection();
 			result.LoadAndCloseReader(sp.GetReader());
 			return result;
 		}
 	}
 
 	/// <summary>
-	/// This is a Read-only wrapper class for the vwRU_UsersAccountListConnext view.
+	/// This is a Read-only wrapper class for the vwRU_UserSalesInfoConnext view.
 	/// </summary>
 	[DataContract]
-	public partial class RU_UsersAccountListConnextView : ReadOnlyRecord<RU_UsersAccountListConnextView>
+	public partial class RU_UserSalesInfoConnextView : ReadOnlyRecord<RU_UserSalesInfoConnextView>
 	{
 		#region Default Settings
 		protected static void SetSQLProps() { GetTableSchema(); }
@@ -8533,7 +8037,7 @@ namespace SOS.Data.HumanResource
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwRU_UsersAccountListConnext", TableType.Table, DataService.GetInstance("SosHumanResourceProvider"));
+				TableSchema.Table schema = new TableSchema.Table("vwRU_UserSalesInfoConnext", TableType.Table, DataService.GetInstance("SosHumanResourceProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
@@ -8542,7 +8046,7 @@ namespace SOS.Data.HumanResource
 				colvarUserID.ColumnName = "UserID";
 				colvarUserID.DataType = DbType.Int32;
 				colvarUserID.MaxLength = 0;
-				colvarUserID.AutoIncrement = false;
+				colvarUserID.AutoIncrement = true;
 				colvarUserID.IsNullable = false;
 				colvarUserID.IsPrimaryKey = false;
 				colvarUserID.IsForeignKey = false;
@@ -8551,177 +8055,86 @@ namespace SOS.Data.HumanResource
 				colvarUserID.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarUserID);
 
-				TableSchema.TableColumn colvarCustomerID = new TableSchema.TableColumn(schema);
-				colvarCustomerID.ColumnName = "CustomerID";
-				colvarCustomerID.DataType = DbType.Int64;
-				colvarCustomerID.MaxLength = 0;
-				colvarCustomerID.AutoIncrement = false;
-				colvarCustomerID.IsNullable = false;
-				colvarCustomerID.IsPrimaryKey = false;
-				colvarCustomerID.IsForeignKey = false;
-				colvarCustomerID.IsReadOnly = false;
-				colvarCustomerID.DefaultSetting = @"";
-				colvarCustomerID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerID);
+				TableSchema.TableColumn colvarFirstName = new TableSchema.TableColumn(schema);
+				colvarFirstName.ColumnName = "FirstName";
+				colvarFirstName.DataType = DbType.String;
+				colvarFirstName.MaxLength = 50;
+				colvarFirstName.AutoIncrement = false;
+				colvarFirstName.IsNullable = true;
+				colvarFirstName.IsPrimaryKey = false;
+				colvarFirstName.IsForeignKey = false;
+				colvarFirstName.IsReadOnly = false;
+				colvarFirstName.DefaultSetting = @"";
+				colvarFirstName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarFirstName);
 
-				TableSchema.TableColumn colvarCustomerFirstName = new TableSchema.TableColumn(schema);
-				colvarCustomerFirstName.ColumnName = "CustomerFirstName";
-				colvarCustomerFirstName.DataType = DbType.String;
-				colvarCustomerFirstName.MaxLength = 50;
-				colvarCustomerFirstName.AutoIncrement = false;
-				colvarCustomerFirstName.IsNullable = false;
-				colvarCustomerFirstName.IsPrimaryKey = false;
-				colvarCustomerFirstName.IsForeignKey = false;
-				colvarCustomerFirstName.IsReadOnly = false;
-				colvarCustomerFirstName.DefaultSetting = @"";
-				colvarCustomerFirstName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerFirstName);
+				TableSchema.TableColumn colvarMiddleName = new TableSchema.TableColumn(schema);
+				colvarMiddleName.ColumnName = "MiddleName";
+				colvarMiddleName.DataType = DbType.String;
+				colvarMiddleName.MaxLength = 50;
+				colvarMiddleName.AutoIncrement = false;
+				colvarMiddleName.IsNullable = true;
+				colvarMiddleName.IsPrimaryKey = false;
+				colvarMiddleName.IsForeignKey = false;
+				colvarMiddleName.IsReadOnly = false;
+				colvarMiddleName.DefaultSetting = @"";
+				colvarMiddleName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarMiddleName);
 
-				TableSchema.TableColumn colvarCustomerMiddleName = new TableSchema.TableColumn(schema);
-				colvarCustomerMiddleName.ColumnName = "CustomerMiddleName";
-				colvarCustomerMiddleName.DataType = DbType.String;
-				colvarCustomerMiddleName.MaxLength = 50;
-				colvarCustomerMiddleName.AutoIncrement = false;
-				colvarCustomerMiddleName.IsNullable = false;
-				colvarCustomerMiddleName.IsPrimaryKey = false;
-				colvarCustomerMiddleName.IsForeignKey = false;
-				colvarCustomerMiddleName.IsReadOnly = false;
-				colvarCustomerMiddleName.DefaultSetting = @"";
-				colvarCustomerMiddleName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerMiddleName);
+				TableSchema.TableColumn colvarLastName = new TableSchema.TableColumn(schema);
+				colvarLastName.ColumnName = "LastName";
+				colvarLastName.DataType = DbType.String;
+				colvarLastName.MaxLength = 50;
+				colvarLastName.AutoIncrement = false;
+				colvarLastName.IsNullable = true;
+				colvarLastName.IsPrimaryKey = false;
+				colvarLastName.IsForeignKey = false;
+				colvarLastName.IsReadOnly = false;
+				colvarLastName.DefaultSetting = @"";
+				colvarLastName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLastName);
 
-				TableSchema.TableColumn colvarCustomerLastName = new TableSchema.TableColumn(schema);
-				colvarCustomerLastName.ColumnName = "CustomerLastName";
-				colvarCustomerLastName.DataType = DbType.String;
-				colvarCustomerLastName.MaxLength = 50;
-				colvarCustomerLastName.AutoIncrement = false;
-				colvarCustomerLastName.IsNullable = false;
-				colvarCustomerLastName.IsPrimaryKey = false;
-				colvarCustomerLastName.IsForeignKey = false;
-				colvarCustomerLastName.IsReadOnly = false;
-				colvarCustomerLastName.DefaultSetting = @"";
-				colvarCustomerLastName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerLastName);
+				TableSchema.TableColumn colvarMLMDepth = new TableSchema.TableColumn(schema);
+				colvarMLMDepth.ColumnName = "MLMDepth";
+				colvarMLMDepth.DataType = DbType.Int64;
+				colvarMLMDepth.MaxLength = 0;
+				colvarMLMDepth.AutoIncrement = false;
+				colvarMLMDepth.IsNullable = true;
+				colvarMLMDepth.IsPrimaryKey = false;
+				colvarMLMDepth.IsForeignKey = false;
+				colvarMLMDepth.IsReadOnly = false;
+				colvarMLMDepth.DefaultSetting = @"";
+				colvarMLMDepth.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarMLMDepth);
 
-				TableSchema.TableColumn colvarContractDate = new TableSchema.TableColumn(schema);
-				colvarContractDate.ColumnName = "ContractDate";
-				colvarContractDate.DataType = DbType.DateTime;
-				colvarContractDate.MaxLength = 0;
-				colvarContractDate.AutoIncrement = false;
-				colvarContractDate.IsNullable = true;
-				colvarContractDate.IsPrimaryKey = false;
-				colvarContractDate.IsForeignKey = false;
-				colvarContractDate.IsReadOnly = false;
-				colvarContractDate.DefaultSetting = @"";
-				colvarContractDate.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarContractDate);
+				TableSchema.TableColumn colvarManagerHasOwnTeam = new TableSchema.TableColumn(schema);
+				colvarManagerHasOwnTeam.ColumnName = "ManagerHasOwnTeam";
+				colvarManagerHasOwnTeam.DataType = DbType.Boolean;
+				colvarManagerHasOwnTeam.MaxLength = 0;
+				colvarManagerHasOwnTeam.AutoIncrement = false;
+				colvarManagerHasOwnTeam.IsNullable = true;
+				colvarManagerHasOwnTeam.IsPrimaryKey = false;
+				colvarManagerHasOwnTeam.IsForeignKey = false;
+				colvarManagerHasOwnTeam.IsReadOnly = false;
+				colvarManagerHasOwnTeam.DefaultSetting = @"";
+				colvarManagerHasOwnTeam.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarManagerHasOwnTeam);
 
-				TableSchema.TableColumn colvarCreditQuality = new TableSchema.TableColumn(schema);
-				colvarCreditQuality.ColumnName = "CreditQuality";
-				colvarCreditQuality.DataType = DbType.AnsiString;
-				colvarCreditQuality.MaxLength = 20;
-				colvarCreditQuality.AutoIncrement = false;
-				colvarCreditQuality.IsNullable = true;
-				colvarCreditQuality.IsPrimaryKey = false;
-				colvarCreditQuality.IsForeignKey = false;
-				colvarCreditQuality.IsReadOnly = false;
-				colvarCreditQuality.DefaultSetting = @"";
-				colvarCreditQuality.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCreditQuality);
-
-				TableSchema.TableColumn colvarActivationFee = new TableSchema.TableColumn(schema);
-				colvarActivationFee.ColumnName = "ActivationFee";
-				colvarActivationFee.DataType = DbType.Currency;
-				colvarActivationFee.MaxLength = 0;
-				colvarActivationFee.AutoIncrement = false;
-				colvarActivationFee.IsNullable = true;
-				colvarActivationFee.IsPrimaryKey = false;
-				colvarActivationFee.IsForeignKey = false;
-				colvarActivationFee.IsReadOnly = false;
-				colvarActivationFee.DefaultSetting = @"";
-				colvarActivationFee.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarActivationFee);
-
-				TableSchema.TableColumn colvarContractLength = new TableSchema.TableColumn(schema);
-				colvarContractLength.ColumnName = "ContractLength";
-				colvarContractLength.DataType = DbType.Int32;
-				colvarContractLength.MaxLength = 0;
-				colvarContractLength.AutoIncrement = false;
-				colvarContractLength.IsNullable = true;
-				colvarContractLength.IsPrimaryKey = false;
-				colvarContractLength.IsForeignKey = false;
-				colvarContractLength.IsReadOnly = false;
-				colvarContractLength.DefaultSetting = @"";
-				colvarContractLength.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarContractLength);
-
-				TableSchema.TableColumn colvarServiceType = new TableSchema.TableColumn(schema);
-				colvarServiceType.ColumnName = "ServiceType";
-				colvarServiceType.DataType = DbType.AnsiString;
-				colvarServiceType.MaxLength = 50;
-				colvarServiceType.AutoIncrement = false;
-				colvarServiceType.IsNullable = true;
-				colvarServiceType.IsPrimaryKey = false;
-				colvarServiceType.IsForeignKey = false;
-				colvarServiceType.IsReadOnly = false;
-				colvarServiceType.DefaultSetting = @"";
-				colvarServiceType.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarServiceType);
-
-				TableSchema.TableColumn colvarMonthlyPayment = new TableSchema.TableColumn(schema);
-				colvarMonthlyPayment.ColumnName = "MonthlyPayment";
-				colvarMonthlyPayment.DataType = DbType.Currency;
-				colvarMonthlyPayment.MaxLength = 0;
-				colvarMonthlyPayment.AutoIncrement = false;
-				colvarMonthlyPayment.IsNullable = true;
-				colvarMonthlyPayment.IsPrimaryKey = false;
-				colvarMonthlyPayment.IsForeignKey = false;
-				colvarMonthlyPayment.IsReadOnly = false;
-				colvarMonthlyPayment.DefaultSetting = @"";
-				colvarMonthlyPayment.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarMonthlyPayment);
-
-				TableSchema.TableColumn colvarPaymentMethod = new TableSchema.TableColumn(schema);
-				colvarPaymentMethod.ColumnName = "PaymentMethod";
-				colvarPaymentMethod.DataType = DbType.AnsiString;
-				colvarPaymentMethod.MaxLength = 50;
-				colvarPaymentMethod.AutoIncrement = false;
-				colvarPaymentMethod.IsNullable = true;
-				colvarPaymentMethod.IsPrimaryKey = false;
-				colvarPaymentMethod.IsForeignKey = false;
-				colvarPaymentMethod.IsReadOnly = false;
-				colvarPaymentMethod.DefaultSetting = @"";
-				colvarPaymentMethod.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPaymentMethod);
-
-				TableSchema.TableColumn colvarTotalCommission = new TableSchema.TableColumn(schema);
-				colvarTotalCommission.ColumnName = "TotalCommission";
-				colvarTotalCommission.DataType = DbType.Currency;
-				colvarTotalCommission.MaxLength = 0;
-				colvarTotalCommission.AutoIncrement = false;
-				colvarTotalCommission.IsNullable = true;
-				colvarTotalCommission.IsPrimaryKey = false;
-				colvarTotalCommission.IsForeignKey = false;
-				colvarTotalCommission.IsReadOnly = false;
-				colvarTotalCommission.DefaultSetting = @"";
-				colvarTotalCommission.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarTotalCommission);
-
-				TableSchema.TableColumn colvarisActive = new TableSchema.TableColumn(schema);
-				colvarisActive.ColumnName = "isActive";
-				colvarisActive.DataType = DbType.Boolean;
-				colvarisActive.MaxLength = 0;
-				colvarisActive.AutoIncrement = false;
-				colvarisActive.IsNullable = false;
-				colvarisActive.IsPrimaryKey = false;
-				colvarisActive.IsForeignKey = false;
-				colvarisActive.IsReadOnly = false;
-				colvarisActive.DefaultSetting = @"";
-				colvarisActive.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarisActive);
+				TableSchema.TableColumn colvarTeamName = new TableSchema.TableColumn(schema);
+				colvarTeamName.ColumnName = "TeamName";
+				colvarTeamName.DataType = DbType.AnsiString;
+				colvarTeamName.MaxLength = 9;
+				colvarTeamName.AutoIncrement = false;
+				colvarTeamName.IsNullable = false;
+				colvarTeamName.IsPrimaryKey = false;
+				colvarTeamName.IsForeignKey = false;
+				colvarTeamName.IsReadOnly = false;
+				colvarTeamName.DefaultSetting = @"";
+				colvarTeamName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTeamName);
 
 				BaseSchema = schema;
-				DataService.Providers["SosHumanResourceProvider"].AddSchema("vwRU_UsersAccountListConnext",schema);
+				DataService.Providers["SosHumanResourceProvider"].AddSchema("vwRU_UserSalesInfoConnext",schema);
 			}
 		}
 		#endregion //Schema Accessor
@@ -8734,7 +8147,7 @@ namespace SOS.Data.HumanResource
 		#endregion //Query Accessor
 
 		#region .ctors
-		public RU_UsersAccountListConnextView()
+		public RU_UserSalesInfoConnextView()
 		{
 			SetSQLProps();SetDefaults();MarkNew();
 		}
@@ -8747,76 +8160,41 @@ namespace SOS.Data.HumanResource
 			set { SetColumnValue(Columns.UserID, value); }
 		}
 		[DataMember]
-		public long CustomerID {
-			get { return GetColumnValue<long>(Columns.CustomerID); }
-			set { SetColumnValue(Columns.CustomerID, value); }
+		public string FirstName {
+			get { return GetColumnValue<string>(Columns.FirstName); }
+			set { SetColumnValue(Columns.FirstName, value); }
 		}
 		[DataMember]
-		public string CustomerFirstName {
-			get { return GetColumnValue<string>(Columns.CustomerFirstName); }
-			set { SetColumnValue(Columns.CustomerFirstName, value); }
+		public string MiddleName {
+			get { return GetColumnValue<string>(Columns.MiddleName); }
+			set { SetColumnValue(Columns.MiddleName, value); }
 		}
 		[DataMember]
-		public string CustomerMiddleName {
-			get { return GetColumnValue<string>(Columns.CustomerMiddleName); }
-			set { SetColumnValue(Columns.CustomerMiddleName, value); }
+		public string LastName {
+			get { return GetColumnValue<string>(Columns.LastName); }
+			set { SetColumnValue(Columns.LastName, value); }
 		}
 		[DataMember]
-		public string CustomerLastName {
-			get { return GetColumnValue<string>(Columns.CustomerLastName); }
-			set { SetColumnValue(Columns.CustomerLastName, value); }
+		public long? MLMDepth {
+			get { return GetColumnValue<long?>(Columns.MLMDepth); }
+			set { SetColumnValue(Columns.MLMDepth, value); }
 		}
 		[DataMember]
-		public DateTime ContractDate {
-			get { return GetColumnValue<DateTime>(Columns.ContractDate); }
-			set { SetColumnValue(Columns.ContractDate, value); }
+		public bool? ManagerHasOwnTeam {
+			get { return GetColumnValue<bool?>(Columns.ManagerHasOwnTeam); }
+			set { SetColumnValue(Columns.ManagerHasOwnTeam, value); }
 		}
 		[DataMember]
-		public string CreditQuality {
-			get { return GetColumnValue<string>(Columns.CreditQuality); }
-			set { SetColumnValue(Columns.CreditQuality, value); }
-		}
-		[DataMember]
-		public decimal ActivationFee {
-			get { return GetColumnValue<decimal>(Columns.ActivationFee); }
-			set { SetColumnValue(Columns.ActivationFee, value); }
-		}
-		[DataMember]
-		public int ContractLength {
-			get { return GetColumnValue<int>(Columns.ContractLength); }
-			set { SetColumnValue(Columns.ContractLength, value); }
-		}
-		[DataMember]
-		public string ServiceType {
-			get { return GetColumnValue<string>(Columns.ServiceType); }
-			set { SetColumnValue(Columns.ServiceType, value); }
-		}
-		[DataMember]
-		public decimal MonthlyPayment {
-			get { return GetColumnValue<decimal>(Columns.MonthlyPayment); }
-			set { SetColumnValue(Columns.MonthlyPayment, value); }
-		}
-		[DataMember]
-		public string PaymentMethod {
-			get { return GetColumnValue<string>(Columns.PaymentMethod); }
-			set { SetColumnValue(Columns.PaymentMethod, value); }
-		}
-		[DataMember]
-		public decimal TotalCommission {
-			get { return GetColumnValue<decimal>(Columns.TotalCommission); }
-			set { SetColumnValue(Columns.TotalCommission, value); }
-		}
-		[DataMember]
-		public bool isActive {
-			get { return GetColumnValue<bool>(Columns.isActive); }
-			set { SetColumnValue(Columns.isActive, value); }
+		public string TeamName {
+			get { return GetColumnValue<string>(Columns.TeamName); }
+			set { SetColumnValue(Columns.TeamName, value); }
 		}
 
 		#endregion //Properties
 
 		public override string ToString()
 		{
-			return UserID.ToString();
+			return FirstName;
 		}
 
 		#region Typed Columns
@@ -8825,57 +8203,29 @@ namespace SOS.Data.HumanResource
 		{
 			get { return Schema.Columns[0]; }
 		}
-		public static TableSchema.TableColumn CustomerIDColumn
+		public static TableSchema.TableColumn FirstNameColumn
 		{
 			get { return Schema.Columns[1]; }
 		}
-		public static TableSchema.TableColumn CustomerFirstNameColumn
+		public static TableSchema.TableColumn MiddleNameColumn
 		{
 			get { return Schema.Columns[2]; }
 		}
-		public static TableSchema.TableColumn CustomerMiddleNameColumn
+		public static TableSchema.TableColumn LastNameColumn
 		{
 			get { return Schema.Columns[3]; }
 		}
-		public static TableSchema.TableColumn CustomerLastNameColumn
+		public static TableSchema.TableColumn MLMDepthColumn
 		{
 			get { return Schema.Columns[4]; }
 		}
-		public static TableSchema.TableColumn ContractDateColumn
+		public static TableSchema.TableColumn ManagerHasOwnTeamColumn
 		{
 			get { return Schema.Columns[5]; }
 		}
-		public static TableSchema.TableColumn CreditQualityColumn
+		public static TableSchema.TableColumn TeamNameColumn
 		{
 			get { return Schema.Columns[6]; }
-		}
-		public static TableSchema.TableColumn ActivationFeeColumn
-		{
-			get { return Schema.Columns[7]; }
-		}
-		public static TableSchema.TableColumn ContractLengthColumn
-		{
-			get { return Schema.Columns[8]; }
-		}
-		public static TableSchema.TableColumn ServiceTypeColumn
-		{
-			get { return Schema.Columns[9]; }
-		}
-		public static TableSchema.TableColumn MonthlyPaymentColumn
-		{
-			get { return Schema.Columns[10]; }
-		}
-		public static TableSchema.TableColumn PaymentMethodColumn
-		{
-			get { return Schema.Columns[11]; }
-		}
-		public static TableSchema.TableColumn TotalCommissionColumn
-		{
-			get { return Schema.Columns[12]; }
-		}
-		public static TableSchema.TableColumn isActiveColumn
-		{
-			get { return Schema.Columns[13]; }
 		}
 
 		#endregion
@@ -8884,19 +8234,12 @@ namespace SOS.Data.HumanResource
 		public struct Columns
 		{
 			public const string UserID = @"UserID";
-			public const string CustomerID = @"CustomerID";
-			public const string CustomerFirstName = @"CustomerFirstName";
-			public const string CustomerMiddleName = @"CustomerMiddleName";
-			public const string CustomerLastName = @"CustomerLastName";
-			public const string ContractDate = @"ContractDate";
-			public const string CreditQuality = @"CreditQuality";
-			public const string ActivationFee = @"ActivationFee";
-			public const string ContractLength = @"ContractLength";
-			public const string ServiceType = @"ServiceType";
-			public const string MonthlyPayment = @"MonthlyPayment";
-			public const string PaymentMethod = @"PaymentMethod";
-			public const string TotalCommission = @"TotalCommission";
-			public const string isActive = @"isActive";
+			public const string FirstName = @"FirstName";
+			public const string MiddleName = @"MiddleName";
+			public const string LastName = @"LastName";
+			public const string MLMDepth = @"MLMDepth";
+			public const string ManagerHasOwnTeam = @"ManagerHasOwnTeam";
+			public const string TeamName = @"TeamName";
 		}
 		#endregion Columns Struct
 	}
@@ -9075,2818 +8418,6 @@ namespace SOS.Data.HumanResource
 		#endregion Columns Struct
 	}
 	/// <summary>
-	/// Strongly-typed collection for the RU_UsersGetDetailedStatisticsConnextView class.
-	/// </summary>
-	[DataContract]
-	public partial class RU_UsersGetDetailedStatisticsConnextViewCollection : ReadOnlyList<RU_UsersGetDetailedStatisticsConnextView, RU_UsersGetDetailedStatisticsConnextViewCollection>
-	{
-		public static RU_UsersGetDetailedStatisticsConnextViewCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			RU_UsersGetDetailedStatisticsConnextViewCollection result = new RU_UsersGetDetailedStatisticsConnextViewCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-	}
-
-	/// <summary>
-	/// This is a Read-only wrapper class for the vwRU_UsersGetDetailedStatisticsConnext view.
-	/// </summary>
-	[DataContract]
-	public partial class RU_UsersGetDetailedStatisticsConnextView : ReadOnlyRecord<RU_UsersGetDetailedStatisticsConnextView>
-	{
-		#region Default Settings
-		protected static void SetSQLProps() { GetTableSchema(); }
-		#endregion
-
-		#region Schema Accessor
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema()
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwRU_UsersGetDetailedStatisticsConnext", TableType.Table, DataService.GetInstance("SosHumanResourceProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"dbo";
-				//columns
-
-				TableSchema.TableColumn colvarUserID = new TableSchema.TableColumn(schema);
-				colvarUserID.ColumnName = "UserID";
-				colvarUserID.DataType = DbType.Int32;
-				colvarUserID.MaxLength = 0;
-				colvarUserID.AutoIncrement = false;
-				colvarUserID.IsNullable = false;
-				colvarUserID.IsPrimaryKey = false;
-				colvarUserID.IsForeignKey = false;
-				colvarUserID.IsReadOnly = false;
-				colvarUserID.DefaultSetting = @"";
-				colvarUserID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarUserID);
-
-				TableSchema.TableColumn colvarFirstName = new TableSchema.TableColumn(schema);
-				colvarFirstName.ColumnName = "FirstName";
-				colvarFirstName.DataType = DbType.String;
-				colvarFirstName.MaxLength = 50;
-				colvarFirstName.AutoIncrement = false;
-				colvarFirstName.IsNullable = true;
-				colvarFirstName.IsPrimaryKey = false;
-				colvarFirstName.IsForeignKey = false;
-				colvarFirstName.IsReadOnly = false;
-				colvarFirstName.DefaultSetting = @"";
-				colvarFirstName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarFirstName);
-
-				TableSchema.TableColumn colvarLastName = new TableSchema.TableColumn(schema);
-				colvarLastName.ColumnName = "LastName";
-				colvarLastName.DataType = DbType.String;
-				colvarLastName.MaxLength = 50;
-				colvarLastName.AutoIncrement = false;
-				colvarLastName.IsNullable = true;
-				colvarLastName.IsPrimaryKey = false;
-				colvarLastName.IsForeignKey = false;
-				colvarLastName.IsReadOnly = false;
-				colvarLastName.DefaultSetting = @"";
-				colvarLastName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLastName);
-
-				TableSchema.TableColumn colvarSalesYear = new TableSchema.TableColumn(schema);
-				colvarSalesYear.ColumnName = "SalesYear";
-				colvarSalesYear.DataType = DbType.Int32;
-				colvarSalesYear.MaxLength = 0;
-				colvarSalesYear.AutoIncrement = false;
-				colvarSalesYear.IsNullable = true;
-				colvarSalesYear.IsPrimaryKey = false;
-				colvarSalesYear.IsForeignKey = false;
-				colvarSalesYear.IsReadOnly = false;
-				colvarSalesYear.DefaultSetting = @"";
-				colvarSalesYear.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSalesYear);
-
-				TableSchema.TableColumn colvarSalesMonth = new TableSchema.TableColumn(schema);
-				colvarSalesMonth.ColumnName = "SalesMonth";
-				colvarSalesMonth.DataType = DbType.Int32;
-				colvarSalesMonth.MaxLength = 0;
-				colvarSalesMonth.AutoIncrement = false;
-				colvarSalesMonth.IsNullable = true;
-				colvarSalesMonth.IsPrimaryKey = false;
-				colvarSalesMonth.IsForeignKey = false;
-				colvarSalesMonth.IsReadOnly = false;
-				colvarSalesMonth.DefaultSetting = @"";
-				colvarSalesMonth.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSalesMonth);
-
-				TableSchema.TableColumn colvarRegionID = new TableSchema.TableColumn(schema);
-				colvarRegionID.ColumnName = "RegionID";
-				colvarRegionID.DataType = DbType.Int32;
-				colvarRegionID.MaxLength = 0;
-				colvarRegionID.AutoIncrement = false;
-				colvarRegionID.IsNullable = true;
-				colvarRegionID.IsPrimaryKey = false;
-				colvarRegionID.IsForeignKey = false;
-				colvarRegionID.IsReadOnly = false;
-				colvarRegionID.DefaultSetting = @"";
-				colvarRegionID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRegionID);
-
-				TableSchema.TableColumn colvarRegionName = new TableSchema.TableColumn(schema);
-				colvarRegionName.ColumnName = "RegionName";
-				colvarRegionName.DataType = DbType.AnsiString;
-				colvarRegionName.MaxLength = 50;
-				colvarRegionName.AutoIncrement = false;
-				colvarRegionName.IsNullable = false;
-				colvarRegionName.IsPrimaryKey = false;
-				colvarRegionName.IsForeignKey = false;
-				colvarRegionName.IsReadOnly = false;
-				colvarRegionName.DefaultSetting = @"";
-				colvarRegionName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRegionName);
-
-				TableSchema.TableColumn colvarTeamID = new TableSchema.TableColumn(schema);
-				colvarTeamID.ColumnName = "TeamID";
-				colvarTeamID.DataType = DbType.Int32;
-				colvarTeamID.MaxLength = 0;
-				colvarTeamID.AutoIncrement = false;
-				colvarTeamID.IsNullable = true;
-				colvarTeamID.IsPrimaryKey = false;
-				colvarTeamID.IsForeignKey = false;
-				colvarTeamID.IsReadOnly = false;
-				colvarTeamID.DefaultSetting = @"";
-				colvarTeamID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarTeamID);
-
-				TableSchema.TableColumn colvarTeamName = new TableSchema.TableColumn(schema);
-				colvarTeamName.ColumnName = "TeamName";
-				colvarTeamName.DataType = DbType.AnsiString;
-				colvarTeamName.MaxLength = 50;
-				colvarTeamName.AutoIncrement = false;
-				colvarTeamName.IsNullable = false;
-				colvarTeamName.IsPrimaryKey = false;
-				colvarTeamName.IsForeignKey = false;
-				colvarTeamName.IsReadOnly = false;
-				colvarTeamName.DefaultSetting = @"";
-				colvarTeamName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarTeamName);
-
-				TableSchema.TableColumn colvarOfficeID = new TableSchema.TableColumn(schema);
-				colvarOfficeID.ColumnName = "OfficeID";
-				colvarOfficeID.DataType = DbType.Int32;
-				colvarOfficeID.MaxLength = 0;
-				colvarOfficeID.AutoIncrement = false;
-				colvarOfficeID.IsNullable = true;
-				colvarOfficeID.IsPrimaryKey = false;
-				colvarOfficeID.IsForeignKey = false;
-				colvarOfficeID.IsReadOnly = false;
-				colvarOfficeID.DefaultSetting = @"";
-				colvarOfficeID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarOfficeID);
-
-				TableSchema.TableColumn colvarOfficeName = new TableSchema.TableColumn(schema);
-				colvarOfficeName.ColumnName = "OfficeName";
-				colvarOfficeName.DataType = DbType.AnsiString;
-				colvarOfficeName.MaxLength = 50;
-				colvarOfficeName.AutoIncrement = false;
-				colvarOfficeName.IsNullable = false;
-				colvarOfficeName.IsPrimaryKey = false;
-				colvarOfficeName.IsForeignKey = false;
-				colvarOfficeName.IsReadOnly = false;
-				colvarOfficeName.DefaultSetting = @"";
-				colvarOfficeName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarOfficeName);
-
-				TableSchema.TableColumn colvarHasRecruits = new TableSchema.TableColumn(schema);
-				colvarHasRecruits.ColumnName = "HasRecruits";
-				colvarHasRecruits.DataType = DbType.Boolean;
-				colvarHasRecruits.MaxLength = 0;
-				colvarHasRecruits.AutoIncrement = false;
-				colvarHasRecruits.IsNullable = true;
-				colvarHasRecruits.IsPrimaryKey = false;
-				colvarHasRecruits.IsForeignKey = false;
-				colvarHasRecruits.IsReadOnly = false;
-				colvarHasRecruits.DefaultSetting = @"";
-				colvarHasRecruits.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarHasRecruits);
-
-				TableSchema.TableColumn colvarNumberCreditReportsPulled = new TableSchema.TableColumn(schema);
-				colvarNumberCreditReportsPulled.ColumnName = "NumberCreditReportsPulled";
-				colvarNumberCreditReportsPulled.DataType = DbType.Int32;
-				colvarNumberCreditReportsPulled.MaxLength = 0;
-				colvarNumberCreditReportsPulled.AutoIncrement = false;
-				colvarNumberCreditReportsPulled.IsNullable = true;
-				colvarNumberCreditReportsPulled.IsPrimaryKey = false;
-				colvarNumberCreditReportsPulled.IsForeignKey = false;
-				colvarNumberCreditReportsPulled.IsReadOnly = false;
-				colvarNumberCreditReportsPulled.DefaultSetting = @"";
-				colvarNumberCreditReportsPulled.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberCreditReportsPulled);
-
-				TableSchema.TableColumn colvarNumberCreditsPassed = new TableSchema.TableColumn(schema);
-				colvarNumberCreditsPassed.ColumnName = "NumberCreditsPassed";
-				colvarNumberCreditsPassed.DataType = DbType.Int32;
-				colvarNumberCreditsPassed.MaxLength = 0;
-				colvarNumberCreditsPassed.AutoIncrement = false;
-				colvarNumberCreditsPassed.IsNullable = true;
-				colvarNumberCreditsPassed.IsPrimaryKey = false;
-				colvarNumberCreditsPassed.IsForeignKey = false;
-				colvarNumberCreditsPassed.IsReadOnly = false;
-				colvarNumberCreditsPassed.DefaultSetting = @"";
-				colvarNumberCreditsPassed.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberCreditsPassed);
-
-				TableSchema.TableColumn colvarNumberExcellentCreditScores = new TableSchema.TableColumn(schema);
-				colvarNumberExcellentCreditScores.ColumnName = "NumberExcellentCreditScores";
-				colvarNumberExcellentCreditScores.DataType = DbType.Int32;
-				colvarNumberExcellentCreditScores.MaxLength = 0;
-				colvarNumberExcellentCreditScores.AutoIncrement = false;
-				colvarNumberExcellentCreditScores.IsNullable = true;
-				colvarNumberExcellentCreditScores.IsPrimaryKey = false;
-				colvarNumberExcellentCreditScores.IsForeignKey = false;
-				colvarNumberExcellentCreditScores.IsReadOnly = false;
-				colvarNumberExcellentCreditScores.DefaultSetting = @"";
-				colvarNumberExcellentCreditScores.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberExcellentCreditScores);
-
-				TableSchema.TableColumn colvarNumberGoodCreditScores = new TableSchema.TableColumn(schema);
-				colvarNumberGoodCreditScores.ColumnName = "NumberGoodCreditScores";
-				colvarNumberGoodCreditScores.DataType = DbType.Int32;
-				colvarNumberGoodCreditScores.MaxLength = 0;
-				colvarNumberGoodCreditScores.AutoIncrement = false;
-				colvarNumberGoodCreditScores.IsNullable = true;
-				colvarNumberGoodCreditScores.IsPrimaryKey = false;
-				colvarNumberGoodCreditScores.IsForeignKey = false;
-				colvarNumberGoodCreditScores.IsReadOnly = false;
-				colvarNumberGoodCreditScores.DefaultSetting = @"";
-				colvarNumberGoodCreditScores.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberGoodCreditScores);
-
-				TableSchema.TableColumn colvarNumberBadCreditScores = new TableSchema.TableColumn(schema);
-				colvarNumberBadCreditScores.ColumnName = "NumberBadCreditScores";
-				colvarNumberBadCreditScores.DataType = DbType.Int32;
-				colvarNumberBadCreditScores.MaxLength = 0;
-				colvarNumberBadCreditScores.AutoIncrement = false;
-				colvarNumberBadCreditScores.IsNullable = true;
-				colvarNumberBadCreditScores.IsPrimaryKey = false;
-				colvarNumberBadCreditScores.IsForeignKey = false;
-				colvarNumberBadCreditScores.IsReadOnly = false;
-				colvarNumberBadCreditScores.DefaultSetting = @"";
-				colvarNumberBadCreditScores.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberBadCreditScores);
-
-				TableSchema.TableColumn colvarAverageCreditScore = new TableSchema.TableColumn(schema);
-				colvarAverageCreditScore.ColumnName = "AverageCreditScore";
-				colvarAverageCreditScore.DataType = DbType.Int32;
-				colvarAverageCreditScore.MaxLength = 0;
-				colvarAverageCreditScore.AutoIncrement = false;
-				colvarAverageCreditScore.IsNullable = true;
-				colvarAverageCreditScore.IsPrimaryKey = false;
-				colvarAverageCreditScore.IsForeignKey = false;
-				colvarAverageCreditScore.IsReadOnly = false;
-				colvarAverageCreditScore.DefaultSetting = @"";
-				colvarAverageCreditScore.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarAverageCreditScore);
-
-				TableSchema.TableColumn colvarCreditPassPercentage = new TableSchema.TableColumn(schema);
-				colvarCreditPassPercentage.ColumnName = "CreditPassPercentage";
-				colvarCreditPassPercentage.DataType = DbType.Decimal;
-				colvarCreditPassPercentage.MaxLength = 0;
-				colvarCreditPassPercentage.AutoIncrement = false;
-				colvarCreditPassPercentage.IsNullable = true;
-				colvarCreditPassPercentage.IsPrimaryKey = false;
-				colvarCreditPassPercentage.IsForeignKey = false;
-				colvarCreditPassPercentage.IsReadOnly = false;
-				colvarCreditPassPercentage.DefaultSetting = @"";
-				colvarCreditPassPercentage.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCreditPassPercentage);
-
-				TableSchema.TableColumn colvarPassAndInstallPercentage = new TableSchema.TableColumn(schema);
-				colvarPassAndInstallPercentage.ColumnName = "PassAndInstallPercentage";
-				colvarPassAndInstallPercentage.DataType = DbType.Decimal;
-				colvarPassAndInstallPercentage.MaxLength = 0;
-				colvarPassAndInstallPercentage.AutoIncrement = false;
-				colvarPassAndInstallPercentage.IsNullable = true;
-				colvarPassAndInstallPercentage.IsPrimaryKey = false;
-				colvarPassAndInstallPercentage.IsForeignKey = false;
-				colvarPassAndInstallPercentage.IsReadOnly = false;
-				colvarPassAndInstallPercentage.DefaultSetting = @"";
-				colvarPassAndInstallPercentage.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPassAndInstallPercentage);
-
-				TableSchema.TableColumn colvarNumberCancels = new TableSchema.TableColumn(schema);
-				colvarNumberCancels.ColumnName = "NumberCancels";
-				colvarNumberCancels.DataType = DbType.Int32;
-				colvarNumberCancels.MaxLength = 0;
-				colvarNumberCancels.AutoIncrement = false;
-				colvarNumberCancels.IsNullable = true;
-				colvarNumberCancels.IsPrimaryKey = false;
-				colvarNumberCancels.IsForeignKey = false;
-				colvarNumberCancels.IsReadOnly = false;
-				colvarNumberCancels.DefaultSetting = @"";
-				colvarNumberCancels.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberCancels);
-
-				TableSchema.TableColumn colvarNumberNetSales = new TableSchema.TableColumn(schema);
-				colvarNumberNetSales.ColumnName = "NumberNetSales";
-				colvarNumberNetSales.DataType = DbType.Int32;
-				colvarNumberNetSales.MaxLength = 0;
-				colvarNumberNetSales.AutoIncrement = false;
-				colvarNumberNetSales.IsNullable = true;
-				colvarNumberNetSales.IsPrimaryKey = false;
-				colvarNumberNetSales.IsForeignKey = false;
-				colvarNumberNetSales.IsReadOnly = false;
-				colvarNumberNetSales.DefaultSetting = @"";
-				colvarNumberNetSales.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberNetSales);
-
-				TableSchema.TableColumn colvarNumberPresurveys = new TableSchema.TableColumn(schema);
-				colvarNumberPresurveys.ColumnName = "NumberPresurveys";
-				colvarNumberPresurveys.DataType = DbType.Int32;
-				colvarNumberPresurveys.MaxLength = 0;
-				colvarNumberPresurveys.AutoIncrement = false;
-				colvarNumberPresurveys.IsNullable = true;
-				colvarNumberPresurveys.IsPrimaryKey = false;
-				colvarNumberPresurveys.IsForeignKey = false;
-				colvarNumberPresurveys.IsReadOnly = false;
-				colvarNumberPresurveys.DefaultSetting = @"";
-				colvarNumberPresurveys.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberPresurveys);
-
-				TableSchema.TableColumn colvarNumberPostsurveys = new TableSchema.TableColumn(schema);
-				colvarNumberPostsurveys.ColumnName = "NumberPostsurveys";
-				colvarNumberPostsurveys.DataType = DbType.Int32;
-				colvarNumberPostsurveys.MaxLength = 0;
-				colvarNumberPostsurveys.AutoIncrement = false;
-				colvarNumberPostsurveys.IsNullable = true;
-				colvarNumberPostsurveys.IsPrimaryKey = false;
-				colvarNumberPostsurveys.IsForeignKey = false;
-				colvarNumberPostsurveys.IsReadOnly = false;
-				colvarNumberPostsurveys.DefaultSetting = @"";
-				colvarNumberPostsurveys.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberPostsurveys);
-
-				TableSchema.TableColumn colvarNumberInstallations = new TableSchema.TableColumn(schema);
-				colvarNumberInstallations.ColumnName = "NumberInstallations";
-				colvarNumberInstallations.DataType = DbType.Int32;
-				colvarNumberInstallations.MaxLength = 0;
-				colvarNumberInstallations.AutoIncrement = false;
-				colvarNumberInstallations.IsNullable = true;
-				colvarNumberInstallations.IsPrimaryKey = false;
-				colvarNumberInstallations.IsForeignKey = false;
-				colvarNumberInstallations.IsReadOnly = false;
-				colvarNumberInstallations.DefaultSetting = @"";
-				colvarNumberInstallations.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberInstallations);
-
-				TableSchema.TableColumn colvarNumberSameDayInstallations = new TableSchema.TableColumn(schema);
-				colvarNumberSameDayInstallations.ColumnName = "NumberSameDayInstallations";
-				colvarNumberSameDayInstallations.DataType = DbType.Int32;
-				colvarNumberSameDayInstallations.MaxLength = 0;
-				colvarNumberSameDayInstallations.AutoIncrement = false;
-				colvarNumberSameDayInstallations.IsNullable = true;
-				colvarNumberSameDayInstallations.IsPrimaryKey = false;
-				colvarNumberSameDayInstallations.IsForeignKey = false;
-				colvarNumberSameDayInstallations.IsReadOnly = false;
-				colvarNumberSameDayInstallations.DefaultSetting = @"";
-				colvarNumberSameDayInstallations.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberSameDayInstallations);
-
-				TableSchema.TableColumn colvarSameDayInstallationPercentage = new TableSchema.TableColumn(schema);
-				colvarSameDayInstallationPercentage.ColumnName = "SameDayInstallationPercentage";
-				colvarSameDayInstallationPercentage.DataType = DbType.Decimal;
-				colvarSameDayInstallationPercentage.MaxLength = 0;
-				colvarSameDayInstallationPercentage.AutoIncrement = false;
-				colvarSameDayInstallationPercentage.IsNullable = true;
-				colvarSameDayInstallationPercentage.IsPrimaryKey = false;
-				colvarSameDayInstallationPercentage.IsForeignKey = false;
-				colvarSameDayInstallationPercentage.IsReadOnly = false;
-				colvarSameDayInstallationPercentage.DefaultSetting = @"";
-				colvarSameDayInstallationPercentage.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSameDayInstallationPercentage);
-
-				TableSchema.TableColumn colvarNumberActivationsWaived = new TableSchema.TableColumn(schema);
-				colvarNumberActivationsWaived.ColumnName = "NumberActivationsWaived";
-				colvarNumberActivationsWaived.DataType = DbType.Int32;
-				colvarNumberActivationsWaived.MaxLength = 0;
-				colvarNumberActivationsWaived.AutoIncrement = false;
-				colvarNumberActivationsWaived.IsNullable = true;
-				colvarNumberActivationsWaived.IsPrimaryKey = false;
-				colvarNumberActivationsWaived.IsForeignKey = false;
-				colvarNumberActivationsWaived.IsReadOnly = false;
-				colvarNumberActivationsWaived.DefaultSetting = @"";
-				colvarNumberActivationsWaived.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberActivationsWaived);
-
-				TableSchema.TableColumn colvarActivationsWaivedPercentage = new TableSchema.TableColumn(schema);
-				colvarActivationsWaivedPercentage.ColumnName = "ActivationsWaivedPercentage";
-				colvarActivationsWaivedPercentage.DataType = DbType.Decimal;
-				colvarActivationsWaivedPercentage.MaxLength = 0;
-				colvarActivationsWaivedPercentage.AutoIncrement = false;
-				colvarActivationsWaivedPercentage.IsNullable = true;
-				colvarActivationsWaivedPercentage.IsPrimaryKey = false;
-				colvarActivationsWaivedPercentage.IsForeignKey = false;
-				colvarActivationsWaivedPercentage.IsReadOnly = false;
-				colvarActivationsWaivedPercentage.DefaultSetting = @"";
-				colvarActivationsWaivedPercentage.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarActivationsWaivedPercentage);
-
-				TableSchema.TableColumn colvarNumberCCPayments = new TableSchema.TableColumn(schema);
-				colvarNumberCCPayments.ColumnName = "NumberCCPayments";
-				colvarNumberCCPayments.DataType = DbType.Int32;
-				colvarNumberCCPayments.MaxLength = 0;
-				colvarNumberCCPayments.AutoIncrement = false;
-				colvarNumberCCPayments.IsNullable = true;
-				colvarNumberCCPayments.IsPrimaryKey = false;
-				colvarNumberCCPayments.IsForeignKey = false;
-				colvarNumberCCPayments.IsReadOnly = false;
-				colvarNumberCCPayments.DefaultSetting = @"";
-				colvarNumberCCPayments.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberCCPayments);
-
-				TableSchema.TableColumn colvarNumberACHPayments = new TableSchema.TableColumn(schema);
-				colvarNumberACHPayments.ColumnName = "NumberACHPayments";
-				colvarNumberACHPayments.DataType = DbType.Int32;
-				colvarNumberACHPayments.MaxLength = 0;
-				colvarNumberACHPayments.AutoIncrement = false;
-				colvarNumberACHPayments.IsNullable = true;
-				colvarNumberACHPayments.IsPrimaryKey = false;
-				colvarNumberACHPayments.IsForeignKey = false;
-				colvarNumberACHPayments.IsReadOnly = false;
-				colvarNumberACHPayments.DefaultSetting = @"";
-				colvarNumberACHPayments.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberACHPayments);
-
-				TableSchema.TableColumn colvarNumberInvoicePayments = new TableSchema.TableColumn(schema);
-				colvarNumberInvoicePayments.ColumnName = "NumberInvoicePayments";
-				colvarNumberInvoicePayments.DataType = DbType.Int32;
-				colvarNumberInvoicePayments.MaxLength = 0;
-				colvarNumberInvoicePayments.AutoIncrement = false;
-				colvarNumberInvoicePayments.IsNullable = true;
-				colvarNumberInvoicePayments.IsPrimaryKey = false;
-				colvarNumberInvoicePayments.IsForeignKey = false;
-				colvarNumberInvoicePayments.IsReadOnly = false;
-				colvarNumberInvoicePayments.DefaultSetting = @"";
-				colvarNumberInvoicePayments.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberInvoicePayments);
-
-				TableSchema.TableColumn colvarNumberSystemsOver8Points = new TableSchema.TableColumn(schema);
-				colvarNumberSystemsOver8Points.ColumnName = "NumberSystemsOver8Points";
-				colvarNumberSystemsOver8Points.DataType = DbType.Int32;
-				colvarNumberSystemsOver8Points.MaxLength = 0;
-				colvarNumberSystemsOver8Points.AutoIncrement = false;
-				colvarNumberSystemsOver8Points.IsNullable = true;
-				colvarNumberSystemsOver8Points.IsPrimaryKey = false;
-				colvarNumberSystemsOver8Points.IsForeignKey = false;
-				colvarNumberSystemsOver8Points.IsReadOnly = false;
-				colvarNumberSystemsOver8Points.DefaultSetting = @"";
-				colvarNumberSystemsOver8Points.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberSystemsOver8Points);
-
-				TableSchema.TableColumn colvarNumberFreePointsGivenBySalesRep = new TableSchema.TableColumn(schema);
-				colvarNumberFreePointsGivenBySalesRep.ColumnName = "NumberFreePointsGivenBySalesRep";
-				colvarNumberFreePointsGivenBySalesRep.DataType = DbType.Int32;
-				colvarNumberFreePointsGivenBySalesRep.MaxLength = 0;
-				colvarNumberFreePointsGivenBySalesRep.AutoIncrement = false;
-				colvarNumberFreePointsGivenBySalesRep.IsNullable = true;
-				colvarNumberFreePointsGivenBySalesRep.IsPrimaryKey = false;
-				colvarNumberFreePointsGivenBySalesRep.IsForeignKey = false;
-				colvarNumberFreePointsGivenBySalesRep.IsReadOnly = false;
-				colvarNumberFreePointsGivenBySalesRep.DefaultSetting = @"";
-				colvarNumberFreePointsGivenBySalesRep.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberFreePointsGivenBySalesRep);
-
-				TableSchema.TableColumn colvarNumberFreePointsGivenByTech = new TableSchema.TableColumn(schema);
-				colvarNumberFreePointsGivenByTech.ColumnName = "NumberFreePointsGivenByTech";
-				colvarNumberFreePointsGivenByTech.DataType = DbType.Int32;
-				colvarNumberFreePointsGivenByTech.MaxLength = 0;
-				colvarNumberFreePointsGivenByTech.AutoIncrement = false;
-				colvarNumberFreePointsGivenByTech.IsNullable = true;
-				colvarNumberFreePointsGivenByTech.IsPrimaryKey = false;
-				colvarNumberFreePointsGivenByTech.IsForeignKey = false;
-				colvarNumberFreePointsGivenByTech.IsReadOnly = false;
-				colvarNumberFreePointsGivenByTech.DefaultSetting = @"";
-				colvarNumberFreePointsGivenByTech.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarNumberFreePointsGivenByTech);
-
-				BaseSchema = schema;
-				DataService.Providers["SosHumanResourceProvider"].AddSchema("vwRU_UsersGetDetailedStatisticsConnext",schema);
-			}
-		}
-		#endregion //Schema Accessor
-
-		#region Query Accessor
-		public static Query CreateQuery()
-		{
-			return new Query(Schema);
-		}
-		#endregion //Query Accessor
-
-		#region .ctors
-		public RU_UsersGetDetailedStatisticsConnextView()
-		{
-			SetSQLProps();SetDefaults();MarkNew();
-		}
-		#endregion
-
-		#region Properties
-		[DataMember]
-		public int UserID {
-			get { return GetColumnValue<int>(Columns.UserID); }
-			set { SetColumnValue(Columns.UserID, value); }
-		}
-		[DataMember]
-		public string FirstName {
-			get { return GetColumnValue<string>(Columns.FirstName); }
-			set { SetColumnValue(Columns.FirstName, value); }
-		}
-		[DataMember]
-		public string LastName {
-			get { return GetColumnValue<string>(Columns.LastName); }
-			set { SetColumnValue(Columns.LastName, value); }
-		}
-		[DataMember]
-		public int? SalesYear {
-			get { return GetColumnValue<int>(Columns.SalesYear); }
-			set { SetColumnValue(Columns.SalesYear, value); }
-		}
-		[DataMember]
-		public int? SalesMonth {
-			get { return GetColumnValue<int>(Columns.SalesMonth); }
-			set { SetColumnValue(Columns.SalesMonth, value); }
-		}
-		[DataMember]
-		public int? RegionID {
-			get { return GetColumnValue<int>(Columns.RegionID); }
-			set { SetColumnValue(Columns.RegionID, value); }
-		}
-		[DataMember]
-		public string RegionName {
-			get { return GetColumnValue<string>(Columns.RegionName); }
-			set { SetColumnValue(Columns.RegionName, value); }
-		}
-		[DataMember]
-		public int? TeamID {
-			get { return GetColumnValue<int>(Columns.TeamID); }
-			set { SetColumnValue(Columns.TeamID, value); }
-		}
-		[DataMember]
-		public string TeamName {
-			get { return GetColumnValue<string>(Columns.TeamName); }
-			set { SetColumnValue(Columns.TeamName, value); }
-		}
-		[DataMember]
-		public int? OfficeID {
-			get { return GetColumnValue<int>(Columns.OfficeID); }
-			set { SetColumnValue(Columns.OfficeID, value); }
-		}
-		[DataMember]
-		public string OfficeName {
-			get { return GetColumnValue<string>(Columns.OfficeName); }
-			set { SetColumnValue(Columns.OfficeName, value); }
-		}
-		[DataMember]
-		public bool HasRecruits {
-			get { return GetColumnValue<bool>(Columns.HasRecruits); }
-			set { SetColumnValue(Columns.HasRecruits, value); }
-		}
-		[DataMember]
-		public int? NumberCreditReportsPulled {
-			get { return GetColumnValue<int>(Columns.NumberCreditReportsPulled); }
-			set { SetColumnValue(Columns.NumberCreditReportsPulled, value); }
-		}
-		[DataMember]
-		public int? NumberCreditsPassed {
-			get { return GetColumnValue<int>(Columns.NumberCreditsPassed); }
-			set { SetColumnValue(Columns.NumberCreditsPassed, value); }
-		}
-		[DataMember]
-		public int? NumberExcellentCreditScores {
-			get { return GetColumnValue<int>(Columns.NumberExcellentCreditScores); }
-			set { SetColumnValue(Columns.NumberExcellentCreditScores, value); }
-		}
-		[DataMember]
-		public int? NumberGoodCreditScores {
-			get { return GetColumnValue<int>(Columns.NumberGoodCreditScores); }
-			set { SetColumnValue(Columns.NumberGoodCreditScores, value); }
-		}
-		[DataMember]
-		public int? NumberBadCreditScores {
-			get { return GetColumnValue<int>(Columns.NumberBadCreditScores); }
-			set { SetColumnValue(Columns.NumberBadCreditScores, value); }
-		}
-		[DataMember]
-		public int? AverageCreditScore {
-			get { return GetColumnValue<int>(Columns.AverageCreditScore); }
-			set { SetColumnValue(Columns.AverageCreditScore, value); }
-		}
-		[DataMember]
-		public decimal? CreditPassPercentage {
-			get { return GetColumnValue<decimal>(Columns.CreditPassPercentage); }
-			set { SetColumnValue(Columns.CreditPassPercentage, value); }
-		}
-		[DataMember]
-		public decimal? PassAndInstallPercentage {
-			get { return GetColumnValue<decimal>(Columns.PassAndInstallPercentage); }
-			set { SetColumnValue(Columns.PassAndInstallPercentage, value); }
-		}
-		[DataMember]
-		public int? NumberCancels {
-			get { return GetColumnValue<int>(Columns.NumberCancels); }
-			set { SetColumnValue(Columns.NumberCancels, value); }
-		}
-		[DataMember]
-		public int? NumberNetSales {
-			get { return GetColumnValue<int>(Columns.NumberNetSales); }
-			set { SetColumnValue(Columns.NumberNetSales, value); }
-		}
-		[DataMember]
-		public int? NumberPresurveys {
-			get { return GetColumnValue<int>(Columns.NumberPresurveys); }
-			set { SetColumnValue(Columns.NumberPresurveys, value); }
-		}
-		[DataMember]
-		public int? NumberPostsurveys {
-			get { return GetColumnValue<int>(Columns.NumberPostsurveys); }
-			set { SetColumnValue(Columns.NumberPostsurveys, value); }
-		}
-		[DataMember]
-		public int? NumberInstallations {
-			get { return GetColumnValue<int>(Columns.NumberInstallations); }
-			set { SetColumnValue(Columns.NumberInstallations, value); }
-		}
-		[DataMember]
-		public int? NumberSameDayInstallations {
-			get { return GetColumnValue<int>(Columns.NumberSameDayInstallations); }
-			set { SetColumnValue(Columns.NumberSameDayInstallations, value); }
-		}
-		[DataMember]
-		public decimal? SameDayInstallationPercentage {
-			get { return GetColumnValue<decimal>(Columns.SameDayInstallationPercentage); }
-			set { SetColumnValue(Columns.SameDayInstallationPercentage, value); }
-		}
-		[DataMember]
-		public int? NumberActivationsWaived {
-			get { return GetColumnValue<int>(Columns.NumberActivationsWaived); }
-			set { SetColumnValue(Columns.NumberActivationsWaived, value); }
-		}
-		[DataMember]
-		public decimal? ActivationsWaivedPercentage {
-			get { return GetColumnValue<decimal>(Columns.ActivationsWaivedPercentage); }
-			set { SetColumnValue(Columns.ActivationsWaivedPercentage, value); }
-		}
-		[DataMember]
-		public int? NumberCCPayments {
-			get { return GetColumnValue<int>(Columns.NumberCCPayments); }
-			set { SetColumnValue(Columns.NumberCCPayments, value); }
-		}
-		[DataMember]
-		public int? NumberACHPayments {
-			get { return GetColumnValue<int>(Columns.NumberACHPayments); }
-			set { SetColumnValue(Columns.NumberACHPayments, value); }
-		}
-		[DataMember]
-		public int? NumberInvoicePayments {
-			get { return GetColumnValue<int>(Columns.NumberInvoicePayments); }
-			set { SetColumnValue(Columns.NumberInvoicePayments, value); }
-		}
-		[DataMember]
-		public int? NumberSystemsOver8Points {
-			get { return GetColumnValue<int>(Columns.NumberSystemsOver8Points); }
-			set { SetColumnValue(Columns.NumberSystemsOver8Points, value); }
-		}
-		[DataMember]
-		public int? NumberFreePointsGivenBySalesRep {
-			get { return GetColumnValue<int>(Columns.NumberFreePointsGivenBySalesRep); }
-			set { SetColumnValue(Columns.NumberFreePointsGivenBySalesRep, value); }
-		}
-		[DataMember]
-		public int? NumberFreePointsGivenByTech {
-			get { return GetColumnValue<int>(Columns.NumberFreePointsGivenByTech); }
-			set { SetColumnValue(Columns.NumberFreePointsGivenByTech, value); }
-		}
-
-		#endregion //Properties
-
-		public override string ToString()
-		{
-			return FirstName;
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn UserIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn FirstNameColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn LastNameColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn SalesYearColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn SalesMonthColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-		public static TableSchema.TableColumn RegionIDColumn
-		{
-			get { return Schema.Columns[5]; }
-		}
-		public static TableSchema.TableColumn RegionNameColumn
-		{
-			get { return Schema.Columns[6]; }
-		}
-		public static TableSchema.TableColumn TeamIDColumn
-		{
-			get { return Schema.Columns[7]; }
-		}
-		public static TableSchema.TableColumn TeamNameColumn
-		{
-			get { return Schema.Columns[8]; }
-		}
-		public static TableSchema.TableColumn OfficeIDColumn
-		{
-			get { return Schema.Columns[9]; }
-		}
-		public static TableSchema.TableColumn OfficeNameColumn
-		{
-			get { return Schema.Columns[10]; }
-		}
-		public static TableSchema.TableColumn HasRecruitsColumn
-		{
-			get { return Schema.Columns[11]; }
-		}
-		public static TableSchema.TableColumn NumberCreditReportsPulledColumn
-		{
-			get { return Schema.Columns[12]; }
-		}
-		public static TableSchema.TableColumn NumberCreditsPassedColumn
-		{
-			get { return Schema.Columns[13]; }
-		}
-		public static TableSchema.TableColumn NumberExcellentCreditScoresColumn
-		{
-			get { return Schema.Columns[14]; }
-		}
-		public static TableSchema.TableColumn NumberGoodCreditScoresColumn
-		{
-			get { return Schema.Columns[15]; }
-		}
-		public static TableSchema.TableColumn NumberBadCreditScoresColumn
-		{
-			get { return Schema.Columns[16]; }
-		}
-		public static TableSchema.TableColumn AverageCreditScoreColumn
-		{
-			get { return Schema.Columns[17]; }
-		}
-		public static TableSchema.TableColumn CreditPassPercentageColumn
-		{
-			get { return Schema.Columns[18]; }
-		}
-		public static TableSchema.TableColumn PassAndInstallPercentageColumn
-		{
-			get { return Schema.Columns[19]; }
-		}
-		public static TableSchema.TableColumn NumberCancelsColumn
-		{
-			get { return Schema.Columns[20]; }
-		}
-		public static TableSchema.TableColumn NumberNetSalesColumn
-		{
-			get { return Schema.Columns[21]; }
-		}
-		public static TableSchema.TableColumn NumberPresurveysColumn
-		{
-			get { return Schema.Columns[22]; }
-		}
-		public static TableSchema.TableColumn NumberPostsurveysColumn
-		{
-			get { return Schema.Columns[23]; }
-		}
-		public static TableSchema.TableColumn NumberInstallationsColumn
-		{
-			get { return Schema.Columns[24]; }
-		}
-		public static TableSchema.TableColumn NumberSameDayInstallationsColumn
-		{
-			get { return Schema.Columns[25]; }
-		}
-		public static TableSchema.TableColumn SameDayInstallationPercentageColumn
-		{
-			get { return Schema.Columns[26]; }
-		}
-		public static TableSchema.TableColumn NumberActivationsWaivedColumn
-		{
-			get { return Schema.Columns[27]; }
-		}
-		public static TableSchema.TableColumn ActivationsWaivedPercentageColumn
-		{
-			get { return Schema.Columns[28]; }
-		}
-		public static TableSchema.TableColumn NumberCCPaymentsColumn
-		{
-			get { return Schema.Columns[29]; }
-		}
-		public static TableSchema.TableColumn NumberACHPaymentsColumn
-		{
-			get { return Schema.Columns[30]; }
-		}
-		public static TableSchema.TableColumn NumberInvoicePaymentsColumn
-		{
-			get { return Schema.Columns[31]; }
-		}
-		public static TableSchema.TableColumn NumberSystemsOver8PointsColumn
-		{
-			get { return Schema.Columns[32]; }
-		}
-		public static TableSchema.TableColumn NumberFreePointsGivenBySalesRepColumn
-		{
-			get { return Schema.Columns[33]; }
-		}
-		public static TableSchema.TableColumn NumberFreePointsGivenByTechColumn
-		{
-			get { return Schema.Columns[34]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public const string UserID = @"UserID";
-			public const string FirstName = @"FirstName";
-			public const string LastName = @"LastName";
-			public const string SalesYear = @"SalesYear";
-			public const string SalesMonth = @"SalesMonth";
-			public const string RegionID = @"RegionID";
-			public const string RegionName = @"RegionName";
-			public const string TeamID = @"TeamID";
-			public const string TeamName = @"TeamName";
-			public const string OfficeID = @"OfficeID";
-			public const string OfficeName = @"OfficeName";
-			public const string HasRecruits = @"HasRecruits";
-			public const string NumberCreditReportsPulled = @"NumberCreditReportsPulled";
-			public const string NumberCreditsPassed = @"NumberCreditsPassed";
-			public const string NumberExcellentCreditScores = @"NumberExcellentCreditScores";
-			public const string NumberGoodCreditScores = @"NumberGoodCreditScores";
-			public const string NumberBadCreditScores = @"NumberBadCreditScores";
-			public const string AverageCreditScore = @"AverageCreditScore";
-			public const string CreditPassPercentage = @"CreditPassPercentage";
-			public const string PassAndInstallPercentage = @"PassAndInstallPercentage";
-			public const string NumberCancels = @"NumberCancels";
-			public const string NumberNetSales = @"NumberNetSales";
-			public const string NumberPresurveys = @"NumberPresurveys";
-			public const string NumberPostsurveys = @"NumberPostsurveys";
-			public const string NumberInstallations = @"NumberInstallations";
-			public const string NumberSameDayInstallations = @"NumberSameDayInstallations";
-			public const string SameDayInstallationPercentage = @"SameDayInstallationPercentage";
-			public const string NumberActivationsWaived = @"NumberActivationsWaived";
-			public const string ActivationsWaivedPercentage = @"ActivationsWaivedPercentage";
-			public const string NumberCCPayments = @"NumberCCPayments";
-			public const string NumberACHPayments = @"NumberACHPayments";
-			public const string NumberInvoicePayments = @"NumberInvoicePayments";
-			public const string NumberSystemsOver8Points = @"NumberSystemsOver8Points";
-			public const string NumberFreePointsGivenBySalesRep = @"NumberFreePointsGivenBySalesRep";
-			public const string NumberFreePointsGivenByTech = @"NumberFreePointsGivenByTech";
-		}
-		#endregion Columns Struct
-	}
-	/// <summary>
-	/// Strongly-typed collection for the RU_UsersSalesInfoConnextView class.
-	/// </summary>
-	[DataContract]
-	public partial class RU_UsersSalesInfoConnextViewCollection : ReadOnlyList<RU_UsersSalesInfoConnextView, RU_UsersSalesInfoConnextViewCollection>
-	{
-		public static RU_UsersSalesInfoConnextViewCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			RU_UsersSalesInfoConnextViewCollection result = new RU_UsersSalesInfoConnextViewCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-	}
-
-	/// <summary>
-	/// This is a Read-only wrapper class for the vwRU_UsersSalesInfoConnext view.
-	/// </summary>
-	[DataContract]
-	public partial class RU_UsersSalesInfoConnextView : ReadOnlyRecord<RU_UsersSalesInfoConnextView>
-	{
-		#region Default Settings
-		protected static void SetSQLProps() { GetTableSchema(); }
-		#endregion
-
-		#region Schema Accessor
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema()
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwRU_UsersSalesInfoConnext", TableType.Table, DataService.GetInstance("SosHumanResourceProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"dbo";
-				//columns
-
-				TableSchema.TableColumn colvarUserID = new TableSchema.TableColumn(schema);
-				colvarUserID.ColumnName = "UserID";
-				colvarUserID.DataType = DbType.Int32;
-				colvarUserID.MaxLength = 0;
-				colvarUserID.AutoIncrement = false;
-				colvarUserID.IsNullable = false;
-				colvarUserID.IsPrimaryKey = false;
-				colvarUserID.IsForeignKey = false;
-				colvarUserID.IsReadOnly = false;
-				colvarUserID.DefaultSetting = @"";
-				colvarUserID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarUserID);
-
-				TableSchema.TableColumn colvarFirstName = new TableSchema.TableColumn(schema);
-				colvarFirstName.ColumnName = "FirstName";
-				colvarFirstName.DataType = DbType.String;
-				colvarFirstName.MaxLength = 50;
-				colvarFirstName.AutoIncrement = false;
-				colvarFirstName.IsNullable = true;
-				colvarFirstName.IsPrimaryKey = false;
-				colvarFirstName.IsForeignKey = false;
-				colvarFirstName.IsReadOnly = false;
-				colvarFirstName.DefaultSetting = @"";
-				colvarFirstName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarFirstName);
-
-				TableSchema.TableColumn colvarMiddleName = new TableSchema.TableColumn(schema);
-				colvarMiddleName.ColumnName = "MiddleName";
-				colvarMiddleName.DataType = DbType.String;
-				colvarMiddleName.MaxLength = 50;
-				colvarMiddleName.AutoIncrement = false;
-				colvarMiddleName.IsNullable = true;
-				colvarMiddleName.IsPrimaryKey = false;
-				colvarMiddleName.IsForeignKey = false;
-				colvarMiddleName.IsReadOnly = false;
-				colvarMiddleName.DefaultSetting = @"";
-				colvarMiddleName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarMiddleName);
-
-				TableSchema.TableColumn colvarLastName = new TableSchema.TableColumn(schema);
-				colvarLastName.ColumnName = "LastName";
-				colvarLastName.DataType = DbType.String;
-				colvarLastName.MaxLength = 50;
-				colvarLastName.AutoIncrement = false;
-				colvarLastName.IsNullable = true;
-				colvarLastName.IsPrimaryKey = false;
-				colvarLastName.IsForeignKey = false;
-				colvarLastName.IsReadOnly = false;
-				colvarLastName.DefaultSetting = @"";
-				colvarLastName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLastName);
-
-				TableSchema.TableColumn colvarPhotoURL = new TableSchema.TableColumn(schema);
-				colvarPhotoURL.ColumnName = "PhotoURL";
-				colvarPhotoURL.DataType = DbType.AnsiString;
-				colvarPhotoURL.MaxLength = 65;
-				colvarPhotoURL.AutoIncrement = false;
-				colvarPhotoURL.IsNullable = false;
-				colvarPhotoURL.IsPrimaryKey = false;
-				colvarPhotoURL.IsForeignKey = false;
-				colvarPhotoURL.IsReadOnly = false;
-				colvarPhotoURL.DefaultSetting = @"";
-				colvarPhotoURL.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPhotoURL);
-
-				TableSchema.TableColumn colvarMLMDepth = new TableSchema.TableColumn(schema);
-				colvarMLMDepth.ColumnName = "MLMDepth";
-				colvarMLMDepth.DataType = DbType.Int64;
-				colvarMLMDepth.MaxLength = 0;
-				colvarMLMDepth.AutoIncrement = false;
-				colvarMLMDepth.IsNullable = true;
-				colvarMLMDepth.IsPrimaryKey = false;
-				colvarMLMDepth.IsForeignKey = false;
-				colvarMLMDepth.IsReadOnly = false;
-				colvarMLMDepth.DefaultSetting = @"";
-				colvarMLMDepth.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarMLMDepth);
-
-				TableSchema.TableColumn colvarManagerHasOwnTeam = new TableSchema.TableColumn(schema);
-				colvarManagerHasOwnTeam.ColumnName = "ManagerHasOwnTeam";
-				colvarManagerHasOwnTeam.DataType = DbType.Boolean;
-				colvarManagerHasOwnTeam.MaxLength = 0;
-				colvarManagerHasOwnTeam.AutoIncrement = false;
-				colvarManagerHasOwnTeam.IsNullable = true;
-				colvarManagerHasOwnTeam.IsPrimaryKey = false;
-				colvarManagerHasOwnTeam.IsForeignKey = false;
-				colvarManagerHasOwnTeam.IsReadOnly = false;
-				colvarManagerHasOwnTeam.DefaultSetting = @"";
-				colvarManagerHasOwnTeam.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarManagerHasOwnTeam);
-
-				TableSchema.TableColumn colvarRegionName = new TableSchema.TableColumn(schema);
-				colvarRegionName.ColumnName = "RegionName";
-				colvarRegionName.DataType = DbType.AnsiString;
-				colvarRegionName.MaxLength = 50;
-				colvarRegionName.AutoIncrement = false;
-				colvarRegionName.IsNullable = true;
-				colvarRegionName.IsPrimaryKey = false;
-				colvarRegionName.IsForeignKey = false;
-				colvarRegionName.IsReadOnly = false;
-				colvarRegionName.DefaultSetting = @"";
-				colvarRegionName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRegionName);
-
-				TableSchema.TableColumn colvarOfficeName = new TableSchema.TableColumn(schema);
-				colvarOfficeName.ColumnName = "OfficeName";
-				colvarOfficeName.DataType = DbType.AnsiString;
-				colvarOfficeName.MaxLength = 50;
-				colvarOfficeName.AutoIncrement = false;
-				colvarOfficeName.IsNullable = true;
-				colvarOfficeName.IsPrimaryKey = false;
-				colvarOfficeName.IsForeignKey = false;
-				colvarOfficeName.IsReadOnly = false;
-				colvarOfficeName.DefaultSetting = @"";
-				colvarOfficeName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarOfficeName);
-
-				TableSchema.TableColumn colvarTeamName = new TableSchema.TableColumn(schema);
-				colvarTeamName.ColumnName = "TeamName";
-				colvarTeamName.DataType = DbType.AnsiString;
-				colvarTeamName.MaxLength = 50;
-				colvarTeamName.AutoIncrement = false;
-				colvarTeamName.IsNullable = true;
-				colvarTeamName.IsPrimaryKey = false;
-				colvarTeamName.IsForeignKey = false;
-				colvarTeamName.IsReadOnly = false;
-				colvarTeamName.DefaultSetting = @"";
-				colvarTeamName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarTeamName);
-
-				TableSchema.TableColumn colvarCurrentNationalRank = new TableSchema.TableColumn(schema);
-				colvarCurrentNationalRank.ColumnName = "CurrentNationalRank";
-				colvarCurrentNationalRank.DataType = DbType.Int64;
-				colvarCurrentNationalRank.MaxLength = 0;
-				colvarCurrentNationalRank.AutoIncrement = false;
-				colvarCurrentNationalRank.IsNullable = true;
-				colvarCurrentNationalRank.IsPrimaryKey = false;
-				colvarCurrentNationalRank.IsForeignKey = false;
-				colvarCurrentNationalRank.IsReadOnly = false;
-				colvarCurrentNationalRank.DefaultSetting = @"";
-				colvarCurrentNationalRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCurrentNationalRank);
-
-				TableSchema.TableColumn colvarPreviousNationalRank = new TableSchema.TableColumn(schema);
-				colvarPreviousNationalRank.ColumnName = "PreviousNationalRank";
-				colvarPreviousNationalRank.DataType = DbType.Int64;
-				colvarPreviousNationalRank.MaxLength = 0;
-				colvarPreviousNationalRank.AutoIncrement = false;
-				colvarPreviousNationalRank.IsNullable = true;
-				colvarPreviousNationalRank.IsPrimaryKey = false;
-				colvarPreviousNationalRank.IsForeignKey = false;
-				colvarPreviousNationalRank.IsReadOnly = false;
-				colvarPreviousNationalRank.DefaultSetting = @"";
-				colvarPreviousNationalRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPreviousNationalRank);
-
-				TableSchema.TableColumn colvarCurrentRegionalRank = new TableSchema.TableColumn(schema);
-				colvarCurrentRegionalRank.ColumnName = "CurrentRegionalRank";
-				colvarCurrentRegionalRank.DataType = DbType.Int64;
-				colvarCurrentRegionalRank.MaxLength = 0;
-				colvarCurrentRegionalRank.AutoIncrement = false;
-				colvarCurrentRegionalRank.IsNullable = true;
-				colvarCurrentRegionalRank.IsPrimaryKey = false;
-				colvarCurrentRegionalRank.IsForeignKey = false;
-				colvarCurrentRegionalRank.IsReadOnly = false;
-				colvarCurrentRegionalRank.DefaultSetting = @"";
-				colvarCurrentRegionalRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCurrentRegionalRank);
-
-				TableSchema.TableColumn colvarPreviousRegionalRank = new TableSchema.TableColumn(schema);
-				colvarPreviousRegionalRank.ColumnName = "PreviousRegionalRank";
-				colvarPreviousRegionalRank.DataType = DbType.Int64;
-				colvarPreviousRegionalRank.MaxLength = 0;
-				colvarPreviousRegionalRank.AutoIncrement = false;
-				colvarPreviousRegionalRank.IsNullable = true;
-				colvarPreviousRegionalRank.IsPrimaryKey = false;
-				colvarPreviousRegionalRank.IsForeignKey = false;
-				colvarPreviousRegionalRank.IsReadOnly = false;
-				colvarPreviousRegionalRank.DefaultSetting = @"";
-				colvarPreviousRegionalRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPreviousRegionalRank);
-
-				TableSchema.TableColumn colvarCurrentOfficeRank = new TableSchema.TableColumn(schema);
-				colvarCurrentOfficeRank.ColumnName = "CurrentOfficeRank";
-				colvarCurrentOfficeRank.DataType = DbType.Int64;
-				colvarCurrentOfficeRank.MaxLength = 0;
-				colvarCurrentOfficeRank.AutoIncrement = false;
-				colvarCurrentOfficeRank.IsNullable = true;
-				colvarCurrentOfficeRank.IsPrimaryKey = false;
-				colvarCurrentOfficeRank.IsForeignKey = false;
-				colvarCurrentOfficeRank.IsReadOnly = false;
-				colvarCurrentOfficeRank.DefaultSetting = @"";
-				colvarCurrentOfficeRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCurrentOfficeRank);
-
-				TableSchema.TableColumn colvarPreviousOfficeRank = new TableSchema.TableColumn(schema);
-				colvarPreviousOfficeRank.ColumnName = "PreviousOfficeRank";
-				colvarPreviousOfficeRank.DataType = DbType.Int64;
-				colvarPreviousOfficeRank.MaxLength = 0;
-				colvarPreviousOfficeRank.AutoIncrement = false;
-				colvarPreviousOfficeRank.IsNullable = true;
-				colvarPreviousOfficeRank.IsPrimaryKey = false;
-				colvarPreviousOfficeRank.IsForeignKey = false;
-				colvarPreviousOfficeRank.IsReadOnly = false;
-				colvarPreviousOfficeRank.DefaultSetting = @"";
-				colvarPreviousOfficeRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPreviousOfficeRank);
-
-				TableSchema.TableColumn colvarCurrentTeamRank = new TableSchema.TableColumn(schema);
-				colvarCurrentTeamRank.ColumnName = "CurrentTeamRank";
-				colvarCurrentTeamRank.DataType = DbType.Int64;
-				colvarCurrentTeamRank.MaxLength = 0;
-				colvarCurrentTeamRank.AutoIncrement = false;
-				colvarCurrentTeamRank.IsNullable = true;
-				colvarCurrentTeamRank.IsPrimaryKey = false;
-				colvarCurrentTeamRank.IsForeignKey = false;
-				colvarCurrentTeamRank.IsReadOnly = false;
-				colvarCurrentTeamRank.DefaultSetting = @"";
-				colvarCurrentTeamRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCurrentTeamRank);
-
-				TableSchema.TableColumn colvarPreviousTeamRank = new TableSchema.TableColumn(schema);
-				colvarPreviousTeamRank.ColumnName = "PreviousTeamRank";
-				colvarPreviousTeamRank.DataType = DbType.Int64;
-				colvarPreviousTeamRank.MaxLength = 0;
-				colvarPreviousTeamRank.AutoIncrement = false;
-				colvarPreviousTeamRank.IsNullable = true;
-				colvarPreviousTeamRank.IsPrimaryKey = false;
-				colvarPreviousTeamRank.IsForeignKey = false;
-				colvarPreviousTeamRank.IsReadOnly = false;
-				colvarPreviousTeamRank.DefaultSetting = @"";
-				colvarPreviousTeamRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPreviousTeamRank);
-
-				TableSchema.TableColumn colvarStartDate = new TableSchema.TableColumn(schema);
-				colvarStartDate.ColumnName = "StartDate";
-				colvarStartDate.DataType = DbType.DateTime;
-				colvarStartDate.MaxLength = 0;
-				colvarStartDate.AutoIncrement = false;
-				colvarStartDate.IsNullable = true;
-				colvarStartDate.IsPrimaryKey = false;
-				colvarStartDate.IsForeignKey = false;
-				colvarStartDate.IsReadOnly = false;
-				colvarStartDate.DefaultSetting = @"";
-				colvarStartDate.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarStartDate);
-
-				TableSchema.TableColumn colvarEmail = new TableSchema.TableColumn(schema);
-				colvarEmail.ColumnName = "Email";
-				colvarEmail.DataType = DbType.String;
-				colvarEmail.MaxLength = 100;
-				colvarEmail.AutoIncrement = false;
-				colvarEmail.IsNullable = true;
-				colvarEmail.IsPrimaryKey = false;
-				colvarEmail.IsForeignKey = false;
-				colvarEmail.IsReadOnly = false;
-				colvarEmail.DefaultSetting = @"";
-				colvarEmail.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarEmail);
-
-				BaseSchema = schema;
-				DataService.Providers["SosHumanResourceProvider"].AddSchema("vwRU_UsersSalesInfoConnext",schema);
-			}
-		}
-		#endregion //Schema Accessor
-
-		#region Query Accessor
-		public static Query CreateQuery()
-		{
-			return new Query(Schema);
-		}
-		#endregion //Query Accessor
-
-		#region .ctors
-		public RU_UsersSalesInfoConnextView()
-		{
-			SetSQLProps();SetDefaults();MarkNew();
-		}
-		#endregion
-
-		#region Properties
-		[DataMember]
-		public int UserID {
-			get { return GetColumnValue<int>(Columns.UserID); }
-			set { SetColumnValue(Columns.UserID, value); }
-		}
-		[DataMember]
-		public string FirstName {
-			get { return GetColumnValue<string>(Columns.FirstName); }
-			set { SetColumnValue(Columns.FirstName, value); }
-		}
-		[DataMember]
-		public string MiddleName {
-			get { return GetColumnValue<string>(Columns.MiddleName); }
-			set { SetColumnValue(Columns.MiddleName, value); }
-		}
-		[DataMember]
-		public string LastName {
-			get { return GetColumnValue<string>(Columns.LastName); }
-			set { SetColumnValue(Columns.LastName, value); }
-		}
-		[DataMember]
-		public string PhotoURL {
-			get { return GetColumnValue<string>(Columns.PhotoURL); }
-			set { SetColumnValue(Columns.PhotoURL, value); }
-		}
-		[DataMember]
-		public long? MLMDepth {
-			get { return GetColumnValue<long?>(Columns.MLMDepth); }
-			set { SetColumnValue(Columns.MLMDepth, value); }
-		}
-		[DataMember]
-		public bool? ManagerHasOwnTeam {
-			get { return GetColumnValue<bool?>(Columns.ManagerHasOwnTeam); }
-			set { SetColumnValue(Columns.ManagerHasOwnTeam, value); }
-		}
-		[DataMember]
-		public string RegionName {
-			get { return GetColumnValue<string>(Columns.RegionName); }
-			set { SetColumnValue(Columns.RegionName, value); }
-		}
-		[DataMember]
-		public string OfficeName {
-			get { return GetColumnValue<string>(Columns.OfficeName); }
-			set { SetColumnValue(Columns.OfficeName, value); }
-		}
-		[DataMember]
-		public string TeamName {
-			get { return GetColumnValue<string>(Columns.TeamName); }
-			set { SetColumnValue(Columns.TeamName, value); }
-		}
-		[DataMember]
-		public long? CurrentNationalRank {
-			get { return GetColumnValue<long?>(Columns.CurrentNationalRank); }
-			set { SetColumnValue(Columns.CurrentNationalRank, value); }
-		}
-		[DataMember]
-		public long? PreviousNationalRank {
-			get { return GetColumnValue<long?>(Columns.PreviousNationalRank); }
-			set { SetColumnValue(Columns.PreviousNationalRank, value); }
-		}
-		[DataMember]
-		public long? CurrentRegionalRank {
-			get { return GetColumnValue<long?>(Columns.CurrentRegionalRank); }
-			set { SetColumnValue(Columns.CurrentRegionalRank, value); }
-		}
-		[DataMember]
-		public long? PreviousRegionalRank {
-			get { return GetColumnValue<long?>(Columns.PreviousRegionalRank); }
-			set { SetColumnValue(Columns.PreviousRegionalRank, value); }
-		}
-		[DataMember]
-		public long? CurrentOfficeRank {
-			get { return GetColumnValue<long?>(Columns.CurrentOfficeRank); }
-			set { SetColumnValue(Columns.CurrentOfficeRank, value); }
-		}
-		[DataMember]
-		public long? PreviousOfficeRank {
-			get { return GetColumnValue<long?>(Columns.PreviousOfficeRank); }
-			set { SetColumnValue(Columns.PreviousOfficeRank, value); }
-		}
-		[DataMember]
-		public long? CurrentTeamRank {
-			get { return GetColumnValue<long?>(Columns.CurrentTeamRank); }
-			set { SetColumnValue(Columns.CurrentTeamRank, value); }
-		}
-		[DataMember]
-		public long? PreviousTeamRank {
-			get { return GetColumnValue<long?>(Columns.PreviousTeamRank); }
-			set { SetColumnValue(Columns.PreviousTeamRank, value); }
-		}
-		[DataMember]
-		public DateTime? StartDate {
-			get { return GetColumnValue<DateTime?>(Columns.StartDate); }
-			set { SetColumnValue(Columns.StartDate, value); }
-		}
-		[DataMember]
-		public string Email {
-			get { return GetColumnValue<string>(Columns.Email); }
-			set { SetColumnValue(Columns.Email, value); }
-		}
-
-		#endregion //Properties
-
-		public override string ToString()
-		{
-			return FirstName;
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn UserIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn FirstNameColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn MiddleNameColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn LastNameColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn PhotoURLColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-		public static TableSchema.TableColumn MLMDepthColumn
-		{
-			get { return Schema.Columns[5]; }
-		}
-		public static TableSchema.TableColumn ManagerHasOwnTeamColumn
-		{
-			get { return Schema.Columns[6]; }
-		}
-		public static TableSchema.TableColumn RegionNameColumn
-		{
-			get { return Schema.Columns[7]; }
-		}
-		public static TableSchema.TableColumn OfficeNameColumn
-		{
-			get { return Schema.Columns[8]; }
-		}
-		public static TableSchema.TableColumn TeamNameColumn
-		{
-			get { return Schema.Columns[9]; }
-		}
-		public static TableSchema.TableColumn CurrentNationalRankColumn
-		{
-			get { return Schema.Columns[10]; }
-		}
-		public static TableSchema.TableColumn PreviousNationalRankColumn
-		{
-			get { return Schema.Columns[11]; }
-		}
-		public static TableSchema.TableColumn CurrentRegionalRankColumn
-		{
-			get { return Schema.Columns[12]; }
-		}
-		public static TableSchema.TableColumn PreviousRegionalRankColumn
-		{
-			get { return Schema.Columns[13]; }
-		}
-		public static TableSchema.TableColumn CurrentOfficeRankColumn
-		{
-			get { return Schema.Columns[14]; }
-		}
-		public static TableSchema.TableColumn PreviousOfficeRankColumn
-		{
-			get { return Schema.Columns[15]; }
-		}
-		public static TableSchema.TableColumn CurrentTeamRankColumn
-		{
-			get { return Schema.Columns[16]; }
-		}
-		public static TableSchema.TableColumn PreviousTeamRankColumn
-		{
-			get { return Schema.Columns[17]; }
-		}
-		public static TableSchema.TableColumn StartDateColumn
-		{
-			get { return Schema.Columns[18]; }
-		}
-		public static TableSchema.TableColumn EmailColumn
-		{
-			get { return Schema.Columns[19]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public const string UserID = @"UserID";
-			public const string FirstName = @"FirstName";
-			public const string MiddleName = @"MiddleName";
-			public const string LastName = @"LastName";
-			public const string PhotoURL = @"PhotoURL";
-			public const string MLMDepth = @"MLMDepth";
-			public const string ManagerHasOwnTeam = @"ManagerHasOwnTeam";
-			public const string RegionName = @"RegionName";
-			public const string OfficeName = @"OfficeName";
-			public const string TeamName = @"TeamName";
-			public const string CurrentNationalRank = @"CurrentNationalRank";
-			public const string PreviousNationalRank = @"PreviousNationalRank";
-			public const string CurrentRegionalRank = @"CurrentRegionalRank";
-			public const string PreviousRegionalRank = @"PreviousRegionalRank";
-			public const string CurrentOfficeRank = @"CurrentOfficeRank";
-			public const string PreviousOfficeRank = @"PreviousOfficeRank";
-			public const string CurrentTeamRank = @"CurrentTeamRank";
-			public const string PreviousTeamRank = @"PreviousTeamRank";
-			public const string StartDate = @"StartDate";
-			public const string Email = @"Email";
-		}
-		#endregion Columns Struct
-	}
-	/// <summary>
-	/// Strongly-typed collection for the RU_UsersSalesInfoExtendedConnextView class.
-	/// </summary>
-	[DataContract]
-	public partial class RU_UsersSalesInfoExtendedConnextViewCollection : ReadOnlyList<RU_UsersSalesInfoExtendedConnextView, RU_UsersSalesInfoExtendedConnextViewCollection>
-	{
-		public static RU_UsersSalesInfoExtendedConnextViewCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			RU_UsersSalesInfoExtendedConnextViewCollection result = new RU_UsersSalesInfoExtendedConnextViewCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-	}
-
-	/// <summary>
-	/// This is a Read-only wrapper class for the vwRU_UsersSalesInfoExtendedConnext view.
-	/// </summary>
-	[DataContract]
-	public partial class RU_UsersSalesInfoExtendedConnextView : ReadOnlyRecord<RU_UsersSalesInfoExtendedConnextView>
-	{
-		#region Default Settings
-		protected static void SetSQLProps() { GetTableSchema(); }
-		#endregion
-
-		#region Schema Accessor
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema()
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwRU_UsersSalesInfoExtendedConnext", TableType.Table, DataService.GetInstance("SosHumanResourceProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"dbo";
-				//columns
-
-				TableSchema.TableColumn colvarUserID = new TableSchema.TableColumn(schema);
-				colvarUserID.ColumnName = "UserID";
-				colvarUserID.DataType = DbType.Int32;
-				colvarUserID.MaxLength = 0;
-				colvarUserID.AutoIncrement = false;
-				colvarUserID.IsNullable = false;
-				colvarUserID.IsPrimaryKey = false;
-				colvarUserID.IsForeignKey = false;
-				colvarUserID.IsReadOnly = false;
-				colvarUserID.DefaultSetting = @"";
-				colvarUserID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarUserID);
-
-				TableSchema.TableColumn colvarFirstName = new TableSchema.TableColumn(schema);
-				colvarFirstName.ColumnName = "FirstName";
-				colvarFirstName.DataType = DbType.String;
-				colvarFirstName.MaxLength = 50;
-				colvarFirstName.AutoIncrement = false;
-				colvarFirstName.IsNullable = true;
-				colvarFirstName.IsPrimaryKey = false;
-				colvarFirstName.IsForeignKey = false;
-				colvarFirstName.IsReadOnly = false;
-				colvarFirstName.DefaultSetting = @"";
-				colvarFirstName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarFirstName);
-
-				TableSchema.TableColumn colvarMiddleName = new TableSchema.TableColumn(schema);
-				colvarMiddleName.ColumnName = "MiddleName";
-				colvarMiddleName.DataType = DbType.String;
-				colvarMiddleName.MaxLength = 50;
-				colvarMiddleName.AutoIncrement = false;
-				colvarMiddleName.IsNullable = true;
-				colvarMiddleName.IsPrimaryKey = false;
-				colvarMiddleName.IsForeignKey = false;
-				colvarMiddleName.IsReadOnly = false;
-				colvarMiddleName.DefaultSetting = @"";
-				colvarMiddleName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarMiddleName);
-
-				TableSchema.TableColumn colvarLastName = new TableSchema.TableColumn(schema);
-				colvarLastName.ColumnName = "LastName";
-				colvarLastName.DataType = DbType.String;
-				colvarLastName.MaxLength = 50;
-				colvarLastName.AutoIncrement = false;
-				colvarLastName.IsNullable = true;
-				colvarLastName.IsPrimaryKey = false;
-				colvarLastName.IsForeignKey = false;
-				colvarLastName.IsReadOnly = false;
-				colvarLastName.DefaultSetting = @"";
-				colvarLastName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLastName);
-
-				TableSchema.TableColumn colvarPhotoURL = new TableSchema.TableColumn(schema);
-				colvarPhotoURL.ColumnName = "PhotoURL";
-				colvarPhotoURL.DataType = DbType.AnsiString;
-				colvarPhotoURL.MaxLength = 16;
-				colvarPhotoURL.AutoIncrement = false;
-				colvarPhotoURL.IsNullable = false;
-				colvarPhotoURL.IsPrimaryKey = false;
-				colvarPhotoURL.IsForeignKey = false;
-				colvarPhotoURL.IsReadOnly = false;
-				colvarPhotoURL.DefaultSetting = @"";
-				colvarPhotoURL.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPhotoURL);
-
-				TableSchema.TableColumn colvarMLMDepth = new TableSchema.TableColumn(schema);
-				colvarMLMDepth.ColumnName = "MLMDepth";
-				colvarMLMDepth.DataType = DbType.Int64;
-				colvarMLMDepth.MaxLength = 0;
-				colvarMLMDepth.AutoIncrement = false;
-				colvarMLMDepth.IsNullable = true;
-				colvarMLMDepth.IsPrimaryKey = false;
-				colvarMLMDepth.IsForeignKey = false;
-				colvarMLMDepth.IsReadOnly = false;
-				colvarMLMDepth.DefaultSetting = @"";
-				colvarMLMDepth.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarMLMDepth);
-
-				TableSchema.TableColumn colvarManagerHasOwnTeam = new TableSchema.TableColumn(schema);
-				colvarManagerHasOwnTeam.ColumnName = "ManagerHasOwnTeam";
-				colvarManagerHasOwnTeam.DataType = DbType.Boolean;
-				colvarManagerHasOwnTeam.MaxLength = 0;
-				colvarManagerHasOwnTeam.AutoIncrement = false;
-				colvarManagerHasOwnTeam.IsNullable = true;
-				colvarManagerHasOwnTeam.IsPrimaryKey = false;
-				colvarManagerHasOwnTeam.IsForeignKey = false;
-				colvarManagerHasOwnTeam.IsReadOnly = false;
-				colvarManagerHasOwnTeam.DefaultSetting = @"";
-				colvarManagerHasOwnTeam.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarManagerHasOwnTeam);
-
-				TableSchema.TableColumn colvarRegionName = new TableSchema.TableColumn(schema);
-				colvarRegionName.ColumnName = "RegionName";
-				colvarRegionName.DataType = DbType.AnsiString;
-				colvarRegionName.MaxLength = 9;
-				colvarRegionName.AutoIncrement = false;
-				colvarRegionName.IsNullable = false;
-				colvarRegionName.IsPrimaryKey = false;
-				colvarRegionName.IsForeignKey = false;
-				colvarRegionName.IsReadOnly = false;
-				colvarRegionName.DefaultSetting = @"";
-				colvarRegionName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRegionName);
-
-				TableSchema.TableColumn colvarOfficeName = new TableSchema.TableColumn(schema);
-				colvarOfficeName.ColumnName = "OfficeName";
-				colvarOfficeName.DataType = DbType.AnsiString;
-				colvarOfficeName.MaxLength = 10;
-				colvarOfficeName.AutoIncrement = false;
-				colvarOfficeName.IsNullable = false;
-				colvarOfficeName.IsPrimaryKey = false;
-				colvarOfficeName.IsForeignKey = false;
-				colvarOfficeName.IsReadOnly = false;
-				colvarOfficeName.DefaultSetting = @"";
-				colvarOfficeName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarOfficeName);
-
-				TableSchema.TableColumn colvarTeamName = new TableSchema.TableColumn(schema);
-				colvarTeamName.ColumnName = "TeamName";
-				colvarTeamName.DataType = DbType.AnsiString;
-				colvarTeamName.MaxLength = 10;
-				colvarTeamName.AutoIncrement = false;
-				colvarTeamName.IsNullable = false;
-				colvarTeamName.IsPrimaryKey = false;
-				colvarTeamName.IsForeignKey = false;
-				colvarTeamName.IsReadOnly = false;
-				colvarTeamName.DefaultSetting = @"";
-				colvarTeamName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarTeamName);
-
-				TableSchema.TableColumn colvarCurrentNationalRank = new TableSchema.TableColumn(schema);
-				colvarCurrentNationalRank.ColumnName = "CurrentNationalRank";
-				colvarCurrentNationalRank.DataType = DbType.Int64;
-				colvarCurrentNationalRank.MaxLength = 0;
-				colvarCurrentNationalRank.AutoIncrement = false;
-				colvarCurrentNationalRank.IsNullable = true;
-				colvarCurrentNationalRank.IsPrimaryKey = false;
-				colvarCurrentNationalRank.IsForeignKey = false;
-				colvarCurrentNationalRank.IsReadOnly = false;
-				colvarCurrentNationalRank.DefaultSetting = @"";
-				colvarCurrentNationalRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCurrentNationalRank);
-
-				TableSchema.TableColumn colvarPreviousNationalRank = new TableSchema.TableColumn(schema);
-				colvarPreviousNationalRank.ColumnName = "PreviousNationalRank";
-				colvarPreviousNationalRank.DataType = DbType.Int64;
-				colvarPreviousNationalRank.MaxLength = 0;
-				colvarPreviousNationalRank.AutoIncrement = false;
-				colvarPreviousNationalRank.IsNullable = true;
-				colvarPreviousNationalRank.IsPrimaryKey = false;
-				colvarPreviousNationalRank.IsForeignKey = false;
-				colvarPreviousNationalRank.IsReadOnly = false;
-				colvarPreviousNationalRank.DefaultSetting = @"";
-				colvarPreviousNationalRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPreviousNationalRank);
-
-				TableSchema.TableColumn colvarCurrentRegionalRank = new TableSchema.TableColumn(schema);
-				colvarCurrentRegionalRank.ColumnName = "CurrentRegionalRank";
-				colvarCurrentRegionalRank.DataType = DbType.Int64;
-				colvarCurrentRegionalRank.MaxLength = 0;
-				colvarCurrentRegionalRank.AutoIncrement = false;
-				colvarCurrentRegionalRank.IsNullable = true;
-				colvarCurrentRegionalRank.IsPrimaryKey = false;
-				colvarCurrentRegionalRank.IsForeignKey = false;
-				colvarCurrentRegionalRank.IsReadOnly = false;
-				colvarCurrentRegionalRank.DefaultSetting = @"";
-				colvarCurrentRegionalRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCurrentRegionalRank);
-
-				TableSchema.TableColumn colvarPreviousRegionalRank = new TableSchema.TableColumn(schema);
-				colvarPreviousRegionalRank.ColumnName = "PreviousRegionalRank";
-				colvarPreviousRegionalRank.DataType = DbType.Int64;
-				colvarPreviousRegionalRank.MaxLength = 0;
-				colvarPreviousRegionalRank.AutoIncrement = false;
-				colvarPreviousRegionalRank.IsNullable = true;
-				colvarPreviousRegionalRank.IsPrimaryKey = false;
-				colvarPreviousRegionalRank.IsForeignKey = false;
-				colvarPreviousRegionalRank.IsReadOnly = false;
-				colvarPreviousRegionalRank.DefaultSetting = @"";
-				colvarPreviousRegionalRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPreviousRegionalRank);
-
-				TableSchema.TableColumn colvarCurrentOfficeRank = new TableSchema.TableColumn(schema);
-				colvarCurrentOfficeRank.ColumnName = "CurrentOfficeRank";
-				colvarCurrentOfficeRank.DataType = DbType.Int64;
-				colvarCurrentOfficeRank.MaxLength = 0;
-				colvarCurrentOfficeRank.AutoIncrement = false;
-				colvarCurrentOfficeRank.IsNullable = true;
-				colvarCurrentOfficeRank.IsPrimaryKey = false;
-				colvarCurrentOfficeRank.IsForeignKey = false;
-				colvarCurrentOfficeRank.IsReadOnly = false;
-				colvarCurrentOfficeRank.DefaultSetting = @"";
-				colvarCurrentOfficeRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCurrentOfficeRank);
-
-				TableSchema.TableColumn colvarPreviousOfficeRank = new TableSchema.TableColumn(schema);
-				colvarPreviousOfficeRank.ColumnName = "PreviousOfficeRank";
-				colvarPreviousOfficeRank.DataType = DbType.Int64;
-				colvarPreviousOfficeRank.MaxLength = 0;
-				colvarPreviousOfficeRank.AutoIncrement = false;
-				colvarPreviousOfficeRank.IsNullable = true;
-				colvarPreviousOfficeRank.IsPrimaryKey = false;
-				colvarPreviousOfficeRank.IsForeignKey = false;
-				colvarPreviousOfficeRank.IsReadOnly = false;
-				colvarPreviousOfficeRank.DefaultSetting = @"";
-				colvarPreviousOfficeRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPreviousOfficeRank);
-
-				TableSchema.TableColumn colvarCurrentTeamRank = new TableSchema.TableColumn(schema);
-				colvarCurrentTeamRank.ColumnName = "CurrentTeamRank";
-				colvarCurrentTeamRank.DataType = DbType.Int64;
-				colvarCurrentTeamRank.MaxLength = 0;
-				colvarCurrentTeamRank.AutoIncrement = false;
-				colvarCurrentTeamRank.IsNullable = true;
-				colvarCurrentTeamRank.IsPrimaryKey = false;
-				colvarCurrentTeamRank.IsForeignKey = false;
-				colvarCurrentTeamRank.IsReadOnly = false;
-				colvarCurrentTeamRank.DefaultSetting = @"";
-				colvarCurrentTeamRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCurrentTeamRank);
-
-				TableSchema.TableColumn colvarPreviousTeamRank = new TableSchema.TableColumn(schema);
-				colvarPreviousTeamRank.ColumnName = "PreviousTeamRank";
-				colvarPreviousTeamRank.DataType = DbType.Int64;
-				colvarPreviousTeamRank.MaxLength = 0;
-				colvarPreviousTeamRank.AutoIncrement = false;
-				colvarPreviousTeamRank.IsNullable = true;
-				colvarPreviousTeamRank.IsPrimaryKey = false;
-				colvarPreviousTeamRank.IsForeignKey = false;
-				colvarPreviousTeamRank.IsReadOnly = false;
-				colvarPreviousTeamRank.DefaultSetting = @"";
-				colvarPreviousTeamRank.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPreviousTeamRank);
-
-				TableSchema.TableColumn colvarStartDate = new TableSchema.TableColumn(schema);
-				colvarStartDate.ColumnName = "StartDate";
-				colvarStartDate.DataType = DbType.DateTime;
-				colvarStartDate.MaxLength = 0;
-				colvarStartDate.AutoIncrement = false;
-				colvarStartDate.IsNullable = true;
-				colvarStartDate.IsPrimaryKey = false;
-				colvarStartDate.IsForeignKey = false;
-				colvarStartDate.IsReadOnly = false;
-				colvarStartDate.DefaultSetting = @"";
-				colvarStartDate.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarStartDate);
-
-				TableSchema.TableColumn colvarPhone = new TableSchema.TableColumn(schema);
-				colvarPhone.ColumnName = "Phone";
-				colvarPhone.DataType = DbType.String;
-				colvarPhone.MaxLength = 50;
-				colvarPhone.AutoIncrement = false;
-				colvarPhone.IsNullable = true;
-				colvarPhone.IsPrimaryKey = false;
-				colvarPhone.IsForeignKey = false;
-				colvarPhone.IsReadOnly = false;
-				colvarPhone.DefaultSetting = @"";
-				colvarPhone.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPhone);
-
-				TableSchema.TableColumn colvarEmail = new TableSchema.TableColumn(schema);
-				colvarEmail.ColumnName = "Email";
-				colvarEmail.DataType = DbType.String;
-				colvarEmail.MaxLength = 100;
-				colvarEmail.AutoIncrement = false;
-				colvarEmail.IsNullable = true;
-				colvarEmail.IsPrimaryKey = false;
-				colvarEmail.IsForeignKey = false;
-				colvarEmail.IsReadOnly = false;
-				colvarEmail.DefaultSetting = @"";
-				colvarEmail.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarEmail);
-
-				TableSchema.TableColumn colvarStreetAddress = new TableSchema.TableColumn(schema);
-				colvarStreetAddress.ColumnName = "StreetAddress";
-				colvarStreetAddress.DataType = DbType.String;
-				colvarStreetAddress.MaxLength = 50;
-				colvarStreetAddress.AutoIncrement = false;
-				colvarStreetAddress.IsNullable = true;
-				colvarStreetAddress.IsPrimaryKey = false;
-				colvarStreetAddress.IsForeignKey = false;
-				colvarStreetAddress.IsReadOnly = false;
-				colvarStreetAddress.DefaultSetting = @"";
-				colvarStreetAddress.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarStreetAddress);
-
-				TableSchema.TableColumn colvarStreetAddress2 = new TableSchema.TableColumn(schema);
-				colvarStreetAddress2.ColumnName = "StreetAddress2";
-				colvarStreetAddress2.DataType = DbType.String;
-				colvarStreetAddress2.MaxLength = 50;
-				colvarStreetAddress2.AutoIncrement = false;
-				colvarStreetAddress2.IsNullable = true;
-				colvarStreetAddress2.IsPrimaryKey = false;
-				colvarStreetAddress2.IsForeignKey = false;
-				colvarStreetAddress2.IsReadOnly = false;
-				colvarStreetAddress2.DefaultSetting = @"";
-				colvarStreetAddress2.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarStreetAddress2);
-
-				TableSchema.TableColumn colvarCity = new TableSchema.TableColumn(schema);
-				colvarCity.ColumnName = "City";
-				colvarCity.DataType = DbType.String;
-				colvarCity.MaxLength = 50;
-				colvarCity.AutoIncrement = false;
-				colvarCity.IsNullable = true;
-				colvarCity.IsPrimaryKey = false;
-				colvarCity.IsForeignKey = false;
-				colvarCity.IsReadOnly = false;
-				colvarCity.DefaultSetting = @"";
-				colvarCity.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCity);
-
-				TableSchema.TableColumn colvarState = new TableSchema.TableColumn(schema);
-				colvarState.ColumnName = "State";
-				colvarState.DataType = DbType.AnsiStringFixedLength;
-				colvarState.MaxLength = 2;
-				colvarState.AutoIncrement = false;
-				colvarState.IsNullable = true;
-				colvarState.IsPrimaryKey = false;
-				colvarState.IsForeignKey = false;
-				colvarState.IsReadOnly = false;
-				colvarState.DefaultSetting = @"";
-				colvarState.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarState);
-
-				TableSchema.TableColumn colvarZip = new TableSchema.TableColumn(schema);
-				colvarZip.ColumnName = "Zip";
-				colvarZip.DataType = DbType.String;
-				colvarZip.MaxLength = 10;
-				colvarZip.AutoIncrement = false;
-				colvarZip.IsNullable = true;
-				colvarZip.IsPrimaryKey = false;
-				colvarZip.IsForeignKey = false;
-				colvarZip.IsReadOnly = false;
-				colvarZip.DefaultSetting = @"";
-				colvarZip.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarZip);
-
-				TableSchema.TableColumn colvarWeeklySalesGoal = new TableSchema.TableColumn(schema);
-				colvarWeeklySalesGoal.ColumnName = "WeeklySalesGoal";
-				colvarWeeklySalesGoal.DataType = DbType.Int32;
-				colvarWeeklySalesGoal.MaxLength = 0;
-				colvarWeeklySalesGoal.AutoIncrement = false;
-				colvarWeeklySalesGoal.IsNullable = true;
-				colvarWeeklySalesGoal.IsPrimaryKey = false;
-				colvarWeeklySalesGoal.IsForeignKey = false;
-				colvarWeeklySalesGoal.IsReadOnly = false;
-				colvarWeeklySalesGoal.DefaultSetting = @"";
-				colvarWeeklySalesGoal.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarWeeklySalesGoal);
-
-				TableSchema.TableColumn colvarMonthlySalesGoal = new TableSchema.TableColumn(schema);
-				colvarMonthlySalesGoal.ColumnName = "MonthlySalesGoal";
-				colvarMonthlySalesGoal.DataType = DbType.Int32;
-				colvarMonthlySalesGoal.MaxLength = 0;
-				colvarMonthlySalesGoal.AutoIncrement = false;
-				colvarMonthlySalesGoal.IsNullable = true;
-				colvarMonthlySalesGoal.IsPrimaryKey = false;
-				colvarMonthlySalesGoal.IsForeignKey = false;
-				colvarMonthlySalesGoal.IsReadOnly = false;
-				colvarMonthlySalesGoal.DefaultSetting = @"";
-				colvarMonthlySalesGoal.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarMonthlySalesGoal);
-
-				TableSchema.TableColumn colvarYearlySalesGoal = new TableSchema.TableColumn(schema);
-				colvarYearlySalesGoal.ColumnName = "YearlySalesGoal";
-				colvarYearlySalesGoal.DataType = DbType.Int32;
-				colvarYearlySalesGoal.MaxLength = 0;
-				colvarYearlySalesGoal.AutoIncrement = false;
-				colvarYearlySalesGoal.IsNullable = true;
-				colvarYearlySalesGoal.IsPrimaryKey = false;
-				colvarYearlySalesGoal.IsForeignKey = false;
-				colvarYearlySalesGoal.IsReadOnly = false;
-				colvarYearlySalesGoal.DefaultSetting = @"";
-				colvarYearlySalesGoal.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarYearlySalesGoal);
-
-				TableSchema.TableColumn colvarWeeklyQualityGoal = new TableSchema.TableColumn(schema);
-				colvarWeeklyQualityGoal.ColumnName = "WeeklyQualityGoal";
-				colvarWeeklyQualityGoal.DataType = DbType.Double;
-				colvarWeeklyQualityGoal.MaxLength = 0;
-				colvarWeeklyQualityGoal.AutoIncrement = false;
-				colvarWeeklyQualityGoal.IsNullable = true;
-				colvarWeeklyQualityGoal.IsPrimaryKey = false;
-				colvarWeeklyQualityGoal.IsForeignKey = false;
-				colvarWeeklyQualityGoal.IsReadOnly = false;
-				colvarWeeklyQualityGoal.DefaultSetting = @"";
-				colvarWeeklyQualityGoal.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarWeeklyQualityGoal);
-
-				TableSchema.TableColumn colvarMonthlyQualityGoal = new TableSchema.TableColumn(schema);
-				colvarMonthlyQualityGoal.ColumnName = "MonthlyQualityGoal";
-				colvarMonthlyQualityGoal.DataType = DbType.Double;
-				colvarMonthlyQualityGoal.MaxLength = 0;
-				colvarMonthlyQualityGoal.AutoIncrement = false;
-				colvarMonthlyQualityGoal.IsNullable = true;
-				colvarMonthlyQualityGoal.IsPrimaryKey = false;
-				colvarMonthlyQualityGoal.IsForeignKey = false;
-				colvarMonthlyQualityGoal.IsReadOnly = false;
-				colvarMonthlyQualityGoal.DefaultSetting = @"";
-				colvarMonthlyQualityGoal.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarMonthlyQualityGoal);
-
-				TableSchema.TableColumn colvarYearlyQualityGoal = new TableSchema.TableColumn(schema);
-				colvarYearlyQualityGoal.ColumnName = "YearlyQualityGoal";
-				colvarYearlyQualityGoal.DataType = DbType.Double;
-				colvarYearlyQualityGoal.MaxLength = 0;
-				colvarYearlyQualityGoal.AutoIncrement = false;
-				colvarYearlyQualityGoal.IsNullable = true;
-				colvarYearlyQualityGoal.IsPrimaryKey = false;
-				colvarYearlyQualityGoal.IsForeignKey = false;
-				colvarYearlyQualityGoal.IsReadOnly = false;
-				colvarYearlyQualityGoal.DefaultSetting = @"";
-				colvarYearlyQualityGoal.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarYearlyQualityGoal);
-
-				TableSchema.TableColumn colvarLicense1 = new TableSchema.TableColumn(schema);
-				colvarLicense1.ColumnName = "License1";
-				colvarLicense1.DataType = DbType.AnsiString;
-				colvarLicense1.MaxLength = 18;
-				colvarLicense1.AutoIncrement = false;
-				colvarLicense1.IsNullable = false;
-				colvarLicense1.IsPrimaryKey = false;
-				colvarLicense1.IsForeignKey = false;
-				colvarLicense1.IsReadOnly = false;
-				colvarLicense1.DefaultSetting = @"";
-				colvarLicense1.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLicense1);
-
-				TableSchema.TableColumn colvarLicense1URL = new TableSchema.TableColumn(schema);
-				colvarLicense1URL.ColumnName = "License1URL";
-				colvarLicense1URL.DataType = DbType.AnsiString;
-				colvarLicense1URL.MaxLength = 16;
-				colvarLicense1URL.AutoIncrement = false;
-				colvarLicense1URL.IsNullable = false;
-				colvarLicense1URL.IsPrimaryKey = false;
-				colvarLicense1URL.IsForeignKey = false;
-				colvarLicense1URL.IsReadOnly = false;
-				colvarLicense1URL.DefaultSetting = @"";
-				colvarLicense1URL.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLicense1URL);
-
-				TableSchema.TableColumn colvarLicense2 = new TableSchema.TableColumn(schema);
-				colvarLicense2.ColumnName = "License2";
-				colvarLicense2.DataType = DbType.AnsiString;
-				colvarLicense2.MaxLength = 29;
-				colvarLicense2.AutoIncrement = false;
-				colvarLicense2.IsNullable = false;
-				colvarLicense2.IsPrimaryKey = false;
-				colvarLicense2.IsForeignKey = false;
-				colvarLicense2.IsReadOnly = false;
-				colvarLicense2.DefaultSetting = @"";
-				colvarLicense2.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLicense2);
-
-				TableSchema.TableColumn colvarLicense2URL = new TableSchema.TableColumn(schema);
-				colvarLicense2URL.ColumnName = "License2URL";
-				colvarLicense2URL.DataType = DbType.AnsiString;
-				colvarLicense2URL.MaxLength = 14;
-				colvarLicense2URL.AutoIncrement = false;
-				colvarLicense2URL.IsNullable = false;
-				colvarLicense2URL.IsPrimaryKey = false;
-				colvarLicense2URL.IsForeignKey = false;
-				colvarLicense2URL.IsReadOnly = false;
-				colvarLicense2URL.DefaultSetting = @"";
-				colvarLicense2URL.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLicense2URL);
-
-				TableSchema.TableColumn colvarLicense3 = new TableSchema.TableColumn(schema);
-				colvarLicense3.ColumnName = "License3";
-				colvarLicense3.DataType = DbType.AnsiString;
-				colvarLicense3.MaxLength = 29;
-				colvarLicense3.AutoIncrement = false;
-				colvarLicense3.IsNullable = false;
-				colvarLicense3.IsPrimaryKey = false;
-				colvarLicense3.IsForeignKey = false;
-				colvarLicense3.IsReadOnly = false;
-				colvarLicense3.DefaultSetting = @"";
-				colvarLicense3.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLicense3);
-
-				TableSchema.TableColumn colvarLicense3URL = new TableSchema.TableColumn(schema);
-				colvarLicense3URL.ColumnName = "License3URL";
-				colvarLicense3URL.DataType = DbType.AnsiString;
-				colvarLicense3URL.MaxLength = 16;
-				colvarLicense3URL.AutoIncrement = false;
-				colvarLicense3URL.IsNullable = false;
-				colvarLicense3URL.IsPrimaryKey = false;
-				colvarLicense3URL.IsForeignKey = false;
-				colvarLicense3URL.IsReadOnly = false;
-				colvarLicense3URL.DefaultSetting = @"";
-				colvarLicense3URL.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLicense3URL);
-
-				BaseSchema = schema;
-				DataService.Providers["SosHumanResourceProvider"].AddSchema("vwRU_UsersSalesInfoExtendedConnext",schema);
-			}
-		}
-		#endregion //Schema Accessor
-
-		#region Query Accessor
-		public static Query CreateQuery()
-		{
-			return new Query(Schema);
-		}
-		#endregion //Query Accessor
-
-		#region .ctors
-		public RU_UsersSalesInfoExtendedConnextView()
-		{
-			SetSQLProps();SetDefaults();MarkNew();
-		}
-		#endregion
-
-		#region Properties
-		[DataMember]
-		public int UserID {
-			get { return GetColumnValue<int>(Columns.UserID); }
-			set { SetColumnValue(Columns.UserID, value); }
-		}
-		[DataMember]
-		public string FirstName {
-			get { return GetColumnValue<string>(Columns.FirstName); }
-			set { SetColumnValue(Columns.FirstName, value); }
-		}
-		[DataMember]
-		public string MiddleName {
-			get { return GetColumnValue<string>(Columns.MiddleName); }
-			set { SetColumnValue(Columns.MiddleName, value); }
-		}
-		[DataMember]
-		public string LastName {
-			get { return GetColumnValue<string>(Columns.LastName); }
-			set { SetColumnValue(Columns.LastName, value); }
-		}
-		[DataMember]
-		public string PhotoURL {
-			get { return GetColumnValue<string>(Columns.PhotoURL); }
-			set { SetColumnValue(Columns.PhotoURL, value); }
-		}
-		[DataMember]
-		public long? MLMDepth {
-			get { return GetColumnValue<long?>(Columns.MLMDepth); }
-			set { SetColumnValue(Columns.MLMDepth, value); }
-		}
-		[DataMember]
-		public bool? ManagerHasOwnTeam {
-			get { return GetColumnValue<bool?>(Columns.ManagerHasOwnTeam); }
-			set { SetColumnValue(Columns.ManagerHasOwnTeam, value); }
-		}
-		[DataMember]
-		public string RegionName {
-			get { return GetColumnValue<string>(Columns.RegionName); }
-			set { SetColumnValue(Columns.RegionName, value); }
-		}
-		[DataMember]
-		public string OfficeName {
-			get { return GetColumnValue<string>(Columns.OfficeName); }
-			set { SetColumnValue(Columns.OfficeName, value); }
-		}
-		[DataMember]
-		public string TeamName {
-			get { return GetColumnValue<string>(Columns.TeamName); }
-			set { SetColumnValue(Columns.TeamName, value); }
-		}
-		[DataMember]
-		public long? CurrentNationalRank {
-			get { return GetColumnValue<long?>(Columns.CurrentNationalRank); }
-			set { SetColumnValue(Columns.CurrentNationalRank, value); }
-		}
-		[DataMember]
-		public long? PreviousNationalRank {
-			get { return GetColumnValue<long?>(Columns.PreviousNationalRank); }
-			set { SetColumnValue(Columns.PreviousNationalRank, value); }
-		}
-		[DataMember]
-		public long? CurrentRegionalRank {
-			get { return GetColumnValue<long?>(Columns.CurrentRegionalRank); }
-			set { SetColumnValue(Columns.CurrentRegionalRank, value); }
-		}
-		[DataMember]
-		public long? PreviousRegionalRank {
-			get { return GetColumnValue<long?>(Columns.PreviousRegionalRank); }
-			set { SetColumnValue(Columns.PreviousRegionalRank, value); }
-		}
-		[DataMember]
-		public long? CurrentOfficeRank {
-			get { return GetColumnValue<long?>(Columns.CurrentOfficeRank); }
-			set { SetColumnValue(Columns.CurrentOfficeRank, value); }
-		}
-		[DataMember]
-		public long? PreviousOfficeRank {
-			get { return GetColumnValue<long?>(Columns.PreviousOfficeRank); }
-			set { SetColumnValue(Columns.PreviousOfficeRank, value); }
-		}
-		[DataMember]
-		public long? CurrentTeamRank {
-			get { return GetColumnValue<long?>(Columns.CurrentTeamRank); }
-			set { SetColumnValue(Columns.CurrentTeamRank, value); }
-		}
-		[DataMember]
-		public long? PreviousTeamRank {
-			get { return GetColumnValue<long?>(Columns.PreviousTeamRank); }
-			set { SetColumnValue(Columns.PreviousTeamRank, value); }
-		}
-		[DataMember]
-		public DateTime? StartDate {
-			get { return GetColumnValue<DateTime?>(Columns.StartDate); }
-			set { SetColumnValue(Columns.StartDate, value); }
-		}
-		[DataMember]
-		public string Phone {
-			get { return GetColumnValue<string>(Columns.Phone); }
-			set { SetColumnValue(Columns.Phone, value); }
-		}
-		[DataMember]
-		public string Email {
-			get { return GetColumnValue<string>(Columns.Email); }
-			set { SetColumnValue(Columns.Email, value); }
-		}
-		[DataMember]
-		public string StreetAddress {
-			get { return GetColumnValue<string>(Columns.StreetAddress); }
-			set { SetColumnValue(Columns.StreetAddress, value); }
-		}
-		[DataMember]
-		public string StreetAddress2 {
-			get { return GetColumnValue<string>(Columns.StreetAddress2); }
-			set { SetColumnValue(Columns.StreetAddress2, value); }
-		}
-		[DataMember]
-		public string City {
-			get { return GetColumnValue<string>(Columns.City); }
-			set { SetColumnValue(Columns.City, value); }
-		}
-		[DataMember]
-		public string State {
-			get { return GetColumnValue<string>(Columns.State); }
-			set { SetColumnValue(Columns.State, value); }
-		}
-		[DataMember]
-		public string Zip {
-			get { return GetColumnValue<string>(Columns.Zip); }
-			set { SetColumnValue(Columns.Zip, value); }
-		}
-		[DataMember]
-		public int? WeeklySalesGoal {
-			get { return GetColumnValue<int?>(Columns.WeeklySalesGoal); }
-			set { SetColumnValue(Columns.WeeklySalesGoal, value); }
-		}
-		[DataMember]
-		public int? MonthlySalesGoal {
-			get { return GetColumnValue<int?>(Columns.MonthlySalesGoal); }
-			set { SetColumnValue(Columns.MonthlySalesGoal, value); }
-		}
-		[DataMember]
-		public int? YearlySalesGoal {
-			get { return GetColumnValue<int?>(Columns.YearlySalesGoal); }
-			set { SetColumnValue(Columns.YearlySalesGoal, value); }
-		}
-		[DataMember]
-		public double? WeeklyQualityGoal {
-			get { return GetColumnValue<double?>(Columns.WeeklyQualityGoal); }
-			set { SetColumnValue(Columns.WeeklyQualityGoal, value); }
-		}
-		[DataMember]
-		public double? MonthlyQualityGoal {
-			get { return GetColumnValue<double?>(Columns.MonthlyQualityGoal); }
-			set { SetColumnValue(Columns.MonthlyQualityGoal, value); }
-		}
-		[DataMember]
-		public double? YearlyQualityGoal {
-			get { return GetColumnValue<double?>(Columns.YearlyQualityGoal); }
-			set { SetColumnValue(Columns.YearlyQualityGoal, value); }
-		}
-		[DataMember]
-		public string License1 {
-			get { return GetColumnValue<string>(Columns.License1); }
-			set { SetColumnValue(Columns.License1, value); }
-		}
-		[DataMember]
-		public string License1URL {
-			get { return GetColumnValue<string>(Columns.License1URL); }
-			set { SetColumnValue(Columns.License1URL, value); }
-		}
-		[DataMember]
-		public string License2 {
-			get { return GetColumnValue<string>(Columns.License2); }
-			set { SetColumnValue(Columns.License2, value); }
-		}
-		[DataMember]
-		public string License2URL {
-			get { return GetColumnValue<string>(Columns.License2URL); }
-			set { SetColumnValue(Columns.License2URL, value); }
-		}
-		[DataMember]
-		public string License3 {
-			get { return GetColumnValue<string>(Columns.License3); }
-			set { SetColumnValue(Columns.License3, value); }
-		}
-		[DataMember]
-		public string License3URL {
-			get { return GetColumnValue<string>(Columns.License3URL); }
-			set { SetColumnValue(Columns.License3URL, value); }
-		}
-
-		#endregion //Properties
-
-		public override string ToString()
-		{
-			return FirstName;
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn UserIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn FirstNameColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn MiddleNameColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn LastNameColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn PhotoURLColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-		public static TableSchema.TableColumn MLMDepthColumn
-		{
-			get { return Schema.Columns[5]; }
-		}
-		public static TableSchema.TableColumn ManagerHasOwnTeamColumn
-		{
-			get { return Schema.Columns[6]; }
-		}
-		public static TableSchema.TableColumn RegionNameColumn
-		{
-			get { return Schema.Columns[7]; }
-		}
-		public static TableSchema.TableColumn OfficeNameColumn
-		{
-			get { return Schema.Columns[8]; }
-		}
-		public static TableSchema.TableColumn TeamNameColumn
-		{
-			get { return Schema.Columns[9]; }
-		}
-		public static TableSchema.TableColumn CurrentNationalRankColumn
-		{
-			get { return Schema.Columns[10]; }
-		}
-		public static TableSchema.TableColumn PreviousNationalRankColumn
-		{
-			get { return Schema.Columns[11]; }
-		}
-		public static TableSchema.TableColumn CurrentRegionalRankColumn
-		{
-			get { return Schema.Columns[12]; }
-		}
-		public static TableSchema.TableColumn PreviousRegionalRankColumn
-		{
-			get { return Schema.Columns[13]; }
-		}
-		public static TableSchema.TableColumn CurrentOfficeRankColumn
-		{
-			get { return Schema.Columns[14]; }
-		}
-		public static TableSchema.TableColumn PreviousOfficeRankColumn
-		{
-			get { return Schema.Columns[15]; }
-		}
-		public static TableSchema.TableColumn CurrentTeamRankColumn
-		{
-			get { return Schema.Columns[16]; }
-		}
-		public static TableSchema.TableColumn PreviousTeamRankColumn
-		{
-			get { return Schema.Columns[17]; }
-		}
-		public static TableSchema.TableColumn StartDateColumn
-		{
-			get { return Schema.Columns[18]; }
-		}
-		public static TableSchema.TableColumn PhoneColumn
-		{
-			get { return Schema.Columns[19]; }
-		}
-		public static TableSchema.TableColumn EmailColumn
-		{
-			get { return Schema.Columns[20]; }
-		}
-		public static TableSchema.TableColumn StreetAddressColumn
-		{
-			get { return Schema.Columns[21]; }
-		}
-		public static TableSchema.TableColumn StreetAddress2Column
-		{
-			get { return Schema.Columns[22]; }
-		}
-		public static TableSchema.TableColumn CityColumn
-		{
-			get { return Schema.Columns[23]; }
-		}
-		public static TableSchema.TableColumn StateColumn
-		{
-			get { return Schema.Columns[24]; }
-		}
-		public static TableSchema.TableColumn ZipColumn
-		{
-			get { return Schema.Columns[25]; }
-		}
-		public static TableSchema.TableColumn WeeklySalesGoalColumn
-		{
-			get { return Schema.Columns[26]; }
-		}
-		public static TableSchema.TableColumn MonthlySalesGoalColumn
-		{
-			get { return Schema.Columns[27]; }
-		}
-		public static TableSchema.TableColumn YearlySalesGoalColumn
-		{
-			get { return Schema.Columns[28]; }
-		}
-		public static TableSchema.TableColumn WeeklyQualityGoalColumn
-		{
-			get { return Schema.Columns[29]; }
-		}
-		public static TableSchema.TableColumn MonthlyQualityGoalColumn
-		{
-			get { return Schema.Columns[30]; }
-		}
-		public static TableSchema.TableColumn YearlyQualityGoalColumn
-		{
-			get { return Schema.Columns[31]; }
-		}
-		public static TableSchema.TableColumn License1Column
-		{
-			get { return Schema.Columns[32]; }
-		}
-		public static TableSchema.TableColumn License1URLColumn
-		{
-			get { return Schema.Columns[33]; }
-		}
-		public static TableSchema.TableColumn License2Column
-		{
-			get { return Schema.Columns[34]; }
-		}
-		public static TableSchema.TableColumn License2URLColumn
-		{
-			get { return Schema.Columns[35]; }
-		}
-		public static TableSchema.TableColumn License3Column
-		{
-			get { return Schema.Columns[36]; }
-		}
-		public static TableSchema.TableColumn License3URLColumn
-		{
-			get { return Schema.Columns[37]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public const string UserID = @"UserID";
-			public const string FirstName = @"FirstName";
-			public const string MiddleName = @"MiddleName";
-			public const string LastName = @"LastName";
-			public const string PhotoURL = @"PhotoURL";
-			public const string MLMDepth = @"MLMDepth";
-			public const string ManagerHasOwnTeam = @"ManagerHasOwnTeam";
-			public const string RegionName = @"RegionName";
-			public const string OfficeName = @"OfficeName";
-			public const string TeamName = @"TeamName";
-			public const string CurrentNationalRank = @"CurrentNationalRank";
-			public const string PreviousNationalRank = @"PreviousNationalRank";
-			public const string CurrentRegionalRank = @"CurrentRegionalRank";
-			public const string PreviousRegionalRank = @"PreviousRegionalRank";
-			public const string CurrentOfficeRank = @"CurrentOfficeRank";
-			public const string PreviousOfficeRank = @"PreviousOfficeRank";
-			public const string CurrentTeamRank = @"CurrentTeamRank";
-			public const string PreviousTeamRank = @"PreviousTeamRank";
-			public const string StartDate = @"StartDate";
-			public const string Phone = @"Phone";
-			public const string Email = @"Email";
-			public const string StreetAddress = @"StreetAddress";
-			public const string StreetAddress2 = @"StreetAddress2";
-			public const string City = @"City";
-			public const string State = @"State";
-			public const string Zip = @"Zip";
-			public const string WeeklySalesGoal = @"WeeklySalesGoal";
-			public const string MonthlySalesGoal = @"MonthlySalesGoal";
-			public const string YearlySalesGoal = @"YearlySalesGoal";
-			public const string WeeklyQualityGoal = @"WeeklyQualityGoal";
-			public const string MonthlyQualityGoal = @"MonthlyQualityGoal";
-			public const string YearlyQualityGoal = @"YearlyQualityGoal";
-			public const string License1 = @"License1";
-			public const string License1URL = @"License1URL";
-			public const string License2 = @"License2";
-			public const string License2URL = @"License2URL";
-			public const string License3 = @"License3";
-			public const string License3URL = @"License3URL";
-		}
-		#endregion Columns Struct
-	}
-	/// <summary>
-	/// Strongly-typed collection for the RU_UsersSalesRankingConnextView class.
-	/// </summary>
-	[DataContract]
-	public partial class RU_UsersSalesRankingConnextViewCollection : ReadOnlyList<RU_UsersSalesRankingConnextView, RU_UsersSalesRankingConnextViewCollection>
-	{
-		public static RU_UsersSalesRankingConnextViewCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			RU_UsersSalesRankingConnextViewCollection result = new RU_UsersSalesRankingConnextViewCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-	}
-
-	/// <summary>
-	/// This is a Read-only wrapper class for the vwRU_UsersSalesRankingConnext view.
-	/// </summary>
-	[DataContract]
-	public partial class RU_UsersSalesRankingConnextView : ReadOnlyRecord<RU_UsersSalesRankingConnextView>
-	{
-		#region Default Settings
-		protected static void SetSQLProps() { GetTableSchema(); }
-		#endregion
-
-		#region Schema Accessor
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema()
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwRU_UsersSalesRankingConnext", TableType.Table, DataService.GetInstance("SosHumanResourceProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"dbo";
-				//columns
-
-				TableSchema.TableColumn colvarUserID = new TableSchema.TableColumn(schema);
-				colvarUserID.ColumnName = "UserID";
-				colvarUserID.DataType = DbType.Int32;
-				colvarUserID.MaxLength = 0;
-				colvarUserID.AutoIncrement = false;
-				colvarUserID.IsNullable = false;
-				colvarUserID.IsPrimaryKey = false;
-				colvarUserID.IsForeignKey = false;
-				colvarUserID.IsReadOnly = false;
-				colvarUserID.DefaultSetting = @"";
-				colvarUserID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarUserID);
-
-				TableSchema.TableColumn colvarFirstName = new TableSchema.TableColumn(schema);
-				colvarFirstName.ColumnName = "FirstName";
-				colvarFirstName.DataType = DbType.String;
-				colvarFirstName.MaxLength = 50;
-				colvarFirstName.AutoIncrement = false;
-				colvarFirstName.IsNullable = true;
-				colvarFirstName.IsPrimaryKey = false;
-				colvarFirstName.IsForeignKey = false;
-				colvarFirstName.IsReadOnly = false;
-				colvarFirstName.DefaultSetting = @"";
-				colvarFirstName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarFirstName);
-
-				TableSchema.TableColumn colvarMiddleName = new TableSchema.TableColumn(schema);
-				colvarMiddleName.ColumnName = "MiddleName";
-				colvarMiddleName.DataType = DbType.String;
-				colvarMiddleName.MaxLength = 50;
-				colvarMiddleName.AutoIncrement = false;
-				colvarMiddleName.IsNullable = false;
-				colvarMiddleName.IsPrimaryKey = false;
-				colvarMiddleName.IsForeignKey = false;
-				colvarMiddleName.IsReadOnly = false;
-				colvarMiddleName.DefaultSetting = @"";
-				colvarMiddleName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarMiddleName);
-
-				TableSchema.TableColumn colvarLastName = new TableSchema.TableColumn(schema);
-				colvarLastName.ColumnName = "LastName";
-				colvarLastName.DataType = DbType.String;
-				colvarLastName.MaxLength = 50;
-				colvarLastName.AutoIncrement = false;
-				colvarLastName.IsNullable = true;
-				colvarLastName.IsPrimaryKey = false;
-				colvarLastName.IsForeignKey = false;
-				colvarLastName.IsReadOnly = false;
-				colvarLastName.DefaultSetting = @"";
-				colvarLastName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarLastName);
-
-				TableSchema.TableColumn colvarPhotoURL = new TableSchema.TableColumn(schema);
-				colvarPhotoURL.ColumnName = "PhotoURL";
-				colvarPhotoURL.DataType = DbType.AnsiString;
-				colvarPhotoURL.MaxLength = 65;
-				colvarPhotoURL.AutoIncrement = false;
-				colvarPhotoURL.IsNullable = false;
-				colvarPhotoURL.IsPrimaryKey = false;
-				colvarPhotoURL.IsForeignKey = false;
-				colvarPhotoURL.IsReadOnly = false;
-				colvarPhotoURL.DefaultSetting = @"";
-				colvarPhotoURL.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPhotoURL);
-
-				TableSchema.TableColumn colvarPeriodEndingDate = new TableSchema.TableColumn(schema);
-				colvarPeriodEndingDate.ColumnName = "PeriodEndingDate";
-				colvarPeriodEndingDate.DataType = DbType.DateTime;
-				colvarPeriodEndingDate.MaxLength = 0;
-				colvarPeriodEndingDate.AutoIncrement = false;
-				colvarPeriodEndingDate.IsNullable = false;
-				colvarPeriodEndingDate.IsPrimaryKey = false;
-				colvarPeriodEndingDate.IsForeignKey = false;
-				colvarPeriodEndingDate.IsReadOnly = false;
-				colvarPeriodEndingDate.DefaultSetting = @"";
-				colvarPeriodEndingDate.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPeriodEndingDate);
-
-				TableSchema.TableColumn colvarResultsType = new TableSchema.TableColumn(schema);
-				colvarResultsType.ColumnName = "ResultsType";
-				colvarResultsType.DataType = DbType.AnsiString;
-				colvarResultsType.MaxLength = 20;
-				colvarResultsType.AutoIncrement = false;
-				colvarResultsType.IsNullable = false;
-				colvarResultsType.IsPrimaryKey = false;
-				colvarResultsType.IsForeignKey = false;
-				colvarResultsType.IsReadOnly = false;
-				colvarResultsType.DefaultSetting = @"";
-				colvarResultsType.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarResultsType);
-
-				TableSchema.TableColumn colvarRankingGroup = new TableSchema.TableColumn(schema);
-				colvarRankingGroup.ColumnName = "RankingGroup";
-				colvarRankingGroup.DataType = DbType.AnsiString;
-				colvarRankingGroup.MaxLength = 20;
-				colvarRankingGroup.AutoIncrement = false;
-				colvarRankingGroup.IsNullable = false;
-				colvarRankingGroup.IsPrimaryKey = false;
-				colvarRankingGroup.IsForeignKey = false;
-				colvarRankingGroup.IsReadOnly = false;
-				colvarRankingGroup.DefaultSetting = @"";
-				colvarRankingGroup.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRankingGroup);
-
-				TableSchema.TableColumn colvarRankingPeriod = new TableSchema.TableColumn(schema);
-				colvarRankingPeriod.ColumnName = "RankingPeriod";
-				colvarRankingPeriod.DataType = DbType.AnsiString;
-				colvarRankingPeriod.MaxLength = 20;
-				colvarRankingPeriod.AutoIncrement = false;
-				colvarRankingPeriod.IsNullable = false;
-				colvarRankingPeriod.IsPrimaryKey = false;
-				colvarRankingPeriod.IsForeignKey = false;
-				colvarRankingPeriod.IsReadOnly = false;
-				colvarRankingPeriod.DefaultSetting = @"";
-				colvarRankingPeriod.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRankingPeriod);
-
-				TableSchema.TableColumn colvarCurrentResults = new TableSchema.TableColumn(schema);
-				colvarCurrentResults.ColumnName = "CurrentResults";
-				colvarCurrentResults.DataType = DbType.Int32;
-				colvarCurrentResults.MaxLength = 0;
-				colvarCurrentResults.AutoIncrement = false;
-				colvarCurrentResults.IsNullable = false;
-				colvarCurrentResults.IsPrimaryKey = false;
-				colvarCurrentResults.IsForeignKey = false;
-				colvarCurrentResults.IsReadOnly = false;
-				colvarCurrentResults.DefaultSetting = @"";
-				colvarCurrentResults.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCurrentResults);
-
-				TableSchema.TableColumn colvarCurrentSequence = new TableSchema.TableColumn(schema);
-				colvarCurrentSequence.ColumnName = "CurrentSequence";
-				colvarCurrentSequence.DataType = DbType.Int32;
-				colvarCurrentSequence.MaxLength = 0;
-				colvarCurrentSequence.AutoIncrement = false;
-				colvarCurrentSequence.IsNullable = false;
-				colvarCurrentSequence.IsPrimaryKey = false;
-				colvarCurrentSequence.IsForeignKey = false;
-				colvarCurrentSequence.IsReadOnly = false;
-				colvarCurrentSequence.DefaultSetting = @"";
-				colvarCurrentSequence.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCurrentSequence);
-
-				TableSchema.TableColumn colvarCurrentRanking = new TableSchema.TableColumn(schema);
-				colvarCurrentRanking.ColumnName = "CurrentRanking";
-				colvarCurrentRanking.DataType = DbType.Int32;
-				colvarCurrentRanking.MaxLength = 0;
-				colvarCurrentRanking.AutoIncrement = false;
-				colvarCurrentRanking.IsNullable = false;
-				colvarCurrentRanking.IsPrimaryKey = false;
-				colvarCurrentRanking.IsForeignKey = false;
-				colvarCurrentRanking.IsReadOnly = false;
-				colvarCurrentRanking.DefaultSetting = @"";
-				colvarCurrentRanking.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCurrentRanking);
-
-				TableSchema.TableColumn colvarPreviousResults = new TableSchema.TableColumn(schema);
-				colvarPreviousResults.ColumnName = "PreviousResults";
-				colvarPreviousResults.DataType = DbType.Int32;
-				colvarPreviousResults.MaxLength = 0;
-				colvarPreviousResults.AutoIncrement = false;
-				colvarPreviousResults.IsNullable = false;
-				colvarPreviousResults.IsPrimaryKey = false;
-				colvarPreviousResults.IsForeignKey = false;
-				colvarPreviousResults.IsReadOnly = false;
-				colvarPreviousResults.DefaultSetting = @"";
-				colvarPreviousResults.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPreviousResults);
-
-				TableSchema.TableColumn colvarPreviousSequence = new TableSchema.TableColumn(schema);
-				colvarPreviousSequence.ColumnName = "PreviousSequence";
-				colvarPreviousSequence.DataType = DbType.Int32;
-				colvarPreviousSequence.MaxLength = 0;
-				colvarPreviousSequence.AutoIncrement = false;
-				colvarPreviousSequence.IsNullable = false;
-				colvarPreviousSequence.IsPrimaryKey = false;
-				colvarPreviousSequence.IsForeignKey = false;
-				colvarPreviousSequence.IsReadOnly = false;
-				colvarPreviousSequence.DefaultSetting = @"";
-				colvarPreviousSequence.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPreviousSequence);
-
-				TableSchema.TableColumn colvarPreviousRanking = new TableSchema.TableColumn(schema);
-				colvarPreviousRanking.ColumnName = "PreviousRanking";
-				colvarPreviousRanking.DataType = DbType.Int32;
-				colvarPreviousRanking.MaxLength = 0;
-				colvarPreviousRanking.AutoIncrement = false;
-				colvarPreviousRanking.IsNullable = false;
-				colvarPreviousRanking.IsPrimaryKey = false;
-				colvarPreviousRanking.IsForeignKey = false;
-				colvarPreviousRanking.IsReadOnly = false;
-				colvarPreviousRanking.DefaultSetting = @"";
-				colvarPreviousRanking.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPreviousRanking);
-
-				BaseSchema = schema;
-				DataService.Providers["SosHumanResourceProvider"].AddSchema("vwRU_UsersSalesRankingConnext",schema);
-			}
-		}
-		#endregion //Schema Accessor
-
-		#region Query Accessor
-		public static Query CreateQuery()
-		{
-			return new Query(Schema);
-		}
-		#endregion //Query Accessor
-
-		#region .ctors
-		public RU_UsersSalesRankingConnextView()
-		{
-			SetSQLProps();SetDefaults();MarkNew();
-		}
-		#endregion
-
-		#region Properties
-		[DataMember]
-		public int UserID {
-			get { return GetColumnValue<int>(Columns.UserID); }
-			set { SetColumnValue(Columns.UserID, value); }
-		}
-		[DataMember]
-		public string FirstName {
-			get { return GetColumnValue<string>(Columns.FirstName); }
-			set { SetColumnValue(Columns.FirstName, value); }
-		}
-		[DataMember]
-		public string MiddleName {
-			get { return GetColumnValue<string>(Columns.MiddleName); }
-			set { SetColumnValue(Columns.MiddleName, value); }
-		}
-		[DataMember]
-		public string LastName {
-			get { return GetColumnValue<string>(Columns.LastName); }
-			set { SetColumnValue(Columns.LastName, value); }
-		}
-		[DataMember]
-		public string PhotoURL {
-			get { return GetColumnValue<string>(Columns.PhotoURL); }
-			set { SetColumnValue(Columns.PhotoURL, value); }
-		}
-		[DataMember]
-		public DateTime PeriodEndingDate {
-			get { return GetColumnValue<DateTime>(Columns.PeriodEndingDate); }
-			set { SetColumnValue(Columns.PeriodEndingDate, value); }
-		}
-		[DataMember]
-		public string ResultsType {
-			get { return GetColumnValue<string>(Columns.ResultsType); }
-			set { SetColumnValue(Columns.ResultsType, value); }
-		}
-		[DataMember]
-		public string RankingGroup {
-			get { return GetColumnValue<string>(Columns.RankingGroup); }
-			set { SetColumnValue(Columns.RankingGroup, value); }
-		}
-		[DataMember]
-		public string RankingPeriod {
-			get { return GetColumnValue<string>(Columns.RankingPeriod); }
-			set { SetColumnValue(Columns.RankingPeriod, value); }
-		}
-		[DataMember]
-		public int CurrentResults {
-			get { return GetColumnValue<int>(Columns.CurrentResults); }
-			set { SetColumnValue(Columns.CurrentResults, value); }
-		}
-		[DataMember]
-		public int CurrentSequence {
-			get { return GetColumnValue<int>(Columns.CurrentSequence); }
-			set { SetColumnValue(Columns.CurrentSequence, value); }
-		}
-		[DataMember]
-		public int CurrentRanking {
-			get { return GetColumnValue<int>(Columns.CurrentRanking); }
-			set { SetColumnValue(Columns.CurrentRanking, value); }
-		}
-		[DataMember]
-		public int PreviousResults {
-			get { return GetColumnValue<int>(Columns.PreviousResults); }
-			set { SetColumnValue(Columns.PreviousResults, value); }
-		}
-		[DataMember]
-		public int PreviousSequence {
-			get { return GetColumnValue<int>(Columns.PreviousSequence); }
-			set { SetColumnValue(Columns.PreviousSequence, value); }
-		}
-		[DataMember]
-		public int PreviousRanking {
-			get { return GetColumnValue<int>(Columns.PreviousRanking); }
-			set { SetColumnValue(Columns.PreviousRanking, value); }
-		}
-
-		#endregion //Properties
-
-		public override string ToString()
-		{
-			return FirstName;
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn UserIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn FirstNameColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn MiddleNameColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn LastNameColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn PhotoURLColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-		public static TableSchema.TableColumn PeriodEndingDateColumn
-		{
-			get { return Schema.Columns[5]; }
-		}
-		public static TableSchema.TableColumn ResultsTypeColumn
-		{
-			get { return Schema.Columns[6]; }
-		}
-		public static TableSchema.TableColumn RankingGroupColumn
-		{
-			get { return Schema.Columns[7]; }
-		}
-		public static TableSchema.TableColumn RankingPeriodColumn
-		{
-			get { return Schema.Columns[8]; }
-		}
-		public static TableSchema.TableColumn CurrentResultsColumn
-		{
-			get { return Schema.Columns[9]; }
-		}
-		public static TableSchema.TableColumn CurrentSequenceColumn
-		{
-			get { return Schema.Columns[10]; }
-		}
-		public static TableSchema.TableColumn CurrentRankingColumn
-		{
-			get { return Schema.Columns[11]; }
-		}
-		public static TableSchema.TableColumn PreviousResultsColumn
-		{
-			get { return Schema.Columns[12]; }
-		}
-		public static TableSchema.TableColumn PreviousSequenceColumn
-		{
-			get { return Schema.Columns[13]; }
-		}
-		public static TableSchema.TableColumn PreviousRankingColumn
-		{
-			get { return Schema.Columns[14]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public const string UserID = @"UserID";
-			public const string FirstName = @"FirstName";
-			public const string MiddleName = @"MiddleName";
-			public const string LastName = @"LastName";
-			public const string PhotoURL = @"PhotoURL";
-			public const string PeriodEndingDate = @"PeriodEndingDate";
-			public const string ResultsType = @"ResultsType";
-			public const string RankingGroup = @"RankingGroup";
-			public const string RankingPeriod = @"RankingPeriod";
-			public const string CurrentResults = @"CurrentResults";
-			public const string CurrentSequence = @"CurrentSequence";
-			public const string CurrentRanking = @"CurrentRanking";
-			public const string PreviousResults = @"PreviousResults";
-			public const string PreviousSequence = @"PreviousSequence";
-			public const string PreviousRanking = @"PreviousRanking";
-		}
-		#endregion Columns Struct
-	}
-	/// <summary>
 	/// Strongly-typed collection for the RU_UsersTechView class.
 	/// </summary>
 	[DataContract]
@@ -11967,31 +8498,31 @@ namespace SOS.Data.HumanResource
 				colvarPublicFullName.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarPublicFullName);
 
-				TableSchema.TableColumn colvarRecruitedByID = new TableSchema.TableColumn(schema);
-				colvarRecruitedByID.ColumnName = "RecruitedByID";
-				colvarRecruitedByID.DataType = DbType.Int32;
-				colvarRecruitedByID.MaxLength = 0;
-				colvarRecruitedByID.AutoIncrement = false;
-				colvarRecruitedByID.IsNullable = true;
-				colvarRecruitedByID.IsPrimaryKey = false;
-				colvarRecruitedByID.IsForeignKey = false;
-				colvarRecruitedByID.IsReadOnly = false;
-				colvarRecruitedByID.DefaultSetting = @"";
-				colvarRecruitedByID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRecruitedByID);
+				TableSchema.TableColumn colvarRecruitedById = new TableSchema.TableColumn(schema);
+				colvarRecruitedById.ColumnName = "RecruitedById";
+				colvarRecruitedById.DataType = DbType.Int32;
+				colvarRecruitedById.MaxLength = 0;
+				colvarRecruitedById.AutoIncrement = false;
+				colvarRecruitedById.IsNullable = true;
+				colvarRecruitedById.IsPrimaryKey = false;
+				colvarRecruitedById.IsForeignKey = false;
+				colvarRecruitedById.IsReadOnly = false;
+				colvarRecruitedById.DefaultSetting = @"";
+				colvarRecruitedById.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRecruitedById);
 
-				TableSchema.TableColumn colvarGPEmployeeID = new TableSchema.TableColumn(schema);
-				colvarGPEmployeeID.ColumnName = "GPEmployeeID";
-				colvarGPEmployeeID.DataType = DbType.String;
-				colvarGPEmployeeID.MaxLength = 25;
-				colvarGPEmployeeID.AutoIncrement = false;
-				colvarGPEmployeeID.IsNullable = true;
-				colvarGPEmployeeID.IsPrimaryKey = false;
-				colvarGPEmployeeID.IsForeignKey = false;
-				colvarGPEmployeeID.IsReadOnly = false;
-				colvarGPEmployeeID.DefaultSetting = @"";
-				colvarGPEmployeeID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarGPEmployeeID);
+				TableSchema.TableColumn colvarGPEmployeeId = new TableSchema.TableColumn(schema);
+				colvarGPEmployeeId.ColumnName = "GPEmployeeId";
+				colvarGPEmployeeId.DataType = DbType.String;
+				colvarGPEmployeeId.MaxLength = 25;
+				colvarGPEmployeeId.AutoIncrement = false;
+				colvarGPEmployeeId.IsNullable = true;
+				colvarGPEmployeeId.IsPrimaryKey = false;
+				colvarGPEmployeeId.IsForeignKey = false;
+				colvarGPEmployeeId.IsReadOnly = false;
+				colvarGPEmployeeId.DefaultSetting = @"";
+				colvarGPEmployeeId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarGPEmployeeId);
 
 				TableSchema.TableColumn colvarUserEmployeeTypeId = new TableSchema.TableColumn(schema);
 				colvarUserEmployeeTypeId.ColumnName = "UserEmployeeTypeId";
@@ -12006,18 +8537,18 @@ namespace SOS.Data.HumanResource
 				colvarUserEmployeeTypeId.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarUserEmployeeTypeId);
 
-				TableSchema.TableColumn colvarPermanentAddressID = new TableSchema.TableColumn(schema);
-				colvarPermanentAddressID.ColumnName = "PermanentAddressID";
-				colvarPermanentAddressID.DataType = DbType.Int32;
-				colvarPermanentAddressID.MaxLength = 0;
-				colvarPermanentAddressID.AutoIncrement = false;
-				colvarPermanentAddressID.IsNullable = true;
-				colvarPermanentAddressID.IsPrimaryKey = false;
-				colvarPermanentAddressID.IsForeignKey = false;
-				colvarPermanentAddressID.IsReadOnly = false;
-				colvarPermanentAddressID.DefaultSetting = @"";
-				colvarPermanentAddressID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPermanentAddressID);
+				TableSchema.TableColumn colvarPermanentAddressId = new TableSchema.TableColumn(schema);
+				colvarPermanentAddressId.ColumnName = "PermanentAddressId";
+				colvarPermanentAddressId.DataType = DbType.Int32;
+				colvarPermanentAddressId.MaxLength = 0;
+				colvarPermanentAddressId.AutoIncrement = false;
+				colvarPermanentAddressId.IsNullable = true;
+				colvarPermanentAddressId.IsPrimaryKey = false;
+				colvarPermanentAddressId.IsForeignKey = false;
+				colvarPermanentAddressId.IsReadOnly = false;
+				colvarPermanentAddressId.DefaultSetting = @"";
+				colvarPermanentAddressId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPermanentAddressId);
 
 				TableSchema.TableColumn colvarSSN = new TableSchema.TableColumn(schema);
 				colvarSSN.ColumnName = "SSN";
@@ -12138,8 +8669,8 @@ namespace SOS.Data.HumanResource
 
 				TableSchema.TableColumn colvarPassword = new TableSchema.TableColumn(schema);
 				colvarPassword.ColumnName = "Password";
-				colvarPassword.DataType = DbType.String;
-				colvarPassword.MaxLength = 50;
+				colvarPassword.DataType = DbType.AnsiString;
+				colvarPassword.MaxLength = 60;
 				colvarPassword.AutoIncrement = false;
 				colvarPassword.IsNullable = false;
 				colvarPassword.IsPrimaryKey = false;
@@ -12291,6 +8822,19 @@ namespace SOS.Data.HumanResource
 				colvarDLCountry.DefaultSetting = @"";
 				colvarDLCountry.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarDLCountry);
+
+				TableSchema.TableColumn colvarDLExpiresOn = new TableSchema.TableColumn(schema);
+				colvarDLExpiresOn.ColumnName = "DLExpiresOn";
+				colvarDLExpiresOn.DataType = DbType.DateTime;
+				colvarDLExpiresOn.MaxLength = 0;
+				colvarDLExpiresOn.AutoIncrement = false;
+				colvarDLExpiresOn.IsNullable = true;
+				colvarDLExpiresOn.IsPrimaryKey = false;
+				colvarDLExpiresOn.IsForeignKey = false;
+				colvarDLExpiresOn.IsReadOnly = false;
+				colvarDLExpiresOn.DefaultSetting = @"";
+				colvarDLExpiresOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarDLExpiresOn);
 
 				TableSchema.TableColumn colvarDLExpiration = new TableSchema.TableColumn(schema);
 				colvarDLExpiration.ColumnName = "DLExpiration";
@@ -12641,14 +9185,14 @@ namespace SOS.Data.HumanResource
 			set { SetColumnValue(Columns.PublicFullName, value); }
 		}
 		[DataMember]
-		public int? RecruitedByID {
-			get { return GetColumnValue<int?>(Columns.RecruitedByID); }
-			set { SetColumnValue(Columns.RecruitedByID, value); }
+		public int? RecruitedById {
+			get { return GetColumnValue<int?>(Columns.RecruitedById); }
+			set { SetColumnValue(Columns.RecruitedById, value); }
 		}
 		[DataMember]
-		public string GPEmployeeID {
-			get { return GetColumnValue<string>(Columns.GPEmployeeID); }
-			set { SetColumnValue(Columns.GPEmployeeID, value); }
+		public string GPEmployeeId {
+			get { return GetColumnValue<string>(Columns.GPEmployeeId); }
+			set { SetColumnValue(Columns.GPEmployeeId, value); }
 		}
 		[DataMember]
 		public string UserEmployeeTypeId {
@@ -12656,9 +9200,9 @@ namespace SOS.Data.HumanResource
 			set { SetColumnValue(Columns.UserEmployeeTypeId, value); }
 		}
 		[DataMember]
-		public int? PermanentAddressID {
-			get { return GetColumnValue<int?>(Columns.PermanentAddressID); }
-			set { SetColumnValue(Columns.PermanentAddressID, value); }
+		public int? PermanentAddressId {
+			get { return GetColumnValue<int?>(Columns.PermanentAddressId); }
+			set { SetColumnValue(Columns.PermanentAddressId, value); }
 		}
 		[DataMember]
 		public string SSN {
@@ -12764,6 +9308,11 @@ namespace SOS.Data.HumanResource
 		public string DLCountry {
 			get { return GetColumnValue<string>(Columns.DLCountry); }
 			set { SetColumnValue(Columns.DLCountry, value); }
+		}
+		[DataMember]
+		public DateTime? DLExpiresOn {
+			get { return GetColumnValue<DateTime?>(Columns.DLExpiresOn); }
+			set { SetColumnValue(Columns.DLExpiresOn, value); }
 		}
 		[DataMember]
 		public string DLExpiration {
@@ -12907,11 +9456,11 @@ namespace SOS.Data.HumanResource
 		{
 			get { return Schema.Columns[2]; }
 		}
-		public static TableSchema.TableColumn RecruitedByIDColumn
+		public static TableSchema.TableColumn RecruitedByIdColumn
 		{
 			get { return Schema.Columns[3]; }
 		}
-		public static TableSchema.TableColumn GPEmployeeIDColumn
+		public static TableSchema.TableColumn GPEmployeeIdColumn
 		{
 			get { return Schema.Columns[4]; }
 		}
@@ -12919,7 +9468,7 @@ namespace SOS.Data.HumanResource
 		{
 			get { return Schema.Columns[5]; }
 		}
-		public static TableSchema.TableColumn PermanentAddressIDColumn
+		public static TableSchema.TableColumn PermanentAddressIdColumn
 		{
 			get { return Schema.Columns[6]; }
 		}
@@ -13007,101 +9556,105 @@ namespace SOS.Data.HumanResource
 		{
 			get { return Schema.Columns[27]; }
 		}
-		public static TableSchema.TableColumn DLExpirationColumn
+		public static TableSchema.TableColumn DLExpiresOnColumn
 		{
 			get { return Schema.Columns[28]; }
 		}
-		public static TableSchema.TableColumn HeightColumn
+		public static TableSchema.TableColumn DLExpirationColumn
 		{
 			get { return Schema.Columns[29]; }
 		}
-		public static TableSchema.TableColumn WeightColumn
+		public static TableSchema.TableColumn HeightColumn
 		{
 			get { return Schema.Columns[30]; }
 		}
-		public static TableSchema.TableColumn EyeColorColumn
+		public static TableSchema.TableColumn WeightColumn
 		{
 			get { return Schema.Columns[31]; }
 		}
-		public static TableSchema.TableColumn HairColorColumn
+		public static TableSchema.TableColumn EyeColorColumn
 		{
 			get { return Schema.Columns[32]; }
 		}
-		public static TableSchema.TableColumn PhoneHomeColumn
+		public static TableSchema.TableColumn HairColorColumn
 		{
 			get { return Schema.Columns[33]; }
 		}
-		public static TableSchema.TableColumn PhoneCellColumn
+		public static TableSchema.TableColumn PhoneHomeColumn
 		{
 			get { return Schema.Columns[34]; }
 		}
-		public static TableSchema.TableColumn PhoneCellCarrierIDColumn
+		public static TableSchema.TableColumn PhoneCellColumn
 		{
 			get { return Schema.Columns[35]; }
 		}
-		public static TableSchema.TableColumn PhoneFaxColumn
+		public static TableSchema.TableColumn PhoneCellCarrierIDColumn
 		{
 			get { return Schema.Columns[36]; }
 		}
-		public static TableSchema.TableColumn EmailColumn
+		public static TableSchema.TableColumn PhoneFaxColumn
 		{
 			get { return Schema.Columns[37]; }
 		}
-		public static TableSchema.TableColumn CorporateEmailColumn
+		public static TableSchema.TableColumn EmailColumn
 		{
 			get { return Schema.Columns[38]; }
 		}
-		public static TableSchema.TableColumn TreeLevelColumn
+		public static TableSchema.TableColumn CorporateEmailColumn
 		{
 			get { return Schema.Columns[39]; }
 		}
-		public static TableSchema.TableColumn HasVerifiedAddressColumn
+		public static TableSchema.TableColumn TreeLevelColumn
 		{
 			get { return Schema.Columns[40]; }
 		}
-		public static TableSchema.TableColumn RightToWorkExpirationDateColumn
+		public static TableSchema.TableColumn HasVerifiedAddressColumn
 		{
 			get { return Schema.Columns[41]; }
 		}
-		public static TableSchema.TableColumn RightToWorkNotesColumn
+		public static TableSchema.TableColumn RightToWorkExpirationDateColumn
 		{
 			get { return Schema.Columns[42]; }
 		}
-		public static TableSchema.TableColumn RightToWorkStatusIDColumn
+		public static TableSchema.TableColumn RightToWorkNotesColumn
 		{
 			get { return Schema.Columns[43]; }
 		}
-		public static TableSchema.TableColumn IsLockedColumn
+		public static TableSchema.TableColumn RightToWorkStatusIDColumn
 		{
 			get { return Schema.Columns[44]; }
 		}
-		public static TableSchema.TableColumn IsActiveColumn
+		public static TableSchema.TableColumn IsLockedColumn
 		{
 			get { return Schema.Columns[45]; }
 		}
-		public static TableSchema.TableColumn IsDeletedColumn
+		public static TableSchema.TableColumn IsActiveColumn
 		{
 			get { return Schema.Columns[46]; }
 		}
-		public static TableSchema.TableColumn RecruitedDateColumn
+		public static TableSchema.TableColumn IsDeletedColumn
 		{
 			get { return Schema.Columns[47]; }
 		}
-		public static TableSchema.TableColumn CreatedByColumn
+		public static TableSchema.TableColumn RecruitedDateColumn
 		{
 			get { return Schema.Columns[48]; }
 		}
-		public static TableSchema.TableColumn CreatedOnColumn
+		public static TableSchema.TableColumn CreatedByColumn
 		{
 			get { return Schema.Columns[49]; }
 		}
-		public static TableSchema.TableColumn ModifiedByColumn
+		public static TableSchema.TableColumn CreatedOnColumn
 		{
 			get { return Schema.Columns[50]; }
 		}
-		public static TableSchema.TableColumn ModifiedOnColumn
+		public static TableSchema.TableColumn ModifiedByColumn
 		{
 			get { return Schema.Columns[51]; }
+		}
+		public static TableSchema.TableColumn ModifiedOnColumn
+		{
+			get { return Schema.Columns[52]; }
 		}
 
 		#endregion
@@ -13112,10 +9665,10 @@ namespace SOS.Data.HumanResource
 			public const string UserID = @"UserID";
 			public const string FullName = @"FullName";
 			public const string PublicFullName = @"PublicFullName";
-			public const string RecruitedByID = @"RecruitedByID";
-			public const string GPEmployeeID = @"GPEmployeeID";
+			public const string RecruitedById = @"RecruitedById";
+			public const string GPEmployeeId = @"GPEmployeeId";
 			public const string UserEmployeeTypeId = @"UserEmployeeTypeId";
-			public const string PermanentAddressID = @"PermanentAddressID";
+			public const string PermanentAddressId = @"PermanentAddressId";
 			public const string SSN = @"SSN";
 			public const string FirstName = @"FirstName";
 			public const string MiddleName = @"MiddleName";
@@ -13137,6 +9690,7 @@ namespace SOS.Data.HumanResource
 			public const string DLNumber = @"DLNumber";
 			public const string DLState = @"DLState";
 			public const string DLCountry = @"DLCountry";
+			public const string DLExpiresOn = @"DLExpiresOn";
 			public const string DLExpiration = @"DLExpiration";
 			public const string Height = @"Height";
 			public const string Weight = @"Weight";
@@ -13165,24 +9719,24 @@ namespace SOS.Data.HumanResource
 		#endregion Columns Struct
 	}
 	/// <summary>
-	/// Strongly-typed collection for the SAE_SalesSalespersonMonthlyCommissionsView class.
+	/// Strongly-typed collection for the TechniciansView class.
 	/// </summary>
 	[DataContract]
-	public partial class SAE_SalesSalespersonMonthlyCommissionsViewCollection : ReadOnlyList<SAE_SalesSalespersonMonthlyCommissionsView, SAE_SalesSalespersonMonthlyCommissionsViewCollection>
+	public partial class TechniciansViewCollection : ReadOnlyList<TechniciansView, TechniciansViewCollection>
 	{
-		public static SAE_SalesSalespersonMonthlyCommissionsViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		public static TechniciansViewCollection LoadByStoredProcedure(StoredProcedure sp)
 		{
-			SAE_SalesSalespersonMonthlyCommissionsViewCollection result = new SAE_SalesSalespersonMonthlyCommissionsViewCollection();
+			TechniciansViewCollection result = new TechniciansViewCollection();
 			result.LoadAndCloseReader(sp.GetReader());
 			return result;
 		}
 	}
 
 	/// <summary>
-	/// This is a Read-only wrapper class for the vwSAE_SalesSalespersonMonthlyCommissions view.
+	/// This is a Read-only wrapper class for the vwTechnicians view.
 	/// </summary>
 	[DataContract]
-	public partial class SAE_SalesSalespersonMonthlyCommissionsView : ReadOnlyRecord<SAE_SalesSalespersonMonthlyCommissionsView>
+	public partial class TechniciansView : ReadOnlyRecord<TechniciansView>
 	{
 		#region Default Settings
 		protected static void SetSQLProps() { GetTableSchema(); }
@@ -13201,247 +9755,91 @@ namespace SOS.Data.HumanResource
 			if(!IsSchemaInitialized)
 			{
 				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwSAE_SalesSalespersonMonthlyCommissions", TableType.Table, DataService.GetInstance("SosHumanResourceProvider"));
+				TableSchema.Table schema = new TableSchema.Table("vwTechnicians", TableType.Table, DataService.GetInstance("SosHumanResourceProvider"));
 				schema.Columns = new TableSchema.TableColumnCollection();
 				schema.SchemaName = @"dbo";
 				//columns
 
-				TableSchema.TableColumn colvarUserID = new TableSchema.TableColumn(schema);
-				colvarUserID.ColumnName = "UserID";
-				colvarUserID.DataType = DbType.Int32;
-				colvarUserID.MaxLength = 0;
-				colvarUserID.AutoIncrement = false;
-				colvarUserID.IsNullable = false;
-				colvarUserID.IsPrimaryKey = false;
-				colvarUserID.IsForeignKey = false;
-				colvarUserID.IsReadOnly = false;
-				colvarUserID.DefaultSetting = @"";
-				colvarUserID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarUserID);
+				TableSchema.TableColumn colvarTechId = new TableSchema.TableColumn(schema);
+				colvarTechId.ColumnName = "TechId";
+				colvarTechId.DataType = DbType.String;
+				colvarTechId.MaxLength = 25;
+				colvarTechId.AutoIncrement = false;
+				colvarTechId.IsNullable = true;
+				colvarTechId.IsPrimaryKey = false;
+				colvarTechId.IsForeignKey = false;
+				colvarTechId.IsReadOnly = false;
+				colvarTechId.DefaultSetting = @"";
+				colvarTechId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTechId);
 
-				TableSchema.TableColumn colvarContractDate = new TableSchema.TableColumn(schema);
-				colvarContractDate.ColumnName = "ContractDate";
-				colvarContractDate.DataType = DbType.DateTime;
-				colvarContractDate.MaxLength = 0;
-				colvarContractDate.AutoIncrement = false;
-				colvarContractDate.IsNullable = true;
-				colvarContractDate.IsPrimaryKey = false;
-				colvarContractDate.IsForeignKey = false;
-				colvarContractDate.IsReadOnly = false;
-				colvarContractDate.DefaultSetting = @"";
-				colvarContractDate.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarContractDate);
+				TableSchema.TableColumn colvarTechFirstName = new TableSchema.TableColumn(schema);
+				colvarTechFirstName.ColumnName = "TechFirstName";
+				colvarTechFirstName.DataType = DbType.String;
+				colvarTechFirstName.MaxLength = 50;
+				colvarTechFirstName.AutoIncrement = false;
+				colvarTechFirstName.IsNullable = true;
+				colvarTechFirstName.IsPrimaryKey = false;
+				colvarTechFirstName.IsForeignKey = false;
+				colvarTechFirstName.IsReadOnly = false;
+				colvarTechFirstName.DefaultSetting = @"";
+				colvarTechFirstName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTechFirstName);
 
-				TableSchema.TableColumn colvarSalesMonth = new TableSchema.TableColumn(schema);
-				colvarSalesMonth.ColumnName = "SalesMonth";
-				colvarSalesMonth.DataType = DbType.Int32;
-				colvarSalesMonth.MaxLength = 0;
-				colvarSalesMonth.AutoIncrement = false;
-				colvarSalesMonth.IsNullable = true;
-				colvarSalesMonth.IsPrimaryKey = false;
-				colvarSalesMonth.IsForeignKey = false;
-				colvarSalesMonth.IsReadOnly = false;
-				colvarSalesMonth.DefaultSetting = @"";
-				colvarSalesMonth.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSalesMonth);
+				TableSchema.TableColumn colvarTechLastName = new TableSchema.TableColumn(schema);
+				colvarTechLastName.ColumnName = "TechLastName";
+				colvarTechLastName.DataType = DbType.String;
+				colvarTechLastName.MaxLength = 50;
+				colvarTechLastName.AutoIncrement = false;
+				colvarTechLastName.IsNullable = true;
+				colvarTechLastName.IsPrimaryKey = false;
+				colvarTechLastName.IsForeignKey = false;
+				colvarTechLastName.IsReadOnly = false;
+				colvarTechLastName.DefaultSetting = @"";
+				colvarTechLastName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTechLastName);
 
-				TableSchema.TableColumn colvarSalesYear = new TableSchema.TableColumn(schema);
-				colvarSalesYear.ColumnName = "SalesYear";
-				colvarSalesYear.DataType = DbType.Int32;
-				colvarSalesYear.MaxLength = 0;
-				colvarSalesYear.AutoIncrement = false;
-				colvarSalesYear.IsNullable = true;
-				colvarSalesYear.IsPrimaryKey = false;
-				colvarSalesYear.IsForeignKey = false;
-				colvarSalesYear.IsReadOnly = false;
-				colvarSalesYear.DefaultSetting = @"";
-				colvarSalesYear.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSalesYear);
+				TableSchema.TableColumn colvarTechBDay = new TableSchema.TableColumn(schema);
+				colvarTechBDay.ColumnName = "TechBDay";
+				colvarTechBDay.DataType = DbType.DateTime;
+				colvarTechBDay.MaxLength = 0;
+				colvarTechBDay.AutoIncrement = false;
+				colvarTechBDay.IsNullable = true;
+				colvarTechBDay.IsPrimaryKey = false;
+				colvarTechBDay.IsForeignKey = false;
+				colvarTechBDay.IsReadOnly = false;
+				colvarTechBDay.DefaultSetting = @"";
+				colvarTechBDay.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTechBDay);
 
-				TableSchema.TableColumn colvarCustomerMasterFileID = new TableSchema.TableColumn(schema);
-				colvarCustomerMasterFileID.ColumnName = "CustomerMasterFileID";
-				colvarCustomerMasterFileID.DataType = DbType.Int64;
-				colvarCustomerMasterFileID.MaxLength = 0;
-				colvarCustomerMasterFileID.AutoIncrement = false;
-				colvarCustomerMasterFileID.IsNullable = false;
-				colvarCustomerMasterFileID.IsPrimaryKey = false;
-				colvarCustomerMasterFileID.IsForeignKey = false;
-				colvarCustomerMasterFileID.IsReadOnly = false;
-				colvarCustomerMasterFileID.DefaultSetting = @"";
-				colvarCustomerMasterFileID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerMasterFileID);
+				TableSchema.TableColumn colvarTechSeasonId = new TableSchema.TableColumn(schema);
+				colvarTechSeasonId.ColumnName = "TechSeasonId";
+				colvarTechSeasonId.DataType = DbType.Int32;
+				colvarTechSeasonId.MaxLength = 0;
+				colvarTechSeasonId.AutoIncrement = false;
+				colvarTechSeasonId.IsNullable = false;
+				colvarTechSeasonId.IsPrimaryKey = false;
+				colvarTechSeasonId.IsForeignKey = false;
+				colvarTechSeasonId.IsReadOnly = false;
+				colvarTechSeasonId.DefaultSetting = @"";
+				colvarTechSeasonId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTechSeasonId);
 
-				TableSchema.TableColumn colvarAccountID = new TableSchema.TableColumn(schema);
-				colvarAccountID.ColumnName = "AccountID";
-				colvarAccountID.DataType = DbType.Int64;
-				colvarAccountID.MaxLength = 0;
-				colvarAccountID.AutoIncrement = false;
-				colvarAccountID.IsNullable = false;
-				colvarAccountID.IsPrimaryKey = false;
-				colvarAccountID.IsForeignKey = false;
-				colvarAccountID.IsReadOnly = false;
-				colvarAccountID.DefaultSetting = @"";
-				colvarAccountID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarAccountID);
-
-				TableSchema.TableColumn colvarCustomerFirstName = new TableSchema.TableColumn(schema);
-				colvarCustomerFirstName.ColumnName = "CustomerFirstName";
-				colvarCustomerFirstName.DataType = DbType.String;
-				colvarCustomerFirstName.MaxLength = 50;
-				colvarCustomerFirstName.AutoIncrement = false;
-				colvarCustomerFirstName.IsNullable = false;
-				colvarCustomerFirstName.IsPrimaryKey = false;
-				colvarCustomerFirstName.IsForeignKey = false;
-				colvarCustomerFirstName.IsReadOnly = false;
-				colvarCustomerFirstName.DefaultSetting = @"";
-				colvarCustomerFirstName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerFirstName);
-
-				TableSchema.TableColumn colvarCustomerMiddleName = new TableSchema.TableColumn(schema);
-				colvarCustomerMiddleName.ColumnName = "CustomerMiddleName";
-				colvarCustomerMiddleName.DataType = DbType.String;
-				colvarCustomerMiddleName.MaxLength = 50;
-				colvarCustomerMiddleName.AutoIncrement = false;
-				colvarCustomerMiddleName.IsNullable = false;
-				colvarCustomerMiddleName.IsPrimaryKey = false;
-				colvarCustomerMiddleName.IsForeignKey = false;
-				colvarCustomerMiddleName.IsReadOnly = false;
-				colvarCustomerMiddleName.DefaultSetting = @"";
-				colvarCustomerMiddleName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerMiddleName);
-
-				TableSchema.TableColumn colvarCustomerLastName = new TableSchema.TableColumn(schema);
-				colvarCustomerLastName.ColumnName = "CustomerLastName";
-				colvarCustomerLastName.DataType = DbType.String;
-				colvarCustomerLastName.MaxLength = 50;
-				colvarCustomerLastName.AutoIncrement = false;
-				colvarCustomerLastName.IsNullable = false;
-				colvarCustomerLastName.IsPrimaryKey = false;
-				colvarCustomerLastName.IsForeignKey = false;
-				colvarCustomerLastName.IsReadOnly = false;
-				colvarCustomerLastName.DefaultSetting = @"";
-				colvarCustomerLastName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerLastName);
-
-				TableSchema.TableColumn colvarCreditRating = new TableSchema.TableColumn(schema);
-				colvarCreditRating.ColumnName = "CreditRating";
-				colvarCreditRating.DataType = DbType.AnsiString;
-				colvarCreditRating.MaxLength = 20;
-				colvarCreditRating.AutoIncrement = false;
-				colvarCreditRating.IsNullable = true;
-				colvarCreditRating.IsPrimaryKey = false;
-				colvarCreditRating.IsForeignKey = false;
-				colvarCreditRating.IsReadOnly = false;
-				colvarCreditRating.DefaultSetting = @"";
-				colvarCreditRating.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCreditRating);
-
-				TableSchema.TableColumn colvarActivationFeeAmt = new TableSchema.TableColumn(schema);
-				colvarActivationFeeAmt.ColumnName = "ActivationFeeAmt";
-				colvarActivationFeeAmt.DataType = DbType.Currency;
-				colvarActivationFeeAmt.MaxLength = 0;
-				colvarActivationFeeAmt.AutoIncrement = false;
-				colvarActivationFeeAmt.IsNullable = true;
-				colvarActivationFeeAmt.IsPrimaryKey = false;
-				colvarActivationFeeAmt.IsForeignKey = false;
-				colvarActivationFeeAmt.IsReadOnly = false;
-				colvarActivationFeeAmt.DefaultSetting = @"";
-				colvarActivationFeeAmt.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarActivationFeeAmt);
-
-				TableSchema.TableColumn colvarContractLength = new TableSchema.TableColumn(schema);
-				colvarContractLength.ColumnName = "ContractLength";
-				colvarContractLength.DataType = DbType.Int32;
-				colvarContractLength.MaxLength = 0;
-				colvarContractLength.AutoIncrement = false;
-				colvarContractLength.IsNullable = true;
-				colvarContractLength.IsPrimaryKey = false;
-				colvarContractLength.IsForeignKey = false;
-				colvarContractLength.IsReadOnly = false;
-				colvarContractLength.DefaultSetting = @"";
-				colvarContractLength.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarContractLength);
-
-				TableSchema.TableColumn colvarServiceType = new TableSchema.TableColumn(schema);
-				colvarServiceType.ColumnName = "ServiceType";
-				colvarServiceType.DataType = DbType.AnsiString;
-				colvarServiceType.MaxLength = 50;
-				colvarServiceType.AutoIncrement = false;
-				colvarServiceType.IsNullable = true;
-				colvarServiceType.IsPrimaryKey = false;
-				colvarServiceType.IsForeignKey = false;
-				colvarServiceType.IsReadOnly = false;
-				colvarServiceType.DefaultSetting = @"";
-				colvarServiceType.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarServiceType);
-
-				TableSchema.TableColumn colvarMonthlyPaymentAmt = new TableSchema.TableColumn(schema);
-				colvarMonthlyPaymentAmt.ColumnName = "MonthlyPaymentAmt";
-				colvarMonthlyPaymentAmt.DataType = DbType.Currency;
-				colvarMonthlyPaymentAmt.MaxLength = 0;
-				colvarMonthlyPaymentAmt.AutoIncrement = false;
-				colvarMonthlyPaymentAmt.IsNullable = true;
-				colvarMonthlyPaymentAmt.IsPrimaryKey = false;
-				colvarMonthlyPaymentAmt.IsForeignKey = false;
-				colvarMonthlyPaymentAmt.IsReadOnly = false;
-				colvarMonthlyPaymentAmt.DefaultSetting = @"";
-				colvarMonthlyPaymentAmt.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarMonthlyPaymentAmt);
-
-				TableSchema.TableColumn colvarPaymentMethod = new TableSchema.TableColumn(schema);
-				colvarPaymentMethod.ColumnName = "PaymentMethod";
-				colvarPaymentMethod.DataType = DbType.AnsiString;
-				colvarPaymentMethod.MaxLength = 50;
-				colvarPaymentMethod.AutoIncrement = false;
-				colvarPaymentMethod.IsNullable = true;
-				colvarPaymentMethod.IsPrimaryKey = false;
-				colvarPaymentMethod.IsForeignKey = false;
-				colvarPaymentMethod.IsReadOnly = false;
-				colvarPaymentMethod.DefaultSetting = @"";
-				colvarPaymentMethod.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarPaymentMethod);
-
-				TableSchema.TableColumn colvarSalesCommissionAmt = new TableSchema.TableColumn(schema);
-				colvarSalesCommissionAmt.ColumnName = "SalesCommissionAmt";
-				colvarSalesCommissionAmt.DataType = DbType.Currency;
-				colvarSalesCommissionAmt.MaxLength = 0;
-				colvarSalesCommissionAmt.AutoIncrement = false;
-				colvarSalesCommissionAmt.IsNullable = true;
-				colvarSalesCommissionAmt.IsPrimaryKey = false;
-				colvarSalesCommissionAmt.IsForeignKey = false;
-				colvarSalesCommissionAmt.IsReadOnly = false;
-				colvarSalesCommissionAmt.DefaultSetting = @"";
-				colvarSalesCommissionAmt.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSalesCommissionAmt);
-
-				TableSchema.TableColumn colvarRecurringCommissionAmt = new TableSchema.TableColumn(schema);
-				colvarRecurringCommissionAmt.ColumnName = "RecurringCommissionAmt";
-				colvarRecurringCommissionAmt.DataType = DbType.Currency;
-				colvarRecurringCommissionAmt.MaxLength = 0;
-				colvarRecurringCommissionAmt.AutoIncrement = false;
-				colvarRecurringCommissionAmt.IsNullable = true;
-				colvarRecurringCommissionAmt.IsPrimaryKey = false;
-				colvarRecurringCommissionAmt.IsForeignKey = false;
-				colvarRecurringCommissionAmt.IsReadOnly = false;
-				colvarRecurringCommissionAmt.DefaultSetting = @"";
-				colvarRecurringCommissionAmt.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRecurringCommissionAmt);
-
-				TableSchema.TableColumn colvarisActive = new TableSchema.TableColumn(schema);
-				colvarisActive.ColumnName = "isActive";
-				colvarisActive.DataType = DbType.Boolean;
-				colvarisActive.MaxLength = 0;
-				colvarisActive.AutoIncrement = false;
-				colvarisActive.IsNullable = true;
-				colvarisActive.IsPrimaryKey = false;
-				colvarisActive.IsForeignKey = false;
-				colvarisActive.IsReadOnly = false;
-				colvarisActive.DefaultSetting = @"";
-				colvarisActive.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarisActive);
+				TableSchema.TableColumn colvarTechSeasonName = new TableSchema.TableColumn(schema);
+				colvarTechSeasonName.ColumnName = "TechSeasonName";
+				colvarTechSeasonName.DataType = DbType.String;
+				colvarTechSeasonName.MaxLength = 50;
+				colvarTechSeasonName.AutoIncrement = false;
+				colvarTechSeasonName.IsNullable = false;
+				colvarTechSeasonName.IsPrimaryKey = false;
+				colvarTechSeasonName.IsForeignKey = false;
+				colvarTechSeasonName.IsReadOnly = false;
+				colvarTechSeasonName.DefaultSetting = @"";
+				colvarTechSeasonName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTechSeasonName);
 
 				BaseSchema = schema;
-				DataService.Providers["SosHumanResourceProvider"].AddSchema("vwSAE_SalesSalespersonMonthlyCommissions",schema);
+				DataService.Providers["SosHumanResourceProvider"].AddSchema("vwTechnicians",schema);
 			}
 		}
 		#endregion //Schema Accessor
@@ -13454,7 +9852,7 @@ namespace SOS.Data.HumanResource
 		#endregion //Query Accessor
 
 		#region .ctors
-		public SAE_SalesSalespersonMonthlyCommissionsView()
+		public TechniciansView()
 		{
 			SetSQLProps();SetDefaults();MarkNew();
 		}
@@ -13462,176 +9860,68 @@ namespace SOS.Data.HumanResource
 
 		#region Properties
 		[DataMember]
-		public int UserID {
-			get { return GetColumnValue<int>(Columns.UserID); }
-			set { SetColumnValue(Columns.UserID, value); }
+		public string TechId {
+			get { return GetColumnValue<string>(Columns.TechId); }
+			set { SetColumnValue(Columns.TechId, value); }
 		}
 		[DataMember]
-		public DateTime ContractDate {
-			get { return GetColumnValue<DateTime>(Columns.ContractDate); }
-			set { SetColumnValue(Columns.ContractDate, value); }
+		public string TechFirstName {
+			get { return GetColumnValue<string>(Columns.TechFirstName); }
+			set { SetColumnValue(Columns.TechFirstName, value); }
 		}
 		[DataMember]
-		public int SalesMonth {
-			get { return GetColumnValue<int>(Columns.SalesMonth); }
-			set { SetColumnValue(Columns.SalesMonth, value); }
+		public string TechLastName {
+			get { return GetColumnValue<string>(Columns.TechLastName); }
+			set { SetColumnValue(Columns.TechLastName, value); }
 		}
 		[DataMember]
-		public int SalesYear {
-			get { return GetColumnValue<int>(Columns.SalesYear); }
-			set { SetColumnValue(Columns.SalesYear, value); }
+		public DateTime? TechBDay {
+			get { return GetColumnValue<DateTime?>(Columns.TechBDay); }
+			set { SetColumnValue(Columns.TechBDay, value); }
 		}
 		[DataMember]
-		public long CustomerMasterFileID {
-			get { return GetColumnValue<long>(Columns.CustomerMasterFileID); }
-			set { SetColumnValue(Columns.CustomerMasterFileID, value); }
+		public int TechSeasonId {
+			get { return GetColumnValue<int>(Columns.TechSeasonId); }
+			set { SetColumnValue(Columns.TechSeasonId, value); }
 		}
 		[DataMember]
-		public long AccountID {
-			get { return GetColumnValue<long>(Columns.AccountID); }
-			set { SetColumnValue(Columns.AccountID, value); }
-		}
-		[DataMember]
-		public string CustomerFirstName {
-			get { return GetColumnValue<string>(Columns.CustomerFirstName); }
-			set { SetColumnValue(Columns.CustomerFirstName, value); }
-		}
-		[DataMember]
-		public string CustomerMiddleName {
-			get { return GetColumnValue<string>(Columns.CustomerMiddleName); }
-			set { SetColumnValue(Columns.CustomerMiddleName, value); }
-		}
-		[DataMember]
-		public string CustomerLastName {
-			get { return GetColumnValue<string>(Columns.CustomerLastName); }
-			set { SetColumnValue(Columns.CustomerLastName, value); }
-		}
-		[DataMember]
-		public string CreditRating {
-			get { return GetColumnValue<string>(Columns.CreditRating); }
-			set { SetColumnValue(Columns.CreditRating, value); }
-		}
-		[DataMember]
-		public decimal ActivationFeeAmt {
-			get { return GetColumnValue<decimal>(Columns.ActivationFeeAmt); }
-			set { SetColumnValue(Columns.ActivationFeeAmt, value); }
-		}
-		[DataMember]
-		public int ContractLength {
-			get { return GetColumnValue<int>(Columns.ContractLength); }
-			set { SetColumnValue(Columns.ContractLength, value); }
-		}
-		[DataMember]
-		public string ServiceType {
-			get { return GetColumnValue<string>(Columns.ServiceType); }
-			set { SetColumnValue(Columns.ServiceType, value); }
-		}
-		[DataMember]
-		public decimal MonthlyPaymentAmt {
-			get { return GetColumnValue<decimal>(Columns.MonthlyPaymentAmt); }
-			set { SetColumnValue(Columns.MonthlyPaymentAmt, value); }
-		}
-		[DataMember]
-		public string PaymentMethod {
-			get { return GetColumnValue<string>(Columns.PaymentMethod); }
-			set { SetColumnValue(Columns.PaymentMethod, value); }
-		}
-		[DataMember]
-		public decimal SalesCommissionAmt {
-			get { return GetColumnValue<decimal>(Columns.SalesCommissionAmt); }
-			set { SetColumnValue(Columns.SalesCommissionAmt, value); }
-		}
-		[DataMember]
-		public decimal RecurringCommissionAmt {
-			get { return GetColumnValue<decimal>(Columns.RecurringCommissionAmt); }
-			set { SetColumnValue(Columns.RecurringCommissionAmt, value); }
-		}
-		[DataMember]
-		public bool isActive {
-			get { return GetColumnValue<bool>(Columns.isActive); }
-			set { SetColumnValue(Columns.isActive, value); }
+		public string TechSeasonName {
+			get { return GetColumnValue<string>(Columns.TechSeasonName); }
+			set { SetColumnValue(Columns.TechSeasonName, value); }
 		}
 
 		#endregion //Properties
 
 		public override string ToString()
 		{
-			return UserID.ToString();
+			return TechFirstName;
 		}
 
 		#region Typed Columns
 
-		public static TableSchema.TableColumn UserIDColumn
+		public static TableSchema.TableColumn TechIdColumn
 		{
 			get { return Schema.Columns[0]; }
 		}
-		public static TableSchema.TableColumn ContractDateColumn
+		public static TableSchema.TableColumn TechFirstNameColumn
 		{
 			get { return Schema.Columns[1]; }
 		}
-		public static TableSchema.TableColumn SalesMonthColumn
+		public static TableSchema.TableColumn TechLastNameColumn
 		{
 			get { return Schema.Columns[2]; }
 		}
-		public static TableSchema.TableColumn SalesYearColumn
+		public static TableSchema.TableColumn TechBDayColumn
 		{
 			get { return Schema.Columns[3]; }
 		}
-		public static TableSchema.TableColumn CustomerMasterFileIDColumn
+		public static TableSchema.TableColumn TechSeasonIdColumn
 		{
 			get { return Schema.Columns[4]; }
 		}
-		public static TableSchema.TableColumn AccountIDColumn
+		public static TableSchema.TableColumn TechSeasonNameColumn
 		{
 			get { return Schema.Columns[5]; }
-		}
-		public static TableSchema.TableColumn CustomerFirstNameColumn
-		{
-			get { return Schema.Columns[6]; }
-		}
-		public static TableSchema.TableColumn CustomerMiddleNameColumn
-		{
-			get { return Schema.Columns[7]; }
-		}
-		public static TableSchema.TableColumn CustomerLastNameColumn
-		{
-			get { return Schema.Columns[8]; }
-		}
-		public static TableSchema.TableColumn CreditRatingColumn
-		{
-			get { return Schema.Columns[9]; }
-		}
-		public static TableSchema.TableColumn ActivationFeeAmtColumn
-		{
-			get { return Schema.Columns[10]; }
-		}
-		public static TableSchema.TableColumn ContractLengthColumn
-		{
-			get { return Schema.Columns[11]; }
-		}
-		public static TableSchema.TableColumn ServiceTypeColumn
-		{
-			get { return Schema.Columns[12]; }
-		}
-		public static TableSchema.TableColumn MonthlyPaymentAmtColumn
-		{
-			get { return Schema.Columns[13]; }
-		}
-		public static TableSchema.TableColumn PaymentMethodColumn
-		{
-			get { return Schema.Columns[14]; }
-		}
-		public static TableSchema.TableColumn SalesCommissionAmtColumn
-		{
-			get { return Schema.Columns[15]; }
-		}
-		public static TableSchema.TableColumn RecurringCommissionAmtColumn
-		{
-			get { return Schema.Columns[16]; }
-		}
-		public static TableSchema.TableColumn isActiveColumn
-		{
-			get { return Schema.Columns[17]; }
 		}
 
 		#endregion
@@ -13639,717 +9929,12 @@ namespace SOS.Data.HumanResource
 		#region Columns Struct
 		public struct Columns
 		{
-			public const string UserID = @"UserID";
-			public const string ContractDate = @"ContractDate";
-			public const string SalesMonth = @"SalesMonth";
-			public const string SalesYear = @"SalesYear";
-			public const string CustomerMasterFileID = @"CustomerMasterFileID";
-			public const string AccountID = @"AccountID";
-			public const string CustomerFirstName = @"CustomerFirstName";
-			public const string CustomerMiddleName = @"CustomerMiddleName";
-			public const string CustomerLastName = @"CustomerLastName";
-			public const string CreditRating = @"CreditRating";
-			public const string ActivationFeeAmt = @"ActivationFeeAmt";
-			public const string ContractLength = @"ContractLength";
-			public const string ServiceType = @"ServiceType";
-			public const string MonthlyPaymentAmt = @"MonthlyPaymentAmt";
-			public const string PaymentMethod = @"PaymentMethod";
-			public const string SalesCommissionAmt = @"SalesCommissionAmt";
-			public const string RecurringCommissionAmt = @"RecurringCommissionAmt";
-			public const string isActive = @"isActive";
-		}
-		#endregion Columns Struct
-	}
-	/// <summary>
-	/// Strongly-typed collection for the SAE_SalesSalespersonMonthlyEarningsView class.
-	/// </summary>
-	[DataContract]
-	public partial class SAE_SalesSalespersonMonthlyEarningsViewCollection : ReadOnlyList<SAE_SalesSalespersonMonthlyEarningsView, SAE_SalesSalespersonMonthlyEarningsViewCollection>
-	{
-		public static SAE_SalesSalespersonMonthlyEarningsViewCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			SAE_SalesSalespersonMonthlyEarningsViewCollection result = new SAE_SalesSalespersonMonthlyEarningsViewCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-	}
-
-	/// <summary>
-	/// This is a Read-only wrapper class for the vwSAE_SalesSalespersonMonthlyEarnings view.
-	/// </summary>
-	[DataContract]
-	public partial class SAE_SalesSalespersonMonthlyEarningsView : ReadOnlyRecord<SAE_SalesSalespersonMonthlyEarningsView>
-	{
-		#region Default Settings
-		protected static void SetSQLProps() { GetTableSchema(); }
-		#endregion
-
-		#region Schema Accessor
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema()
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwSAE_SalesSalespersonMonthlyEarnings", TableType.Table, DataService.GetInstance("SosHumanResourceProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"dbo";
-				//columns
-
-				TableSchema.TableColumn colvarUserID = new TableSchema.TableColumn(schema);
-				colvarUserID.ColumnName = "UserID";
-				colvarUserID.DataType = DbType.Int32;
-				colvarUserID.MaxLength = 0;
-				colvarUserID.AutoIncrement = false;
-				colvarUserID.IsNullable = false;
-				colvarUserID.IsPrimaryKey = false;
-				colvarUserID.IsForeignKey = false;
-				colvarUserID.IsReadOnly = false;
-				colvarUserID.DefaultSetting = @"";
-				colvarUserID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarUserID);
-
-				TableSchema.TableColumn colvarSalesMonth = new TableSchema.TableColumn(schema);
-				colvarSalesMonth.ColumnName = "SalesMonth";
-				colvarSalesMonth.DataType = DbType.Int32;
-				colvarSalesMonth.MaxLength = 0;
-				colvarSalesMonth.AutoIncrement = false;
-				colvarSalesMonth.IsNullable = false;
-				colvarSalesMonth.IsPrimaryKey = false;
-				colvarSalesMonth.IsForeignKey = false;
-				colvarSalesMonth.IsReadOnly = false;
-				colvarSalesMonth.DefaultSetting = @"";
-				colvarSalesMonth.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSalesMonth);
-
-				TableSchema.TableColumn colvarSalesYear = new TableSchema.TableColumn(schema);
-				colvarSalesYear.ColumnName = "SalesYear";
-				colvarSalesYear.DataType = DbType.Int32;
-				colvarSalesYear.MaxLength = 0;
-				colvarSalesYear.AutoIncrement = false;
-				colvarSalesYear.IsNullable = false;
-				colvarSalesYear.IsPrimaryKey = false;
-				colvarSalesYear.IsForeignKey = false;
-				colvarSalesYear.IsReadOnly = false;
-				colvarSalesYear.DefaultSetting = @"";
-				colvarSalesYear.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSalesYear);
-
-				TableSchema.TableColumn colvarSalesAmt = new TableSchema.TableColumn(schema);
-				colvarSalesAmt.ColumnName = "SalesAmt";
-				colvarSalesAmt.DataType = DbType.Currency;
-				colvarSalesAmt.MaxLength = 0;
-				colvarSalesAmt.AutoIncrement = false;
-				colvarSalesAmt.IsNullable = true;
-				colvarSalesAmt.IsPrimaryKey = false;
-				colvarSalesAmt.IsForeignKey = false;
-				colvarSalesAmt.IsReadOnly = false;
-				colvarSalesAmt.DefaultSetting = @"";
-				colvarSalesAmt.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSalesAmt);
-
-				TableSchema.TableColumn colvarRecurringAmt = new TableSchema.TableColumn(schema);
-				colvarRecurringAmt.ColumnName = "RecurringAmt";
-				colvarRecurringAmt.DataType = DbType.Currency;
-				colvarRecurringAmt.MaxLength = 0;
-				colvarRecurringAmt.AutoIncrement = false;
-				colvarRecurringAmt.IsNullable = true;
-				colvarRecurringAmt.IsPrimaryKey = false;
-				colvarRecurringAmt.IsForeignKey = false;
-				colvarRecurringAmt.IsReadOnly = false;
-				colvarRecurringAmt.DefaultSetting = @"";
-				colvarRecurringAmt.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRecurringAmt);
-
-				TableSchema.TableColumn colvarRecruitingAmt = new TableSchema.TableColumn(schema);
-				colvarRecruitingAmt.ColumnName = "RecruitingAmt";
-				colvarRecruitingAmt.DataType = DbType.Currency;
-				colvarRecruitingAmt.MaxLength = 0;
-				colvarRecruitingAmt.AutoIncrement = false;
-				colvarRecruitingAmt.IsNullable = true;
-				colvarRecruitingAmt.IsPrimaryKey = false;
-				colvarRecruitingAmt.IsForeignKey = false;
-				colvarRecruitingAmt.IsReadOnly = false;
-				colvarRecruitingAmt.DefaultSetting = @"";
-				colvarRecruitingAmt.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarRecruitingAmt);
-
-				TableSchema.TableColumn colvarBonusAmt = new TableSchema.TableColumn(schema);
-				colvarBonusAmt.ColumnName = "BonusAmt";
-				colvarBonusAmt.DataType = DbType.Currency;
-				colvarBonusAmt.MaxLength = 0;
-				colvarBonusAmt.AutoIncrement = false;
-				colvarBonusAmt.IsNullable = true;
-				colvarBonusAmt.IsPrimaryKey = false;
-				colvarBonusAmt.IsForeignKey = false;
-				colvarBonusAmt.IsReadOnly = false;
-				colvarBonusAmt.DefaultSetting = @"";
-				colvarBonusAmt.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarBonusAmt);
-
-				TableSchema.TableColumn colvarDeductionAmt = new TableSchema.TableColumn(schema);
-				colvarDeductionAmt.ColumnName = "DeductionAmt";
-				colvarDeductionAmt.DataType = DbType.Currency;
-				colvarDeductionAmt.MaxLength = 0;
-				colvarDeductionAmt.AutoIncrement = false;
-				colvarDeductionAmt.IsNullable = true;
-				colvarDeductionAmt.IsPrimaryKey = false;
-				colvarDeductionAmt.IsForeignKey = false;
-				colvarDeductionAmt.IsReadOnly = false;
-				colvarDeductionAmt.DefaultSetting = @"";
-				colvarDeductionAmt.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarDeductionAmt);
-
-				TableSchema.TableColumn colvarHoldAmt = new TableSchema.TableColumn(schema);
-				colvarHoldAmt.ColumnName = "HoldAmt";
-				colvarHoldAmt.DataType = DbType.Currency;
-				colvarHoldAmt.MaxLength = 0;
-				colvarHoldAmt.AutoIncrement = false;
-				colvarHoldAmt.IsNullable = true;
-				colvarHoldAmt.IsPrimaryKey = false;
-				colvarHoldAmt.IsForeignKey = false;
-				colvarHoldAmt.IsReadOnly = false;
-				colvarHoldAmt.DefaultSetting = @"";
-				colvarHoldAmt.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarHoldAmt);
-
-				TableSchema.TableColumn colvarTotalCommissionAmt = new TableSchema.TableColumn(schema);
-				colvarTotalCommissionAmt.ColumnName = "TotalCommissionAmt";
-				colvarTotalCommissionAmt.DataType = DbType.Currency;
-				colvarTotalCommissionAmt.MaxLength = 0;
-				colvarTotalCommissionAmt.AutoIncrement = false;
-				colvarTotalCommissionAmt.IsNullable = true;
-				colvarTotalCommissionAmt.IsPrimaryKey = false;
-				colvarTotalCommissionAmt.IsForeignKey = false;
-				colvarTotalCommissionAmt.IsReadOnly = false;
-				colvarTotalCommissionAmt.DefaultSetting = @"";
-				colvarTotalCommissionAmt.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarTotalCommissionAmt);
-
-				TableSchema.TableColumn colvarYTDIncentiveBonusAmt = new TableSchema.TableColumn(schema);
-				colvarYTDIncentiveBonusAmt.ColumnName = "YTDIncentiveBonusAmt";
-				colvarYTDIncentiveBonusAmt.DataType = DbType.Currency;
-				colvarYTDIncentiveBonusAmt.MaxLength = 0;
-				colvarYTDIncentiveBonusAmt.AutoIncrement = false;
-				colvarYTDIncentiveBonusAmt.IsNullable = true;
-				colvarYTDIncentiveBonusAmt.IsPrimaryKey = false;
-				colvarYTDIncentiveBonusAmt.IsForeignKey = false;
-				colvarYTDIncentiveBonusAmt.IsReadOnly = false;
-				colvarYTDIncentiveBonusAmt.DefaultSetting = @"";
-				colvarYTDIncentiveBonusAmt.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarYTDIncentiveBonusAmt);
-
-				BaseSchema = schema;
-				DataService.Providers["SosHumanResourceProvider"].AddSchema("vwSAE_SalesSalespersonMonthlyEarnings",schema);
-			}
-		}
-		#endregion //Schema Accessor
-
-		#region Query Accessor
-		public static Query CreateQuery()
-		{
-			return new Query(Schema);
-		}
-		#endregion //Query Accessor
-
-		#region .ctors
-		public SAE_SalesSalespersonMonthlyEarningsView()
-		{
-			SetSQLProps();SetDefaults();MarkNew();
-		}
-		#endregion
-
-		#region Properties
-		[DataMember]
-		public int UserID {
-			get { return GetColumnValue<int>(Columns.UserID); }
-			set { SetColumnValue(Columns.UserID, value); }
-		}
-		[DataMember]
-		public int SalesMonth {
-			get { return GetColumnValue<int>(Columns.SalesMonth); }
-			set { SetColumnValue(Columns.SalesMonth, value); }
-		}
-		[DataMember]
-		public int SalesYear {
-			get { return GetColumnValue<int>(Columns.SalesYear); }
-			set { SetColumnValue(Columns.SalesYear, value); }
-		}
-		[DataMember]
-		public decimal SalesAmt {
-			get { return GetColumnValue<decimal>(Columns.SalesAmt); }
-			set { SetColumnValue(Columns.SalesAmt, value); }
-		}
-		[DataMember]
-		public decimal RecurringAmt {
-			get { return GetColumnValue<decimal>(Columns.RecurringAmt); }
-			set { SetColumnValue(Columns.RecurringAmt, value); }
-		}
-		[DataMember]
-		public decimal RecruitingAmt {
-			get { return GetColumnValue<decimal>(Columns.RecruitingAmt); }
-			set { SetColumnValue(Columns.RecruitingAmt, value); }
-		}
-		[DataMember]
-		public decimal BonusAmt {
-			get { return GetColumnValue<decimal>(Columns.BonusAmt); }
-			set { SetColumnValue(Columns.BonusAmt, value); }
-		}
-		[DataMember]
-		public decimal DeductionAmt {
-			get { return GetColumnValue<decimal>(Columns.DeductionAmt); }
-			set { SetColumnValue(Columns.DeductionAmt, value); }
-		}
-		[DataMember]
-		public decimal HoldAmt {
-			get { return GetColumnValue<decimal>(Columns.HoldAmt); }
-			set { SetColumnValue(Columns.HoldAmt, value); }
-		}
-		[DataMember]
-		public decimal TotalCommissionAmt {
-			get { return GetColumnValue<decimal>(Columns.TotalCommissionAmt); }
-			set { SetColumnValue(Columns.TotalCommissionAmt, value); }
-		}
-		[DataMember]
-		public decimal YTDIncentiveBonusAmt {
-			get { return GetColumnValue<decimal>(Columns.YTDIncentiveBonusAmt); }
-			set { SetColumnValue(Columns.YTDIncentiveBonusAmt, value); }
-		}
-
-		#endregion //Properties
-
-		public override string ToString()
-		{
-			return UserID.ToString();
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn UserIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn SalesMonthColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn SalesYearColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn SalesAmtColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn RecurringAmtColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-		public static TableSchema.TableColumn RecruitingAmtColumn
-		{
-			get { return Schema.Columns[5]; }
-		}
-		public static TableSchema.TableColumn BonusAmtColumn
-		{
-			get { return Schema.Columns[6]; }
-		}
-		public static TableSchema.TableColumn DeductionAmtColumn
-		{
-			get { return Schema.Columns[7]; }
-		}
-		public static TableSchema.TableColumn HoldAmtColumn
-		{
-			get { return Schema.Columns[8]; }
-		}
-		public static TableSchema.TableColumn TotalCommissionAmtColumn
-		{
-			get { return Schema.Columns[9]; }
-		}
-		public static TableSchema.TableColumn YTDIncentiveBonusAmtColumn
-		{
-			get { return Schema.Columns[10]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public const string UserID = @"UserID";
-			public const string SalesMonth = @"SalesMonth";
-			public const string SalesYear = @"SalesYear";
-			public const string SalesAmt = @"SalesAmt";
-			public const string RecurringAmt = @"RecurringAmt";
-			public const string RecruitingAmt = @"RecruitingAmt";
-			public const string BonusAmt = @"BonusAmt";
-			public const string DeductionAmt = @"DeductionAmt";
-			public const string HoldAmt = @"HoldAmt";
-			public const string TotalCommissionAmt = @"TotalCommissionAmt";
-			public const string YTDIncentiveBonusAmt = @"YTDIncentiveBonusAmt";
-		}
-		#endregion Columns Struct
-	}
-	/// <summary>
-	/// Strongly-typed collection for the SAE_SalesSalespersonMonthlyHoldsView class.
-	/// </summary>
-	[DataContract]
-	public partial class SAE_SalesSalespersonMonthlyHoldsViewCollection : ReadOnlyList<SAE_SalesSalespersonMonthlyHoldsView, SAE_SalesSalespersonMonthlyHoldsViewCollection>
-	{
-		public static SAE_SalesSalespersonMonthlyHoldsViewCollection LoadByStoredProcedure(StoredProcedure sp)
-		{
-			SAE_SalesSalespersonMonthlyHoldsViewCollection result = new SAE_SalesSalespersonMonthlyHoldsViewCollection();
-			result.LoadAndCloseReader(sp.GetReader());
-			return result;
-		}
-	}
-
-	/// <summary>
-	/// This is a Read-only wrapper class for the vwSAE_SalesSalespersonMonthlyHolds view.
-	/// </summary>
-	[DataContract]
-	public partial class SAE_SalesSalespersonMonthlyHoldsView : ReadOnlyRecord<SAE_SalesSalespersonMonthlyHoldsView>
-	{
-		#region Default Settings
-		protected static void SetSQLProps() { GetTableSchema(); }
-		#endregion
-
-		#region Schema Accessor
-		public static TableSchema.Table Schema
-		{
-			get {
-				if (BaseSchema == null) SetSQLProps();
-				return BaseSchema;
-			}
-		}
-		private static void GetTableSchema()
-		{
-			if(!IsSchemaInitialized)
-			{
-				//Schema declaration
-				TableSchema.Table schema = new TableSchema.Table("vwSAE_SalesSalespersonMonthlyHolds", TableType.Table, DataService.GetInstance("SosHumanResourceProvider"));
-				schema.Columns = new TableSchema.TableColumnCollection();
-				schema.SchemaName = @"dbo";
-				//columns
-
-				TableSchema.TableColumn colvarUserID = new TableSchema.TableColumn(schema);
-				colvarUserID.ColumnName = "UserID";
-				colvarUserID.DataType = DbType.Int32;
-				colvarUserID.MaxLength = 0;
-				colvarUserID.AutoIncrement = false;
-				colvarUserID.IsNullable = false;
-				colvarUserID.IsPrimaryKey = false;
-				colvarUserID.IsForeignKey = false;
-				colvarUserID.IsReadOnly = false;
-				colvarUserID.DefaultSetting = @"";
-				colvarUserID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarUserID);
-
-				TableSchema.TableColumn colvarContractDate = new TableSchema.TableColumn(schema);
-				colvarContractDate.ColumnName = "ContractDate";
-				colvarContractDate.DataType = DbType.DateTime;
-				colvarContractDate.MaxLength = 0;
-				colvarContractDate.AutoIncrement = false;
-				colvarContractDate.IsNullable = true;
-				colvarContractDate.IsPrimaryKey = false;
-				colvarContractDate.IsForeignKey = false;
-				colvarContractDate.IsReadOnly = false;
-				colvarContractDate.DefaultSetting = @"";
-				colvarContractDate.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarContractDate);
-
-				TableSchema.TableColumn colvarSalesMonth = new TableSchema.TableColumn(schema);
-				colvarSalesMonth.ColumnName = "SalesMonth";
-				colvarSalesMonth.DataType = DbType.Int32;
-				colvarSalesMonth.MaxLength = 0;
-				colvarSalesMonth.AutoIncrement = false;
-				colvarSalesMonth.IsNullable = true;
-				colvarSalesMonth.IsPrimaryKey = false;
-				colvarSalesMonth.IsForeignKey = false;
-				colvarSalesMonth.IsReadOnly = false;
-				colvarSalesMonth.DefaultSetting = @"";
-				colvarSalesMonth.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSalesMonth);
-
-				TableSchema.TableColumn colvarSalesYear = new TableSchema.TableColumn(schema);
-				colvarSalesYear.ColumnName = "SalesYear";
-				colvarSalesYear.DataType = DbType.Int32;
-				colvarSalesYear.MaxLength = 0;
-				colvarSalesYear.AutoIncrement = false;
-				colvarSalesYear.IsNullable = true;
-				colvarSalesYear.IsPrimaryKey = false;
-				colvarSalesYear.IsForeignKey = false;
-				colvarSalesYear.IsReadOnly = false;
-				colvarSalesYear.DefaultSetting = @"";
-				colvarSalesYear.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarSalesYear);
-
-				TableSchema.TableColumn colvarCustomerMasterFileID = new TableSchema.TableColumn(schema);
-				colvarCustomerMasterFileID.ColumnName = "CustomerMasterFileID";
-				colvarCustomerMasterFileID.DataType = DbType.Int64;
-				colvarCustomerMasterFileID.MaxLength = 0;
-				colvarCustomerMasterFileID.AutoIncrement = false;
-				colvarCustomerMasterFileID.IsNullable = false;
-				colvarCustomerMasterFileID.IsPrimaryKey = false;
-				colvarCustomerMasterFileID.IsForeignKey = false;
-				colvarCustomerMasterFileID.IsReadOnly = false;
-				colvarCustomerMasterFileID.DefaultSetting = @"";
-				colvarCustomerMasterFileID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerMasterFileID);
-
-				TableSchema.TableColumn colvarAccountID = new TableSchema.TableColumn(schema);
-				colvarAccountID.ColumnName = "AccountID";
-				colvarAccountID.DataType = DbType.Int64;
-				colvarAccountID.MaxLength = 0;
-				colvarAccountID.AutoIncrement = false;
-				colvarAccountID.IsNullable = false;
-				colvarAccountID.IsPrimaryKey = false;
-				colvarAccountID.IsForeignKey = false;
-				colvarAccountID.IsReadOnly = false;
-				colvarAccountID.DefaultSetting = @"";
-				colvarAccountID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarAccountID);
-
-				TableSchema.TableColumn colvarCustomerFirstName = new TableSchema.TableColumn(schema);
-				colvarCustomerFirstName.ColumnName = "CustomerFirstName";
-				colvarCustomerFirstName.DataType = DbType.String;
-				colvarCustomerFirstName.MaxLength = 50;
-				colvarCustomerFirstName.AutoIncrement = false;
-				colvarCustomerFirstName.IsNullable = false;
-				colvarCustomerFirstName.IsPrimaryKey = false;
-				colvarCustomerFirstName.IsForeignKey = false;
-				colvarCustomerFirstName.IsReadOnly = false;
-				colvarCustomerFirstName.DefaultSetting = @"";
-				colvarCustomerFirstName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerFirstName);
-
-				TableSchema.TableColumn colvarCustomerMiddleName = new TableSchema.TableColumn(schema);
-				colvarCustomerMiddleName.ColumnName = "CustomerMiddleName";
-				colvarCustomerMiddleName.DataType = DbType.String;
-				colvarCustomerMiddleName.MaxLength = 50;
-				colvarCustomerMiddleName.AutoIncrement = false;
-				colvarCustomerMiddleName.IsNullable = false;
-				colvarCustomerMiddleName.IsPrimaryKey = false;
-				colvarCustomerMiddleName.IsForeignKey = false;
-				colvarCustomerMiddleName.IsReadOnly = false;
-				colvarCustomerMiddleName.DefaultSetting = @"";
-				colvarCustomerMiddleName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerMiddleName);
-
-				TableSchema.TableColumn colvarCustomerLastName = new TableSchema.TableColumn(schema);
-				colvarCustomerLastName.ColumnName = "CustomerLastName";
-				colvarCustomerLastName.DataType = DbType.String;
-				colvarCustomerLastName.MaxLength = 50;
-				colvarCustomerLastName.AutoIncrement = false;
-				colvarCustomerLastName.IsNullable = false;
-				colvarCustomerLastName.IsPrimaryKey = false;
-				colvarCustomerLastName.IsForeignKey = false;
-				colvarCustomerLastName.IsReadOnly = false;
-				colvarCustomerLastName.DefaultSetting = @"";
-				colvarCustomerLastName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarCustomerLastName);
-
-				TableSchema.TableColumn colvarHoldName = new TableSchema.TableColumn(schema);
-				colvarHoldName.ColumnName = "HoldName";
-				colvarHoldName.DataType = DbType.String;
-				colvarHoldName.MaxLength = 50;
-				colvarHoldName.AutoIncrement = false;
-				colvarHoldName.IsNullable = false;
-				colvarHoldName.IsPrimaryKey = false;
-				colvarHoldName.IsForeignKey = false;
-				colvarHoldName.IsReadOnly = false;
-				colvarHoldName.DefaultSetting = @"";
-				colvarHoldName.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarHoldName);
-
-				TableSchema.TableColumn colvarHoldDescription = new TableSchema.TableColumn(schema);
-				colvarHoldDescription.ColumnName = "HoldDescription";
-				colvarHoldDescription.DataType = DbType.String;
-				colvarHoldDescription.MaxLength = -1;
-				colvarHoldDescription.AutoIncrement = false;
-				colvarHoldDescription.IsNullable = true;
-				colvarHoldDescription.IsPrimaryKey = false;
-				colvarHoldDescription.IsForeignKey = false;
-				colvarHoldDescription.IsReadOnly = false;
-				colvarHoldDescription.DefaultSetting = @"";
-				colvarHoldDescription.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarHoldDescription);
-
-				TableSchema.TableColumn colvarHoldAmt = new TableSchema.TableColumn(schema);
-				colvarHoldAmt.ColumnName = "HoldAmt";
-				colvarHoldAmt.DataType = DbType.Decimal;
-				colvarHoldAmt.MaxLength = 0;
-				colvarHoldAmt.AutoIncrement = false;
-				colvarHoldAmt.IsNullable = true;
-				colvarHoldAmt.IsPrimaryKey = false;
-				colvarHoldAmt.IsForeignKey = false;
-				colvarHoldAmt.IsReadOnly = false;
-				colvarHoldAmt.DefaultSetting = @"";
-				colvarHoldAmt.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarHoldAmt);
-
-				BaseSchema = schema;
-				DataService.Providers["SosHumanResourceProvider"].AddSchema("vwSAE_SalesSalespersonMonthlyHolds",schema);
-			}
-		}
-		#endregion //Schema Accessor
-
-		#region Query Accessor
-		public static Query CreateQuery()
-		{
-			return new Query(Schema);
-		}
-		#endregion //Query Accessor
-
-		#region .ctors
-		public SAE_SalesSalespersonMonthlyHoldsView()
-		{
-			SetSQLProps();SetDefaults();MarkNew();
-		}
-		#endregion
-
-		#region Properties
-		[DataMember]
-		public int UserID {
-			get { return GetColumnValue<int>(Columns.UserID); }
-			set { SetColumnValue(Columns.UserID, value); }
-		}
-		[DataMember]
-		public DateTime ContractDate {
-			get { return GetColumnValue<DateTime>(Columns.ContractDate); }
-			set { SetColumnValue(Columns.ContractDate, value); }
-		}
-		[DataMember]
-		public int SalesMonth {
-			get { return GetColumnValue<int>(Columns.SalesMonth); }
-			set { SetColumnValue(Columns.SalesMonth, value); }
-		}
-		[DataMember]
-		public int SalesYear {
-			get { return GetColumnValue<int>(Columns.SalesYear); }
-			set { SetColumnValue(Columns.SalesYear, value); }
-		}
-		[DataMember]
-		public long CustomerMasterFileID {
-			get { return GetColumnValue<long>(Columns.CustomerMasterFileID); }
-			set { SetColumnValue(Columns.CustomerMasterFileID, value); }
-		}
-		[DataMember]
-		public long AccountID {
-			get { return GetColumnValue<long>(Columns.AccountID); }
-			set { SetColumnValue(Columns.AccountID, value); }
-		}
-		[DataMember]
-		public string CustomerFirstName {
-			get { return GetColumnValue<string>(Columns.CustomerFirstName); }
-			set { SetColumnValue(Columns.CustomerFirstName, value); }
-		}
-		[DataMember]
-		public string CustomerMiddleName {
-			get { return GetColumnValue<string>(Columns.CustomerMiddleName); }
-			set { SetColumnValue(Columns.CustomerMiddleName, value); }
-		}
-		[DataMember]
-		public string CustomerLastName {
-			get { return GetColumnValue<string>(Columns.CustomerLastName); }
-			set { SetColumnValue(Columns.CustomerLastName, value); }
-		}
-		[DataMember]
-		public string HoldName {
-			get { return GetColumnValue<string>(Columns.HoldName); }
-			set { SetColumnValue(Columns.HoldName, value); }
-		}
-		[DataMember]
-		public string HoldDescription {
-			get { return GetColumnValue<string>(Columns.HoldDescription); }
-			set { SetColumnValue(Columns.HoldDescription, value); }
-		}
-		[DataMember]
-		public decimal HoldAmt {
-			get { return GetColumnValue<decimal>(Columns.HoldAmt); }
-			set { SetColumnValue(Columns.HoldAmt, value); }
-		}
-
-		#endregion //Properties
-
-		public override string ToString()
-		{
-			return UserID.ToString();
-		}
-
-		#region Typed Columns
-
-		public static TableSchema.TableColumn UserIDColumn
-		{
-			get { return Schema.Columns[0]; }
-		}
-		public static TableSchema.TableColumn ContractDateColumn
-		{
-			get { return Schema.Columns[1]; }
-		}
-		public static TableSchema.TableColumn SalesMonthColumn
-		{
-			get { return Schema.Columns[2]; }
-		}
-		public static TableSchema.TableColumn SalesYearColumn
-		{
-			get { return Schema.Columns[3]; }
-		}
-		public static TableSchema.TableColumn CustomerMasterFileIDColumn
-		{
-			get { return Schema.Columns[4]; }
-		}
-		public static TableSchema.TableColumn AccountIDColumn
-		{
-			get { return Schema.Columns[5]; }
-		}
-		public static TableSchema.TableColumn CustomerFirstNameColumn
-		{
-			get { return Schema.Columns[6]; }
-		}
-		public static TableSchema.TableColumn CustomerMiddleNameColumn
-		{
-			get { return Schema.Columns[7]; }
-		}
-		public static TableSchema.TableColumn CustomerLastNameColumn
-		{
-			get { return Schema.Columns[8]; }
-		}
-		public static TableSchema.TableColumn HoldNameColumn
-		{
-			get { return Schema.Columns[9]; }
-		}
-		public static TableSchema.TableColumn HoldDescriptionColumn
-		{
-			get { return Schema.Columns[10]; }
-		}
-		public static TableSchema.TableColumn HoldAmtColumn
-		{
-			get { return Schema.Columns[11]; }
-		}
-
-		#endregion
-
-		#region Columns Struct
-		public struct Columns
-		{
-			public const string UserID = @"UserID";
-			public const string ContractDate = @"ContractDate";
-			public const string SalesMonth = @"SalesMonth";
-			public const string SalesYear = @"SalesYear";
-			public const string CustomerMasterFileID = @"CustomerMasterFileID";
-			public const string AccountID = @"AccountID";
-			public const string CustomerFirstName = @"CustomerFirstName";
-			public const string CustomerMiddleName = @"CustomerMiddleName";
-			public const string CustomerLastName = @"CustomerLastName";
-			public const string HoldName = @"HoldName";
-			public const string HoldDescription = @"HoldDescription";
-			public const string HoldAmt = @"HoldAmt";
+			public const string TechId = @"TechId";
+			public const string TechFirstName = @"TechFirstName";
+			public const string TechLastName = @"TechLastName";
+			public const string TechBDay = @"TechBDay";
+			public const string TechSeasonId = @"TechSeasonId";
+			public const string TechSeasonName = @"TechSeasonName";
 		}
 		#endregion Columns Struct
 	}

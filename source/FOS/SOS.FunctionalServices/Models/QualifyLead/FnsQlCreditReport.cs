@@ -9,7 +9,7 @@ namespace SOS.FunctionalServices.Models.QualifyLead
 	{
 		#region .ctor
 
-		public FnsQlCreditReport(IWSCreditReportInfo crInfo,QL_CreditReport report, RU_Season season = null)
+		public FnsQlCreditReport(IWSCreditReportInfo crInfo,QL_CreditReport report, RU_Season season = null, MS_LeadTakeOver leadTakeOver = null)
 		{
 			if (crInfo.CreditReportID != report.CreditReportID)
 			{
@@ -45,6 +45,8 @@ namespace SOS.FunctionalServices.Models.QualifyLead
 			{
 				SeasonId = season.SeasonID;
 			}
+			if (leadTakeOver != null)
+				TakeOverFromCompanyName = leadTakeOver.AlarmCompany.AlarmCompanyName;
 		}
 		#endregion .ctor
 
@@ -71,6 +73,7 @@ namespace SOS.FunctionalServices.Models.QualifyLead
 		public bool IsScored { get; set; }
 		public bool IsHit { get; set; }
 		public string CreditGroup { get; set; }
+		public string TakeOverFromCompanyName { get; set; }
 		#endregion Properties
 	}
 }

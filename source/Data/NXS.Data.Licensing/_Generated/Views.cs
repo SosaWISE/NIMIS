@@ -487,6 +487,19 @@ namespace NXS.Data.Licensing
 				colvarRequirementID.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarRequirementID);
 
+				TableSchema.TableColumn colvarDealerId = new TableSchema.TableColumn(schema);
+				colvarDealerId.ColumnName = "DealerId";
+				colvarDealerId.DataType = DbType.Int32;
+				colvarDealerId.MaxLength = 0;
+				colvarDealerId.AutoIncrement = false;
+				colvarDealerId.IsNullable = true;
+				colvarDealerId.IsPrimaryKey = false;
+				colvarDealerId.IsForeignKey = false;
+				colvarDealerId.IsReadOnly = false;
+				colvarDealerId.DefaultSetting = @"";
+				colvarDealerId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarDealerId);
+
 				TableSchema.TableColumn colvarLocationID = new TableSchema.TableColumn(schema);
 				colvarLocationID.ColumnName = "LocationID";
 				colvarLocationID.DataType = DbType.Int32;
@@ -632,7 +645,7 @@ namespace NXS.Data.Licensing
 
 				TableSchema.TableColumn colvarCallCenterMessage = new TableSchema.TableColumn(schema);
 				colvarCallCenterMessage.ColumnName = "CallCenterMessage";
-				colvarCallCenterMessage.DataType = DbType.String;
+				colvarCallCenterMessage.DataType = DbType.AnsiString;
 				colvarCallCenterMessage.MaxLength = -1;
 				colvarCallCenterMessage.AutoIncrement = false;
 				colvarCallCenterMessage.IsNullable = true;
@@ -774,6 +787,11 @@ namespace NXS.Data.Licensing
 			set { SetColumnValue(Columns.RequirementID, value); }
 		}
 		[DataMember]
+		public int? DealerId { 
+			get { return GetColumnValue<int?>(Columns.DealerId); }
+			set { SetColumnValue(Columns.DealerId, value); }
+		}
+		[DataMember]
 		public int LocationID { 
 			get { return GetColumnValue<int>(Columns.LocationID); }
 			set { SetColumnValue(Columns.LocationID, value); }
@@ -887,85 +905,89 @@ namespace NXS.Data.Licensing
 		{
 			get { return Schema.Columns[0]; }
 		}
-		public static TableSchema.TableColumn LocationIDColumn
+		public static TableSchema.TableColumn DealerIdColumn
 		{
 			get { return Schema.Columns[1]; }
 		}
-		public static TableSchema.TableColumn LocationNameColumn
+		public static TableSchema.TableColumn LocationIDColumn
 		{
 			get { return Schema.Columns[2]; }
 		}
-		public static TableSchema.TableColumn LocationTypeNameColumn
+		public static TableSchema.TableColumn LocationNameColumn
 		{
 			get { return Schema.Columns[3]; }
 		}
-		public static TableSchema.TableColumn RequirementTypeIDColumn
+		public static TableSchema.TableColumn LocationTypeNameColumn
 		{
 			get { return Schema.Columns[4]; }
 		}
-		public static TableSchema.TableColumn RequirementTypeNameColumn
+		public static TableSchema.TableColumn RequirementTypeIDColumn
 		{
 			get { return Schema.Columns[5]; }
 		}
-		public static TableSchema.TableColumn AgencyIDColumn
+		public static TableSchema.TableColumn RequirementTypeNameColumn
 		{
 			get { return Schema.Columns[6]; }
 		}
-		public static TableSchema.TableColumn LockIDColumn
+		public static TableSchema.TableColumn AgencyIDColumn
 		{
 			get { return Schema.Columns[7]; }
 		}
-		public static TableSchema.TableColumn LockTypeNameColumn
+		public static TableSchema.TableColumn LockIDColumn
 		{
 			get { return Schema.Columns[8]; }
 		}
-		public static TableSchema.TableColumn TemplateIDColumn
+		public static TableSchema.TableColumn LockTypeNameColumn
 		{
 			get { return Schema.Columns[9]; }
 		}
-		public static TableSchema.TableColumn RequirementNameColumn
+		public static TableSchema.TableColumn TemplateIDColumn
 		{
 			get { return Schema.Columns[10]; }
 		}
-		public static TableSchema.TableColumn ApplicationDescriptionColumn
+		public static TableSchema.TableColumn RequirementNameColumn
 		{
 			get { return Schema.Columns[11]; }
 		}
-		public static TableSchema.TableColumn CallCenterMessageColumn
+		public static TableSchema.TableColumn ApplicationDescriptionColumn
 		{
 			get { return Schema.Columns[12]; }
 		}
-		public static TableSchema.TableColumn RequiredForFundingColumn
+		public static TableSchema.TableColumn CallCenterMessageColumn
 		{
 			get { return Schema.Columns[13]; }
 		}
-		public static TableSchema.TableColumn FeeColumn
+		public static TableSchema.TableColumn RequiredForFundingColumn
 		{
 			get { return Schema.Columns[14]; }
 		}
-		public static TableSchema.TableColumn IsActiveColumn
+		public static TableSchema.TableColumn FeeColumn
 		{
 			get { return Schema.Columns[15]; }
 		}
-		public static TableSchema.TableColumn IsDeletedColumn
+		public static TableSchema.TableColumn IsActiveColumn
 		{
 			get { return Schema.Columns[16]; }
 		}
-		public static TableSchema.TableColumn CreatedByIDColumn
+		public static TableSchema.TableColumn IsDeletedColumn
 		{
 			get { return Schema.Columns[17]; }
 		}
-		public static TableSchema.TableColumn CreatedByDateColumn
+		public static TableSchema.TableColumn CreatedByIDColumn
 		{
 			get { return Schema.Columns[18]; }
 		}
-		public static TableSchema.TableColumn ModifiedByIDColumn
+		public static TableSchema.TableColumn CreatedByDateColumn
 		{
 			get { return Schema.Columns[19]; }
 		}
-		public static TableSchema.TableColumn ModifiedByDateColumn
+		public static TableSchema.TableColumn ModifiedByIDColumn
 		{
 			get { return Schema.Columns[20]; }
+		}
+		public static TableSchema.TableColumn ModifiedByDateColumn
+		{
+			get { return Schema.Columns[21]; }
 		}
 
 		#endregion
@@ -974,6 +996,7 @@ namespace NXS.Data.Licensing
 		public struct Columns
 		{
 			public const string RequirementID = @"RequirementID";
+			public const string DealerId = @"DealerId";
 			public const string LocationID = @"LocationID";
 			public const string LocationName = @"LocationName";
 			public const string LocationTypeName = @"LocationTypeName";
@@ -1119,7 +1142,7 @@ namespace NXS.Data.Licensing
 
 				TableSchema.TableColumn colvarCallCenterMessage = new TableSchema.TableColumn(schema);
 				colvarCallCenterMessage.ColumnName = "CallCenterMessage";
-				colvarCallCenterMessage.DataType = DbType.String;
+				colvarCallCenterMessage.DataType = DbType.AnsiString;
 				colvarCallCenterMessage.MaxLength = -1;
 				colvarCallCenterMessage.AutoIncrement = false;
 				colvarCallCenterMessage.IsNullable = true;

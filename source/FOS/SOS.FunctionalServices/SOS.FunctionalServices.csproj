@@ -80,6 +80,7 @@
     <Compile Include="Models\CentralStation\FnsMsEmergencyContactAuthority.cs" />
     <Compile Include="Models\CentralStation\FnsMsEmergencyContactType.cs" />
     <Compile Include="Models\CentralStation\FnsMsIndustryAccountNumbersWithReceiverLineInfoView.cs" />
+    <Compile Include="Models\CentralStation\FnsMsLeadTakeOver.cs" />
     <Compile Include="Models\Connext\FnsCxAddress.cs" />
     <Compile Include="Models\Connext\FnsCxContact.cs" />
     <Compile Include="Models\Funding\FnsFeBundle.cs" />

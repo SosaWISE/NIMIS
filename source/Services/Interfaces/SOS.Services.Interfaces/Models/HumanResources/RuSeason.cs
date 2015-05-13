@@ -8,6 +8,7 @@ namespace SOS.Services.Interfaces.Models.HumanResources
 		#region Properties
 
 		public int SeasonID { get; set; }
+		public int DealerId { get; set; }
 		public int? PreSeasonID { get; set; }
 		public string SeasonName { get; set; }
 		public DateTime? StartDate { get; set; }
@@ -37,6 +38,8 @@ namespace SOS.Services.Interfaces.Models.HumanResources
 	{
 		[DataMember]
 		int SeasonID { get; set; }
+		[DataMember]
+		int DealerId { get; set; }
 		[DataMember]
 		int? PreSeasonID { get; set; }
 		[DataMember]

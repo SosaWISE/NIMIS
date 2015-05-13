@@ -837,6 +837,11 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@GpEmployeeID", GpEmployeeID, DbType.AnsiString);
 			return sp;
 		}
+		public static StoredProcedure MS_LeadTakeOverViewGetByAccountId(long? AccountId) {
+			StoredProcedure sp = new StoredProcedure("custMS_LeadTakeOverViewGetByAccountId" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@AccountId", AccountId, DbType.Int64);
+			return sp;
+		}
 		public static StoredProcedure MS_MonitronicsBusRulesNuke() {
 			StoredProcedure sp = new StoredProcedure("custMS_MonitronicsBusRulesNuke" ,DataService.GetInstance("SosCrmProvider"));
 			return sp;

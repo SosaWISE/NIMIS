@@ -71,6 +71,7 @@
     <Compile Include="Models\CentralStation\IFnsMsEquipmentsView.cs" />
     <Compile Include="Models\CentralStation\IFnsMsAccountSalesInformation.cs" />
     <Compile Include="Models\CentralStation\IFnsMsIndustryAccountNumbersWithReceiverLineInfoView.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsLeadTakeOver.cs" />
     <Compile Include="Models\CentralStation\IFnsSignalHistoryItemModel.cs" />
     <Compile Include="Models\Connext\IFnsCxAddress.cs" />
     <Compile Include="Models\Connext\IFnsCxAppointment.cs" />

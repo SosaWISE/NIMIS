@@ -2113,7 +2113,7 @@ namespace SOS.FunctionalServices
 			var result = new FnsResult<IFnsVerifyAddress>
 				{
 					Code = (int)ErrorCodes.GeneralMessage,
-					Message = "Initializing UpdateDevice"
+					Message = "Initializing AddressVerify"
 				};
 
 			#endregion INITIALIZATION
@@ -2373,6 +2373,7 @@ namespace SOS.FunctionalServices
 				Code = (int)ErrorCodes.GeneralMessage,
 				Message = "Initializing RunCredit"
 			};
+			MS_LeadTakeOver leadTakeover = null;
 
 			#endregion INITIALIZATION
 
@@ -2392,6 +2393,13 @@ namespace SOS.FunctionalServices
 				if (csResult.Code != BaseErrorCodes.ErrorCodes.Success.Code())
 				{
 					//TODO:  Flag this account as slammed account
+					leadTakeover = new MS_LeadTakeOver
+					{
+						LeadId = leadID,
+						AddressId = lead.AddressId,
+						AlarmCompanyId = (int) MS_AlarmCompany.AlarmCompanyEnum.Monitronics
+					};
+					leadTakeover.Save(userId);
 				}
 
 				IWSLead wsLead = new WSLead(lead);
@@ -2419,7 +2427,7 @@ namespace SOS.FunctionalServices
 				}
 
 				var creditReport = SosCrmDataContext.Instance.QL_CreditReports.LoadByPrimaryKey(crInfo.CreditReportID);
-				var fnsCreditReport = new FnsQlCreditReport(crInfo, creditReport, ruSeason);
+				var fnsCreditReport = new FnsQlCreditReport(crInfo, creditReport, ruSeason, leadTakeover);
 				result.Code = (int)(success ? ErrorCodes.Success : ErrorCodes.CreditReportError);
 				result.Message = NSE.FOS.RunCreditServices.Helpers.WSMessage.PartitionList(messageList);
 				result.Value = fnsCreditReport;

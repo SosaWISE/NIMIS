@@ -8,30 +8,30 @@ namespace SOS.FunctionalServices.Models.HumanResource
 	{
 		#region .ctor
 
-		public FnsConnextSalesRepInfo(RU_UsersSalesInfoConnextView view)
-		{
-			UserID = view.UserID;
-			FirstName = view.FirstName;
-			MiddleName = view.MiddleName;
-			LastName = view.LastName;
-            PhotoURL = view.PhotoURL;
-            MLMDepth = view.MLMDepth;
-			ManagerHasOwnTeam = view.ManagerHasOwnTeam;
-		    RegionName = view.RegionName;
-		    OfficeName = view.OfficeName;
-		    TeamName = view.TeamName;
-		    CurrentNationalRank = view.CurrentNationalRank;
-		    PreviousNationalRank = view.PreviousNationalRank;
-		    CurrentRegionalRank = view.CurrentRegionalRank;
-		    PreviousRegionalRank = view.PreviousRegionalRank;
-		    CurrentOfficeRank = view.CurrentOfficeRank;
-		    PreviousOfficeRank = view.PreviousOfficeRank;
-		    CurrentTeamRank = view.CurrentTeamRank;
-		    PreviousTeamRank = view.PreviousTeamRank;
-		    StartDate = view.StartDate;
-		    Email = view.Email;
+		//public FnsConnextSalesRepInfo(RU_UsersSalesInfoConnextView view)
+		//{
+		//	UserID = view.UserID;
+		//	FirstName = view.FirstName;
+		//	MiddleName = view.MiddleName;
+		//	LastName = view.LastName;
+		//	PhotoURL = view.PhotoURL;
+		//	MLMDepth = view.MLMDepth;
+		//	ManagerHasOwnTeam = view.ManagerHasOwnTeam;
+		//	RegionName = view.RegionName;
+		//	OfficeName = view.OfficeName;
+		//	TeamName = view.TeamName;
+		//	CurrentNationalRank = view.CurrentNationalRank;
+		//	PreviousNationalRank = view.PreviousNationalRank;
+		//	CurrentRegionalRank = view.CurrentRegionalRank;
+		//	PreviousRegionalRank = view.PreviousRegionalRank;
+		//	CurrentOfficeRank = view.CurrentOfficeRank;
+		//	PreviousOfficeRank = view.PreviousOfficeRank;
+		//	CurrentTeamRank = view.CurrentTeamRank;
+		//	PreviousTeamRank = view.PreviousTeamRank;
+		//	StartDate = view.StartDate;
+		//	Email = view.Email;
 
-		}
+		//}
 
 		#endregion .ctor
 

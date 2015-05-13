@@ -7,45 +7,45 @@ namespace SOS.FunctionalServices.Models.HumanResource
     {
         #region .ctor
 
-        public FnsConnextMonthlySalesDetails(RU_UsersGetDetailedStatisticsConnextView view)
-        {
-            UserID = view.UserID;
-            FirstName = view.FirstName;
-            LastName = view.LastName;
-            SalesYear = view.SalesYear;
-            SalesMonth = view.SalesMonth;
-            RegionID = view.RegionID;
-            RegionName = view.RegionName;
-            TeamID = view.TeamID;
-            TeamName = view.TeamName;
-            OfficeID = view.OfficeID;
-            OfficeName = view.OfficeName;
-            HasRecruits = view.HasRecruits;
-            NumberCreditReportsPulled = view.NumberCreditReportsPulled;
-            NumberCreditsPassed = view.NumberCreditsPassed;
-            NumberExcellentCreditScores = view.NumberExcellentCreditScores;
-            NumberGoodCreditScores = view.NumberGoodCreditScores;
-            NumberBadCreditScores = view.NumberBadCreditScores;
-            AverageCreditScore = view.AverageCreditScore;
-            CreditPassPercentage = view.CreditPassPercentage;
-            PassAndInstallPercentage = view.PassAndInstallPercentage;
-            NumberCancels = view.NumberCancels;
-            NumberNetSales = view.NumberNetSales;
-            NumberPresurveys = view.NumberPresurveys;
-            NumberPostsurveys = view.NumberPostsurveys;
-            NumberInstallations = view.NumberInstallations;
-            NumberSameDayInstallations = view.NumberSameDayInstallations;
-            SameDayInstallationPercentage = view.SameDayInstallationPercentage;
-            NumberActivationsWaived = view.NumberActivationsWaived;
-            ActivationsWaivedPercentage = view.ActivationsWaivedPercentage;
-            NumberCCPayments = view.NumberCCPayments;
-            NumberACHPayments = view.NumberACHPayments;
-            NumberInvoicePayments = view.NumberInvoicePayments;
-            NumberSystemsOver8Points = view.NumberSystemsOver8Points;
-            NumberFreePointsGivenBySalesRep = view.NumberFreePointsGivenBySalesRep;
-            NumberFreePointsGivenByTech = view.NumberFreePointsGivenByTech;
+		//public FnsConnextMonthlySalesDetails(RU_UsersGetDetailedStatisticsConnextView view)
+		//{
+		//	UserID = view.UserID;
+		//	FirstName = view.FirstName;
+		//	LastName = view.LastName;
+		//	SalesYear = view.SalesYear;
+		//	SalesMonth = view.SalesMonth;
+		//	RegionID = view.RegionID;
+		//	RegionName = view.RegionName;
+		//	TeamID = view.TeamID;
+		//	TeamName = view.TeamName;
+		//	OfficeID = view.OfficeID;
+		//	OfficeName = view.OfficeName;
+		//	HasRecruits = view.HasRecruits;
+		//	NumberCreditReportsPulled = view.NumberCreditReportsPulled;
+		//	NumberCreditsPassed = view.NumberCreditsPassed;
+		//	NumberExcellentCreditScores = view.NumberExcellentCreditScores;
+		//	NumberGoodCreditScores = view.NumberGoodCreditScores;
+		//	NumberBadCreditScores = view.NumberBadCreditScores;
+		//	AverageCreditScore = view.AverageCreditScore;
+		//	CreditPassPercentage = view.CreditPassPercentage;
+		//	PassAndInstallPercentage = view.PassAndInstallPercentage;
+		//	NumberCancels = view.NumberCancels;
+		//	NumberNetSales = view.NumberNetSales;
+		//	NumberPresurveys = view.NumberPresurveys;
+		//	NumberPostsurveys = view.NumberPostsurveys;
+		//	NumberInstallations = view.NumberInstallations;
+		//	NumberSameDayInstallations = view.NumberSameDayInstallations;
+		//	SameDayInstallationPercentage = view.SameDayInstallationPercentage;
+		//	NumberActivationsWaived = view.NumberActivationsWaived;
+		//	ActivationsWaivedPercentage = view.ActivationsWaivedPercentage;
+		//	NumberCCPayments = view.NumberCCPayments;
+		//	NumberACHPayments = view.NumberACHPayments;
+		//	NumberInvoicePayments = view.NumberInvoicePayments;
+		//	NumberSystemsOver8Points = view.NumberSystemsOver8Points;
+		//	NumberFreePointsGivenBySalesRep = view.NumberFreePointsGivenBySalesRep;
+		//	NumberFreePointsGivenByTech = view.NumberFreePointsGivenByTech;
 
-        }
+		//}
 
         #endregion .ctor
 

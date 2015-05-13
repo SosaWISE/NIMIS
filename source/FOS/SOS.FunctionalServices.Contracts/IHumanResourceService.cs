@@ -47,16 +47,16 @@ namespace SOS.FunctionalServices.Contracts
         #endregion HumanResources
 
         #region Connext
-        IFnsResult<List<IFnsConnextAccountList>> ConnextAccountList(int userId, DateTime beginDate, DateTime endDate, bool isActive);
-        IFnsResult<IFnsConnextCombinedMonthlySalesDetails> ConnextCombinedMonthlySalesDetails(int userID, int salesMonth, int salesYear);
-        IFnsResult<IFnsConnextCustomerInfo> ConnextCustomerInfo(long customerMasterFileID);
-        IFnsResult<List<IFnsConnextSalesRanking>> ConnextSalesRanking(int userId, string resultType, string rankingGroup, string rankingPeriod, int rows);
-        IFnsResult<IFnsConnextSalesRepExtendedInfo> ConnextSalesRepInfo(int userId, bool isExtended);
-        IFnsResult<IFnsSalesSalespersonMonthlyCommissions> SalespersonMonthlyCommissions(int userID, int salesMonth,
-            int salesYear);
-	    IFnsResult<List<IFnsSalesSalespersonMonthlyHolds>> SalespersonMonthlyHolds(int userID, int salesMonth, int salesYear);
-        IFnsResult<IFnsSalesSalespersonMonthlyEarningsSummary> SalespersonMonthlyEarningsSummary(int userID, int salesMonth,
-            int salesYear);
+		//IFnsResult<List<IFnsConnextAccountList>> ConnextAccountList(int userId, DateTime beginDate, DateTime endDate, bool isActive);
+		//IFnsResult<IFnsConnextCombinedMonthlySalesDetails> ConnextCombinedMonthlySalesDetails(int userID, int salesMonth, int salesYear);
+		//IFnsResult<IFnsConnextCustomerInfo> ConnextCustomerInfo(long customerMasterFileID);
+		//IFnsResult<List<IFnsConnextSalesRanking>> ConnextSalesRanking(int userId, string resultType, string rankingGroup, string rankingPeriod, int rows);
+		//IFnsResult<IFnsConnextSalesRepExtendedInfo> ConnextSalesRepInfo(int userId, bool isExtended);
+		//IFnsResult<IFnsSalesSalespersonMonthlyCommissions> SalespersonMonthlyCommissions(int userID, int salesMonth,
+		//	int salesYear);
+		//IFnsResult<List<IFnsSalesSalespersonMonthlyHolds>> SalespersonMonthlyHolds(int userID, int salesMonth, int salesYear);
+		//IFnsResult<IFnsSalesSalespersonMonthlyEarningsSummary> SalespersonMonthlyEarningsSummary(int userID, int salesMonth,
+		//	int salesYear);
         #endregion Connext
     }
 }

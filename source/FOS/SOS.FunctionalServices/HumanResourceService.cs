@@ -579,7 +579,7 @@ namespace SOS.FunctionalServices
 				if (acUser == null)
 				{
 					// create one if non exist
-					acUser = new AC_User()
+					acUser = new AC_User
 					{
 						HRUserId = user.UserID,
 					};
@@ -853,407 +853,407 @@ namespace SOS.FunctionalServices
 		#endregion CRM Sales Info
 
 		#region Connext Sales Info
-		public IFnsResult<List<IFnsConnextAccountList>> ConnextAccountList(int userId, DateTime beginDate, DateTime endDate, bool isActive)
-		{
-			#region INITIALIZATION
+		//public IFnsResult<List<IFnsConnextAccountList>> ConnextAccountList(int userId, DateTime beginDate, DateTime endDate, bool isActive)
+		//{
+		//	#region INITIALIZATION
 
-			// ** Initialize 
-			const string METHOD_NAME = "ConnextAccountList";
-			var result = new FnsResult<List<IFnsConnextAccountList>>
-			{
-				Code = (int)ErrorCodes.GeneralMessage,
-				Message = string.Format("Initializing {0}", METHOD_NAME),
-			};
+		//	// ** Initialize 
+		//	const string METHOD_NAME = "ConnextAccountList";
+		//	var result = new FnsResult<List<IFnsConnextAccountList>>
+		//	{
+		//		Code = (int)ErrorCodes.GeneralMessage,
+		//		Message = string.Format("Initializing {0}", METHOD_NAME),
+		//	};
 
-			#endregion INITIALIZATION
+		//	#endregion INITIALIZATION
 
-			#region TRY
-			try
-			{
-				var accountCollection =
-					HumanResourceDataContext.Instance.RU_UsersAccountListConnextViews
-						.LoadCollection(
-							HumanResourceDataStoredProcedureManager.RU_UsersAccountListConnextGetByUserID(userId, beginDate, endDate, isActive));
+		//	#region TRY
+		//	try
+		//	{
+		//		var accountCollection =
+		//			HumanResourceDataContext.Instance.RU_UsersAccountListConnextViews
+		//				.LoadCollection(
+		//					HumanResourceDataStoredProcedureManager.RU_UsersAccountListConnextGetByUserID(userId, beginDate, endDate, isActive));
 
-				// ** Build list
-				var rankingList = new List<IFnsConnextAccountList>();
-				foreach (var account in accountCollection)
-				{
-					rankingList.Add(new FnsConnextAccountList(account));
-				}
-
-
-				// ** Save result information
-				result.Code = (int)ErrorCodes.Success;
-				result.Message = "Success";
-				result.Value = rankingList;
-			}
-			#endregion TRY
-
-			#region CATCH
-			catch (Exception ex)
-			{
-				result = new FnsResult<List<IFnsConnextAccountList>>
-				{
-					Code = (int)ErrorCodes.UnexpectedException,
-					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-				};
-			}
-			#endregion CATCH
-
-			// ** Return result
-			return result;
-		}
-
-		public IFnsResult<IFnsConnextCombinedMonthlySalesDetails> ConnextCombinedMonthlySalesDetails(int userID, int salesMonth, int salesYear)
-		{
-			#region INITIALIZATION
-			// ** Initialize 
-			const string METHOD_NAME = "ConnextCombinedMonthlySalesDetails";
-			var result = new FnsResult<IFnsConnextCombinedMonthlySalesDetails>
-			{
-				Code = (int)ErrorCodes.GeneralMessage,
-				Message = string.Format("Initializing {0}", METHOD_NAME),
-			};
-
-			#endregion INITIALIZATION
-
-			#region TRY
-			try
-			{
-				var combinedresults = new FnsConnextCombinedMonthlySalesDetails();
-				//                combinedresults.OfficeStats = new List<RuUsersGetDetailedStatisticsConnext>();
-				//                combinedresults.RepStats = new List<RuUsersGetDetailedStatisticsConnext>();
-
-				// Office Stats
-				var officeCollection =
-					HumanResourceDataContext.Instance.RU_UsersGetDetailedStatisticsConnextViews
-						.LoadCollection(
-							HumanResourceDataStoredProcedureManager.RU_UsersSalesDetailedStatisticsConnextGetByUserID(userID, salesMonth, salesYear, true));
-
-				// ** Build list
-				//                var salesList = new List<IFnsConnextMonthlySalesDetails>();
-				foreach (var office in officeCollection)
-				{
-					combinedresults.OfficeStats.Add(new FnsConnextMonthlySalesDetails(office));
-				}
-
-				// Salesrep Stats
-				var salesrepCollection =
-					HumanResourceDataContext.Instance.RU_UsersGetDetailedStatisticsConnextViews
-						.LoadCollection(
-							HumanResourceDataStoredProcedureManager.RU_UsersSalesDetailedStatisticsConnextGetByUserID(userID, salesMonth, salesYear, false));
-
-				// ** Build list
-				//                var salesList = new List<IFnsConnextMonthlySalesDetails>();
-				foreach (var salesrep in salesrepCollection)
-				{
-					combinedresults.OfficeStats.Add(new FnsConnextMonthlySalesDetails(salesrep));
-				}
-
-				// ** Save result information
-				result.Code = (int)ErrorCodes.Success;
-				result.Message = "Success";
-
-				result.Value = combinedresults;
-			}
-			#endregion TRY
-
-			#region CATCH
-			catch (Exception ex)
-			{
-				result = new FnsResult<IFnsConnextCombinedMonthlySalesDetails>
-				{
-					Code = (int)ErrorCodes.UnexpectedException,
-					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-				};
-			}
-			#endregion CATCH
-
-			// ** Return result
-			return result;
-		}
-
-		public IFnsResult<IFnsConnextCustomerInfo> ConnextCustomerInfo(long customerMasterFileID)
-		{
-			#region INITIALIZATION
-
-			// ** Initialize 
-			const string METHOD_NAME = "ConnextCustomerInfo";
-			var result = new FnsResult<IFnsConnextCustomerInfo>
-			{
-				Code = (int)ErrorCodes.GeneralMessage,
-				Message = string.Format("Initializing {0}", METHOD_NAME),
-			};
-
-			#endregion INITIALIZATION
-
-			#region TRY
-			try
-			{
-				FnsConnextCustomerInfo resultValue;
-				resultValue = new FnsConnextCustomerInfo(HumanResourceDataContext.Instance.AE_CustomersGetCustomerInfoConnextViews.LoadSingle(
-					HumanResourceDataStoredProcedureManager.AE_CustomersGetCustomerInfoConnext(customerMasterFileID)));
-
-				// ** Save result information
-				result.Code = (int)ErrorCodes.Success;
-				result.Message = "Success";
-				result.Value = resultValue;
-			}
-			#endregion TRY
-
-			#region CATCH
-			catch (Exception ex)
-			{
-				result = new FnsResult<IFnsConnextCustomerInfo>
-				{
-					Code = (int)ErrorCodes.UnexpectedException,
-					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-				};
-			}
-			#endregion CATCH
-
-			// ** Return result
-			return result;
-		}
-
-		public IFnsResult<List<IFnsConnextSalesRanking>> ConnextSalesRanking(int userId, string resultType, string rankingGroup, string rankingPeriod, int rows)
-		{
-			#region INITIALIZATION
-
-			// ** Initialize 
-			const string METHOD_NAME = "ConnextSalesRanking";
-			var result = new FnsResult<List<IFnsConnextSalesRanking>>
-			{
-				Code = (int)ErrorCodes.GeneralMessage,
-				Message = string.Format("Initializing {0}", METHOD_NAME),
-			};
-
-			#endregion INITIALIZATION
-
-			#region TRY
-			try
-			{
-				var rankingCollection =
-					HumanResourceDataContext.Instance.RU_UsersSalesRankingConnextViews
-						.LoadCollection(
-							HumanResourceDataStoredProcedureManager.RU_UsersSalesRankingConnextGetbyUserID(userId,
-								resultType, rankingGroup, rankingPeriod, rows));
-
-				// ** Build list
-				var rankingList = new List<IFnsConnextSalesRanking>();
-				foreach (var ranking in rankingCollection)
-				{
-					rankingList.Add(new FnsConnextSalesRanking(ranking));
-				}
+		//		// ** Build list
+		//		var rankingList = new List<IFnsConnextAccountList>();
+		//		foreach (var account in accountCollection)
+		//		{
+		//			rankingList.Add(new FnsConnextAccountList(account));
+		//		}
 
 
-				// ** Save result information
-				result.Code = (int)ErrorCodes.Success;
-				result.Message = "Success";
-				result.Value = rankingList;
-			}
-			#endregion TRY
+		//		// ** Save result information
+		//		result.Code = (int)ErrorCodes.Success;
+		//		result.Message = "Success";
+		//		result.Value = rankingList;
+		//	}
+		//	#endregion TRY
 
-			#region CATCH
-			catch (Exception ex)
-			{
-				result = new FnsResult<List<IFnsConnextSalesRanking>>
-				{
-					Code = (int)ErrorCodes.UnexpectedException,
-					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-				};
-			}
-			#endregion CATCH
+		//	#region CATCH
+		//	catch (Exception ex)
+		//	{
+		//		result = new FnsResult<List<IFnsConnextAccountList>>
+		//		{
+		//			Code = (int)ErrorCodes.UnexpectedException,
+		//			Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+		//		};
+		//	}
+		//	#endregion CATCH
 
-			// ** Return result
-			return result;
-		}
+		//	// ** Return result
+		//	return result;
+		//}
 
-		public IFnsResult<IFnsConnextSalesRepExtendedInfo> ConnextSalesRepInfo(int userId, bool isExtended)
-		{
-			#region INITIALIZATION
+		//public IFnsResult<IFnsConnextCombinedMonthlySalesDetails> ConnextCombinedMonthlySalesDetails(int userID, int salesMonth, int salesYear)
+		//{
+		//	#region INITIALIZATION
+		//	// ** Initialize 
+		//	const string METHOD_NAME = "ConnextCombinedMonthlySalesDetails";
+		//	var result = new FnsResult<IFnsConnextCombinedMonthlySalesDetails>
+		//	{
+		//		Code = (int)ErrorCodes.GeneralMessage,
+		//		Message = string.Format("Initializing {0}", METHOD_NAME),
+		//	};
 
-			// ** Initialize 
-			const string METHOD_NAME = "ConnextSalesRepInfo";
-			var result = new FnsResult<IFnsConnextSalesRepExtendedInfo>
-			{
-				Code = (int)ErrorCodes.GeneralMessage,
-				Message = string.Format("Initializing {0}", METHOD_NAME),
-			};
+		//	#endregion INITIALIZATION
 
-			#endregion INITIALIZATION
+		//	#region TRY
+		//	try
+		//	{
+		//		var combinedresults = new FnsConnextCombinedMonthlySalesDetails();
+		//		//                combinedresults.OfficeStats = new List<RuUsersGetDetailedStatisticsConnext>();
+		//		//                combinedresults.RepStats = new List<RuUsersGetDetailedStatisticsConnext>();
 
-			#region TRY
-			try
-			{
-				FnsConnextSalesRepExtendedInfo resultValue;
-				if (isExtended == false)
-				{
-					resultValue = new FnsConnextSalesRepExtendedInfo(HumanResourceDataContext.Instance.RU_UsersSalesInfoConnextViews.LoadSingle(
-							HumanResourceDataStoredProcedureManager.RU_UsersSalesInfoConnextGetByUserID(userId)));
-				}
-				else
-				{
-					resultValue = new FnsConnextSalesRepExtendedInfo(HumanResourceDataContext.Instance.RU_UsersSalesInfoExtendedConnextViews.LoadSingle(
-							HumanResourceDataStoredProcedureManager.RU_UsersSalesInfoExtendedConnextGetByUserID(userId)));
-				}
+		//		// Office Stats
+		//		var officeCollection =
+		//			HumanResourceDataContext.Instance.RU_UsersGetDetailedStatisticsConnextViews
+		//				.LoadCollection(
+		//					HumanResourceDataStoredProcedureManager.RU_UsersSalesDetailedStatisticsConnextGetByUserID(userID, salesMonth, salesYear, true));
 
-				// ** Save result information
-				result.Code = (int)ErrorCodes.Success;
-				result.Message = "Success";
-				result.Value = resultValue;
-			}
-			#endregion TRY
+		//		// ** Build list
+		//		//                var salesList = new List<IFnsConnextMonthlySalesDetails>();
+		//		foreach (var office in officeCollection)
+		//		{
+		//			combinedresults.OfficeStats.Add(new FnsConnextMonthlySalesDetails(office));
+		//		}
 
-			#region CATCH
-			catch (Exception ex)
-			{
-				result = new FnsResult<IFnsConnextSalesRepExtendedInfo>
-				{
-					Code = (int)ErrorCodes.UnexpectedException,
-					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-				};
-			}
-			#endregion CATCH
+		//		// Salesrep Stats
+		//		var salesrepCollection =
+		//			HumanResourceDataContext.Instance.RU_UsersGetDetailedStatisticsConnextViews
+		//				.LoadCollection(
+		//					HumanResourceDataStoredProcedureManager.RU_UsersSalesDetailedStatisticsConnextGetByUserID(userID, salesMonth, salesYear, false));
 
-			// ** Return result
-			return result;
-		}
+		//		// ** Build list
+		//		//                var salesList = new List<IFnsConnextMonthlySalesDetails>();
+		//		foreach (var salesrep in salesrepCollection)
+		//		{
+		//			combinedresults.OfficeStats.Add(new FnsConnextMonthlySalesDetails(salesrep));
+		//		}
 
-		public IFnsResult<IFnsSalesSalespersonMonthlyCommissions> SalespersonMonthlyCommissions(int userID, int salesMonth, int salesYear)
-		{
-			#region INITIALIZATION
+		//		// ** Save result information
+		//		result.Code = (int)ErrorCodes.Success;
+		//		result.Message = "Success";
 
-			// ** Initialize 
-			const string METHOD_NAME = "SalesMonthlyCommissions";
-			var result = new FnsResult<IFnsSalesSalespersonMonthlyCommissions>
-			{
-				Code = (int)ErrorCodes.GeneralMessage,
-				Message = string.Format("Initializing {0}", METHOD_NAME),
-			};
+		//		result.Value = combinedresults;
+		//	}
+		//	#endregion TRY
 
-			#endregion INITIALIZATION
+		//	#region CATCH
+		//	catch (Exception ex)
+		//	{
+		//		result = new FnsResult<IFnsConnextCombinedMonthlySalesDetails>
+		//		{
+		//			Code = (int)ErrorCodes.UnexpectedException,
+		//			Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+		//		};
+		//	}
+		//	#endregion CATCH
 
-			#region TRY
-			try
-			{
-				FnsSalesSalespersonMonthlyCommissions resultValue;
-				resultValue = new FnsSalesSalespersonMonthlyCommissions(HumanResourceDataContext.Instance.SAE_SalesSalespersonMonthlyCommissionsViews.LoadSingle(
-					HumanResourceDataStoredProcedureManager.SAE_SalesSalespersonMonthlyCommissions(userID, salesMonth, salesYear)));
+		//	// ** Return result
+		//	return result;
+		//}
 
-				// ** Save result information
-				result.Code = (int)ErrorCodes.Success;
-				result.Message = "Success";
-				result.Value = resultValue;
-			}
-			#endregion TRY
+		//public IFnsResult<IFnsConnextCustomerInfo> ConnextCustomerInfo(long customerMasterFileID)
+		//{
+		//	#region INITIALIZATION
 
-			#region CATCH
-			catch (Exception ex)
-			{
-				result = new FnsResult<IFnsSalesSalespersonMonthlyCommissions>
-				{
-					Code = (int)ErrorCodes.UnexpectedException,
-					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-				};
-			}
-			#endregion CATCH
+		//	// ** Initialize 
+		//	const string METHOD_NAME = "ConnextCustomerInfo";
+		//	var result = new FnsResult<IFnsConnextCustomerInfo>
+		//	{
+		//		Code = (int)ErrorCodes.GeneralMessage,
+		//		Message = string.Format("Initializing {0}", METHOD_NAME),
+		//	};
 
-			// ** Return result
-			return result;
-		}
-		public IFnsResult<List<IFnsSalesSalespersonMonthlyHolds>> SalespersonMonthlyHolds(int userID, int salesMonth, int salesYear)
-		{
-			#region INITIALIZATION
-			// ** Initialize 
-			const string METHOD_NAME = "SalespersonMonthlyHolds";
-			var result = new FnsResult<List<IFnsSalesSalespersonMonthlyHolds>>
-			{
-				Code = (int)ErrorCodes.GeneralMessage,
-				Message = string.Format("Initializing {0}", METHOD_NAME),
-			};
-			#endregion INITIALIZATION
+		//	#endregion INITIALIZATION
 
-			#region TRY
-			try
-			{
-				var holdCollection =
-					HumanResourceDataContext.Instance.SAE_SalesSalespersonMonthlyHoldsViews
-						.LoadCollection(
-							HumanResourceDataStoredProcedureManager.SAE_SalesSalespersonMonthlyHolds(userID, salesMonth, salesYear));
+		//	#region TRY
+		//	try
+		//	{
+		//		FnsConnextCustomerInfo resultValue;
+		//		resultValue = new FnsConnextCustomerInfo(HumanResourceDataContext.Instance.AE_CustomersGetCustomerInfoConnextViews.LoadSingle(
+		//			HumanResourceDataStoredProcedureManager.AE_CustomersGetCustomerInfoConnext(customerMasterFileID)));
 
-				// ** Build list
-				var holdList = new List<IFnsSalesSalespersonMonthlyHolds>();
-				foreach (var item in holdCollection)
-				{
-					holdList.Add(new FnsSalesSalespersonMonthlyHolds(item));
-				}
+		//		// ** Save result information
+		//		result.Code = (int)ErrorCodes.Success;
+		//		result.Message = "Success";
+		//		result.Value = resultValue;
+		//	}
+		//	#endregion TRY
+
+		//	#region CATCH
+		//	catch (Exception ex)
+		//	{
+		//		result = new FnsResult<IFnsConnextCustomerInfo>
+		//		{
+		//			Code = (int)ErrorCodes.UnexpectedException,
+		//			Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+		//		};
+		//	}
+		//	#endregion CATCH
+
+		//	// ** Return result
+		//	return result;
+		//}
+
+		//public IFnsResult<List<IFnsConnextSalesRanking>> ConnextSalesRanking(int userId, string resultType, string rankingGroup, string rankingPeriod, int rows)
+		//{
+		//	#region INITIALIZATION
+
+		//	// ** Initialize 
+		//	const string METHOD_NAME = "ConnextSalesRanking";
+		//	var result = new FnsResult<List<IFnsConnextSalesRanking>>
+		//	{
+		//		Code = (int)ErrorCodes.GeneralMessage,
+		//		Message = string.Format("Initializing {0}", METHOD_NAME),
+		//	};
+
+		//	#endregion INITIALIZATION
+
+		//	#region TRY
+		//	try
+		//	{
+		//		var rankingCollection =
+		//			HumanResourceDataContext.Instance.RU_UsersSalesRankingConnextViews
+		//				.LoadCollection(
+		//					HumanResourceDataStoredProcedureManager.RU_UsersSalesRankingConnextGetbyUserID(userId,
+		//						resultType, rankingGroup, rankingPeriod, rows));
+
+		//		// ** Build list
+		//		var rankingList = new List<IFnsConnextSalesRanking>();
+		//		foreach (var ranking in rankingCollection)
+		//		{
+		//			rankingList.Add(new FnsConnextSalesRanking(ranking));
+		//		}
 
 
-				// ** Save result information
-				result.Code = (int)ErrorCodes.Success;
-				result.Message = "Success";
-				result.Value = holdList;
-			}
-			#endregion TRY
+		//		// ** Save result information
+		//		result.Code = (int)ErrorCodes.Success;
+		//		result.Message = "Success";
+		//		result.Value = rankingList;
+		//	}
+		//	#endregion TRY
 
-			#region CATCH
-			catch (Exception ex)
-			{
-				result = new FnsResult<List<IFnsSalesSalespersonMonthlyHolds>>
-				{
-					Code = (int)ErrorCodes.UnexpectedException,
-					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-				};
-			}
-			#endregion CATCH
+		//	#region CATCH
+		//	catch (Exception ex)
+		//	{
+		//		result = new FnsResult<List<IFnsConnextSalesRanking>>
+		//		{
+		//			Code = (int)ErrorCodes.UnexpectedException,
+		//			Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+		//		};
+		//	}
+		//	#endregion CATCH
 
-			// ** Return result
-			return result;
-		}
-		public IFnsResult<IFnsSalesSalespersonMonthlyEarningsSummary> SalespersonMonthlyEarningsSummary(int userID, int salesMonth, int salesYear)
-		{
-			#region INITIALIZATION
+		//	// ** Return result
+		//	return result;
+		//}
 
-			// ** Initialize 
-			const string METHOD_NAME = "SalesMonthlyEarningsSummary";
-			var result = new FnsResult<IFnsSalesSalespersonMonthlyEarningsSummary>
-			{
-				Code = (int)ErrorCodes.GeneralMessage,
-				Message = string.Format("Initializing {0}", METHOD_NAME),
-			};
+		//public IFnsResult<IFnsConnextSalesRepExtendedInfo> ConnextSalesRepInfo(int userId, bool isExtended)
+		//{
+		//	#region INITIALIZATION
 
-			#endregion INITIALIZATION
+		//	// ** Initialize 
+		//	const string METHOD_NAME = "ConnextSalesRepInfo";
+		//	var result = new FnsResult<IFnsConnextSalesRepExtendedInfo>
+		//	{
+		//		Code = (int)ErrorCodes.GeneralMessage,
+		//		Message = string.Format("Initializing {0}", METHOD_NAME),
+		//	};
 
-			#region TRY
-			try
-			{
-				FnsSalesSalespersonMonthlyEarningsSummary resultValue;
-				resultValue = new FnsSalesSalespersonMonthlyEarningsSummary(HumanResourceDataContext.Instance.SAE_SalesSalespersonMonthlyEarningsViews.LoadSingle(
-					HumanResourceDataStoredProcedureManager.SAE_SalesSalespersonMonthlyEarnings(userID, salesMonth, salesYear)));
+		//	#endregion INITIALIZATION
 
-				// ** Save result information
-				result.Code = (int)ErrorCodes.Success;
-				result.Message = "Success";
-				result.Value = resultValue;
-			}
-			#endregion TRY
+		//	#region TRY
+		//	try
+		//	{
+		//		FnsConnextSalesRepExtendedInfo resultValue;
+		//		if (isExtended == false)
+		//		{
+		//			resultValue = new FnsConnextSalesRepExtendedInfo(HumanResourceDataContext.Instance.RU_UsersSalesInfoConnextViews.LoadSingle(
+		//					HumanResourceDataStoredProcedureManager.RU_UsersSalesInfoConnextGetByUserID(userId)));
+		//		}
+		//		else
+		//		{
+		//			resultValue = new FnsConnextSalesRepExtendedInfo(HumanResourceDataContext.Instance.RU_UsersSalesInfoExtendedConnextViews.LoadSingle(
+		//					HumanResourceDataStoredProcedureManager.RU_UsersSalesInfoExtendedConnextGetByUserID(userId)));
+		//		}
 
-			#region CATCH
-			catch (Exception ex)
-			{
-				result = new FnsResult<IFnsSalesSalespersonMonthlyEarningsSummary>
-				{
-					Code = (int)ErrorCodes.UnexpectedException,
-					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
-				};
-			}
-			#endregion CATCH
+		//		// ** Save result information
+		//		result.Code = (int)ErrorCodes.Success;
+		//		result.Message = "Success";
+		//		result.Value = resultValue;
+		//	}
+		//	#endregion TRY
 
-			// ** Return result
-			return result;
-		}
+		//	#region CATCH
+		//	catch (Exception ex)
+		//	{
+		//		result = new FnsResult<IFnsConnextSalesRepExtendedInfo>
+		//		{
+		//			Code = (int)ErrorCodes.UnexpectedException,
+		//			Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+		//		};
+		//	}
+		//	#endregion CATCH
+
+		//	// ** Return result
+		//	return result;
+		//}
+
+		//public IFnsResult<IFnsSalesSalespersonMonthlyCommissions> SalespersonMonthlyCommissions(int userID, int salesMonth, int salesYear)
+		//{
+		//	#region INITIALIZATION
+
+		//	// ** Initialize 
+		//	const string METHOD_NAME = "SalesMonthlyCommissions";
+		//	var result = new FnsResult<IFnsSalesSalespersonMonthlyCommissions>
+		//	{
+		//		Code = (int)ErrorCodes.GeneralMessage,
+		//		Message = string.Format("Initializing {0}", METHOD_NAME),
+		//	};
+
+		//	#endregion INITIALIZATION
+
+		//	#region TRY
+		//	try
+		//	{
+		//		FnsSalesSalespersonMonthlyCommissions resultValue;
+		//		resultValue = new FnsSalesSalespersonMonthlyCommissions(HumanResourceDataContext.Instance.SAE_SalesSalespersonMonthlyCommissionsViews.LoadSingle(
+		//			HumanResourceDataStoredProcedureManager.SAE_SalesSalespersonMonthlyCommissions(userID, salesMonth, salesYear)));
+
+		//		// ** Save result information
+		//		result.Code = (int)ErrorCodes.Success;
+		//		result.Message = "Success";
+		//		result.Value = resultValue;
+		//	}
+		//	#endregion TRY
+
+		//	#region CATCH
+		//	catch (Exception ex)
+		//	{
+		//		result = new FnsResult<IFnsSalesSalespersonMonthlyCommissions>
+		//		{
+		//			Code = (int)ErrorCodes.UnexpectedException,
+		//			Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+		//		};
+		//	}
+		//	#endregion CATCH
+
+		//	// ** Return result
+		//	return result;
+		//}
+		//public IFnsResult<List<IFnsSalesSalespersonMonthlyHolds>> SalespersonMonthlyHolds(int userID, int salesMonth, int salesYear)
+		//{
+		//	#region INITIALIZATION
+		//	// ** Initialize 
+		//	const string METHOD_NAME = "SalespersonMonthlyHolds";
+		//	var result = new FnsResult<List<IFnsSalesSalespersonMonthlyHolds>>
+		//	{
+		//		Code = (int)ErrorCodes.GeneralMessage,
+		//		Message = string.Format("Initializing {0}", METHOD_NAME),
+		//	};
+		//	#endregion INITIALIZATION
+
+		//	#region TRY
+		//	try
+		//	{
+		//		var holdCollection =
+		//			HumanResourceDataContext.Instance.SAE_SalesSalespersonMonthlyHoldsViews
+		//				.LoadCollection(
+		//					HumanResourceDataStoredProcedureManager.SAE_SalesSalespersonMonthlyHolds(userID, salesMonth, salesYear));
+
+		//		// ** Build list
+		//		var holdList = new List<IFnsSalesSalespersonMonthlyHolds>();
+		//		foreach (var item in holdCollection)
+		//		{
+		//			holdList.Add(new FnsSalesSalespersonMonthlyHolds(item));
+		//		}
+
+
+		//		// ** Save result information
+		//		result.Code = (int)ErrorCodes.Success;
+		//		result.Message = "Success";
+		//		result.Value = holdList;
+		//	}
+		//	#endregion TRY
+
+		//	#region CATCH
+		//	catch (Exception ex)
+		//	{
+		//		result = new FnsResult<List<IFnsSalesSalespersonMonthlyHolds>>
+		//		{
+		//			Code = (int)ErrorCodes.UnexpectedException,
+		//			Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+		//		};
+		//	}
+		//	#endregion CATCH
+
+		//	// ** Return result
+		//	return result;
+		//}
+		//public IFnsResult<IFnsSalesSalespersonMonthlyEarningsSummary> SalespersonMonthlyEarningsSummary(int userID, int salesMonth, int salesYear)
+		//{
+		//	#region INITIALIZATION
+
+		//	// ** Initialize 
+		//	const string METHOD_NAME = "SalesMonthlyEarningsSummary";
+		//	var result = new FnsResult<IFnsSalesSalespersonMonthlyEarningsSummary>
+		//	{
+		//		Code = (int)ErrorCodes.GeneralMessage,
+		//		Message = string.Format("Initializing {0}", METHOD_NAME),
+		//	};
+
+		//	#endregion INITIALIZATION
+
+		//	#region TRY
+		//	try
+		//	{
+		//		FnsSalesSalespersonMonthlyEarningsSummary resultValue;
+		//		resultValue = new FnsSalesSalespersonMonthlyEarningsSummary(HumanResourceDataContext.Instance.SAE_SalesSalespersonMonthlyEarningsViews.LoadSingle(
+		//			HumanResourceDataStoredProcedureManager.SAE_SalesSalespersonMonthlyEarnings(userID, salesMonth, salesYear)));
+
+		//		// ** Save result information
+		//		result.Code = (int)ErrorCodes.Success;
+		//		result.Message = "Success";
+		//		result.Value = resultValue;
+		//	}
+		//	#endregion TRY
+
+		//	#region CATCH
+		//	catch (Exception ex)
+		//	{
+		//		result = new FnsResult<IFnsSalesSalespersonMonthlyEarningsSummary>
+		//		{
+		//			Code = (int)ErrorCodes.UnexpectedException,
+		//			Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message),
+		//		};
+		//	}
+		//	#endregion CATCH
+
+		//	// ** Return result
+		//	return result;
+		//}
 
 		#endregion Connext Sales Info
 	}
