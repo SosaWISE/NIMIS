@@ -1,13 +1,12 @@
 /********************  HEADER  ********************
-* Team Overrides includes
-*	1. Weekly Team / Office Override
+*	STEP 006: UNKNOWN RIGHT NOW IN MULTIPLES PROGRAM
 */
 USE [NXSE_Commissions]
 GO
 
 DECLARE	@CommissionContractID INT
 	, @CommissionPeriodID BIGINT
-	, @CommissionEngineID VARCHAR(10) = 'SCv2.0'
+	, @CommissionEngineID VARCHAR(10) = 'SCv3.0'
 	, @CommissionPeriodStrDate DATETIME
 	, @CommissionPeriodEndDate DATETIME
 	, @DEBUG_MODE VARCHAR(20) = 'OFF'
@@ -21,7 +20,7 @@ SELECT TOP 1
 	, @DEBUG_MODE = DEBUG_MODE
 	, @TRUNCATE = [TRUNCATE]
 FROM
-	[dbo].fxSCV2_0GetScriptHeaderInfo() AS PROP;
+	[dbo].fxSCV3_0GetScriptHeaderInfo() AS PROP;
 
 PRINT '************************************************************ START ************************************************************';
 PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';

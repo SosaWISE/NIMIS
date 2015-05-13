@@ -2480,16 +2480,6 @@ namespace SOS.Data.HumanResource
 			}
 		}
 
-		RU_UserSalesInfoConnextViewController _RU_UserSalesInfoConnextViews;
-		public RU_UserSalesInfoConnextViewController RU_UserSalesInfoConnextViews
-		{
-			get
-			{
-				if (_RU_UserSalesInfoConnextViews == null) _RU_UserSalesInfoConnextViews = new RU_UserSalesInfoConnextViewController();
-				return _RU_UserSalesInfoConnextViews;
-			}
-		}
-
 		RU_UsersCallerIDViewController _RU_UsersCallerIDViews;
 		public RU_UsersCallerIDViewController RU_UsersCallerIDViews
 		{
@@ -2774,7 +2764,6 @@ namespace SOS.Data.HumanResource
 	public class RU_TechniciansViewController : BaseViewController<RU_TechniciansView, RU_TechniciansViewCollection> { }
 	public class RU_TerminationStatusCurrentStatusViewController : BaseViewController<RU_TerminationStatusCurrentStatusView, RU_TerminationStatusCurrentStatusViewCollection> { }
 	public class RU_TerminationsWithStatusViewController : BaseViewController<RU_TerminationsWithStatusView, RU_TerminationsWithStatusViewCollection> { }
-	public class RU_UserSalesInfoConnextViewController : BaseViewController<RU_UserSalesInfoConnextView, RU_UserSalesInfoConnextViewCollection> { }
 	public class RU_UsersCallerIDViewController : BaseViewController<RU_UsersCallerIDView, RU_UsersCallerIDViewCollection> { }
 	public class RU_UsersTechViewController : BaseViewController<RU_UsersTechView, RU_UsersTechViewCollection> { }
 	public class TechniciansViewController : BaseViewController<TechniciansView, TechniciansViewCollection> { }

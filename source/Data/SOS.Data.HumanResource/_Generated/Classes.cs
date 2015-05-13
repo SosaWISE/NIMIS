@@ -81793,6 +81793,19 @@ namespace SOS.Data.HumanResource
 				colvarCBxW9.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarCBxW9);
 
+				TableSchema.TableColumn colvarPersonalMultiple = new TableSchema.TableColumn(schema);
+				colvarPersonalMultiple.ColumnName = "PersonalMultiple";
+				colvarPersonalMultiple.DataType = DbType.Int32;
+				colvarPersonalMultiple.MaxLength = 0;
+				colvarPersonalMultiple.AutoIncrement = false;
+				colvarPersonalMultiple.IsNullable = true;
+				colvarPersonalMultiple.IsPrimaryKey = false;
+				colvarPersonalMultiple.IsForeignKey = false;
+				colvarPersonalMultiple.IsReadOnly = false;
+				colvarPersonalMultiple.DefaultSetting = @"";
+				colvarPersonalMultiple.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPersonalMultiple);
+
 				TableSchema.TableColumn colvarIsActive = new TableSchema.TableColumn(schema);
 				colvarIsActive.ColumnName = "IsActive";
 				colvarIsActive.DataType = DbType.Boolean;
@@ -82501,6 +82514,14 @@ namespace SOS.Data.HumanResource
 			}
 		}
 		[DataMember]
+		public int? PersonalMultiple {
+			get { return GetColumnValue<int?>(Columns.PersonalMultiple); }
+			set {
+				SetColumnValue(Columns.PersonalMultiple, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.PersonalMultiple));
+			}
+		}
+		[DataMember]
 		public bool IsActive {
 			get { return GetColumnValue<bool>(Columns.IsActive); }
 			set {
@@ -83054,45 +83075,49 @@ namespace SOS.Data.HumanResource
 		{
 			get { return Schema.Columns[69]; }
 		}
-		public static TableSchema.TableColumn IsActiveColumn
+		public static TableSchema.TableColumn PersonalMultipleColumn
 		{
 			get { return Schema.Columns[70]; }
 		}
-		public static TableSchema.TableColumn IsDeletedColumn
+		public static TableSchema.TableColumn IsActiveColumn
 		{
 			get { return Schema.Columns[71]; }
 		}
-		public static TableSchema.TableColumn CreatedByIDColumn
+		public static TableSchema.TableColumn IsDeletedColumn
 		{
 			get { return Schema.Columns[72]; }
 		}
-		public static TableSchema.TableColumn CreatedDateColumn
+		public static TableSchema.TableColumn CreatedByIDColumn
 		{
 			get { return Schema.Columns[73]; }
 		}
-		public static TableSchema.TableColumn ModifiedByIDColumn
+		public static TableSchema.TableColumn CreatedDateColumn
 		{
 			get { return Schema.Columns[74]; }
 		}
-		public static TableSchema.TableColumn ModifiedDateColumn
+		public static TableSchema.TableColumn ModifiedByIDColumn
 		{
 			get { return Schema.Columns[75]; }
 		}
-		public static TableSchema.TableColumn CreatedByColumn
+		public static TableSchema.TableColumn ModifiedDateColumn
 		{
 			get { return Schema.Columns[76]; }
 		}
-		public static TableSchema.TableColumn CreatedOnColumn
+		public static TableSchema.TableColumn CreatedByColumn
 		{
 			get { return Schema.Columns[77]; }
 		}
-		public static TableSchema.TableColumn ModifiedByColumn
+		public static TableSchema.TableColumn CreatedOnColumn
 		{
 			get { return Schema.Columns[78]; }
 		}
-		public static TableSchema.TableColumn ModifiedOnColumn
+		public static TableSchema.TableColumn ModifiedByColumn
 		{
 			get { return Schema.Columns[79]; }
+		}
+		public static TableSchema.TableColumn ModifiedOnColumn
+		{
+			get { return Schema.Columns[80]; }
 		}
 
 		#endregion
@@ -83170,6 +83195,7 @@ namespace SOS.Data.HumanResource
 			public static readonly string CBxW4 = @"CBxW4";
 			public static readonly string CBxI9 = @"CBxI9";
 			public static readonly string CBxW9 = @"CBxW9";
+			public static readonly string PersonalMultiple = @"PersonalMultiple";
 			public static readonly string IsActive = @"IsActive";
 			public static readonly string IsDeleted = @"IsDeleted";
 			public static readonly string CreatedByID = @"CreatedByID";
