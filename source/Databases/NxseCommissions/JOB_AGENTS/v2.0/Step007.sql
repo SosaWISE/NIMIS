@@ -68,12 +68,14 @@ BEGIN
 	/** OK Now we can add this to the WorkAccountAdjustments. */
 	INSERT INTO [dbo].[SC_WorkAccountAdjustments] (
 		[WorkAccountId]
+		, [CommissionPeriodId]
 		, [CommissionTeamOfficeAnnualResidualIncentiveId]
 		, [AdjustmentAmount]
 		, [CreatedOn]
 	)
 	SELECT
 		SCWAA.WorkAccountID
+		, @CommissionPeriodID
 		, TRR.CommissionTeamOfficeAnnualResidualIncentiveId -- varchar(20)
 		, TRR.ResidualRate -- money
 		, GETUTCDATE() -- datetime
