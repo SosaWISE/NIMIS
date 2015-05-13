@@ -20,7 +20,7 @@ namespace NXS.DataServices.Crm.Models
 			return false;
 		}
 
-		internal static MetadataType FromFriendsAndFamilyType(MC_FriendsAndFamilyType item, bool nullable = false)
+		internal static MetadataType FromDb(MC_FriendsAndFamilyType item, bool nullable = false)
 		{
 			if (NullCheck("FriendsAndFamilyType", item, nullable))
 				return null;
@@ -30,7 +30,7 @@ namespace NXS.DataServices.Crm.Models
 			return result;
 		}
 
-		internal static MetadataType FromAccountCancelReason(MC_AccountCancelReason item, bool nullable = false)
+		internal static MetadataType FromDb(MC_AccountCancelReason item, bool nullable = false)
 		{
 			if (NullCheck("AccountCancelReason", item, nullable))
 				return null;
@@ -40,7 +40,7 @@ namespace NXS.DataServices.Crm.Models
 			return result;
 		}
 
-		internal static MetadataType FromLocationType(IE_LocationType item, bool nullable = false)
+		internal static MetadataType FromDb(IE_LocationType item, bool nullable = false)
 		{
 			if (NullCheck("LocationType", item, nullable))
 				return null;
@@ -49,7 +49,7 @@ namespace NXS.DataServices.Crm.Models
 			result.Name = item.LocationTypeName;
 			return result;
 		}
-		internal static MetadataType FromLocation(Location item, bool nullable = false)
+		internal static MetadataType FromDb(IE_Location item, bool nullable = false)
 		{
 			if (NullCheck("Location", item, nullable))
 				return null;

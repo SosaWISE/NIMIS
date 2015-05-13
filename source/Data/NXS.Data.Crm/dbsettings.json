@@ -20,6 +20,8 @@
     "AE_PaymentTypes",
     "AE_ProductTypes",
     "AE_TaxOptions",
+    "IE_LocationTypes",
+    "IE_ProductBarcodeTrackingTypes",
     "MC_AccountTypes",
     "MC_AccountNoteTypes",
     "MC_AddressTypes",

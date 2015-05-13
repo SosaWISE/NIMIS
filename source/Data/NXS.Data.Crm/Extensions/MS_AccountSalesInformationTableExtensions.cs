@@ -16,13 +16,13 @@ namespace NXS.Data.Crm
 			//item.ID =
 			await tbl.InsertAsync(item).ConfigureAwait(false);
 		}
-		public static async Task UpdateAsync(this ARTable tbl, Snapshotter.Snapshot<AR> snapShot, string gpEmployeeId)
+		public static async Task UpdateAsync(this ARTable tbl, Snapshotter.Snapshot<AR> snapshot, string gpEmployeeId)
 		{
-			if (!snapShot.HasChange()) return;
-			var item = snapShot.Value;
+			if (!snapshot.HasChange()) return;
+			var item = snapshot.Value;
 			item.ModifiedOn = DateTime.UtcNow.RoundToSqlDateTime();
 			item.ModifiedBy = gpEmployeeId;
-			await tbl.UpdateAsync(item.ID, snapShot.Diff()).ConfigureAwait(false);
+			await tbl.UpdateAsync(item.ID, snapshot.Diff()).ConfigureAwait(false);
 		}
 
 		public static async Task<AR> EnsureByIdAsync(this ARTable tbl, long accountId, string gpEmployeeId)

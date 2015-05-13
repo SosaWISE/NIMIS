@@ -4,6 +4,7 @@
 */
 
 using Dapper;
+using SOS.Lib.Core;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -92,13 +93,48 @@ namespace NXS.Data
 			_transaction = null;
 		}
 
-		public async Task<bool> TransactionAsync(Func<Task<bool>> action, IsolationLevel isolation = IsolationLevel.ReadCommitted)
+		public async Task<bool> TransactionAsync<T>(Func<Task<Result<T>>> action, IsolationLevel isolation = IsolationLevel.ReadCommitted)
 		{
 			BeginTransaction(isolation);
 			try
 			{
-				// return true from `action` to signify it should be committed
-				if (await action().ConfigureAwait(false))
+				// return Result<T> with Sucess as true to signify it should be committed
+				if ((await action().ConfigureAwait(false)).Success)
+				{
+					// commit the transaction
+					CommitTransaction();
+					return true;
+				}
+			}
+			//catch { } // no catch since we don't want to trap the exception
+			finally
+			{
+				// rollback the transaction on exception or false returned from action
+				if (_transaction != null)
+					RollbackTransaction();
+			}
+			return false;
+		}
+		public async Task<bool> TransactionAsync(Func<Task<bool>> action, IsolationLevel isolation = IsolationLevel.ReadCommitted)
+		{
+			var tsk = TransactionAsync<object>(async () =>
+			{
+				var result = new Result<object>();
+				// `action` should return true to signify it should be committed
+				if (!(await action().ConfigureAwait(false)))
+					result.Fail(-1, "");
+				return result;
+			}, isolation);
+			return await tsk.ConfigureAwait(false);
+		}
+
+		public bool Transaction<T>(Func<Result<T>> action, IsolationLevel isolation = IsolationLevel.ReadCommitted)
+		{
+			BeginTransaction(isolation);
+			try
+			{
+				// return Result<T> with Sucess as true to signify it should be committed
+				if (action().Success)
 				{
 					// commit the transaction
 					CommitTransaction();
@@ -116,25 +152,14 @@ namespace NXS.Data
 		}
 		public bool Transaction(Func<bool> action, IsolationLevel isolation = IsolationLevel.ReadCommitted)
 		{
-			BeginTransaction(isolation);
-			try
+			return Transaction<object>(() =>
 			{
-				// return true from `action` to signify it should be committed
-				if (action())
-				{
-					// commit the transaction
-					CommitTransaction();
-					return true;
-				}
-			}
-			//catch { } // no catch since we don't want to trap the exception
-			finally
-			{
-				// rollback the transaction on exception or false returned from action
-				if (_transaction != null)
-					RollbackTransaction();
-			}
-			return false;
+				var result = new Result<object>();
+				// `action` should return true to signify it should be committed
+				if (!action())
+					result.Fail(-1, "");
+				return result;
+			}, isolation);
 		}
 
 		protected Action<TDatabase> CreateTableConstructor(Type tableType)

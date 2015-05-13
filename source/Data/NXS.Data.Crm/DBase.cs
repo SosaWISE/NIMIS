@@ -17,7 +17,7 @@ namespace NXS.Data.Crm
 			}
 		}
 
-		public class LocationTable : Table<Location, int>
+		public class LocationTable : Table<IE_Location, int>
 		{
 			public DBase Db { get { return (DBase)_database; } }
 			public LocationTable(DBase db, string tableName) : base(db, "L", tableName, "ID", "string", false) { }

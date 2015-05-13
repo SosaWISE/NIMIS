@@ -283,6 +283,11 @@ namespace NXS.Data
 			if (_prettyPrint) _builder.Newline().Indent(_depth); else _builder.Append(" ");
 			return this.InternalCompare(column, comparison, value, literalText);
 		}
+		public Sequel WhereActiveAndNotDeleted()
+		{
+			return this.Where("IsActive", Comparison.Equals, true)
+				.And("IsDeleted", Comparison.Equals, false);
+		}
 
 		public Sequel And(string column, Comparison comparison, object value, bool literalText = false)
 		{

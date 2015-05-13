@@ -38,12 +38,8 @@ namespace NXS.DataServices.Crm
 				var item = (await tbl.EnsureByIdAsync(inputItem.ID, _gpEmployeeId).ConfigureAwait(false));
 				if (!item.IsNew())
 				{
-					var tmpMsg = VersionException.ModifiedOnErrMsg(item.ModifiedOn, inputItem.ModifiedOn);
-					if (!string.IsNullOrEmpty((tmpMsg)))
-					{
-						result.Value = MsAccountSalesInformation.FromDb(item);
-						return result.Fail((int)BaseErrorCodes.ErrorCodes.InvalidModifiedOn, tmpMsg);
-					}
+					if (VersionHelper.CheckModifiedOn(item.ModifiedOn, inputItem.ModifiedOn, result, () => MsAccountSalesInformation.FromDb(item)).Failure)
+						return result;
 				}
 
 				var snapShot = Snapshotter.Start(item);

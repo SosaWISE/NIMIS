@@ -12,8 +12,8 @@ namespace SOS.FunctionalServices.Models.InventoryEngine
             ProductBarcodeTrackingID = productBarcodeTracking.ProductBarcodeTrackingID;
             ProductBarcodeTrackingTypeId = productBarcodeTracking.ProductBarcodeTrackingTypeId;
             ProductBarcodeId = productBarcodeTracking.ProductBarcodeId;
-            LocationTypeID = productBarcodeTracking.LocationTypeID;
-            LocationID = productBarcodeTracking.LocationID;
+            LocationTypeID = productBarcodeTracking.LocationTypeId;
+            LocationID = productBarcodeTracking.LocationId;
            /* TransferToWarehouseSiteId = productBarcodeTracking.TransferToWarehouseSiteId;
             ReturnToVendorId = productBarcodeTracking.ReturnToVendorId;
             AssignedToCustomerId = productBarcodeTracking.AssignedToCustomerId;

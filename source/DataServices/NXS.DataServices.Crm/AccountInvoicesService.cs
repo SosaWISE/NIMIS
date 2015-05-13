@@ -74,11 +74,8 @@ namespace NXS.DataServices.Crm
 						return false;
 					}
 					// check ModifiedOn matches input
-					if (!string.IsNullOrEmpty((result.Message = VersionException.ModifiedOnErrMsg(item.ModifiedOn, inputItem.ModifiedOn))))
-					{
-						result.Fail(-1, "Invoice(" + inputItem.ID + "): " + result.Message);
+					if (VersionHelper.CheckModifiedOn(item.ModifiedOn, inputItem.ModifiedOn, result, getMsg: (msg) => "Invoice(" + inputItem.ID + "): " + msg).Failure)
 						return false;
-					}
 
 					// update input items
 					var invoiceItems = item.InvoiceItems.ToList();
@@ -160,11 +157,8 @@ namespace NXS.DataServices.Crm
 						return false;
 					}
 					// check ModifiedOn matches input
-					if (!string.IsNullOrEmpty((result.Message = VersionException.ModifiedOnErrMsg(item.ModifiedOn, inputItem.ModifiedOn))))
-					{
-						result.Fail(-1, "Invoice Item(" + inputItem.ID + "): " + result.Message);
+					if (VersionHelper.CheckModifiedOn(item.ModifiedOn, inputItem.ModifiedOn, result, getMsg: (msg) => "Invoice Item(" + inputItem.ID + "): " + msg).Failure)
 						return false;
-					}
 
 					// update item
 					var snapShot = Snapshotter.Start(item);

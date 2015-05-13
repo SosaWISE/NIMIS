@@ -677,7 +677,7 @@ ORDER BY
 		{
 			if (string.IsNullOrEmpty(name))
 				return string.Empty;
-			name = Utility.StripChars(name, "',-", "_");
+			name = Utility.StripChars(name, "',-:", "_");
 			name = Utility.StripChars(name, " .()", "");
 			name += "ID";
 			return name;

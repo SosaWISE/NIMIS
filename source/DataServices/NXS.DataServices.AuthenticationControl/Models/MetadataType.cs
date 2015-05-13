@@ -20,7 +20,7 @@ namespace NXS.DataServices.AuthenticationControl.Models
 			return false;
 		}
 
-		internal static MetadataType FromAction(AC_Action item, bool nullable = false)
+		internal static MetadataType FromDb(AC_Action item, bool nullable = false)
 		{
 			if (NullCheck("Action", item, nullable))
 				return null;
@@ -30,7 +30,7 @@ namespace NXS.DataServices.AuthenticationControl.Models
 			return result;
 		}
 
-		internal static MetadataType FromApplication(AC_Application item, bool nullable = false)
+		internal static MetadataType FromDb(AC_Application item, bool nullable = false)
 		{
 			if (NullCheck("Application", item, nullable))
 				return null;

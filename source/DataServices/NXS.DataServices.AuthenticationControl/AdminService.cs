@@ -24,7 +24,7 @@ namespace NXS.DataServices.AuthenticationControl
 			{
 				var tbl = db.AC_Actions;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
-				return new Result<List<MetadataType>>(value: items.ConvertAll(item => MetadataType.FromAction(item)));
+				return new Result<List<MetadataType>>(value: items.ConvertAll(item => MetadataType.FromDb(item)));
 			}
 		}
 		public async Task<Result<List<MetadataType>>> ApplicationsAsync()
@@ -33,7 +33,7 @@ namespace NXS.DataServices.AuthenticationControl
 			{
 				var tbl = db.AC_Applications;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
-				return new Result<List<MetadataType>>(value: items.ConvertAll(item => MetadataType.FromApplication(item)));
+				return new Result<List<MetadataType>>(value: items.ConvertAll(item => MetadataType.FromDb(item)));
 			}
 		}
 
@@ -119,11 +119,8 @@ namespace NXS.DataServices.AuthenticationControl
 					return false;
 				}
 				// check ModifiedOn matches input
-				if (!string.IsNullOrEmpty((result.Message = VersionException.ModifiedOnErrMsg(item.ModifiedOn, inputItem.ModifiedOn))))
-				{
-					result.Fail(-1, "Group Action(" + inputItem.ID + "): " + result.Message);
+				if (VersionHelper.CheckModifiedOn(item.ModifiedOn, inputItem.ModifiedOn, result, getMsg: (msg) => "Group Action(" + inputItem.ID + "): " + msg).Failure)
 					return false;
-				}
 
 				// update item
 				var snapShot = Snapshotter.Start(item);
@@ -159,11 +156,8 @@ namespace NXS.DataServices.AuthenticationControl
 					return false;
 				}
 				// check ModifiedOn matches input
-				if (!string.IsNullOrEmpty((result.Message = VersionException.ModifiedOnErrMsg(item.ModifiedOn, inputItem.ModifiedOn))))
-				{
-					result.Fail(-1, "Group Application(" + inputItem.ID + "): " + result.Message);
+				if (VersionHelper.CheckModifiedOn(item.ModifiedOn, inputItem.ModifiedOn, result, getMsg: (msg) => "Group Application(" + inputItem.ID + "): " + msg).Failure)
 					return false;
-				}
 
 				// update item
 				var snapShot = Snapshotter.Start(item);

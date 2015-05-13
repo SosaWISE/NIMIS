@@ -1727,10 +1727,10 @@ namespace SOS.FunctionalServices
 						}
 						// Check that the barcode hasn't been sold already.
 						if (productBarcode.LastProductBarcodeTrackingId != null
-							&& String.Compare(productBarcode.LastProductBarcodeTracking.LocationTypeID, "Sold", StringComparison.OrdinalIgnoreCase) == 0)
+							&& String.Compare(productBarcode.LastProductBarcodeTracking.LocationTypeId, "Sold", StringComparison.OrdinalIgnoreCase) == 0)
 						{
 							result.Code = -1;
-							result.Message = string.Format("Barcode {0} is already assigned to Account# {1}.", item.BarcodeId, productBarcode.LastProductBarcodeTracking.LocationID);
+							result.Message = string.Format("Barcode {0} is already assigned to Account# {1}.", item.BarcodeId, productBarcode.LastProductBarcodeTracking.LocationId);
 							return result;
 						}
 						// create barcode tracking
@@ -1738,8 +1738,8 @@ namespace SOS.FunctionalServices
 						{
 							ProductBarcodeTrackingTypeId = "CUST",
 							ProductBarcodeId = acctEquipment.BarcodeId,
-							LocationTypeID = "Sold",
-							LocationID = acctEquipment.AccountId.ToString(CultureInfo.InvariantCulture),
+							LocationTypeId = "Sold",
+							LocationId = acctEquipment.AccountId.ToString(CultureInfo.InvariantCulture),
 						};
 					}
 				}

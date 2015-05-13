@@ -23,7 +23,7 @@ namespace NXS.DataServices.AuthenticationControl
 			{
 				var tbl = db.AC_RequestReasons;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
-				var result = new Result<List<EnumType>>(value: items.ConvertAll(item => EnumType.FromRequestReason(item)));
+				var result = new Result<List<EnumType>>(value: items.ConvertAll(item => EnumType.FromDb(item)));
 				return result;
 			}
 		}

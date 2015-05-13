@@ -23,7 +23,7 @@ namespace NXS.DataServices.Crm
 			{
 				var tbl = db.MC_FriendsAndFamilyTypes;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
-				var result = new Result<List<MetadataType>>(value: items.ConvertAll(item => MetadataType.FromFriendsAndFamilyType(item)));
+				var result = new Result<List<MetadataType>>(value: items.ConvertAll(item => MetadataType.FromDb(item)));
 				return result;
 			}
 		}
@@ -33,7 +33,7 @@ namespace NXS.DataServices.Crm
 			{
 				var tbl = db.MC_AccountCancelReasons;
 				var items = await tbl.AllAsync().ConfigureAwait(false);
-				var result = new Result<List<MetadataType>>(value: items.ConvertAll(item => MetadataType.FromAccountCancelReason(item)));
+				var result = new Result<List<MetadataType>>(value: items.ConvertAll(item => MetadataType.FromDb(item)));
 				return result;
 			}
 		}

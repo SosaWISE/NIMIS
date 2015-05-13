@@ -212,8 +212,28 @@ namespace NXS.Data.Crm
 		public DateTime CreatedOn { get; set; }
 		public string CreatedBy { get; set; }
 	}
+	public partial class IE_Audit // IE_Audits
+	{
+		public int ID { get; set; }
+		public string LocationId { get; set; }
+		public string LocationTypeId { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+	}
 	public partial class IE_LocationType // IE_LocationTypes
 	{
+		public static class MetaData
+		{
+			public const string ReceivedID = "Received";
+			public const string ReturnedID = "Returned";
+			public const string SoldID = "Sold";
+			public const string TechnicianID = "Technician";
+			public const string TransferID = "Transfer";
+		}
 		[IgnorePropertyAttribute(true)] public string ID { get { return LocationTypeID; } set { LocationTypeID = value; } }
 		public string LocationTypeID { get; set; }
 		public string LocationTypeName { get; set; }
@@ -297,8 +317,9 @@ namespace NXS.Data.Crm
 		public long ProductBarcodeTrackingID { get; set; }
 		public string ProductBarcodeTrackingTypeId { get; set; }
 		public string ProductBarcodeId { get; set; }
-		public string LocationTypeID { get; set; }
-		public string LocationID { get; set; }
+		public string LocationTypeId { get; set; }
+		public string LocationId { get; set; }
+		public int? AuditId { get; set; }
 		public string Comment { get; set; }
 		public bool IsDeleted { get; set; }
 		public DateTime ModifiedOn { get; set; }
@@ -309,6 +330,32 @@ namespace NXS.Data.Crm
 	}
 	public partial class IE_ProductBarcodeTrackingType // IE_ProductBarcodeTrackingTypes
 	{
+		public static class MetaData
+		{
+			public const string AuditPerformedID = "AUD";
+			public const string Audit_EquipmentMissingID = "AUD-MISS";
+			public const string SoldtoCustomerID = "CUST";
+			public const string SoldtoDealerID = "DEALR";
+			public const string DeclaredDefectiveID = "DEF";
+			public const string ItemremovedfromcustomerID = "DEL";
+			public const string TransferredtonewBarcodeID = "EBAR";
+			public const string PaidByEmployeeID = "EMP-PAID";
+			public const string InboundTransferOrderID = "INB";
+			public const string ReportedLostID = "LOST";
+			public const string MasterBarcodeAssignmentID = "MBA";
+			public const string ItemreceivedanewBarcodeID = "NBAR";
+			public const string RebateCheckNumberedID = "NUM";
+			public const string OutgoingTransferOrderID = "OUT";
+			public const string ReceiveShipmentID = "REC";
+			public const string SubmittedforRefurbishmentID = "REF";
+			public const string RemovedduringServicecallID = "REM";
+			public const string RemovedforYear_EndAuditID = "REM-AUD";
+			public const string DefectiveReturnedID = "RET";
+			public const string ShippedbacktoVendorID = "SHIP-VEND";
+			public const string SubmittedforReconciliationID = "SUB";
+			public const string TransferredtoWarehouseID = "WRHOUSE";
+			public const string WrittenOffID = "WRT-OFF";
+		}
 		[IgnorePropertyAttribute(true)] public string ID { get { return ProductBarcodeTrackingTypeID; } set { ProductBarcodeTrackingTypeID = value; } }
 		public string ProductBarcodeTrackingTypeID { get; set; }
 		public string ProductBarcodeTrackingTypeName { get; set; }

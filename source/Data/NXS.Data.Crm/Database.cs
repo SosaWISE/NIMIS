@@ -20,6 +20,7 @@ namespace NXS.Data.Crm
 		public AE_InvoiceTypeTable AE_InvoiceTypes { get; set; }
 		public AE_ItemTable AE_Items { get; set; }
 		public AE_PaymentMethodTable AE_PaymentMethods { get; set; }
+		public IE_AuditTable IE_Audits { get; set; }
 		public IE_LocationTypeTable IE_LocationTypes { get; set; }
 		public IE_PackingSlipItemTable IE_PackingSlipItems { get; set; }
 		public IE_PackingSlipTable IE_PackingSlips { get; set; }
@@ -260,6 +261,20 @@ namespace NXS.Data.Crm
 			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
 			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
 		}
+		public partial class IE_AuditTable : Table<IE_Audit, int>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public IE_AuditTable(DBase db) : base(db, "IeA", "[WISE_CRM].[dbo].[IE_Audits]", "ID", "int", true) { }
+			public string ID { get { return _alias + "[ID]"; } }
+			public string LocationId { get { return _alias + "[LocationId]"; } }
+			public string LocationTypeId { get { return _alias + "[LocationTypeId]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+		}
 		public partial class IE_LocationTypeTable : Table<IE_LocationType, string>
 		{
 			public DBase Db { get { return (DBase)_database; } }
@@ -351,8 +366,9 @@ namespace NXS.Data.Crm
 			public string ProductBarcodeTrackingID { get { return _alias + "[ProductBarcodeTrackingID]"; } }
 			public string ProductBarcodeTrackingTypeId { get { return _alias + "[ProductBarcodeTrackingTypeId]"; } }
 			public string ProductBarcodeId { get { return _alias + "[ProductBarcodeId]"; } }
-			public string LocationTypeID { get { return _alias + "[LocationTypeID]"; } }
-			public string LocationID { get { return _alias + "[LocationID]"; } }
+			public string LocationTypeId { get { return _alias + "[LocationTypeId]"; } }
+			public string LocationId { get { return _alias + "[LocationId]"; } }
+			public string AuditId { get { return _alias + "[AuditId]"; } }
 			public string Comment { get { return _alias + "[Comment]"; } }
 			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
