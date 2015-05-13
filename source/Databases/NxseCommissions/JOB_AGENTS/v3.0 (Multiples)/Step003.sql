@@ -58,7 +58,7 @@ INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
 	, CommissionPeriodId
-	, CommissionDeductionId
+	, MMRAdjustmentId
 	, AdjustmentAmount
 )
 SELECT 
@@ -85,7 +85,7 @@ INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
 	, CommissionPeriodId
-	, CommissionDeductionId
+	, MMRAdjustmentId
 	, AdjustmentAmount
 )
 SELECT 
@@ -112,7 +112,7 @@ INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
 	, CommissionPeriodId
-	, CommissionDeductionId
+	, MMRAdjustmentId
 	, AdjustmentAmount
 )
 SELECT 
@@ -139,7 +139,7 @@ INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
 	, CommissionPeriodId
-	, CommissionDeductionId
+	, MMRAdjustmentId
 	, AdjustmentAmount
 )
 SELECT 
@@ -167,7 +167,7 @@ INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
 	, CommissionPeriodId
-	, CommissionDeductionId
+	, MMRAdjustmentId
 	, AdjustmentAmount
 )
 SELECT 
@@ -189,7 +189,7 @@ PRINT '/*******************************';
 PRINT '***  Set Camera Adjustments	***';
 PRINT '*******************************/';
 
--- SET DEDUCTION FOR CELL UNIT ADJUSTMENTS
+-- SET DEDUCTION FOR CAMERA ADJUSTMENTS
 SET @MMRAdjustmentID = 'Camera';
 SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 
@@ -198,7 +198,7 @@ INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
 	, CommissionPeriodId
-	, CommissionDeductionId
+	, MMRAdjustmentId
 	, AdjustmentAmount
 )
 SELECT 
@@ -220,7 +220,7 @@ PRINT '/*******************************';
 PRINT '***  Set Light Control Adjustments	***';
 PRINT '*******************************/';
 
--- SET DEDUCTION FOR CELL UNIT ADJUSTMENTS
+-- SET DEDUCTION FOR LIGHT CONTROL ADJUSTMENTS
 SET @MMRAdjustmentID = 'LightControl';
 SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 
@@ -229,7 +229,7 @@ INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
 	, CommissionPeriodId
-	, CommissionDeductionId
+	, MMRAdjustmentId
 	, AdjustmentAmount
 )
 SELECT 
@@ -251,7 +251,7 @@ PRINT '/*******************************';
 PRINT '***  Set LockControl Adjustments	***';
 PRINT '*******************************/';
 
--- SET DEDUCTION FOR CELL UNIT ADJUSTMENTS
+-- SET DEDUCTION FOR LOCK CONTROL ADJUSTMENTS
 SET @MMRAdjustmentID = 'LockControl';
 SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 
@@ -260,7 +260,7 @@ INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
 	, CommissionPeriodId
-	, CommissionDeductionId
+	, MMRAdjustmentId
 	, AdjustmentAmount
 )
 SELECT 
@@ -282,7 +282,7 @@ PRINT '/*******************************';
 PRINT '***  Set ThermostatControl Adjustments	***';
 PRINT '*******************************/';
 
--- SET DEDUCTION FOR CELL UNIT ADJUSTMENTS
+-- SET DEDUCTION FOR THERMOSTAT CONTROL ADJUSTMENTS
 SET @MMRAdjustmentID = 'ThermostatControl';
 SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 
@@ -291,7 +291,7 @@ INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
 	, CommissionPeriodId
-	, CommissionDeductionId
+	, MMRAdjustmentId
 	, AdjustmentAmount
 )
 SELECT 
@@ -323,7 +323,7 @@ INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
 	, CommissionPeriodId
-	, CommissionDeductionId
+	, MMRAdjustmentId
 	, AdjustmentAmount
 )
 SELECT 
@@ -342,7 +342,7 @@ PRINT '***	Set Under Allowed Points Adjustments ***';
 PRINT '*******************/'
 
 --  SET DEDUCTION FOR GIVING MORE POINTS THAN ALLOWED
-SET @MMRAdjustmentID = 'OverAllowedPoints';
+SET @MMRAdjustmentID = 'UnderAllowedPoints';
 SELECT @AdjustmentAmount = AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 SET @AdjustmentAmount = @AdjustmentAmount * (SELECT FLOOR(PointsAllowed - PointsAssignedToRep) FROM [dbo].[SC_WorkAccounts] WHERE (PointsAllowed > PointsAssignedToRep))
 
@@ -351,7 +351,7 @@ INSERT SC_workAccountAdjustments
 (
 	WorkAccountId
 	, CommissionPeriodId
-	, CommissionDeductionId
+	, MMRAdjustmentId
 	, AdjustmentAmount
 )
 SELECT 
