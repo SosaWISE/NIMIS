@@ -15,7 +15,7 @@ Version:10.4.8.62-->
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource1>
   <DataSource2 version="3" type="LiveDatabaseSource">
-    <ServerName>db1.dev.nexsense.com</ServerName>
+    <ServerName>db1.stg.nexsense.com</ServerName>
     <DatabaseName>NXSE_Commissions</DatabaseName>
     <Username>sa</Username>
     <SavePassword>True</SavePassword>
@@ -24,7 +24,7 @@ Version:10.4.8.62-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>05/01/2015 16:05:02</LastCompared>
+  <LastCompared>05/12/2015 12:33:37</LastCompared>
   <Options>Default, ObjectExistenceChecks, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
@@ -283,6 +283,14 @@ Version:10.4.8.62-->
     <value version="1" type="SelectTableEvent">
       <action>SelectItem</action>
       <val>[dbo].[SC_GlobalProperties]:[dbo].[SC_GlobalProperties]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[SC_MMRAdjustments]:[dbo].[SC_MMRAdjustments]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[SC_MultipleAdjustments]:[dbo].[SC_MultipleAdjustments]</val>
     </value>
   </TableActions>
   <SessionSettings>15</SessionSettings>
