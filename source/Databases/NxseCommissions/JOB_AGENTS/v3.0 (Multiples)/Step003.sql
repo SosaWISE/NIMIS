@@ -154,17 +154,16 @@ WHERE
 	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 */
 
-PRINT '/*******************************';
+PRINT '/***********************************';
 PRINT '***  Set Cell Unit Adjustments	***';
-PRINT '*******************************/';
+PRINT '************************************/';
 
 -- SET DEDUCTION FOR CELL UNIT ADJUSTMENTS
 SET @MMRAdjustmentID = 'Cellular';
 SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 
 -- Create entry for all accounts with contract length less than 60
-INSERT SC_workAccountAdjustments
-(
+INSERT INTO dbo.SC_ICEffectiveMMRDetails (
 	WorkAccountId
 	, CommissionPeriodId
 	, MMRAdjustmentId
@@ -187,15 +186,14 @@ WHERE
 
 PRINT '/*******************************';
 PRINT '***  Set Camera Adjustments	***';
-PRINT '*******************************/';
+PRINT '********************************/';
 
 -- SET DEDUCTION FOR CAMERA ADJUSTMENTS
 SET @MMRAdjustmentID = 'Camera';
 SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 
 -- Create entry for all accounts with contract length less than 60
-INSERT SC_workAccountAdjustments
-(
+INSERT INTO dbo.SC_ICEffectiveMMRDetails (
 	WorkAccountId
 	, CommissionPeriodId
 	, MMRAdjustmentId
@@ -216,17 +214,16 @@ WHERE
 	(mse.EquipmentTypeId = 15)
 	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 
-PRINT '/*******************************';
+PRINT '/***************************************';
 PRINT '***  Set Light Control Adjustments	***';
-PRINT '*******************************/';
+PRINT '****************************************/';
 
 -- SET DEDUCTION FOR LIGHT CONTROL ADJUSTMENTS
 SET @MMRAdjustmentID = 'LightControl';
 SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 
 -- Create entry for all accounts with contract length less than 60
-INSERT SC_workAccountAdjustments
-(
+INSERT INTO dbo.SC_ICEffectiveMMRDetails (
 	WorkAccountId
 	, CommissionPeriodId
 	, MMRAdjustmentId
@@ -247,17 +244,16 @@ WHERE
 	(mse.EquipmentTypeId = 34)
 	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 
-PRINT '/*******************************';
+PRINT '/***********************************';
 PRINT '***  Set LockControl Adjustments	***';
-PRINT '*******************************/';
+PRINT '************************************/';
 
 -- SET DEDUCTION FOR LOCK CONTROL ADJUSTMENTS
 SET @MMRAdjustmentID = 'LockControl';
 SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 
 -- Create entry for all accounts with contract length less than 60
-INSERT SC_workAccountAdjustments
-(
+INSERT INTO dbo.SC_ICEffectiveMMRDetails (
 	WorkAccountId
 	, CommissionPeriodId
 	, MMRAdjustmentId
@@ -278,17 +274,16 @@ WHERE
 	(mse.EquipmentTypeId = 16)
 	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 
-PRINT '/*******************************';
+PRINT '/*******************************************';
 PRINT '***  Set ThermostatControl Adjustments	***';
-PRINT '*******************************/';
+PRINT '********************************************/';
 
 -- SET DEDUCTION FOR THERMOSTAT CONTROL ADJUSTMENTS
 SET @MMRAdjustmentID = 'ThermostatControl';
 SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 
 -- Create entry for all accounts with contract length less than 60
-INSERT SC_workAccountAdjustments
-(
+INSERT INTO dbo.SC_ICEffectiveMMRDetails (
 	WorkAccountId
 	, CommissionPeriodId
 	, MMRAdjustmentId
@@ -309,9 +304,9 @@ WHERE
 	(mse.EquipmentTypeId = 33)
 	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 
-PRINT '/*******************';
+PRINT '/*******************************************';
 PRINT '***	Set Over Allowed Points Adjustments ***';
-PRINT '*******************/'
+PRINT '********************************************/'
 
 --  SET DEDUCTION FOR GIVING MORE POINTS THAN ALLOWED
 SET @MMRAdjustmentID = 'OverAllowedPoints';
@@ -319,8 +314,7 @@ SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments
 SET @AdjustmentAmount = @AdjustmentAmount * (SELECT FLOOR(PointsAssignedToRep - PointsAllowed) FROM [dbo].[SC_WorkAccounts] WHERE (PointsAssignedToRep > PointsAllowed))
 
 -- Create entry for payment types that are not ACH
-INSERT SC_workAccountAdjustments
-(
+INSERT INTO dbo.SC_ICEffectiveMMRDetails (
 	WorkAccountId
 	, CommissionPeriodId
 	, MMRAdjustmentId
@@ -337,9 +331,9 @@ WHERE
 	(scwa.PointsAssignedToRep > scwa.PointsAllowed)
 	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 
-PRINT '/*******************';
+PRINT '/********************************************';
 PRINT '***	Set Under Allowed Points Adjustments ***';
-PRINT '*******************/'
+PRINT '*********************************************/'
 
 --  SET DEDUCTION FOR GIVING MORE POINTS THAN ALLOWED
 SET @MMRAdjustmentID = 'UnderAllowedPoints';
@@ -347,8 +341,7 @@ SELECT @AdjustmentAmount = AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE
 SET @AdjustmentAmount = @AdjustmentAmount * (SELECT FLOOR(PointsAllowed - PointsAssignedToRep) FROM [dbo].[SC_WorkAccounts] WHERE (PointsAllowed > PointsAssignedToRep))
 
 -- Create entry for payment types that are not ACH
-INSERT SC_workAccountAdjustments
-(
+INSERT INTO dbo.SC_ICEffectiveMMRDetails (
 	WorkAccountId
 	, CommissionPeriodId
 	, MMRAdjustmentId
@@ -365,8 +358,49 @@ WHERE
 	(scwa.PointsAllowed > scwa.PointsAssignedToRep)
 	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 
+PRINT '*********************************************';
+PRINT '***	Summarize the details				 ***';
+PRINT '*********************************************'
+DECLARE @WorkAccountId BIGINT
+	, @WorkAccountAdjustmentID BIGINT
+	, @SummAdjustment MONEY;
+DECLARE summaryCur CURSOR FOR
+SELECT
+	SCIC.WorkAccountId
+	, SUM(SCIC.AdjustmentAmount)
+FROM
+	dbo.SC_ICEffectiveMMRDetails AS SCIC WITH (NOLOCK)
+WHERE
+	(CommissionPeriodId = @CommissionPeriodID)
+GROUP BY
+	SCIC.WorkAccountId;
+
+OPEN summaryCur;
+FETCH NEXT FROM summaryCur INTO
+	@WorkAccountId
+	, @SummAdjustment;
+WHILE (@@FETCH_STATUS = 0)
+BEGIN
+	INSERT INTO dbo.SC_ICEffectiveMMR (
+		WorkAccountId
+		, CommissionPeriodId
+		, TotalDeductions
+	) VALUES (
+		@WorkAccountId -- bigint
+		, @CommissionPeriodId -- money
+		, @SummAdjustment -- money
+	);
+
+	FETCH NEXT FROM summaryCur INTO
+		@WorkAccountId
+		, @SummAdjustment;
+END
+
+CLOSE summaryCur;
+DEALLOCATE summaryCur;
+
 IF (@DEBUG_MODE = 'ON')
 BEGIN
 	SELECT * FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID);
-	SELECT * FROM [dbo].[SC_workAccountAdjustments] WHERE (WorkAccountId IN (SELECT WorkAccountID FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID)));
+	SELECT * FROM [dbo].[SC_ICEffectiveMMRDetails] WHERE (CommissionPeriodId = @CommissionPeriodID);
 END
