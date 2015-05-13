@@ -4,7 +4,6 @@ using SOS.FunctionalServices.Contracts.Models.Data;
 using SOS.FunctionalServices.Contracts.Models.HumanResource;
 using SOS.FunctionalServices.Models.HumanResource;
 using SSE.Services.CmsCORS.Helpers;
-using SSE.Services.CmsCORS.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -53,7 +52,7 @@ namespace SSE.Services.CmsCORS.Controllers.HumanResource
 		public async Task<Result<bool>> Upload(int id)
 		{
 			SOS.Services.Interfaces.Models.SseCmsUser user = null;
-			var result = (Result<bool>)CORSSecurity.Authorize("Upload", AuthApplications.HiringManagerID, AuthActions.Hr_User_EditID, loggedInUser =>
+			var result = CORSSecurity.Authorize("Upload", AuthApplications.HiringManagerID, AuthActions.Hr_User_EditID, loggedInUser =>
 			{
 				user = loggedInUser;
 				return new Result<bool>();

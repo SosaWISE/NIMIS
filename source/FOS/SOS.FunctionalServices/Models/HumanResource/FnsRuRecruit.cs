@@ -9,65 +9,66 @@ namespace SOS.FunctionalServices.Models.HumanResource
 		public FnsRuRecruit(){}
 		public FnsRuRecruit(RU_Recruit item)
 		{
-			this.RecruitID = item.RecruitID;
-			this.UserID = item.UserId;
-			this.SeasonID = item.SeasonId;
+			RecruitID = item.RecruitID;
+			UserID = item.UserId;
+			SeasonID = item.SeasonId;
 
-			this.UserTypeId = item.UserTypeId;
-			this.ReportsToID = item.ReportsToId;
-			this.TeamID = item.TeamId;
-			this.PayScaleID = item.PayScaleId;
-			this.PreviousSummer = item.PreviousSummer;
-			this.SignatureDate = item.SignatureDate;
-			this.ManagerApprovalDate = item.ManagerApprovalDate;
-			this.OwnerApprovalDate = item.OwnerApprovalDate;
-			this.OwnerApprovalId = item.OwnerApprovalId;
-			this.SchoolId = item.SchoolId;
+			UserTypeId = item.UserTypeId;
+			ReportsToID = item.ReportsToId;
+			TeamID = item.TeamId;
+			PayScaleID = item.PayScaleId;
+			PreviousSummer = item.PreviousSummer;
+			SignatureDate = item.SignatureDate;
+			ManagerApprovalDate = item.ManagerApprovalDate;
+			OwnerApprovalDate = item.OwnerApprovalDate;
+			OwnerApprovalId = item.OwnerApprovalId;
+			SchoolId = item.SchoolId;
 
-			this.DriversLicenseStatusID = item.DriversLicenseStatusID;
-			this.DriversLicenseNotes = item.DriversLicenseNotes;
-			this.I9StatusID = item.I9StatusID;
-			this.I9Notes = item.I9Notes;
-			this.W9StatusID = item.W9StatusID;
-			this.W9Notes = item.W9Notes;
-			this.W4StatusID = item.W4StatusID;
-			this.W4Notes = item.W4Notes;
+			DriversLicenseStatusID = item.DriversLicenseStatusID;
+			DriversLicenseNotes = item.DriversLicenseNotes;
+			I9StatusID = item.I9StatusID;
+			I9Notes = item.I9Notes;
+			W9StatusID = item.W9StatusID;
+			W9Notes = item.W9Notes;
+			W4StatusID = item.W4StatusID;
+			W4Notes = item.W4Notes;
 
-			this.EmergencyName = item.EmergencyName;
-			this.EmergencyRelationship = item.EmergencyRelationship;
-			this.EmergencyPhone = item.EmergencyPhone;
+			EmergencyName = item.EmergencyName;
+			EmergencyRelationship = item.EmergencyRelationship;
+			EmergencyPhone = item.EmergencyPhone;
 
-			this.CountryId = item.CountryId;
-			this.StreetAddress = item.StreetAddress;
-			this.City = item.City;
-			this.StateId = item.StateId;
-			this.PostalCode = item.PostalCode;
+			CountryId = item.CountryId;
+			StreetAddress = item.StreetAddress;
+			City = item.City;
+			StateId = item.StateId;
+			PostalCode = item.PostalCode;
 
-			this.RecruitCohabbitTypeId = item.RecruitCohabbitTypeId;
-			this.ShackingUpId = item.ShackingUpId;
-			this.Rent = item.Rent;
-			this.Pet = item.Pet;
-			this.Utilities = item.Utilities;
-			this.Fuel = item.Fuel;
+			RecruitCohabbitTypeId = item.RecruitCohabbitTypeId;
+			ShackingUpId = item.ShackingUpId;
+			Rent = item.Rent;
+			Pet = item.Pet;
+			Utilities = item.Utilities;
+			Fuel = item.Fuel;
 
-			this.EIN = item.EIN;
-			this.FedFilingStatus = item.FedFilingStatus;
-			this.SUTA = item.SUTA;
-			this.EICFilingStatus = item.EICFilingStatus;
-			this.WorkersComp = item.WorkersComp;
-			this.StateFilingStatus = item.StateFilingStatus;
-			this.TaxWitholdingState = item.TaxWitholdingState;
-			this.GPDependents = item.GPDependents;
+			EIN = item.EIN;
+			FedFilingStatus = item.FedFilingStatus;
+			SUTA = item.SUTA;
+			EICFilingStatus = item.EICFilingStatus;
+			WorkersComp = item.WorkersComp;
+			StateFilingStatus = item.StateFilingStatus;
+			TaxWitholdingState = item.TaxWitholdingState;
+			GPDependents = item.GPDependents;
 
+			DealerId = item.DealerId;
 
+			PersonalMultiple = item.PersonalMultiple;
 
-			this.DealerId = item.DealerId;
-			this.IsActive = item.IsActive;
-			this.IsDeleted = item.IsDeleted;
-			this.CreatedBy = item.CreatedBy;
-			this.CreatedOn = item.CreatedOn;
-			this.ModifiedBy = item.ModifiedBy;
-			this.ModifiedOn = item.ModifiedOn;
+			IsActive = item.IsActive;
+			IsDeleted = item.IsDeleted;
+			CreatedBy = item.CreatedBy;
+			CreatedOn = item.CreatedOn;
+			ModifiedBy = item.ModifiedBy;
+			ModifiedOn = item.ModifiedOn;
 		}
 
 
@@ -121,7 +122,7 @@ namespace SOS.FunctionalServices.Models.HumanResource
 		public string TaxWitholdingState { get; set; }
 		public int? GPDependents { get; set; }
 
-
+		public int? PersonalMultiple { get; set; }
 
 		public int DealerId { get; set; }
 		public bool IsActive { get; set; }

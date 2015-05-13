@@ -766,6 +766,7 @@ namespace SOS.FunctionalServices
 			recruit.StateFilingStatus = fnsRecruit.StateFilingStatus;
 			recruit.TaxWitholdingState = fnsRecruit.TaxWitholdingState;
 			recruit.GPDependents = fnsRecruit.GPDependents;
+			recruit.PersonalMultiple = fnsRecruit.PersonalMultiple;
 			recruit.DealerId = fnsRecruit.DealerId;
 			recruit.IsActive = fnsRecruit.IsActive;
 			recruit.IsDeleted = fnsRecruit.IsDeleted;

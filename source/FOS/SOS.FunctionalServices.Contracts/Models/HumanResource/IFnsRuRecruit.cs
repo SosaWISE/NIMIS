@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SOS.FunctionalServices.Contracts.Models.HumanResource
 {
@@ -58,7 +54,7 @@ namespace SOS.FunctionalServices.Contracts.Models.HumanResource
 		string TaxWitholdingState { get; set; }
 		int? GPDependents { get; set; }
 
-
+		int? PersonalMultiple { get; set; }
 		int DealerId { get; set; }
 		bool IsActive { get; set; }
 		bool IsDeleted { get; set; }
