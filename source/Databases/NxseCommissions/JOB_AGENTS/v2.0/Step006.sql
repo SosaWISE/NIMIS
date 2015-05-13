@@ -94,7 +94,7 @@ BEGIN
 
 	/** Now have to loop because a rep can have more than one account in the WorkAccounts table. */
 	DECLARE workAccountBySalesRepCurosr CURSOR FOR
-		SELECT SCWA.WorkAccountID, SCWA.AccountID FROM [dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK) WHERE (SalesRepId = @SalesRepID);
+		SELECT SCWA.WorkAccountID, SCWA.AccountID FROM [dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK) WHERE (SalesRepId = @SalesRepID) AND (CommissionPeriodId = @CommissionPeriodID);
 	OPEN workAccountBySalesRepCurosr;
 	FETCH NEXT FROM workAccountBySalesRepCurosr INTO @WorkAccountID, @AccountId;
 
