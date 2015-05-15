@@ -46,7 +46,6 @@
     <Compile Include="ContractAdmin\PaymentMethodsModule.cs" />
     <Compile Include="Inv\AuditsModule.cs" />
     <Compile Include="Inv\LocationTypesModule.cs" />
-    <Compile Include="Inv\LocationsModule.cs" />
     <Compile Include="Inv\ProductBarcodesModule.cs" />
     <Compile Include="Ms\TypesModule.cs" />
     <Compile Include="Ms\AccountContractModules.cs" />

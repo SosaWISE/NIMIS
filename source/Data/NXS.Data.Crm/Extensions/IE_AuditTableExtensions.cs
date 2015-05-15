@@ -32,11 +32,12 @@ namespace NXS.Data.Crm
 			return (await tbl.Db.QueryAsync<AR>(sql.Sql, sql.Params).ConfigureAwait(false)).FirstOrDefault();
 		}
 
-		public static Task<IEnumerable<AR>> ByLocationIdAsync(this ARTable tbl, string locationId)
+		public static Task<IEnumerable<AR>> ByLocationAsync(this ARTable tbl, string locationId, string locationTypeId)
 		{
 			var sql = Sequel.NewSelect().Columns(tbl.Star).From(tbl)
 				.WhereActiveAndNotDeleted()
-				.And(tbl.LocationId, Comparison.Equals, locationId);
+				.And(tbl.LocationId, Comparison.Equals, locationId)
+				.And(tbl.LocationTypeId, Comparison.Equals, locationTypeId);
 			return tbl.Db.QueryAsync<AR>(sql.Sql, sql.Params);
 		}
 	}

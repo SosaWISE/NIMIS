@@ -723,6 +723,43 @@ namespace NXS.Data.Crm
 		public DateTime DEX_ROW_TS { get; set; }
 		public long DEX_ROW_ID { get; set; }
 	}
+	public partial class MS_Equipment // MS_Equipments
+	{
+		[IgnorePropertyAttribute(true)] public string ID { get { return EquipmentID; } set { EquipmentID = value; } }
+		public string EquipmentID { get; set; }
+		public int? EquipmentMonitoredTypeId { get; set; }
+		public int? EquipmentTypeId { get; set; }
+		public string AccountZoneTypeId { get; set; }
+		public int? AccountEventId { get; set; }
+		public int? EquipmentPanelTypeId { get; set; }
+		public string GPItemNmbr { get; set; }
+		public string ItemDescription { get; set; }
+		public string ShortName { get; set; }
+		public string GenDescription { get; set; }
+		public string FullName { get; set; }
+		public bool ShowInInventory { get; set; }
+		public byte Points { get; set; }
+		public double? ActualPoints { get; set; }
+		public decimal RetailPrice { get; set; }
+		public decimal? RepBonusUpgrade { get; set; }
+		public decimal? TechMinutes { get; set; }
+		public bool? IsCellUnit { get; set; }
+		public int? AuditDay { get; set; }
+		public decimal? EmployeeCost { get; set; }
+		public int? DefaultTechStockLevel { get; set; }
+		public bool IsHighlighted { get; set; }
+		public bool IsWireless { get; set; }
+		public bool IsGeneric { get; set; }
+		public bool IsExisting { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime ModifiedOn { get; set; }
+		public string ModifiedBy { get; set; }
+		public DateTime CreatedOn { get; set; }
+		public string CreatedBy { get; set; }
+		public DateTime DEX_ROW_TS { get; set; }
+		public int DEX_ROW_ID { get; set; }
+	}
 	public partial class QL_Address // QL_Address
 	{
 		[IgnorePropertyAttribute(true)] public long ID { get { return AddressID; } set { AddressID = value; } }

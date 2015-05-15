@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TrackingTypes = NXS.Data.Crm.IE_ProductBarcodeTrackingType.MetaData;
 
 namespace NXS.DataServices.Crm
 {
@@ -40,12 +41,12 @@ namespace NXS.DataServices.Crm
 			}
 		}
 
-		public async Task<Result<List<IeProductBarcodeLast>>> ProductBarcodesByLocationIdAsync(string locationId)
+		public async Task<Result<List<IeProductBarcodeLast>>> ProductBarcodesByLocationAsync(string locationId, string locationTypeId)
 		{
 			using (var db = DBase.Connect())
 			{
 				var tbl = db.IE_ProductBarcodes;
-				var items = await tbl.ProductBarcodeLastByLocationIdAsync(locationId).ConfigureAwait(false);
+				var items = await tbl.ProductBarcodeLastByLocationAsync(locationId, locationTypeId).ConfigureAwait(false);
 				var result = new Result<List<IeProductBarcodeLast>>(value: items.ConvertAll(item => IeProductBarcodeLast.FromDb(item)));
 				return result;
 			}
@@ -70,12 +71,12 @@ namespace NXS.DataServices.Crm
 			return result;
 		}
 
-		public async Task<Result<List<IeAudit>>> AuditsByLocationIdAsync(string locationId)
+		public async Task<Result<List<IeAudit>>> AuditsByLocationAsync(string locationId, string locationTypeId)
 		{
 			using (var db = DBase.Connect())
 			{
 				var tbl = db.IE_Audits;
-				var items = await tbl.ByLocationIdAsync(locationId).ConfigureAwait(false);
+				var items = await tbl.ByLocationAsync(locationId, locationTypeId).ConfigureAwait(false);
 				return new Result<List<IeAudit>>(value: items.ConvertAll(AuditFromDb));
 			}
 		}
@@ -86,7 +87,7 @@ namespace NXS.DataServices.Crm
 				var result = new Result<IeAudit>();
 
 				// load on hand parts
-				var onHand = await db.IE_ProductBarcodes.ProductBarcodeLastByLocationIdAsync(inputItem.LocationId).ConfigureAwait(false);
+				var onHand = await db.IE_ProductBarcodes.ProductBarcodeLastByLocationAsync(inputItem.LocationId, inputItem.LocationTypeId).ConfigureAwait(false);
 				var onHandDict = new Dictionary<string, IE_ProductBarcodeLast>(StringComparer.OrdinalIgnoreCase);
 				foreach (var item in onHand)
 					onHandDict.Add(item.ProductBarcodeID, item);
@@ -137,7 +138,7 @@ namespace NXS.DataServices.Crm
 					result.Value = AuditFromDb(audit);
 
 					// save audit barcodes
-					var trackingTypeId = IE_ProductBarcodeTrackingType.MetaData.AuditPerformedID;
+					var trackingTypeId = TrackingTypes.AuditPerformedID;
 					foreach (var barcode in inputItem.Barcodes)
 					{
 						IE_ProductBarcodeLast onHandItem;
@@ -149,7 +150,7 @@ namespace NXS.DataServices.Crm
 					}
 
 					// mark barcodes as missing
-					trackingTypeId = IE_ProductBarcodeTrackingType.MetaData.Audit_EquipmentMissingID;
+					trackingTypeId = TrackingTypes.Audit_EquipmentMissingID;
 					foreach (var barcode in onHandDict.Keys)
 					{
 						var onHandItem = onHandDict[barcode];
@@ -189,6 +190,39 @@ namespace NXS.DataServices.Crm
 			var snapshot = Snapshotter.Start(new IE_ProductBarcode() { ID = barcode });
 			snapshot.Value.LastProductBarcodeTrackingId = item.ProductBarcodeTrackingID;
 			await db.IE_ProductBarcodes.UpdateAsync(snapshot, gpEmployeeId).ConfigureAwait(false);
+		}
+
+		public async Task<Result<List<string>>> ReconcileTekEquipmentAsync(int userId)
+		{
+			using (var db = DBase.Connect())
+			{
+				var reconciledBarcodes = new List<string>();
+				var result = new Result<List<string>>(value: reconciledBarcodes);
+
+				var tbl = db.IE_ProductBarcodes;
+				var trackingTypes = new string[] { TrackingTypes.Audit_EquipmentMissingID };
+				var items = await tbl.ProductBarcodeLastByTrackingTypeIdsAsync(userId.ToString(), IE_LocationType.MetaData.TechnicianID, trackingTypes).ConfigureAwait(false);
+
+				await db.TransactionAsync(async () =>
+				{
+					try
+					{
+						foreach (var item in items)
+						{
+							var tsk = db.Sprocs.IE_ProductBarcodesReconcileLostEquipment<bool>(item.ProductBarcodeID, userId, item.EquipmentId, item.CreatedOn);
+							var reconciled = (await tsk.ConfigureAwait(false)).FirstOrDefault();
+							if (reconciled)
+								reconciledBarcodes.Add(item.ProductBarcodeID);
+						}
+					}
+					catch (Exception ex) //???
+					{
+						result.Fail(-1, ex.Message);
+					}
+					return result;
+				});
+				return result;
+			}
 		}
 	}
 }
