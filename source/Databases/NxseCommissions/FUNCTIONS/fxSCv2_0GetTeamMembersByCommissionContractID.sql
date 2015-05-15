@@ -40,6 +40,7 @@ GO
 CREATE FUNCTION dbo.fxSCv2_0GetTeamMembersByCommissionContractID
 (
 	@CommissionContractID INT = 1
+	, @IncludeManagers BIT = 1
 )
 RETURNS 
 @ResultsTable TABLE
@@ -80,7 +81,26 @@ BEGIN
 			(SCCC.SeasonId = RUR.SeasonId)
 			AND (SCCC.CommissionContractID = @CommissionContractID)
 
-	--SELECT * FROM @TeamsTable;
+	/** Add Managers to the list if the flag is active. */
+	IF (@IncludeManagers = 'TRUE')
+	BEGIN
+		INSERT INTO @ResultsTable (
+			TeamID
+			, TeamName 
+			, ManSalesRepId 
+			, ManSalesRepFullName 
+			, SalesRepId 
+			, SalesRepFullName
+		)
+		SELECT 
+			TeamID
+			, TeamName 
+			, ManSalesRepId 
+			, ManSalesRepFullName 
+			, ManSalesRepId AS SalesRepId 
+			, ManSalesRepFullName AS SalesRepFullName
+		FROM @TeamsTable
+	END
 
 	--PRINT 'UPDATE INTO @TeamsTable';
 	--UPDATE RLT SET
