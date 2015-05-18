@@ -48,6 +48,7 @@ namespace NXS.Data.Crm
 		public MS_AccountPackageTable MS_AccountPackages { get; set; }
 		public MS_AccountTable MS_Accounts { get; set; }
 		public MS_AccountSalesInformationTable MS_AccountSalesInformations { get; set; }
+		public MS_EquipmentTable MS_Equipments { get; set; }
 		public QL_AddressTable QL_Addresses { get; set; }
 		public QL_CustomerMasterLeadTable QL_CustomerMasterLeads { get; set; }
 		public QL_LeadAddressTable QL_LeadAddresses { get; set; }
@@ -760,6 +761,44 @@ namespace NXS.Data.Crm
 			public string Waived1stmonth { get { return _alias + "[Waived1stmonth]"; } }
 			public string RMRIncreasePoints { get { return _alias + "[RMRIncreasePoints]"; } }
 			public string AccountCreationTypeId { get { return _alias + "[AccountCreationTypeId]"; } }
+			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
+			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
+			public string DEX_ROW_ID { get { return _alias + "[DEX_ROW_ID]"; } }
+		}
+		public partial class MS_EquipmentTable : Table<MS_Equipment, string>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public MS_EquipmentTable(DBase db) : base(db, "MsE", "[WISE_CRM].[dbo].[MS_Equipments]", "EquipmentID", "varchar", false) { }
+			public string EquipmentID { get { return _alias + "[EquipmentID]"; } }
+			public string EquipmentMonitoredTypeId { get { return _alias + "[EquipmentMonitoredTypeId]"; } }
+			public string EquipmentTypeId { get { return _alias + "[EquipmentTypeId]"; } }
+			public string AccountZoneTypeId { get { return _alias + "[AccountZoneTypeId]"; } }
+			public string AccountEventId { get { return _alias + "[AccountEventId]"; } }
+			public string EquipmentPanelTypeId { get { return _alias + "[EquipmentPanelTypeId]"; } }
+			public string GPItemNmbr { get { return _alias + "[GPItemNmbr]"; } }
+			public string ItemDescription { get { return _alias + "[ItemDescription]"; } }
+			public string ShortName { get { return _alias + "[ShortName]"; } }
+			public string GenDescription { get { return _alias + "[GenDescription]"; } }
+			public string FullName { get { return _alias + "[FullName]"; } }
+			public string ShowInInventory { get { return _alias + "[ShowInInventory]"; } }
+			public string Points { get { return _alias + "[Points]"; } }
+			public string ActualPoints { get { return _alias + "[ActualPoints]"; } }
+			public string RetailPrice { get { return _alias + "[RetailPrice]"; } }
+			public string RepBonusUpgrade { get { return _alias + "[RepBonusUpgrade]"; } }
+			public string TechMinutes { get { return _alias + "[TechMinutes]"; } }
+			public string IsCellUnit { get { return _alias + "[IsCellUnit]"; } }
+			public string AuditDay { get { return _alias + "[AuditDay]"; } }
+			public string EmployeeCost { get { return _alias + "[EmployeeCost]"; } }
+			public string DefaultTechStockLevel { get { return _alias + "[DefaultTechStockLevel]"; } }
+			public string IsHighlighted { get { return _alias + "[IsHighlighted]"; } }
+			public string IsWireless { get { return _alias + "[IsWireless]"; } }
+			public string IsGeneric { get { return _alias + "[IsGeneric]"; } }
+			public string IsExisting { get { return _alias + "[IsExisting]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
 			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
 			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }

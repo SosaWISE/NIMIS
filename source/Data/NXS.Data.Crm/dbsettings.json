@@ -63,6 +63,7 @@
     "^MS_AccountPackages$",
     "^MS_Accounts$",
     "^MS_AccountSalesInformations$",
+    "^MS_Equipments",
     "^QL_Address$",
     "^QL_CustomerMasterLeads$",
     "^QL_Leads$",

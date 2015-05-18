@@ -25,11 +25,12 @@ namespace NXS.Data.Crm
 			await tbl.UpdateAsync(item.ID, snapshot.Diff()).ConfigureAwait(false);
 		}
 
-		public static Task<IEnumerable<IE_ProductBarcodeLast>> ProductBarcodeLastByLocationIdAsync(this ARTable tbl, string locationId)
+		public static Task<IEnumerable<IE_ProductBarcodeLast>> ProductBarcodeLastByLocationAsync(this ARTable tbl, string locationId, string locationTypeId)
 		{
 			var PBT = tbl.Db.IE_ProductBarcodeTrackings;
 			var sql = ProductBarcodeLastSql(tbl)
-				.Where(PBT.LocationId, Comparison.Equals, locationId);
+				.Where(PBT.LocationId, Comparison.Equals, locationId)
+				.And(PBT.LocationTypeId, Comparison.Equals, locationTypeId);
 			return tbl.Db.QueryAsync<IE_ProductBarcodeLast>(sql.Sql, sql.Params);
 		}
 		public static async Task<IE_ProductBarcodeLast> ProductBarcodeLastByIdAsync(this ARTable tbl, string productBarcodeId)
@@ -37,6 +38,15 @@ namespace NXS.Data.Crm
 			var sql = ProductBarcodeLastSql(tbl, "1")
 				.Where(tbl.ProductBarcodeID, Comparison.Equals, productBarcodeId);
 			return (await tbl.Db.QueryAsync<IE_ProductBarcodeLast>(sql.Sql, sql.Params).ConfigureAwait(false)).FirstOrDefault();
+		}
+		public static Task<IEnumerable<IE_ProductBarcodeLast>> ProductBarcodeLastByTrackingTypeIdsAsync(this ARTable tbl, string locationId, string locationTypeId, params string[] trackingTypeIds)
+		{
+			var PBT = tbl.Db.IE_ProductBarcodeTrackings;
+			var sql = ProductBarcodeLastSql(tbl)
+				.Where(PBT.LocationId, Comparison.Equals, locationId)
+				.And(PBT.LocationTypeId, Comparison.Equals, locationTypeId)
+				.And(PBT.ProductBarcodeTrackingTypeId, Comparison.In, trackingTypeIds);
+			return tbl.Db.QueryAsync<IE_ProductBarcodeLast>(sql.Sql, sql.Params);
 		}
 
 		private static Sequel ProductBarcodeLastSql(ARTable tbl, string top = null)
@@ -51,16 +61,18 @@ namespace NXS.Data.Crm
 				, PBT.LocationTypeId
 				, PBT.LocationId
 				, PBT.AuditId
+				, PBT.CreatedOn
+				, POI.ItemId.As("EquipmentId")
 				, AeI.ItemSKU
 				, AeI.ItemDesc
 			).From(tbl)
 			.InnerJoin(PBT)
 				.On(tbl.LastProductBarcodeTrackingId, Comparison.Equals, PBT.ProductBarcodeTrackingID, literalText: true)
-				//.And(tbl.ProductBarcodeID, Comparison.Equals, PBT.ProductBarcodeId, literalText: true)
+				.And(tbl.ProductBarcodeID, Comparison.Equals, PBT.ProductBarcodeId, literalText: true) // this seems superfluous...
 			.InnerJoin(POI)
 				.On(tbl.PurchaseOrderItemId, Comparison.Equals, POI.PurchaseOrderItemID, literalText: true)
 			.InnerJoin(AeI)
-				.On(AeI.ItemID, Comparison.Equals, POI.ItemId, literalText: true);
+				.On(POI.ItemId, Comparison.Equals, AeI.ItemID, literalText: true);
 		}
 	}
 }
