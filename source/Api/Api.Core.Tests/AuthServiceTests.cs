@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace SOS.FunctionalServices.Tests
+namespace Api.Core.Tests
 {
 	public class AuthServiceTests
 	{

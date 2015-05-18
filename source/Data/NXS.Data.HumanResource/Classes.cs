@@ -76,6 +76,7 @@ namespace NXS.Data.HumanResource
 		public bool? CBxW4 { get; set; }
 		public bool? CBxI9 { get; set; }
 		public bool? CBxW9 { get; set; }
+		public int? PersonalMultiple { get; set; }
 		public bool IsActive { get; set; }
 		public bool IsDeleted { get; set; }
 		public int? CreatedByID { get; set; }

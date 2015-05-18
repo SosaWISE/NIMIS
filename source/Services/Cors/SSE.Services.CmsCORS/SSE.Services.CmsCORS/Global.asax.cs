@@ -9,6 +9,7 @@ using SOS.Data.Logging;
 using SOS.Lib.Core;
 using ConfigurationSettings = SOS.Lib.Util.Configuration.ConfigurationSettings;
 using NXS.Lib.Web;
+using Api.Core;
 
 namespace SSE.Services.CmsCORS
 {
@@ -38,6 +39,17 @@ namespace SSE.Services.CmsCORS
 
 			/** Initialize Fos Engine. */
 			SOS.FunctionalServices.SosServiceEngine.Instance.Initialize();
+			//
+			AuthService authService;
+			var configuration = AuthServiceConfig.Configure(ctx =>
+			{
+				//@HACK: for integration with non Nancy requests
+				if (ctx == null)
+					return System.Web.HttpContext.Current.Request.Headers["User-Agent"];
+				return ctx.Request.Headers.UserAgent;
+			}, out authService);
+			SOS.FunctionalServices.SosServiceEngine.Instance.FunctionalServices.Register(() => configuration);
+			SOS.FunctionalServices.SosServiceEngine.Instance.FunctionalServices.Register(() => authService);
 
 			/** Initialize Error Manager. */
 			_errorManager = new DBErrorManager(LogSource.NXSServicesCmsCORS, null);

@@ -8,6 +8,7 @@ namespace NXS.Data.AuthenticationControl
 	using AR = AC_User;
 	using ARCollection = IEnumerable<AC_User>;
 	using ARTable = DBase.AC_UserTable;
+	using Dapper;
 	public static class AC_UserTableExtensions
 	{
 		//public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)
@@ -24,40 +25,45 @@ namespace NXS.Data.AuthenticationControl
 		//	await tbl.UpdateAsync(item.ID, snapShot.Diff()).ConfigureAwait(false);
 		//}
 
-		public static AR ByUsername(this ARTable tbl, string username)
+		//public static AR ByUsername(this ARTable tbl, string username)
+		//{
+		//	// load and lock row so we're the exclusive editors/readers
+		//	var sql = tbl.SelectFull(Sequel.NewSelect().Top("1"))
+		//		.Where(tbl.Username, Comparison.Equals, username)
+		//		.And(tbl.IsActive, Comparison.Equals, true);
+		//	return tbl.LoadOneFull(sql);
+		//}
+
+		public static bool UpdatePassword(this ARTable tbl, string username, string password)
 		{
-			// load and lock row so we're the exclusive editors/readers
-			var sql = tbl.SelectFull(Sequel.NewSelect().Top("1"))
-				.Where(tbl.Username, Comparison.Equals, username)
-				.And(tbl.IsActive, Comparison.Equals, true);
-			return tbl.LoadOneFull(sql);
+			//@TODO: use Sequel...
+			return 0 < tbl.Db.Execute("UPDATE " + tbl.TableName + " SET Password=@password WHERE Username=@username", new { username, password, });
 		}
 
-
-		#region full load
-		private static Sequel SelectFull(this ARTable tbl, Sequel sql = null, string with = null)
-		{
-			return (sql ?? Sequel.NewSelect()).Columns(
-				tbl.Star
-			).From(tbl).With(with);
-		}
-		private static ARCollection LoadManyFull(this ARTable tbl, Sequel sql)
-		{
-			var list = tbl.Db.Query<AR>(sql.Sql, sql.Params);
-			return list;
-		}
-		private static AR LoadOneFull(this ARTable tbl, Sequel sql)
-		{
-			return tbl.LoadManyFull(sql).FirstOrDefault();
-		}
-		private static Task<ARCollection> LoadManyFullAsync(this ARTable tbl, Sequel sql)
-		{
-			return tbl.Db.QueryAsync<AR>(sql.Sql, sql.Params);
-		}
-		private static async Task<AR> LoadOneFullAsync(this ARTable tbl, Sequel sql)
-		{
-			return (await tbl.LoadManyFullAsync(sql).ConfigureAwait(false)).FirstOrDefault();
-		}
-		#endregion // full load
+		//#region full load
+		//private static Sequel SelectFull(this ARTable tbl, Sequel sql = null, string with = null)
+		//{
+		//	return (sql ?? Sequel.NewSelect()).Columns(
+		//		tbl.Star
+		//	).From(tbl).With(with);
+		//}
+		//private static ARCollection LoadManyFull(this ARTable tbl, Sequel sql)
+		//{
+		//	var list = tbl.Db.Query<AR>(sql.Sql, sql.Params);
+		//	return list;
+		//}
+		//private static AR LoadOneFull(this ARTable tbl, Sequel sql)
+		//{
+		//	return tbl.LoadManyFull(sql).FirstOrDefault();
+		//}
+		//private static Task<ARCollection> LoadManyFullAsync(this ARTable tbl, Sequel sql)
+		//{
+		//	return tbl.Db.QueryAsync<AR>(sql.Sql, sql.Params);
+		//}
+		//private static async Task<AR> LoadOneFullAsync(this ARTable tbl, Sequel sql)
+		//{
+		//	return (await tbl.LoadManyFullAsync(sql).ConfigureAwait(false)).FirstOrDefault();
+		//}
+		//#endregion // full load
 	}
 }

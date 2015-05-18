@@ -47,9 +47,13 @@
     <Compile Include="Database.cs" />
     <Compile Include="Classes\AC_ActionRequest.cs" />
     <Compile Include="Extensions\AC_ActionRequestTableExtensions.cs" />
+    <Compile Include="Extensions\AC_ActionTableExtensions.cs" />
+    <Compile Include="Extensions\AC_ApplicationTableExtensions.cs" />
     <Compile Include="Extensions\AC_GroupActionTableExtensions.cs" />
     <Compile Include="Extensions\AC_GroupApplicationTableExtensions.cs" />
     <Compile Include="Extensions\AC_KeyValueTableExtensions.cs" />
+    <Compile Include="Extensions\AC_UsersAppAuthenticationViewTableExtensions.cs" />
+    <Compile Include="Extensions\AC_UserSessionTableExtensions.cs" />
     <Compile Include="Extensions\AC_UserTableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sprocs.cs" />

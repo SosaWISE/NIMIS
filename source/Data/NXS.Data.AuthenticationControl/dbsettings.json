@@ -18,5 +18,7 @@
     "^AC_GroupApplications$",
     "^AC_RequestReasons$",
     "^AC_Users$",
+    "^AC_UserSessions$",
+    "^vwAC_UsersAppAuthentication",
   ],
 }

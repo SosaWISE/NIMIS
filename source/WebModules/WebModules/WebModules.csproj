@@ -58,14 +58,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\FOS\SOS.FunctionalServices.Contracts\SOS.FunctionalServices.Contracts.csproj">
-      <Project>{4C52F83A-0039-4C8D-94D3-D6547DE9659B}</Project>
-      <Name>SOS.FunctionalServices.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\FOS\SOS.FunctionalServices\SOS.FunctionalServices.csproj">
-      <Project>{2CE00A6B-C0AC-44AB-B80F-9E58865AD3BD}</Project>
-      <Name>SOS.FunctionalServices</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Lib\NXS.Lib.Web\NXS.Lib.Web.csproj">
       <Project>{C067B3AB-3FAF-40D7-98E9-5788768BD315}</Project>
       <Name>NXS.Lib.Web</Name>

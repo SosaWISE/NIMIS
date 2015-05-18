@@ -5,6 +5,7 @@ namespace NXS.Data.Crm
 {
 	public partial class DBase : Database<DBase>
 	{
+		public static readonly string Database = "WISE_CRM";
 		public readonly Sprocs Sprocs;
 		public DBase()
 		{
@@ -924,6 +925,7 @@ namespace NXS.Data.Crm
 		}
 		public partial class IE_ProductBarcodeLocationViewTable : Table<IE_ProductBarcodeLocationView, string>
 		{
+			public DBase Db { get { return (DBase)_database; } }
 			public IE_ProductBarcodeLocationViewTable(DBase db) : base(db, "IePBL", "[WISE_CRM].[dbo].[vwIE_ProductBarcodeLocation]", "ProductBarcodeId", "nvarchar", false) { }
 			public string ProductBarcodeId { get { return _alias + "[ProductBarcodeId]"; } }
 			public string ItemSKU { get { return _alias + "[ItemSKU]"; } }

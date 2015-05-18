@@ -38,6 +38,7 @@ source/Production
 corspackages
 packages
 webenv
+webconfig.dbg.json
 keyStore/
 source/Clients/Console/SonicDb/Testing/
 dbconfig-creds.json

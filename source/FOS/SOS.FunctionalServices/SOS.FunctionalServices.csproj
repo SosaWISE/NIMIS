@@ -66,11 +66,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthService.cs" />
     <Compile Include="ConnextService.cs" />
     <Compile Include="FundingServices.cs" />
     <Compile Include="Helpers\DatabaseHelper.cs" />
-    <Compile Include="AuthServiceConfig.cs" />
     <Compile Include="InsideSalesService.cs" />
     <Compile Include="LicencingManagementService.cs" />
     <Compile Include="Models\CentralStation\FnsMcAddressView.cs" />

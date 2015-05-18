@@ -4,7 +4,7 @@
     </assembly>
     <assembly filename="source\Lib\NXS.Lib.Web.Test\bin\Debug\NXS.Lib.Web.Test.dll">
     </assembly>
-    <assembly filename="source\FOS\SOS.FunctionalServices.Tests\bin\Debug\SOS.FunctionalServices.Tests.dll">
+    <assembly filename="source\Api\Api.Core.Tests\bin\Debug\Api.Core.Tests.dll">
     </assembly>
   </assemblies>
 </xunit>

@@ -24,6 +24,13 @@ namespace NXS.Data.AuthenticationControl
 			await tbl.UpdateAsync(item.ID, snapShot.Diff()).ConfigureAwait(false);
 		}
 
+		public static ARCollection AllActive(this ARTable tbl)
+		{
+			var sql = Sequel.NewSelect(tbl.Star).From(tbl)
+				.WhereActiveAndNotDeleted();
+			return tbl.Db.Query<AR>(sql.Sql, sql.Params);
+		}
+
 		public static Task<ARCollection> ByGroupNameWithUpdateLockFullAsync(this ARTable tbl, string groupName)
 		{
 			// load and lock row so we're the exclusive editors/readers
@@ -39,10 +46,9 @@ namespace NXS.Data.AuthenticationControl
 				tbl.Star
 			).From(tbl).With(with);
 		}
-		private static async Task<ARCollection> LoadManyFull(this ARTable tbl, Sequel sql)
+		private static Task<ARCollection> LoadManyFull(this ARTable tbl, Sequel sql)
 		{
-			var list = (await tbl.Db.QueryAsync<AR>(sql.Sql, sql.Params).ConfigureAwait(false));
-			return list;
+			return tbl.Db.QueryAsync<AR>(sql.Sql, sql.Params);
 		}
 		private static async Task<AR> LoadOneFull(this ARTable tbl, Sequel sql)
 		{

@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database.cs" />
+    <Compile Include="DatabaseHelper.cs" />
     <Compile Include="DateExtensions.cs" />
     <Compile Include="IgnorePropertyAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
