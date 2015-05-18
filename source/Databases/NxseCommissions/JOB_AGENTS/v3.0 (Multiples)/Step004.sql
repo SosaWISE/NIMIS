@@ -122,9 +122,9 @@ BEGIN TRY
 		(scwa.FriendsAndFamilyTypeId = 'COMM')
 		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 
-	PRINT '/*******************************';
+	PRINT '/*************************************';
 	PRINT '***  Set Multiple for ACH Payments ***';
-	PRINT '*******************************/';
+	PRINT '**************************************/';
 
 	-- Set Multiple for ACH Payments
 	SET @MultipleAdjustmentID = 'PMTACH';
@@ -148,9 +148,9 @@ BEGIN TRY
 		(scwa.PaymentType = 'ACH')
 		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 
-	PRINT '/*******************************';
+	PRINT '/************************************';
 	PRINT '***  Set Multiple for CC Payments ***';
-	PRINT '*******************************/';
+	PRINT '*************************************/';
 
 	-- Set Multiple for CC Payments
 	SET @MultipleAdjustmentID = 'PMTCC';
@@ -174,9 +174,9 @@ BEGIN TRY
 		(scwa.PaymentType = 'CC')
 		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 
-	PRINT '/*******************';
+	PRINT '/***************************************************';
 	PRINT '***	Set Multiple for Contract Length: 60 Months ***';
-	PRINT '*******************/'
+	PRINT '****************************************************/'
 
 	--  Set Multiple for Contract Lenght: 60 Months
 	SET @MultipleAdjustmentID = 'CONTLEN60';
@@ -200,9 +200,9 @@ BEGIN TRY
 		(scwa.ContractLength = 60)
 		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 
-	PRINT '/*******************';
+	PRINT '/******************************************************';
 	PRINT '***	Set Multiple Penalty for Waived Activation Fee ***';
-	PRINT '*******************/'
+	PRINT '*******************************************************/'
 
 	--  Set Multiple Penalty for Waived Activation Fee
 	SET @MultipleAdjustmentID = 'WaivedActFee';
@@ -226,9 +226,9 @@ BEGIN TRY
 		(scwa.ActivationFee = 0)
 		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 
-	PRINT '/*******************';
+	PRINT '/***********************************************';
 	PRINT '***	Set Multiple for Weekly Volume of 40-59 ***';
-	PRINT '*******************/'
+	PRINT '************************************************/'
 
 	--  Set Multiple for Weekly Volume of 40-59
 	SET @MultipleAdjustmentID = 'Volume40';
@@ -252,9 +252,9 @@ BEGIN TRY
 		(scwa.PointsAllowed > scwa.PointsAssignedToRep)
 		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 
-	PRINT '/*******************';
+	PRINT '/*********************************************';
 	PRINT '***	Set Multiple for Weekly Volume of 60+ ***';
-	PRINT '*******************/'
+	PRINT '**********************************************/'
 
 	--  Set Multiple for Weekly Volume of 60+
 	SET @MultipleAdjustmentID = 'Volume60';
@@ -301,6 +301,7 @@ BEGIN TRY
 
 	CLOSE seasonCur;
 	DEALLOCATE seasonCur;
+
 	--  Set Multiple for Independent Contractor
 	SET @MultipleAdjustmentID = 'IndCont';
 	SELECT @MultipleAdjustment = MultipleAdjustment FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
@@ -324,8 +325,7 @@ BEGIN TRY
 			(SMAN.SeasonId = scwa.SeasonId)
 			AND (scwa.SalesRepId = SMAN.ManRepSalesID)
 	WHERE 
-		(scwa.PointsAllowed > scwa.PointsAssignedToRep) --TODO:  Filter reps.  This is for Managers only
-		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+		(scwa.CommissionPeriodId = @CommissionPeriodID);
 
 	PRINT '/********************************';
 	PRINT '***	Set Multiple for Dealers ***';
@@ -354,8 +354,118 @@ BEGIN TRY
 			(SMAN.SeasonId = scwa.SeasonId)
 			AND (scwa.SalesRepId = SMAN.ManRepSalesID)
 	WHERE 
-		(scwa.PointsAllowed > scwa.PointsAssignedToRep) --TODO:  Filter reps.  This is for Managers only
-		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+		(scwa.CommissionPeriodId = @CommissionPeriodID);
+
+	PRINT '/*********************************';
+	PRINT '***	Create Summary table info ***';
+	PRINT '**********************************/'
+
+/**
+** TODO:  Andres NEED TO FINISH BOTH SUMMARIES.
+AR:  Not sure where to get the Base Multiple.  I think from the RU_Recruits table.
+**/
+	INSERT INTO [dbo].[SC_ICMultiples] (
+		[WorkAccountId]
+		,[CommissionPeriodId]
+	)
+	SELECT DISTINCT
+		SIMD.WorkAccountId
+		, SIMD.CommissionPeriodId
+	FROM
+		dbo.SC_ICMultipleDetails AS SIMD WITH (NOLOCK)
+	WHERE
+		(SIMD.CommissionPeriodId = @CommissionPeriodId);
+
+	UPDATE SCICD SET 
+		ICMultipleId = SCIC.ICMultipleID
+	FROM
+		[dbo].[SC_ICMultipleDetails] AS SCICD WITH (NOLOCK)
+		INNER JOIN [dbo].[SC_ICMultiples] AS SCIC WITH (NOLOCK)
+		ON
+			(SCIC.WorkAccountId = SCICD.WorkAccountId)
+			AND (SCICD.CommissionPeriodId = @CommissionPeriodId)
+
+	/*******************************************
+	**** Create a CURSOR To do the Summaries.***
+	********************************************/
+	DECLARE @ICMultipleID BIGINT, @WorkAccountID BIGINT;
+	DECLARE summaryCur CURSOR FOR
+	SELECT ICMultipleID, WorkAccountID FROM [dbo].[SC_ICMultiples] WHERE (CommissionPeriodId = @CommissionPeriodId); 
+
+	OPEN summaryCur;
+	FETCH NEXT FROM summaryCur INTO
+	@ICMultipleID, @WorkAccountID;
+
+	WHILE(@@FETCH_STATUS = 0)
+	BEGIN
+		-- Update Base Multiple
+		UPDATE SCIC SET
+			BaseMultiple =  SCICD.MultipleAdjustment
+		FROM
+			[dbo].[SC_ICMultiples] AS SCIC WITH (NOLOCK)
+			INNER JOIN [dbo].[SC_ICMultipleDetails] AS SCICD WITH (NOLOCK)
+			ON
+				(SCICD.ICMultipleId = SCIC.ICMultipleID)
+				AND (SCIC.ICMultipleID = @ICMultipleID)
+		WHERE 
+			(SCIC.WorkAccountId = @WorkAccountID)
+			AND (SCICD.MultipleAdjustmentId IN ('CommercialMultiple', 'GoodExcMultiple', 'SubCreditMultiple'));
+
+		-- Update Rep Base Multiple
+		UPDATE SCIC SET
+			RepBaseMultiple =  RUR.PersonalMultiple
+		FROM
+			[dbo].[SC_ICMultiples] AS SCIC WITH (NOLOCK)
+			INNER JOIN [dbo].[SC_WorkAccountsAll] AS SCWAA WITH (NOLOCK)
+			ON
+				(SCWAA.WorkAccountID = SCIC.WorkAccountId)
+				AND (SCIC.ICMultipleID = @ICMultipleID)
+			INNER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS RU WITH (NOLOCK)
+			ON
+				(RU.GPEmployeeId = SCWAA.SalesRepId)
+			INNER JOIN [WISE_HumanResource].[dbo].[RU_Recruits] AS RUR WITH (NOLOCK)
+			ON
+				(RUR.UserId = RU.UserID)
+				AND (RUR.SeasonId = SCWAA.SeasonId)
+		WHERE 
+			(SCIC.WorkAccountId = @WorkAccountID)
+
+		-- Update Adjustment Summary
+		UPDATE SCIC SET
+			BaseMultiple = TMT.MultipleAdjustmentSum
+		FROM
+			[dbo].[SC_ICMultiples] AS SCIC WITH (NOLOCK)
+			INNER JOIN 
+			(SELECT
+				SCICD.WorkAccountId
+				, SCICD.CommissionPeriodId
+				, SUM(SCICD.MultipleAdjustment) AS MultipleAdjustmentSum
+			FROM
+				[dbo].[SC_ICMultiples] AS SCIC1 WITH (NOLOCK)
+				INNER JOIN [dbo].[SC_ICMultipleDetails] AS SCICD WITH (NOLOCK)
+				ON
+					(SCICD.ICMultipleId = SCIC1.ICMultipleID)
+					AND (SCIC1.ICMultipleID = @ICMultipleID)
+			WHERE 
+				(SCIC1.WorkAccountId = @WorkAccountID)
+				AND (SCICD.MultipleAdjustmentId NOT IN ('CommercialMultiple', 'GoodExcMultiple', 'SubCreditMultiple'))
+			GROUP BY
+				SCICD.WorkAccountId
+				, SCICD.CommissionPeriodId) AS TMT
+			ON 
+				(TMT.CommissionPeriodId = SCIC.CommissionPeriodId)
+				AND (TMT.WorkAccountId = SCIC.WorkAccountId)
+				AND (TMT.WorkAccountId = @WorkAccountID);
+
+		-- Calculate Effetive Multiple
+
+		-- Get Next Values
+		FETCH NEXT FROM summaryCur INTO
+		@ICMultipleID, @WorkAccountID;
+	END
+
+	CLOSE summaryCur;
+	DEALLOCATE summaryCur;
 
 	COMMIT TRANSACTION;
 END TRY

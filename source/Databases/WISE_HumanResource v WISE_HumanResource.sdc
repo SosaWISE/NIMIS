@@ -5,17 +5,17 @@ SQL Data Compare
 Version:10.4.8.62-->
 <Project version="2" type="SQLComparisonToolsProject">
   <DataSource1 version="3" type="LiveDatabaseSource">
-    <ServerName>(local)</ServerName>
+    <ServerName>db1.dev.nexsense.com</ServerName>
     <DatabaseName>WISE_HumanResource</DatabaseName>
-    <Username />
+    <Username>sa</Username>
     <SavePassword>False</SavePassword>
     <Password />
     <ScriptFolderLocation />
     <MigrationsFolderLocation />
-    <IntegratedSecurity>True</IntegratedSecurity>
+    <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource1>
   <DataSource2 version="3" type="LiveDatabaseSource">
-    <ServerName>NSUTDEDEV001</ServerName>
+    <ServerName>db1.stg.nexsense.com</ServerName>
     <DatabaseName>WISE_HumanResource</DatabaseName>
     <Username>sa</Username>
     <SavePassword>True</SavePassword>
@@ -24,7 +24,7 @@ Version:10.4.8.62-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>04/23/2014 18:05:23</LastCompared>
+  <LastCompared>05/15/2015 18:24:00</LastCompared>
   <Options>Default, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
@@ -185,35 +185,7 @@ Version:10.4.8.62-->
     </value>
     <value version="1" type="SelectTableEvent">
       <action>SelectItem</action>
-      <val>[dbo].[RU_Recruits]:[dbo].[RU_Recruits]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[RU_Users]:[dbo].[RU_Users]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[RU_Season]:[dbo].[RU_Season]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[RU_RecruitAddresses]:[dbo].[RU_RecruitAddresses]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[RU_TeamLocations]:[dbo].[RU_TeamLocations]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[RU_Teams]:[dbo].[RU_Teams]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[RU_UserEmployeeTypes]:[dbo].[RU_UserEmployeeTypes]</val>
-    </value>
-    <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
-      <val>[dbo].[RU_UserType]:[dbo].[RU_UserType]</val>
+      <val>[dbo].[RU_Payscales]:[dbo].[RU_Payscales]</val>
     </value>
   </TableActions>
   <SessionSettings>15</SessionSettings>
