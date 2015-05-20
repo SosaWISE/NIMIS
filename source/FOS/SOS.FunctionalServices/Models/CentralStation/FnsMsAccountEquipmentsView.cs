@@ -1,5 +1,4 @@
-﻿using System;
-using SOS.Data.SosCrm;
+﻿using SOS.Data.SosCrm;
 using SOS.FunctionalServices.Contracts.Models.CentralStation;
 
 namespace SOS.FunctionalServices.Models.CentralStation
@@ -55,8 +54,8 @@ namespace SOS.FunctionalServices.Models.CentralStation
 		//public string OfficeReconciliationItemId {get;set;}
 		public string AccountEquipmentUpgradeTypeId { get; set; }
 		//public string CustomerLocation { get; set; }
-		public int Points { get; set; }
-		public double? ActualPoints { get; set; }
+		public decimal Points { get; set; }
+		public decimal? ActualPoints { get; set; }
 		public decimal Price { get; set; }
 		public bool IsExisting { get; set; }
 		public string BarcodeId { get; set; }
@@ -64,7 +63,7 @@ namespace SOS.FunctionalServices.Models.CentralStation
 		public bool IsExistingWiring { get; set; }
 		public bool IsMainPanel { get; set; }
 		// MS_AccountZoneAssignment
-		public long AccountZoneAssignmentID { get; set; }
+		public long? AccountZoneAssignmentID { get; set; }
 		public string AccountZoneTypeId { get; set; }
 		public int? AccountEventId { get; set; }
 		public string Zone { get; set; }
