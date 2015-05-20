@@ -165,17 +165,17 @@ UPDATE SC_WorkAccountsAll SET
 		CASE 
 			WHEN
 				CreditCustomerType = 'UNAPPROVED'
-					AND (ActivationFee <> 299)
+					AND (ActivationFee IS NULL OR ActivationFee <> 299)
 			THEN 'TRUE'
 			WHEN
 				CreditCustomerType = 'SUB'
-					AND (ActivationFee <> 199)
+					AND (ActivationFee IS NULL OR ActivationFee <> 199)
 			THEN 'TRUE'
 			ELSE 'FALSE'
 		END
 WHERE
 	(CommissionPeriodId = @CommissionPeriodID)
-	--(CommissionPeriodId = 3)
+	--(CommissionPeriodId = 6)
 	AND (CreditCustomerType IN ('UNAPPROVED', 'SUB'));
 
 /*******************
