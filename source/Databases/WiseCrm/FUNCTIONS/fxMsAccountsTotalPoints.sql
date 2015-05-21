@@ -80,7 +80,32 @@ GO
 
 
 /**
-DECLARE @AccountID BIGINT = 191186;
+DECLARE @AccountID BIGINT = 191230;
 SELECT dbo.fxMsAccountsTotalPoints(@AccountID)
---SELECT AccountID, dbo.fxMsAccountsTotalPoints(AccountID) FROM [dbo].[MS_Accounts] WHERE AccountID = @AccountID;
+	SELECT 
+		AEII.InvoiceItemId
+		, MSAE.Points
+		, AEII.SystemPoints
+		, SUM(MSAE.Points) OVER (PARTITION BY AEII.InvoiceID)
+	FROM 
+		[dbo].[MS_AccountEquipment] AS MSAE WITH (NOLOCK)
+		INNER JOIN [dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
+		ON
+			(AEII.AccountEquipmentId = MSAE.AccountEquipmentID)
+			AND (MSAE.IsActive = 1 AND MSAE.IsDeleted = 0)
+			AND (MSAE.IsExisting = 0)
+			AND (MSAE.AccountId = @AccountID)
+		INNER JOIN [dbo].[AE_Invoices] AS AEI WITH (NOLOCK)
+		ON
+			(AEII.InvoiceId = AEI.InvoiceID)
+			AND (AEI.InvoiceTypeId = 'INSTALL')
+			AND (AEI.IsActive = 1 AND AEI.IsDeleted = 0)
+			AND (AEII.IsActive = 1 AND AEII.IsDeleted = 0)
+		INNER JOIN [dbo].[MS_Equipments] AS MSE WITH (NOLOCK)
+		ON
+			(AEII.ItemId = MSE.EquipmentID)
+		INNER JOIN [dbo].[MS_EquipmentTypes] AS MSET WITH (NOLOCK)
+		ON
+			(MSET.EquipmentTypeID = MSE.EquipmentTypeId)
+			AND (MSET.EquipmentType <> 'Cell' AND MSET.EquipmentType <> 'Panel');
 */

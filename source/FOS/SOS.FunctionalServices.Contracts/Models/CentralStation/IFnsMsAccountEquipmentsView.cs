@@ -32,8 +32,8 @@
 		//string OfficeReconciliationItemId {get;set;}
 		string AccountEquipmentUpgradeTypeId { get; set; }
 		//string CustomerLocation { get; set; }
-		int Points { get; set; }
-		double? ActualPoints { get; set; }
+		decimal Points { get; set; }
+		decimal? ActualPoints { get; set; }
 		decimal Price { get; set; }
 		bool IsExisting { get; set; }
 		string BarcodeId { get; set; }
@@ -41,7 +41,7 @@
 		bool IsExistingWiring { get; set; }
 		bool IsMainPanel { get; set; }
 		// MS_AccountZoneAssignment
-		long AccountZoneAssignmentID { get; set; }
+		long? AccountZoneAssignmentID { get; set; }
 		string AccountZoneTypeId { get; set; }
 		int? AccountEventId { get; set; }
 		string Zone { get; set; }

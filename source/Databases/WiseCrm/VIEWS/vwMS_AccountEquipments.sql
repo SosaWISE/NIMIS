@@ -88,4 +88,17 @@ AS
 			(AEQ.EquipmentLocationId = EL.EquipmentLocationID)
 GO
 /* TEST */
---SELECT * FROM vwMS_AccountEquipments WHERE AccountID = 130532;
+DECLARE @AccountID BIGINT = 191230;
+--SELECT AEQ.* 
+--FROM 
+--		[dbo].[MS_AccountEquipment] AS AEQ WITH (NOLOCK)
+--		INNER JOIN [dbo].MS_Equipments AS EQM WITH (NOLOCK)
+--		ON
+--			(EQM.EquipmentID = AEQ.EquipmentId)
+--		INNER JOIN [dbo].MS_AccountZoneAssignments AS AZA WITH (NOLOCK)
+--		ON
+--			(AZA.AccountEquipmentId = AEQ.AccountEquipmentID)
+--WHERE (AEQ.AccountID = @AccountID) AND (AEQ.IsDeleted = 0);
+
+SELECT * FROM vwMS_AccountEquipments WHERE (AccountID = @AccountID) AND (IsDeleted = 0) ORDER BY Zone;
+

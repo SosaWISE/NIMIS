@@ -3,7 +3,7 @@
 *	1. Weekly Team / Office Override
 */
 USE [NXSE_Commissions]
-GO
+
 
 DECLARE	@CommissionContractID INT
 	, @CommissionPeriodID BIGINT
@@ -24,7 +24,7 @@ FROM
 	[dbo].fxSCV2_0GetScriptHeaderInfo() AS PROP;
 
 PRINT '************************************************************ START ************************************************************';
-PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
+PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC) Com ContractID: ' + CAST(@CommissionContractID AS VARCHAR);
 PRINT '************************************************************ START ************************************************************';
 /********************  END HEADER ********************/
 
@@ -35,7 +35,8 @@ DECLARE @ManSalesRepId VARCHAR(25)
 	, @WorkAccountAdjustmentId BIGINT
 	, @CommissionTeamOfficeOverrideScaleID VARCHAR(20)
 	, @Amount MONEY
-	, @SalesRepID VARCHAR(25);
+	, @SalesRepID VARCHAR(25)
+	, @TeamID INT;
 
 INSERT INTO @TeamSummary (TeamID, NumberOfAccounts)
 SELECT DISTINCT
@@ -48,7 +49,7 @@ FROM
 		TMLI.TeamID
 		, TMLI.SalesRepId
 	FROM
-		[dbo].fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID) AS TMLI) AS TML
+		[dbo].fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID, 1) AS TMLI) AS TML
 	INNER JOIN [dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK)
 	ON
 		(SCWA.SalesRepId = TML.SalesRepId)
@@ -71,13 +72,13 @@ DECLARE teamSumCursor CURSOR FOR
 	SELECT TS.TeamID, TS.CommissionTeamOfficeOverrideScaleID, TS.Amount, TML.SalesRepID
 	FROM 
 		@TeamSummary AS TS
-		INNER JOIN [dbo].fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID) AS TML
+		INNER JOIN [dbo].fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID, 1) AS TML
 		ON
 			(TS.TeamID = TML.TeamID)
 
 OPEN teamSumCursor;
 FETCH NEXT FROM teamSumCursor INTO
-	@ManSalesRepId
+	@TeamID
 	, @CommissionTeamOfficeOverrideScaleID
 	, @Amount
 	, @SalesRepID;
@@ -88,13 +89,13 @@ BEGIN
 	SELECT TOP 1
 		@ManSalesRepID = ManSalesRepID
 	FROM
-		[dbo].fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID)
+		[dbo].fxSCv2_0GetTeamMembersByCommissionContractID(@CommissionContractID, 1)
 	WHERE
-		(TeamID = @ManSalesRepId);
+		(TeamID = @TeamID);
 
 	/** Now have to loop because a rep can have more than one account in the WorkAccounts table. */
 	DECLARE workAccountBySalesRepCurosr CURSOR FOR
-		SELECT SCWA.WorkAccountID, SCWA.AccountID FROM [dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK) WHERE (SalesRepId = @SalesRepID);
+		SELECT SCWA.WorkAccountID, SCWA.AccountID FROM [dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK) WHERE (SalesRepId = @SalesRepID) AND (CommissionPeriodId = @CommissionPeriodID);
 	OPEN workAccountBySalesRepCurosr;
 	FETCH NEXT FROM workAccountBySalesRepCurosr INTO @WorkAccountID, @AccountId;
 
@@ -143,7 +144,7 @@ BEGIN
 
 	-- Get next item	
 	FETCH NEXT FROM teamSumCursor INTO
-		@ManSalesRepId
+		@TeamID
 		, @CommissionTeamOfficeOverrideScaleID
 		, @Amount
 		, @SalesRepID;

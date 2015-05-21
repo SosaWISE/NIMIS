@@ -159,10 +159,11 @@ BEGIN
 	-- Check to see if there is a Equipment Upgrade
 	IF (EXISTS(SELECT * FROM dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId(@AccountID)))
 	BEGIN
-		SET @CommissionDeductionID = 'EQUIPUPGRADE';
-		INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionDeductionId, AdjustmentAmount) 
+		SET @CommissionDeductionID= 'EQUIPUPGRADE';
+		INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionPeriodId, CommissionBonusId, AdjustmentAmount) 
 		SELECT
 			@WorkAccountID
+			, @CommissionPeriodID
 			, @CommissionDeductionID
 			, RBUG.BonusUpgrade --  AS [Bonus Upgrade]
 		FROM

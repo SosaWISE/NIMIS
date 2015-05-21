@@ -36,311 +36,448 @@ PRINT '************************************************************ START ******
 /********************  END HEADER ********************/
 /** Local Declarations */
 DECLARE @MultipleAdjustmentID VARCHAR(20)
---	, @AdjustmentAmount INT;
+	, @MultipleAdjustment INT;
 
-PRINT '/*******************************';
-PRINT '***  Set Multiple for Good/Excellent Credit ***';
-PRINT '*******************************/';
+BEGIN TRY
+	BEGIN TRANSACTION;
 
--- Set Multiple for Good/Excellent Credit
-SET @MultipleAdjustmentID = 'GoodExcMultiple';
---SELECT @AdjustmentAmount = AdjustmentAmount FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+	PRINT '/**********************************************';
+	PRINT '***  Set Multiple for Good/Excellent Credit ***';
+	PRINT '***********************************************/';
 
--- Create entry for all accounts with contract length less than 60
-INSERT SC_workAccountAdjustments
-(
+	-- Set Multiple for Good/Excellent Credit
+	SET @MultipleAdjustmentID = 'GoodExcMultiple';
+	SELECT @MultipleAdjustment = MultipleAdjustment FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+
+	-- Create entry for all accounts with contract length less than 60
+	INSERT INTO dbo.SC_ICMultipleDetails (
 	WorkAccountId
 	, CommissionPeriodId
-	, CommissionDeductionId
---	, AdjustmentAmount
-)
-SELECT 
-	WorkAccountID
-	, @CommissionPeriodID
-	, @MultipleAdjustmentID
---	, @AdjustmentAmount
-FROM
-	dbo.SC_WorkAccounts AS scwa
-WHERE 
-	(scwa.CreditScore >= 625)
-	OR (scwa.CreditCustomerType = 'GOOD')
-	OR (scwa.CreditCustomerType = 'EXCELLENT')
-	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+	, MultipleAdjustmentId
+	, MultipleAdjustment
+	)
+	SELECT 
+		WorkAccountID
+		, @CommissionPeriodID
+		, @MultipleAdjustmentID
+		, @MultipleAdjustment
+	FROM
+		dbo.SC_WorkAccounts AS scwa
+	WHERE 
+		((scwa.CreditScore >= 625)
+		OR (scwa.CreditCustomerType = 'GOOD')
+		OR (scwa.CreditCustomerType = 'EXCELLENT'))
+		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
 
-PRINT '/*******************************';
-PRINT '***  Set Multiple for Sub Credit ***';
-PRINT '*******************************/';
+	PRINT '/*******************************';
+	PRINT '***  Set Multiple for Sub Credit ***';
+	PRINT '*******************************/';
 
--- Set Multiple for Sub Credit 
-SET @MultipleAdjustmentID = 'SubCreditMultiple';
---SELECT @AdjustmentAmount = AdjustmentAmount FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+	-- Set Multiple for Sub Credit 
+	SET @MultipleAdjustmentID = 'SubCreditMultiple';
+	SELECT @MultipleAdjustment = MultipleAdjustment FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
 
--- Create entry for all accounts with contract length less than 60
-INSERT SC_workAccountAdjustments
-(
+	-- Create entry for all accounts with contract length less than 60
+	INSERT INTO dbo.SC_ICMultipleDetails (
+		WorkAccountId
+		, CommissionPeriodId
+		, MultipleAdjustmentId
+		, MultipleAdjustment
+	)
+	SELECT 
+		WorkAccountID
+		, @CommissionPeriodID
+		, @MultipleAdjustmentID
+		, @MultipleAdjustment
+	FROM
+		dbo.SC_WorkAccounts AS scwa
+	WHERE 
+		(scwa.CreditScore BETWEEN 600 and 624)
+		OR (scwa.CreditCustomerType = 'SUB')
+		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+
+	PRINT '/*******************************';
+	PRINT '***  Set Multiple for Commercial Accounts ***';
+	PRINT '*******************************/';
+
+	-- Set Multiple for Commercial Accounts
+	SET @MultipleAdjustmentID = 'CommercialMultiple';
+	SELECT @MultipleAdjustment = MultipleAdjustment FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+
+	-- Create entry for all accounts with contract length less than 60
+	INSERT INTO dbo.SC_ICMultipleDetails (
+		WorkAccountId
+		, CommissionPeriodId
+		, MultipleAdjustmentId
+		, MultipleAdjustment
+	)
+	SELECT 
+		WorkAccountID
+		, @CommissionPeriodID
+		, @MultipleAdjustmentID
+		, @MultipleAdjustment
+	FROM
+		dbo.SC_WorkAccounts AS scwa
+	WHERE 
+		(scwa.FriendsAndFamilyTypeId = 'COMM')
+		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+
+	PRINT '/*************************************';
+	PRINT '***  Set Multiple for ACH Payments ***';
+	PRINT '**************************************/';
+
+	-- Set Multiple for ACH Payments
+	SET @MultipleAdjustmentID = 'PMTACH';
+	SELECT @MultipleAdjustment = MultipleAdjustment FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+
+	-- Create entry for all accounts with contract length less than 60
+	INSERT INTO dbo.SC_ICMultipleDetails (
+		WorkAccountId
+		, CommissionPeriodId
+		, MultipleAdjustmentId
+		, MultipleAdjustment
+	)
+	SELECT 
+		WorkAccountID
+		, @CommissionPeriodID
+		, @MultipleAdjustmentID
+		, @MultipleAdjustment
+	FROM
+		dbo.SC_WorkAccounts AS scwa
+	WHERE 
+		(scwa.PaymentType = 'ACH')
+		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+
+	PRINT '/************************************';
+	PRINT '***  Set Multiple for CC Payments ***';
+	PRINT '*************************************/';
+
+	-- Set Multiple for CC Payments
+	SET @MultipleAdjustmentID = 'PMTCC';
+	SELECT @MultipleAdjustment = MultipleAdjustment FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+
+	-- Create entry for all accounts with contract length less than 60
+	INSERT INTO dbo.SC_ICMultipleDetails (
+		WorkAccountId
+		, CommissionPeriodId
+		, MultipleAdjustmentId
+		, MultipleAdjustment
+	)
+	SELECT 
+		WorkAccountID
+		, @CommissionPeriodID
+		, @MultipleAdjustmentID
+		, @MultipleAdjustment
+	FROM
+		dbo.SC_WorkAccounts AS scwa
+	WHERE 
+		(scwa.PaymentType = 'CC')
+		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+
+	PRINT '/***************************************************';
+	PRINT '***	Set Multiple for Contract Length: 60 Months ***';
+	PRINT '****************************************************/'
+
+	--  Set Multiple for Contract Lenght: 60 Months
+	SET @MultipleAdjustmentID = 'CONTLEN60';
+	SELECT @MultipleAdjustment = MultipleAdjustment FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+
+	-- Create entry for payment types that are not ACH
+	INSERT INTO dbo.SC_ICMultipleDetails (
+		WorkAccountId
+		, CommissionPeriodId
+		, MultipleAdjustmentId
+		, MultipleAdjustment
+	)
+	SELECT 
+		WorkAccountID
+		,@CommissionPeriodID
+		, @MultipleAdjustmentID
+		, @MultipleAdjustment
+	FROM
+		dbo.SC_WorkAccounts AS scwa
+	WHERE 
+		(scwa.ContractLength = 60)
+		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+
+	PRINT '/******************************************************';
+	PRINT '***	Set Multiple Penalty for Waived Activation Fee ***';
+	PRINT '*******************************************************/'
+
+	--  Set Multiple Penalty for Waived Activation Fee
+	SET @MultipleAdjustmentID = 'WaivedActFee';
+	SELECT @MultipleAdjustment = MultipleAdjustment FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+
+	-- Create entry for payment types that are not ACH
+	INSERT INTO dbo.SC_ICMultipleDetails (
+		WorkAccountId
+		, CommissionPeriodId
+		, MultipleAdjustmentId
+		, MultipleAdjustment
+	)
+	SELECT 
+		WorkAccountID
+		,@CommissionPeriodID
+		, @MultipleAdjustmentID
+		, @MultipleAdjustment
+	FROM
+		dbo.SC_WorkAccounts AS scwa
+	WHERE 
+		(scwa.ActivationFee = 0)
+		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+
+	PRINT '/***********************************************';
+	PRINT '***	Set Multiple for Weekly Volume of 40-59 ***';
+	PRINT '************************************************/'
+
+	--  Set Multiple for Weekly Volume of 40-59
+	SET @MultipleAdjustmentID = 'Volume40';
+	SELECT @MultipleAdjustment = MultipleAdjustment FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+
+	-- Create entry for payment types that are not ACH
+	INSERT INTO dbo.SC_ICMultipleDetails (
+		WorkAccountId
+		, CommissionPeriodId
+		, MultipleAdjustmentId
+		, MultipleAdjustment
+	)
+	SELECT 
+		WorkAccountID
+		,@CommissionPeriodID
+		, @MultipleAdjustmentID
+		, @MultipleAdjustment
+	FROM
+		dbo.SC_WorkAccounts AS scwa
+	WHERE 
+		(scwa.PointsAllowed > scwa.PointsAssignedToRep)
+		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+
+	PRINT '/*********************************************';
+	PRINT '***	Set Multiple for Weekly Volume of 60+ ***';
+	PRINT '**********************************************/'
+
+	--  Set Multiple for Weekly Volume of 60+
+	SET @MultipleAdjustmentID = 'Volume60';
+	SELECT @MultipleAdjustment = MultipleAdjustment FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+
+	-- Create entry for payment types that are not ACH
+	INSERT INTO dbo.SC_ICMultipleDetails (
+		WorkAccountId
+		, CommissionPeriodId
+		, MultipleAdjustmentId
+		, MultipleAdjustment
+	)
+	SELECT 
+		WorkAccountID
+		,@CommissionPeriodID
+		, @MultipleAdjustmentID
+		, @MultipleAdjustment
+	FROM
+		dbo.SC_WorkAccounts AS scwa
+	WHERE 
+		(scwa.PointsAllowed > scwa.PointsAssignedToRep)
+		AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+
+	PRINT '/***********************************************';
+	PRINT '***	Set Multiple for Independent Contractor ***';
+	PRINT '************************************************/'
+
+	/** Create a table that contains seasons and managers */
+	DECLARE @SeasonId INT;
+	DECLARE @SeasonManagers TABLE(SeasonId INT, ManRepSalesID VARCHAR(25));
+	DECLARE seasonCur CURSOR FOR
+	SELECT DISTINCT SeasonId FROM dbo.SC_WorkAccounts WHERE (CommissionPeriodId = @CommissionPeriodId);
+
+	OPEN seasonCur;
+	FETCH NEXT FROM seasonCur INTO @SeasonId;
+	WHILE(@@FETCH_STATUS = 0)
+	BEGIN
+		INSERT INTO @SeasonManagers (SeasonId, ManRepSalesID)
+		SELECT @SeasonId AS SeasonId, ManSalesRepId FROM dbo.fxSCv3_0GetManagersBySeasonId(@SeasonId);
+		
+		-- Move next row
+		FETCH NEXT FROM seasonCur INTO @SeasonId;
+	END
+
+	CLOSE seasonCur;
+	DEALLOCATE seasonCur;
+
+	--  Set Multiple for Independent Contractor
+	SET @MultipleAdjustmentID = 'IndCont';
+	SELECT @MultipleAdjustment = MultipleAdjustment FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+
+	-- Create entry for payment types that are not ACH
+	INSERT INTO dbo.SC_ICMultipleDetails (
+		WorkAccountId
+		, CommissionPeriodId
+		, MultipleAdjustmentId
+		, MultipleAdjustment
+	)
+	SELECT 
+		WorkAccountID
+		,@CommissionPeriodID
+		, @MultipleAdjustmentID
+		, @MultipleAdjustment
+	FROM
+		dbo.SC_WorkAccounts AS scwa
+		INNER JOIN @SeasonManagers AS SMAN
+		ON
+			(SMAN.SeasonId = scwa.SeasonId)
+			AND (scwa.SalesRepId = SMAN.ManRepSalesID)
+	WHERE 
+		(scwa.CommissionPeriodId = @CommissionPeriodID);
+
+	PRINT '/********************************';
+	PRINT '***	Set Multiple for Dealers ***';
+	PRINT '*********************************/'
+
+	--  Set Multiple for Dealers
+	SET @MultipleAdjustmentID = 'Dealer';
+	SELECT @MultipleAdjustment = MultipleAdjustment FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+
+	-- Create entry for payment types that are not ACH
+	INSERT INTO dbo.SC_ICMultipleDetails (
 	WorkAccountId
 	, CommissionPeriodId
-	, CommissionDeductionId
---	, AdjustmentAmount
-)
-SELECT 
-	WorkAccountID
-	, @CommissionPeriodID
-	, @MultipleAdjustmentID
---	, @AdjustmentAmount
-FROM
-	dbo.SC_WorkAccounts AS scwa
-WHERE 
-	(scwa.CreditScore BETWEEN 600 and 624)
-	OR (scwa.CreditCustomerType = 'SUB')
-	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+	, MultipleAdjustmentId
+	, MultipleAdjustment
+	)
+	SELECT 
+		WorkAccountID
+		,@CommissionPeriodID
+		, @MultipleAdjustmentID
+		, @MultipleAdjustment
+	FROM
+		dbo.SC_WorkAccounts AS scwa
+		INNER JOIN @SeasonManagers AS SMAN
+		ON
+			(SMAN.SeasonId = scwa.SeasonId)
+			AND (scwa.SalesRepId = SMAN.ManRepSalesID)
+	WHERE 
+		(scwa.CommissionPeriodId = @CommissionPeriodID);
 
-PRINT '/*******************************';
-PRINT '***  Set Multiple for Commercial Accounts ***';
-PRINT '*******************************/';
+	PRINT '/*********************************';
+	PRINT '***	Create Summary table info ***';
+	PRINT '**********************************/'
 
--- Set Multiple for Commercial Accounts
-SET @MultipleAdjustmentID = 'CommercialMultiple';
---SELECT @AdjustmentAmount = AdjustmentAmount FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+/**
+** TODO:  Andres NEED TO FINISH BOTH SUMMARIES.
+AR:  Not sure where to get the Base Multiple.  I think from the RU_Recruits table.
+**/
+	INSERT INTO [dbo].[SC_ICMultiples] (
+		[WorkAccountId]
+		,[CommissionPeriodId]
+	)
+	SELECT DISTINCT
+		SIMD.WorkAccountId
+		, SIMD.CommissionPeriodId
+	FROM
+		dbo.SC_ICMultipleDetails AS SIMD WITH (NOLOCK)
+	WHERE
+		(SIMD.CommissionPeriodId = @CommissionPeriodId);
 
--- Create entry for all accounts with contract length less than 60
-INSERT SC_workAccountAdjustments
-(
-	WorkAccountId
-	, CommissionPeriodId
-	, CommissionDeductionId
---	, AdjustmentAmount
-)
-SELECT 
-	WorkAccountID
-	, @CommissionPeriodID
-	, @MultipleAdjustmentID
---	, @AdjustmentAmount
-FROM
-	dbo.SC_WorkAccounts AS scwa
-WHERE 
-	(scwa.FriendsAndFamilyTypeId = 'COMM')
-	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+	UPDATE SCICD SET 
+		ICMultipleId = SCIC.ICMultipleID
+	FROM
+		[dbo].[SC_ICMultipleDetails] AS SCICD WITH (NOLOCK)
+		INNER JOIN [dbo].[SC_ICMultiples] AS SCIC WITH (NOLOCK)
+		ON
+			(SCIC.WorkAccountId = SCICD.WorkAccountId)
+			AND (SCICD.CommissionPeriodId = @CommissionPeriodId)
 
-PRINT '/*******************************';
-PRINT '***  Set Multiple for ACH Payments ***';
-PRINT '*******************************/';
+	/*******************************************
+	**** Create a CURSOR To do the Summaries.***
+	********************************************/
+	DECLARE @ICMultipleID BIGINT, @WorkAccountID BIGINT;
+	DECLARE summaryCur CURSOR FOR
+	SELECT ICMultipleID, WorkAccountID FROM [dbo].[SC_ICMultiples] WHERE (CommissionPeriodId = @CommissionPeriodId); 
 
--- Set Multiple for ACH Payments
-SET @MultipleAdjustmentID = 'PMTACH';
---SELECT @AdjustmentAmount = AdjustmentAmount FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+	OPEN summaryCur;
+	FETCH NEXT FROM summaryCur INTO
+	@ICMultipleID, @WorkAccountID;
 
--- Create entry for all accounts with contract length less than 60
-INSERT SC_workAccountAdjustments
-(
-	WorkAccountId
-	, CommissionPeriodId
-	, CommissionDeductionId
---	, AdjustmentAmount
-)
-SELECT 
-	WorkAccountID
-	, @CommissionPeriodID
-	, @MultipleAdjustmentID
---	, @AdjustmentAmount
-FROM
-	dbo.SC_WorkAccounts AS scwa
-WHERE 
-	(scwa.PaymentType = 'ACH')
-	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+	WHILE(@@FETCH_STATUS = 0)
+	BEGIN
+		-- Update Base Multiple
+		UPDATE SCIC SET
+			BaseMultiple =  SCICD.MultipleAdjustment
+		FROM
+			[dbo].[SC_ICMultiples] AS SCIC WITH (NOLOCK)
+			INNER JOIN [dbo].[SC_ICMultipleDetails] AS SCICD WITH (NOLOCK)
+			ON
+				(SCICD.ICMultipleId = SCIC.ICMultipleID)
+				AND (SCIC.ICMultipleID = @ICMultipleID)
+		WHERE 
+			(SCIC.WorkAccountId = @WorkAccountID)
+			AND (SCICD.MultipleAdjustmentId IN ('CommercialMultiple', 'GoodExcMultiple', 'SubCreditMultiple'));
 
-PRINT '/*******************************';
-PRINT '***  Set Multiple for CC Payments ***';
-PRINT '*******************************/';
+		-- Update Rep Base Multiple
+		UPDATE SCIC SET
+			RepBaseMultiple =  RUR.PersonalMultiple
+		FROM
+			[dbo].[SC_ICMultiples] AS SCIC WITH (NOLOCK)
+			INNER JOIN [dbo].[SC_WorkAccountsAll] AS SCWAA WITH (NOLOCK)
+			ON
+				(SCWAA.WorkAccountID = SCIC.WorkAccountId)
+				AND (SCIC.ICMultipleID = @ICMultipleID)
+			INNER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS RU WITH (NOLOCK)
+			ON
+				(RU.GPEmployeeId = SCWAA.SalesRepId)
+			INNER JOIN [WISE_HumanResource].[dbo].[RU_Recruits] AS RUR WITH (NOLOCK)
+			ON
+				(RUR.UserId = RU.UserID)
+				AND (RUR.SeasonId = SCWAA.SeasonId)
+		WHERE 
+			(SCIC.WorkAccountId = @WorkAccountID)
 
--- Set Multiple for CC Payments
-SET @MultipleAdjustmentID = 'PMTCC';
---SELECT @AdjustmentAmount = AdjustmentAmount FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+		-- Update Adjustment Summary
+		UPDATE SCIC SET
+			BaseMultiple = TMT.MultipleAdjustmentSum
+		FROM
+			[dbo].[SC_ICMultiples] AS SCIC WITH (NOLOCK)
+			INNER JOIN 
+			(SELECT
+				SCICD.WorkAccountId
+				, SCICD.CommissionPeriodId
+				, SUM(SCICD.MultipleAdjustment) AS MultipleAdjustmentSum
+			FROM
+				[dbo].[SC_ICMultiples] AS SCIC1 WITH (NOLOCK)
+				INNER JOIN [dbo].[SC_ICMultipleDetails] AS SCICD WITH (NOLOCK)
+				ON
+					(SCICD.ICMultipleId = SCIC1.ICMultipleID)
+					AND (SCIC1.ICMultipleID = @ICMultipleID)
+			WHERE 
+				(SCIC1.WorkAccountId = @WorkAccountID)
+				AND (SCICD.MultipleAdjustmentId NOT IN ('CommercialMultiple', 'GoodExcMultiple', 'SubCreditMultiple'))
+			GROUP BY
+				SCICD.WorkAccountId
+				, SCICD.CommissionPeriodId) AS TMT
+			ON 
+				(TMT.CommissionPeriodId = SCIC.CommissionPeriodId)
+				AND (TMT.WorkAccountId = SCIC.WorkAccountId)
+				AND (TMT.WorkAccountId = @WorkAccountID);
 
--- Create entry for all accounts with contract length less than 60
-INSERT SC_workAccountAdjustments
-(
-	WorkAccountId
-	, CommissionPeriodId
-	, CommissionDeductionId
---	, AdjustmentAmount
-)
-SELECT 
-	WorkAccountID
-	, @CommissionPeriodID
-	, @MultipleAdjustmentID
---	, @AdjustmentAmount
-FROM
-	dbo.SC_WorkAccounts AS scwa
-WHERE 
-	(scwa.PaymentType = 'CC')
-	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+		-- Calculate Effetive Multiple
 
-PRINT '/*******************';
-PRINT '***	Set Multiple for Contract Length: 60 Months ***';
-PRINT '*******************/'
+		-- Get Next Values
+		FETCH NEXT FROM summaryCur INTO
+		@ICMultipleID, @WorkAccountID;
+	END
 
---  Set Multiple for Contract Lenght: 60 Months
-SET @MultipleAdjustmentID = 'CONTLEN60';
---SELECT @AdjustmentAmount = AdjustmentAmount FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+	CLOSE summaryCur;
+	DEALLOCATE summaryCur;
 
--- Create entry for payment types that are not ACH
-INSERT SC_workAccountAdjustments
-(
-	WorkAccountId
-	, CommissionPeriodId
-	, CommissionDeductionId
---	, AdjustmentAmount
-)
-SELECT 
-	WorkAccountID
-	,@CommissionPeriodID
-	, @MultipleAdjustmentID
---	, @AdjustmentAmount
-FROM
-	dbo.SC_WorkAccounts AS scwa
-WHERE 
-	(scwa.ContractLength = 60)
-	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
+	COMMIT TRANSACTION;
+END TRY
 
-PRINT '/*******************';
-PRINT '***	Set Multiple Penalty for Waived Activation Fee ***';
-PRINT '*******************/'
-
---  Set Multiple Penalty for Waived Activation Fee
-SET @MultipleAdjustmentID = 'WaivedActFee';
---SELECT @AdjustmentAmount = AdjustmentAmount FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
-
--- Create entry for payment types that are not ACH
-INSERT SC_workAccountAdjustments
-(
-	WorkAccountId
-	, CommissionPeriodId
-	, CommissionDeductionId
---	, AdjustmentAmount
-)
-SELECT 
-	WorkAccountID
-	,@CommissionPeriodID
-	, @MultipleAdjustmentID
---	, @AdjustmentAmount
-FROM
-	dbo.SC_WorkAccounts AS scwa
-WHERE 
-	(scwa.ActivationFee = 0)
-	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
-
-PRINT '/*******************';
-PRINT '***	Set Multiple for Weekly Volume of 40-59 ***';
-PRINT '*******************/'
-
---  Set Multiple for Weekly Volume of 40-59
-SET @MultipleAdjustmentID = 'Volume40';
---SELECT @AdjustmentAmount = AdjustmentAmount FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
-
--- Create entry for payment types that are not ACH
-INSERT SC_workAccountAdjustments
-(
-	WorkAccountId
-	, CommissionPeriodId
-	, CommissionDeductionId
---	, AdjustmentAmount
-)
-SELECT 
-	WorkAccountID
-	,@CommissionPeriodID
-	, @MultipleAdjustmentID
---	, @AdjustmentAmount
-FROM
-	dbo.SC_WorkAccounts AS scwa
-WHERE 
-	(scwa.PointsAllowed > scwa.PointsAssignedToRep)
-	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
-
-PRINT '/*******************';
-PRINT '***	Set Multiple for Weekly Volume of 60+ ***';
-PRINT '*******************/'
-
---  Set Multiple for Weekly Volume of 60+
-SET @MultipleAdjustmentID = 'Volume60';
---SELECT @AdjustmentAmount = AdjustmentAmount FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
-
--- Create entry for payment types that are not ACH
-INSERT SC_workAccountAdjustments
-(
-	WorkAccountId
-	, CommissionPeriodId
-	, CommissionDeductionId
---	, AdjustmentAmount
-)
-SELECT 
-	WorkAccountID
-	,@CommissionPeriodID
-	, @MultipleAdjustmentID
---	, @AdjustmentAmount
-FROM
-	dbo.SC_WorkAccounts AS scwa
-WHERE 
-	(scwa.PointsAllowed > scwa.PointsAssignedToRep)
-	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
-
-PRINT '/*******************';
-PRINT '***	Set Multiple for Independent Contractor ***';
-PRINT '*******************/'
-
---  Set Multiple for Independent Contractor
-SET @MultipleAdjustmentID = 'IndCont';
---SELECT @AdjustmentAmount = AdjustmentAmount FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
-
--- Create entry for payment types that are not ACH
-INSERT SC_workAccountAdjustments
-(
-	WorkAccountId
-	, CommissionPeriodId
-	, CommissionDeductionId
---	, AdjustmentAmount
-)
-SELECT 
-	WorkAccountID
-	,@CommissionPeriodID
-	, @MultipleAdjustmentID
---	, @AdjustmentAmount
-FROM
-	dbo.SC_WorkAccounts AS scwa
-WHERE 
-	(scwa.PointsAllowed > scwa.PointsAssignedToRep)
-	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
-
-PRINT '/*******************';
-PRINT '***	Set Multiple for Dealers ***';
-PRINT '*******************/'
-
---  Set Multiple for Dealers
-SET @MultipleAdjustmentID = 'Dealer';
---SELECT @AdjustmentAmount = AdjustmentAmount FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
-
--- Create entry for payment types that are not ACH
-INSERT SC_workAccountAdjustments
-(
-	WorkAccountId
-	, CommissionPeriodId
-	, CommissionDeductionId
---	, AdjustmentAmount
-)
-SELECT 
-	WorkAccountID
-	,@CommissionPeriodID
-	, @MultipleAdjustmentID
---	, @AdjustmentAmount
-FROM
-	dbo.SC_WorkAccounts AS scwa
-WHERE 
-	(scwa.PointsAllowed > scwa.PointsAssignedToRep)
-	AND (scwa.CommissionPeriodId = @CommissionPeriodID);
-
+BEGIN CATCH
+	PRINT 'EXCEPTION THROWN';
+	ROLLBACK TRANSACTION;
+END CATCH
 
 IF (@DEBUG_MODE = 'ON')
 BEGIN
+
 	SELECT * FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID);
-	SELECT * FROM [dbo].[SC_workAccountAdjustments] WHERE (WorkAccountId IN (SELECT WorkAccountID FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID)));
+	SELECT * FROM [dbo].[SC_ICMultipleDetails] WHERE (WorkAccountId IN (SELECT WorkAccountID FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID)));
 END

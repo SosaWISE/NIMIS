@@ -1,7 +1,7 @@
 /********************  HEADER  ********************
 Bonuses get applied for:
 	Increasing the RMR and staying within the range
-	Selling equipment to the customer
+	Selling equipment to the customer	--MOVED TO STEP003
 */
 USE [NXSE_Commissions]
 GO
