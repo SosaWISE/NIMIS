@@ -76,7 +76,7 @@ END
 GO
 
 /** 
-DECLARE @AccountID BIGINT = 191230
+DECLARE @AccountID BIGINT = 191233
 	, @SeasonID INT = 4;
 SELECT dbo.fxMsAccountTotalPointsRep(@AccountID);
 

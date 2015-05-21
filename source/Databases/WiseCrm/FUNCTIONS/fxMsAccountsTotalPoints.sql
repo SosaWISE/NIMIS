@@ -79,8 +79,8 @@ GO
 
 
 
-/**
-DECLARE @AccountID BIGINT = 191230;
+/***/
+DECLARE @AccountID BIGINT = 191233;
 SELECT dbo.fxMsAccountsTotalPoints(@AccountID)
 	SELECT 
 		AEII.InvoiceItemId
@@ -107,5 +107,6 @@ SELECT dbo.fxMsAccountsTotalPoints(@AccountID)
 		INNER JOIN [dbo].[MS_EquipmentTypes] AS MSET WITH (NOLOCK)
 		ON
 			(MSET.EquipmentTypeID = MSE.EquipmentTypeId)
-			AND (MSET.EquipmentType <> 'Cell' AND MSET.EquipmentType <> 'Panel');
-*/
+			AND (MSET.EquipmentType <> 'Cell' AND MSET.EquipmentType <> 'Panel')
+	WHERE
+		(MSAE.BarcodeID IS NOT NULL)

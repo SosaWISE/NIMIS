@@ -133,10 +133,12 @@ BEGIN
 			INSERT INTO [dbo].[SC_WorkAccountAdjustments] (
 				[WorkAccountId]
 				, [CommissionBonusId]
+				, [CommissionPeriodId]
 				, [AdjustmentAmount]
 			) VALUES (
 				@WorkAccountId -- WorkAccountId -- bigint
 				, @CommissionsBonusID -- varchar(20)
+				, @CommissionPeriodID
 				, @BonusAmount -- money
 			);
 			SET @WorkAccountAdjustmentId = SCOPE_IDENTITY();
