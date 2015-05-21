@@ -87,7 +87,7 @@ AS
 		ON
 			(AEQ.EquipmentLocationId = EL.EquipmentLocationID)
 GO
-/* TEST */
+/* TEST
 DECLARE @AccountID BIGINT = 191230;
 --SELECT AEQ.* 
 --FROM 
@@ -102,3 +102,4 @@ DECLARE @AccountID BIGINT = 191230;
 
 SELECT * FROM vwMS_AccountEquipments WHERE (AccountID = @AccountID) AND (IsDeleted = 0) ORDER BY Zone;
 
+ */
