@@ -16,6 +16,11 @@ WHAT DIFFERENT THINGS DO  WE NEED TO EXTRACT FROM ONE ACCOUNTS WORKACCOUNTADJUST
 
 DECLARE @CommissionPeriodId INT = 6
 
+SELECT *
+	FROM SC_WorkAccountAdjustments
+	WHERE CommissionPeriodId = @CommissionPeriodId
+	ORDER BY WorkAccountId
+
 /*
 	1. Sales Rep Commissions (using the following columns)
 		CommissionRateScaleId
