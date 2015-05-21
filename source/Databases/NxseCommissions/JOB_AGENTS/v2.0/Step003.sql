@@ -120,25 +120,6 @@ WHERE
 	(ActivationFee < 69.00)
 	AND (CommissionPeriodId = @CommissionPeriodID);
 
-PRINT '/***************************';
-PRINT '***	POINTS OF PROTECTION ***';
-PRINT '***************************/';
-SET @CommissionDeductionID = 'POINTSGIVEN';
-DECLARE @PointDeductionInDollars MONEY = 30.00; -- Default value
-SELECT @PointDeductionInDollars = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionDeductionID);
-
-INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionPeriodId, CommissionDeductionId, AdjustmentAmount) 
-SELECT
-	WorkAccountId
-	, @CommissionPeriodID
-	, @CommissionDeductionID
-	, CAST(SCWA.PointsAssignedToRep AS MONEY) * @PointDeductionInDollars
-FROM
-	[dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK)
-WHERE
-	(SCWA.PointsAssignedToRep IS NOT NULL)
-	AND (SCWA.PointsAssignedToRep > 0)
-	AND (SCWA.CommissionPeriodId = @CommissionPeriodID);
 /********************************************** START CURSOR **********************************************************************************
 * Create a cursor looping through work accounts.
 ***********************************************************************************************************************************************/
@@ -195,6 +176,29 @@ BEGIN
 		[WISE_CRM].[dbo].fxSCv2_0GetRMRInformationByAccountID(@AccountID) AS RMRI
 	WHERE
 		(RMRI.CommissionDeductionID IS NOT NULL OR RMRI.CommissionBonusID IS NOT NULL);
+
+	PRINT '/***************************';
+	PRINT '***	POINTS OF PROTECTION ***';
+	PRINT '***************************/';
+	--Deduct or Bonus based off the Points Given vs. Points Allowed
+	INSERT SC_WorkAccountAdjustments
+	(
+		WorkAccountId
+		, CommissionPeriodId
+		, CommissionDeductionId
+		, CommissionBonusId
+		, AdjustmentAmount
+	)
+	SELECT
+		@WorkAccountID
+		, @CommissionPeriodID
+		, PTSI.CommissionDeductionID
+		, PTSI.CommissionBonusID
+		, PTSI.AdjustmentAmount
+	FROM
+		[WISE_CRM].[dbo].fxSCv2_0GetPointInformationByAccountID(191233) AS PTSI
+	WHERE
+		(PTSI.CommissionDeductionID IS NOT NULL OR PTSI.CommissionBonusID IS NOT NULL);
 
 	/** Get Next Account */
 	FETCH NEXT FROM workAccountCursor INTO @WorkAccountID, @AccountID;
