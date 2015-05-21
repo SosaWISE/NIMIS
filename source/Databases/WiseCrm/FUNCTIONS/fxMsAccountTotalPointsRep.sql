@@ -75,7 +75,7 @@ BEGIN
 END
 GO
 
-/** */
+/** 
 DECLARE @AccountID BIGINT = 191230
 	, @SeasonID INT = 4;
 SELECT dbo.fxMsAccountTotalPointsRep(@AccountID);
@@ -105,4 +105,4 @@ SELECT dbo.fxMsAccountTotalPointsRep(@AccountID);
 		ON
 			(MSET.EquipmentTypeID = MSE.EquipmentTypeId)
 			AND (MSET.EquipmentType <> 'Cell' AND MSET.EquipmentType <> 'Panel');
- 
+ */
