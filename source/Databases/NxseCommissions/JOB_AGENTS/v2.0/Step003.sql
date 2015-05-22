@@ -1,5 +1,5 @@
 /********************  HEADER  ********************
-Deductions get applied for:
+STEP003: Apply Deductions/Bonuses to accounts in WorkAccounts:
 	Agreement length
 	Payment type
 	Activation fee
@@ -153,11 +153,11 @@ BEGIN
 			(RBUG.BonusUpgrade IS NOT NULL);
 	END
 		
-	PRINT '/*******************************';
-	PRINT '***	LOWERED RMR WITHIN RANGE ***';
-	PRINT '*******************************/';
+	PRINT '/********************************';
+	PRINT '***	RMR CHANGED WITHIN RANGE ***';
+	PRINT '********************************/';
 	PRINT 'ACCOUNTID: ' + CAST(@AccountID AS VARCHAR);
-	--DEDUCT Or Adjust based on the Points
+	--DEDUCT or BONUS based on the MMR
 	INSERT SC_WorkAccountAdjustments
 	(
 		WorkAccountId
@@ -337,7 +337,36 @@ FROM
 	JOIN [WISE_CRM].dbo.[MS_AccountPackages] AS msap ON msasi.AccountPackageId = msap.AccountPackageID
 WHERE 
 	(scwa.RMR < msap.BaseRMR)
+	AND (scwa.InstallDate < '5/1/2015')
 	AND (CommissionPeriodId = @CommissionPeriodID);
+
+PRINT '/****************************';
+PRINT '***	Team Contract Length ***';
+PRINT '****************************/';
+--DEDUCT FOR TEAM CONTRACT LENGTHS LESS THAN 60 MONTHS
+SET @CommissionDeductionID = 'TEAMLOWCONLEN'
+SELECT @DeductionAmount = (-1) * DeductionAmount FROM dbo.SC_CommissionDeductions WHERE (CommissionDeductionID = @CommissionDeductionID)
+
+--Create entry for Team Contract Length
+INSERT SC_WorkAccountAdjustments
+(
+	WorkAccountId
+	, CommissionPeriodId
+	, CommissionDeductionId
+	, AdjustmentAmount
+)
+SELECT
+	WorkAccountID
+	, @CommissionPeriodID
+	, @CommissionDeductionID
+	, @DeductionAmount
+FROM
+	dbo.SC_WorkAccounts AS scwa
+WHERE
+	(scwa.ContractLength < 60)
+	AND (scwa.InstallDate >= '5/1/2015')
+	and (CommissionPeriodId = @CommissionPeriodID);
+
 
 IF (@DEBUG_MODE = 'ON')
 BEGIN
