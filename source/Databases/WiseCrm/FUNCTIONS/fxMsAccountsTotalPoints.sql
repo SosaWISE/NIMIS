@@ -35,13 +35,14 @@ GO
 **	Date:		Author:			Description:
 **	-----------	---------------	-------------------------------------------
 **	04/08/2015	Andrés E. Sosa	Created By
+**	05/21/2015	Peter Fry		Changed return type to be a decimal (5,2)
 **	
 *******************************************************************************/
 CREATE FUNCTION dbo.fxMsAccountsTotalPoints
 (
 	@AccountID BIGINT
 )
-RETURNS INT
+RETURNS DECIMAL (5,2)
 AS
 BEGIN
 	/** Declarations */
