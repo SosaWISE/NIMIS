@@ -495,6 +495,14 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@GPEmployeeId", GPEmployeeId, DbType.AnsiString);
 			return sp;
 		}
+		public static StoredProcedure IE_ProductBarcodesReconcileLostEquipment(string Barcode,int? UserId,string EquipmentId,DateTime? LostDate) {
+			StoredProcedure sp = new StoredProcedure("custIE_ProductBarcodesReconcileLostEquipment" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@Barcode", Barcode, DbType.String);
+			sp.Command.AddParameter("@UserId", UserId, DbType.Int32);
+			sp.Command.AddParameter("@EquipmentId", EquipmentId, DbType.AnsiString);
+			sp.Command.AddParameter("@LostDate", LostDate, DbType.DateTime);
+			return sp;
+		}
 		public static StoredProcedure IE_ProductBarcodeTrackingCreate(string ProductBarcodeTrackingTypeId,string ProductBarcodeId,string LocationTypeID,string LocationID,string Comment,string GPEmployeeId) {
 			StoredProcedure sp = new StoredProcedure("custIE_ProductBarcodeTrackingCreate" ,DataService.GetInstance("SosCrmProvider"));
 			sp.Command.AddParameter("@ProductBarcodeTrackingTypeId", ProductBarcodeTrackingTypeId, DbType.AnsiString);
@@ -640,6 +648,31 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@AccountId", AccountId, DbType.Int64);
 			sp.Command.AddParameter("@IndustryAccountId", IndustryAccountId, DbType.Int64);
 			sp.Command.AddParameter("@GpEmployeeId", GpEmployeeId, DbType.AnsiString);
+			return sp;
+		}
+		public static StoredProcedure MS_AccountEquipmentsAddEquipment(long? AccountId,string AccountEquipmentUpgradeTypeID,int? AccountEventId,long? AccountZoneAssignmentID,string AccountZoneTypeId,decimal? ActualPoints,string BarcodeId,string Comments,string EquipmentId,int? EquipmentLocationId,string SalesmanId,bool? IsExisting,bool? IsExistingWiring,bool? IsMainPanel,bool? IsServiceUpgrade,string ItemDesc,string ItemSKU,decimal? Points,decimal? Price,string Zone,string GPEmployeeId) {
+			StoredProcedure sp = new StoredProcedure("custMS_AccountEquipmentsAddEquipment" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@AccountId", AccountId, DbType.Int64);
+			sp.Command.AddParameter("@AccountEquipmentUpgradeTypeID", AccountEquipmentUpgradeTypeID, DbType.AnsiString);
+			sp.Command.AddParameter("@AccountEventId", AccountEventId, DbType.Int32);
+			sp.Command.AddParameter("@AccountZoneAssignmentID", AccountZoneAssignmentID, DbType.Int64);
+			sp.Command.AddParameter("@AccountZoneTypeId", AccountZoneTypeId, DbType.AnsiString);
+			sp.Command.AddParameter("@ActualPoints", ActualPoints, DbType.Decimal);
+			sp.Command.AddParameter("@BarcodeId", BarcodeId, DbType.String);
+			sp.Command.AddParameter("@Comments", Comments, DbType.String);
+			sp.Command.AddParameter("@EquipmentId", EquipmentId, DbType.AnsiString);
+			sp.Command.AddParameter("@EquipmentLocationId", EquipmentLocationId, DbType.Int32);
+			sp.Command.AddParameter("@SalesmanId", SalesmanId, DbType.AnsiString);
+			sp.Command.AddParameter("@IsExisting", IsExisting, DbType.Boolean);
+			sp.Command.AddParameter("@IsExistingWiring", IsExistingWiring, DbType.Boolean);
+			sp.Command.AddParameter("@IsMainPanel", IsMainPanel, DbType.Boolean);
+			sp.Command.AddParameter("@IsServiceUpgrade", IsServiceUpgrade, DbType.Boolean);
+			sp.Command.AddParameter("@ItemDesc", ItemDesc, DbType.String);
+			sp.Command.AddParameter("@ItemSKU", ItemSKU, DbType.String);
+			sp.Command.AddParameter("@Points", Points, DbType.Decimal);
+			sp.Command.AddParameter("@Price", Price, DbType.Currency);
+			sp.Command.AddParameter("@Zone", Zone, DbType.AnsiString);
+			sp.Command.AddParameter("@GPEmployeeId", GPEmployeeId, DbType.AnsiString);
 			return sp;
 		}
 		public static StoredProcedure MS_AccountEquipmentsViewAddExistingEquipment(long? AccountId,string EquipmentID,int? EquipmentLocationId,int? ZoneEventTypeId,string Zone,string Comments,bool? IsExisting,bool? IsExistingWiring,bool? IsMainPanel,string GpEmployeeID) {

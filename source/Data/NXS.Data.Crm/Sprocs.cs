@@ -564,6 +564,15 @@ namespace NXS.Data.Crm
 			p.Add("@GPEmployeeId", GPEmployeeId);
 			return db.QueryAsync<T>("custIE_ProductBarcodeCreate", p, commandType: System.Data.CommandType.StoredProcedure);
 		}
+		public Task<IEnumerable<T>> IE_ProductBarcodesReconcileLostEquipment<T>(string Barcode,int? UserId,string EquipmentId,DateTime? LostDate)
+		{
+			var p = new Dapper.DynamicParameters();
+			p.Add("@Barcode", Barcode);
+			p.Add("@UserId", UserId);
+			p.Add("@EquipmentId", EquipmentId);
+			p.Add("@LostDate", LostDate);
+			return db.QueryAsync<T>("custIE_ProductBarcodesReconcileLostEquipment", p, commandType: System.Data.CommandType.StoredProcedure);
+		}
 		public Task<IEnumerable<T>> IE_ProductBarcodeTrackingCreate<T>(string ProductBarcodeTrackingTypeId,string ProductBarcodeId,string LocationTypeID,string LocationID,string Comment,string GPEmployeeId)
 		{
 			var p = new Dapper.DynamicParameters();
@@ -959,6 +968,12 @@ namespace NXS.Data.Crm
 			p.Add("@AccountId", AccountId);
 			p.Add("@GpEmployeeID", GpEmployeeID);
 			return db.QueryAsync<T>("custMS_IndustryAccountNumbersWithReceiverLineInfoViewByAccountID", p, commandType: System.Data.CommandType.StoredProcedure);
+		}
+		public Task<IEnumerable<T>> MS_LeadTakeOverViewGetByAccountId<T>(long? AccountId)
+		{
+			var p = new Dapper.DynamicParameters();
+			p.Add("@AccountId", AccountId);
+			return db.QueryAsync<T>("custMS_LeadTakeOverViewGetByAccountId", p, commandType: System.Data.CommandType.StoredProcedure);
 		}
 		public Task<IEnumerable<T>> MS_MonitronicsBusRulesNuke<T>()
 		{

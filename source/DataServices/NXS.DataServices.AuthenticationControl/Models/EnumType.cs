@@ -20,7 +20,7 @@ namespace NXS.DataServices.AuthenticationControl.Models
 			return false;
 		}
 
-		internal static EnumType FromRequestReason(AC_RequestReason item, bool nullable = false)
+		internal static EnumType FromDb(AC_RequestReason item, bool nullable = false)
 		{
 			if (NullCheck("RequestReason", item, nullable))
 				return null;

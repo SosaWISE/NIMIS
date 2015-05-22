@@ -25,6 +25,10 @@ namespace NXS.Data
 	}
 	public static class StringExtensions
 	{
+		public static string As(this string s, string alias, string tableAlias)
+		{
+			return tableAlias + "." + s + " AS [" + alias + "]";
+		}
 		public static string As(this string s, string alias)
 		{
 			return s + " AS [" + alias + "]";
@@ -61,6 +65,8 @@ namespace NXS.Data
 
 	public class Sequel
 	{
+		internal const int DefaultCapacity = 64; //@REVIEW
+
 		public static bool PrettyPrint;
 
 		StringBuilder _builder;
@@ -85,7 +91,7 @@ namespace NXS.Data
 		private Sequel(bool prettyPrint)
 		{
 			_prettyPrint = prettyPrint;
-			_builder = new StringBuilder();
+			_builder = new StringBuilder(DefaultCapacity);
 			_params = new DynamicParameters();
 		}
 
@@ -276,6 +282,11 @@ namespace NXS.Data
 			_builder.Append("WHERE");
 			if (_prettyPrint) _builder.Newline().Indent(_depth); else _builder.Append(" ");
 			return this.InternalCompare(column, comparison, value, literalText);
+		}
+		public Sequel WhereActiveAndNotDeleted()
+		{
+			return this.Where("IsActive", Comparison.Equals, true)
+				.And("IsDeleted", Comparison.Equals, false);
 		}
 
 		public Sequel And(string column, Comparison comparison, object value, bool literalText = false)

@@ -1,0 +1,22 @@
+﻿{
+  "Namespace": "NXS.Data.AuthenticationControl",
+  "EnumTableList": [
+    "AC_DeniedReasons",
+    "AC_RequestReasons",
+  ],
+  "MetaDataTableList": [
+    "AC_Applications",
+    "AC_Actions",
+  ],
+  "IncludeTableList": [
+    "^AC_Applications$",
+    "^AC_Actions$",
+    "^AC_ActionRequests$",
+    "^AC_DeniedReasons$",
+    "^AC_KeyValues$",
+    "^AC_GroupActions$",
+    "^AC_GroupApplications$",
+    "^AC_RequestReasons$",
+    "^AC_Users$",
+  ],
+}

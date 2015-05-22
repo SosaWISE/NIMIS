@@ -70,11 +70,8 @@ namespace NXS.DataServices.Crm
 							return false;
 						}
 						// check ModifiedOn matches input
-						if (!string.IsNullOrEmpty((result.Message = VersionException.ModifiedOnErrMsg(item.ModifiedOn, inputItem.ModifiedOn))))
-						{
-							result.Fail(-1, "PaymentMethod(" + inputItem.ID + "): " + result.Message);
+						if (VersionHelper.CheckModifiedOn(item.ModifiedOn, inputItem.ModifiedOn, result, getMsg: (msg) => "PaymentMethod(" + inputItem.ID + "): " + msg).Failure)
 							return false;
-						}
 
 						// update item
 						var snapShot = Snapshotter.Start(item);

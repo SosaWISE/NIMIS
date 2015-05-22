@@ -49,12 +49,15 @@
     <Compile Include="AccountInvoicesService.cs" />
     <Compile Include="AccountsService.cs" />
     <Compile Include="ContractAdminService.cs" />
+    <Compile Include="InventoryService.cs" />
     <Compile Include="Models\AeContract.cs" />
     <Compile Include="Models\AeCustomer.cs" />
     <Compile Include="Models\AeCustomerAccount.cs" />
     <Compile Include="Models\AeCustomerAccountInput.cs" />
     <Compile Include="Models\AeItem.cs" />
     <Compile Include="Models\AePaymentMethod.cs" />
+    <Compile Include="Models\IeAudit.cs" />
+    <Compile Include="Models\IeProductBarcodeLast.cs" />
     <Compile Include="Models\MetadataType.cs" />
     <Compile Include="Models\MsHold.cs" />
     <Compile Include="Models\MsHoldCatg1.cs" />

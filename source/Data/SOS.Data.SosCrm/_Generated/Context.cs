@@ -686,6 +686,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		IE_AuditController _IE_Audits;
+		public IE_AuditController IE_Audits
+		{
+			get
+			{
+				if (_IE_Audits == null) _IE_Audits = new IE_AuditController();
+				return _IE_Audits;
+			}
+		}
+
 		IE_LocationTypeController _IE_LocationTypes;
 		public IE_LocationTypeController IE_LocationTypes
 		{
@@ -4010,6 +4020,7 @@ namespace SOS.Data.SosCrm
 	public class DC_CompanyPhoneNumberController : BaseTableController<DC_CompanyPhoneNumber, DC_CompanyPhoneNumberCollection> { }
 	public class DC_PhoneNumberController : BaseTableController<DC_PhoneNumber, DC_PhoneNumberCollection> { }
 	public class GS_AccountController : BaseTableController<GS_Account, GS_AccountCollection> { }
+	public class IE_AuditController : BaseTableController<IE_Audit, IE_AuditCollection> { }
 	public class IE_LocationTypeController : BaseTableController<IE_LocationType, IE_LocationTypeCollection> { }
 	public class IE_PackingSlipItemController : BaseTableController<IE_PackingSlipItem, IE_PackingSlipItemCollection> { }
 	public class IE_PackingSlipController : BaseTableController<IE_PackingSlip, IE_PackingSlipCollection> { }

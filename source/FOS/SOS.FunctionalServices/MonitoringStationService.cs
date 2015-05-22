@@ -1687,7 +1687,7 @@ namespace SOS.FunctionalServices
 
 		#region Account Equipment
 
-		public IFnsResult<IFnsMsAccountEquipmentsView> EquipmentUpdate(IFnsMsAccountEquipmentsView acctEquipment, string gpEmployeeID)
+		public IFnsResult<IFnsMsAccountEquipmentsView> EquipmentUpdate(IFnsMsAccountEquipmentsView fnsAcctEquipmentsView, string gpEmployeeID)
 		{
 			#region INITIALIZATION
 			const string METHOD_NAME = "FOS EquipmentUpdate";
@@ -1697,85 +1697,114 @@ namespace SOS.FunctionalServices
 			IE_ProductBarcode productBarcode = null;
 			IE_ProductBarcodeTracking barcodeTracking = null;
 
-			var isNew = (acctEquipment.AccountEquipmentID == 0);
-			var item = isNew ? new MS_AccountEquipment() : db.MS_AccountEquipments.LoadByPrimaryKey(acctEquipment.AccountEquipmentID);
+			var isNew = (fnsAcctEquipmentsView.AccountEquipmentID == 0);
+			var msAccountEquipment = isNew ? new MS_AccountEquipment() : db.MS_AccountEquipments.LoadByPrimaryKey(fnsAcctEquipmentsView.AccountEquipmentID);
 			#endregion INITIALIZATION
 
 			#region TRY
 			try
 			{
-
-				if (item.BarcodeId != acctEquipment.BarcodeId)
+				if (isNew)
 				{
-					if (!string.IsNullOrWhiteSpace(item.BarcodeId))
+					msAccountEquipment =
+						SosCrmDataContext.Instance.MS_AccountEquipments.LoadSingle(
+							SosCrmDataStoredProcedureManager.MS_AccountEquipmentsAddEquipment(fnsAcctEquipmentsView.AccountId
+							, fnsAcctEquipmentsView.AccountEquipmentUpgradeTypeId
+							, fnsAcctEquipmentsView.AccountEventId
+							, fnsAcctEquipmentsView.AccountZoneAssignmentID
+							, fnsAcctEquipmentsView.AccountZoneTypeId
+							, fnsAcctEquipmentsView.ActualPoints
+							, fnsAcctEquipmentsView.BarcodeId
+							, fnsAcctEquipmentsView.Comments
+							, fnsAcctEquipmentsView.EquipmentId
+							, fnsAcctEquipmentsView.EquipmentLocationId
+							, fnsAcctEquipmentsView.GPEmployeeId
+							, fnsAcctEquipmentsView.IsExisting
+							, fnsAcctEquipmentsView.IsExistingWiring
+							, fnsAcctEquipmentsView.IsMainPanel
+							, fnsAcctEquipmentsView.IsServiceUpgrade
+							, fnsAcctEquipmentsView.ItemDesc
+							, fnsAcctEquipmentsView.ItemSKU
+							, fnsAcctEquipmentsView.Points
+							, fnsAcctEquipmentsView.Price
+							, fnsAcctEquipmentsView.Zone
+							, gpEmployeeID));
+
+					isNew = false;
+				}
+
+				if (msAccountEquipment.BarcodeId != fnsAcctEquipmentsView.BarcodeId)
+				{
+					// ** That the barcodeid's match else throw error.
+					if (!string.IsNullOrWhiteSpace(msAccountEquipment.BarcodeId))
 					{
 						result.Code = -1;
-						result.Message = string.Format("Barcode cannot be changed. Current:{0} New:{1}", item.BarcodeId, acctEquipment.BarcodeId);
+						result.Message = string.Format("Barcode cannot be changed. Current:{0} New:{1}", msAccountEquipment.BarcodeId, fnsAcctEquipmentsView.BarcodeId);
 						return result;
 					}
 
-					item.BarcodeId = acctEquipment.BarcodeId;
-					if (!string.IsNullOrWhiteSpace(acctEquipment.BarcodeId))
+					msAccountEquipment.BarcodeId = fnsAcctEquipmentsView.BarcodeId;
+					if (!string.IsNullOrWhiteSpace(fnsAcctEquipmentsView.BarcodeId))
 					{
 						// check if barcode is valid
-						productBarcode = db.IE_ProductBarcodes.LoadByPrimaryKey(item.BarcodeId);
+						productBarcode = db.IE_ProductBarcodes.LoadByPrimaryKey(msAccountEquipment.BarcodeId);
 						if (productBarcode == null)
 						{
 							result.Code = (int)ErrorCodes.SqlItemNotFound;
-							result.Message = string.Format("Barcode {0} not found.", item.BarcodeId);
+							result.Message = string.Format("Barcode {0} not found.", msAccountEquipment.BarcodeId);
 							return result;
 						}
 						// Check that the barcode hasn't been sold already.
 						if (productBarcode.LastProductBarcodeTrackingId != null
-							&& String.Compare(productBarcode.LastProductBarcodeTracking.LocationTypeID, "Sold", StringComparison.OrdinalIgnoreCase) == 0)
+							&& String.Compare(productBarcode.LastProductBarcodeTracking.LocationTypeId, "Sold", StringComparison.OrdinalIgnoreCase) == 0)
 						{
 							result.Code = -1;
-							result.Message = string.Format("Barcode {0} is already assigned to Account# {1}.", item.BarcodeId, productBarcode.LastProductBarcodeTracking.LocationID);
+							result.Message = string.Format("Barcode {0} is already assigned to Account# {1}.", msAccountEquipment.BarcodeId, productBarcode.LastProductBarcodeTracking.LocationId);
 							return result;
 						}
 						// create barcode tracking
 						barcodeTracking = new IE_ProductBarcodeTracking
 						{
 							ProductBarcodeTrackingTypeId = "CUST",
-							ProductBarcodeId = acctEquipment.BarcodeId,
-							LocationTypeID = "Sold",
-							LocationID = acctEquipment.AccountId.ToString(CultureInfo.InvariantCulture),
+							ProductBarcodeId = fnsAcctEquipmentsView.BarcodeId,
+							LocationTypeId = "Sold",
+							LocationId = fnsAcctEquipmentsView.AccountId.ToString(CultureInfo.InvariantCulture),
 						};
 					}
 				}
 
-				MS_Equipment equipment = SosCrmDataContext.Instance.MS_Equipments.LoadByPrimaryKey(acctEquipment.EquipmentId);
+				MS_Equipment equipment = SosCrmDataContext.Instance.MS_Equipments.LoadByPrimaryKey(fnsAcctEquipmentsView.EquipmentId);
 				if (isNew)
 				{
-					item.IsActive = true;
+					msAccountEquipment.IsActive = true;
 
 				}
-				item.AccountId = acctEquipment.AccountId;
-				item.EquipmentId = acctEquipment.EquipmentId;
-				item.EquipmentLocationId = acctEquipment.EquipmentLocationId;
-				item.GPEmployeeId = acctEquipment.GPEmployeeId;
-				//item.OfficeReconciliationItemId = acctEquipment.OfficeReconciliationItemId;
-				item.AccountEquipmentUpgradeTypeId = acctEquipment.AccountEquipmentUpgradeTypeId;
-				//item.CustomerLocation = acctEquipment.CustomerLocation;
-				item.Points = acctEquipment.Points;
-				item.ActualPoints = acctEquipment.ActualPoints;
-				item.Price = acctEquipment.Price;
-				item.IsExisting = acctEquipment.IsExisting;
-				item.IsServiceUpgrade = acctEquipment.IsServiceUpgrade;
-				item.IsExistingWiring = acctEquipment.IsExistingWiring;
-				item.IsMainPanel = acctEquipment.IsMainPanel;
+				msAccountEquipment.AccountId = fnsAcctEquipmentsView.AccountId;
+				msAccountEquipment.EquipmentId = fnsAcctEquipmentsView.EquipmentId;
+				msAccountEquipment.EquipmentLocationId = fnsAcctEquipmentsView.EquipmentLocationId;
+				msAccountEquipment.GPEmployeeId = fnsAcctEquipmentsView.GPEmployeeId;
+				//item.OfficeReconciliationItemId = fnsAcctEquipmentsView.OfficeReconciliationItemId;
+				msAccountEquipment.AccountEquipmentUpgradeTypeId = fnsAcctEquipmentsView.AccountEquipmentUpgradeTypeId;
+				//item.CustomerLocation = fnsAcctEquipmentsView.CustomerLocation;
+				msAccountEquipment.Points = fnsAcctEquipmentsView.Points;
+				msAccountEquipment.ActualPoints = fnsAcctEquipmentsView.ActualPoints;
+				msAccountEquipment.Price = fnsAcctEquipmentsView.Price;
+				msAccountEquipment.IsExisting = fnsAcctEquipmentsView.IsExisting;
+				msAccountEquipment.IsServiceUpgrade = fnsAcctEquipmentsView.IsServiceUpgrade;
+				msAccountEquipment.IsExistingWiring = fnsAcctEquipmentsView.IsExistingWiring;
+				msAccountEquipment.IsMainPanel = fnsAcctEquipmentsView.IsMainPanel;
 
-				isNew = (acctEquipment.AccountZoneAssignmentID == 0);
-				var zone = isNew ? new MS_AccountZoneAssignment() : db.MS_AccountZoneAssignments.LoadByPrimaryKey(acctEquipment.AccountZoneAssignmentID);
+				isNew = (fnsAcctEquipmentsView.AccountZoneAssignmentID == null || fnsAcctEquipmentsView.AccountZoneAssignmentID == 0);
+				var zone = isNew ? new MS_AccountZoneAssignment() : db.MS_AccountZoneAssignments.LoadByPrimaryKey(fnsAcctEquipmentsView.AccountZoneAssignmentID.Value);
 				if (isNew)
 				{
 					zone.IsActive = true;
 				}
-				zone.AccountZoneTypeId = acctEquipment.AccountZoneTypeId ?? equipment.AccountZoneTypeId;
-				zone.AccountEventId = acctEquipment.AccountEventId;
-				zone.Zone = acctEquipment.Zone;
-				zone.Comments = acctEquipment.Comments;
-				zone.IsExisting = acctEquipment.IsExisting;
+				zone.AccountZoneTypeId = fnsAcctEquipmentsView.AccountZoneTypeId ?? equipment.AccountZoneTypeId;
+				zone.AccountEventId = fnsAcctEquipmentsView.AccountEventId;
+				zone.Zone = fnsAcctEquipmentsView.Zone;
+				zone.Comments = fnsAcctEquipmentsView.Comments;
+				zone.IsExisting = fnsAcctEquipmentsView.IsExisting;
 
 				DatabaseHelper.UseTransaction(Data.SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME, () =>
 				{
@@ -1788,9 +1817,9 @@ namespace SOS.FunctionalServices
 						productBarcode.Save(gpEmployeeID);
 					}
 					// save equipment item
-					item.Save(gpEmployeeID);
+					msAccountEquipment.Save(gpEmployeeID);
 					// set foreign key and save zone
-					zone.AccountEquipmentId = item.AccountEquipmentID;
+					zone.AccountEquipmentId = msAccountEquipment.AccountEquipmentID;
 					zone.Save(gpEmployeeID);
 					// commit transaction
 					return true;
@@ -1798,10 +1827,10 @@ namespace SOS.FunctionalServices
 
 				/** Sync  InvoiceItems with AccountEquipments rows. */
 				SosCrmDataContext.Instance.AE_InvoiceItems.LoadCollection(
-					SosCrmDataStoredProcedureManager.AE_InventoryItemsSycnWithMsAccountEquipmentInstalled(acctEquipment.AccountId, gpEmployeeID));
+					SosCrmDataStoredProcedureManager.AE_InventoryItemsSycnWithMsAccountEquipmentInstalled(fnsAcctEquipmentsView.AccountId, gpEmployeeID));
 
 				/** Sync AccountEquipment Assignment with the InvoiceItem. */
-				SosCrmDataContext.Instance.MS_AccountEquipments.SyncAssignmentBetweenInvoiceItem(item.AccountEquipmentID, gpEmployeeID);
+				SosCrmDataContext.Instance.MS_AccountEquipments.SyncAssignmentBetweenInvoiceItem(msAccountEquipment.AccountEquipmentID, gpEmployeeID);
 
 				result.Value = new FnsMsAccountEquipmentsView(db.MS_AccountEquipmentsViews.ByAccountZoneAssignment(zone.AccountZoneAssignmentID));
 			}
