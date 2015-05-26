@@ -75,7 +75,9 @@ BEGIN
 	END
 
 	DELETE dbo.MS_AccountEquipment WHERE (AccountEquipmentID = @AccountEquipmentId);
+	INSERT INTO @ResultsTable (ActionType, [Description]) VALUES ('DELETE', 'MS_AccountEquipment with AccountEquipmentId of ' + CAST (@AccountEquipmentId AS VARCHAR));
 	DELETE dbo.AE_InvoiceItems WHERE (InvoiceItemId = @InvoiceItemID);
+	INSERT INTO @ResultsTable (ActionType, [Description]) VALUES ('DELETE', 'AE_InvoiceItems with InvoiceItemID of ' + CAST (@InvoiceItemID AS VARCHAR))
 
 	SELECT * FROM @ResultsTable;
 	COMMIT TRANSACTION
@@ -93,14 +95,16 @@ GRANT EXEC ON dbo.wiseAE_InvoiceItemsCleanUp TO PUBLIC
 GO
 
 /** */
-DECLARE @CMFID BIGINT, @AccountID BIGINT = 191237, @InvoiceItemID BIGINT = 10064756 -- Has no barcode
+DECLARE @CMFID BIGINT, @AccountID BIGINT = 191254, @InvoiceItemID BIGINT = 10065269 -- Has no barcode
 --DECLARE @InvoiceItemID BIGINT = 10064653 -- Has barcode
---EXEC dbo.wiseAE_InvoiceItemsCleanUp @InvoiceItemID;
+EXEC dbo.wiseAE_InvoiceItemsCleanUp @InvoiceItemID;
 SELECT TOP 1 @CMFID = AEC.CustomerMasterFileID FROM dbo.AE_CustomerAccounts AS AECA WITH (NOLOCK) INNER JOIN dbo.AE_Customers AS AEC WITH (NOLOCK) ON (AEC.CustomerID = AECA.CustomerId) WHERE (AECA.AccountId = @AccountID);
 SELECT
 	 MSAE.AccountEquipmentID ,
 	        MSAE.AccountId ,
 	        MSAE.EquipmentId ,
+			MSE.GPItemNmbr ,
+	        MSAE.BarcodeId ,
 			MSE.ItemDescription,
 	        MSAE.InvoiceItemId ,
 	        MSAE.AccountEquipmentUpgradeTypeId ,
@@ -109,7 +113,6 @@ SELECT
 	        MSAE.ActualPoints ,
 	        MSAE.Price ,
 	        MSAE.IsExisting ,
-	        MSAE.BarcodeId ,
 	        MSAE.IsServiceUpgrade ,
 	        MSAE.IsExistingWiring ,
 	        MSAE.IsMainPanel ,
@@ -124,5 +127,34 @@ WHERE
 	(MSAE.AccountId = @AccountID)
 	AND (MSAE.BarcodeId IS NULL)
 	AND (MSAE.AccountEquipmentID NOT IN (SELECT AccountEquipmentID FROM dbo.MS_AccountZoneAssignments));
+
+SELECT
+	 AEII.InvoiceItemID ,
+	        AEII.InvoiceId ,
+	        AEII.ItemId ,
+			AEIT.ItemSKU ,
+	        AEII.ProductBarcodeId ,
+	        AEII.AccountEquipmentId ,
+	        AEII.TaxOptionId ,
+	        AEII.Qty ,
+	        AEII.Cost ,
+	        AEII.RetailPrice ,
+	        AEII.PriceWithTax ,
+	        AEII.SystemPoints ,
+	        AEII.SalesmanId ,
+	        AEII.TechnicianId ,
+	        AEII.IsCustomerPaying ,
+	        AEII.IsActive ,
+	        AEII.IsDeleted
+FROM
+	dbo.AE_Invoices AS AEI WITH (NOLOCK)
+	INNER JOIN dbo.AE_InvoiceItems AS AEII WITH (NOLOCK)
+	ON
+		(AEII.InvoiceId = AEI.InvoiceID)
+		AND (AEI.AccountId = @AccountID)
+	INNER JOIN dbo.AE_Items AS AEIT WITH (NOLOCK)
+	ON
+		(AEIT.ItemID = AEII.ItemId)
+
 
 SELECT AccountID, @CMFID AS CustomerMasterFileID, TotalPoints, TotalPointsAllowed, RepPoints, TechPoints FROM dbo.vwMS_AccountSalesInformations WHERE (AccountID = @AccountID);

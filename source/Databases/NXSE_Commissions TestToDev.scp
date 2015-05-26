@@ -15,7 +15,7 @@ Version:10.7.0.18-->
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource1>
   <DataSource2 version="3" type="LiveDatabaseSource">
-    <ServerName>db1.tst.nexsense.com</ServerName>
+    <ServerName>db1.stg.nexsense.com</ServerName>
     <DatabaseName>NXSE_Commissions</DatabaseName>
     <Username>sa</Username>
     <SavePassword>True</SavePassword>
@@ -24,7 +24,7 @@ Version:10.7.0.18-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>05/21/2015 18:00:53</LastCompared>
+  <LastCompared>05/26/2015 11:20:07</LastCompared>
   <Options>Default, ObjectExistenceChecks, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
@@ -167,7 +167,7 @@ Version:10.7.0.18-->
     <Schemas type="ListString" version="2">
       <value type="string">ZABiAG8A</value>
     </Schemas>
-    <ZABiAG8A>8rb6ypXoziQeGTzBrmsv3gICAWXFzc6jKdg2Zmuwl4lVsvQCAgEPQSWsxAcRCoO/jIXchIziAgIBpD6571N9VmWSIGLk05/TNAICAddcDABC+z2MZdaeA6RvwEoCAgGEFKYqryMuztLXCT8F/ly/AgIBGTHQXnVmvgF4lq+EkLOH3wICAb5n/YVycFu6oDAJ/3TDXzQCAgHIuC7tMDhc9Ng4ubJ6LK3TAgAB6EHHq3g41QY4SodIDSfvjQICAdePPthhwpv9xGThgbGx1uICAAGw+/pWK8b4sf9TMxCTxCqLAgABHykpc+GTRAncYAxQNsJH6gIAAR43KIPDbeHYH3RvtsC6hJgCAAFKTuFi9kToyDiXLQwEmhS7AgIBd1mXXZr281dC5TEU+88LpwICAXcVAbYEk1xtlywVRNE79HsHAAE_</ZABiAG8A>
+    <ZABiAG8A>8rb6ypXoziQeGTzBrmsv3gICAci4Lu0wOFz02Di5snosrdMCAAHXjz7YYcKb/cRk4YGxsdbiAgABsPv6VivG+LH/UzMQk8QqiwIAAR8pKXPhk0QJ3GAMUDbCR+oCAAEeNyiDw23h2B90b7bAuoSYAgABSk7hYvZE6Mg4ly0MBJoUuwICAXdZl12a9vNXQuUxFPvPC6cCAgF3FQG2BJNcbZcsFUTRO/R7BwAByLgu7TA4XPTYOLmyeiyt0wICAcnDKP28BpKxS/SvdYTchNwHAAHC2muvs63CGf/x5RBTOVwCBwEAgQ+e5HYRIcONC6QAmu02uAcBAA__</ZABiAG8A>
     <Grouping type="ListByte" version="2">
       <value type="Byte">5</value>
       <value type="Byte">0</value>

@@ -5,7 +5,7 @@ SQL Data Compare
 Version:10.4.8.62-->
 <Project version="2" type="SQLComparisonToolsProject">
   <DataSource1 version="3" type="LiveDatabaseSource">
-    <ServerName>db1.tst.nexsense.com</ServerName>
+    <ServerName>db1.dev.nexsense.com</ServerName>
     <DatabaseName>NXSE_Commissions</DatabaseName>
     <Username>sa</Username>
     <SavePassword>True</SavePassword>
@@ -15,7 +15,7 @@ Version:10.4.8.62-->
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource1>
   <DataSource2 version="3" type="LiveDatabaseSource">
-    <ServerName>db1.dev.nexsense.com</ServerName>
+    <ServerName>db1.stg.nexsense.com</ServerName>
     <DatabaseName>NXSE_Commissions</DatabaseName>
     <Username>sa</Username>
     <SavePassword>True</SavePassword>
@@ -24,7 +24,7 @@ Version:10.4.8.62-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>05/21/2015 18:04:33</LastCompared>
+  <LastCompared>05/26/2015 11:21:34</LastCompared>
   <Options>Default, ObjectExistenceChecks, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
