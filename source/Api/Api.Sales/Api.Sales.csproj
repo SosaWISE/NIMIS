@@ -51,10 +51,11 @@
     <Reference Include="Nancy.Hosting.Aspnet">
       <HintPath>..\..\Services\Cors\corspackages\Nancy.Hosting.Aspnet.1.1\lib\net40\Nancy.Hosting.Aspnet.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.Serialization.JsonNet">
+    <Reference Include="Nancy.Serialization.JsonNet, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Services\Cors\corspackages\Nancy.Serialization.JsonNet.1.1\lib\net40\Nancy.Serialization.JsonNet.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Services\Cors\corspackages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -83,7 +84,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="packages.config" />
-    <Content Include="api\web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -94,9 +94,12 @@
     <Content Include="webconfig.base.json" />
     <Content Include="webconfig.dbg-example.json" />
     <Content Include="webconfig.dbg.json" />
-    <Content Include="_Nancy\web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DataServices\NXS.DataServices.Sales\NXS.DataServices.Sales.csproj">
+      <Project>{2163e387-9106-4f09-a138-65072a60b7a2}</Project>
+      <Name>NXS.DataServices.Sales</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\NXS.Data.AuthenticationControl\NXS.Data.AuthenticationControl.csproj">
       <Project>{b5f44294-2518-40d7-9b18-93e7a47ee993}</Project>
       <Name>NXS.Data.AuthenticationControl</Name>
@@ -112,6 +115,10 @@
     <ProjectReference Include="..\..\WebModules\WebModules.Auth\WebModules.Auth.csproj">
       <Project>{430c2668-0f92-4561-bd62-c1a3bc6e719d}</Project>
       <Name>WebModules.Auth</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebModules\WebModules.Sales\WebModules.Sales.csproj">
+      <Project>{7f629830-6491-4e94-a37b-0347131d60bd}</Project>
+      <Name>WebModules.Sales</Name>
     </ProjectReference>
     <ProjectReference Include="..\Api.Core\Api.Core.csproj">
       <Project>{221b9b75-88b3-4b23-be9c-3649b8ac5da3}</Project>
@@ -139,7 +146,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>7184</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://api.sales.nexsense.com</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

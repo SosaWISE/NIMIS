@@ -11,6 +11,7 @@ using NXS.Lib.Web;
 using System;
 using WebModules;
 using AuthDBase = NXS.Data.AuthenticationControl.DBase;
+using SalesDBase = NXS.Data.Sales.DBase;
 
 namespace Api.Sales
 {
@@ -60,6 +61,8 @@ namespace Api.Sales
 			var password = WebConfig.Instance.GetConfig("DBPassword");
 			var appName = WebConfig.Instance.GetConfig("ApplicationName");
 			AuthDBase.ConnectionString = DatabaseHelper.FormatConnectionString(AuthDBase.Database, host, username, password, appName);
+			//SalesDBase.ConnectionString = "server=192.168.11.4;database=jackrabbit;userid=jr;password=password";// DatabaseHelper.FormatMySqlConnectionString(SalesDBase.Database, host, username, password, appName);
+			SalesDBase.ConnectionString = "Server=10.1.0.40;Database=jackrabbit;Uid=jacob;Pwd=Passw0rd17";// DatabaseHelper.FormatMySqlConnectionString(SalesDBase.Database, host, username, password, appName);
 
 			//
 			AuthService authService;

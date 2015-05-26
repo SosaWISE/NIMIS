@@ -87,7 +87,7 @@ namespace WebModules.Auth.Auth
 				{
 					var identity = authResult.Value;
 					result.Value = new AuthResult() { User = _authService.ToUserModel(identity), };
-					result.Value.Token = _tokenConfig.Tokenizer.Tokenize(identity.ToTokenIdentity(), null);
+					result.Value.Token = _tokenConfig.Tokenizer.Tokenize(identity.ToTokenIdentity(), this.Context);
 				}
 				else
 				{
@@ -125,7 +125,7 @@ namespace WebModules.Auth.Auth
 			}
 
 			var sessionNumResolver = new SessionDataIdentityResolver();
-			tokenizer.Detokenize(token, context: null, userIdentityResolver: sessionNumResolver);
+			tokenizer.Detokenize(token, this.Context, userIdentityResolver: sessionNumResolver);
 			username = sessionNumResolver.UserName;
 			authInfo = sessionNumResolver.AuthInfo;
 			return authInfo != null;

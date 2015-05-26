@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebModules.Sales.Sales
+namespace SubsonicReverseMe
 {
-	class TrackingsModule
-	{
-	}
+	// class used to get this assembly
+	public class AssemblyHandle { }
 }
