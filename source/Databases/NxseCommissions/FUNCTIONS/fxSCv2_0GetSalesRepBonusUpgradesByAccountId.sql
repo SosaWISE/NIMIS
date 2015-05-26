@@ -77,10 +77,14 @@ BEGIN
 			(MSEQ.EquipmentID = AEIT.ItemID)
 	WHERE
 		(AEI.AccountId = @AccountID)
-		AND (AEII.IsCustomerPaying = 'TRUE');
+		AND (AEII.IsCustomerPaying = 'TRUE')
+		AND (AEII.IsActive = 1)
+		AND (AEII.IsDeleted = 0);
 
 	RETURN;
 END
 GO
 
-SELECT * FROM dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId(191205);
+/*
+	SELECT * FROM dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId(191237);
+*/
