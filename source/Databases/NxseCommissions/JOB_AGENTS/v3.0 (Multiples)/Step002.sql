@@ -181,6 +181,21 @@ WHERE
 	--(CommissionPeriodId = 3)
 	AND (CreditCustomerType IN ('UNAPPROVED', 'SUB'));
 
+/******************************************
+***	Incorrect Setup Fee for Commerical Accounts ***
+******************************************/
+UPDATE SC_WorkAccountsAll SET
+	SetupFeeNotQualified = 'TRUE'
+FROM SC_WorkAccountsAll AS scwaa
+	JOIN [WISE_CRM].[dbo].[MS_AccountSalesInformations] AS msasi
+		ON 
+			scwaa.AccountID = msasi.AccountID
+WHERE
+	(CommissionPeriodId = @CommissionPeriodID)
+	AND (msasi.FriendsAndFamilyTypeId = 'COMM')
+	AND (scwaa.ActivationFee <> 199);
+
+
 /*******************
 ***	Ignore Rules ***
 *******************/

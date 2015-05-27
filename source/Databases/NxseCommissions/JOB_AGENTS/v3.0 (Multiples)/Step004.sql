@@ -206,7 +206,7 @@ BEGIN TRY
 
 	--  Set Multiple Penalty for Waived Activation Fee
 	SET @MultipleAdjustmentID = 'WaivedActFee';
-	SELECT @MultipleAdjustment = MultipleAdjustment FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID);
+	SELECT @MultipleAdjustment = (-1) * MultipleAdjustment FROM [dbo].[SC_MultipleAdjustments] WHERE (MultipleAdjustmentID = @MultipleAdjustmentID); 
 
 	-- Create entry for payment types that are not ACH
 	INSERT INTO dbo.SC_ICMultipleDetails (
