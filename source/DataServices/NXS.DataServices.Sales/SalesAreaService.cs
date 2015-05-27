@@ -12,11 +12,11 @@ namespace NXS.DataServices.Sales
 {
 	public class SalesAreaService
 	{
-		//string _gpEmployeeId;
-		//public SalesAreaService(string gpEmployeeId)
-		//{
-		//	_gpEmployeeId = gpEmployeeId;
-		//}
+		string _gpEmployeeId;
+		public SalesAreaService(string gpEmployeeId)
+		{
+			_gpEmployeeId = gpEmployeeId;
+		}
 
 		public async Task<List<dynamic>> SalesAreasAsync(int salesRepId, int officeId, double minlat, double minlng, double maxlat, double maxlng)
 		{
@@ -40,66 +40,81 @@ namespace NXS.DataServices.Sales
 			}
 		}
 
-		public async Task<SalesArea> SaveSalesAreaAsync(AreaInput inputItem)
+		public async Task<Result<SlArea>> SaveSalesAreaAsync(AreaInput inputItem)
 		{
 			using (var db = DBase.Connect())
 			{
-				var tbl = db.SalesAreas;
+				var result = new Result<SlArea>();
+				var tbl = db.SL_Areas;
 
-				SalesArea item;
-				if (inputItem.areaId > 0)
+				SL_Area item;
+				if (inputItem.AreaId > 0)
 				{
-					item = await tbl.ByIdAsync(inputItem.areaId).ConfigureAwait(false);
+					item = await tbl.ByIdAsync(inputItem.AreaId).ConfigureAwait(false);
 					if (item == null)
-						return null;
+						return result.Fail(-1, "Invalid area id");
 					var snapshot = Snapshotter.Start(item);
 					inputItem.ToDb(item);
-					await tbl.UpdateAsync(item.id, snapshot.Diff()).ConfigureAwait(false);
+					await tbl.UpdateAsync(snapshot, _gpEmployeeId).ConfigureAwait(false);
 				}
 				else
 				{
-					item = new SalesArea();
+					item = new SL_Area();
 					inputItem.ToDb(item);
-					inputItem.areaId = item.id = await tbl.InsertAsync(item).ConfigureAwait(false);
+					await tbl.InsertAsync(item, _gpEmployeeId).ConfigureAwait(false);
+					inputItem.AreaId = item.ID;
 				}
 
 				// update assignments 
 				await SaveAreaAssignmentAsync(db, inputItem).ConfigureAwait(false);
 
-				return item;
+				result.Value = SlArea.FromDb(item);
+				return result;
 			}
 		}
 		// saves the assigned office or sales rep to the area id in the database
-		private async Task<SalesAreaAssignment> SaveAreaAssignmentAsync(DBase db, AreaInput inputItem)
+		private async Task<SlAreaAssignment> SaveAreaAssignmentAsync(DBase db, AreaInput inputItem)
 		{
-			var tbl = db.SalesAreaAssignments;
+			var tbl = db.SL_AreaAssignments;
 
-			// unassign the area assignments for area
-			await DeleteSalesAreaAssignmentsAsync(db, inputItem.areaId).ConfigureAwait(false);
+			// unassign the area assignments for area, if any
+			await DeleteSalesAreaAssignmentsAsync(db, inputItem.AreaId).ConfigureAwait(false);
 
 			// don't assign if the office or rep is not provided
-			if (inputItem.officeId <= 0 || inputItem.salesRepId <= 0)
+			if (inputItem.OfficeId <= 0 || string.IsNullOrEmpty(inputItem.RepCompanyID))
 				return null;
 			// assign it to the rep and/or office
-			var item = new SalesAreaAssignment();
+			var item = new SL_AreaAssignment();
 			inputItem.ToDb(item);
-			item.id = await tbl.InsertAsync(item).ConfigureAwait(false);
-			return item;
+			await tbl.InsertAsync(item, _gpEmployeeId).ConfigureAwait(false);
+			return SlAreaAssignment.FromDb(item); // ??????
 		}
-		private Task<int> DeleteSalesAreaAssignmentsAsync(DBase db, int areaId)
+		private async Task DeleteSalesAreaAssignmentsAsync(DBase db, int areaId)
 		{
-			var tbl = db.SalesAreaAssignments;
-			return tbl.UpdateAsync(areaId, new { status = "X" });
+			var tbl = db.SL_AreaAssignments;
+			var item = await tbl.ByIdAsync(areaId).ConfigureAwait(false);
+			if (item == null)
+				return; // nothing to do here
+			var snapshot = Snapshotter.Start(item);
+			item.IsDeleted = true;
+			await tbl.UpdateAsync(snapshot, _gpEmployeeId);
 		}
 
 
-		public async Task<bool> DeleteSalesAreaAsync(int areaId)
+		public async Task<Result<bool>> DeleteSalesAreaAsync(int areaId)
 		{
 			using (var db = DBase.Connect())
 			{
-				var tbl = db.SalesAreas;
-				var deleted = 0 != await tbl.UpdateAsync(areaId, new { status = "X" });
-				return deleted;
+				var result = new Result<bool>();
+				var tbl = db.SL_Areas;
+				var item = await tbl.ByIdAsync(areaId).ConfigureAwait(false);
+				if (item == null)
+					return result.Fail(-1, "Invalid area id");
+				var snapshot = Snapshotter.Start(item);
+				item.IsDeleted = true;
+				await tbl.UpdateAsync(snapshot, _gpEmployeeId);
+				result.Value = true;
+				return result;
 			}
 		}
 	}

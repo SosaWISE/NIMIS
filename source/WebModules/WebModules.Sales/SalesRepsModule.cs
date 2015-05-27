@@ -12,20 +12,23 @@ namespace WebModules.Sales
 {
 	public class SalesRepsModule : BaseModule
 	{
-		BlahService Srv { get { return new BlahService(/*this.User.GPEmployeeID*/); } }
+		BlahService Srv { get { return new BlahService(this.User.GPEmployeeID); } }
 
 		public SalesRepsModule()
-			: base("/SalesRep", "/ng")
+			//: base("/SalesRep", "/ng")
+			: base("/Sales/Reps")
 		{
-			//$http.get('ng/SalesRep/get_sales_reps')
-			Get["/get_sales_reps", true] = async (x, ct) =>
-			{
-				var officeid = 0;
-				return new
-				{
-					results = await Srv.SalesRepsAsync(officeid).ConfigureAwait(false),
-				};
-			};
+			this.RequiresPermission((string)null, null);
+
+			////$http.get('ng/SalesRep/get_sales_reps')
+			//Get["/get_sales_reps", true] = async (x, ct) =>
+			//{
+			//	var officeid = 0;
+			//	return new
+			//	{
+			//		results = await Srv.SalesRepsAsync(officeid).ConfigureAwait(false),
+			//	};
+			//};
 		}
 	}
 }

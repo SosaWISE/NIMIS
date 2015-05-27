@@ -12,9 +12,17 @@ namespace NXS.Data
 
 		public static string FormatMySqlConnectionString(string database, string host, string username, string password, string appName)
 		{
-			//return string.Format("server={0};database={1};userid={2};password={3}",
 			return string.Format("Server={0};Database={1};Uid={2};Pwd={3};",
 				host, database, username, password, appName);
+		}
+
+
+		public static string db_null_or_string(string txt)
+		{
+			if (string.IsNullOrEmpty(txt))
+				return null;
+			else
+				return txt;
 		}
 	}
 }

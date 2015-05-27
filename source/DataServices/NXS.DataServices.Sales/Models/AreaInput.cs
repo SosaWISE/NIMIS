@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NXS.Data;
 using NXS.Data.Sales;
 using System;
 
@@ -6,22 +7,22 @@ namespace NXS.DataServices.Sales.Models
 {
 	public class AreaInput
 	{
-		public AreaData[][] areaData { get; set; }
-		public int areaId { get; set; }
-		public string areaName { get; set; }
-		public int officeId { get; set; }
-		public int salesRepId { get; set; }
-		public DateTime? startTimestamp { get; set; }
+		public AreaData[][] AreaData { get; set; }
+		public int AreaId { get; set; }
+		public string AreaName { get; set; }
+		public int OfficeId { get; set; }
+		public string RepCompanyID { get; set; }
+		public DateTime? StartTime { get; set; }
 
-		public void ToDb(SalesArea item)
+		public void ToDb(SL_Area item)
 		{
-			if (this.areaData.Length == 0)
+			if (this.AreaData.Length == 0)
 				throw new Exception("Empty areaData");
 
-			double minLat, maxLat, minLng, maxLng;
-			minLat = minLng = double.MaxValue;
-			maxLat = maxLng = double.MinValue;
-			foreach (var path in this.areaData)
+			decimal minLat, maxLat, minLng, maxLng;
+			minLat = minLng = decimal.MaxValue;
+			maxLat = maxLng = decimal.MinValue;
+			foreach (var path in this.AreaData)
 			{
 				foreach (var point in path)
 				{
@@ -31,34 +32,34 @@ namespace NXS.DataServices.Sales.Models
 					if (maxLng < point.lng) maxLng = point.lng;
 				}
 			}
-			if (minLat == double.MaxValue || minLng == double.MaxValue ||
-				maxLat == double.MinValue || maxLng == double.MinValue)
+			if (minLat == decimal.MaxValue || minLng == decimal.MaxValue ||
+				maxLat == decimal.MinValue || maxLng == decimal.MinValue)
 			{
 				throw new Exception("Invalid areaData");
 			}
 
-			item.areaName = ContactsService.db_null_or_string(this.areaName);
-			item.pointData = JsonConvert.SerializeObject(this.areaData);
-			item.minLatitude = minLat;
-			item.maxLatitude = maxLat;
-			item.minLongitude = minLng;
-			item.maxLongitude = maxLng;
-			item.status = "A";
+			item.AreaName = DatabaseHelper.db_null_or_string(this.AreaName);
+			item.PointData = JsonConvert.SerializeObject(this.AreaData);
+			item.MinLatitude = minLat;
+			item.MaxLatitude = maxLat;
+			item.MinLongitude = minLng;
+			item.MaxLongitude = maxLng;
+			item.IsActive = true;
 		}
 
-		public void ToDb(SalesAreaAssignment item)
+		public void ToDb(SL_AreaAssignment item)
 		{
-			item.salesAreaId = this.areaId;
-			item.officeId = this.officeId;
-			item.salesRepId = this.salesRepId;
-			item.startTimestamp = this.startTimestamp.HasValue ? this.startTimestamp.Value : DateTime.UtcNow;
-			item.endTimestamp = null;
-			item.status = "A";
+			item.AreaId = this.AreaId;
+			item.OfficeId = this.OfficeId;
+			item.RepCompanyID = this.RepCompanyID;
+			item.StartTime = this.StartTime.HasValue ? this.StartTime.Value : DateTime.UtcNow;
+			item.EndTime = null;
+			item.IsActive = true;
 		}
 	}
 	public class AreaData
 	{
-		public double lat { get; set; }
-		public double lng { get; set; }
+		public decimal lat { get; set; }
+		public decimal lng { get; set; }
 	}
 }

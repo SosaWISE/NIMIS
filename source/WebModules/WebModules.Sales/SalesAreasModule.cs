@@ -13,11 +13,14 @@ namespace WebModules.Sales
 {
 	public class SalesAreasModule : BaseModule
 	{
-		SalesAreaService Srv { get { return new SalesAreaService(/*this.User.GPEmployeeID*/); } }
+		SalesAreaService Srv { get { return new SalesAreaService(this.User.GPEmployeeID); } }
 
 		public SalesAreasModule()
-			: base("/SalesArea", "/ng")
+			//: base("/SalesArea", "/ng")
+			: base("/Sales/Areas")
 		{
+			this.RequiresPermission((string)null, null);
+
 			//$http.get('ng/SalesArea/get_sales_areas/salesRepId=' + sr_id + '&officeId=' + o_id + '&minlat=' + sw.lat() + '&maxlat=' + ne.lat() + '&minlng=' + sw.lng() + '&maxlng=' + ne.lng())
 			Get["/get_sales_areas/{splat*}", true] = async (x, ct) =>
 			{
@@ -59,21 +62,23 @@ namespace WebModules.Sales
 			};
 
 			//$http.post('ng/SalesArea/save_area', {
-			Post["/save_area", true] = async (x, ct) =>
+			//Post["/save_area", true] = async (x, ct) =>
+			Post["/", true] = async (x, ct) =>
 			{
 				var inputItem = this.BindBody<AreaInput>();
-				var item = await Srv.SaveSalesAreaAsync(inputItem);
-				return new
-				{
-					results = item.id,
-				};
+				return await Srv.SaveSalesAreaAsync(inputItem);
+				//return new
+				//{
+				//	results = item.id,
+				//};
 			};
 
 			//$http.post("ng/SalesArea/delete_sales_area", {
-			Post["/delete_sales_area", true] = async (x, ct) =>
+			//Post["/delete_sales_area", true] = async (x, ct) =>
+			Delete["/", true] = async (x, ct) =>
 			{
 				var inputItem = this.BindBody<AreaInput>();
-				return await Srv.DeleteSalesAreaAsync(inputItem.areaId);
+				return await Srv.DeleteSalesAreaAsync(inputItem.AreaId);
 			};
 		}
 	}

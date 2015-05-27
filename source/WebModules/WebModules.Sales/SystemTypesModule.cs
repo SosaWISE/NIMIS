@@ -12,12 +12,14 @@ namespace WebModules.Sales
 {
 	public class SystemTypesModule : BaseModule
 	{
-		BlahService Srv { get { return new BlahService(/*this.User.GPEmployeeID*/); } }
+		BlahService Srv { get { return new BlahService(this.User.GPEmployeeID); } }
 
 		public SystemTypesModule()
 			//: base("/SystemType", "/ng")
 			: base("/Sales/SystemTypes")
 		{
+			this.RequiresPermission((string)null, null);
+
 			//$http.get('ng/SystemType/get_system_types')
 			//Get["/get_system_types", true] = async (x, ct) =>
 			Get["/", true] = async (x, ct) =>

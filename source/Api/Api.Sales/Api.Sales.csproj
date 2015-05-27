@@ -104,6 +104,10 @@
       <Project>{b5f44294-2518-40d7-9b18-93e7a47ee993}</Project>
       <Name>NXS.Data.AuthenticationControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Data\NXS.Data.Sales\NXS.Data.Sales.csproj">
+      <Project>{ba0da98e-fe77-4ee6-9e54-e42b3a1d2840}</Project>
+      <Name>NXS.Data.Sales</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\NXS.Data\NXS.Data.csproj">
       <Project>{5465a862-bb78-4048-b39b-191be0e1d19c}</Project>
       <Name>NXS.Data</Name>

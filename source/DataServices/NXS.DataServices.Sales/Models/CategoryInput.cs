@@ -5,19 +5,20 @@ namespace NXS.DataServices.Sales.Models
 {
 	public class CategoryInput
 	{
-		public int id { get; set; }
-		public int userId { get; set; }
-		public string name { get; set; }
-		public string filename { get; set; }
+		public int ID { get; set; }
+		public string RepCompanyID { get; set; }
+		public string Name { get; set; }
+		public string Filename { get; set; }
 
-		public void ToDb(SalesContactCategory item)
+		public void ToDb(SL_ContactCategory item)
 		{
-			//item.id = item.id;
-			item.userId = item.userId;
-			item.name = item.name;
-			item.filename = item.filename;
-			item.sequence = 100; //???
-			item.status = "A";
+			if (item.ID != this.ID) throw new Exception("IDs don't match");
+			//item.ID = this.ID;
+			item.RepCompanyID = this.RepCompanyID;
+			item.Name = this.Name;
+			item.Filename = this.Filename;
+			item.Sequence = 100; //???
+			item.IsActive = true;
 		}
 	}
 }

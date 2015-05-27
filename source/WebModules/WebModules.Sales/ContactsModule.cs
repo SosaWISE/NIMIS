@@ -15,62 +15,64 @@ namespace WebModules.Sales
 {
 	public class ContactsModule : BaseModule
 	{
-		ContactsService Srv { get { return new ContactsService(/*this.User.GPEmployeeID*/); } }
+		ContactsService Srv { get { return new ContactsService(this.User.GPEmployeeID); } }
 
 		public ContactsModule()
 			//: base("/Contact", "/ng")
 			: base("/Sales/Contacts")
 		{
+			this.RequiresPermission((string)null, null);
+
 			////$http.post('ng/Contact/save_contact', {
 			//Post["/save_contact", true] = async (x, ct) =>
 			Post["/", true] = async (x, ct) =>
 			{
-				var salesRepId = UsersModule.USERID;
-
 				var inputItem = this.BindBody<ContactInput>();
 
+				var tracking = new SalesTracking();
+				//tracking.RepCompanyID = this.User.GPEmployeeID;
+				tracking.Latitude = inputItem.SalesRepLatitude;
+				tracking.Longitude = inputItem.SalesRepLongitude;
+
 				var contact = new SalesContact();
-				contact.id = inputItem.id;
-				contact.latitude = inputItem.latitude;
-				contact.longitude = inputItem.longitude;
+				contact.ID = inputItem.ID;
+				contact.Latitude = inputItem.Latitude;
+				contact.Longitude = inputItem.Longitude;
 
 				SalesContactNote note = null;
-				if (!string.IsNullOrEmpty(inputItem.address))
+				if (!string.IsNullOrEmpty(inputItem.Address))
 				{
 					note = new SalesContactNote();
-					note.salesRepId = salesRepId;
-					note.salesRepLatitude = inputItem.salesRepLatitude;
-					note.salesRepLongitude = inputItem.salesRepLongitude;
-					note.firstName = inputItem.firstName;
-					note.lastName = inputItem.lastName;
-					note.categoryId = inputItem.categoryId;
-					note.systemId = inputItem.systemId;
-					note.note = inputItem.note;
+					//note.salesRepId = salesRepId;
+					note.FirstName = inputItem.FirstName;
+					note.LastName = inputItem.LastName;
+					note.CategoryId = inputItem.CategoryId;
+					note.SystemId = inputItem.SystemId;
+					note.Note = inputItem.Note;
 				}
 
 				SalesContactAddress address = null;
-				if (!string.IsNullOrEmpty(inputItem.address) ||
-					!string.IsNullOrEmpty(inputItem.city) ||
-					!string.IsNullOrEmpty(inputItem.state) ||
-					!string.IsNullOrEmpty(inputItem.zip))
+				if (!string.IsNullOrEmpty(inputItem.Address) ||
+					!string.IsNullOrEmpty(inputItem.City) ||
+					!string.IsNullOrEmpty(inputItem.State) ||
+					!string.IsNullOrEmpty(inputItem.Zip))
 				{
 					address = new SalesContactAddress();
-					address.address = inputItem.address;
-					//address.address2 = inputItem.address2;
-					address.state = inputItem.state;
-					address.city = inputItem.city;
-					address.zip = inputItem.zip;
+					address.Address = inputItem.Address;
+					//address.Address2 = inputItem.address2;
+					address.State = inputItem.State;
+					address.City = inputItem.City;
+					address.Zip = inputItem.Zip;
 				}
 
 				SalesContactFollowup followup = null;
-				if (inputItem.followup.HasValue)
+				if (inputItem.Followup.HasValue)
 				{
 					followup = new SalesContactFollowup();
-					followup.salesRepId = salesRepId;
-					followup.followupTimestamp = inputItem.followup.Value;
+					followup.FollowupOn = inputItem.Followup.Value;
 				}
 
-				return await Srv.SaveContactAndInfoAsync(contact, note, address, followup);
+				return await Srv.SaveContactAndInfoAsync(tracking, contact, note, address, followup).ConfigureAwait(false);
 			};
 
 			//$http.get('ng/Contact/get_contacts_in_area/salesRepId=' + sr_id + '&officeId=' + o_id + '&minlat=' + sw.lat() + '&maxlat=' + ne.lat() + '&minlng=' + sw.lng() + '&maxlng=' + ne.lng()
@@ -114,7 +116,7 @@ namespace WebModules.Sales
 			Get["/InBounds", true] = async (x, ct) =>
 			{
 				var query = this.Bind<ContactsQuery>();
-				return await Srv.ContactsInAreaAsync(query.salesRepId, query.officeId, query.minlat, query.minlng, query.maxlat, query.maxlng);
+				return await Srv.ContactsInAreaAsync(query.minlat, query.minlng, query.maxlat, query.maxlng);
 			};
 
 			//$http.get('ng/Contact/get_contacts_by_hour/salesRepId=' + $scope.salesRepId + '&officeId=' + $scope.officeId + '&startTimestamp=' + this.startTimestamp.formatTimestamp() + '&endTimestamp=' + this.endTimestamp.formatTimestamp() )

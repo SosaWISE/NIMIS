@@ -13,16 +13,21 @@ namespace WebModules.Sales
 {
 	public class TrackingsModule : BaseModule
 	{
-		BlahService Srv { get { return new BlahService(/*this.User.GPEmployeeID*/); } }
+		BlahService Srv { get { return new BlahService(this.User.GPEmployeeID); } }
 
 		public TrackingsModule()
-			: base("/Tracking", "/ng")
+			//: base("/Tracking", "/ng")
+			: base("/Sales/Tracking")
 		{
+			this.RequiresPermission((string)null, null);
+
 			//$http.post('ng/Tracking/track_location', {salesRepId:1, latitude:position.coords.latitude, longitude:position.coords.longitude});
-			Post["/track_location", true] = async (x, ct) =>
+			//Post["/track_location", true] = async (x, ct) =>
+			Post["/", true] = async (x, ct) =>
 			{
 				var inputItem = this.BindBody<SalesTracking>();
-				return await Srv.TrackLocationAsync(inputItem).ConfigureAwait(false);
+				await Srv.TrackLocationAsync(inputItem).ConfigureAwait(false);
+				return new Result<bool>(value: true);
 			};
 		}
 	}

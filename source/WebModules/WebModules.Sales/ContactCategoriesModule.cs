@@ -13,19 +13,21 @@ namespace WebModules.Sales
 {
 	public class ContactCategoriesModule : BaseModule
 	{
-		ContactsService Srv { get { return new ContactsService(/*this.User.GPEmployeeID*/); } }
+		ContactsService Srv { get { return new ContactsService(this.User.GPEmployeeID); } }
 
 		public ContactCategoriesModule()
 			//: base("/Contact", "/ng")
 			: base("/Sales/Categorys")
 		{
+			this.RequiresPermission((string)null, null);
+
 			//$http.get('ng/Contact/get_categories')
 			//Get["/get_categories", true] = async (x, ct) =>
 			Get["/", true] = async (x, ct) =>
 			{
-				var userId = UsersModule.USERID;
+				//var userId = UsersModule.USERID;
 				//return (await Srv.CategoriesAsync(userId).ConfigureAwait(false)).Value;
-				return (await Srv.CategoriesAsync(userId).ConfigureAwait(false));
+				return (await Srv.CategoriesAsync().ConfigureAwait(false));
 			};
 
 			//$http.get('ng/Contact/get_category_icons')
@@ -91,17 +93,15 @@ namespace WebModules.Sales
 			//Post["/save_category", true] = async (x, ct) =>
 			Post["/", true] = async (x, ct) =>
 			{
-				var userId = UsersModule.USERID;
 				var inputItem = this.BindBody<CategoryInput>();
-				inputItem.userId = userId;
 				return (await Srv.SaveCategoryAsync(inputItem).ConfigureAwait(false));
 			};
 
 			//$http.post('ng/Contact/delete_category', {
-			Post["/delete_category", true] = async (x, ct) =>
+			//Post["/delete_category", true] = async (x, ct) =>
+			Delete["/{id:int}", true] = async (x, ct) =>
 			{
-				var userId = UsersModule.USERID;
-				return (await Srv.CategoriesAsync(userId).ConfigureAwait(false));
+				return (await Srv.DeleteCategoryAsync((int)x.id).ConfigureAwait(false));
 			};
 		}
 	}
