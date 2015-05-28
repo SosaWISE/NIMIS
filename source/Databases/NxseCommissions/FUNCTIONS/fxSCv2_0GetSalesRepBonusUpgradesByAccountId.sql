@@ -82,10 +82,14 @@ BEGIN
 			AND (SCEQ.CommissionEngineId = @CommissionEngineId)
 	WHERE
 		(AEI.AccountId = @AccountID)
-		AND (AEII.IsCustomerPaying = 'TRUE');
+		AND (AEII.IsCustomerPaying = 'TRUE')
+		AND (AEII.IsActive = 1)
+		AND (AEII.IsDeleted = 0);
 
 	RETURN;
 END
 GO
 
-SELECT * FROM dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId(191237, 'SCv2.0');
+/*
+	SELECT * FROM dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId(191237);
+*/
