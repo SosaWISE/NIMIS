@@ -745,6 +745,32 @@ namespace NXS.Data.Crm
 			p.Add("@GpEmployeeId", GpEmployeeId);
 			return db.QueryAsync<T>("custMS_AccountDispatchAgencyAssignmentSaveByDispatchAgencyId", p, commandType: System.Data.CommandType.StoredProcedure);
 		}
+		public Task<IEnumerable<T>> MS_AccountEquipmentsAddEquipment<T>(long? AccountId,string AccountEquipmentUpgradeTypeID,int? AccountEventId,long? AccountZoneAssignmentID,string AccountZoneTypeId,decimal? ActualPoints,string BarcodeId,string Comments,string EquipmentId,int? EquipmentLocationId,string SalesmanId,bool? IsExisting,bool? IsExistingWiring,bool? IsMainPanel,bool? IsServiceUpgrade,string ItemDesc,string ItemSKU,decimal? Points,decimal? Price,string Zone,string GPEmployeeId)
+		{
+			var p = new Dapper.DynamicParameters();
+			p.Add("@AccountId", AccountId);
+			p.Add("@AccountEquipmentUpgradeTypeID", AccountEquipmentUpgradeTypeID);
+			p.Add("@AccountEventId", AccountEventId);
+			p.Add("@AccountZoneAssignmentID", AccountZoneAssignmentID);
+			p.Add("@AccountZoneTypeId", AccountZoneTypeId);
+			p.Add("@ActualPoints", ActualPoints);
+			p.Add("@BarcodeId", BarcodeId);
+			p.Add("@Comments", Comments);
+			p.Add("@EquipmentId", EquipmentId);
+			p.Add("@EquipmentLocationId", EquipmentLocationId);
+			p.Add("@SalesmanId", SalesmanId);
+			p.Add("@IsExisting", IsExisting);
+			p.Add("@IsExistingWiring", IsExistingWiring);
+			p.Add("@IsMainPanel", IsMainPanel);
+			p.Add("@IsServiceUpgrade", IsServiceUpgrade);
+			p.Add("@ItemDesc", ItemDesc);
+			p.Add("@ItemSKU", ItemSKU);
+			p.Add("@Points", Points);
+			p.Add("@Price", Price);
+			p.Add("@Zone", Zone);
+			p.Add("@GPEmployeeId", GPEmployeeId);
+			return db.QueryAsync<T>("custMS_AccountEquipmentsAddEquipment", p, commandType: System.Data.CommandType.StoredProcedure);
+		}
 		public Task<IEnumerable<T>> MS_AccountEquipmentsViewAddExistingEquipment<T>(long? AccountId,string EquipmentID,int? EquipmentLocationId,int? ZoneEventTypeId,string Zone,string Comments,bool? IsExisting,bool? IsExistingWiring,bool? IsMainPanel,string GpEmployeeID)
 		{
 			var p = new Dapper.DynamicParameters();

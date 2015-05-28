@@ -5,6 +5,7 @@ namespace NXS.Data.HumanResource
 {
 	public partial class DBase : Database<DBase>
 	{
+		public static readonly string Database = "WISE_HumanResource";
 		public readonly Sprocs Sprocs;
 		public DBase()
 		{
@@ -89,6 +90,7 @@ namespace NXS.Data.HumanResource
 			public string CBxW4 { get { return _alias + "[CBxW4]"; } }
 			public string CBxI9 { get { return _alias + "[CBxI9]"; } }
 			public string CBxW9 { get { return _alias + "[CBxW9]"; } }
+			public string PersonalMultiple { get { return _alias + "[PersonalMultiple]"; } }
 			public string IsActive { get { return _alias + "[IsActive]"; } }
 			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
 			public string CreatedByID { get { return _alias + "[CreatedByID]"; } }

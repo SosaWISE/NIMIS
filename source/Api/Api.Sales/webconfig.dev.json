@@ -1,0 +1,17 @@
+﻿{
+  "Comments": "Dev Environment",
+  "InheritEnv": "base", /* Inherit from base environment */
+
+  /* CORS Info */
+  "Access-Control-Allow-Origin": "https://sales.dev.nexsense.com,http://dev-crm.nexsense.com:8080,https://dev-crm.nexsense.com:8443",
+
+  /* Database Info */
+  "DBHost": "db1.dev.nexsense.com",
+  "DBUsername": "devUser",
+  "DBPassword": "aTv1Q+t4PL7IrzPIpAZLNw==",
+
+  /* Active Directory Info */
+  "ADUser": "sosawise",
+  "ADPassword": "NEOvHYvqBJ+VJ1ZK+Q/RIw==",
+  "ADUsersPath": "OU=CORPNEXSENSE,",
+}

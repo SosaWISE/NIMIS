@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BA0DA98E-FE77-4EE6-9E54-E42B3A1D2840}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NXS.Data.Sales</RootNamespace>
+    <AssemblyName>NXS.Data.Sales</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>..\..\Services\Cors\corspackages\Dapper.1.38\lib\net45\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes.cs" />
+    <Compile Include="Database.cs" />
+    <Compile Include="DBase.cs" />
+    <Compile Include="Extensions\SL_AreaAssignmentTableExtensions.cs" />
+    <Compile Include="Extensions\SL_AreaTableExtensions.cs" />
+    <Compile Include="Extensions\SL_ContactAddressTableExtensions.cs" />
+    <Compile Include="Extensions\SL_ContactCategoryTableExtensions.cs" />
+    <Compile Include="Extensions\SL_ContactFollowupTableExtensions.cs" />
+    <Compile Include="Extensions\SL_ContactNoteTableExtensions.cs" />
+    <Compile Include="Extensions\SL_ContactTableExtensions.cs" />
+    <Compile Include="Extensions\SL_TrackingTableExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sprocs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NXS.Data.HumanResource\NXS.Data.HumanResource.csproj">
+      <Project>{18d0eee1-c805-4c19-a344-5423428dcda6}</Project>
+      <Name>NXS.Data.HumanResource</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NXS.Data\NXS.Data.csproj">
+      <Project>{5465a862-bb78-4048-b39b-191be0e1d19c}</Project>
+      <Name>NXS.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dbsettings.json" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Classes\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -5,6 +5,7 @@ namespace NXS.Data.AuthenticationControl
 {
 	public partial class DBase : Database<DBase>
 	{
+		public static readonly string Database = "WISE_AuthenticationControl";
 		public readonly Sprocs Sprocs;
 		public DBase()
 		{
@@ -20,6 +21,8 @@ namespace NXS.Data.AuthenticationControl
 		public AC_KeyValueTable AC_KeyValues { get; set; }
 		public AC_RequestReasonTable AC_RequestReasons { get; set; }
 		public AC_UserTable AC_Users { get; set; }
+		public AC_UserSessionTable AC_UserSessions { get; set; }
+		public AC_UsersAppAuthenticationViewTable AC_UsersAppAuthenticationViews { get; set; }
 
 		public partial class AC_ActionRequestTable : Table<AC_ActionRequest, int>
 		{
@@ -128,6 +131,39 @@ namespace NXS.Data.AuthenticationControl
 			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
 			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+		}
+		public partial class AC_UserSessionTable : Table<AC_UserSession, int>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public AC_UserSessionTable(DBase db) : base(db, "AcUS", "[WISE_AuthenticationControl].[dbo].[AC_UserSessions]", "ID", "int", true) { }
+			public string ID { get { return _alias + "[ID]"; } }
+			public string SessionKey { get { return _alias + "[SessionKey]"; } }
+			public string Username { get { return _alias + "[Username]"; } }
+			public string LastAccessedOn { get { return _alias + "[LastAccessedOn]"; } }
+			public string IPAddress { get { return _alias + "[IPAddress]"; } }
+			public string Terminated { get { return _alias + "[Terminated]"; } }
+			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
+		}
+		public partial class AC_UsersAppAuthenticationViewTable : Table<AC_UsersAppAuthenticationView, int>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public AC_UsersAppAuthenticationViewTable(DBase db) : base(db, "AcUAA", "[WISE_AuthenticationControl].[dbo].[vwAC_UsersAppAuthentication]", "UserID", "int", false) { }
+			public string UserID { get { return _alias + "[UserID]"; } }
+			public string DealerId { get { return _alias + "[DealerId]"; } }
+			public string HRUserId { get { return _alias + "[HRUserId]"; } }
+			public string GPEmployeeID { get { return _alias + "[GPEmployeeID]"; } }
+			public string SSID { get { return _alias + "[SSID]"; } }
+			public string Username { get { return _alias + "[Username]"; } }
+			public string Password { get { return _alias + "[Password]"; } }
+			public string FullName { get { return _alias + "[FullName]"; } }
+			public string FirstName { get { return _alias + "[FirstName]"; } }
+			public string LastName { get { return _alias + "[LastName]"; } }
+			public string SessionId { get { return _alias + "[SessionId]"; } }
+			public string UserEmployeeTypeID { get { return _alias + "[UserEmployeeTypeID]"; } }
+			public string UserEmployeeTypeName { get { return _alias + "[UserEmployeeTypeName]"; } }
+			public string SecurityLevel { get { return _alias + "[SecurityLevel]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
 		}
 
 	}

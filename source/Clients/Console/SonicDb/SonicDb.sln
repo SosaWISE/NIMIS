@@ -5,18 +5,61 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonicDb", "SonicDb.csproj", "{6F7AC6CE-11E6-4D80-B98F-F681FAE67EEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubSonic", "..\..\..\Data\SubSonic\SubSonic.csproj", "{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubsonicReverse", "..\SubsonicReverse\SubsonicReverse.csproj", "{5388AD49-E340-4F81-9812-B94797461A4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubsonicReverseMe", "..\SubsonicReverseMe\SubsonicReverseMe.csproj", "{E485DCF9-10CE-4CEE-8C7F-F6C393DA4CC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subsonic", "Subsonic", "{0DBFE279-C27C-4BE4-B153-2511A5D1F392}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug (SQL Server Only)|Any CPU = Debug (SQL Server Only)|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		Release (SQL Server Only)|Any CPU = Release (SQL Server Only)|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F7AC6CE-11E6-4D80-B98F-F681FAE67EEC}.Debug (SQL Server Only)|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F7AC6CE-11E6-4D80-B98F-F681FAE67EEC}.Debug (SQL Server Only)|Any CPU.Build.0 = Debug|Any CPU
 		{6F7AC6CE-11E6-4D80-B98F-F681FAE67EEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6F7AC6CE-11E6-4D80-B98F-F681FAE67EEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F7AC6CE-11E6-4D80-B98F-F681FAE67EEC}.Release (SQL Server Only)|Any CPU.ActiveCfg = Release|Any CPU
+		{6F7AC6CE-11E6-4D80-B98F-F681FAE67EEC}.Release (SQL Server Only)|Any CPU.Build.0 = Release|Any CPU
 		{6F7AC6CE-11E6-4D80-B98F-F681FAE67EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F7AC6CE-11E6-4D80-B98F-F681FAE67EEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}.Debug (SQL Server Only)|Any CPU.ActiveCfg = Debug (SQL Server Only)|Any CPU
+		{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}.Debug (SQL Server Only)|Any CPU.Build.0 = Debug (SQL Server Only)|Any CPU
+		{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}.Release (SQL Server Only)|Any CPU.ActiveCfg = Release (SQL Server Only)|Any CPU
+		{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}.Release (SQL Server Only)|Any CPU.Build.0 = Release (SQL Server Only)|Any CPU
+		{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5388AD49-E340-4F81-9812-B94797461A4C}.Debug (SQL Server Only)|Any CPU.ActiveCfg = Debug|Any CPU
+		{5388AD49-E340-4F81-9812-B94797461A4C}.Debug (SQL Server Only)|Any CPU.Build.0 = Debug|Any CPU
+		{5388AD49-E340-4F81-9812-B94797461A4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5388AD49-E340-4F81-9812-B94797461A4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5388AD49-E340-4F81-9812-B94797461A4C}.Release (SQL Server Only)|Any CPU.ActiveCfg = Release|Any CPU
+		{5388AD49-E340-4F81-9812-B94797461A4C}.Release (SQL Server Only)|Any CPU.Build.0 = Release|Any CPU
+		{5388AD49-E340-4F81-9812-B94797461A4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5388AD49-E340-4F81-9812-B94797461A4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E485DCF9-10CE-4CEE-8C7F-F6C393DA4CC6}.Debug (SQL Server Only)|Any CPU.ActiveCfg = Debug|Any CPU
+		{E485DCF9-10CE-4CEE-8C7F-F6C393DA4CC6}.Debug (SQL Server Only)|Any CPU.Build.0 = Debug|Any CPU
+		{E485DCF9-10CE-4CEE-8C7F-F6C393DA4CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E485DCF9-10CE-4CEE-8C7F-F6C393DA4CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E485DCF9-10CE-4CEE-8C7F-F6C393DA4CC6}.Release (SQL Server Only)|Any CPU.ActiveCfg = Release|Any CPU
+		{E485DCF9-10CE-4CEE-8C7F-F6C393DA4CC6}.Release (SQL Server Only)|Any CPU.Build.0 = Release|Any CPU
+		{E485DCF9-10CE-4CEE-8C7F-F6C393DA4CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E485DCF9-10CE-4CEE-8C7F-F6C393DA4CC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D} = {0DBFE279-C27C-4BE4-B153-2511A5D1F392}
+		{5388AD49-E340-4F81-9812-B94797461A4C} = {0DBFE279-C27C-4BE4-B153-2511A5D1F392}
+		{E485DCF9-10CE-4CEE-8C7F-F6C393DA4CC6} = {0DBFE279-C27C-4BE4-B153-2511A5D1F392}
 	EndGlobalSection
 EndGlobal

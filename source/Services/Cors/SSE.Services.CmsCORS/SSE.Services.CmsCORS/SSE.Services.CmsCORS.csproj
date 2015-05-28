@@ -358,6 +358,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Api\Api.Core\Api.Core.csproj">
+      <Project>{221b9b75-88b3-4b23-be9c-3649b8ac5da3}</Project>
+      <Name>Api.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Data\NXS.Data.AuthenticationControl\NXS.Data.AuthenticationControl.csproj">
       <Project>{b5f44294-2518-40d7-9b18-93e7a47ee993}</Project>
       <Name>NXS.Data.AuthenticationControl</Name>
@@ -441,6 +445,10 @@
     <ProjectReference Include="..\..\..\..\WebModules\WebModules.AuthControl\WebModules.AuthControl.csproj">
       <Project>{dc40e527-1d22-448e-ac59-25fb5e181e72}</Project>
       <Name>WebModules.AuthControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\WebModules\WebModules.Auth\WebModules.Auth.csproj">
+      <Project>{430c2668-0f92-4561-bd62-c1a3bc6e719d}</Project>
+      <Name>WebModules.Auth</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\WebModules\WebModules.Crm\WebModules.Crm.csproj">
       <Project>{72544965-d17c-4d5c-9361-f27ae1c93b3b}</Project>

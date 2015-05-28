@@ -1,0 +1,26 @@
+﻿{
+  "Comments": "Base Environment",
+  "InheritEnv": null, /* top environment */
+
+  /* CORS Info */
+  "Access-Control-Allow-Credentials": "true",
+  "Access-Control-Allow-Origin": "https://sales.nexsense.com",
+  "Access-Control-Allow-Methods": "GET,POST,DELETE",
+  "Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept",
+  "Access-Control-Expose-Headers": "Content-Length",
+
+  /* Database Info */
+  "ApplicationName": "Nexsense Sales",
+  "DBHost": "",
+  "DBUsername": "",
+  "DBPassword": "",
+  "LogSourceID": "0",
+
+  /* Active Directory Info */
+  "Domain": "CORP.NEXSENSE.COM",
+  "ADPAth": "LDAP://CORP.NEXSENSE.COM",
+  "ADUser": "sosawise",
+  "ADPassword": "NEOvHYvqBJ+VJ1ZK+Q/RIw==",
+  "ADUsersPath": "OU=CORPNEXSENSE,",
+  "MockADGroups": "false",
+}

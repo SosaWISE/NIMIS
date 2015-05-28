@@ -227,6 +227,10 @@ namespace NXS.Data
 		{
 			return _connection.QueryAsync<T>(sql, param as object, _transaction, _commandTimeout, commandType);
 		}
+		public Task<IEnumerable<dynamic>> QueryAsync(string sql, dynamic param = null, CommandType? commandType = null)
+		{
+			return _connection.QueryAsync(sql, param as object, _transaction, _commandTimeout, commandType);
+		}
 
 		//public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "ID", int? commandTimeout = null)
 		//{
@@ -308,10 +312,10 @@ namespace NXS.Data
 		public partial class Table<T, TID> : ITable
 		{
 			protected Database<TDatabase> _database;
-			internal string _name;
-			internal string _pkName;
-			internal string _pkDbType;
-			internal bool _hasIdentity;
+			protected internal string _name;
+			protected internal string _pkName;
+			protected internal string _pkDbType;
+			protected internal bool _hasIdentity;
 			protected readonly string _aliasNoDot;
 			protected readonly string _alias;
 
@@ -366,7 +370,7 @@ namespace NXS.Data
 					return default(TID);
 				}
 			}
-			private string InsertSql(object data)
+			protected virtual string InsertSql(object data)
 			{
 				List<string> paramNames = GetParamNames(data)
 					.Where(name => !_hasIdentity || name != _pkName).ToList();
@@ -475,7 +479,7 @@ namespace NXS.Data
 			//{
 			//	return GetParamNames(o);
 			//}
-			internal static IEnumerable<string> GetParamNames(object o)
+			protected internal static IEnumerable<string> GetParamNames(object o)
 			{
 				if (o is DynamicParameters)
 				{

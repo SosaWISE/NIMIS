@@ -171,13 +171,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NXS.Data.Licensing", "..\..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebModules.AuthControl", "..\..\..\WebModules\WebModules.AuthControl\WebModules.AuthControl.csproj", "{DC40E527-1D22-448E-AC59-25FB5E181E72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOS.FunctionalServices.Tests", "..\..\..\FOS\SOS.FunctionalServices.Tests\SOS.FunctionalServices.Tests.csproj", "{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NXS.Data.HumanResource", "..\..\..\Data\NXS.Data.HumanResource\NXS.Data.HumanResource.csproj", "{18D0EEE1-C805-4C19-A344-5423428DCDA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NXS.DataServices.HumanResource", "..\..\..\DataServices\NXS.DataServices.HumanResource\NXS.DataServices.HumanResource.csproj", "{8F4535C7-D470-4C40-9061-8C6DCC75A550}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebModules.HumanResource", "..\..\..\WebModules\WebModules.HumanResource\WebModules.HumanResource.csproj", "{4A3C5DBF-11AC-4CB0-AC9E-D52CC4FCF7A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Core", "..\..\..\Api\Api.Core\Api.Core.csproj", "{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Core.Tests", "..\..\..\Api\Api.Core.Tests\Api.Core.Tests.csproj", "{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebModules.Auth", "..\..\..\WebModules\WebModules.Auth\WebModules.Auth.csproj", "{430C2668-0F92-4561-BD62-C1A3BC6E719D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1577,26 +1581,6 @@ Global
 		{DC40E527-1D22-448E-AC59-25FB5E181E72}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DC40E527-1D22-448E-AC59-25FB5E181E72}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DC40E527-1D22-448E-AC59-25FB5E181E72}.Release|x86.ActiveCfg = Release|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug (SQL Server Only)|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug (SQL Server Only)|Any CPU.Build.0 = Debug|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug (SQL Server Only)|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug (SQL Server Only)|Mixed Platforms.Build.0 = Debug|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug (SQL Server Only)|x86.ActiveCfg = Debug|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release (SQL Server Only)|Any CPU.ActiveCfg = Release|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release (SQL Server Only)|Any CPU.Build.0 = Release|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release (SQL Server Only)|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release (SQL Server Only)|Mixed Platforms.Build.0 = Release|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release (SQL Server Only)|x86.ActiveCfg = Release|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release|x86.ActiveCfg = Release|Any CPU
 		{18D0EEE1-C805-4C19-A344-5423428DCDA6}.Debug (SQL Server Only)|Any CPU.ActiveCfg = Debug|Any CPU
 		{18D0EEE1-C805-4C19-A344-5423428DCDA6}.Debug (SQL Server Only)|Any CPU.Build.0 = Debug|Any CPU
 		{18D0EEE1-C805-4C19-A344-5423428DCDA6}.Debug (SQL Server Only)|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -1657,6 +1641,66 @@ Global
 		{4A3C5DBF-11AC-4CB0-AC9E-D52CC4FCF7A6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4A3C5DBF-11AC-4CB0-AC9E-D52CC4FCF7A6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4A3C5DBF-11AC-4CB0-AC9E-D52CC4FCF7A6}.Release|x86.ActiveCfg = Release|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Debug (SQL Server Only)|Any CPU.ActiveCfg = Debug|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Debug (SQL Server Only)|Any CPU.Build.0 = Debug|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Debug (SQL Server Only)|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Debug (SQL Server Only)|Mixed Platforms.Build.0 = Debug|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Debug (SQL Server Only)|x86.ActiveCfg = Debug|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Release (SQL Server Only)|Any CPU.ActiveCfg = Release|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Release (SQL Server Only)|Any CPU.Build.0 = Release|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Release (SQL Server Only)|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Release (SQL Server Only)|Mixed Platforms.Build.0 = Release|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Release (SQL Server Only)|x86.ActiveCfg = Release|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3}.Release|x86.ActiveCfg = Release|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug (SQL Server Only)|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug (SQL Server Only)|Any CPU.Build.0 = Debug|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug (SQL Server Only)|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug (SQL Server Only)|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug (SQL Server Only)|x86.ActiveCfg = Debug|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release (SQL Server Only)|Any CPU.ActiveCfg = Release|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release (SQL Server Only)|Any CPU.Build.0 = Release|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release (SQL Server Only)|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release (SQL Server Only)|Mixed Platforms.Build.0 = Release|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release (SQL Server Only)|x86.ActiveCfg = Release|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC}.Release|x86.ActiveCfg = Release|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Debug (SQL Server Only)|Any CPU.ActiveCfg = Debug|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Debug (SQL Server Only)|Any CPU.Build.0 = Debug|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Debug (SQL Server Only)|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Debug (SQL Server Only)|Mixed Platforms.Build.0 = Debug|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Debug (SQL Server Only)|x86.ActiveCfg = Debug|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Release (SQL Server Only)|Any CPU.ActiveCfg = Release|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Release (SQL Server Only)|Any CPU.Build.0 = Release|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Release (SQL Server Only)|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Release (SQL Server Only)|Mixed Platforms.Build.0 = Release|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Release (SQL Server Only)|x86.ActiveCfg = Release|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1732,9 +1776,11 @@ Global
 		{BDE9E58E-9532-4FE7-92A3-459F3B864C9C} = {4DA9D226-5DD0-4245-B2A0-06C6AE1B9ADD}
 		{A6035AA6-47AD-4C14-8911-1982DA86F0E0} = {65C7C29C-3FE0-44CF-BE55-F8CC048269C4}
 		{DC40E527-1D22-448E-AC59-25FB5E181E72} = {EF8F10C4-3665-4433-AA92-959EB85B6FA3}
-		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC} = {EA2D9EC1-D02F-406B-A7D8-886BF11A7A71}
 		{18D0EEE1-C805-4C19-A344-5423428DCDA6} = {65C7C29C-3FE0-44CF-BE55-F8CC048269C4}
 		{8F4535C7-D470-4C40-9061-8C6DCC75A550} = {4DA9D226-5DD0-4245-B2A0-06C6AE1B9ADD}
 		{4A3C5DBF-11AC-4CB0-AC9E-D52CC4FCF7A6} = {EF8F10C4-3665-4433-AA92-959EB85B6FA3}
+		{221B9B75-88B3-4B23-BE9C-3649B8AC5DA3} = {EB994E5F-DF13-4C8D-A96F-767B7B3BB0E8}
+		{7D699FDC-E959-45DA-9B72-9FA59BD5A0FC} = {EB994E5F-DF13-4C8D-A96F-767B7B3BB0E8}
+		{430C2668-0F92-4561-BD62-C1A3BC6E719D} = {EF8F10C4-3665-4433-AA92-959EB85B6FA3}
 	EndGlobalSection
 EndGlobal

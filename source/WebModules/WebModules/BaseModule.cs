@@ -4,7 +4,7 @@ using Nancy.ModelBinding;
 using Nancy.Responses;
 using Nancy.Security;
 using NXS.Lib.Web;
-using SOS.FunctionalServices;
+using NXS.Lib.Web.Authentication;
 using SOS.Lib.Core;
 using System;
 using System.Collections.Generic;
@@ -13,8 +13,10 @@ namespace WebModules
 {
 	public abstract class BaseModule : NancyModule
 	{
-		protected BaseModule(string modulePath)
-			: base("/api" + modulePath)
+		public static IAuthService AuthService { get; set; }
+
+		protected BaseModule(string modulePath, string prefix = "/api")
+			: base(prefix + modulePath)
 		{
 			//this.RequiresHttps();
 			//this.RequiresAuthentication();
@@ -80,7 +82,7 @@ namespace WebModules
 					if (user == null)
 						return false;
 
-					var authService = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
+					var authService = BaseModule.AuthService;// SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
 					return authService.HasPermission(applicationIDs, actionIDs, user.Claims, user.Applications, user.Actions);
 				}, () =>
 				{

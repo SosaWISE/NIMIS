@@ -129,4 +129,33 @@ namespace NXS.Data.AuthenticationControl
 		public int ModifiedBy { get; set; }
 		public DateTime ModifiedOn { get; set; }
 	}
+	public partial class AC_UserSession // AC_UserSessions
+	{
+		public int ID { get; set; }
+		public string SessionKey { get; set; }
+		public string Username { get; set; }
+		public DateTime LastAccessedOn { get; set; }
+		public string IPAddress { get; set; }
+		public bool Terminated { get; set; }
+		public DateTime CreatedOn { get; set; }
+	}
+	public partial class AC_UsersAppAuthenticationView // vwAC_UsersAppAuthentication
+	{
+		public int UserID { get; set; }
+		public int DealerId { get; set; }
+		public int HRUserId { get; set; }
+		public string GPEmployeeID { get; set; }
+		public Guid? SSID { get; set; }
+		public string Username { get; set; }
+		public string Password { get; set; }
+		public string FullName { get; set; }
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+		public int? SessionId { get; set; }
+		public string UserEmployeeTypeID { get; set; }
+		public string UserEmployeeTypeName { get; set; }
+		public byte? SecurityLevel { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+	}
 }

@@ -90,9 +90,6 @@ namespace SonicDb
 				{
 					if (ShouldGenerateTable(tbl.Name))
 					{
-						tbl.LangChanged(lang, TableAlias(tbl.Name, aliasNameCount), this);
-						this.Context.Tables.Add(tbl);
-
 						if (this.Context.EnumTables.Contains(tbl.Name))
 							tbl.Enum = LoadEnumTable(tbl.Name);
 						else
@@ -101,6 +98,9 @@ namespace SonicDb
 							tbl.MetaData = LoadMetaDataTable(tbl.Name);
 						else
 							tbl.MetaData = null;
+
+						tbl.LangChanged(lang, TableAlias(tbl.Name, aliasNameCount), this);
+						this.Context.Tables.Add(tbl);
 					}
 					//else core.Logger.Info("Do not generate", "table", tbl.Name);
 				}

@@ -1,46 +1,7 @@
 ﻿{
-"Comments": "Production Environment", 
-"Access-Control-Allow-Credentials": "true", 
-"Access-Control-Allow-Origin": "http://dev-crm.nexsense.com:8080,http://crm.nexsense.com", 
-"Access-Control-Allow-Methods": "GET,POST,DELETE", 
-"Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept", 
-"Access-Control-Expose-Headers": "Content-Length", 
-"SosCrmConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnNSDtsQ4lTmOfDwxGAB786VClwOTM65KBpBidhk4HvB/6c+z1b9BK7tQ+xvq+R8OMA5mLylX4Vq0F+2zgR8Avoy/n3/100C0gypyyrps5KAcPD8FIe7hqt/iVzXSZzzeL", 
-"SosAuthControlConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnNSDtsQ4lTmORWQXSQVAzeBN5kULrTg+Q5lRC8rCutyCr5FKAhdTSVf4aYSAfSmEIadztZv0tlgJlNICNVFUk5HLevGEnssmiRzDB372N10oKTJ+RP4CKxOOZJJ0Q+RzWGgUJSwIYCZFZsDwNPYTx9A==", 
-"SosLoggingConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnNSDtsQ4lTmOVoyvgrvJkLOwtJdaM71eAMiG3bQWEbWGIuCyOp7DhJq3/AY2cHS5ROKfezVUSxJ5GDOSTWggqmdtGkNkfb8D24GTGRnvDJaZGMl5CDPoJ9CO0mtNQ08pJ", 
-"SosReceiverEngineConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnNSDtsQ4lTmO/oo/ziyaGzbtT6u09wFdlFWNSjm82ibXVgaqnILCBMaQZfhBO/pSNEkeW2jkhLV+YUkmikPn38NUZIiv9t9P5LDC0bhHKrf+3FoYXm/oxNmTkkyOwtH42fhnVYXFhLeo=", 
-"SosHumanResourceConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnNSDtsQ4lTmNwdAprrH95eb4Zp57rtvNqq+RSgIXU0lX+GmEgH0phCGnc7Wb9LZYCZTSAjVRVJORy3rxhJ7LJokcwwd+9jddKCkyfkT+AisTjmSSdEPkc1hoFCUsCGAmRWbA8DT2E8fQ=", 
-"SosGpsTrackingConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnNSDtsQ4lTmNHlOPajcVdcijwU8xqf0a/UKXA5MzrkoGkGJ2GTge8H/pz7PVv0Eru1D7G+r5Hw4wDmYvKVfhWrQX7bOBHwC+jL+ff/XTQLSDKnLKumzkoBw8PwUh7uGq3+JXNdJnPN4s=", 
-"SseSurveyEngineConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnNSDtsQ4lTmPSqTRKJdDM7vlY1PQMIS/JA+x0QnmJM5M3QdBf/zarXniO2mlxtthRcjeHDxBFWdcL3ML7kzEX50cwwd+9jddKCkyfkT+AisTm7FNQrMwD30beb26fVRTM8BN1kdDD+tA=", 
-"LogSourceID": "1", 
-"FileSourceID": "1", 
-"AddressVerification_Vendor": "t2uPD+cM1piMZDnde5NW4A==", /* STRIKEIRON*/ 
-"AddressVerification_Vendor_INTELSEARCH": "9sIcpiMfQoP/0IAiTithSQ==", /* INTELSEARCH*/ 
-"AddressVerification_Vendor_SMARTYSTREET": "0sAzPr0GGJ6Bt8gtPK7XjA==", /* SMARTYSTREET*/ 
-"AddressVerification_StrikeIronUID": "7lLZp3OchcPxabVbbv3cRs61H13mrlsup5dQtae5qF0=", /* securitysciences@strikeiron.com*/ 
-"AddressVerification_StrikeIronPWD": "C6brkmti0N3FvoA+yvqjWw==", /* SStrial13 | strikeiron1*/ 
-"AddressVerification_StrikeIronKEY": "l2CUncax9svpN5FW6rDIjFBNIPF8qrfE", /* 96E912892990585CE7A3 */
-"AddressVerification_IntelligentSearchUID": "f/oXEJYSDzc=", /* andres*/ 
-"AddressVerification_IntelligentSearchPWD": "TKQ/unUQnjp+GdVhcWEt6g==", /* Toys*/ 
-"AddressVerification_IntelligentSearchFilePath": "jbiFEouTrIpCAGafw8MM9iAcKj9IijYAla9aOuc1R8rORknU7bz6ww==", /* C:\SOP\IntelligentSearch\{0}_{1}.Txt*/ 
-"AddressVerification_SmartyStreetApiUrl": "BWkvNVtYYSULWkPN/ojaLpJkv3eZMmnfdEkIBZHHjJBw0wT6l11RxCttFrvW5rh+", /* https://api.smartystreets.com/street-address/*/ 
-"AddressVerification_SmartySAuthID": "Sl2BQ3YQs8sj8L3u3/U6OUCm6FQS89vAuz5jxDrfn2IQcJ+zNSY8Sg==", /* 5d6e79cf-3a64-41c8-8ffe-a27a26b969d5*/ 
-"AddressVerification_SmartySAuthToken": "VtfqHtePcJZp4BLtNcTv5bOMrgUKKsOUjZVzvne1L4EdQFwpRYlmql0ygCitEj+OzmK9th7svqgQbosnBE+PCrdaxNh7PLgXR1rCkTeSV3MPApqeAn9c76K7JU65EWbW0Xo80W8s5+4=", /* SZ9YPawdz%2BL4ChFce25lP9w7UISP1CISVkbvKWEFFOVnkEnaEltToZursOX2f34UU%2FvLKBIj%2BKUNBPuqJ7TuzA%3D%3D*/ 
-"RU_UserImageLocal": "//sse.somwhere.com/ruuserimage/", 
-"ImagePath_LoremPixelUse": "true", 
-"ImagePath_LoremPixelURL_People": "//lorempixel.com/{WIDTH}/{HEIGHT}/people/", 
-"ImagePath_Avatars": "//{DOMAIN}{PORT}/images/Avatar/{UserID}_{WIDTH}x{HEIGHT}.png", 
-"CreditReport_Vendor": "jYGNXsyz8Eo=", /* ABARA*/ 
-"CreditReport_Vendor_MICROBILT": "/h2Ny1TwHl1GBVfw3nmONA==", /* MICROBILT*/ 
-"CreditReport_Vendor_ABARA_Mock_FALSE": "Something", 
-"CreditReport_Vendor_ABARA_TU_ENDPOINT": "BWkvNVtYYSV2z2Sapl3WB7Mr44nZ896Bh/6+zU5bshPs+fKhFaEMzJ/jHSflalHL/OplpnW+UvA=", /* https://blinkws.abarasoftware.com/TU/TransUnionWS.asmx */
-"CreditReport_Vendor_ABARA_EQ_ENDPOINT": "BWkvNVtYYSV2z2Sapl3WB7Mr44nZ896Bh/6+zU5bshMysAUMJlEqkXR0Kfsi6TJsUaKCKJHjayc=", /* https://blinkws.abarasoftware.com/EQ/EquifaxWS.asmx */
-"CreditReport_Vendor_ABARA_EX_ENDPOINT": "BWkvNVtYYSV2z2Sapl3WB7Mr44nZ896Bh/6+zU5bshNoN6auySwpSA4Pz+SrMCaWz2zDoc5G7RM=", /* https://blinkws.abarasoftware.com/EX/ExperianWS.asmx */
-"CreditReport_Vendor_ABARA_WIN_UID": "", 
-"CreditReport_Vendor_ABARA_WIN_PWD": "", 
-"CreditReport_Vendor_ABARA_CRP_UID": "x0pB5s8CNiQSE+RF3Nytcg==", /* hqRezp85AVZ */
-"CreditReport_Vendor_ABARA_CRP_PWD": "DOlvaoTDB2XfruX0JwSDYQ==", /* b7q5XuJQNHm */
-"CreditService_BureauListOrder": "TU", 
-"MN_USERNAME": "vMQzZrgdJjBni7jb/df0/Q==", /* wsi_828070003*/ 
-"MN_PASSWORD": "7Z6P30znRDZ+GdVhcWEt6g==", /* password*/ 
+  "Comments": "Production Environment",
+  "InheritEnv": "base", /* Inherit from base environment */
+
+  /* CORS Info */
+  "Access-Control-Allow-Origin": "https://crm.nexsense.com,http://dev-crm.nexsense.com:8080,https://dev-crm.nexsense.com:8443",
 }

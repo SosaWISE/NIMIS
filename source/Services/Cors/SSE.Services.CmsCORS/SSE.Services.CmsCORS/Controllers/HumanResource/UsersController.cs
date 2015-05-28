@@ -12,6 +12,7 @@ using AuthApplications = SOS.Data.AuthenticationControl.AC_Application.MetaData;
 using FnsRuUser = SOS.FunctionalServices.Models.FnsRuUser;
 using System.Net.Http;
 using SOS.Lib.Core;
+using Api.Core;
 
 namespace SSE.Services.CmsCORS.Controllers.HumanResource
 {
@@ -43,6 +44,13 @@ namespace SSE.Services.CmsCORS.Controllers.HumanResource
 
 				var service = SosServiceEngine.Instance.FunctionalServices.Instance<IHumanResourceService>();
 				var fnsResult = service.UserSave(fnsUser, user.GPEmployeeID, user.UserID);
+				if (fnsResult.Code == 0)
+				{
+					// remove user from cache
+					var authService = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
+					authService.RemoveCachedUser(fnsUser.UserName);
+				}
+
 				return result.FromFnsResult(fnsResult);
 			});
 		}
