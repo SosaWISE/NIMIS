@@ -5,23 +5,12 @@ using NXS.Lib.Web;
 using NXS.Lib.Web.Caching;
 using System.Linq;
 using System.Collections.Generic;
+using NXS.Lib.Web.Authentication;
 
 namespace System.Web
 {
 	public static class HttpContextExtensions
 	{
-		//@HACK: to get the username and session num from a token
-		private class LiteUserIdentityResolver : IUserIdentityResolver
-		{
-			public string UserName;
-			public AuthInformation AuthInfo;
-			public IUserIdentity GetUser(string userName, IEnumerable<string> claims, NancyContext context)
-			{
-				UserName = userName;
-				AuthInfo = SystemUserIdentity.AuthInfoFromClaims(claims);
-				return null;
-			}
-		}
 		public static bool GetSessionData(this HttpContext context, ITokenizer tokenizer, out string token, out string username, out AuthInformation authInfo)
 		{
 			token = context.ExtractTokenFromHeader();
@@ -32,7 +21,7 @@ namespace System.Web
 				return false;
 			}
 
-			var sessionNumResolver = new LiteUserIdentityResolver();
+			var sessionNumResolver = new SessionDataIdentityResolver();
 			tokenizer.Detokenize(token, context: null, userIdentityResolver: sessionNumResolver);
 			username = sessionNumResolver.UserName;
 			authInfo = sessionNumResolver.AuthInfo;

@@ -1,7 +1,6 @@
 /********************  HEADER  ********************
-Bonuses get applied for:
-	Increasing the RMR and staying within the range
-	Selling equipment to the customer	--MOVED TO STEP003
+STEP004: Calculate weekly volume per rep and their Base commission payout
+
 */
 USE [NXSE_Commissions]
 GO

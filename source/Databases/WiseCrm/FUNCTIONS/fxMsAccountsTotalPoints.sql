@@ -35,13 +35,17 @@ GO
 **	Date:		Author:			Description:
 **	-----------	---------------	-------------------------------------------
 **	04/08/2015	Andrés E. Sosa	Created By
+**	05/21/2015	Peter Fry		Changed return type to be a decimal (5,2)
+**	05/26/2015	Peter Fry		We were sum-ing off the points column which is 
+**								an int, changed it to run from the ActualPoints
+**								column which has the correct data type
 **	
 *******************************************************************************/
 CREATE FUNCTION dbo.fxMsAccountsTotalPoints
 (
 	@AccountID BIGINT
 )
-RETURNS INT
+RETURNS DECIMAL (5,2)
 AS
 BEGIN
 	/** Declarations */
@@ -49,7 +53,7 @@ BEGIN
 
 	/** Execute actions. */
 	SELECT 
-		@TotalPoints = SUM(MSAE.Points) 
+		@TotalPoints = SUM(MSAE.ActualPoints) 
 	FROM 
 		[dbo].[MS_AccountEquipment] AS MSAE WITH (NOLOCK)
 		INNER JOIN [dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
@@ -80,7 +84,7 @@ GO
 
 
 /***/
-DECLARE @AccountID BIGINT = 191233;
+DECLARE @AccountID BIGINT = 191237;
 SELECT dbo.fxMsAccountsTotalPoints(@AccountID)
 	SELECT 
 		AEII.InvoiceItemId

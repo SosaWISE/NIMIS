@@ -42,6 +42,12 @@ DELETE dbo.SC_WorkAccounts;
 DELETE dbo.SC_WorkAccountsHistory;
 DBCC CHECKIDENT ('[dbo].[SC_WorkAccountsHistory]', RESEED, 1);
 
+DELETE dbo.SC_ICMultipleDetails
+DBCC CHECKIDENT ('[dbo].[SC_ICMultipleDetails]', RESEED, 0);
+
+DELETE dbo.SC_ICMultiples;
+DBCC CHECKIDENT ('[dbo].[SC_ICMultiples]', RESEED, 0);
+
 DELETE dbo.SC_WorkAccountsAll;
 DBCC CHECKIDENT ('[dbo].[SC_WorkAccountsAll]', RESEED, 0);
 

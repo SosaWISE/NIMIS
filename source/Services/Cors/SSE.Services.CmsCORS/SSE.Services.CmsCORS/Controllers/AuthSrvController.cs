@@ -1,22 +1,24 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.Http;
+﻿using Api.Core;
+using Nancy;
+using Nancy.Authentication.Token;
+using Nancy.Security;
+using NXS.Lib.Web;
+using NXS.Lib.Web.Authentication;
+using NXS.Lib.Web.Caching;
 using SOS.FunctionalServices;
 using SOS.FunctionalServices.Contracts;
 using SOS.FunctionalServices.Contracts.Helper;
 using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.Data;
+using SOS.Lib.Core;
 using SOS.Services.Interfaces.Models;
 using SSE.Services.CmsCORS.Helpers;
 using SSE.Services.CmsCORS.Models;
-using SOS.Lib.Core;
-using NXS.Lib.Web;
-using NXS.Lib.Web.Caching;
-using Nancy.Authentication.Token;
-using Nancy.Security;
-using Nancy;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Http;
 
 namespace SSE.Services.CmsCORS.Controllers
 {
@@ -29,6 +31,156 @@ namespace SSE.Services.CmsCORS.Controllers
 		{
 			_tokenConfig = SosServiceEngine.Instance.FunctionalServices.Instance<TokenAuthenticationConfiguration>();
 			_authService = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
+		}
+
+		[HttpGet, Route("TestWebConfig")]
+		public bool TestWebConfig()
+		{
+			#region UniqueKeys
+			var uniqueKeys = new HashSet<string>(new string[]{
+				"Comments",
+				"Access-Control-Allow-Credentials",
+				"Access-Control-Allow-Origin",
+				"Access-Control-Allow-Methods",
+				"Access-Control-Allow-Headers",
+				"Access-Control-Expose-Headers",
+				"SosCrmConnString",
+				"SosAuthControlConnString",
+				"SosLoggingConnString",
+				"SosReceiverEngineConnString",
+				"SosHumanResourceConnString",
+				"SosGpsTrackingConnString",
+				"SseSurveyEngineConnString",
+				"NxsFundingConnString",
+				"NxsLicensingConnString",
+				"LogSourceID",
+				"FileSourceID",
+				"AddressVerification_Vendor",
+				"AddressVerification_Vendor_INTELSEARCH",
+				"AddressVerification_Vendor_SMARTYSTREET",
+				"AddressVerification_StrikeIronUID",
+				"AddressVerification_StrikeIronPWD",
+				"AddressVerification_StrikeIronKEY",
+				"AddressVerification_IntelligentSearchUID",
+				"AddressVerification_IntelligentSearchPWD",
+				"AddressVerification_IntelligentSearchFilePath",
+				"AddressVerification_SmartyStreetApiUrl",
+				"AddressVerification_SmartySAuthID",
+				"AddressVerification_SmartySAuthToken",
+				"RU_UserImageLocal",
+				"ImagePath_LoremPixelUse",
+				"ImagePath_LoremPixelURL_People",
+				"ImagePath_Avatars",
+				"CreditReport_Vendor",
+				"CreditReport_Vendor_MICROBILT",
+				"CreditReport_Vendor_HART",
+				"CreditReport_Vendor_ABARA_TU_ENDPOINT",
+				"CreditReport_Vendor_ABARA_EQ_ENDPOINT",
+				"CreditReport_Vendor_ABARA_EX_ENDPOINT",
+				"CreditReport_Vendor_ABARA_CRP_UID",
+				"CreditReport_Vendor_ABARA_CRP_PWD",
+				"CreditReport_Vendor_ABARA_WIN_UID",
+				"CreditReport_Vendor_ABARA_WIN_PWD",
+				"CreditReport_Vendor_ABARA_Mock_FALSE",
+				"CreditReport_Vendor_HART_ENDPOINT",
+				"CreditReport_Vendor_HART_CRP_UID",
+				"CreditReport_Vendor_HART_CRP_PWD",
+				"CreditService_BureauListOrder",
+				"AG_USERNAME",
+				"AG_PASSWORD",
+				"AG_GATEWAY_ENDPNT",
+				"Domain",
+				"ADPAth",
+				"ADUser",
+				"ADPassword",
+				"ADUsersPath",
+				"MN_USERNAME",
+				"MN_PASSWORD",
+				"Comments",
+				"MockADGroups",
+				"Access-Control-Allow-Credentials",
+				"Access-Control-Allow-Origin",
+				"Access-Control-Allow-Methods",
+				"Access-Control-Allow-Headers",
+				"Access-Control-Expose-Headers",
+				"SosCrmConnString",
+				"SosAuthControlConnString",
+				"SosLoggingConnString",
+				"SosReceiverEngineConnString",
+				"SosHumanResourceConnString",
+				"SosGpsTrackingConnString",
+				"SseSurveyEngineConnString",
+				"NxsFundingConnString",
+				"NxsLicensingConnString",
+				"LogSourceID",
+				"FileSourceID",
+				"AddressVerification_Vendor",
+				"AddressVerification_Vendor_INTELSEARCH",
+				"AddressVerification_Vendor_SMARTYSTREET",
+				"AddressVerification_StrikeIronUID",
+				"AddressVerification_StrikeIronPWD",
+				"AddressVerification_StrikeIronKEY",
+				"AddressVerification_IntelligentSearchUID",
+				"AddressVerification_IntelligentSearchPWD",
+				"AddressVerification_IntelligentSearchFilePath",
+				"AddressVerification_SmartyStreetApiUrl",
+				"AddressVerification_SmartySAuthID",
+				"AddressVerification_SmartySAuthToken",
+				"RU_UserImageLocal",
+				"ImagePath_LoremPixelUse",
+				"ImagePath_LoremPixelURL_People",
+				"ImagePath_Avatars",
+				"CreditReport_Vendor_ABARA",
+				"CreditReport_Vendor",
+				"CreditReport_Vendor_ABARA_TU_ENDPOINT",
+				"CreditReport_Vendor_ABARA_EQ_ENDPOINT",
+				"CreditReport_Vendor_ABARA_EX_ENDPOINT",
+				"CreditReport_Vendor_ABARA_CRP_UID",
+				"CreditReport_Vendor_ABARA_CRP_PWD",
+				"CreditReport_Vendor_ABARA_WIN_UID",
+				"CreditReport_Vendor_ABARA_WIN_PWD",
+				"CreditReport_Vendor_ABARA_Mock_FALSE",
+				"CreditReport_Vendor_HART_ENDPOINT",
+				"CreditReport_Vendor_HART_CRP_UID",
+				"CreditReport_Vendor_HART_CRP_PWD",
+				"CreditReport_Vendor_ABARA_TU_ENDPOINT",
+				"CreditReport_Vendor_ABARA_EQ_ENDPOINT",
+				"CreditReport_Vendor_ABARA_EX_ENDPOINT",
+				"CreditReport_Vendor_ABARA_CRP_UID",
+				"CreditReport_Vendor_ABARA_CRP_PWD",
+				"CreditReport_Vendor_ABARA_WIN_UID",
+				"CreditReport_Vendor_ABARA_WIN_PWD",
+				"CreditReport_Vendor_ABARA_Mock_FALSE",
+				"CreditService_BureauListOrder",
+				"AG_USERNAME",
+				"AG_PASSWORD",
+				"AG_GATEWAY_ENDPNT",
+				"Domain",
+				"ADPAth",
+				"ADUser",
+				"ADPassword",
+				"ADUsersPath",
+				"MN_USERNAME",
+				"MN_PASSWORD"
+			});
+			#endregion //UniqueKeys
+
+			var current = SOS.Lib.Util.Configuration.ConfigurationSettings.Current;
+			foreach (var key in uniqueKeys)
+			{
+				var val = current.GetConfig(key);
+				var decryptedVal = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(val, null);
+				// if decryption failed, use original in value
+				val = decryptedVal.StartsWith("Error: ") ? val : decryptedVal;
+
+				var newVal = WebConfig.Instance.GetConfig(key);
+				if (val != newVal)
+				{
+					int t = 0;
+				}
+			}
+
+			return true;
 		}
 
 #if DEBUG

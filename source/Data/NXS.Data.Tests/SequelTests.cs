@@ -428,6 +428,51 @@ WHERE
 
 
 
+		public Sequel GetSubquerySql(bool prettyPrint)
+		{
+			var db = Db1.Init(null);
+			var t = new Db1.Table<object, int>(db, "T", "[dbo].[Table]");
+			return Sequel.NewSelect(prettyPrint,
+				"T.*"
+			).From(t)
+			.Where("T.ParentId", Comparison.In, (s) =>
+			{
+				s.Select("T.ID").From(t);
+			})
+			.And("T.ParentId", Comparison.NotIn, (s) =>
+			{
+				s.Select("T.ID").From(t);
+			});
+		}
+		[Fact]
+		public void Test_Subquery_With_PrettyPrint()
+		{
+			var qry = GetSubquerySql(true);
+			Assert.Equal(
+@"SELECT
+	T.*
+FROM [dbo].[Table] AS T
+WHERE
+	(T.ParentId IN (
+		SELECT
+			T.ID
+		FROM [dbo].[Table] AS T
+	))
+	AND (T.ParentId NOT IN (
+		SELECT
+			T.ID
+		FROM [dbo].[Table] AS T
+	))", qry.Sql);
+		}
+		[Fact]
+		public void Test_Subquery_No_PrettyPrint()
+		{
+			var qry = GetSubquerySql(false);
+			Assert.Equal(@"SELECT T.* FROM [dbo].[Table] AS T WHERE (T.ParentId IN (SELECT T.ID FROM [dbo].[Table] AS T)) AND (T.ParentId NOT IN (SELECT T.ID FROM [dbo].[Table] AS T))", qry.Sql);
+		}
+
+
+
 		public partial class Table3asfd
 		{
 			//#region .ctors and Default Settings

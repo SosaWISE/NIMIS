@@ -227,15 +227,21 @@ namespace NXS.Data
 			if (_prettyPrint) _builder.Newline().Indent(_depth); else _builder.Append(" ");
 			return this.InternalCompare(column, comparison, value, literalText);
 		}
-		protected Sequel InternalCompare(string column, Comparison comparison, object value, bool literalText)
-		{
-			Console.WriteLine("InternalCompare: {0}, {1}", value, value is String);
 
-			_builder.Append("(");
-			_builder.Append(column);
-			_builder.Append(GetComparisonOperator(comparison));
+		private void AppendParam(Comparison comparison, object value, bool literalText)
+		{
 			if (literalText)
 				_builder.Append(value);
+			else if (value is Action<Sequel>)
+			{
+				_depth += 2;
+				_builder.Append("(");
+				(value as Action<Sequel>)(this);
+				_depth -= 1;
+				if (_prettyPrint) _builder.Newline().Indent(_depth - 1);
+				_builder.Append(")");
+				_depth -= 1;
+			}
 			else if ((comparison == Comparison.In || comparison == Comparison.NotIn) && (value is System.Collections.IEnumerable))
 			{
 				_builder.Append("(");
@@ -267,15 +273,43 @@ namespace NXS.Data
 			}
 			else
 				this.NextParam(value);
+		}
+		
+		protected Sequel InternalCompare(string column, Comparison comparison, object value, bool literalText)
+		{
+			Console.WriteLine("InternalCompare: {0}, {1}", value, value is String);
+
+			_builder.Append("(");
+			_builder.Append(column);
+			_builder.Append(GetComparisonOperator(comparison));
+			AppendParam(comparison, value, literalText);
 			_builder.Append(")");
 			return this;
-		}
-		public Sequel Compare(string column, Comparison comparison, object value, bool literalText = false)
+		}public Sequel Compare(string column, Comparison comparison, object value, bool literalText = false)
 		{
 			if (_prettyPrint) _builder.Newline().Indent(_depth);
 			return this.InternalCompare(column, comparison, value, literalText);
 		}
 
+		protected Sequel InternalCompare(object left, Comparison comparison, object right)
+		{
+			_builder.Append("(");
+			AppendParam(comparison, left, false);
+			_builder.Append(GetComparisonOperator(comparison));
+			AppendParam(comparison, right, false);
+			_builder.Append(")");
+			return this;
+		}
+		public Sequel Compare(object left, Comparison comparison, object right)
+		{
+			if (_prettyPrint) _builder.Newline().Indent(_depth);
+			return this.InternalCompare(left, comparison, right);
+		}
+
+		public Sequel Where(string column, Comparison comparison, Action<Sequel> a)
+		{
+			return Where(column, comparison, (object)a);
+		}
 		public Sequel Where(string column, Comparison comparison, object value, bool literalText = false)
 		{
 			if (_prettyPrint) _builder.Newline().Indent(_depth - 1); else _builder.Append(" ");
@@ -283,12 +317,17 @@ namespace NXS.Data
 			if (_prettyPrint) _builder.Newline().Indent(_depth); else _builder.Append(" ");
 			return this.InternalCompare(column, comparison, value, literalText);
 		}
-		public Sequel WhereActiveAndNotDeleted()
+		public Sequel WhereActiveAndNotDeleted(string tableAlias = null)
 		{
-			return this.Where("IsActive", Comparison.Equals, true)
-				.And("IsDeleted", Comparison.Equals, false);
+			var prefix = string.IsNullOrEmpty(tableAlias) ? "" : tableAlias + ".";
+			return this.Where(prefix + "IsActive", Comparison.Equals, true)
+				.And(prefix + "IsDeleted", Comparison.Equals, false);
 		}
 
+		public Sequel And(string column, Comparison comparison, Action<Sequel> a)
+		{
+			return And(column, comparison, (object)a);
+		}
 		public Sequel And(string column, Comparison comparison, object value, bool literalText = false)
 		{
 			if (_prettyPrint) _builder.Newline().Indent(_depth); else _builder.Append(" ");

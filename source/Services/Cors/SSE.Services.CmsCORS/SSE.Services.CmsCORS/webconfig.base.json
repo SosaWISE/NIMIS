@@ -1,0 +1,78 @@
+﻿{
+  "Comments": "Base Environment",
+  "InheritEnv": null, /* top environment */
+  
+  /* CORS Info */
+  "Access-Control-Allow-Credentials": "true",
+  "Access-Control-Allow-Origin": "https://crm.nexsense.com",
+  "Access-Control-Allow-Methods": "GET,POST,DELETE",
+  "Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,Authorization",
+  "Access-Control-Expose-Headers": "Content-Length",
+  
+  /* Database Info */
+  "ApplicationName": "Nexsense Sales",
+  "DBHost": "",
+  "DBUsername": "",
+  "DBPassword": "",
+  "LogSourceID": "",
+  "FileSourceID": "1",
+  /* Old Database Info */
+  "SosCrmConnString": "",
+  "SosAuthControlConnString": "",
+  "SosLoggingConnString": "",
+  "SosReceiverEngineConnString": "",
+  "SosHumanResourceConnString": "",
+  "SosGpsTrackingConnString": "",
+  "SseSurveyEngineConnString": "",
+  "NxsFundingConnString": "",
+  "NxsLicensingConnString": "",
+
+  /* Active Directory Info */
+  "Domain": "CORP.NEXSENSE.COM",
+  "ADPAth": "LDAP://CORP.NEXSENSE.COM",
+  "ADUser": "sosawise",
+  "ADPassword": "NEOvHYvqBJ+VJ1ZK+Q/RIw==",
+  "ADUsersPath": "OU=CORPNEXSENSE,",
+  "MockADGroups": "false",
+  
+  /* Address Validation */
+  "AddressVerification_Vendor": "STRIKEIRON", /* STRIKEIRON, INTELSEARCH, SMARTYSTREET */
+  "AddressVerification_StrikeIronUID": "securitysciences@strikeiron.com",
+  "AddressVerification_StrikeIronPWD": "C6brkmti0N3FvoA+yvqjWw==",
+  "AddressVerification_StrikeIronKEY": "l2CUncax9svpN5FW6rDIjFBNIPF8qrfE",
+  "AddressVerification_IntelligentSearchUID": "andres",
+  "AddressVerification_IntelligentSearchPWD": "TKQ/unUQnjp+GdVhcWEt6g==",
+  "AddressVerification_IntelligentSearchFilePath": "C:\\SOP\\IntelligentSearch\\{0}_{1}.Txt",
+  "AddressVerification_SmartyStreetApiUrl": "https://api.smartystreets.com/street-address/",
+  "AddressVerification_SmartySAuthID": "",
+  "AddressVerification_SmartySAuthToken": "",
+
+  /**/
+  "RU_UserImageLocal": "//sse.somwhere.com/ruuserimage/",
+  "ImagePath_LoremPixelUse": "true",
+  "ImagePath_LoremPixelURL_People": "//lorempixel.com/{WIDTH}/{HEIGHT}/people/",
+  "ImagePath_Avatars": "//{DOMAIN}{PORT}/images/Avatar/{UserID}_{WIDTH}x{HEIGHT}.png",
+
+  /* Credit Report */
+  "CreditReport_Vendor": "ABARA", /* ABARA, MICROBILT, HART */
+  "CreditReport_Vendor_ABARA_TU_ENDPOINT": "https://blinkws.abarasoftware.com/TU/TransUnionWS.asmx",
+  "CreditReport_Vendor_ABARA_EQ_ENDPOINT": "https://blinkws.abarasoftware.com/EQ/EquifaxWS.asmx",
+  "CreditReport_Vendor_ABARA_EX_ENDPOINT": "https://blinkws.abarasoftware.com/EX/ExperianWS.asmx",
+  "CreditReport_Vendor_ABARA_CRP_UID": "Xrt1KjwCU8",
+  "CreditReport_Vendor_ABARA_CRP_PWD": "k1ZpbI43o3oDamQR08Gr/A==",
+  "CreditReport_Vendor_ABARA_WIN_UID": "blinkws_user2",
+  "CreditReport_Vendor_ABARA_WIN_PWD": "lsIEa8+TYGiocmZBM1ugAm2VQ9aZJkXq",
+  "CreditReport_Vendor_ABARA_Mock_FALSE": "Something",
+  "CreditReport_Vendor_HART_ENDPOINT": "BWkvNVtYYSUoD8tzNwv7thVkY1rAAinUqBjl3dH77Zu3lYF8W1RdlhIR4rd14caTfhnVYXFhLeo=",
+  "CreditReport_Vendor_HART_ENDPOINT": "https://www.creditsystem.com/cgi-bin/pccreditxml",
+  "CreditReport_Vendor_HART_CRP_UID": "Nexsense17",
+  "CreditReport_Vendor_HART_CRP_PWD": "/j8PZqgF+aB+GdVhcWEt6g==",
+  "CreditService_BureauListOrder": "TU",
+
+  /* Monitoring */
+  "AG_USERNAME": "",
+  "AG_PASSWORD": "",
+  "AG_GATEWAY_ENDPNT": "",
+  "MN_USERNAME": "",
+  "MN_PASSWORD": "",
+}

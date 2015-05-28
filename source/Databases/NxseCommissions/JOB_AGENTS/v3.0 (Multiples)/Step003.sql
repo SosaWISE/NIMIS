@@ -40,7 +40,7 @@ DECLARE @MMRAdjustmentID VARCHAR(20)
 /*
 	THE FOLLOWING SECTION IS COMMENTED OUT FOR THE FOLLOWING REASONS.
 	1. We are looking at the account equipment to determine the individual MMR Adjustments based off what is actually installed
-	2. If there are parts in the package that we not used if we go by the package we might be penalizing the salesrep when we didn't need to
+	2. If there are parts in the package that were not used if we go by the package we might be penalizing the salesrep when we didn't need to
 		i.e. HomeSense (-14.50) but if we don't do a thermostat we shouldn't adjust the MMR for something that's not there.
 */
 
@@ -162,7 +162,7 @@ PRINT '************************************/';
 SET @MMRAdjustmentID = 'Cellular';
 SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 
--- Create entry for all accounts with contract length less than 60
+-- Create entry for all accounts with a cellular unit
 INSERT INTO dbo.SC_ICEffectiveMMRDetails (
 	WorkAccountId
 	, CommissionPeriodId
@@ -192,7 +192,7 @@ PRINT '********************************/';
 SET @MMRAdjustmentID = 'Camera';
 SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 
--- Create entry for all accounts with contract length less than 60
+-- Create entry for all accounts with at least one Camera or Image Sensor
 INSERT INTO dbo.SC_ICEffectiveMMRDetails (
 	WorkAccountId
 	, CommissionPeriodId
@@ -222,7 +222,7 @@ PRINT '****************************************/';
 SET @MMRAdjustmentID = 'LightControl';
 SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 
--- Create entry for all accounts with contract length less than 60
+-- Create entry for all accounts with at least one lighting device
 INSERT INTO dbo.SC_ICEffectiveMMRDetails (
 	WorkAccountId
 	, CommissionPeriodId
@@ -252,7 +252,7 @@ PRINT '************************************/';
 SET @MMRAdjustmentID = 'LockControl';
 SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 
--- Create entry for all accounts with contract length less than 60
+-- Create entry for all accounts with at least one lock
 INSERT INTO dbo.SC_ICEffectiveMMRDetails (
 	WorkAccountId
 	, CommissionPeriodId
@@ -282,7 +282,7 @@ PRINT '********************************************/';
 SET @MMRAdjustmentID = 'ThermostatControl';
 SELECT @AdjustmentAmount = (-1) * AdjustmentAmount FROM [dbo].[SC_MMRAdjustments] WHERE (MMRAdjustmentID = @MMRAdjustmentID);
 
--- Create entry for all accounts with contract length less than 60
+-- Create entry for all accounts with at least one thermostat
 INSERT INTO dbo.SC_ICEffectiveMMRDetails (
 	WorkAccountId
 	, CommissionPeriodId
@@ -363,7 +363,7 @@ PRINT '***	Summarize the details				 ***';
 PRINT '*********************************************'
 DECLARE @WorkAccountId BIGINT
 	, @WorkAccountAdjustmentID BIGINT
-	, @SummAdjustment MONEY;
+	, @SumAdjustment MONEY;
 DECLARE summaryCur CURSOR FOR
 SELECT
 	SCIC.WorkAccountId
@@ -378,7 +378,7 @@ GROUP BY
 OPEN summaryCur;
 FETCH NEXT FROM summaryCur INTO
 	@WorkAccountId
-	, @SummAdjustment;
+	, @SumAdjustment;
 WHILE (@@FETCH_STATUS = 0)
 BEGIN
 	INSERT INTO dbo.SC_ICEffectiveMMR (
@@ -388,12 +388,12 @@ BEGIN
 	) VALUES (
 		@WorkAccountId -- bigint
 		, @CommissionPeriodId -- money
-		, @SummAdjustment -- money
+		, @SumAdjustment -- money
 	);
 
 	FETCH NEXT FROM summaryCur INTO
 		@WorkAccountId
-		, @SummAdjustment;
+		, @SumAdjustment;
 END
 
 CLOSE summaryCur;

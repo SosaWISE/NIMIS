@@ -76018,6 +76018,8 @@ namespace SOS.Data.HumanResource
 		[DataContract]
 		public enum PayscaleEnum : int
 		{
+			[EnumMember()] Dealer_Pay = 1,
+			[EnumMember()] Independent_Contractor_Pay = 2,
 		}
 
 		//[DataMember]
@@ -76085,7 +76087,7 @@ namespace SOS.Data.HumanResource
 				TableSchema.TableColumn colvarName = new TableSchema.TableColumn(schema);
 				colvarName.ColumnName = "Name";
 				colvarName.DataType = DbType.String;
-				colvarName.MaxLength = 20;
+				colvarName.MaxLength = 60;
 				colvarName.AutoIncrement = false;
 				colvarName.IsNullable = true;
 				colvarName.IsPrimaryKey = false;
@@ -87421,6 +87423,32 @@ namespace SOS.Data.HumanResource
 				colvarIsYearRound.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarIsYearRound);
 
+				TableSchema.TableColumn colvarIsContractor = new TableSchema.TableColumn(schema);
+				colvarIsContractor.ColumnName = "IsContractor";
+				colvarIsContractor.DataType = DbType.Boolean;
+				colvarIsContractor.MaxLength = 0;
+				colvarIsContractor.AutoIncrement = false;
+				colvarIsContractor.IsNullable = false;
+				colvarIsContractor.IsPrimaryKey = false;
+				colvarIsContractor.IsForeignKey = false;
+				colvarIsContractor.IsReadOnly = false;
+				colvarIsContractor.DefaultSetting = @"((0))";
+				colvarIsContractor.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarIsContractor);
+
+				TableSchema.TableColumn colvarIsDealer = new TableSchema.TableColumn(schema);
+				colvarIsDealer.ColumnName = "IsDealer";
+				colvarIsDealer.DataType = DbType.Boolean;
+				colvarIsDealer.MaxLength = 0;
+				colvarIsDealer.AutoIncrement = false;
+				colvarIsDealer.IsNullable = false;
+				colvarIsDealer.IsPrimaryKey = false;
+				colvarIsDealer.IsForeignKey = false;
+				colvarIsDealer.IsReadOnly = false;
+				colvarIsDealer.DefaultSetting = @"((0))";
+				colvarIsDealer.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarIsDealer);
+
 				TableSchema.TableColumn colvarExcellentCreditScoreThreshold = new TableSchema.TableColumn(schema);
 				colvarExcellentCreditScoreThreshold.ColumnName = "ExcellentCreditScoreThreshold";
 				colvarExcellentCreditScoreThreshold.DataType = DbType.Int32;
@@ -87668,6 +87696,22 @@ namespace SOS.Data.HumanResource
 			}
 		}
 		[DataMember]
+		public bool IsContractor {
+			get { return GetColumnValue<bool>(Columns.IsContractor); }
+			set {
+				SetColumnValue(Columns.IsContractor, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.IsContractor));
+			}
+		}
+		[DataMember]
+		public bool IsDealer {
+			get { return GetColumnValue<bool>(Columns.IsDealer); }
+			set {
+				SetColumnValue(Columns.IsDealer, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.IsDealer));
+			}
+		}
+		[DataMember]
 		public int ExcellentCreditScoreThreshold {
 			get { return GetColumnValue<int>(Columns.ExcellentCreditScoreThreshold); }
 			set {
@@ -87827,41 +87871,49 @@ namespace SOS.Data.HumanResource
 		{
 			get { return Schema.Columns[13]; }
 		}
-		public static TableSchema.TableColumn ExcellentCreditScoreThresholdColumn
+		public static TableSchema.TableColumn IsContractorColumn
 		{
 			get { return Schema.Columns[14]; }
 		}
-		public static TableSchema.TableColumn PassCreditScoreThresholdColumn
+		public static TableSchema.TableColumn IsDealerColumn
 		{
 			get { return Schema.Columns[15]; }
 		}
-		public static TableSchema.TableColumn SubCreditScoreThresholdColumn
+		public static TableSchema.TableColumn ExcellentCreditScoreThresholdColumn
 		{
 			get { return Schema.Columns[16]; }
 		}
-		public static TableSchema.TableColumn IsActiveColumn
+		public static TableSchema.TableColumn PassCreditScoreThresholdColumn
 		{
 			get { return Schema.Columns[17]; }
 		}
-		public static TableSchema.TableColumn IsDeletedColumn
+		public static TableSchema.TableColumn SubCreditScoreThresholdColumn
 		{
 			get { return Schema.Columns[18]; }
 		}
-		public static TableSchema.TableColumn CreatedByIDColumn
+		public static TableSchema.TableColumn IsActiveColumn
 		{
 			get { return Schema.Columns[19]; }
 		}
-		public static TableSchema.TableColumn CreatedDateColumn
+		public static TableSchema.TableColumn IsDeletedColumn
 		{
 			get { return Schema.Columns[20]; }
 		}
-		public static TableSchema.TableColumn ModifiedByIDColumn
+		public static TableSchema.TableColumn CreatedByIDColumn
 		{
 			get { return Schema.Columns[21]; }
 		}
-		public static TableSchema.TableColumn ModifiedDateColumn
+		public static TableSchema.TableColumn CreatedDateColumn
 		{
 			get { return Schema.Columns[22]; }
+		}
+		public static TableSchema.TableColumn ModifiedByIDColumn
+		{
+			get { return Schema.Columns[23]; }
+		}
+		public static TableSchema.TableColumn ModifiedDateColumn
+		{
+			get { return Schema.Columns[24]; }
 		}
 
 		#endregion
@@ -87883,6 +87935,8 @@ namespace SOS.Data.HumanResource
 			public static readonly string IsSummer = @"IsSummer";
 			public static readonly string IsExtended = @"IsExtended";
 			public static readonly string IsYearRound = @"IsYearRound";
+			public static readonly string IsContractor = @"IsContractor";
+			public static readonly string IsDealer = @"IsDealer";
 			public static readonly string ExcellentCreditScoreThreshold = @"ExcellentCreditScoreThreshold";
 			public static readonly string PassCreditScoreThreshold = @"PassCreditScoreThreshold";
 			public static readonly string SubCreditScoreThreshold = @"SubCreditScoreThreshold";

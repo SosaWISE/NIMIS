@@ -50,6 +50,7 @@
     <Compile Include="Caching\UserStoreTests.cs" />
     <Compile Include="LockByTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebConfigTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

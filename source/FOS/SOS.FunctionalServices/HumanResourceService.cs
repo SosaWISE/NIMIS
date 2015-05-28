@@ -600,9 +600,9 @@ namespace SOS.FunctionalServices
 				acUser.Save(userid);
 			}
 
-			// remove user from cache
-			var authService = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
-			authService.RemoveCachedUser(user.UserName);
+			//// remove user from cache
+			//var authService = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
+			//authService.RemoveCachedUser(user.UserName);
 
 			return UserGet(user.UserID);
 		}

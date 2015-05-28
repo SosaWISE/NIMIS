@@ -13,6 +13,7 @@ using NXS.Lib.Web.Caching;
 using Nancy.Authentication.Token;
 using System.Collections.Generic;
 using Nancy;
+using Api.Core;
 
 namespace SSE.Services.CmsCORS.Helpers
 {

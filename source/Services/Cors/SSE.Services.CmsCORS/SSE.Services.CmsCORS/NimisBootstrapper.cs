@@ -1,4 +1,5 @@
-﻿using Nancy;
+﻿using Api.Core;
+using Nancy;
 using Nancy.Authentication.Token;
 using Nancy.Bootstrapper;
 using Nancy.Diagnostics;
@@ -47,7 +48,8 @@ namespace SSE.Services.CmsCORS
 
 			// compat with old way of doing thangs
 			container.Register(SosServiceEngine.Instance.FunctionalServices.Instance<TokenAuthenticationConfiguration>());
-			container.Register(SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>());
+			//container.Register(SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>());
+			BaseModule.AuthService = SosServiceEngine.Instance.FunctionalServices.Instance<AuthService>();
 
 			//
 			container.Register<ISerializer>(new JsonNetSerializer(container.Resolve<JsonSerializer>()));

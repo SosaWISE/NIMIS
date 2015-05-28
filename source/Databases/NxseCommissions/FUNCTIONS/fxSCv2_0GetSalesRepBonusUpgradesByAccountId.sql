@@ -40,6 +40,7 @@ GO
 CREATE FUNCTION dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId
 (
 	@AccountID BIGINT
+	, @CommissionEngineId VARCHAR(10) = 'SCv2.0'
 )
 RETURNS 
 @ParsedList table
@@ -60,7 +61,7 @@ BEGIN
 		, AEII.InvoiceItemID
 		, AEIT.ItemTypeId
 		, AEII.RetailPrice AS CustomerPays
-		, ISNULL(MSEQ.RepBonusUpgrade, 0) AS [Bonus Upgrade]
+		, ISNULL(SCEQ.UpgradeBonus, ISNULL(MSEQ.RepBonusUpgrade, 0)) AS [Bonus Upgrade]
 	FROM
 		[WISE_CRM].[dbo].[AE_Invoices] AS AEI WITH (NOLOCK)
 		INNER JOIN [WISE_CRM].[dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
@@ -75,12 +76,20 @@ BEGIN
 		INNER JOIN [WISE_CRM].[dbo].[MS_Equipments] AS MSEQ WITH (NOLOCK)
 		ON
 			(MSEQ.EquipmentID = AEIT.ItemID)
+		LEFT OUTER JOIN [dbo].[SC_Equipments] AS SCEQ WITH (NOLOCK)
+		ON
+			(SCEQ.ModelNumberID = AEIT.ModelNumber)
+			AND (SCEQ.CommissionEngineId = @CommissionEngineId)
 	WHERE
 		(AEI.AccountId = @AccountID)
-		AND (AEII.IsCustomerPaying = 'TRUE');
+		AND (AEII.IsCustomerPaying = 'TRUE')
+		AND (AEII.IsActive = 1)
+		AND (AEII.IsDeleted = 0);
 
 	RETURN;
 END
 GO
 
-SELECT * FROM dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId(191205);
+/*
+	SELECT * FROM dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId(191237);
+*/

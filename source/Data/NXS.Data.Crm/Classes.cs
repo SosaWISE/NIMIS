@@ -738,8 +738,8 @@ namespace NXS.Data.Crm
 		public string GenDescription { get; set; }
 		public string FullName { get; set; }
 		public bool ShowInInventory { get; set; }
-		public byte Points { get; set; }
-		public double? ActualPoints { get; set; }
+		public decimal Points { get; set; }
+		public decimal? ActualPoints { get; set; }
 		public decimal RetailPrice { get; set; }
 		public decimal? RepBonusUpgrade { get; set; }
 		public decimal? TechMinutes { get; set; }

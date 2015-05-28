@@ -5,7 +5,7 @@ SQL Data Compare
 Version:10.4.8.62-->
 <Project version="2" type="SQLComparisonToolsProject">
   <DataSource1 version="3" type="LiveDatabaseSource">
-    <ServerName>db1.tst.nexsense.com</ServerName>
+    <ServerName>db1.dev.nexsense.com</ServerName>
     <DatabaseName>NXSE_Commissions</DatabaseName>
     <Username>sa</Username>
     <SavePassword>True</SavePassword>
@@ -24,7 +24,7 @@ Version:10.4.8.62-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>05/12/2015 12:33:37</LastCompared>
+  <LastCompared>05/26/2015 11:21:34</LastCompared>
   <Options>Default, ObjectExistenceChecks, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
@@ -286,11 +286,15 @@ Version:10.4.8.62-->
     </value>
     <value version="1" type="SelectTableEvent">
       <action>SelectItem</action>
-      <val>[dbo].[SC_MMRAdjustments]:[dbo].[SC_MMRAdjustments]</val>
+      <val>[dbo].[SC_Equipments]:[dbo].[SC_Equipments]</val>
     </value>
     <value version="1" type="SelectTableEvent">
-      <action>SelectItem</action>
+      <action>DeselectItem</action>
       <val>[dbo].[SC_MultipleAdjustments]:[dbo].[SC_MultipleAdjustments]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>DeselectItem</action>
+      <val>[dbo].[SC_MMRAdjustments]:[dbo].[SC_MMRAdjustments]</val>
     </value>
   </TableActions>
   <SessionSettings>15</SessionSettings>
