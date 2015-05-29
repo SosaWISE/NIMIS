@@ -95,7 +95,7 @@ GRANT EXEC ON dbo.wiseAE_InvoiceItemsCleanUp TO PUBLIC
 GO
 
 /** */
-DECLARE @CMFID BIGINT, @AccountID BIGINT = 191254, @InvoiceItemID BIGINT = 10065269 -- Has no barcode
+DECLARE @CMFID BIGINT, @AccountID BIGINT = 191259, @InvoiceItemID BIGINT = 10065415 -- Has no barcode
 --DECLARE @InvoiceItemID BIGINT = 10064653 -- Has barcode
 EXEC dbo.wiseAE_InvoiceItemsCleanUp @InvoiceItemID;
 SELECT TOP 1 @CMFID = AEC.CustomerMasterFileID FROM dbo.AE_CustomerAccounts AS AECA WITH (NOLOCK) INNER JOIN dbo.AE_Customers AS AEC WITH (NOLOCK) ON (AEC.CustomerID = AECA.CustomerId) WHERE (AECA.AccountId = @AccountID);
