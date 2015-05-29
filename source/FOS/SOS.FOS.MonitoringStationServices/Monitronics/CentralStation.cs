@@ -433,7 +433,8 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			#endregion Setup CreditRequestXml
 
 			// Convert to XML.
-			var xmlizedString = acct.Serialize();
+			//var xmlizedString = acct.Serialize();
+			var xmlizedString = _shrinkXMLIf8000Plus(acct.Serialize());
 			var moniService = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
 			var creditRequestXml = credReq != null ? credReq.Serialize() : null;
 			var purchaseInfoXml = string.Empty;
@@ -567,6 +568,17 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			return result;
 
 			#endregion WORK IN PROGRESS
+		}
+
+		private string _shrinkXMLIf8000Plus(string xmlString)
+		{
+			if (xmlString.Length > 8000)
+			{
+				xmlString = xmlString.Replace("2GIG Thin D/W", "D/W");
+				xmlString = xmlString.Replace("2GIG Recessed D/W", "Reces D/W");
+			}
+
+			return xmlString;
 		}
 
 		public IFosResult<MS_AccountSubmit> AccountUpdate(long accountID, string gpEmployeeId)
