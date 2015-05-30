@@ -71,4 +71,19 @@ GO
 GRANT EXEC ON dbo.custMS_EquipmentLocationGetPanelLocationByAccountId TO PUBLIC
 GO
 
-/** EXEC dbo.custMS_EquipmentLocationGetPanelLocationByAccountId 181070*/
+/** 
+DECLARE @AccountID BIGINT = 191257
+	SELECT
+		MEQ.*
+	FROM
+		[dbo].[MS_AccountEquipment] AS MEQ WITH (NOLOCK)
+		--INNER JOIN [dbo].[vwMS_EquipmentLocations] AS MEL WITH (NOLOCK)
+		--ON
+		--	(MEL.EquipmentLocationID = MEQ.EquipmentLocationId)
+	WHERE
+		(MEQ.AccountID = @AccountId)
+		AND (MEQ.IsMainPanel = 1)
+		AND (MEQ.IsActive = 1) AND (MEQ.IsDeleted = 0);
+
+EXEC dbo.custMS_EquipmentLocationGetPanelLocationByAccountId 191257 
+*/

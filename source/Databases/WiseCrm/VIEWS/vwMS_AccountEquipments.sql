@@ -88,7 +88,6 @@ AS
 			(AEQ.EquipmentLocationId = EL.EquipmentLocationID)
 GO
 /* TEST
-DECLARE @AccountID BIGINT = 191230;
 --SELECT AEQ.* 
 --FROM 
 --		[dbo].[MS_AccountEquipment] AS AEQ WITH (NOLOCK)
@@ -99,7 +98,6 @@ DECLARE @AccountID BIGINT = 191230;
 --		ON
 --			(AZA.AccountEquipmentId = AEQ.AccountEquipmentID)
 --WHERE (AEQ.AccountID = @AccountID) AND (AEQ.IsDeleted = 0);
-
-SELECT * FROM vwMS_AccountEquipments WHERE (AccountID = @AccountID) AND (IsDeleted = 0) ORDER BY Zone;
-
  */
+DECLARE @AccountID BIGINT = 191260;
+SELECT * FROM vwMS_AccountEquipments WHERE (AccountID = @AccountID) AND (IsDeleted = 0) ORDER BY Zone;

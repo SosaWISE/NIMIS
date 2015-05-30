@@ -58,7 +58,7 @@ BEGIN
 			ON
 				(MAE.AccountEquipmentID = AZA.AccountEquipmentId)
 				AND (AZA.IsActive = 1 AND AZA.IsDeleted = 0)
-				AND (MAE.IsActive = 1 AND AZA.IsDeleted = 0)
+				AND (MAE.IsActive = 1 AND MAE.IsDeleted = 0)
 		WHERE
 			(MAE.AccountId = @AccountId);
 	
@@ -77,8 +77,8 @@ GO
 
 /** 
 
-DECLARE @AccountID BIGINT = 191243;
-EXEC dbo.custMS_AccountZoneAssignmentsByAccountId 191243
+DECLARE @AccountID BIGINT = 191260;
+EXEC dbo.custMS_AccountZoneAssignmentsByAccountId @AccountID;
 SELECT * FROM dbo.MS_AccountEquipment WHERE AccountId = @AccountID AND AccountEquipmentID = 43158;
 SELECT * FROM dbo.MS_Equipments WHERE EquipmentID = 'EQPM_INVT30';
 		SELECT
