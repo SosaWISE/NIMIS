@@ -75,7 +75,12 @@ GO
 GRANT EXEC ON dbo.custMS_AccountZoneAssignmentsByAccountId TO PUBLIC
 GO
 
-/** EXEC dbo.custMS_AccountZoneAssignmentsByAccountId 181051
+/** 
+
+DECLARE @AccountID BIGINT = 191243;
+EXEC dbo.custMS_AccountZoneAssignmentsByAccountId 191243
+SELECT * FROM dbo.MS_AccountEquipment WHERE AccountId = @AccountID AND AccountEquipmentID = 43158;
+SELECT * FROM dbo.MS_Equipments WHERE EquipmentID = 'EQPM_INVT30';
 		SELECT
 			MEQ.*
 			, AZA.*

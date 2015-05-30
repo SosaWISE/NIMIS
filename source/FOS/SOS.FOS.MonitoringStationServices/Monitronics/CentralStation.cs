@@ -116,7 +116,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			var twoWayDeviceId = msAccount.GetMoniSysTypeId().SystemTypeID;
 			var panelLocation = SosCrmDataContext.Instance.MS_EquipmentLocationsViews.GetPanelLocationByAccountId(msAccount.AccountID);
 			if (panelLocation == null)
-				throw new Exception("Unable to find a panel for this account.");
+				throw new Exception("Unable to find a panel location for this account. &nbsp;Either the panel is not present in the account or the panel location was not set in the System Details screen.");
 			var installDate = DateTime.Now;
 
 			var acct = new Account
