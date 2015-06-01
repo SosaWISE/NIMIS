@@ -62,7 +62,7 @@ namespace SOS.Data.SosCrm.ControllerExtensions
 
 			var result = cntlr.LoadSingle(qry);
 
-			return result.IsLoaded;
+			return result != null && result.IsLoaded;
 			//var qry = new SubSonic.Select(AR.Columns.CustomerID).From(AR.Schema)
 			//	.Where(AR.Columns.CustomerMasterFileId).IsEqualTo(cmfid);
 			//var v = qry.SQLCommand;
