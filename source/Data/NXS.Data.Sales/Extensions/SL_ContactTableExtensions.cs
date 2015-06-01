@@ -25,7 +25,7 @@ namespace NXS.Data.Sales
 			await tbl.UpdateAsync(item.ID, snapshot.Diff()).ConfigureAwait(false);
 		}
 
-		public static async Task<List<dynamic>> InAreaAsync(this ARTable tbl, string repCompanyID/*, int officeId*/, double minlat, double maxlat, double minlng, double maxlng)
+		public static async Task<List<dynamic>> InAreaAsync(this ARTable tbl, string repCompanyID/*, int officeId*/, decimal minlat, decimal maxlat, decimal minlng, decimal maxlng)
 		{
 			using (var db = DBase.Connect())
 			{
@@ -52,7 +52,7 @@ namespace NXS.Data.Sales
 				//var T = db.HrDb.RU_Teams;
 
 				var sql = Sequel.NewSelect(
-					C.ID, C.Latitude, C.Longitude
+					C.Star
 					, U.FullName.As("RepName")
 					, CN.FirstName, CN.LastName, CN.CategoryId, CN.SystemId, CN.Note
 					, CA.Address, CA.Address2, CA.City, CA.State, CA.Zip

@@ -10,8 +10,7 @@ using System.Threading;
 using SOS.Data.SosCrm;
 using SOS.Lib.Core.CreditReportService;
 using SOS.Lib.Core.ErrorHandling;
-using SOS.Lib.Util.Configuration;
-using SOS.Lib.Util.Cryptography;
+using NXS.Lib;
 
 namespace NSE.Lib.Microbilt
 {
@@ -45,9 +44,9 @@ namespace NSE.Lib.Microbilt
 		public HTTPPost()
 		{
 			// Set the hostname and credentials.
-			string hostServer = TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("MicroBiltHOSTNAME"), null);
-			_username = TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("MicroBiltMEMBERID"), null);
-			_password = TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("MicroBiltPASSWORD"), null);
+			string hostServer = WebConfig.Instance.GetConfig("MicroBiltHOSTNAME");
+			_username = WebConfig.Instance.GetConfig("MicroBiltMEMBERID");
+			_password = WebConfig.Instance.GetConfig("MicroBiltPASSWORD");
 			_urlPost = string.Format(_urlPost, hostServer);
 			_urlGet = string.Format(_urlGet, hostServer);
 		}

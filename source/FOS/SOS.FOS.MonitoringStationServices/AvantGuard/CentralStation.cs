@@ -10,6 +10,7 @@ using SOS.FOS.MonitoringStationServices.AvantGuard.Models;
 using SOS.FOS.MonitoringStationServices.Contracts.Models;
 using SOS.Lib.Core.ErrorHandling;
 using Stages;
+using NXS.Lib;
 
 namespace SOS.FOS.MonitoringStationServices.AvantGuard
 {
@@ -19,18 +20,12 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 
 		public CentralStation()
 		{
-			_username = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_USERNAME");
-			_username = Lib.Util.Cryptography.TripleDES.DecryptString(_username, null);
-			_password = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_PASSWORD");
-			_password = Lib.Util.Cryptography.TripleDES.DecryptString(_password, null);
-			_applname = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_APPLNAME");
-			_applname = Lib.Util.Cryptography.TripleDES.DecryptString(_applname, null);
-			_clenplat = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_CLIENTPLATFORM");
-			_clenplat = Lib.Util.Cryptography.TripleDES.DecryptString(_clenplat, null);
-			_appvrson = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_APPLIC_VERISON");
-			_appvrson = Lib.Util.Cryptography.TripleDES.DecryptString(_appvrson, null);
-			_urledpnt = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_GATEWAY_ENDPNT");
-			_urledpnt = Lib.Util.Cryptography.TripleDES.DecryptString(_urledpnt, null);
+			_username = WebConfig.Instance.GetConfig("AG_USERNAME");
+			_password = WebConfig.Instance.GetConfig("AG_PASSWORD");
+			_applname = WebConfig.Instance.GetConfig("AG_APPLNAME");
+			_clenplat = WebConfig.Instance.GetConfig("AG_CLIENTPLATFORM");
+			_appvrson = WebConfig.Instance.GetConfig("AG_APPLIC_VERISON");
+			_urledpnt = WebConfig.Instance.GetConfig("AG_GATEWAY_ENDPNT");
 
 			_stagesApiClient = new StagesGateway(_urledpnt);
 		}
@@ -1121,10 +1116,10 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 		private static readonly StagesGateway _gateway;
 		static CentralStation()
 		{
-			_user = Lib.Util.Cryptography.TripleDES.DecryptString(Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_USERNAME"), null);
-			_pass = Lib.Util.Cryptography.TripleDES.DecryptString(Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_PASSWORD"), null);
+			_user = WebConfig.Instance.GetConfig("AG_USERNAME");
+			_pass = WebConfig.Instance.GetConfig("AG_PASSWORD");
 
-			var endpoint = Lib.Util.Cryptography.TripleDES.DecryptString(Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_GATEWAY_ENDPNT"), null); ;
+			var endpoint = WebConfig.Instance.GetConfig("AG_GATEWAY_ENDPNT");
 			_gateway = new StagesGateway(endpoint);
 		}
 		//private static SessionInfo Session

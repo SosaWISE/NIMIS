@@ -43,7 +43,7 @@ namespace NXS.Data.Sales
 				.WhereActiveAndNotDeleted(tbl.Alias)
 				.And(s =>
 				{
-					s.Compare((object)tbl.RepCompanyID, Comparison.Is, null).Or(tbl.RepCompanyID, Comparison.Equals, repCompanyID);
+					s.Compare(tbl.RepCompanyID, Comparison.Is, null).Or(tbl.RepCompanyID, Comparison.Equals, repCompanyID);
 				})
 				.And(tbl.ID, Comparison.NotIn, s =>
 				{

@@ -1,5 +1,6 @@
-﻿using SOS.Lib.Core;
-using SOS.Lib.Util.Configuration;
+﻿using NXS.Data;
+using NXS.Lib;
+using SOS.Lib.Core;
 using SOS.Lib.Util.Cryptography;
 using SubSonic;
 using System;
@@ -49,8 +50,6 @@ namespace SOS.Data
 		public const string LOG_SOURCE_KEY = "LogSourceID";
 		public const string FILE_SOURCE_KEY = "FileSourceID";
 
-		// Key to use when all connection strings are the same (except for the database name)
-		public const string BASECONNECTIONSTRING_KEY = "BaseConnectionString";
 		public static readonly Dictionary<string, string> ProviderDatabaseDict = new Dictionary<string, string>
 		{
 			{SOS_CRM_PROVIDER_NAME, "WISE_CRM"},
@@ -76,25 +75,19 @@ namespace SOS.Data
 
 		#region Public
 
-		public static void SetupConnectionStrings()
+		public static void SetupConnectionStrings(string host = null, string username = null, string password = null, string appName = null)
 		{
 			DataService.LoadProviders();
 
-			// check for a BaseConnectionString
-			if (ConfigurationSettings.Current.HasConfigValue(BASECONNECTIONSTRING_KEY))
+			// when all connection strings are the same (except for the database name)
+			if (!string.IsNullOrEmpty(host) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(appName))
 			{
-				var baseConnectionString = GetConnectionString(BASECONNECTIONSTRING_KEY);
-				// ensure it ends with a semicolon
-				if (!baseConnectionString.EndsWith(";"))
-				{
-					baseConnectionString += ";";
-				}
 				foreach (var kvp in ProviderDatabaseDict)
 				{
 					var providerName = kvp.Key;
 					if (DataService.Providers[providerName] != null)
 					{
-						DataService.Providers[providerName].DefaultConnectionString = string.Format("{0}Initial Catalog={1}", baseConnectionString, kvp.Value);
+						DataService.Providers[providerName].DefaultConnectionString = DatabaseHelper.FormatConnectionString(kvp.Value, host, username, password, appName);
 					}
 				}
 
@@ -119,26 +112,15 @@ namespace SOS.Data
 
 		static void SetProviderConnectionString(string providerName, string key)
 		{
-			if (DataService.Providers[providerName] != null && ConfigurationSettings.Current.HasConfigValue(key))
+			if (DataService.Providers[providerName] != null && WebConfig.Instance.HasConfigValue(key))
 			{
-				DataService.Providers[providerName].DefaultConnectionString = GetConnectionString(key);
+				DataService.Providers[providerName].DefaultConnectionString = WebConfig.Instance.GetConfig(key);
 			}
-		}
-
-		static string GetConnectionString(string key)
-		{
-			string configValue = ConfigurationSettings.Current.GetConfig(key);
-			if (configValue.Contains("Data Source=") || configValue.Contains("Server="))
-			{
-				return configValue;
-			}
-			// Default path of execution.
-			return TripleDES.DecryptString(configValue, null);
 		}
 
 		public static LogSource GetLogSourceFromConfig()
 		{
-			var szSourceValue = ConfigurationSettings.Current.GetConfig(LOG_SOURCE_KEY);
+			var szSourceValue = WebConfig.Instance.GetConfig(LOG_SOURCE_KEY);
 			if (!string.IsNullOrEmpty(szSourceValue))
 				return (LogSource)Enum.Parse(typeof(LogSource), szSourceValue);
 
@@ -148,7 +130,7 @@ namespace SOS.Data
 
 		public static FileSource GetFileSourceFromConfig()
 		{
-			var szSourceValue = ConfigurationSettings.Current.GetConfig(FILE_SOURCE_KEY);
+			var szSourceValue = WebConfig.Instance.GetConfig(FILE_SOURCE_KEY);
 
 			if (!string.IsNullOrEmpty(szSourceValue))
 				return (FileSource)Enum.Parse(typeof(FileSource), szSourceValue);

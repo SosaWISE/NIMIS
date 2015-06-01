@@ -1,6 +1,6 @@
 ﻿using NXS.DataServices.Sales;
-using NXS.Lib.Web;
-using NXS.Lib.Web.Authentication;
+using NXS.Lib;
+using NXS.Lib.Authentication;
 using SOS.Lib.Core;
 using System;
 using System.Collections.Generic;

@@ -112,15 +112,16 @@ namespace NXS.DataServices.Sales
 		// 		return (await db.QueryAsync<SalesOffice>(sql).ConfigureAwait(false)).ToList();
 		// 	}
 		// }
-		public async Task TrackLocationAsync(SalesTracking inputItem)
+		public async Task TrackLocationAsync(TrackingInput inputItem)
 		{
 			using (var db = DBase.Connect())
-				await TrackLocationAsync(db, inputItem, _gpEmployeeId);
+				await TrackLocationAsync(db, inputItem.Latitude, inputItem.Longitude, _gpEmployeeId);
 		}
-		internal static async Task TrackLocationAsync(DBase db, SalesTracking inputItem, string gpEmployeeId)
+		internal static async Task TrackLocationAsync(DBase db, decimal latitude, decimal longitude, string gpEmployeeId)
 		{
 			var item = new SL_Tracking();
-			inputItem.ToDb(item);
+			item.Latitude = latitude;
+			item.Longitude = longitude;
 			item.RepCompanyID = gpEmployeeId;
 			await db.SL_Trackings.InsertAsync(item, gpEmployeeId).ConfigureAwait(false);
 		}

@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NXS.Lib;
 using SOS.Data.SosCrm;
 using SOS.FunctionalServices.Contracts;
 using SOS.FunctionalServices.Contracts.Helper;
 using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Models;
-using SOS.Lib.Util.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,9 +25,9 @@ namespace SOS.FunctionalServices
 		{
 			loginParameters = new List<object>()
 			{
-				ConfigurationSettings.Current.GetConfig("InsideSales_Username"),
-				SOS.Lib.Util.Cryptography.TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("InsideSales_Password"), null),
-				SOS.Lib.Util.Cryptography.TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("InsideSales_SecurityToken"), null),
+				WebConfig.Instance.GetConfig("InsideSales_Username"),
+				WebConfig.Instance.GetConfig("InsideSales_Password"),
+				WebConfig.Instance.GetConfig("InsideSales_SecurityToken"),
 			};
 		}
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using SOS.FOS.MonitoringStationServices.AGSignalService;
+using NXS.Lib;
 
 namespace SOS.FOS.MonitoringStationServices.AvantGuard
 {
@@ -8,18 +9,12 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 		#region .ctor
 		public Receiver()
 		{
-			_username = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_USERNAME");
-			_username = Lib.Util.Cryptography.TripleDES.DecryptString(_username, null);
-			_password = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_PASSWORD");
-			_password = Lib.Util.Cryptography.TripleDES.DecryptString(_password, null);
-			//_applname = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_APPLNAME");
-			//_applname = Lib.Util.Cryptography.TripleDES.DecryptString(_applname, null);
-			//_clenplat = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_CLIENTPLATFORM");
-			//_clenplat = Lib.Util.Cryptography.TripleDES.DecryptString(_clenplat, null);
-			//_appvrson = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_APPLIC_VERISON");
-			//_appvrson = Lib.Util.Cryptography.TripleDES.DecryptString(_appvrson, null);
-			_urledpnt = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("AG_SIGNALR_ENDPNT");
-			_urledpnt = Lib.Util.Cryptography.TripleDES.DecryptString(_urledpnt, null);
+			_username = WebConfig.Instance.GetConfig("AG_USERNAME");
+			_password = WebConfig.Instance.GetConfig("AG_PASSWORD");
+			//_applname = WebConfig.Instance.GetConfig("AG_APPLNAME");
+			//_clenplat = WebConfig.Instance.GetConfig("AG_CLIENTPLATFORM");
+			//_appvrson = WebConfig.Instance.GetConfig("AG_APPLIC_VERISON");
+			_urledpnt = WebConfig.Instance.GetConfig("AG_SIGNALR_ENDPNT");
 
 			_stagesAPIClient = new ReceiverSoapClient(_urledpnt);
 		}

@@ -20,15 +20,40 @@ namespace NXS.DataServices.Sales.Models
 		public DateTime CreatedOn { get; set; }
 		public string CreatedBy { get; set; }
 
-		internal static SlContact FromDb(SL_Contact item, bool nullable = false)
+		// Note
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+		public int CategoryId { get; set; }
+		public int SystemId { get; set; }
+		public string Note { get; set; }
+
+		// Address
+		public string Address { get; set; }
+		public string Address2 { get; set; }
+		public string City { get; set; }
+		public string State { get; set; }
+		public string Zip { get; set; }
+
+		// Followup
+		public DateTime FollowupOn { get; set; }
+
+		private static bool NullCheck(string name, object item, bool nullable)
 		{
 			if (item == null)
 			{
 				if (nullable)
-					return null;
+					return false;
 				else
-					throw new Exception("Contact is null");
+					throw new Exception(name + " is null");
 			}
+			return true;
+		}
+
+		//internal static SlContact FromDb(SL_Contact item, SL_ContactNote note, SL_ContactAddress address, SL_ContactFollowup followup)//, bool nullable = false)
+		internal static SlContact FromDb(SL_Contact item, bool nullable = false)
+		{
+			if (!NullCheck("Contact", item, nullable))
+				return null;
 
 			var result = new SlContact();
 			result.ID = item.ID;
@@ -41,6 +66,36 @@ namespace NXS.DataServices.Sales.Models
 			result.ModifiedBy = item.ModifiedBy;
 			result.CreatedOn = item.CreatedOn;
 			result.CreatedBy = item.CreatedBy;
+
+			// Note
+			var note = item.Note;
+			if (!NullCheck("Note", item, nullable))
+			{
+				result.FirstName = note.FirstName;
+				result.LastName = note.LastName;
+				result.CategoryId = note.CategoryId;
+				result.SystemId = note.SystemId;
+				result.Note = note.Note;
+			}
+
+			// Address
+			var address = item.Address;
+			if (!NullCheck("Address", address, nullable))
+			{
+				result.Address = address.Address;
+				result.Address2 = address.Address2;
+				result.State = address.State;
+				result.City = address.City;
+				result.Zip = address.Zip;
+			}
+
+			// Followup
+			var followup = item.Followup;
+			if (!NullCheck("Followup", followup, nullable))
+			{
+				result.FollowupOn = followup.FollowupOn;
+			}
+
 			return result;
 		}
 	}

@@ -50,19 +50,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlahService.cs" />
-    <Compile Include="ClassesTmp.cs" />
     <Compile Include="ContactsService.cs" />
     <Compile Include="Models\AreaInput.cs" />
     <Compile Include="Models\CategoryInput.cs" />
     <Compile Include="Models\ContactInput.cs" />
     <Compile Include="Models\Rep.cs" />
-    <Compile Include="Models\SalesAreaView.cs" />
-    <Compile Include="Models\SalesContact.cs" />
     <Compile Include="Models\SlArea.cs" />
     <Compile Include="Models\SlAreaAssignment.cs" />
     <Compile Include="Models\SlContact.cs" />
     <Compile Include="Models\SlContactCategory.cs" />
     <Compile Include="Models\SlSystemType.cs" />
+    <Compile Include="Models\TrackingInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SalesAreaService.cs" />
   </ItemGroup>

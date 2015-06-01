@@ -18,7 +18,7 @@ namespace NXS.DataServices.Sales
 			_gpEmployeeId = gpEmployeeId;
 		}
 
-		public async Task<List<dynamic>> SalesAreasAsync(int salesRepId, int officeId, double minlat, double minlng, double maxlat, double maxlng)
+		public async Task<List<dynamic>> SalesAreasAsync(int salesRepId, int officeId, decimal minlat, decimal minlng, decimal maxlat, decimal maxlng)
 		{
 			using (var db = DBase.Connect())
 			{

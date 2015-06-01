@@ -90,7 +90,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logic", "Logic", "{20129E13
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NXS.Logic.MonitoringStations", "..\..\..\Logic\NXS.Logic.MonitoringStations\NXS.Logic.MonitoringStations\NXS.Logic.MonitoringStations.csproj", "{3079255E-A811-4408-A00E-614F11E90E36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NXS.Lib.Web", "..\..\..\Lib\NXS.Lib.Web\NXS.Lib.Web.csproj", "{C067B3AB-3FAF-40D7-98E9-5788768BD315}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NXS.Lib", "..\..\..\Lib\NXS.Lib\NXS.Lib.csproj", "{C067B3AB-3FAF-40D7-98E9-5788768BD315}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NXS.Data.Connext", "..\..\..\Data\NXS.Data.Connext\NXS.Data.Connext.csproj", "{4A4324AC-1374-469D-BC3D-B8914F97C435}"
 EndProject

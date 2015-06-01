@@ -82,8 +82,8 @@ namespace NXS.Data.Sales
 		public int ContactId { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
-		public int? CategoryId { get; set; }
-		public int? SystemId { get; set; }
+		public int CategoryId { get; set; }
+		public int SystemId { get; set; }
 		public string Note { get; set; }
 		public bool IsActive { get; set; }
 		public bool IsDeleted { get; set; }

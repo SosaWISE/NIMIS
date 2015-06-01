@@ -1,6 +1,6 @@
-﻿using System.Globalization;
+﻿using NXS.Lib;
+using System.Globalization;
 using System.Web;
-using SOS.Lib.Util.Configuration;
 
 namespace SSE.Services.CmsCORS.Helpers
 {
@@ -15,7 +15,7 @@ namespace SSE.Services.CmsCORS.Helpers
 		{
 			get
 			{
-				string result = ConfigurationSettings.Current.GetConfig("ImagePath_Avatars");
+				string result = WebConfig.Instance.GetConfig("ImagePath_Avatars");
 				if (string.IsNullOrEmpty(result))
 					return _DEF_IMAGE_PATH;
 				return result;
@@ -26,7 +26,7 @@ namespace SSE.Services.CmsCORS.Helpers
 		{
 			get
 			{
-				string result = ConfigurationSettings.Current.GetConfig("ImagePath_LoremPixelURL_People");
+				string result = WebConfig.Instance.GetConfig("ImagePath_LoremPixelURL_People");
 				if (string.IsNullOrEmpty(result))
 					return _DEF_IMAGELP_PATH;
 				return result;
@@ -39,7 +39,7 @@ namespace SSE.Services.CmsCORS.Helpers
 			{
 				/** Initialize. */
 				bool useLoremPixel;
-				if (bool.TryParse(ConfigurationSettings.Current.GetConfig("ImagePath_LoremPixelUse"),
+				if (bool.TryParse(WebConfig.Instance.GetConfig("ImagePath_LoremPixelUse"),
 					out useLoremPixel)) return useLoremPixel;
 				return false;
 			}

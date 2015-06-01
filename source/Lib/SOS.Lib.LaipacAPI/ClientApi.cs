@@ -8,6 +8,7 @@ using SOS.Data.SosCrm;
 using SOS.Lib.LaipacAPI.Commands;
 using SOS.Lib.LaipacAPI.ExceptionHandling;
 using SOS.Lib.LaipacAPI.Models;
+using NXS.Lib;
 
 namespace SOS.Lib.LaipacAPI
 {
@@ -153,7 +154,7 @@ namespace SOS.Lib.LaipacAPI
 			long lUnitID = Convert.ToInt64(msAccount.GpsWatchUnitID);
 			// ** Check to see that there is no more than 5 geofences already present.
 			int numberOfFences;
-			if (!int.TryParse(Util.Configuration.ConfigurationSettings.Current.GetConfig("LAIPAC.S911MaxFenceNumber"), out numberOfFences)) 
+			if (!int.TryParse(WebConfig.Instance.GetConfig("LAIPAC.S911MaxFenceNumber"), out numberOfFences)) 
 				numberOfFences = _DEFAULT_NUMBER_OF_GEOFENCES;
 			LP_GsGeoFence newFence = GpsTrackingDataContext.Instance.LP_GsGeoFences.GetNewFence(lAccountId, lUnitID, numberOfFences);
 

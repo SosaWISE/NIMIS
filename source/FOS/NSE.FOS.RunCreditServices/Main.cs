@@ -4,7 +4,7 @@ using NSE.FOS.RunCreditServices.Interfaces;
 using NSE.FOS.RunCreditServices.Vendors;
 using SOS.Data.SosCrm;
 using SOS.Lib.Core.CreditReportService;
-using SOS.Lib.Util.Configuration;
+using NXS.Lib;
 
 namespace NSE.FOS.RunCreditServices
 {
@@ -13,7 +13,7 @@ namespace NSE.FOS.RunCreditServices
 		#region .ctor
 		public Main()
 	    {
-			_vendorID = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("CreditReport_Vendor"), null);
+			_vendorID = WebConfig.Instance.GetConfig("CreditReport_Vendor");
 			Initialize();
 	    }
 		#endregion .ctor
@@ -75,8 +75,8 @@ namespace NSE.FOS.RunCreditServices
 	    public static string[] GetBureausList()
 	    {
 			// Check to see if there is a list in the configuration file.
-			if (!string.IsNullOrEmpty(ConfigurationSettings.Current.GetConfig("CreditService_BureauListOrder")))
-				return ConfigurationSettings.Current.GetConfig("CreditService_BureauListOrder").Split(',');
+			if (!string.IsNullOrEmpty(WebConfig.Instance.GetConfig("CreditService_BureauListOrder")))
+				return WebConfig.Instance.GetConfig("CreditService_BureauListOrder").Split(',');
 
 			// ** Default path of execution.
 		    string[] result =

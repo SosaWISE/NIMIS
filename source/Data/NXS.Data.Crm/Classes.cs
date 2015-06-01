@@ -353,6 +353,7 @@ namespace NXS.Data.Crm
 			public const string DefectiveReturnedID = "RET";
 			public const string ShippedbacktoVendorID = "SHIP-VEND";
 			public const string SubmittedforReconciliationID = "SUB";
+			public const string TransferredtoTechnicianID = "TRNF";
 			public const string TransferredtoWarehouseID = "WRHOUSE";
 			public const string WrittenOffID = "WRT-OFF";
 		}

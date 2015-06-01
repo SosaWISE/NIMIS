@@ -1,10 +1,10 @@
 ﻿using System;
 using SOS.Data.SosCrm;
 using SOS.Data.SosCrm.ControllerExtensions;
-using SOS.Lib.Util.Configuration;
 using SSE.FOS.AddressVerification.Interfaces;
 using SSE.FOS.AddressVerification.Models;
 using SSE.FOS.AddressVerification.Vendors;
+using NXS.Lib;
 
 namespace SSE.FOS.AddressVerification
 {
@@ -14,7 +14,7 @@ namespace SSE.FOS.AddressVerification
 
 		public Main()
 		{
-			_vendorID = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("AddressVerification_Vendor"), null);
+			_vendorID = WebConfig.Instance.GetConfig("AddressVerification_Vendor");
 			Initialize();
 		}
 

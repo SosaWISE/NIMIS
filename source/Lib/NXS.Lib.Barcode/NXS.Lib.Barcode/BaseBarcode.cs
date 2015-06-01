@@ -14,9 +14,7 @@ namespace NXS.Lib.Barcode
 		protected BaseBarcode(string outputFilePath)
 		{
 			OutputFilePath = outputFilePath;
-			FontResourcePath =
-				SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig(
-					"NXS.Lib.Barcode.IDAutomationHC39M_FontResourceFolderPath");
+			FontResourcePath = WebConfig.Instance.GetConfig("NXS.Lib.Barcode.IDAutomationHC39M_FontResourceFolderPath");
 		}
 
 		#endregion .ctor

@@ -1,6 +1,6 @@
-﻿using NXS.Lib.Web;
-using NXS.Lib.Web.Authentication;
-using NXS.Lib.Web.Caching;
+﻿using NXS.Lib;
+using NXS.Lib.Authentication;
+using NXS.Lib.Caching;
 using SOS.Lib.Core;
 using SOS.Lib.Util.ActiveDirectory;
 using System;

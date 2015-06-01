@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using SOS.Data;
-using ConfigurationSettings = SOS.Lib.Util.Configuration.ConfigurationSettings;
+using NXS.Lib;
+using System.IO;
 
 namespace NXS.Logic.HartSoftware.UT
 {
@@ -52,11 +53,19 @@ namespace NXS.Logic.HartSoftware.UT
 				{
 					if (!_isInit)
 					{
-						string environment = ConfigurationManager.AppSettings["Environment"] ?? Environment.MachineName;
-						ConfigurationSettings.Current.SetProperties("Preferences", environment);
-
+						// Load webconfig from SSE.Services.CmsCORS
+						WebConfig.Init(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../../../Services/Cors/SSE.Services.CmsCORS/SSE.Services.CmsCORS"), val =>
+						{
+							var decryptedVal = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(val, null);
+							// if decryption failed, return passed in value
+							return decryptedVal.StartsWith("Error: ") ? val : decryptedVal;
+						});
 						// Setup SubSonic Connections
-						SubSonicConfigHelper.SetupConnectionStrings();
+						var host = WebConfig.Instance.GetConfig("DBHost");
+						var username = WebConfig.Instance.GetConfig("DBUsername");
+						var password = WebConfig.Instance.GetConfig("DBPassword");
+						var appName = WebConfig.Instance.GetConfig("ApplicationName");
+						SubSonicConfigHelper.SetupConnectionStrings(host, username, password, appName);
 
 						/** Initialize Fos Engine. */
 						SOS.FunctionalServices.SosServiceEngine.Instance.Initialize();

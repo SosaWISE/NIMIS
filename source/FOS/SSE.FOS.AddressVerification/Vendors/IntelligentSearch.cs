@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using NXS.Lib;
 using SOS.Data.SosCrm;
 using SOS.Data.SosCrm.ControllerExtensions;
-using SOS.Lib.Util.Configuration;
-using SSE.FOS.AddressVerification.IS_CorrectAddress;
 using SSE.FOS.AddressVerification.Interfaces;
+using SSE.FOS.AddressVerification.IS_CorrectAddress;
 using SSE.FOS.AddressVerification.Models;
 using SSE.Lib.Interfaces.FOS;
 using SSE.Lib.Interfaces.Helpers;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace SSE.FOS.AddressVerification.Vendors
 {
@@ -16,9 +16,9 @@ namespace SSE.FOS.AddressVerification.Vendors
 	{
 		#region Properties
 
-		private readonly string _username = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("AddressVerification_IntelligentSearchUID"), null);
-		private readonly string _password = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("AddressVerification_IntelligentSearchPWD"), null);
-		private readonly string _filePath = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("AddressVerification_IntelligentSearchFilePath"), null);
+		private readonly string _username = WebConfig.Instance.GetConfig("AddressVerification_IntelligentSearchUID");
+		private readonly string _password = WebConfig.Instance.GetConfig("AddressVerification_IntelligentSearchPWD");
+		private readonly string _filePath = WebConfig.Instance.GetConfig("AddressVerification_IntelligentSearchFilePath");
 
 		#endregion Properties
 

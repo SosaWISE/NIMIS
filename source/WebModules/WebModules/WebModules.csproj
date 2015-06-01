@@ -58,9 +58,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Lib\NXS.Lib.Web\NXS.Lib.Web.csproj">
-      <Project>{C067B3AB-3FAF-40D7-98E9-5788768BD315}</Project>
-      <Name>NXS.Lib.Web</Name>
+    <ProjectReference Include="..\..\Lib\NXS.Lib\NXS.Lib.csproj">
+      <Project>{c067b3ab-3faf-40d7-98e9-5788768bd315}</Project>
+      <Name>NXS.Lib</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Lib\SOS.Lib.Core\SOS.Lib.Core.csproj">
       <Project>{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}</Project>

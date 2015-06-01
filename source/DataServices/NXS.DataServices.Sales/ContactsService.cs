@@ -92,24 +92,29 @@ namespace NXS.DataServices.Sales
 			}
 		}
 
-		public async Task<Result<SlContact>> SaveContactAndInfoAsync(SalesTracking tracking, SalesContact contactInput, SalesContactNote note, SalesContactAddress address, SalesContactFollowup followup)
+		public async Task<Result<SlContact>> SaveContactAndInfoAsync(ContactInput inputItem)
 		{
 			using (var db = DBase.Connect())
 			{
-				await BlahService.TrackLocationAsync(db, tracking, _gpEmployeeId).ConfigureAwait(false);
+				await BlahService.TrackLocationAsync(db, inputItem.SalesRepLatitude, inputItem.SalesRepLongitude, _gpEmployeeId).ConfigureAwait(false);
 
-				var contact = await SaveContactAsync(db, contactInput).ConfigureAwait(false);
-				if (note != null)
-					await SaveContactNoteAsync(db, contact, note).ConfigureAwait(false);
-				if (address != null)
-					await SaveContactAddressAsync(db, contact, address).ConfigureAwait(false);
-				if (followup != null)
-					await SaveContactFollowupAsync(db, contact, followup).ConfigureAwait(false);
-				return new Result<SlContact>(value: SlContact.FromDb(contact));
+				var result = new Result<SlContact>();
+				await db.TransactionAsync(async () =>
+				{
+					var contact = await SaveContactAsync(db, inputItem).ConfigureAwait(false);
+					//@NOTE: the database schema allows for multiple Notes/Addresses/Followups per contact, but we are only allowing one of each.
+					contact.Note = await SaveContactNoteAsync(db, contact, inputItem).ConfigureAwait(false);
+					contact.Address = await SaveContactAddressAsync(db, contact, inputItem).ConfigureAwait(false);
+					contact.Followup = await SaveContactFollowupAsync(db, contact, inputItem).ConfigureAwait(false);
+					// set result value
+					result.Value = SlContact.FromDb(contact);
+					return true;
+				});
+				return result;
 			}
 		}
 
-		private async Task<SL_Contact> SaveContactAsync(DBase db, SalesContact inputItem)
+		private async Task<SL_Contact> SaveContactAsync(DBase db, ContactInput inputItem)
 		{
 			var tbl = db.SL_Contacts;
 			SL_Contact item;
@@ -134,7 +139,7 @@ namespace NXS.DataServices.Sales
 			return item;
 		}
 
-		private async Task<SL_ContactNote> SaveContactNoteAsync(DBase db, SL_Contact contact, SalesContactNote inputItem)
+		private async Task<SL_ContactNote> SaveContactNoteAsync(DBase db, SL_Contact contact, ContactInput inputItem)
 		{
 			var tbl = db.SL_ContactNotes;
 			var sql = Sequel.NewSelect(tbl.Star).From(tbl).Where(tbl.ContactId, Comparison.Equals, contact.ID);
@@ -157,7 +162,7 @@ namespace NXS.DataServices.Sales
 			return item;
 		}
 
-		private async Task<SL_ContactAddress> SaveContactAddressAsync(DBase db, SL_Contact contact, SalesContactAddress inputItem)
+		private async Task<SL_ContactAddress> SaveContactAddressAsync(DBase db, SL_Contact contact, ContactInput inputItem)
 		{
 			var tbl = db.SL_ContactAddresses;
 			var sql = Sequel.NewSelect(tbl.Star).From(tbl).Where(tbl.ContactId, Comparison.Equals, contact.ID);
@@ -180,7 +185,7 @@ namespace NXS.DataServices.Sales
 			return item;
 		}
 
-		private async Task<SL_ContactFollowup> SaveContactFollowupAsync(DBase db, SL_Contact contact, SalesContactFollowup inputItem)
+		private async Task<SL_ContactFollowup> SaveContactFollowupAsync(DBase db, SL_Contact contact, ContactInput inputItem)
 		{
 			var tbl = db.SL_ContactFollowups;
 			var sql = Sequel.NewSelect(tbl.Star).From(tbl).Where(tbl.ContactId, Comparison.Equals, contact.ID);
@@ -204,7 +209,7 @@ namespace NXS.DataServices.Sales
 		}
 
 
-		public async Task<Result<List<dynamic>>> ContactsInAreaAsync(double minlat, double minlng, double maxlat, double maxlng)
+		public async Task<Result<List<dynamic>>> ContactsInAreaAsync(decimal minlat, decimal minlng, decimal maxlat, decimal maxlng)
 		{
 			using (var db = DBase.Connect())
 			{

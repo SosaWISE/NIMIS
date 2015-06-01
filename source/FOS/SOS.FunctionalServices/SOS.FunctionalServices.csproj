@@ -336,9 +336,9 @@
       <Project>{e4d05580-1bc3-46d5-9db1-573157bed512}</Project>
       <Name>NSE.Lib.Microbilt</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Lib\NXS.Lib.Web\NXS.Lib.Web.csproj">
+    <ProjectReference Include="..\..\Lib\NXS.Lib\NXS.Lib.csproj">
       <Project>{c067b3ab-3faf-40d7-98e9-5788768bd315}</Project>
-      <Name>NXS.Lib.Web</Name>
+      <Name>NXS.Lib</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Lib\SOS.Lib.AuthorizeNet\SOS.Lib.AuthorizeNet.csproj">
       <Project>{87534C41-8CE5-44A1-9DFB-8881572D8E95}</Project>

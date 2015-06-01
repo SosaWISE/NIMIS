@@ -1,4 +1,5 @@
 ﻿using NSE.FOS.Contracts.Models;
+using NXS.Lib;
 using NXS.Logic.MonitoringStations.Helpers;
 using NXS.Logic.MonitoringStations.Models;
 using NXS.Logic.MonitoringStations.Models.Get;
@@ -32,15 +33,12 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 
 		public CentralStation()
 		{
-			_username = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("MN_USERNAME");
-			_username = Lib.Util.Cryptography.TripleDES.DecryptString(_username, null);
-			_password = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("MN_PASSWORD");
-			_password = Lib.Util.Cryptography.TripleDES.DecryptString(_password, null);
+			_username = WebConfig.Instance.GetConfig("MN_USERNAME");
+			_password = WebConfig.Instance.GetConfig("MN_PASSWORD");
 			_servCoNummber = "811110003";
 
 			// ** Save default DEFAULT SYSTEM ACCOUNTID
-			var defaultSysAccountId = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("MN_PASSWORD");
-			defaultSysAccountId = Lib.Util.Cryptography.TripleDES.DecryptString(defaultSysAccountId, null);
+			var defaultSysAccountId = WebConfig.Instance.GetConfig("MN_PASSWORD");
 			if (!long.TryParse(defaultSysAccountId, out _defSysActId))
 				_defSysActId = _DEFAULT_SYS_ACCOUNTID;
 		}
