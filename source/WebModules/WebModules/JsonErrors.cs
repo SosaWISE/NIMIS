@@ -3,7 +3,6 @@ using Nancy.Bootstrapper;
 using Nancy.Responses;
 using SOS.Lib.Core;
 using System;
-using System.Security;
 
 namespace WebModules
 {
@@ -32,7 +31,7 @@ namespace WebModules
 				result = new Result<object>(((ResultException)ex).Code, ex.Message);
 			else
 			{
-				result = new Result<object>()
+				result = new Result<object>
 				{
 					Code = (int)HttpStatusCode.InternalServerError,
 					Message = StaticConfiguration.DisableErrorTraces ? ex.Message : ex.ToString(),

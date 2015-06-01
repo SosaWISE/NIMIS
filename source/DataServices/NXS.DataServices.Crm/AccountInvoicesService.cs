@@ -101,6 +101,9 @@ namespace NXS.DataServices.Crm
 					if (item.InvoiceTypeId == AE_InvoiceType.MetaData.SetupandInstallationID)
 					{
 						var acct = await db.MS_Accounts.ByIdAsync(item.AccountId).ConfigureAwait(false);
+
+						#region Assign the correct Cellular Package.
+						//** Assign the correct Cellular Package.
 						string cellPackageItemId = null;
 						foreach (var invItem in item.InvoiceItems)
 						{
@@ -118,6 +121,31 @@ namespace NXS.DataServices.Crm
 							acct.CellularTypeId = (cellPackageItemId == null) ? null : "CELLPRI"; // ????????
 							await db.MS_Accounts.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
 						}
+						#endregion Assign the correct Cellular Package.
+
+						#region Assign the correct panelItemId to MS_Accounts
+
+						// ** Check to see if the account already has a panel.
+						if (string.IsNullOrEmpty(acct.PanelItemId))
+						{
+							string panelItemId = null;
+							foreach (var invItem in item.InvoiceItems)
+							{
+								// ** find equipment
+								var eqmt = await db.MS_Equipments.ByIdAsync(invItem.ItemId).ConfigureAwait(false);
+								if (eqmt == null) continue;
+								if (!eqmt.AccountZoneTypeId.Equals("PANEL") && eqmt.EquipmentMonitoredTypeId != (int)MS_EquipmentType.IDEnum.Panel)
+									continue;
+								panelItemId = invItem.ItemId;
+								break;
+							}
+
+							var snapShot = Snapshotter.Start(acct);
+							acct.PanelItemId = panelItemId;
+							await db.MS_Accounts.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
+						}
+
+						#endregion Assign the correct panelItemId to MS_Accounts
 					}
 
 					// commit transaction
