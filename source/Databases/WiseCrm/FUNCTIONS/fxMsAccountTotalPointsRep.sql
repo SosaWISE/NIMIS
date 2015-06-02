@@ -61,6 +61,7 @@ BEGIN
 			AND (AEI.IsActive = 1 AND AEI.IsDeleted = 0)
 			AND (AEII.IsActive = 1 AND AEII.IsDeleted = 0)
 			AND (AEII.SalesmanId IS NOT NULL)
+			AND (AEII.IsCustomerPaying = 0)
 		INNER JOIN [dbo].[MS_Equipments] AS MSE WITH (NOLOCK)
 		ON
 			(AEII.ItemId = MSE.EquipmentID)
@@ -74,8 +75,8 @@ BEGIN
 END
 GO
 
-/**
-DECLARE @AccountID BIGINT = 191168
+/** 
+DECLARE @AccountID BIGINT = 191233
 	, @SeasonID INT = 4;
 SELECT dbo.fxMsAccountTotalPointsRep(@AccountID);
 
@@ -84,6 +85,9 @@ SELECT dbo.fxMsAccountTotalPointsRep(@AccountID);
 		, AEII.SystemPoints
 		, AEII.SalesmanId
 		, MSE.GPItemNmbr
+		, AEII.IsCustomerPaying
+		, MSE.ItemDescription
+		, AEII.ProductBarcodeId
 	FROM
 		[dbo].[AE_InvoiceItems] AS AEII WITH (NOLOCK)
 		INNER JOIN [dbo].[AE_Invoices] AS AEI WITH (NOLOCK)

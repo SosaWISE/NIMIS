@@ -1,7 +1,6 @@
 /********************  HEADER  ********************
-Bonuses get applied for:
-	Increasing the RMR and staying within the range
-	Selling equipment to the customer
+STEP004: Calculate weekly volume per rep and their Base commission payout
+
 */
 USE [NXSE_Commissions]
 GO
@@ -133,10 +132,12 @@ BEGIN
 			INSERT INTO [dbo].[SC_WorkAccountAdjustments] (
 				[WorkAccountId]
 				, [CommissionBonusId]
+				, [CommissionPeriodId]
 				, [AdjustmentAmount]
 			) VALUES (
 				@WorkAccountId -- WorkAccountId -- bigint
 				, @CommissionsBonusID -- varchar(20)
+				, @CommissionPeriodID
 				, @BonusAmount -- money
 			);
 			SET @WorkAccountAdjustmentId = SCOPE_IDENTITY();

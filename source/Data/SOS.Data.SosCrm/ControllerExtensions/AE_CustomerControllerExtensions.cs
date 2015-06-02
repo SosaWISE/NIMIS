@@ -57,10 +57,16 @@ namespace SOS.Data.SosCrm.ControllerExtensions
 		}
 		public static bool ExistsForCmfid(this ARController cntlr, long cmfid)
 		{
-			var qry = new SubSonic.Select(AR.Columns.CustomerID).From(AR.Schema)
-				.Where(AR.Columns.CustomerMasterFileId).IsEqualTo(cmfid);
-			var v = qry.SQLCommand;
-			return qry.GetRecordCount() > 0;
+			var qry = AR.Query()
+				.WHERE(AR.Columns.CustomerMasterFileId, cmfid);
+
+			var result = cntlr.LoadSingle(qry);
+
+			return result != null && result.IsLoaded;
+			//var qry = new SubSonic.Select(AR.Columns.CustomerID).From(AR.Schema)
+			//	.Where(AR.Columns.CustomerMasterFileId).IsEqualTo(cmfid);
+			//var v = qry.SQLCommand;
+			//return qry.GetRecordCount() > 0;
 		}
 
 		public static AR ByLeadId(this ARController cntlr, long leadId)

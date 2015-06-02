@@ -4,7 +4,7 @@ namespace SOS.Services.Interfaces.Models.MonitoringStation
 {
 	public class MsAccountEquipment : IMsAccountEquipment
 	{
-		public long AccountZoneAssignmentID { get; set; }
+		public long? AccountZoneAssignmentID { get; set; }
 		public long AccountEquipmentID { get; set; }
 		public long AccountId { get; set; }
 		public string EquipmentId { get; set; }
@@ -23,8 +23,8 @@ namespace SOS.Services.Interfaces.Models.MonitoringStation
 		public string GPEmployeeId { get; set; }
 		public string AccountEquipmentUpgradeTypeId { get; set; }
 
-        public int Points { get; set; }
-		public double? ActualPoints { get; set; }
+        public decimal Points { get; set; }
+		public decimal? ActualPoints { get; set; }
 		public decimal Price { get; set; }
 		public bool IsExisting { get; set; }
 		public string BarcodeId { get; set; }
@@ -49,8 +49,8 @@ namespace SOS.Services.Interfaces.Models.MonitoringStation
 		int? EquipmentLocationId { get; set; }
 		string GPEmployeeId { get; set; }
 		string AccountEquipmentUpgradeTypeId { get; set; }
-        int Points { get; set; }
-		double? ActualPoints { get; set; }
+        decimal Points { get; set; }
+		decimal? ActualPoints { get; set; }
 		decimal Price { get; set; }
 		bool IsExisting { get; set; }
 		string BarcodeId { get; set; }
@@ -60,7 +60,7 @@ namespace SOS.Services.Interfaces.Models.MonitoringStation
 		string EquipmentLocationDesc { get; set; }
 		string AccountZoneType { get; set; }
 
-		long AccountZoneAssignmentID { get; set; }
+		long? AccountZoneAssignmentID { get; set; }
 
 
 	}

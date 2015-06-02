@@ -177,7 +177,7 @@ END
 GO
 
 /** */
-DECLARE @AccountID BIGINT = 191168
+DECLARE @AccountID BIGINT = 191230
 	, @SeasonID INT = 4;
 SELECT dbo.fxMsAccountTotalPointsAllowed(@AccountID);
 

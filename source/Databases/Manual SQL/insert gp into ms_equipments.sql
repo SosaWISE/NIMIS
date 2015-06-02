@@ -12,7 +12,7 @@ DECLARE @IsWireless BIT
 DECLARE @ShowInInventory BIT
 DECLARE @UpdateFlg INT
 
-SET @ItemSKU = 'WS-GE-001872-WHITE'
+SET @ItemSKU = 'WO15Z-1'
 /*
 	MAKE SURE TO SET YOUR VALUES FOR THE 5 VARIABLES BELOW
 */
@@ -36,36 +36,41 @@ EquipmentMonitoredTypeId:
 15 Close
 */
 
-SET @EquipmentTypeId = 26
+SET @EquipmentTypeId = 34
 /*
 EquipmentTypeID:
-1 Door / Window
-2 Key Fob
-3 Motion
-4 Smoke
-5 Glassbreak
-6 Medical
-7 Carbon
-8 Flood
-9 Freeze
-10 Panel
-11 Cell
-12 No Zone
-13 Tool
-14 Activation Fee
-15 Camera
-16 Z-Wave Locks
-17 Doorbell
-18 Kit
-19 Keypad
-20 Monitoring Fee
-21 Payroll Deduction
-22 Takeover
-23 Z-Wave
-24 Sign
-25 Door Armor
-26 Key Lock
-27 Product Upgrade
+1	Door / Window
+2	Key Fob
+3	Motion
+4	Smoke
+5	Glassbreak
+6	Medical
+7	Carbon
+8	Flood
+9	Freeze
+10	Panel
+11	Cell
+12	No Zone
+13	Tool
+14	Activation Fee
+15	Camera
+16	Deadbolt
+17	Doorbell
+18	Kit
+19	Keypad
+20	Monitoring Fee
+21	Payroll Deduction
+22	Takeover
+23	Z-Wave
+24	Sign
+25	Door Armor
+26	Key Lock
+27	Product Upgrade
+28	Door
+29	Window
+30	Cell Monitoring Fee
+33	Thermostat
+34	Lighting
 
 */
 

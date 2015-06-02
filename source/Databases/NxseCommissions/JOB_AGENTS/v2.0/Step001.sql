@@ -138,9 +138,9 @@ SELECT DISTINCT
 	, MSASI.PaymentType
 	, WISE_CRM.dbo.fxMsAccountMMRGet(MSASI.AccountID)
 	, MSASI.ActivationFee -- WISE_CRM.dbo.fxMsAccountSetupFeeGet(MSASI.AccountID, 0)
-	, MSASI.TotalPoints
-	, MSASI.TotalPointsAllowed
-	, MSASI.RepPoints
+	, MSASI.TotalPoints AS PointsOfProtection  -- [dbo].fxMsAccountsTotalPoints(MSA.AccountID) AS [TotalPoints]
+	, MSASI.TotalPointsAllowed AS PointsAllowed -- [dbo].fxMsAccountTotalPointsAllowed(MSA.AccountID) AS [TotalPointsAllowed]
+	, MSASI.RepPoints AS PointsAssignedToRep -- [dbo].fxMsAccountTotalPointsRep(MSA.AccountID) AS RepPoints
 FROM
 	-- MS_AccountSalesInformations
 	[WISE_CRM].[dbo].vwAE_CustomerAccountInfoToGP AS MSASI WITH (NOLOCK)

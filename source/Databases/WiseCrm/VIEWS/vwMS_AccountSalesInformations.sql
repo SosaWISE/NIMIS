@@ -125,8 +125,8 @@ AS
 
 GO
 /* TEST 
-DECLARE @AccountID BIGINT = 191186;
-SELECT AccountID, TotalPoints FROM vwMS_AccountSalesInformations WHERE AccountID = @AccountID; --191101;
+DECLARE @AccountID BIGINT = 191233;
+SELECT AccountID, TotalPoints, RepPoints, [TotalPointsAllowed] FROM vwMS_AccountSalesInformations WHERE AccountID = @AccountID; --191101;
 SELECT * FROM vwMS_AccountSalesInformations WHERE AccountID = 191168;
 SELECT * FROM [dbo].[AE_Contracts] WHERE ContractID = 1000022;
 

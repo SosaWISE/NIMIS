@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using SOS.FunctionalServices;
 using SOS.FunctionalServices.Contracts;
@@ -9,11 +8,6 @@ using SOS.FunctionalServices.Contracts.Models.HumanResource;
 using SOS.Services.Interfaces.Models.HumanResources;
 using SSE.Services.CmsCORS.Helpers;
 using SSE.Services.CmsCORS.Models;
-using SOS.FunctionalServices.Contracts.Helper;
-
-
-
-
 
 namespace SSE.Services.CmsCORS.Controllers.HumanResource
 {

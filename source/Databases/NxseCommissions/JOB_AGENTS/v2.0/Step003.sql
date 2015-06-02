@@ -1,5 +1,5 @@
 /********************  HEADER  ********************
-Deductions get applied for:
+STEP003: Apply Deductions/Bonuses to accounts in WorkAccounts:
 	Agreement length
 	Payment type
 	Activation fee
@@ -120,25 +120,6 @@ WHERE
 	(ActivationFee < 69.00)
 	AND (CommissionPeriodId = @CommissionPeriodID);
 
-PRINT '/***************************';
-PRINT '***	POINTS OF PROTECTION ***';
-PRINT '***************************/';
-SET @CommissionDeductionID = 'POINTSGIVEN';
-DECLARE @PointDeductionInDollars MONEY = 30.00; -- Default value
-SELECT @PointDeductionInDollars = (-1) * DeductionAmount FROM [dbo].[SC_CommissionDeductions] WHERE (CommissionDeductionID = @CommissionDeductionID);
-
-INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionPeriodId, CommissionDeductionId, AdjustmentAmount) 
-SELECT
-	WorkAccountId
-	, @CommissionPeriodID
-	, @CommissionDeductionID
-	, CAST(SCWA.PointsAssignedToRep AS MONEY) * @PointDeductionInDollars
-FROM
-	[dbo].[SC_WorkAccounts] AS SCWA WITH (NOLOCK)
-WHERE
-	(SCWA.PointsAssignedToRep IS NOT NULL)
-	AND (SCWA.PointsAssignedToRep > 0)
-	AND (SCWA.CommissionPeriodId = @CommissionPeriodID);
 /********************************************** START CURSOR **********************************************************************************
 * Create a cursor looping through work accounts.
 ***********************************************************************************************************************************************/
@@ -159,10 +140,11 @@ BEGIN
 	-- Check to see if there is a Equipment Upgrade
 	IF (EXISTS(SELECT * FROM dbo.fxSCv2_0GetSalesRepBonusUpgradesByAccountId(@AccountID)))
 	BEGIN
-		SET @CommissionDeductionID = 'EQUIPUPGRADE';
-		INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionDeductionId, AdjustmentAmount) 
+		SET @CommissionDeductionID= 'EQUIPUPGRADE';
+		INSERT INTO [dbo].[SC_WorkAccountAdjustments] (WorkAccountId, CommissionPeriodId, CommissionBonusId, AdjustmentAmount) 
 		SELECT
 			@WorkAccountID
+			, @CommissionPeriodID
 			, @CommissionDeductionID
 			, RBUG.BonusUpgrade --  AS [Bonus Upgrade]
 		FROM
@@ -171,11 +153,11 @@ BEGIN
 			(RBUG.BonusUpgrade IS NOT NULL);
 	END
 		
-	PRINT '/*******************************';
-	PRINT '***	LOWERED RMR WITHIN RANGE ***';
-	PRINT '*******************************/';
+	PRINT '/********************************';
+	PRINT '***	RMR CHANGED WITHIN RANGE ***';
+	PRINT '********************************/';
 	PRINT 'ACCOUNTID: ' + CAST(@AccountID AS VARCHAR);
-	--DEDUCT Or Adjust based on the Points
+	--DEDUCT or BONUS based on the MMR
 	INSERT SC_WorkAccountAdjustments
 	(
 		WorkAccountId
@@ -194,6 +176,29 @@ BEGIN
 		[WISE_CRM].[dbo].fxSCv2_0GetRMRInformationByAccountID(@AccountID) AS RMRI
 	WHERE
 		(RMRI.CommissionDeductionID IS NOT NULL OR RMRI.CommissionBonusID IS NOT NULL);
+
+	PRINT '/***************************';
+	PRINT '***	POINTS OF PROTECTION ***';
+	PRINT '***************************/';
+	--Deduct or Bonus based off the Points Given vs. Points Allowed
+	INSERT SC_WorkAccountAdjustments
+	(
+		WorkAccountId
+		, CommissionPeriodId
+		, CommissionDeductionId
+		, CommissionBonusId
+		, AdjustmentAmount
+	)
+	SELECT
+		@WorkAccountID
+		, @CommissionPeriodID
+		, PTSI.CommissionDeductionID
+		, PTSI.CommissionBonusID
+		, PTSI.AdjustmentAmount
+	FROM
+		[WISE_CRM].[dbo].fxSCv2_0GetPointInformationByAccountID(191233) AS PTSI
+	WHERE
+		(PTSI.CommissionDeductionID IS NOT NULL OR PTSI.CommissionBonusID IS NOT NULL);
 
 	/** Get Next Account */
 	FETCH NEXT FROM workAccountCursor INTO @WorkAccountID, @AccountID;
@@ -332,7 +337,36 @@ FROM
 	JOIN [WISE_CRM].dbo.[MS_AccountPackages] AS msap ON msasi.AccountPackageId = msap.AccountPackageID
 WHERE 
 	(scwa.RMR < msap.BaseRMR)
+	AND (scwa.InstallDate < '5/1/2015')
 	AND (CommissionPeriodId = @CommissionPeriodID);
+
+PRINT '/****************************';
+PRINT '***	Team Contract Length ***';
+PRINT '****************************/';
+--DEDUCT FOR TEAM CONTRACT LENGTHS LESS THAN 60 MONTHS
+SET @CommissionDeductionID = 'TEAMLOWCONLEN'
+SELECT @DeductionAmount = (-1) * DeductionAmount FROM dbo.SC_CommissionDeductions WHERE (CommissionDeductionID = @CommissionDeductionID)
+
+--Create entry for Team Contract Length
+INSERT SC_WorkAccountAdjustments
+(
+	WorkAccountId
+	, CommissionPeriodId
+	, CommissionDeductionId
+	, AdjustmentAmount
+)
+SELECT
+	WorkAccountID
+	, @CommissionPeriodID
+	, @CommissionDeductionID
+	, @DeductionAmount
+FROM
+	dbo.SC_WorkAccounts AS scwa
+WHERE
+	(scwa.ContractLength < 60)
+	AND (scwa.InstallDate >= '5/1/2015')
+	and (CommissionPeriodId = @CommissionPeriodID);
+
 
 IF (@DEBUG_MODE = 'ON')
 BEGIN
