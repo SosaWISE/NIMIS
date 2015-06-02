@@ -134,7 +134,7 @@ namespace NXS.DataServices.Crm
 								// ** find equipment
 								var eqmt = await db.MS_Equipments.ByIdAsync(invItem.ItemId).ConfigureAwait(false);
 								if (eqmt == null) continue;
-								if (!eqmt.AccountZoneTypeId.Equals("PANEL") && eqmt.EquipmentMonitoredTypeId != (int)MS_EquipmentType.IDEnum.Panel)
+								if (!eqmt.AccountZoneTypeId.Equals("PANEL") && eqmt.EquipmentTypeId != (int)MS_EquipmentType.IDEnum.Panel)
 									continue;
 								panelItemId = invItem.ItemId;
 								break;
