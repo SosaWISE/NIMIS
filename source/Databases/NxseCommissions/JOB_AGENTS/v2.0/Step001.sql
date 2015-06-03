@@ -282,6 +282,8 @@ BEGIN
 		INNER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS RU WITH (NOLOCK)
 		ON
 			(SCWA.SalesRepId = RU.GPEmployeeId)
+	WHERE
+		(SCWA.CommissionPeriodId = @CommissionPeriodID)
 	ORDER BY
 		SCWA.InstallDate;
 END

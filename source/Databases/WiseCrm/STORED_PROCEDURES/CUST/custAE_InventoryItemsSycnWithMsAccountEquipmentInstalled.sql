@@ -65,6 +65,13 @@ BEGIN
 		, @ModelNumber VARCHAR(30)
 		, @Count INT = 0
 	
+
+	/** THERE IS A BUG WITH THIS PROC.  IT needs to be fixed or removed.
+	TODO: ANDRES FIX OR REMOVE
+	*/
+	RETURN;
+
+
 	BEGIN TRY
 		BEGIN TRANSACTION
 		/** Initialize */

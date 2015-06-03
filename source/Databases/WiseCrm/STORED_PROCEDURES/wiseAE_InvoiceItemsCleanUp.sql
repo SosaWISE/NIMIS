@@ -95,7 +95,7 @@ GRANT EXEC ON dbo.wiseAE_InvoiceItemsCleanUp TO PUBLIC
 GO
 
 /** */
-DECLARE @CMFID BIGINT, @AccountID BIGINT = 191262, @InvoiceItemID BIGINT = 10065662 -- Has no barcode
+DECLARE @CMFID BIGINT, @AccountID BIGINT = 191260, @InvoiceItemID BIGINT = 10065662 -- Has no barcode
 --UPDATE dbo.MS_Accounts SET PanelItemId = NULL WHERE (AccountID = @AccountID);
 --DECLARE @InvoiceItemID BIGINT = 10064653 -- Has barcode
 --EXEC dbo.wiseAE_InvoiceItemsCleanUp @InvoiceItemID;
@@ -158,4 +158,4 @@ FROM
 		(AEIT.ItemID = AEII.ItemId)
 
 
-SELECT AccountID, @CMFID AS CustomerMasterFileID, TotalPoints, TotalPointsAllowed, RepPoints, TechPoints FROM dbo.vwMS_AccountSalesInformations WHERE (AccountID = @AccountID);
+SELECT AccountID, @CMFID AS CustomerMasterFileID, TotalPoints, TotalPointsAllowed, RepPoints, TechPoints FROM dbo.vwMS_AccountSalesInformations WHERE (AccountID = @AccountID)

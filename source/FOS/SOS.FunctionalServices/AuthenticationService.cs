@@ -5,13 +5,10 @@
  * 
  * Description:  Authenticates a request.
  *********************************************************************************************************************/
-
-using Newtonsoft.Json;
 using SOS.Data.AuthenticationControl;
 using SOS.Data.HumanResource;
 using SOS.Data.HumanResource.ControllerExtensions;
 using SOS.Data.SosCrm;
-using SOS.Data.SosCrm.ControllerExtensions;
 using SOS.FunctionalServices.Contracts;
 using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.AuthenticationControl;
@@ -38,7 +35,7 @@ namespace SOS.FunctionalServices
 		public readonly bool MockADGroups;
 		public AuthenticationService()
 		{
-			MockADGroups = string.Compare(SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("MockADGroups"), "true", true) == 0;
+			MockADGroups = string.Compare(Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("MockADGroups"), "true", true) == 0;
 		}
 
 		#region Implementation of IAuthenticationService

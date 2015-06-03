@@ -786,7 +786,15 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 						submitItem.CreatedBy = gpEmployeeId;
 						submitItem.CreatedOn = DateTime.UtcNow;
 						submitItem.Save(gpEmployeeId);
+
+						//** Look for this error
+						if (row.err_text.Equals("Invalid System, must be digital primary  "))
+						{
+							DataSet someResult;
+							moniService.PullPanelResetShell(msAccountSubmit, msAccount.IndustryAccount.Csid, out someResult);
+						}
 					}
+
 
 					result.Code = BaseErrorCodes.ErrorCodes.MSAccountInitTwoWayFailed.Code();
 					result.Message = string.Format(BaseErrorCodes.ErrorCodes.MSAccountInitTwoWayFailed.Message(),
