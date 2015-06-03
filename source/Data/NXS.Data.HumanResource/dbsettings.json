@@ -41,6 +41,8 @@
   "IncludeTableList": [
     "^RU_Users$",
     "^RU_Recruits$",
+    "^RU_RoleLocations$",
     "^RU_Teams$",
+    "^RU_UserType$",
   ],
 }

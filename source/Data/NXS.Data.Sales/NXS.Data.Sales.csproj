@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes.cs" />
+    <Compile Include="Classes\SL_ContactView.cs" />
     <Compile Include="Classes\SL_Contact.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DBase.cs" />

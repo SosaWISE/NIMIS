@@ -209,7 +209,7 @@ namespace NXS.DataServices.Sales
 		}
 
 
-		public async Task<Result<List<dynamic>>> ContactsInAreaAsync(decimal minlat, decimal minlng, decimal maxlat, decimal maxlng)
+		public async Task<Result<List<SlContactView>>> ContactsInAreaAsync(decimal minlat, decimal minlng, decimal maxlat, decimal maxlng)
 		{
 			using (var db = DBase.Connect())
 			{
@@ -218,7 +218,7 @@ namespace NXS.DataServices.Sales
 				//	throw new Exception("You ain't got permission");
 
 				var items = await db.SL_Contacts.InAreaAsync(_gpEmployeeId, minlat, maxlat, minlng, maxlng).ConfigureAwait(false);
-				return new Result<List<dynamic>>(value: items);
+				return new Result<List<SlContactView>>(value: items.ConvertAll(a => SlContactView.FromDb(a)));
 			}
 		}
 

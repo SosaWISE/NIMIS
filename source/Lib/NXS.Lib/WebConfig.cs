@@ -30,6 +30,18 @@ namespace NXS.Lib
 		{
 			return _dict.GetConfig(key);
 		}
+		public bool GetBool(string key)
+		{
+			bool result;
+			bool.TryParse(GetConfig(key), out result);
+			return result;
+		}
+		public int GetInt(string key)
+		{
+			int result;
+			int.TryParse(GetConfig(key), out result);
+			return result;
+		}
 
 		static Exception _initError;
 		static WebConfig _instance;

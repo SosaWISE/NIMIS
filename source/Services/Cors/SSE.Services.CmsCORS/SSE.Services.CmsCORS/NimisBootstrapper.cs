@@ -6,6 +6,7 @@ using Nancy.Diagnostics;
 using Nancy.Serialization.JsonNet;
 using Nancy.TinyIoc;
 using Newtonsoft.Json;
+using NXS.Lib;
 using SOS.FunctionalServices;
 using WebModules;
 
@@ -44,7 +45,7 @@ namespace SSE.Services.CmsCORS
 
 		protected override void ConfigureApplicationContainer(TinyIoCContainer container)
 		{
-			StaticConfiguration.DisableErrorTraces = true;
+			StaticConfiguration.DisableErrorTraces = WebConfig.Instance.GetBool("DisableErrorTraces");
 
 			// compat with old way of doing thangs
 			container.Register(SosServiceEngine.Instance.FunctionalServices.Instance<TokenAuthenticationConfiguration>());

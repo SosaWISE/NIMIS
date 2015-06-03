@@ -25,7 +25,7 @@ namespace NXS.Data.Sales
 			await tbl.UpdateAsync(item.ID, snapshot.Diff()).ConfigureAwait(false);
 		}
 
-		public static async Task<List<dynamic>> InAreaAsync(this ARTable tbl, string repCompanyID/*, int officeId*/, decimal minlat, decimal maxlat, decimal minlng, decimal maxlng)
+		public static async Task<List<SL_ContactView>> InAreaAsync(this ARTable tbl, string repCompanyID/*, int officeId*/, decimal minlat, decimal maxlat, decimal minlng, decimal maxlng)
 		{
 			using (var db = DBase.Connect())
 			{
@@ -138,7 +138,7 @@ namespace NXS.Data.Sales
 				// 			AND longitude BETWEEN @minlng AND @maxlng";
 				//return (await db.QueryAsync(sql, new { salesRepId, officeId, minlat, minlng, maxlat, maxlng }).ConfigureAwait(false)).ToList();
 				#endregion // old
-				return (await db.QueryAsync(sql.Sql, sql.Params).ConfigureAwait(false)).ToList();
+				return (await db.QueryAsync<SL_ContactView>(sql.Sql, sql.Params).ConfigureAwait(false)).ToList();
 			}
 		}
 	}

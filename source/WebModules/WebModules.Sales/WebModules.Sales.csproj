@@ -46,9 +46,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ContactCategoriesModule.cs" />
     <Compile Include="ContactsModule.cs" />
-    <Compile Include="OfficesModule.cs" />
     <Compile Include="SalesAreasModule.cs" />
-    <Compile Include="SalesRepsModule.cs" />
     <Compile Include="SystemTypesModule.cs" />
     <Compile Include="TrackingsModule.cs" />
   </ItemGroup>

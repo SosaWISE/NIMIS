@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NXS.DataServices.HumanResource.Models;
 
 namespace NXS.DataServices.HumanResource
 {
@@ -23,6 +24,14 @@ namespace NXS.DataServices.HumanResource
 			{
 				var items = await db.RU_Recruits.PossibleReportTos(seasonID, userTypeID).ConfigureAwait(false);
 				return new Result<List<PossibleReportTo>>(value: items.ToList());
+			}
+		}
+		public async Task<Result<List<RuUserSlim>>> SalesUsersAsync()
+		{
+			using (var db = DBase.Connect())
+			{
+				var items = await db.RU_Users.AllSalesUsersFullAsync().ConfigureAwait(false);
+				return new Result<List<RuUserSlim>>(value: items.ConvertAll(a => RuUserSlim.FromDb(a)));
 			}
 		}
 	}

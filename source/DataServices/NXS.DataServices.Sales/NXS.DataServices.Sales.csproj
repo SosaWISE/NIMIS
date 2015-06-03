@@ -59,6 +59,7 @@
     <Compile Include="Models\SlAreaAssignment.cs" />
     <Compile Include="Models\SlContact.cs" />
     <Compile Include="Models\SlContactCategory.cs" />
+    <Compile Include="Models\SlContactView.cs" />
     <Compile Include="Models\SlSystemType.cs" />
     <Compile Include="Models\TrackingInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

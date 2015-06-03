@@ -42,10 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hr\TeamsModule.cs" />
+    <Compile Include="Hr\UsersModule.cs" />
     <Compile Include="Hr\RecruitsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DataServices\NXS.DataServices.Crm\NXS.DataServices.Crm.csproj">
+      <Project>{726eb8be-e824-42a1-8e5f-2bac6373ad1c}</Project>
+      <Name>NXS.DataServices.Crm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\DataServices\NXS.DataServices.HumanResource\NXS.DataServices.HumanResource.csproj">
       <Project>{8f4535c7-d470-4c40-9061-8c6dcc75a550}</Project>
       <Name>NXS.DataServices.HumanResource</Name>

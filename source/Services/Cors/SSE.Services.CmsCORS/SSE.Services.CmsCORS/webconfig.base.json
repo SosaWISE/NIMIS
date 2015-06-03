@@ -1,14 +1,14 @@
 ﻿{
   "Comments": "Base Environment",
   "InheritEnv": null, /* top environment */
-  
+
   /* CORS Info */
   "Access-Control-Allow-Credentials": "true",
   "Access-Control-Allow-Origin": "https://crm.nexsense.com",
   "Access-Control-Allow-Methods": "GET,POST,DELETE",
   "Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,Authorization",
   "Access-Control-Expose-Headers": "Content-Length",
-  
+
   /* Database Info */
   "ApplicationName": "NiMiS",
   "DBHost": null,
@@ -24,7 +24,7 @@
   "ADPassword": "NEOvHYvqBJ+VJ1ZK+Q/RIw==",
   "ADUsersPath": "OU=CORPNEXSENSE,",
   "MockADGroups": "false",
-  
+
   /* Address Validation */
   "AddressVerification_Vendor": "STRIKEIRON", /* STRIKEIRON, INTELSEARCH, SMARTYSTREET */
   "AddressVerification_StrikeIronUID": "securitysciences@strikeiron.com",
@@ -65,4 +65,7 @@
   "AG_GATEWAY_ENDPNT": null,
   "MN_USERNAME": null,
   "MN_PASSWORD": null,
+
+  /**/
+  "DisableErrorTraces": "true",
 }
