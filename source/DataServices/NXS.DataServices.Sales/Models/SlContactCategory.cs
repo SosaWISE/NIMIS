@@ -28,7 +28,8 @@ namespace NXS.DataServices.Sales.Models
 			}
 
 			var result = new SlContactCategory();
-			result.ID = item.ID;
+			//@NOTE: if not null RealID effectively become the PK
+			result.ID = item.RealID.HasValue ? item.RealID.Value : item.ID;
 			result.RepCompanyID = item.RepCompanyID;
 			result.Name = item.Name;
 			result.Sequence = item.Sequence;

@@ -80,6 +80,7 @@ namespace NXS.Data.Sales
 			public DBase Db { get { return (DBase)_database; } }
 			public SL_ContactCategoryTable(DBase db) : base(db, "SlCC", "[NXSE_Sales].[dbo].[SL_ContactCategories]", "ID", "int", true) { }
 			public string ID { get { return _alias + "[ID]"; } }
+			public string RealID { get { return _alias + "[RealID]"; } }
 			public string RepCompanyID { get { return _alias + "[RepCompanyID]"; } }
 			public string Name { get { return _alias + "[Name]"; } }
 			public string Sequence { get { return _alias + "[Sequence]"; } }

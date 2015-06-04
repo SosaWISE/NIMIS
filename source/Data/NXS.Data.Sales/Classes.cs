@@ -51,6 +51,7 @@ namespace NXS.Data.Sales
 	public partial class SL_ContactCategory // SL_ContactCategories
 	{
 		public int ID { get; set; }
+		public int? RealID { get; set; }
 		public string RepCompanyID { get; set; }
 		public string Name { get; set; }
 		public short Sequence { get; set; }

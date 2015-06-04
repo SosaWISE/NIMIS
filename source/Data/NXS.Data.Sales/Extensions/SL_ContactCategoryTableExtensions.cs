@@ -25,20 +25,17 @@ namespace NXS.Data.Sales
 			await tbl.UpdateAsync(item.ID, snapshot.Diff()).ConfigureAwait(false);
 		}
 
+		public static async Task<AR> ByRealIDAsync(this ARTable tbl, int id, string repCompanyID)
+		{
+			var sql = Sequel.NewSelect(tbl.Star).From(tbl)
+				.WhereActiveAndNotDeleted(tbl.Alias)
+				.And(tbl.RealID, Comparison.Equals, id)
+				.And(tbl.RepCompanyID, Comparison.Equals, repCompanyID);
+			return (await tbl.Db.QueryAsync<AR>(sql.Sql, sql.Params).ConfigureAwait(false)).FirstOrDefault();
+		}
+
 		public static async Task<ARCollection> CategoriesByRepCompanyIDAsync(this ARTable tbl, string repCompanyID)
 		{
-			// var sql = @"SELECT * FROM SL_ContactCategories
-			// 	WHERE (RepCompanyID IS NULL OR RepCompanyID=@companyID)
-			// 	AND IsActive=1 AND IsDeleted=0
-			// 	AND id NOT IN (
-			// 		SELECT categoryId FROM SL_ContactCategoriesBlacklist
-			// 		WHERE RepCompanyID=@companyID
-			// 	)
-			// 	ORDER BY sequence, name";
-			// var companyID = _gpEmployeeId;
-			// var items = (await db.QueryAsync<SalesContactCategory>(sql, new { companyID }).ConfigureAwait(false)).ToList();
-			// return new Result<List<SalesContactCategory>>(value: items);
-
 			var sql = Sequel.NewSelect(tbl.Star).From(tbl)
 				.WhereActiveAndNotDeleted(tbl.Alias)
 				.And(s =>
