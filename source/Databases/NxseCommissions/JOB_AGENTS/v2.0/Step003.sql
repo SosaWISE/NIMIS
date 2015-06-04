@@ -40,6 +40,8 @@ PRINT '************************************************************ START ******
 DECLARE @CommissionDeductionID VARCHAR(20)
 	, @DeductionAmount MONEY;
 
+BEGIN TRANSACTION
+
 PRINT '/*************************';
 PRINT '***  AGREEMENT LENGTH  ***';
 PRINT '*************************/';
@@ -373,3 +375,4 @@ BEGIN
 	SELECT * FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID);
 	SELECT * FROM [dbo].[SC_workAccountAdjustments] WHERE (WorkAccountId IN (SELECT WorkAccountID FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID)));
 END
+ROLLBACK TRANSACTION
