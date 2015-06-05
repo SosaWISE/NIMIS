@@ -1730,6 +1730,11 @@ namespace SOS.FunctionalServices
 							, fnsAcctEquipmentsView.Zone
 							, gpEmployeeID));
 
+					//@FIX: duplicate zone assignment bug. (use newly created zone assignment???)
+					var za = msAccountEquipment.MS_AccountZoneAssignmentsCol.FirstOrDefault(); ;
+					if (za != null)
+						fnsAcctEquipmentsView.AccountZoneAssignmentID = za.AccountZoneAssignmentID;
+
 					isNew = false;
 				}
 
@@ -1777,7 +1782,6 @@ namespace SOS.FunctionalServices
 				if (isNew)
 				{
 					msAccountEquipment.IsActive = true;
-
 				}
 				msAccountEquipment.AccountId = fnsAcctEquipmentsView.AccountId;
 				msAccountEquipment.EquipmentId = fnsAcctEquipmentsView.EquipmentId;
@@ -2081,8 +2085,8 @@ namespace SOS.FunctionalServices
 			FosResult<MS_AccountSubmit> fosResult = shellAccount ? msXmlService.AccountShell(msAccountSubmit, gpEmployeeId) : msXmlService.AccountCreate(msAccountSubmit, gpEmployeeId);
 
 			/** Create holds by default.*/
-			SosCrmDataContext.Instance.MS_AccountHolds.Create(accountId, (int) MS_AccountHoldCatg2.Catg2Enum.AMA_Paperwork_Missing, null, gpEmployeeId);
-			SosCrmDataContext.Instance.MS_AccountHolds.Create(accountId, (int) MS_AccountHoldCatg2.Catg2Enum.SOP_Paperwork_Missing, null, gpEmployeeId);
+			SosCrmDataContext.Instance.MS_AccountHolds.Create(accountId, (int)MS_AccountHoldCatg2.Catg2Enum.AMA_Paperwork_Missing, null, gpEmployeeId);
+			SosCrmDataContext.Instance.MS_AccountHolds.Create(accountId, (int)MS_AccountHoldCatg2.Catg2Enum.SOP_Paperwork_Missing, null, gpEmployeeId);
 			// // Check for ACH account
 			if (msAcctSlI.PaymentTypeId.Equals(AE_PaymentType.MetaData.AchID))
 			{
