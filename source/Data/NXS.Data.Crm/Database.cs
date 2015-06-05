@@ -50,6 +50,7 @@ namespace NXS.Data.Crm
 		public MS_AccountTable MS_Accounts { get; set; }
 		public MS_AccountSalesInformationTable MS_AccountSalesInformations { get; set; }
 		public MS_EquipmentTable MS_Equipments { get; set; }
+		public MS_EquipmentTypeTable MS_EquipmentTypes { get; set; }
 		public QL_AddressTable QL_Addresses { get; set; }
 		public QL_CustomerMasterLeadTable QL_CustomerMasterLeads { get; set; }
 		public QL_LeadAddressTable QL_LeadAddresses { get; set; }
@@ -806,6 +807,16 @@ namespace NXS.Data.Crm
 			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
 			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
 			public string DEX_ROW_ID { get { return _alias + "[DEX_ROW_ID]"; } }
+		}
+		public partial class MS_EquipmentTypeTable : Table<MS_EquipmentType, int>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public MS_EquipmentTypeTable(DBase db) : base(db, "MsET", "[WISE_CRM].[dbo].[MS_EquipmentTypes]", "EquipmentTypeID", "int", true) { }
+			public string EquipmentTypeID { get { return _alias + "[EquipmentTypeID]"; } }
+			public string EquipmentType { get { return _alias + "[EquipmentType]"; } }
+			public string MonitronicsCode { get { return _alias + "[MonitronicsCode]"; } }
+			public string CriticomCode { get { return _alias + "[CriticomCode]"; } }
+			public string AvantGuardCode { get { return _alias + "[AvantGuardCode]"; } }
 		}
 		public partial class QL_AddressTable : Table<QL_Address, long>
 		{

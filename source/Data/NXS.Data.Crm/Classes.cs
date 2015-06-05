@@ -761,6 +761,50 @@ namespace NXS.Data.Crm
 		public DateTime DEX_ROW_TS { get; set; }
 		public int DEX_ROW_ID { get; set; }
 	}
+	public partial class MS_EquipmentType // MS_EquipmentTypes
+	{
+		public enum IDEnum : int
+		{
+			Door__Window = 1,
+			Key_Fob = 2,
+			Motion = 3,
+			Smoke = 4,
+			Glassbreak = 5,
+			Medical = 6,
+			Carbon = 7,
+			Flood = 8,
+			Freeze = 9,
+			Panel = 10,
+			Cell = 11,
+			No_Zone = 12,
+			Tool = 13,
+			Activation_Fee = 14,
+			Camera = 15,
+			Deadbolt = 16,
+			Doorbell = 17,
+			Kit = 18,
+			Keypad = 19,
+			Monitoring_Fee = 20,
+			Payroll_Deduction = 21,
+			Takeover = 22,
+			ZWave = 23,
+			Sign = 24,
+			Door_Armor = 25,
+			Key_Lock = 26,
+			Product_Upgrade = 27,
+			Door = 28,
+			Window = 29,
+			Cell_Monitoring_Fee = 30,
+			Thermostat = 33,
+			Lighting = 34,
+		}
+		[IgnorePropertyAttribute(true)] public int ID { get { return EquipmentTypeID; } set { EquipmentTypeID = value; } }
+		public int EquipmentTypeID { get; set; }
+		public string EquipmentType { get; set; }
+		public string MonitronicsCode { get; set; }
+		public string CriticomCode { get; set; }
+		public string AvantGuardCode { get; set; }
+	}
 	public partial class QL_Address // QL_Address
 	{
 		[IgnorePropertyAttribute(true)] public long ID { get { return AddressID; } set { AddressID = value; } }

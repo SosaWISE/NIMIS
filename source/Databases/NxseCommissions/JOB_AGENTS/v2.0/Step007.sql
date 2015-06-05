@@ -27,6 +27,7 @@ PRINT '************************************************************ START ******
 PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
 PRINT '************************************************************ START ************************************************************';
 /********************  END HEADER ********************/
+BEGIN TRANSACTION
 DECLARE @TeamResidualRates TABLE (TeamID INT, Volume INT, CommissionTeamOfficeAnnualResidualIncentiveId VARCHAR(20), ResidualRate MONEY, PayAmount MONEY, ManSalesRepId VARCHAR(25));
 DECLARE @CommissionCycleStrDate DATETIME
 	, @CommissionCycleEndDate DATETIME;
@@ -87,3 +88,4 @@ BEGIN
 	WHERE
 		(SCWAA.InstallDate BETWEEN @CommissionCycleStrDate AND @CommissionCycleEndDate);
 END
+ROLLBACK TRANSACTION

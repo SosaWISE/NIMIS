@@ -5,14 +5,11 @@
  * 
  * Description:  Authenticates a request.
  *********************************************************************************************************************/
-
-using Newtonsoft.Json;
 using NXS.Lib;
 using SOS.Data.AuthenticationControl;
 using SOS.Data.HumanResource;
 using SOS.Data.HumanResource.ControllerExtensions;
 using SOS.Data.SosCrm;
-using SOS.Data.SosCrm.ControllerExtensions;
 using SOS.FunctionalServices.Contracts;
 using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.AuthenticationControl;

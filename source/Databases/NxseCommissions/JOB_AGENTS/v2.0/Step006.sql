@@ -27,7 +27,7 @@ PRINT '************************************************************ START ******
 PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC) Com ContractID: ' + CAST(@CommissionContractID AS VARCHAR);
 PRINT '************************************************************ START ************************************************************';
 /********************  END HEADER ********************/
-
+BEGIN TRANSACTION
 DECLARE @TeamSummary TABLE (TeamID INT, NumberOfAccounts INT, CommissionTeamOfficeOverrideScaleID VARCHAR(20), Amount MONEY);
 DECLARE @ManSalesRepId VARCHAR(25)
 	, @WorkAccountID BIGINT
@@ -158,3 +158,4 @@ BEGIN
 	SELECT * FROM [dbo].[SC_workAccountAdjustments] WHERE (WorkAccountId IN (SELECT WorkAccountID FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID)));
 	SELECT * FROM [dbo].[SC_WorkAccountTeamOfficeOverrideBonuses] WHERE (WorkAccountId IN (SELECT WorkAccountID FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID)));
 END
+ROLLBACK TRANSACTION
