@@ -76,7 +76,7 @@ namespace Api.Core
 				}
 			}
 
-			result.Code = (int)Nancy.HttpStatusCode.Unauthorized;
+			result.Code = -1; //@NOTE: a 401 conflicts with the "re-authorize logic" client side // (int)Nancy.HttpStatusCode.Unauthorized;
 			result.Message = "Login failed";
 			return result;
 		}
