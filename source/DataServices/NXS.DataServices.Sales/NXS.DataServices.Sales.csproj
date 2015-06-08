@@ -51,11 +51,10 @@
   <ItemGroup>
     <Compile Include="BlahService.cs" />
     <Compile Include="ContactsService.cs" />
-    <Compile Include="Models\AreaInput.cs" />
+    <Compile Include="Models\SlArea.cs" />
     <Compile Include="Models\CategoryInput.cs" />
     <Compile Include="Models\ContactInput.cs" />
     <Compile Include="Models\Rep.cs" />
-    <Compile Include="Models\SlArea.cs" />
     <Compile Include="Models\SlAreaAssignment.cs" />
     <Compile Include="Models\SlContact.cs" />
     <Compile Include="Models\SlContactCategory.cs" />

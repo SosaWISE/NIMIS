@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Nancy.ModelBinding;
 
 namespace WebModules.Sales
 {
@@ -22,23 +23,35 @@ namespace WebModules.Sales
 
 			Post["/", true] = async (x, ct) =>
 			{
-				var inputItem = this.BindBody<AreaInput>();
+				var inputItem = this.BindBody<SlArea>();
 				return await Srv.SaveSalesAreaAsync(inputItem);
 			};
-
-			Delete["/", true] = async (x, ct) =>
+			Post["/{id:int}", true] = async (x, ct) =>
 			{
-				var inputItem = this.BindBody<AreaInput>();
-				return await Srv.DeleteSalesAreaAsync(inputItem.AreaId);
+				var inputItem = this.BindBody<SlArea>();
+				inputItem.ID = (int)x.id;
+				return (await Srv.SaveSalesAreaAsync(inputItem).ConfigureAwait(false));
+			};
+
+			Delete["/{id:int}", true] = async (x, ct) =>
+			{
+				return await Srv.DeleteSalesAreaAsync((int)x.id);
 			};
 
 			Get["/InBounds", true] = async (x, ct) =>
 			{
-				var qry = this.Request.Query;
-				return new Result<object>(
-					value: await Srv.SalesAreasAsync((int)qry.salesRepId, (int)qry.officeId, (decimal)qry.minlat, (decimal)qry.minlng, (decimal)qry.maxlat, (decimal)qry.maxlng)
-				);
+				var qry = this.Bind<BoundsQuery>();
+				return await Srv.SalesAreasInBoundsAsync(qry.repCompanyID, qry.teamId, qry.minlat, qry.minlng, qry.maxlat, qry.maxlng);
 			};
 		}
+	}
+	public class BoundsQuery
+	{
+		public string repCompanyID { get; set; }
+		public int teamId { get; set; }
+		public decimal minlat { get; set; }
+		public decimal minlng { get; set; }
+		public decimal maxlat { get; set; }
+		public decimal maxlng { get; set; }
 	}
 }

@@ -10,7 +10,7 @@ namespace NXS.DataServices.Sales.Models
 	public class SlSystemType
 	{
 		public int ID { get; set; }
-		//public int OfficeId { get; set; }
+		//public int TeamId { get; set; }
 		public string CompanyName { get; set; }
 		//public short Sequence { get; set; }
 		public string Filename { get; set; }

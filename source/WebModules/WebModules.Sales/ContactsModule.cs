@@ -30,8 +30,8 @@ namespace WebModules.Sales
 
 			Get["/InBounds", true] = async (x, ct) =>
 			{
-				var qry = this.Request.Query;
-				return await Srv.ContactsInAreaAsync((decimal)qry.minlat, (decimal)qry.minlng, (decimal)qry.maxlat, (decimal)qry.maxlng);
+				var qry = this.Bind<BoundsQuery>();
+				return await Srv.ContactsInBoundsAsync(qry.minlat, qry.minlng, qry.maxlat, qry.maxlng);
 			};
 
 			Get["/ByHour", true] = async (x, ct) =>

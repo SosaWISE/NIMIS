@@ -315,7 +315,7 @@ namespace NXS.DataServices.Sales
 		}
 
 
-		public async Task<Result<List<SlContactView>>> ContactsInAreaAsync(decimal minlat, decimal minlng, decimal maxlat, decimal maxlng)
+		public async Task<Result<List<SlContactView>>> ContactsInBoundsAsync(decimal minlat, decimal minlng, decimal maxlat, decimal maxlng)
 		{
 			using (var db = DBase.Connect())
 			{
@@ -323,7 +323,7 @@ namespace NXS.DataServices.Sales
 				//if (!Permission::user_has_permission(array(Permission::BASIC, Permission::OFFICE_STATS, Permission::COMPANY_STATS), $_SESSION['userid'], $salesRepId, $officeId))
 				//	throw new Exception("You ain't got permission");
 
-				var items = await db.SL_Contacts.InAreaAsync(_gpEmployeeId, minlat, maxlat, minlng, maxlng).ConfigureAwait(false);
+				var items = await db.SL_Contacts.InBoundsAsync(_gpEmployeeId, minlat, maxlat, minlng, maxlng).ConfigureAwait(false);
 				return new Result<List<SlContactView>>(value: items.ConvertAll(a => SlContactView.FromDb(a)));
 			}
 		}

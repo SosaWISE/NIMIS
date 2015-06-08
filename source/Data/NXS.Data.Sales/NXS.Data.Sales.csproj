@@ -47,7 +47,6 @@
     <Compile Include="Classes\SL_Contact.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DBase.cs" />
-    <Compile Include="Extensions\SL_AreaAssignmentTableExtensions.cs" />
     <Compile Include="Extensions\SL_AreaTableExtensions.cs" />
     <Compile Include="Extensions\SL_ContactAddressTableExtensions.cs" />
     <Compile Include="Extensions\SL_ContactCategoryTableExtensions.cs" />

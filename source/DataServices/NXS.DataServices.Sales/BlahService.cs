@@ -83,7 +83,7 @@ namespace NXS.DataServices.Sales
 			{
 				var ST = db.SL_SystemTypes;
 				var sql = Sequel.NewSelect(ST.Star).From(ST)
-					.Where(ST.OfficeId, Comparison.Equals, 0).Or(ST.OfficeId, Comparison.Equals, officeid)
+					.Where(ST.TeamId, Comparison.Equals, 0).Or(ST.TeamId, Comparison.Equals, officeid)
 					.OrderBy(ST.Sequence, ST.CompanyName);
 				var items = await db.QueryAsync<SL_SystemType>(sql.Sql, sql.Params).ConfigureAwait(false);
 				return new Result<List<SlSystemType>>(value: items.ConvertAll(a => SlSystemType.FromDb(a)));
