@@ -45,7 +45,8 @@ namespace NXS.Data.Sales
 
 				var sql = Sequel.NewSelect(A.Star).From(A)
 				.LeftOuterJoin(U).On(U.GPEmployeeId, Comparison.Equals, A.RepCompanyID, literalText: true)
-				.Where(A.MaxLatitude, Comparison.GreaterOrEquals, minlat).And(A.MinLatitude, Comparison.LessOrEquals, maxlat)
+				.WhereActiveAndNotDeleted(A.Alias)
+					.And(A.MaxLatitude, Comparison.GreaterOrEquals, minlat).And(A.MinLatitude, Comparison.LessOrEquals, maxlat)
 					.And(A.MaxLongitude, Comparison.GreaterOrEquals, minlng).And(A.MinLongitude, Comparison.LessOrEquals, maxlng)
 					.And((s) => s.Compare((object)repCompanyID, Comparison.Is, null).Or(A.RepCompanyID, Comparison.Equals, repCompanyID))
 					.And((s) => s.Compare((object)teamId, Comparison.Equals, 0).Or(A.TeamId, Comparison.Equals, teamId));
