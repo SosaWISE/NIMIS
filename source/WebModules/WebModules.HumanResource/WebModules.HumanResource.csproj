@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hr\ReportsModule.cs" />
     <Compile Include="Hr\TeamsModule.cs" />
     <Compile Include="Hr\UsersModule.cs" />
     <Compile Include="Hr\RecruitsModule.cs" />

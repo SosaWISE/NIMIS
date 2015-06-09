@@ -20,6 +20,14 @@ namespace NXS.Data.HumanResource
 			p.Add("@DocumentID", DocumentID);
 			return db.QueryAsync<T>("custDocLinkGetDocumentsByID", p, commandType: System.Data.CommandType.StoredProcedure);
 		}
+		public Task<IEnumerable<T>> Report_CreditAndInstalls<T>(int? officeId,DateTime? startDate,DateTime? endDate)
+		{
+			var p = new Dapper.DynamicParameters();
+			p.Add("@officeId", officeId);
+			p.Add("@startDate", startDate);
+			p.Add("@endDate", endDate);
+			return db.QueryAsync<T>("custReport_CreditAndInstalls", p, commandType: System.Data.CommandType.StoredProcedure);
+		}
 		public Task<IEnumerable<T>> RU_RecruitGetAllTechsBySeasonID<T>(int? SeasonID)
 		{
 			var p = new Dapper.DynamicParameters();
