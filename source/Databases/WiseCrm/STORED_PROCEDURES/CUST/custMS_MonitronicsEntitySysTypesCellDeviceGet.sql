@@ -120,3 +120,14 @@ GO
 
 
 */
+
+SELECT 
+	MSAE.EquipmentId
+	, MSEQ.GenDescription
+FROM
+	dbo.MS_AccountEquipment AS MSAE WITH (NOLOCK)
+	INNER JOIN dbo.MS_Equipments AS MSEQ WITH (NOLOCK)
+	ON
+	(MSEQ.EquipmentID = MSAE.EquipmentId)
+WHERE
+	(AccountID = 191274);
