@@ -117,6 +117,4 @@ GO
 			AND (EQM.IsCellUnit = 1);
 			--AND (EQM.ItemDescription LIKE '%Tel%')
 			--AND (EQM.AccountZoneTypeId = 'PANEL');	
-
-
 */

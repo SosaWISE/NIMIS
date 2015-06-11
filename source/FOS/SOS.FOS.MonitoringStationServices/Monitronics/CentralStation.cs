@@ -107,7 +107,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			if (msAccount.CellularTypeId.Equals(MS_AccountCellularType.MetaData.Cell_PrimaryID))
 			{
 				var cellSysTypeId = msAccount.GetMoniCellTypeId();
-				if (cellSysTypeId == null) throw new CsExceptionMissingMetadata(msAccount.AccountID, "Monitronics Cell System Type");
+				if (cellSysTypeId == null) throw new CsExceptionMissingMetadata(msAccount.AccountID, "Monitronics Cell System Type", "This means that the account is missing a cellular device in its equipment list.  So go into System Details and add a cellular unit.");
 				sysTypeId = cellSysTypeId.SystemTypeID;
 				secSysTypeId = msAccount.GetMoniSysTypeId().SystemTypeID;
 			}

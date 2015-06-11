@@ -4,7 +4,7 @@
 	{
 		#region .ctor
 
-		public CsExceptionMissingMetadata(long accountId, string metaDataName) : base(string.Format("For MS account of '{0}' the '{1}' is missing.", accountId, metaDataName))
+		public CsExceptionMissingMetadata(long accountId, string metaDataName, string note = null) : base(string.Format("NMS Message for MS account '{0}' the '{1}' is missing.  {2}", accountId, metaDataName, note))
 		{
 			AccountID = accountId;
 			MetadataName = metaDataName;
