@@ -85,5 +85,21 @@ DECLARE @AccountID BIGINT = 191257
 		AND (MEQ.IsMainPanel = 1)
 		AND (MEQ.IsActive = 1) AND (MEQ.IsDeleted = 0);
 
-EXEC dbo.custMS_EquipmentLocationGetPanelLocationByAccountId 191257 
+EXEC dbo.custMS_EquipmentLocationGetPanelLocationByAccountId 191274 
+
+
+SELECT 
+	MSAE.AccountEquipmentID
+	, MSAE.EquipmentId
+	, MSAE.IsMainPanel
+	, MSAE.BarcodeId
+	, MSEQ.GenDescription
+FROM
+	dbo.MS_AccountEquipment AS MSAE WITH (NOLOCK)
+	INNER JOIN dbo.MS_Equipments AS MSEQ WITH (NOLOCK)
+	ON
+	(MSEQ.EquipmentID = MSAE.EquipmentId)
+WHERE
+	(AccountID = 191274);
 */
+--UPDATE dbo.MS_AccountEquipment SET IsMainPanel = 0 WHERE AccountEquipmentID = 43657 
