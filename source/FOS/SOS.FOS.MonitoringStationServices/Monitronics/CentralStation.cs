@@ -94,6 +94,8 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 
 			var qlQualifyCustomerInfo = SosCrmDataContext.Instance.QL_QualifyCustomerInfoViews.LoadByAccountId(msAccount.AccountID);
 			var optionIdCMPUR = "CM"; //TODO:  Brian Carter wants all accounts to be CM so that Moni does not do the welcome call.// qlQualifyCustomerInfo.Score > 600 ? "PUR" : "CM";
+
+			if(msAccount.DslSeizure == null) throw new CsExceptionMissingMetadata(msAccount.AccountID, "DSL Seizure not set", "Please go into System Details and click on the System Details section and under DSL/Seizure pic Yes or No.");
 			var dslVoip = msAccount.DslSeizure.DslSeizureID == (short)MS_AccountDslSeizureType.DslSeizureEnum.Dsl
 				? "DSL"
 				: "NONE";

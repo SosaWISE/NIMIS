@@ -275,7 +275,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <None Include="webconfig.dbg-example.json" />
     <None Include="webconfig.dbg.json" />
     <Content Include="_Nancy\web.config" />
     <Content Include="webconfig.base.json" />
