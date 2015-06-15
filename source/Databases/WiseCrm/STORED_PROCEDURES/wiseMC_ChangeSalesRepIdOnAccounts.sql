@@ -40,6 +40,7 @@ CREATE Procedure dbo.wiseMC_ChangeSalesRepIdOnAccounts
 	@SalesRepID VARCHAR(50) = 'FLFA000'
 	, @CMFID BIGINT = 3091655
 	, @FullName VARCHAR(100)
+	, @DealerID INT = 5003
 )
 AS
 BEGIN
@@ -74,10 +75,11 @@ BEGIN
 			RETURN;
 		END
 
-		UPDATE dbo.QL_Leads SET SalesRepId = @SalesRepID WHERE (LeadID = @LeadID);
+		UPDATE dbo.QL_Leads SET SalesRepId = @SalesRepID, DealerId = @DealerID WHERE (LeadID = @LeadID);
 		UPDATE dbo.MS_AccountSalesInformations SET SalesRepId = @SalesRepID WHERE (AccountID = @AccountID);
 		UPDATE ADR SET 
 			ADR.SalesRepId = @SalesRepID
+			, ADR.DealerId = @DealerID
 		FROM
 			dbo.QL_Address AS ADR WITH (NOLOCK)
 			INNER JOIN dbo.QL_Leads AS QLD WITH (NOLOCK)
@@ -85,6 +87,16 @@ BEGIN
 				(QLD.AddressId = ADR.AddressID)
 		WHERE
 			(QLD.LeadID = @LeadID);
+		UPDATE dbo.AE_Customers SET DealerId = @DealerID WHERE (CustomerID = @CustomerID);
+		UPDATE MCAD SET
+			MCAD.DealerId = @DealerID
+		FROM
+			dbo.MC_Addresses AS MCAD WITH (NOLOCK)
+			INNER JOIN dbo.AE_Customers AS AEC WITH (NOLOCK)
+			ON
+				(AEC.AddressId = MCAD.AddressID)
+		WHERE
+			(AEC.CustomerID = @CustomerID);
 
 		COMMIT TRANSACTION
 	END TRY
@@ -99,4 +111,4 @@ GO
 GRANT EXEC ON dbo.wiseMC_ChangeSalesRepIdOnAccounts TO PUBLIC
 GO
 
-/** EXEC dbo.wiseMC_ChangeSalesRepIdOnAccounts */
+/** EXEC dbo.wiseMC_ChangeSalesRepIdOnAccounts 'FLFA000', 3091651, 'Charles Quarells', 5003;  */

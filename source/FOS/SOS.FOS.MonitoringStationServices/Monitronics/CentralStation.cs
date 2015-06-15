@@ -90,7 +90,12 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 					SosCrmDataStoredProcedureManager.QL_CreditReportMaxScoreByCmfID(aeMoniCustomer.CustomerMasterFileId));
 			if (msAccount.Contract == null)
 				throw new CsExceptionNoContract(msAccountSubmit.AccountId, msAccount.IndustryAccount.Csid);
-			var contractLength = msAccount.Contract.ContractLength;
+			/**
+			 * MONI ISSUE:  Month to Month will be passed as CM.  That is the accounts with ContractLength of 1.
+			 */
+			var contractLength = msAccount.Contract.ContractLength == 1
+				? "CM"
+				: msAccount.Contract.ContractLength.ToString(CultureInfo.InvariantCulture);
 
 			var qlQualifyCustomerInfo = SosCrmDataContext.Instance.QL_QualifyCustomerInfoViews.LoadByAccountId(msAccount.AccountID);
 			var optionIdCMPUR = "CM"; //TODO:  Brian Carter wants all accounts to be CM so that Moni does not do the welcome call.// qlQualifyCustomerInfo.Score > 600 ? "PUR" : "CM";
@@ -164,7 +169,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 					new SiteOption
 					{
 						OptionId = "CONTRLEN",
-						OptionValue = contractLength.ToString(CultureInfo.InvariantCulture)
+						OptionValue = contractLength
 					}
 				},
 
