@@ -50,7 +50,7 @@ namespace NXS.Lib.Web
 		{
 			_configEntry = new CorsConfigurationEntry();
 
-			_configEntry.AllowCookies = ("true" == SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig(CorsConstants.Access_Control_Allow_Credentials));
+			_configEntry.AllowCookies = ("true" == WebConfig.Instance.GetConfig(CorsConstants.Access_Control_Allow_Credentials));
 
 			AddFromList(_configEntry.OriginsDict, GetConfigList(CorsConstants.Access_Control_Allow_Origin));
 
@@ -74,7 +74,7 @@ namespace NXS.Lib.Web
 		}
 		private static IEnumerable<string> GetConfigList(string key)
 		{
-			var val = SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig(key);
+			var val = WebConfig.Instance.GetConfig(key);
 			return val.SplitComma();
 		}
 		private static void AddFromList(IDictionary<string, bool> dict, IEnumerable<string> list)

@@ -17,7 +17,7 @@
 using System;
 using System.DirectoryServices;
 using System.Text;
-using SOS.Lib.Util.Configuration;
+//using SOS.Lib.Util.Configuration;
 using SOS.Lib.Util.Cryptography;
 
 namespace SOS.Lib.Util.ActiveDirectory
@@ -27,13 +27,19 @@ namespace SOS.Lib.Util.ActiveDirectory
 		#region Public Constant Variables
 
 		public static readonly DateTime DefaultDate = DateTime.MinValue;
-		public static string Domain = TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("Domain"), null);
-		public static string ADPath = TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("ADPAth"), null);
-		public static string ADUser = TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("ADUser"), null);
-		public static string ADPassword = TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("ADPassword"), null);
-
-		public static string ADUsersPath = TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("ADUsersPath"),
-																   null);
+		public static string Domain { get; private set; }
+		public static string ADPath { get; private set; }
+		public static string ADUser { get; private set; }
+		public static string ADPassword { get; private set; }
+		public static string ADUsersPath { get; private set; }
+		public static void Init(string domain, string adPath, string adUser, string adPassword, string adUsersPath)
+		{
+			Domain = domain;
+			ADPath = adPath;
+			ADUser = adUser;
+			ADPassword = adPassword;
+			ADUsersPath = adUsersPath;
+		}
 
 		#endregion
 

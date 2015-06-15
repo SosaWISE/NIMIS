@@ -24,5 +24,34 @@ namespace NXS.Data.Sales
 			item.ModifiedBy = gpEmployeeId;
 			await tbl.UpdateAsync(item.ID, snapshot.Diff()).ConfigureAwait(false);
 		}
+
+		public static void Swap<T>(ref T a, ref T b)
+		{
+			T tmp = a;
+			a = b;
+			b = a;
+		}
+		public static async Task<List<SL_Area>> InBoundsAsync(this ARTable tbl, string repCompanyID, int teamId, decimal minlat, decimal maxlat, decimal minlng, decimal maxlng)
+		{
+			using (var db = DBase.Connect())
+			{
+				if (maxlat < minlat)
+					Swap(ref maxlat, ref minlat);
+				if (maxlng < minlng)
+					Swap(ref maxlng, ref minlng);
+
+				var A = tbl;
+				var U = db.HrDb.RU_Users;
+
+				var sql = Sequel.NewSelect(A.Star).From(A)
+				.LeftOuterJoin(U).On(U.GPEmployeeId, Comparison.Equals, A.RepCompanyID, literalText: true)
+				.WhereActiveAndNotDeleted(A.Alias)
+					.And(A.MaxLatitude, Comparison.GreaterOrEquals, minlat).And(A.MinLatitude, Comparison.LessOrEquals, maxlat)
+					.And(A.MaxLongitude, Comparison.GreaterOrEquals, minlng).And(A.MinLongitude, Comparison.LessOrEquals, maxlng)
+					.And((s) => s.Compare((object)repCompanyID, Comparison.Is, null).Or(A.RepCompanyID, Comparison.Equals, repCompanyID))
+					.And((s) => s.Compare((object)teamId, Comparison.Equals, 0).Or(A.TeamId, Comparison.Equals, teamId));
+				return (await db.QueryAsync<SL_Area>(sql.Sql, sql.Params).ConfigureAwait(false)).ToList();
+			}
+		}
 	}
 }

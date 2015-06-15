@@ -10,16 +10,6 @@
   "DBUsername": "devUser",
   "DBPassword": "aTv1Q+t4PL7IrzPIpAZLNw==",
   "LogSourceID": "8",
-  /* Old Database Info */
-  "SosCrmConnString": "Data Source=db1.dev.nexsense.com;Initial Catalog=WISE_CRM;Persist Security Info=True;User ID=devUser;Password=1Filipino!20;Application Name=Nexsense CORS Services",
-  "SosAuthControlConnString": "Persist Security Info=True;User ID=devUser;Initial Catalog=WISE_AuthenticationControl;Data Source=db1.dev.nexsense.com;Password=1Filipino!20;Application Name=Nexsense CORS Services",
-  "SosLoggingConnString": "Persist Security Info=True;User ID=devUser;Initial Catalog=WISE_LOGGING;Data Source=db1.dev.nexsense.com;Password=1Filipino!20;Application Name=Nexsense CORS Services",
-  "SosReceiverEngineConnString": "Persist Security Info=True;User ID=devUser;Initial Catalog=WISE_Receiver;Data Source=db1.dev.nexsense.com;Password=1Filipino!20;Application Name=Nexsense CORS Services",
-  "SosHumanResourceConnString": "Persist Security Info=True;User ID=devUser;Initial Catalog=WISE_HumanResource;Data Source=db1.dev.nexsense.com;Password=1Filipino!20;Application Name=Nexsense CORS Services",
-  "SosGpsTrackingConnString": "Persist Security Info=True;User ID=devUser;Initial Catalog=WISE_GPSTRACKING;Data Source=db1.dev.nexsense.com;Password=1Filipino!20;Application Name=Nexsense CORS Services",
-  "SseSurveyEngineConnString": "Persist Security Info=True;User ID=devUser;Initial Catalog=WISE_SurveyEngine;Data Source=db1.dev.nexsense.com;Password=1Filipino!20;Application Name=Nexsense CORS Services",
-  "NxsFundingConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnZee8Z82maAEoAb3dmI4G4X2W9a249B08S30wQ+5xP2CJAsYYYBXRliV2Qfa735UV6AHyS9oFTku2sg86aMPI8XC5XDlNBR+ZBfts4EfAL6Mv59/9dNAtIAwtJfCajvkw3C4cfAvtWRcMyrTVhlUoFg==",
-  "NxsLicensingConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnZee8Z82maAG4hHw4Iyeh5BEEs3taAS6zkK/xUVUL4asBbov8JPo0s5u1cXRulJtFCM4Dcp7E5BdyN4cPEEVZ1wvcwvuTMRfnRzDB372N10oKTJ+RP4CKxMhRIXjkGlyzWrhh6+eo+UwaPZkQdhn7kQ==",
 
   /* Address Validation */
   "AddressVerification_SmartySAuthID": "L9NTa7Bz5H5eIXib+4N4qpNP4+L7akhfu4+/id3g8dIWka4Bl9Qdfg==",

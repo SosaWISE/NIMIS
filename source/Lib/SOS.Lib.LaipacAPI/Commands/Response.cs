@@ -2,6 +2,7 @@
 using System.Net;
 using SOS.Data.GpsTracking;
 using SOS.Lib.LaipacAPI.Helper;
+using NXS.Lib;
 
 namespace SOS.Lib.LaipacAPI.Commands
 {
@@ -41,8 +42,8 @@ namespace SOS.Lib.LaipacAPI.Commands
 		{
 			get
 			{
-				if (string.IsNullOrEmpty(Util.Configuration.ConfigurationSettings.Current.GetConfig("LAIPACAPI.MonitoringStation.Environmet"))
-					&& Util.Configuration.ConfigurationSettings.Current.GetConfig("LAIPACAPI.MonitoringStation.Environmet").Equals("DEV"))
+				if (string.IsNullOrEmpty(WebConfig.Instance.GetConfig("LAIPACAPI.MonitoringStation.Environmet"))
+					&& WebConfig.Instance.GetConfig("LAIPACAPI.MonitoringStation.Environmet").Equals("DEV"))
 				{
 					return true;
 				}

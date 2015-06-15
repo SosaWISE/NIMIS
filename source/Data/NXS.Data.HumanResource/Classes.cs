@@ -88,6 +88,20 @@ namespace NXS.Data.HumanResource
 		public string ModifiedBy { get; set; }
 		public DateTime ModifiedOn { get; set; }
 	}
+	public partial class RU_RoleLocation // RU_RoleLocations
+	{
+		public enum IDEnum : int
+		{
+			Sales = 1,
+			Installs = 2,
+			Corporate = 3,
+			Office_Staff = 4,
+			Vendors = 5,
+		}
+		[IgnorePropertyAttribute(true)] public int ID { get { return RoleLocationID; } set { RoleLocationID = value; } }
+		public int RoleLocationID { get; set; }
+		public string Role { get; set; }
+	}
 	public partial class RU_Team // RU_Teams
 	{
 		[IgnorePropertyAttribute(true)] public int ID { get { return TeamID; } set { TeamID = value; } }
@@ -160,5 +174,45 @@ namespace NXS.Data.HumanResource
 		public DateTime? CreatedOn { get; set; }
 		public string ModifiedBy { get; set; }
 		public DateTime? ModifiedOn { get; set; }
+	}
+	public partial class RU_UserType // RU_UserType
+	{
+		public enum IDEnum : short
+		{
+			Administrator = 1,
+			Sales_Manager = 2,
+			Sales_CoManager = 3,
+			Sales_Assistant_Manager = 4,
+			Sales_Rep = 5,
+			Technician_Lead = 6,
+			Technician = 7,
+			Regional_Manager__Technician = 8,
+			Technician_Assistant_Lead = 10,
+			Regional_Manager__Sales = 11,
+			Corporate = 12,
+			Office_Assistant = 13,
+			Inventory_Manager = 14,
+			Corporate_Service = 15,
+			Senior_Regional__Sales = 18,
+			National_Regional__Sales = 19,
+			National_Regional__Technician = 20,
+			Service_Technician = 22,
+			Vendor = 23,
+		}
+		[IgnorePropertyAttribute(true)] public short ID { get { return UserTypeID; } set { UserTypeID = value; } }
+		public short UserTypeID { get; set; }
+		public string Description { get; set; }
+		public byte SecurityLevel { get; set; }
+		public int SpawnTypeID { get; set; }
+		public int RoleLocationID { get; set; }
+		public int ReportingLevel { get; set; }
+		public int UserTypeTeamTypeID { get; set; }
+		public bool? IsCommissionable { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsDeleted { get; set; }
+		public int CreatedByID { get; set; }
+		public DateTime CreatedDate { get; set; }
+		public int ModifiedByID { get; set; }
+		public DateTime ModifiedDate { get; set; }
 	}
 }

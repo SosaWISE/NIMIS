@@ -13,8 +13,10 @@ namespace NXS.Data.HumanResource
 		}
 
 		public RU_RecruitTable RU_Recruits { get; set; }
+		public RU_RoleLocationTable RU_RoleLocations { get; set; }
 		public RU_TeamTable RU_Teams { get; set; }
 		public RU_UserTable RU_Users { get; set; }
+		public RU_UserTypeTable RU_UserTypes { get; set; }
 
 		public partial class RU_RecruitTable : Table<RU_Recruit, int>
 		{
@@ -102,6 +104,13 @@ namespace NXS.Data.HumanResource
 			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
 		}
+		public partial class RU_RoleLocationTable : Table<RU_RoleLocation, int>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public RU_RoleLocationTable(DBase db) : base(db, "RuRL", "[WISE_HumanResource].[dbo].[RU_RoleLocations]", "RoleLocationID", "int", true) { }
+			public string RoleLocationID { get { return _alias + "[RoleLocationID]"; } }
+			public string Role { get { return _alias + "[Role]"; } }
+		}
 		public partial class RU_TeamTable : Table<RU_Team, int>
 		{
 			public DBase Db { get { return (DBase)_database; } }
@@ -176,6 +185,25 @@ namespace NXS.Data.HumanResource
 			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
 			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
+		}
+		public partial class RU_UserTypeTable : Table<RU_UserType, short>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public RU_UserTypeTable(DBase db) : base(db, "RuUT", "[WISE_HumanResource].[dbo].[RU_UserType]", "UserTypeID", "smallint", true) { }
+			public string UserTypeID { get { return _alias + "[UserTypeID]"; } }
+			public string Description { get { return _alias + "[Description]"; } }
+			public string SecurityLevel { get { return _alias + "[SecurityLevel]"; } }
+			public string SpawnTypeID { get { return _alias + "[SpawnTypeID]"; } }
+			public string RoleLocationID { get { return _alias + "[RoleLocationID]"; } }
+			public string ReportingLevel { get { return _alias + "[ReportingLevel]"; } }
+			public string UserTypeTeamTypeID { get { return _alias + "[UserTypeTeamTypeID]"; } }
+			public string IsCommissionable { get { return _alias + "[IsCommissionable]"; } }
+			public string IsActive { get { return _alias + "[IsActive]"; } }
+			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
+			public string CreatedByID { get { return _alias + "[CreatedByID]"; } }
+			public string CreatedDate { get { return _alias + "[CreatedDate]"; } }
+			public string ModifiedByID { get { return _alias + "[ModifiedByID]"; } }
+			public string ModifiedDate { get { return _alias + "[ModifiedDate]"; } }
 		}
 
 	}

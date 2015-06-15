@@ -1,5 +1,6 @@
 ﻿using System;
 using SOS.Lib.Util.Cryptography;
+using NXS.Lib;
 
 namespace NSE.Lib.Hart
 {
@@ -20,7 +21,7 @@ namespace NSE.Lib.Hart
 					{
 						if (String.IsNullOrEmpty(_endPointUri))
 						{
-							_endPointUri = TripleDES.DecryptString(SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("CreditReport_Vendor_HART_ENDPOINT"), null);
+							_endPointUri = WebConfig.Instance.GetConfig("CreditReport_Vendor_HART_ENDPOINT");
 						}
 					}
 				}
@@ -45,7 +46,7 @@ namespace NSE.Lib.Hart
 					{
 						if (String.IsNullOrEmpty(_crUsername))
 						{
-							_crUsername = TripleDES.DecryptString(SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("CreditReport_Vendor_HART_CRP_UID"), null);
+							_crUsername = WebConfig.Instance.GetConfig("CreditReport_Vendor_HART_CRP_UID");
 						}
 					}
 				}
@@ -69,7 +70,7 @@ namespace NSE.Lib.Hart
 					{
 						if (String.IsNullOrEmpty(_crPassword))
 						{
-							_crPassword = TripleDES.DecryptString(SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("CreditReport_Vendor_HART_CRP_PWD"), null);
+							_crPassword = WebConfig.Instance.GetConfig("CreditReport_Vendor_HART_CRP_PWD");
 						}
 					}
 				}

@@ -3,30 +3,19 @@ using System;
 
 namespace NXS.Data.Sales
 {
-	public partial class SL_AreaAssignment // SL_AreaAssignments
-	{
-		public int ID { get; set; }
-		public int AreaId { get; set; }
-		public int OfficeId { get; set; }
-		public string RepCompanyID { get; set; }
-		public DateTime StartTime { get; set; }
-		public DateTime? EndTime { get; set; }
-		public bool IsActive { get; set; }
-		public bool IsDeleted { get; set; }
-		public DateTime ModifiedOn { get; set; }
-		public string ModifiedBy { get; set; }
-		public DateTime CreatedOn { get; set; }
-		public string CreatedBy { get; set; }
-	}
 	public partial class SL_Area // SL_Areas
 	{
 		public int ID { get; set; }
-		public string AreaName { get; set; }
+		public string Name { get; set; }
 		public decimal MinLatitude { get; set; }
 		public decimal MinLongitude { get; set; }
 		public decimal MaxLatitude { get; set; }
 		public decimal MaxLongitude { get; set; }
 		public string PointData { get; set; }
+		public int TeamId { get; set; }
+		public string RepCompanyID { get; set; }
+		public DateTime? StartTime { get; set; }
+		public DateTime? EndTime { get; set; }
 		public bool IsActive { get; set; }
 		public bool IsDeleted { get; set; }
 		public DateTime ModifiedOn { get; set; }
@@ -51,6 +40,7 @@ namespace NXS.Data.Sales
 	public partial class SL_ContactCategory // SL_ContactCategories
 	{
 		public int ID { get; set; }
+		public int? RealID { get; set; }
 		public string RepCompanyID { get; set; }
 		public string Name { get; set; }
 		public short Sequence { get; set; }
@@ -82,8 +72,8 @@ namespace NXS.Data.Sales
 		public int ContactId { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
-		public int? CategoryId { get; set; }
-		public int? SystemId { get; set; }
+		public int CategoryId { get; set; }
+		public int SystemId { get; set; }
 		public string Note { get; set; }
 		public bool IsActive { get; set; }
 		public bool IsDeleted { get; set; }
@@ -144,7 +134,7 @@ namespace NXS.Data.Sales
 	public partial class SL_SystemType // SL_SystemTypes
 	{
 		public int ID { get; set; }
-		public int OfficeId { get; set; }
+		public int TeamId { get; set; }
 		public string CompanyName { get; set; }
 		public short Sequence { get; set; }
 		public string Filename { get; set; }

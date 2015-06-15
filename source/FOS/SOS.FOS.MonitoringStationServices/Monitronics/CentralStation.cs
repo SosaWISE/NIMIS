@@ -1,4 +1,5 @@
 ﻿using NSE.FOS.Contracts.Models;
+using NXS.Lib;
 using NXS.Logic.MonitoringStations.Helpers;
 using NXS.Logic.MonitoringStations.Models;
 using NXS.Logic.MonitoringStations.Models.Get;
@@ -32,15 +33,12 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 
 		public CentralStation()
 		{
-			_username = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("MN_USERNAME");
-			_username = Lib.Util.Cryptography.TripleDES.DecryptString(_username, null);
-			_password = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("MN_PASSWORD");
-			_password = Lib.Util.Cryptography.TripleDES.DecryptString(_password, null);
+			_username = WebConfig.Instance.GetConfig("MN_USERNAME");
+			_password = WebConfig.Instance.GetConfig("MN_PASSWORD");
 			_servCoNummber = "811110003";
 
 			// ** Save default DEFAULT SYSTEM ACCOUNTID
-			var defaultSysAccountId = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("MN_PASSWORD");
-			defaultSysAccountId = Lib.Util.Cryptography.TripleDES.DecryptString(defaultSysAccountId, null);
+			var defaultSysAccountId = WebConfig.Instance.GetConfig("MN_PASSWORD");
 			if (!long.TryParse(defaultSysAccountId, out _defSysActId))
 				_defSysActId = _DEFAULT_SYS_ACCOUNTID;
 		}
@@ -92,10 +90,17 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 					SosCrmDataStoredProcedureManager.QL_CreditReportMaxScoreByCmfID(aeMoniCustomer.CustomerMasterFileId));
 			if (msAccount.Contract == null)
 				throw new CsExceptionNoContract(msAccountSubmit.AccountId, msAccount.IndustryAccount.Csid);
-			var contractLength = msAccount.Contract.ContractLength;
+			/**
+			 * MONI ISSUE:  Month to Month will be passed as CM.  That is the accounts with ContractLength of 1.
+			 */
+			var contractLength = msAccount.Contract.ContractLength == 1
+				? "CM"
+				: msAccount.Contract.ContractLength.ToString(CultureInfo.InvariantCulture);
 
 			var qlQualifyCustomerInfo = SosCrmDataContext.Instance.QL_QualifyCustomerInfoViews.LoadByAccountId(msAccount.AccountID);
 			var optionIdCMPUR = "CM"; //TODO:  Brian Carter wants all accounts to be CM so that Moni does not do the welcome call.// qlQualifyCustomerInfo.Score > 600 ? "PUR" : "CM";
+
+			if(msAccount.DslSeizure == null) throw new CsExceptionMissingMetadata(msAccount.AccountID, "DSL Seizure not set", "Please go into System Details and click on the System Details section and under DSL/Seizure pic Yes or No.");
 			var dslVoip = msAccount.DslSeizure.DslSeizureID == (short)MS_AccountDslSeizureType.DslSeizureEnum.Dsl
 				? "DSL"
 				: "NONE";
@@ -109,7 +114,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			if (msAccount.CellularTypeId.Equals(MS_AccountCellularType.MetaData.Cell_PrimaryID))
 			{
 				var cellSysTypeId = msAccount.GetMoniCellTypeId();
-				if (cellSysTypeId == null) throw new CsExceptionMissingMetadata(msAccount.AccountID, "Monitronics Cell System Type");
+				if (cellSysTypeId == null) throw new CsExceptionMissingMetadata(msAccount.AccountID, "Monitronics Cell System Type", "This means that the account is missing a cellular device in its equipment list.  So go into System Details and add a cellular unit.");
 				sysTypeId = cellSysTypeId.SystemTypeID;
 				secSysTypeId = msAccount.GetMoniSysTypeId().SystemTypeID;
 			}
@@ -164,7 +169,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 					new SiteOption
 					{
 						OptionId = "CONTRLEN",
-						OptionValue = contractLength.ToString(CultureInfo.InvariantCulture)
+						OptionValue = contractLength
 					}
 				},
 

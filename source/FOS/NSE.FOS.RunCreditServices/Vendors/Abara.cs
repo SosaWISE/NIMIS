@@ -6,6 +6,7 @@ using SOS.Data.SosCrm;
 using SOS.Data.SosCrm.ControllerExtensions;
 using SOS.Lib.Core.CreditReportService;
 using SOS.Lib.Core.ErrorHandling;
+using NXS.Lib;
 
 namespace NSE.FOS.RunCreditServices.Vendors
 {
@@ -15,9 +16,7 @@ namespace NSE.FOS.RunCreditServices.Vendors
 
 		public Abara()
 		{
-			_isMock =
-				!string.IsNullOrEmpty(
-					SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("CreditReport_Vendor_ABARA_Mock"));
+			_isMock = !string.IsNullOrEmpty(WebConfig.Instance.GetConfig("CreditReport_Vendor_ABARA_Mock"));
 		}
 
 		#endregion .ctor

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NXS.Data.HumanResource;
 
 namespace NXS.Data.Crm
 {
@@ -35,6 +36,18 @@ namespace NXS.Data.Crm
 			var sql = tbl.SelectFull()
 				.Where(tbl.TeamId, Comparison.Equals, id);
 			return tbl.LoadOneFull(sql);
+		}
+		public static Task<ARCollection> AllByRoleLocationIdFullAsync(this ARTable tbl, int roleLocationId)
+		{
+			var RUT = tbl.Db.HrDb.RU_Teams;
+
+			var sql = tbl.SelectFull()
+				.Where(RUT.RoleLocationId, Comparison.Equals, roleLocationId);
+			return tbl.LoadManyFull(sql);
+		}
+		public static Task<ARCollection> AllSalesTeamsFullAsync(this ARTable tbl)
+		{
+			return tbl. AllByRoleLocationIdFullAsync((int)RU_RoleLocation.IDEnum.Sales);
 		}
 
 

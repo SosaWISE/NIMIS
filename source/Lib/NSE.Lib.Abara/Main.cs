@@ -5,6 +5,7 @@ using SOS.Data.Logging;
 using SOS.Lib.Core.CreditReportService;
 using SOS.Lib.Core.ErrorHandling;
 using SOS.Lib.Util.Cryptography;
+using NXS.Lib;
 
 namespace NSE.Lib.Abara
 {
@@ -25,7 +26,7 @@ namespace NSE.Lib.Abara
 					{
 						if (String.IsNullOrEmpty(_endPointTuUri))
 						{
-							_endPointTuUri = TripleDES.DecryptString(SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("CreditReport_Vendor_ABARA_TU_ENDPOINT"), null);
+							_endPointTuUri = WebConfig.Instance.GetConfig("CreditReport_Vendor_ABARA_TU_ENDPOINT");
 						}
 					}
 				}
@@ -50,7 +51,7 @@ namespace NSE.Lib.Abara
 					{
 						if (String.IsNullOrEmpty(_endPointEqUri))
 						{
-							_endPointEqUri = TripleDES.DecryptString(SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("CreditReport_Vendor_ABARA_EQ_ENDPOINT"), null);
+							_endPointEqUri = WebConfig.Instance.GetConfig("CreditReport_Vendor_ABARA_EQ_ENDPOINT");
 						}
 					}
 				}
@@ -75,7 +76,7 @@ namespace NSE.Lib.Abara
 					{
 						if (String.IsNullOrEmpty(_endPointExUri))
 						{
-							_endPointExUri = TripleDES.DecryptString(SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("CreditReport_Vendor_ABARA_EQ_ENDPOINT"), null);
+							_endPointExUri = WebConfig.Instance.GetConfig("CreditReport_Vendor_ABARA_EQ_ENDPOINT");
 						}
 					}
 				}
@@ -100,7 +101,7 @@ namespace NSE.Lib.Abara
 					{
 						if (String.IsNullOrEmpty(_winUsername))
 						{
-							_winUsername = TripleDES.DecryptString(SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("CreditReport_Vendor_ABARA_WIN_UID"), null);
+							_winUsername = WebConfig.Instance.GetConfig("CreditReport_Vendor_ABARA_WIN_UID");
 						}
 					}
 				}
@@ -124,7 +125,7 @@ namespace NSE.Lib.Abara
 					{
 						if (String.IsNullOrEmpty(_winPassword))
 						{
-							_winPassword = TripleDES.DecryptString(SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("CreditReport_Vendor_ABARA_WIN_PWD"), null);
+							_winPassword = WebConfig.Instance.GetConfig("CreditReport_Vendor_ABARA_WIN_PWD");
 						}
 					}
 				}
@@ -148,7 +149,7 @@ namespace NSE.Lib.Abara
 					{
 						if (String.IsNullOrEmpty(_crUsername))
 						{
-							_crUsername = TripleDES.DecryptString(SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("CreditReport_Vendor_ABARA_CRP_UID"), null);
+							_crUsername = WebConfig.Instance.GetConfig("CreditReport_Vendor_ABARA_CRP_UID");
 						}
 					}
 				}
@@ -172,7 +173,7 @@ namespace NSE.Lib.Abara
 					{
 						if (String.IsNullOrEmpty(_crPassword))
 						{
-							_crPassword = TripleDES.DecryptString(SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("CreditReport_Vendor_ABARA_CRP_PWD"), null);
+							_crPassword = WebConfig.Instance.GetConfig("CreditReport_Vendor_ABARA_CRP_PWD");
 						}
 					}
 				}
@@ -318,7 +319,7 @@ namespace NSE.Lib.Abara
 
 			// Check to see if there is an override of the config file
 			if (szaBureaus == null || szaBureaus.Length == 0)
-				szaBureaus = SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("CreditService_BureauListOrder").Split(',');
+				szaBureaus = WebConfig.Instance.GetConfig("CreditService_BureauListOrder").Split(',');
 
 			try
 			{

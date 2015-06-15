@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Runtime.Serialization;
-using System.Web;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using NXS.Lib;
 using SOS.Data.SosCrm;
 using SOS.Data.SosCrm.ControllerExtensions;
-using SOS.Lib.Util.Configuration;
 using SSE.FOS.AddressVerification.Interfaces;
 using SSE.FOS.AddressVerification.Models;
 using SSE.Lib.Interfaces.FOS;
 using SSE.Lib.Interfaces.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Runtime.Serialization;
+using System.Web;
 
 namespace SSE.FOS.AddressVerification.Vendors
 {
@@ -20,10 +20,9 @@ namespace SSE.FOS.AddressVerification.Vendors
 
 		public SmartyStreets()
 		{
-			// ** Get metadata for the class.
-			ApiUrl = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("AddressVerification_SmartyStreetApiUrl"), null);
-			AuthenticationID = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("AddressVerification_SmartySAuthID"), null);
-			AuthenticationToken = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("AddressVerification_SmartySAuthToken"), null);
+			ApiUrl = WebConfig.Instance.GetConfig("AddressVerification_SmartyStreetApiUrl");
+			AuthenticationID = WebConfig.Instance.GetConfig("AddressVerification_SmartySAuthID");
+			AuthenticationToken = WebConfig.Instance.GetConfig("AddressVerification_SmartySAuthToken");
 		}
 
 		#endregion .ctor

@@ -1,5 +1,5 @@
-﻿using NXS.Lib.Web.Authentication;
-using NXS.Lib.Web.Caching;
+﻿using NXS.Lib.Authentication;
+using NXS.Lib.Caching;
 using System;
 using System.Collections.Generic;
 using System.Linq;

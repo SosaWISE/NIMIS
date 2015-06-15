@@ -6,6 +6,7 @@ using SOS.Data.Logging;
 using SOS.Data.SosCrm.ControllerExtensions;
 using SOS.Lib.Core.ErrorHandling;
 using SOS.Lib.Util;
+using NXS.Lib;
 
 namespace NXS.FOS.DocumentServices
 {
@@ -18,7 +19,7 @@ namespace NXS.FOS.DocumentServices
 			_errorManager = errorManager;
 			InputFilePath = inputFilePath;
 			OutputFolderPath = string.IsNullOrEmpty(fileOutputFolderPath)
-				? SOS.Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("NXS.Lib.Barcode.IDAutomationHC39M_OutFolderPath")
+				? WebConfig.Instance.GetConfig("NXS.Lib.Barcode.IDAutomationHC39M_OutFolderPath")
 				: fileOutputFolderPath;
 		}
 

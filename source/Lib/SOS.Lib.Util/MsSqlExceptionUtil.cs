@@ -1,7 +1,5 @@
-﻿
-using System;
+﻿using System;
 using System.Data.SqlClient;
-using System.Web.UI.WebControls;
 
 namespace SOS.Lib.Util
 {
@@ -49,10 +47,12 @@ namespace SOS.Lib.Util
 				lineError = Convert.ToInt32(parsedStr[4].Substring("ERROR_LINE:".Length));
 				errorMessage = parsedStr[5].Substring("ERROR_MESSAGE:".Length);
 				serverName = null;
+// ReSharper disable RedundantAssignment
 				dbName = null;
 				schemaName = null;
 				tableName = null;
 				primaryKey = null;
+// ReSharper restore RedundantAssignment
 				// ** Check that there is more information.
 				if (parsedStr.Length > 5)
 				{

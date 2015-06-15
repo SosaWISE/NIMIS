@@ -5,6 +5,7 @@ using SubSonic;
 
 namespace SOS.Data.Logging.ControllerExtensions
 {
+// ReSharper disable once InconsistentNaming
 	public static class LG_MessageStackFrameControllerExtensions
 	{
 		public static ARCollection LoadByMessageID(this ARController controller, int messageID)

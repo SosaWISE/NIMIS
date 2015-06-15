@@ -48,7 +48,6 @@
     <Compile Include="BaseModelController.cs" />
     <Compile Include="BaseTableController.cs" />
     <Compile Include="BaseViewController.cs" />
-    <Compile Include="BusinessEntity.cs" />
     <Compile Include="NxsAccountingProvider.cs" />
     <Compile Include="NxsConnextProvider.cs" />
     <Compile Include="NxsFileStoreProvider.cs" />
@@ -77,6 +76,10 @@
     <Compile Include="VersionException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Lib\NXS.Lib\NXS.Lib.csproj">
+      <Project>{c067b3ab-3faf-40d7-98e9-5788768bd315}</Project>
+      <Name>NXS.Lib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Lib\SOS.Lib.Core\SOS.Lib.Core.csproj">
       <Project>{A4D0820E-3529-4CB9-BA5F-B2824BFEEC97}</Project>
       <Name>SOS.Lib.Core</Name>
@@ -84,6 +87,10 @@
     <ProjectReference Include="..\..\Lib\SOS.Lib.Util\SOS.Lib.Util.csproj">
       <Project>{33A1B8C5-B37D-423E-B7FD-83CE1EC1D442}</Project>
       <Name>SOS.Lib.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NXS.Data\NXS.Data.csproj">
+      <Project>{5465a862-bb78-4048-b39b-191be0e1d19c}</Project>
+      <Name>NXS.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\SubSonic\SubSonic.csproj">
       <Project>{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}</Project>

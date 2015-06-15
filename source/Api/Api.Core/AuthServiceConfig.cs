@@ -1,8 +1,8 @@
 ﻿using Nancy.Authentication.Token;
-using NXS.Lib.Web;
-using NXS.Lib.Web.Authentication;
-using Tokenizer = NXS.Lib.Web.Authentication.Tokenizer;
-using NXS.Lib.Web.Caching;
+using NXS.Lib;
+using NXS.Lib.Authentication;
+using Tokenizer = NXS.Lib.Authentication.Tokenizer;
+using NXS.Lib.Caching;
 //using SOS.Data.AuthenticationControl;
 //using SOS.FunctionalServices.Contracts;
 using SOS.Lib.Util.ActiveDirectory;

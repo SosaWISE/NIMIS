@@ -25,22 +25,20 @@ namespace NXS.Data.Sales
 			await tbl.UpdateAsync(item.ID, snapshot.Diff()).ConfigureAwait(false);
 		}
 
-		public static async Task<List<dynamic>> InAreaAsync(this ARTable tbl, string repCompanyID/*, int officeId*/, double minlat, double maxlat, double minlng, double maxlng)
+		public static void Swap<T>(ref T a, ref T b)
+		{
+			T tmp = a;
+			a = b;
+			b = a;
+		}
+		public static async Task<List<SL_ContactView>> InBoundsAsync(this ARTable tbl, string repCompanyID/*, int teamId*/, decimal minlat, decimal maxlat, decimal minlng, decimal maxlng)
 		{
 			using (var db = DBase.Connect())
 			{
-				if (minlat > maxlat)
-				{
-					var tmp = minlat;
-					minlat = maxlat;
-					maxlat = tmp;
-				}
-				if (minlng > maxlng)
-				{
-					var tmp = minlng;
-					minlng = maxlng;
-					maxlng = tmp;
-				}
+				if (maxlat < minlat)
+					Swap(ref maxlat, ref minlat);
+				if (maxlng < minlng)
+					Swap(ref maxlng, ref minlng);
 
 				var C = tbl;
 				var CN = tbl.Db.SL_ContactNotes;
@@ -52,7 +50,7 @@ namespace NXS.Data.Sales
 				//var T = db.HrDb.RU_Teams;
 
 				var sql = Sequel.NewSelect(
-					C.ID, C.Latitude, C.Longitude
+					C.Star
 					, U.FullName.As("RepName")
 					, CN.FirstName, CN.LastName, CN.CategoryId, CN.SystemId, CN.Note
 					, CA.Address, CA.Address2, CA.City, CA.State, CA.Zip
@@ -138,7 +136,7 @@ namespace NXS.Data.Sales
 				// 			AND longitude BETWEEN @minlng AND @maxlng";
 				//return (await db.QueryAsync(sql, new { salesRepId, officeId, minlat, minlng, maxlat, maxlng }).ConfigureAwait(false)).ToList();
 				#endregion // old
-				return (await db.QueryAsync(sql.Sql, sql.Params).ConfigureAwait(false)).ToList();
+				return (await db.QueryAsync<SL_ContactView>(sql.Sql, sql.Params).ConfigureAwait(false)).ToList();
 			}
 		}
 	}

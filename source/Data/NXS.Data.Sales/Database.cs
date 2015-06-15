@@ -12,7 +12,6 @@ namespace NXS.Data.Sales
 			Sprocs = new Sprocs(this);
 		}
 
-		public SL_AreaAssignmentTable SL_AreaAssignments { get; set; }
 		public SL_AreaTable SL_Areas { get; set; }
 		public SL_ContactAddressTable SL_ContactAddresses { get; set; }
 		public SL_ContactCategoryTable SL_ContactCategories { get; set; }
@@ -24,34 +23,21 @@ namespace NXS.Data.Sales
 		public SL_SystemTypeTable SL_SystemTypes { get; set; }
 		public SL_TrackingTable SL_Trackings { get; set; }
 
-		public partial class SL_AreaAssignmentTable : Table<SL_AreaAssignment, int>
-		{
-			public DBase Db { get { return (DBase)_database; } }
-			public SL_AreaAssignmentTable(DBase db) : base(db, "SlAA", "[NXSE_Sales].[dbo].[SL_AreaAssignments]", "ID", "int", true) { }
-			public string ID { get { return _alias + "[ID]"; } }
-			public string AreaId { get { return _alias + "[AreaId]"; } }
-			public string OfficeId { get { return _alias + "[OfficeId]"; } }
-			public string RepCompanyID { get { return _alias + "[RepCompanyID]"; } }
-			public string StartTime { get { return _alias + "[StartTime]"; } }
-			public string EndTime { get { return _alias + "[EndTime]"; } }
-			public string IsActive { get { return _alias + "[IsActive]"; } }
-			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
-			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
-			public string ModifiedBy { get { return _alias + "[ModifiedBy]"; } }
-			public string CreatedOn { get { return _alias + "[CreatedOn]"; } }
-			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
-		}
 		public partial class SL_AreaTable : Table<SL_Area, int>
 		{
 			public DBase Db { get { return (DBase)_database; } }
 			public SL_AreaTable(DBase db) : base(db, "SlA", "[NXSE_Sales].[dbo].[SL_Areas]", "ID", "int", true) { }
 			public string ID { get { return _alias + "[ID]"; } }
-			public string AreaName { get { return _alias + "[AreaName]"; } }
+			public string Name { get { return _alias + "[Name]"; } }
 			public string MinLatitude { get { return _alias + "[MinLatitude]"; } }
 			public string MinLongitude { get { return _alias + "[MinLongitude]"; } }
 			public string MaxLatitude { get { return _alias + "[MaxLatitude]"; } }
 			public string MaxLongitude { get { return _alias + "[MaxLongitude]"; } }
 			public string PointData { get { return _alias + "[PointData]"; } }
+			public string TeamId { get { return _alias + "[TeamId]"; } }
+			public string RepCompanyID { get { return _alias + "[RepCompanyID]"; } }
+			public string StartTime { get { return _alias + "[StartTime]"; } }
+			public string EndTime { get { return _alias + "[EndTime]"; } }
 			public string IsActive { get { return _alias + "[IsActive]"; } }
 			public string IsDeleted { get { return _alias + "[IsDeleted]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }
@@ -80,6 +66,7 @@ namespace NXS.Data.Sales
 			public DBase Db { get { return (DBase)_database; } }
 			public SL_ContactCategoryTable(DBase db) : base(db, "SlCC", "[NXSE_Sales].[dbo].[SL_ContactCategories]", "ID", "int", true) { }
 			public string ID { get { return _alias + "[ID]"; } }
+			public string RealID { get { return _alias + "[RealID]"; } }
 			public string RepCompanyID { get { return _alias + "[RepCompanyID]"; } }
 			public string Name { get { return _alias + "[Name]"; } }
 			public string Sequence { get { return _alias + "[Sequence]"; } }
@@ -183,7 +170,7 @@ namespace NXS.Data.Sales
 			public DBase Db { get { return (DBase)_database; } }
 			public SL_SystemTypeTable(DBase db) : base(db, "SlST", "[NXSE_Sales].[dbo].[SL_SystemTypes]", "ID", "int", true) { }
 			public string ID { get { return _alias + "[ID]"; } }
-			public string OfficeId { get { return _alias + "[OfficeId]"; } }
+			public string TeamId { get { return _alias + "[TeamId]"; } }
 			public string CompanyName { get { return _alias + "[CompanyName]"; } }
 			public string Sequence { get { return _alias + "[Sequence]"; } }
 			public string Filename { get { return _alias + "[Filename]"; } }

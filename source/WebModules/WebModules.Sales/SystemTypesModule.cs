@@ -1,6 +1,6 @@
 ﻿using NXS.DataServices.Sales;
-using NXS.Lib.Web;
-using NXS.Lib.Web.Authentication;
+using NXS.Lib;
+using NXS.Lib.Authentication;
 using SOS.Lib.Core;
 using System;
 using System.Collections.Generic;
@@ -15,17 +15,13 @@ namespace WebModules.Sales
 		BlahService Srv { get { return new BlahService(this.User.GPEmployeeID); } }
 
 		public SystemTypesModule()
-			//: base("/SystemType", "/ng")
 			: base("/Sales/SystemTypes")
 		{
 			this.RequiresPermission((string)null, null);
 
-			//$http.get('ng/SystemType/get_system_types')
-			//Get["/get_system_types", true] = async (x, ct) =>
 			Get["/", true] = async (x, ct) =>
 			{
 				var officeid = 0;
-				//return (await Srv.SystemTypesAsync(officeid).ConfigureAwait(false)).Value;
 				return (await Srv.SystemTypesAsync(officeid).ConfigureAwait(false));
 			};
 		}

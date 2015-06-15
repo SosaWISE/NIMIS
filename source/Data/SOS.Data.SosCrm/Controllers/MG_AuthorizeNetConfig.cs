@@ -1,5 +1,5 @@
 ﻿using System;
-using SOS.Lib.Util.Configuration;
+using NXS.Lib;
 
 namespace SOS.Data.SosCrm
 {
@@ -55,7 +55,7 @@ namespace SOS.Data.SosCrm
 			{
 				try
 				{
-					var sMode = ConfigurationSettings.Current.GetConfig("MerchantStatus").Equals("TestMode");
+					var sMode = WebConfig.Instance.GetConfig("MerchantStatus").Equals("TestMode");
 
 					return sMode;
 				}

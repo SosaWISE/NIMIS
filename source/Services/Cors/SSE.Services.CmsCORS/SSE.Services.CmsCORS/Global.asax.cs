@@ -1,15 +1,18 @@
-﻿using System;
-using System.Configuration;
+﻿using Api.Core;
+using NXS.Data;
+using NXS.Lib;
+using SOS.Data;
+using SOS.Data.Logging;
+using SOS.Lib.Core;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using SOS.Data;
-using SOS.Data.Logging;
-using SOS.Lib.Core;
-using ConfigurationSettings = SOS.Lib.Util.Configuration.ConfigurationSettings;
-using NXS.Lib.Web;
-using Api.Core;
+using AuthDBase = NXS.Data.AuthenticationControl.DBase;
+using CrmDBase = NXS.Data.Crm.DBase;
+using HrDBase = NXS.Data.HumanResource.DBase;
+using SalesDBase = NXS.Data.Sales.DBase;
+
 
 namespace SSE.Services.CmsCORS
 {
@@ -20,22 +23,32 @@ namespace SSE.Services.CmsCORS
 	{
 		protected void Application_Start()
 		{
-			/**  Load configuration. */
-			string environment = ConfigurationManager.AppSettings["Environment"] ?? Environment.MachineName;
-			ConfigurationSettings.Current.SetProperties("Preferences", environment);
+			// Load webconfig
 			WebConfig.Init(Server.MapPath("~"), val =>
 			{
 				var decryptedVal = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(val, null);
 				// if decryption failed, return passed in value
 				return decryptedVal.StartsWith("Error: ") ? val : decryptedVal;
 			});
+			// Initialize Active Directory
+			var domain = WebConfig.Instance.GetConfig("Domain");
+			var adPath = WebConfig.Instance.GetConfig("ADPAth");
+			var adUser = WebConfig.Instance.GetConfig("ADUser");
+			var adPassword = WebConfig.Instance.GetConfig("ADPassword");
+			var adUsersPath = WebConfig.Instance.GetConfig("ADUsersPath");
+			SOS.Lib.Util.ActiveDirectory.ADUtility.Init(domain, adPath, adUser, adPassword, adUsersPath);
 
+			// set connection strings
+			var host = WebConfig.Instance.GetConfig("DBHost");
+			var username = WebConfig.Instance.GetConfig("DBUsername");
+			var password = WebConfig.Instance.GetConfig("DBPassword");
+			var appName = WebConfig.Instance.GetConfig("ApplicationName");
+			HrDBase.ConnectionString = DatabaseHelper.FormatConnectionString(HrDBase.Database, host, username, password, appName);
+			CrmDBase.ConnectionString = DatabaseHelper.FormatConnectionString(CrmDBase.Database, host, username, password, appName);
+			AuthDBase.ConnectionString = DatabaseHelper.FormatConnectionString(AuthDBase.Database, host, username, password, appName);
+			SalesDBase.ConnectionString = DatabaseHelper.FormatConnectionString(SalesDBase.Database, host, username, password, appName);
 			// Setup SubSonic Connections
-			SubSonicConfigHelper.SetupConnectionStrings();
-			//@HACK: to set connection strings
-			NXS.Data.Crm.DBase.ConnectionString = SubSonic.DataService.Providers[SubSonicConfigHelper.SOS_CRM_PROVIDER_NAME].DefaultConnectionString;
-			NXS.Data.AuthenticationControl.DBase.ConnectionString = SubSonic.DataService.Providers[SubSonicConfigHelper.SOS_AUTH_CONTROL_PROVIDER_NAME].DefaultConnectionString;
-			NXS.Data.HumanResource.DBase.ConnectionString = SubSonic.DataService.Providers[SubSonicConfigHelper.SOS_HUMAN_RESOURCE_PROVIDER_NAME].DefaultConnectionString;
+			SubSonicConfigHelper.SetupConnectionStrings(host, username, password, appName);
 
 			/** Initialize Fos Engine. */
 			SOS.FunctionalServices.SosServiceEngine.Instance.Initialize();

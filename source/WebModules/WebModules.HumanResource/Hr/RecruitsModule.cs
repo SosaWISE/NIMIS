@@ -1,6 +1,6 @@
 ﻿using NXS.DataServices.HumanResource;
 
-namespace WebModules.HumanResource.Ticket
+namespace WebModules.HumanResource
 {
 	public class RecruitsModule : BaseModule
 	{

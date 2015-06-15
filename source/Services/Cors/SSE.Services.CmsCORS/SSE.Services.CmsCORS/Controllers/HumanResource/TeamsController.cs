@@ -1,16 +1,11 @@
 ﻿using SOS.FunctionalServices;
 using SOS.FunctionalServices.Contracts;
-using SOS.FunctionalServices.Contracts.Models.Data;
 using SOS.FunctionalServices.Contracts.Models.HumanResource;
 using SOS.FunctionalServices.Models.HumanResource;
 using SSE.Services.CmsCORS.Helpers;
-using SSE.Services.CmsCORS.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Web.Http;
 using AuthActions = SOS.Data.AuthenticationControl.AC_Action.MetaData;
 using AuthApplications = SOS.Data.AuthenticationControl.AC_Application.MetaData;
-using System.Net.Http;
 using SOS.Lib.Core;
 
 namespace SSE.Services.CmsCORS.Controllers.HumanResource

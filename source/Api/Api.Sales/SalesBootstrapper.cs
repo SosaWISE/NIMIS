@@ -7,7 +7,7 @@ using Nancy.Serialization.JsonNet;
 using Nancy.TinyIoc;
 using Newtonsoft.Json;
 using NXS.Data;
-using NXS.Lib.Web;
+using NXS.Lib;
 using System;
 using WebModules;
 using AuthDBase = NXS.Data.AuthenticationControl.DBase;
@@ -48,12 +48,20 @@ namespace Api.Sales
 
 		protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
 		{
+			// Load webconfig
 			WebConfig.Init(AppDomain.CurrentDomain.BaseDirectory, val =>
 			{
 				var decryptedVal = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(val, null);
 				// if decryption failed, return passed in value
 				return decryptedVal.StartsWith("Error: ") ? val : decryptedVal;
 			});
+			// Initialize Active Directory
+			var domain = WebConfig.Instance.GetConfig("Domain");
+			var adPath = WebConfig.Instance.GetConfig("ADPAth");
+			var adUser = WebConfig.Instance.GetConfig("ADUser");
+			var adPassword = WebConfig.Instance.GetConfig("ADPassword");
+			var adUsersPath = WebConfig.Instance.GetConfig("ADUsersPath");
+			SOS.Lib.Util.ActiveDirectory.ADUtility.Init(domain, adPath, adUser, adPassword, adUsersPath);
 
 			// set connection strings
 			var host = WebConfig.Instance.GetConfig("DBHost");

@@ -4,6 +4,7 @@ using SOS.Data.Logging;
 using SOS.Lib.Core.ErrorHandling;
 using SOS.Lib.RazorEngine;
 using SOS.Lib.Util;
+using NXS.Lib;
 
 namespace SOS.FOS.EmailSupport
 {
@@ -33,8 +34,8 @@ namespace SOS.FOS.EmailSupport
 		{
 			/** Initialize. */
 			_templater = new Templater<EmailModel>();
-			_templatePath = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("EmailTemplatePath");
-			_smtpServer = Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("SmtpServer");
+			_templatePath = WebConfig.Instance.GetConfig("EmailTemplatePath");
+			_smtpServer = WebConfig.Instance.GetConfig("SmtpServer");
 
 			/** Validate values. */
 			if (_templatePath.IsNullOrEmpty() )

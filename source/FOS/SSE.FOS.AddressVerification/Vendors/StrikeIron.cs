@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using SOS.Data.SosCrm;
 using SOS.Data.SosCrm.ControllerExtensions;
-using SOS.Lib.Util.Configuration;
 using SSE.FOS.AddressVerification.Interfaces;
 using SSE.FOS.AddressVerification.Models;
 using SSE.FOS.AddressVerification.SI_NorthAmericanAddressVerification;
 using SSE.Lib.Interfaces.FOS;
 using SSE.Lib.Interfaces.Helpers;
+using NXS.Lib;
 
 namespace SSE.FOS.AddressVerification.Vendors
 {
@@ -14,9 +14,9 @@ namespace SSE.FOS.AddressVerification.Vendors
 	{
 		#region Properties
 // ReSharper disable once UnusedMember.Local
-		private readonly string _username = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("AddressVerification_StrikeIronUID"), null);
-		private readonly string _password = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("AddressVerification_StrikeIronPWD"), null);
-		private readonly string _prodkey1 = SOS.Lib.Util.Cryptography.TripleDES.DecryptString(ConfigurationSettings.Current.GetConfig("AddressVerification_StrikeIronKEY"), null);
+		private readonly string _username = WebConfig.Instance.GetConfig("AddressVerification_StrikeIronUID");
+		private readonly string _password = WebConfig.Instance.GetConfig("AddressVerification_StrikeIronPWD");
+		private readonly string _prodkey1 = WebConfig.Instance.GetConfig("AddressVerification_StrikeIronKEY");
 
 		private const int _SUCCESSFUL_INVOCATION_MIN = 200;
 		private const int _SUCCESSFUL_INVOCATION_MAX = 299;

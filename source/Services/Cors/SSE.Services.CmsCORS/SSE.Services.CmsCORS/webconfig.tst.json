@@ -1,0 +1,27 @@
+﻿{
+  "Comments": "Stage Environment",
+  "InheritEnv": "base", /* Inherit from base environment */
+
+  /* CORS Info */
+  "Access-Control-Allow-Origin": "http://crm.nexsense.com,http://crm.stg.nexsense.com,https://crm.stg.nexsense.com,http://dev-crm.nexsense.com:8080,https://dev-crm.nexsense.com:8443",
+  
+  /* Database Info */
+  "DBHost": "db1.tst.nexsense.com",
+  "DBUsername": "sa",
+  "DBPassword": "hqoqCyxZICOVJ1ZK+Q/RIw==",
+  "LogSourceID": "8",
+
+  /* Address Validation */
+  "AddressVerification_SmartySAuthID": "Sl2BQ3YQs8sj8L3u3/U6OUCm6FQS89vAuz5jxDrfn2IQcJ+zNSY8Sg==",
+  "AddressVerification_SmartySAuthToken": "VtfqHtePcJZp4BLtNcTv5bOMrgUKKsOUjZVzvne1L4EdQFwpRYlmql0ygCitEj+OzmK9th7svqgQbosnBE+PCrdaxNh7PLgXR1rCkTeSV3MPApqeAn9c76K7JU65EWbW0Xo80W8s5+4=",
+
+  /* Credit Report */
+  "CreditReport_Vendor": "ABARA", /* ABARA, MICROBILT, HART */
+
+  /* Monitoring */
+  "AG_USERNAME": "NexsenseAPI",
+  "AG_PASSWORD": "VfwdHnIdbCehKwTObQu9yw==",
+  "AG_GATEWAY_ENDPNT": "https://portal.agmonitoring.com/stagesexternalgateway/gateway.aspx",
+  "MN_USERNAME": "xu6629KO23q4qaIYV2M+lg==",
+  "MN_PASSWORD": "xu6629KO23q4qaIYV2M+lg==",
+}

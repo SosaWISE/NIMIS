@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using SOS.Data.SosCrm;
-using SOS.Lib.Util.Configuration;
+using NXS.Lib;
 
 namespace SOS.Lib.LaipacAPI.Helper
 {
@@ -24,7 +24,7 @@ namespace SOS.Lib.LaipacAPI.Helper
 			get 
 			{
 				long result;
-				if (!long.TryParse(ConfigurationSettings.Current.GetConfig("LAIPACAPI.AccountUnitCacheExpiresIn"), out result))
+				if (!long.TryParse(WebConfig.Instance.GetConfig("LAIPACAPI.AccountUnitCacheExpiresIn"), out result))
 				{
 					result = _CACHE_EXPIRES_IN_MINUTES;
 				}

@@ -26,6 +26,7 @@ PRINT '************************************************************ START ******
 PRINT '* Commission Period ID: ' + CAST(@CommissionPeriodID AS VARCHAR) + ' | Commission Engine: ' + @CommissionEngineID + ' | Start: ' + CAST(@CommissionPeriodStrDate AS VARCHAR) + ' (UTC) | End: ' + CAST(@CommissionPeriodEndDate AS VARCHAR) + ' (UTC)';
 PRINT '************************************************************ START ************************************************************';
 /********************  END HEADER ********************/
+BEGIN TRANSACTION
 DECLARE @WorkAccountID BIGINT
 	, @AccountID BIGINT
 	, @SalesRepID VARCHAR(25)
@@ -68,3 +69,4 @@ BEGIN
 	SELECT * FROM [dbo].[SC_workAccountAdjustments] WHERE (WorkAccountId IN (SELECT WorkAccountID FROM [dbo].[SC_WorkAccounts] WHERE (CommissionPeriodId = @CommissionPeriodID)));
 	SELECT * FROM [dbo].[SC_WorkAccountRecruitingBonuses]
 END
+ROLLBACK TRANSACTION

@@ -10,28 +10,18 @@
   "DBUsername": "sa",
   "DBPassword": "hqoqCyxZICOVJ1ZK+Q/RIw==",
   "LogSourceID": "1",
-  /* Old Database Info */
-  "SosCrmConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnNSDtsQ4lTmOfDwxGAB786VClwOTM65KBzg9J7Qjf6DDrGaY5WGbT2eeq/3+gGy2vrf8BjZwdLlGENAvn32ZhOGIoNXkucaqm20aQ2R9vwPYHo2vx7c0ABIDbZK9Y1HwzHLbE77kInSN+GdVhcWEt6g==",
-  "SosAuthControlConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnNSDtsQ4lTmORWQXSQVAzeBN5kULrTg+Q5lRC8rCutyCr5FKAhdTSVW8Vqm6gLnCrm6MQI9Kec+L0iMO1F9qA8OHjDll8UGfcRPVzMjE4fULjyXr8p3gp29iFNVLPDjgyritTkHf6tqMzUznSpT3fUyvuHVJKZpj+D4HaqkS+N6w=",
-  "SosLoggingConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnNSDtsQ4lTmOVoyvgrvJkLOwtJdaM71eAS30wQ+5xP2BoV855FvTiNCV2Qfa735UV6AHyS9oFTku2sg86aMPI8XC5XDlNBR+ZBfts4EfAL6Mv59/9dNAtIAwtJfCajvkw3C4cfAvtWRcMyrTVhlUoFg==",
-  "SosReceiverEngineConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnNSDtsQ4lTmO/oo/ziyaGzbtT6u09wFdlFWNSjm82ibUxubkC77KC1cbuutvSjtt63HdJ37hAX7V2YNak0LJlSLbyClRiySXx9kfIYhmAkEIQnCVYcrF4CM5zFL+ytJVcrLt5akzz+f57Fo08FYIqOA==",
-  "SosHumanResourceConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnNSDtsQ4lTmNwdAprrH95eb4Zp57rtvNqq+RSgIXU0lVvFapuoC5wq5ujECPSnnPi9IjDtRfagPDh4w5ZfFBn3ET1czIxOH1C48l6/Kd4KdvYhTVSzw44Mq4rU5B3+rajM1M50qU931Mr7h1SSmaY/g+B2qpEvjes",
-  "SosGpsTrackingConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnNSDtsQ4lTmNHlOPajcVdcijwU8xqf0a/UKXA5MzrkoHOD0ntCN/oMOsZpjlYZtPZ56r/f6AbLa+t/wGNnB0uUYQ0C+ffZmE4Yig1eS5xqqbbRpDZH2/A9geja/HtzQAEgNtkr1jUfDMctsTvuQidI34Z1WFxYS3q",
-  "SseSurveyEngineConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnNSDtsQ4lTmPSqTRKJdDM7vlY1PQMIS/JA+x0QnmJM5Nj2HEFAnPXMi1Ks20pDm0Pppc3B+Ho5mmkGX4QTv6UjUCoa67doiPhlezsFBj90DvVGSIr/bfT+QcPiTwwjSDs2YPbzx28LP5k5JMjsLR+NhQCP7qMdZuP",
-  "NxsFundingConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnZee8Z82maAEoAb3dmI4G4X2W9a249B08S30wQ+5xP2BoV855FvTiNCV2Qfa735UV6AHyS9oFTku2sg86aMPI8XC5XDlNBR+ZBfts4EfAL6Mv59/9dNAtIAwtJfCajvkw3C4cfAvtWRcMyrTVhlUoFg==",
-  "NxsLicensingConnString": "ekG0s04Eu+uHS7XKvVLtq5yKhGWt+hxG45aE+iUUotPl9Qur2+0EQVjzUmJJbmGnZee8Z82maAG4hHw4Iyeh5BEEs3taAS6zkK/xUVUL4auPbc9RbCyyvZu1cXRulJtFCM4Dcp7E5BdyN4cPEEVZ1wvcwvuTMRfnRzDB372N10oKTJ+RP4CKxMhRIXjkGlyzWrhh6+eo+UwaPZkQdhn7kQ==",
 
+  /* Address Validation */
   "AddressVerification_SmartySAuthID": "Sl2BQ3YQs8sj8L3u3/U6OUCm6FQS89vAuz5jxDrfn2IQcJ+zNSY8Sg==",
   "AddressVerification_SmartySAuthToken": "VtfqHtePcJZp4BLtNcTv5bOMrgUKKsOUjZVzvne1L4EdQFwpRYlmql0ygCitEj+OzmK9th7svqgQbosnBE+PCrdaxNh7PLgXR1rCkTeSV3MPApqeAn9c76K7JU65EWbW0Xo80W8s5+4=",
 
+  /* Credit Report */
   "CreditReport_Vendor": "ABARA", /* ABARA, MICROBILT, HART */
 
+  /* Monitoring */
   "AG_USERNAME": "NexsenseAPI",
   "AG_PASSWORD": "VfwdHnIdbCehKwTObQu9yw==",
   "AG_GATEWAY_ENDPNT": "https://portal.agmonitoring.com/stagesexternalgateway/gateway.aspx",
-  "Domain": "corp.nexsense.com",
-  "ADPAth": "LDAP://corp.nexsense.com",
-
   "MN_USERNAME": "xu6629KO23q4qaIYV2M+lg==",
   "MN_PASSWORD": "xu6629KO23q4qaIYV2M+lg==",
 }

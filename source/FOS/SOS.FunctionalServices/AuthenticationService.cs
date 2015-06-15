@@ -5,6 +5,7 @@
  * 
  * Description:  Authenticates a request.
  *********************************************************************************************************************/
+using NXS.Lib;
 using SOS.Data.AuthenticationControl;
 using SOS.Data.HumanResource;
 using SOS.Data.HumanResource.ControllerExtensions;
@@ -35,7 +36,7 @@ namespace SOS.FunctionalServices
 		public readonly bool MockADGroups;
 		public AuthenticationService()
 		{
-			MockADGroups = string.Compare(Lib.Util.Configuration.ConfigurationSettings.Current.GetConfig("MockADGroups"), "true", true) == 0;
+			MockADGroups = string.Compare(WebConfig.Instance.GetConfig("MockADGroups"), "true", true) == 0;
 		}
 
 		#region Implementation of IAuthenticationService

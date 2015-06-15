@@ -25,6 +25,15 @@ namespace NXS.DataServices.Crm
 				return result;
 			}
 		}
+		public async Task<Result<List<TsTeam>>> SalesTeamsAsync()
+		{
+			using (var db = DBase.Connect())
+			{
+				var items = await db.TS_Teams.AllSalesTeamsFullAsync().ConfigureAwait(false);
+				var result = new Result<List<TsTeam>>(value: items.ConvertAll(item => TsTeam.FromDb(item)));
+				return result;
+			}
+		}
 		public async Task<Result<TsTeam>> SaveTeamAsync(TsTeam team)
 		{
 			using (var db = DBase.Connect())

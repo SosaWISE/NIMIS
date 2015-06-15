@@ -11,9 +11,9 @@
 
   /* Database Info */
   "ApplicationName": "Nexsense Sales",
-  "DBHost": "",
-  "DBUsername": "",
-  "DBPassword": "",
+  "DBHost": null,
+  "DBUsername": null,
+  "DBPassword": null,
   "LogSourceID": "0",
 
   /* Active Directory Info */

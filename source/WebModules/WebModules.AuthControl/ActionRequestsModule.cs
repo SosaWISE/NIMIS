@@ -3,7 +3,7 @@ using NXS.DataServices.AuthenticationControl.Models;
 using AuthApplications = NXS.Data.AuthenticationControl.AC_Application.MetaData;
 using AuthActions = NXS.Data.AuthenticationControl.AC_Action.MetaData;
 using Nancy.Authentication.Token;
-using NXS.Lib.Web;
+using NXS.Lib;
 
 namespace WebModules.AuthControl
 {

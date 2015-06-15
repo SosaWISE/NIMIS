@@ -1,31 +1,21 @@
 ﻿{
   "Comments": "Base Environment",
   "InheritEnv": null, /* top environment */
-  
+
   /* CORS Info */
   "Access-Control-Allow-Credentials": "true",
   "Access-Control-Allow-Origin": "https://crm.nexsense.com",
   "Access-Control-Allow-Methods": "GET,POST,DELETE",
   "Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,Authorization",
   "Access-Control-Expose-Headers": "Content-Length",
-  
+
   /* Database Info */
-  "ApplicationName": "Nexsense Sales",
-  "DBHost": "",
-  "DBUsername": "",
-  "DBPassword": "",
-  "LogSourceID": "",
+  "ApplicationName": "NiMiS",
+  "DBHost": null,
+  "DBUsername": null,
+  "DBPassword": null,
+  "LogSourceID": null,
   "FileSourceID": "1",
-  /* Old Database Info */
-  "SosCrmConnString": "",
-  "SosAuthControlConnString": "",
-  "SosLoggingConnString": "",
-  "SosReceiverEngineConnString": "",
-  "SosHumanResourceConnString": "",
-  "SosGpsTrackingConnString": "",
-  "SseSurveyEngineConnString": "",
-  "NxsFundingConnString": "",
-  "NxsLicensingConnString": "",
 
   /* Active Directory Info */
   "Domain": "CORP.NEXSENSE.COM",
@@ -34,7 +24,7 @@
   "ADPassword": "NEOvHYvqBJ+VJ1ZK+Q/RIw==",
   "ADUsersPath": "OU=CORPNEXSENSE,",
   "MockADGroups": "false",
-  
+
   /* Address Validation */
   "AddressVerification_Vendor": "STRIKEIRON", /* STRIKEIRON, INTELSEARCH, SMARTYSTREET */
   "AddressVerification_StrikeIronUID": "securitysciences@strikeiron.com",
@@ -44,8 +34,8 @@
   "AddressVerification_IntelligentSearchPWD": "TKQ/unUQnjp+GdVhcWEt6g==",
   "AddressVerification_IntelligentSearchFilePath": "C:\\SOP\\IntelligentSearch\\{0}_{1}.Txt",
   "AddressVerification_SmartyStreetApiUrl": "https://api.smartystreets.com/street-address/",
-  "AddressVerification_SmartySAuthID": "",
-  "AddressVerification_SmartySAuthToken": "",
+  "AddressVerification_SmartySAuthID": null,
+  "AddressVerification_SmartySAuthToken": null,
 
   /**/
   "RU_UserImageLocal": "//sse.somwhere.com/ruuserimage/",
@@ -70,9 +60,12 @@
   "CreditService_BureauListOrder": "TU",
 
   /* Monitoring */
-  "AG_USERNAME": "",
-  "AG_PASSWORD": "",
-  "AG_GATEWAY_ENDPNT": "",
-  "MN_USERNAME": "",
-  "MN_PASSWORD": "",
+  "AG_USERNAME": null,
+  "AG_PASSWORD": null,
+  "AG_GATEWAY_ENDPNT": null,
+  "MN_USERNAME": null,
+  "MN_PASSWORD": null,
+
+  /**/
+  "DisableErrorTraces": "true",
 }

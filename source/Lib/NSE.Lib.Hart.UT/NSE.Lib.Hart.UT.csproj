@@ -90,6 +90,10 @@
       <Project>{7865aae0-33cb-4748-8de7-f7ce43d5e5ce}</Project>
       <Name>NSE.Lib.Hart</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NXS.Lib\NXS.Lib.csproj">
+      <Project>{c067b3ab-3faf-40d7-98e9-5788768bd315}</Project>
+      <Name>NXS.Lib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SOS.Lib.Core\SOS.Lib.Core.csproj">
       <Project>{a4d0820e-3529-4cb9-ba5f-b2824bfeec97}</Project>
       <Name>SOS.Lib.Core</Name>

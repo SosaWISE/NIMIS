@@ -1,6 +1,6 @@
 ﻿using NXS.DataServices.AuthenticationControl;
 using NXS.DataServices.AuthenticationControl.Models;
-using NXS.Lib.Web.Authentication;
+using NXS.Lib.Authentication;
 using SOS.Lib.Core;
 using System.Collections.Generic;
 using AuthActions = NXS.Data.AuthenticationControl.AC_Action.MetaData;
