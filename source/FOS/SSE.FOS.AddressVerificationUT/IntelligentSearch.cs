@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSE.FOS.AddressVerification.Interfaces;
 using SSE.FOS.AddressVerification.Models;
+using SSE.FOS.AddressVerificationUT.Helpers;
 using SSE.Lib.Interfaces.FOS;
 
 namespace SSE.FOS.AddressVerificationUT
@@ -10,13 +11,13 @@ namespace SSE.FOS.AddressVerificationUT
 	{
 		#region Test Initialization.
 
-		//[AssemblyInitialize]
-		//public static void AssemblyInit(TestContext context)
-		//{
-		//	System.Diagnostics.Debug.WriteLine("StrikeIron Assembly Init");
+		[AssemblyInitialize]
+		public static void AssemblyInit(TestContext context)
+		{
+			System.Diagnostics.Debug.WriteLine("StrikeIron Assembly Init");
 
-		//	MainConfig.Instance.Initialize();
-		//}
+			MainConfig.Instance.Initialize();
+		}
 
 		#endregion Test Initialization.
 
