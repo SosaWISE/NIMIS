@@ -1054,6 +1054,7 @@ namespace SOS.FunctionalServices
 				var accountLeadInfo = SosCrmDataContext.Instance.MS_AccountAndLeadInfoViews.ByAccountID(accountID);
 				result.Value = new FnsMsAccountLeadInfo(accountLeadInfo);
 
+				SosCrmDataContext.Instance.MS_AccountSetupCheckLists.SetKeyValue(accountID, MS_AccountSetupCheckList.Columns.Qualify);
 			}
 			catch (Exception ex)
 			{

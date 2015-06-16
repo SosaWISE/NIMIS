@@ -769,6 +769,12 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@StateAB", StateAB, DbType.String);
 			return sp;
 		}
+		public static StoredProcedure MS_AccountSetupCheckListSetByKey(long? AccountId,string Key) {
+			StoredProcedure sp = new StoredProcedure("custMS_AccountSetupCheckListSetByKey" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@AccountId", AccountId, DbType.Int64);
+			sp.Command.AddParameter("@Key", Key, DbType.AnsiString);
+			return sp;
+		}
 		public static StoredProcedure MS_AccountSiteGeneralDispatchByAccountId(long? AccountId) {
 			StoredProcedure sp = new StoredProcedure("custMS_AccountSiteGeneralDispatchByAccountId" ,DataService.GetInstance("SosCrmProvider"));
 			sp.Command.AddParameter("@AccountId", AccountId, DbType.Int64);

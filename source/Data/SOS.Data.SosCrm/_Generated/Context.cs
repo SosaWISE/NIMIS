@@ -1546,6 +1546,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MS_AccountSetupCheckListController _MS_AccountSetupCheckLists;
+		public MS_AccountSetupCheckListController MS_AccountSetupCheckLists
+		{
+			get
+			{
+				if (_MS_AccountSetupCheckLists == null) _MS_AccountSetupCheckLists = new MS_AccountSetupCheckListController();
+				return _MS_AccountSetupCheckLists;
+			}
+		}
+
 		MS_AccountSignalFormatTypeController _MS_AccountSignalFormatTypes;
 		public MS_AccountSignalFormatTypeController MS_AccountSignalFormatTypes
 		{
@@ -4106,6 +4116,7 @@ namespace SOS.Data.SosCrm
 	public class MS_AccountPayoutTypeController : BaseTableController<MS_AccountPayoutType, MS_AccountPayoutTypeCollection> { }
 	public class MS_AccountController : BaseTableController<MS_Account, MS_AccountCollection> { }
 	public class MS_AccountSalesInformationController : BaseTableController<MS_AccountSalesInformation, MS_AccountSalesInformationCollection> { }
+	public class MS_AccountSetupCheckListController : BaseTableController<MS_AccountSetupCheckList, MS_AccountSetupCheckListCollection> { }
 	public class MS_AccountSignalFormatTypeController : BaseTableController<MS_AccountSignalFormatType, MS_AccountSignalFormatTypeCollection> { }
 	public class MS_AccountSiteGeneralDispatchController : BaseTableController<MS_AccountSiteGeneralDispatch, MS_AccountSiteGeneralDispatchCollection> { }
 	public class MS_AccountSiteTypeController : BaseTableController<MS_AccountSiteType, MS_AccountSiteTypeCollection> { }
