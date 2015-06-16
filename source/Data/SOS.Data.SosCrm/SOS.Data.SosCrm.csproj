@@ -71,6 +71,7 @@
     <Compile Include="ControllerExtensions\MS_EquipmentAccountZoneTypeEventControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_IndustryAccountNumbersWithReceiverLineInfoViewControllerExtentions.cs" />
     <Compile Include="ControllerExtensions\MS_MarketControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\MS_MonitronicsEntityZipControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\MS_ReceiverBlockCellDeviceInfoViewControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\QL_CreditReportControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\QL_CreditReportTransactionAndTokenControllerExtensions.cs" />

@@ -1405,6 +1405,11 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@ModifiedBy", ModifiedBy, DbType.String);
 			return sp;
 		}
+		public static StoredProcedure MS_MonitronicsEntityZipGetByZipCode(string ZipCode) {
+			StoredProcedure sp = new StoredProcedure("custMS_MonitronicsEntityZipGetByZipCode" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@ZipCode", ZipCode, DbType.AnsiString);
+			return sp;
+		}
 		public static StoredProcedure MS_MonitronicsEntityZipsNuke() {
 			StoredProcedure sp = new StoredProcedure("custMS_MonitronicsEntityZipsNuke" ,DataService.GetInstance("SosCrmProvider"));
 			return sp;

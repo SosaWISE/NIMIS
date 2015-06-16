@@ -18439,7 +18439,7 @@ namespace SOS.Data.SosCrm
 
 				TableSchema.TableColumn colvarPoints = new TableSchema.TableColumn(schema);
 				colvarPoints.ColumnName = "Points";
-				colvarPoints.DataType = DbType.Int32;
+				colvarPoints.DataType = DbType.Decimal;
 				colvarPoints.MaxLength = 0;
 				colvarPoints.AutoIncrement = false;
 				colvarPoints.IsNullable = false;
@@ -18452,7 +18452,7 @@ namespace SOS.Data.SosCrm
 
 				TableSchema.TableColumn colvarActualPoints = new TableSchema.TableColumn(schema);
 				colvarActualPoints.ColumnName = "ActualPoints";
-				colvarActualPoints.DataType = DbType.Double;
+				colvarActualPoints.DataType = DbType.Decimal;
 				colvarActualPoints.MaxLength = 0;
 				colvarActualPoints.AutoIncrement = false;
 				colvarActualPoints.IsNullable = true;
@@ -18730,13 +18730,13 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.AccountEquipmentUpgradeTypeId, value); }
 		}
 		[DataMember]
-		public int Points {
-			get { return GetColumnValue<int>(Columns.Points); }
+		public decimal Points {
+			get { return GetColumnValue<decimal>(Columns.Points); }
 			set { SetColumnValue(Columns.Points, value); }
 		}
 		[DataMember]
-		public double? ActualPoints {
-			get { return GetColumnValue<double?>(Columns.ActualPoints); }
+		public decimal? ActualPoints {
+			get { return GetColumnValue<decimal?>(Columns.ActualPoints); }
 			set { SetColumnValue(Columns.ActualPoints, value); }
 		}
 		[DataMember]

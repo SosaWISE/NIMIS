@@ -44,7 +44,7 @@
   "ImagePath_Avatars": "//{DOMAIN}{PORT}/images/Avatar/{UserID}_{WIDTH}x{HEIGHT}.png",
 
   /* Credit Report */
-  "CreditReport_Vendor": "ABARA", /* ABARA, MICROBILT, HART */
+  "CreditReport_Vendor": "HART", /* ABARA, MICROBILT, HART */
   "CreditReport_Vendor_ABARA_TU_ENDPOINT": "https://blinkws.abarasoftware.com/TU/TransUnionWS.asmx",
   "CreditReport_Vendor_ABARA_EQ_ENDPOINT": "https://blinkws.abarasoftware.com/EQ/EquifaxWS.asmx",
   "CreditReport_Vendor_ABARA_EX_ENDPOINT": "https://blinkws.abarasoftware.com/EX/ExperianWS.asmx",

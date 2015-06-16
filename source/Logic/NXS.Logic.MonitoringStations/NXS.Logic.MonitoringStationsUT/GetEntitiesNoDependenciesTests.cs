@@ -16,17 +16,20 @@ namespace NXS.Logic.MonitoringStationsUT
     public class GetEntitiesNoDependenciesTests
     {
         #region Properteis
-
+		/** TEST ENVIRONMENT
         private const string _USERID = "wsi_828070003";
         private const string _PASWRD = "password";
+		*/
+		private const string _USERID = "nexsense_wsi";
+		private const string _PASWRD = "nexsense_wsi";
 
         #endregion Properteis
 
         #region Test Methods
 
     /* Agencies */
-        #region AgenciesMethod
-        [TestMethod]
+		#region AgenciesMethod
+		[TestMethod]
         public void TestGetAgency()
         {
             
@@ -1056,8 +1059,9 @@ namespace NXS.Logic.MonitoringStationsUT
             {
                 GetZipCode = new ZipCode
                 {
-                    StateId = "CA",
-                    CountyName = "LOS ANGELES"
+					//StateId = "MO",
+					//CountyName = "LOS ANGELES"
+					PostalCode = "63112"
                 }
             };
             Assert.IsTrue(moniService.GetDataTry("Zips", out dsRaw, null, getZipCodes.Serialize<GetZipCodes>()));

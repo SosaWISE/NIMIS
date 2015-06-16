@@ -1,4 +1,5 @@
-﻿using NSE.FOS.Contracts.Models;
+﻿using System.Data.SqlClient;
+using NSE.FOS.Contracts.Models;
 using NXS.Lib;
 using NXS.Logic.MonitoringStations.Helpers;
 using NXS.Logic.MonitoringStations.Models;
@@ -19,6 +20,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using SOS.Lib.Util;
 using Contact = NXS.Logic.MonitoringStations.Models.Contact;
 using GetAgencies = NXS.Logic.MonitoringStations.Schemas.GetAgencies;
 using GetPrefixes = NXS.Logic.MonitoringStations.Schemas.GetPrefixes;
@@ -90,6 +92,19 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 					SosCrmDataStoredProcedureManager.QL_CreditReportMaxScoreByCmfID(aeMoniCustomer.CustomerMasterFileId));
 			if (msAccount.Contract == null)
 				throw new CsExceptionNoContract(msAccountSubmit.AccountId, msAccount.IndustryAccount.Csid);
+
+			/**
+			 * MONI ISSUE: The City STATE ZipCode and County name must match their database. 
+			 */
+			string moniCityName = mcAddress.City, moniCountyName = mcAddress.County;
+			var cszComboResult = GetCityStateZipCountyCombo(mcAddress.PostalCode, gpEmployeeId);
+			if (cszComboResult.Code == BaseErrorCodes.ErrorCodes.Success.Code())
+			{
+				moniCityName = cszComboResult.Value.CityNameID;
+				moniCountyName = cszComboResult.Value.CountyName;
+			}
+
+
 			/**
 			 * MONI ISSUE:  Month to Month will be passed as CM.  That is the accounts with ContractLength of 1.
 			 */
@@ -98,7 +113,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				: msAccount.Contract.ContractLength.ToString(CultureInfo.InvariantCulture);
 
 			var qlQualifyCustomerInfo = SosCrmDataContext.Instance.QL_QualifyCustomerInfoViews.LoadByAccountId(msAccount.AccountID);
-			var optionIdCMPUR = "CM"; //TODO:  Brian Carter wants all accounts to be CM so that Moni does not do the welcome call.// qlQualifyCustomerInfo.Score > 600 ? "PUR" : "CM";
+			const string OPTION_ID_CMPUR = "CM"; //TODO:  Brian Carter wants all accounts to be CM so that Moni does not do the welcome call.// qlQualifyCustomerInfo.Score > 600 ? "PUR" : "CM";
 
 			if(msAccount.DslSeizure == null) throw new CsExceptionMissingMetadata(msAccount.AccountID, "DSL Seizure not set", "Please go into System Details and click on the System Details section and under DSL/Seizure pic Yes or No.");
 			var dslVoip = msAccount.DslSeizure.DslSeizureID == (short)MS_AccountDslSeizureType.DslSeizureEnum.Dsl
@@ -106,10 +121,10 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				: "NONE";
 
 
-			var MoniPanelSysTypeId = msAccount.GetMoniSysTypeId();
-			if (MoniPanelSysTypeId == null)
+			var moniPanelSysTypeId = msAccount.GetMoniSysTypeId();
+			if (moniPanelSysTypeId == null)
 				throw new Exception("Main Panel is Missing");
-			var sysTypeId = MoniPanelSysTypeId.SystemTypeID; // SysTypeId = "A1S001"
+			var sysTypeId = moniPanelSysTypeId.SystemTypeID; // SysTypeId = "A1S001"
 			var secSysTypeId = string.Empty;
 			if (msAccount.CellularTypeId.Equals(MS_AccountCellularType.MetaData.Cell_PrimaryID))
 			{
@@ -133,9 +148,9 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 					{
 						SiteName = string.Format("{0} {1}", aeMoniCustomer.FirstName, aeMoniCustomer.LastName),
 						SiteAddr1 = mcAddress.StreetAddress,
-						CityName = mcAddress.City,
+						CityName = moniCityName, //mcAddress.City,
 						StateId = mcAddress.StateId,
-						CountyName = mcAddress.County,
+						CountyName = moniCountyName,
 						ZipCode = mcAddress.PostalCode + mcAddress.PlusFour,
 						//Phone1 = mcAddress.Phone,
 						SiteTypeId = msAccount.SiteType.GetMoniSiteTypeId().SiteTypeID,
@@ -164,7 +179,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 					new SiteOption
 					{
 						OptionId = "CMPUR",
-						OptionValue = optionIdCMPUR
+						OptionValue = OPTION_ID_CMPUR
 					},
 					new SiteOption
 					{
@@ -1445,6 +1460,113 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			return fosResult;
 		}
 
+		public FosResult<MS_MonitronicsEntityZip> GetCityStateZipCountyCombo(string zipCode, string username)
+		{
+			#region INITIALIZE
+			const string METHOD_NAME = "MONI CentralStation 'GetCityStateZipCountyCombo'";
+			var result = new FosResult<MS_MonitronicsEntityZip>
+			{
+				Code = BaseErrorCodes.ErrorCodes.Initializing.Code(),
+				Message = string.Format(BaseErrorCodes.ErrorCodes.Initializing.Message(), METHOD_NAME)
+			};
+
+			#endregion INITIALIZE
+
+			#region TRY
+			try
+			{
+				var combo = SosCrmDataContext.Instance.MS_MonitronicsEntityZips.GetFirstByZipCode(zipCode);
+
+				if (combo != null)
+				{
+					result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
+					result.Message = BaseErrorCodes.ErrorCodes.Success.Message();
+					result.Value = combo;
+					return result;
+				}
+				var acctSubmits = new MS_MonitronicsSubmitsGetData
+				{
+					EntityId = MS_MonitronicsEntity.MetaData.ZipsID,
+					IsSuccess = true,
+					CreatedOn = DateTime.UtcNow
+				};
+				acctSubmits.Save(username);
+				var getZipCodes = new GetZipCodes
+				{
+					GetZipCode = new ZipCode
+					{
+						PostalCode = zipCode
+					}
+				};
+				var services = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+				DataSet dsRaw;
+				Errors dsErrorsGet;
+				string firstErrorMsgGet;
+				if (
+					!services.GetDataTry(MS_MonitronicsEntity.MetaData.ZipsID, out dsRaw, out dsErrorsGet,
+						out firstErrorMsgGet, null, getZipCodes.Serialize<GetZipCodes>()))
+				{
+					// Save errors
+					acctSubmits.IsSuccess = false;
+					acctSubmits.Save(username);
+					foreach (Errors.TableRow row in dsErrorsGet.Table.Rows)
+					{
+						var msGetError = new MS_MonitronicsSubmitsGetDataError
+						{
+							SubmitsGetDataId = acctSubmits.SubmitsGetDataID,
+							ErrMsg = row.err_msg,
+							CreatedOn = DateTime.UtcNow
+						};
+
+						msGetError.Save(username);
+					}
+					result.Code = BaseErrorCodes.ErrorCodes.SqlItemNotFound.Code();
+					result.Message = string.Format("The following error was thrown while trying to find combination of City, State, Zip, and County from Monitronics with Zipcode '{0}'.", zipCode);
+				}
+				else
+				{
+					// Save data
+					var dsSysTypes = Utils.ConvertDataSet<GetZips>(dsRaw);
+					MS_MonitronicsEntityZip resultValue = null;
+
+					foreach (GetZips.TableRow row in dsSysTypes.Table.Rows)
+					{
+						resultValue = SosCrmDataContext.Instance.MS_MonitronicsEntityZips.LoadSingle(
+							SosCrmDataStoredProcedureManager.MS_MonitronicsEntityZipsSave(row.city_name,
+								row.county_name, row.state_id, row.zip_code, username));
+					}
+
+					result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
+					result.Message = BaseErrorCodes.ErrorCodes.Success.Message();
+					result.Value = resultValue;
+				}
+			}
+			#endregion TRY
+			#region CATCH
+			catch (SqlException sqlEx)
+			{
+				var sqlUtil = MsSqlExceptionUtil.Parse(sqlEx.Message);
+				result.Code = sqlUtil.MessageID;
+				result.Message = string.Format("SQL Exception thrown at {0}: {1}", METHOD_NAME, sqlUtil.ErrorMessage);
+			}
+			catch (Exception ex)
+			{
+				result = new FosResult<MS_MonitronicsEntityZip>
+				{
+					Code = BaseErrorCodes.ErrorCodes.UnexpectedException.Code(),
+					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message)
+				};
+			}
+			#endregion CATCH
+
+
+			#region RETURN RESULT
+
+			return result;
+
+			#endregion RETURN RESULT
+		}
+
 		#region Private
 
 		private bool GetAgencyTypes(out string firstErrorMsgGet, string username = "SYSTEM")
@@ -2420,7 +2542,7 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 				acctSubmits.Save(username);
 
 				// Delete all existing data
-				SosCrmDataContext.Instance.MS_MonitronicsEntityZips.LoadCollection(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityZipsNuke());
+				//SosCrmDataContext.Instance.MS_MonitronicsEntityZips.LoadCollection(SosCrmDataStoredProcedureManager.MS_MonitronicsEntityZipsNuke());
 
 				// Open file with valid US zip codes (this should be moved to a database table later
 				StreamReader sr = new StreamReader(new FileStream(@"C:\Users\jjenne.NSUTLTITM004\Documents\states-and-counties.csv", FileMode.Open));
