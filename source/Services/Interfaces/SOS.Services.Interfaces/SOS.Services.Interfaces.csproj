@@ -130,6 +130,7 @@
     <Compile Include="Models\Licensing\LmSalesRepRequirement.cs" />
     <Compile Include="Models\MainCore\McDepartment.cs" />
     <Compile Include="Models\MonitoringStation\MsAccountOnlineStatusInfo.cs" />
+    <Compile Include="Models\MonitoringStation\MsAccountSetupCheckList.cs" />
     <Compile Include="Models\MonitoringStation\MsEmergencyContactAuthority.cs" />
     <Compile Include="Models\MonitoringStation\MsAccountDispatchAgencyAssignmentView.cs" />
     <Compile Include="Models\MonitoringStation\MsAccountDslSeisureTypes.cs" />

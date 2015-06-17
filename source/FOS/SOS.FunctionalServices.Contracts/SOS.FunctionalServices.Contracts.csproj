@@ -64,6 +64,7 @@
     <Compile Include="Models\CentralStation\IFnsMcAddressView.cs" />
     <Compile Include="Models\CentralStation\IFnsMsAccountDetails.cs" />
     <Compile Include="Models\CentralStation\IFnsMsAccountDispatchAgencyAssignmentView.cs" />
+    <Compile Include="Models\CentralStation\IFnsMsAccountSetupCheckList.cs" />
     <Compile Include="Models\CentralStation\IFnsMsDispatchAgencyType.cs" />
     <Compile Include="Models\CentralStation\IFnsMsDispatchAgencyView.cs" />
     <Compile Include="Models\CentralStation\IFnsMsEmergencyContactAuthority.cs" />

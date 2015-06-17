@@ -2875,5 +2875,60 @@ namespace SOS.FunctionalServices
 		}
 
 		#endregion Slammed Accounts
+
+		#region SetupCheckLists
+
+		public IFnsResult<IFnsMsAccountSetupCheckList> GetMsAccountSetupCheckList(long accountID, string gpEmployeeID)
+		{
+			#region INITIALIZATION
+
+			const string METHOD_NAME = "FNS GetMsAccountSetupCheckList";
+			var result = new FnsResult<IFnsMsAccountSetupCheckList>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+				Message = string.Format("Initializing '{0}'", METHOD_NAME)
+			};
+
+			#endregion INITIALIZATION
+
+			#region TRY
+			try
+			{
+				// ** Get tuple
+				var tuple = SosCrmDataContext.Instance.MS_AccountSetupCheckLists.LoadByPrimaryKey(accountID);
+
+				if (!tuple.IsLoaded)
+				{
+					tuple = new MS_AccountSetupCheckList();
+					tuple.AccountID = accountID;
+					tuple.Save(gpEmployeeID);
+				}
+
+				// ** Set result values
+				result.Code = (int)ErrorCodes.Success;
+				result.Message = "Success";
+				result.Value = new FnsMsAccountSetupCheckList(tuple);
+			}
+			#endregion TRY
+
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<IFnsMsAccountSetupCheckList>
+				{
+					Code = (int)ErrorCodes.UnexpectedException,
+					Message = string.Format("Exception thrown at '{1}': {0}", ex.Message, METHOD_NAME)
+				};
+			}
+
+			#endregion CATCH
+
+			#region RETURN RESULT
+			return result;
+			#endregion RETURN RESULT
+		}
+
+		#endregion SetupCheckLists
+
 	}
 }

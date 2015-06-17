@@ -173,6 +173,7 @@
     <Compile Include="Controllers\DoNotCall\PhoneNumbersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MonitoringStation\AccountStatusInfoController.cs" />
+    <Compile Include="Controllers\MsAccountSetup\CheckListController.cs" />
     <Compile Include="Controllers\MsAccountSetup\SlammedAccountController.cs" />
     <Compile Include="Controllers\SalesHareReportSrv\CreditsAndInstallsController.cs" />
     <Compile Include="Controllers\TicketService\ServiceTicketsController.cs" />

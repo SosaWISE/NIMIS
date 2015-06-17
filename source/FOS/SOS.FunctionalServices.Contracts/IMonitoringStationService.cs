@@ -147,5 +147,9 @@ namespace SOS.FunctionalServices.Contracts
 		#region Slammed Accounts
 		IFnsResult<IFnsMsLeadTakeOver> SlammedAccountsCheck(long? accountId, string gpEmployeeId);
 		#endregion Slammed Accounts
+
+		#region SetupCheckLists
+		IFnsResult<IFnsMsAccountSetupCheckList> GetMsAccountSetupCheckList(long accountID, string gpEmployeeID);
+		#endregion SetupCheckLists
 	}
 }

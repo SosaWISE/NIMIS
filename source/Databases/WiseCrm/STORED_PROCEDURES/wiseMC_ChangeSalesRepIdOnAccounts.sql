@@ -111,4 +111,4 @@ GO
 GRANT EXEC ON dbo.wiseMC_ChangeSalesRepIdOnAccounts TO PUBLIC
 GO
 
-/** EXEC dbo.wiseMC_ChangeSalesRepIdOnAccounts 'FLFA000', 3091651, 'Charles Quarells', 5003;  */
+/** EXEC dbo.wiseMC_ChangeSalesRepIdOnAccounts 'CARTB001', 3091669, 'Little Bethel COGIC Little Bethel COGIC', 5000;  */

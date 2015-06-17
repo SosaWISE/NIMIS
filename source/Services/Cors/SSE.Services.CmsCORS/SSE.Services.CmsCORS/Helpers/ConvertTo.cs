@@ -1581,5 +1581,24 @@ namespace SSE.Services.CmsCORS.Helpers
 				LicenseID = licItem.LicenseID
 			};
 		}
+
+		public static MsAccountSetupCheckList CastFnsToMsAccountSetupCheckList(IFnsMsAccountSetupCheckList keyValue)
+		{
+			return new MsAccountSetupCheckList
+			{
+				AccountID = keyValue.AccountID,
+				SalesInfo = keyValue.SalesInfo,
+				PreSurvey = keyValue.PreSurvey,
+				IndustryNumbers = keyValue.IndustryNumbers,
+				EmergencyContacts = keyValue.EmergencyContacts,
+				SystemDetails = keyValue.SystemDetails,
+				RegisterCell = keyValue.RegisterCell,
+				SystemTest = keyValue.SystemTest,
+				TechInspection = keyValue.TechInspection,
+				PostSurvey = keyValue.PostSurvey,
+				InitialPayment = keyValue.InitialPayment,
+				SubmitAccountOnline = keyValue.SubmitAccountOnline
+			};
+		}
 	}
 }
