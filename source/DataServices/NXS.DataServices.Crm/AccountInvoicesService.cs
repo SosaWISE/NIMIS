@@ -1,4 +1,5 @@
-﻿using NXS.Data;
+﻿using System.Diagnostics;
+using NXS.Data;
 using NXS.Data.Crm;
 using NXS.DataServices.Crm.Models;
 using SOS.Lib.Core;
@@ -53,11 +54,16 @@ namespace NXS.DataServices.Crm
 				var result = new Result<AeInvoice>(value: AeInvoice.FromDb(item, true));
 				
 				// TODO: Andres
-				//// Set the step for SalesInfo complete.
-				//var chkTbl = db.MS_AccountSetupCheckLists;
-				//var chkItem = await chkTbl.ByIdAsync(accountId);
-				//chkItem.SalesInfo = DateTime.UtcNow;
-				//await chkTbl.UpdateAsync(accountId, _gpEmployeeId).ConfigureAwait(false);
+				// Set the step for SalesInfo complete.
+				var chkTbl = db.MS_AccountSetupCheckLists;
+				//var chkItem = (await chkTbl.ByIdAsync(accountId).ConfigureAwait(false));
+				var chkItem = (await chkTbl.ByAccountIDAndColumnNameIfNotNull(accountId, chkTbl.SalesInfo).ConfigureAwait(false));
+				if (chkItem != null)
+				{
+					chkItem.SalesInfo = DateTime.UtcNow;
+					int x = await chkTbl.UpdateAsync(accountId, chkItem).ConfigureAwait(false);
+					Debug.WriteLine("The following number of rows was updated: {0}", x);
+				}
 
 				return result;
 			}

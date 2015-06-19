@@ -3,11 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
+// ReSharper disable once CheckNamespace
 namespace NXS.Data.Crm
 {
 	using AR = AE_Invoice;
 	using ARCollection = IEnumerable<AE_Invoice>;
 	using ARTable = DBase.AE_InvoiceTable;
+// ReSharper disable once InconsistentNaming
 	public static class AE_InvoiceTableExtensions
 	{
 		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)

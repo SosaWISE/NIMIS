@@ -68,6 +68,7 @@
     <Compile Include="Extensions\MS_AccountPackageTableExtensions.cs" />
     <Compile Include="Classes\MS_AccountSalesInformation.cs" />
     <Compile Include="Extensions\MS_AccountSalesInformationTableExtensions.cs" />
+    <Compile Include="Extensions\MS_AccountSetupCheckListTableExtensions.cs" />
     <Compile Include="Extensions\MS_AccountTableExtensions.cs" />
     <Compile Include="Extensions\TS_TeamTableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
