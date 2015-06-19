@@ -64,6 +64,7 @@
     "^MS_AccountPackages$",
     "^MS_Accounts$",
     "^MS_AccountSalesInformations$",
+	"^MS_AccountSetupCheckLists$",
     "^MS_Equipments$",
 	"^MS_EquipmentTypes$",
     "^QL_Address$",

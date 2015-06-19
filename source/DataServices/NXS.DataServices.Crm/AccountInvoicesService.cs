@@ -46,11 +46,19 @@ namespace NXS.DataServices.Crm
 				var account = await db.MS_Accounts.EnsureByIdAsync(accountId, _gpEmployeeId).ConfigureAwait(false);
 
 				var tbl = db.AE_Invoices;
-				var invoiceTypeId = AE_InvoiceType.MetaData.SetupandInstallationID;
-				var item = (await tbl.ByAccountIdAndTypeFullAsync(accountId, invoiceTypeId).ConfigureAwait(false));
+				const string INSTALL_INVOICE_TYPE_ID = AE_InvoiceType.MetaData.SetupandInstallationID;
+				var item = (await tbl.ByAccountIdAndTypeFullAsync(accountId, INSTALL_INVOICE_TYPE_ID).ConfigureAwait(false));
 				if (item == null && canCreate)
-					item = await tbl.CreateInvoiceAsync(accountId, invoiceTypeId, _gpEmployeeId).ConfigureAwait(false);
+					item = await tbl.CreateInvoiceAsync(accountId, INSTALL_INVOICE_TYPE_ID, _gpEmployeeId).ConfigureAwait(false);
 				var result = new Result<AeInvoice>(value: AeInvoice.FromDb(item, true));
+				
+				// TODO: Andres
+				//// Set the step for SalesInfo complete.
+				//var chkTbl = db.MS_AccountSetupCheckLists;
+				//var chkItem = await chkTbl.ByIdAsync(accountId);
+				//chkItem.SalesInfo = DateTime.UtcNow;
+				//await chkTbl.UpdateAsync(accountId, _gpEmployeeId).ConfigureAwait(false);
+
 				return result;
 			}
 		}

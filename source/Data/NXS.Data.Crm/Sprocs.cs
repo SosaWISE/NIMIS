@@ -876,6 +876,13 @@ namespace NXS.Data.Crm
 			p.Add("@StateAB", StateAB);
 			return db.QueryAsync<T>("custMS_AccountSearchAccounts", p, commandType: System.Data.CommandType.StoredProcedure);
 		}
+		public Task<IEnumerable<T>> MS_AccountSetupCheckListSetByKey<T>(long? AccountID,string Key)
+		{
+			var p = new Dapper.DynamicParameters();
+			p.Add("@AccountID", AccountID);
+			p.Add("@Key", Key);
+			return db.QueryAsync<T>("custMS_AccountSetupCheckListSetByKey", p, commandType: System.Data.CommandType.StoredProcedure);
+		}
 		public Task<IEnumerable<T>> MS_AccountSiteGeneralDispatchByAccountId<T>(long? AccountId)
 		{
 			var p = new Dapper.DynamicParameters();
@@ -1608,6 +1615,12 @@ namespace NXS.Data.Crm
 			p.Add("@Description", Description);
 			p.Add("@ModifiedBy", ModifiedBy);
 			return db.QueryAsync<T>("custMS_MonitronicsEntityTwoWaysSave", p, commandType: System.Data.CommandType.StoredProcedure);
+		}
+		public Task<IEnumerable<T>> MS_MonitronicsEntityZipGetByZipCode<T>(string ZipCode)
+		{
+			var p = new Dapper.DynamicParameters();
+			p.Add("@ZipCode", ZipCode);
+			return db.QueryAsync<T>("custMS_MonitronicsEntityZipGetByZipCode", p, commandType: System.Data.CommandType.StoredProcedure);
 		}
 		public Task<IEnumerable<T>> MS_MonitronicsEntityZipsNuke<T>()
 		{

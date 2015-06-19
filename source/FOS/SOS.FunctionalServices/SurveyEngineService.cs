@@ -6,6 +6,8 @@
  * Description:  Service that manages the Survey Engine.
  *********************************************************************************************************************/
 
+using SOS.Data.SosCrm;
+using SOS.Data.SosCrm.ControllerExtensions;
 using SOS.FunctionalServices.Contracts;
 using SOS.FunctionalServices.Contracts.Helper;
 using SOS.FunctionalServices.Contracts.Models;
@@ -1969,14 +1971,13 @@ namespace SOS.FunctionalServices
 					}
 
 					// save result
-					{
-						var item = SurveyEngineModels.FnsResult.ConvertToDb(input);
-						item.CreatedBy = user;
-						item.CreatedOn = DateTime.UtcNow;
-						item.Save(user);
-						// store result
-						result.Value = SurveyEngineModels.FnsResult.ConvertFrom(item);
-					}
+					var itemResult = SurveyEngineModels.FnsResult.ConvertToDb(input);
+					itemResult.CreatedBy = user;
+					itemResult.CreatedOn = DateTime.UtcNow;
+					itemResult.Save(user);
+					// store result
+					result.Value = SurveyEngineModels.FnsResult.ConvertFrom(itemResult);
+
 					// save each answer
 					foreach (var answer in input.Answers)
 					{
@@ -1986,6 +1987,18 @@ namespace SOS.FunctionalServices
 						item.Save(user);
 						// store result
 						result.Value.Answers.Add(SurveyEngineModels.FnsAnswer.ConvertFrom(item));
+					}
+					var surveyTypeName = itemResult.SurveyTranslation.Survey.SurveyType.Name;
+					switch (surveyTypeName)
+					{
+						case "Post Survey":
+							SosCrmDataContext.Instance.MS_AccountSetupCheckLists.SetKeyValue(itemResult.AccountId,
+								MS_AccountSetupCheckList.Columns.PostSurvey);
+							break;
+						case "Pre Survey":
+							SosCrmDataContext.Instance.MS_AccountSetupCheckLists.SetKeyValue(itemResult.AccountId,
+								MS_AccountSetupCheckList.Columns.PreSurvey);
+							break;
 					}
 
 					return true;

@@ -6,57 +6,119 @@ namespace SOS.Services.Interfaces.Models.MonitoringStation
 	public class MsAccountSetupCheckList : IMsAccountSetupCheckList
 	{
 		public long AccountID { get; set; }
-		public DateTime? Qualify { get; set; }
-		public DateTime? SalesInfo { get; set; }
-		public DateTime? PreSurvey { get; set; }
-		public DateTime? IndustryNumbers { get; set; }
-		public DateTime? EmergencyContacts { get; set; }
-		public DateTime? SystemDetails { get; set; }
-		public DateTime? RegisterCell { get; set; }
-		public DateTime? SystemTest { get; set; }
-		public DateTime? TechInspection { get; set; }
-		public DateTime? PostSurvey { get; set; }
-		public DateTime? InitialPayment { get; set; }
-		public DateTime? SubmitAccountOnline { get; set; }
+		public bool Qualify { get; set; }
+		public DateTime? QualifyDate { get; set; }
+
+		public bool SalesInfo { get; set; }
+		public DateTime? SalesInfoDate { get; set; }
+
+		public bool PreSurvey { get; set; }
+		public DateTime? PreSurveyDate { get; set; }
+
+		public bool IndustryNumbers { get; set; }
+		public DateTime? IndustryNumbersDate { get; set; }
+
+		public bool EmergencyContacts { get; set; }
+		public DateTime? EmergencyContactsDate { get; set; }
+
+		public bool SystemDetails { get; set; }
+		public DateTime? SystemDetailsDate { get; set; }
+
+		public bool RegisterCell { get; set; }
+		public DateTime? RegisterCellDate { get; set; }
+
+		public bool SystemTest { get; set; }
+		public DateTime? SystemTestDate { get; set; }
+
+		public bool TechInspection { get; set; }
+		public DateTime? TechInspectionDate { get; set; }
+
+		public bool PostSurvey { get; set; }
+		public DateTime? PostSurveyDate { get; set; }
+
+		public bool InitialPayment { get; set; }
+		public DateTime? InitialPaymentDate { get; set; }
+
+		public bool SubmitAccountOnline { get; set; }
+		public DateTime? SubmitAccountOnlineDate { get; set; }
+
 	}
 
 	public interface IMsAccountSetupCheckList
 	{
 		[DataMember]
 		long AccountID { get; set; }
-		[DataMember]
-		DateTime? Qualify { get; set; }
-		[DataMember]
-		DateTime? SalesInfo { get; set; }
 
 		[DataMember]
-		DateTime? PreSurvey { get; set; }
+		bool Qualify { get; set; }
 
 		[DataMember]
-		DateTime? IndustryNumbers { get; set; }
+		DateTime? QualifyDate { get; set; }
 
 		[DataMember]
-		DateTime? EmergencyContacts { get; set; }
+		bool SalesInfo { get; set; }
 
 		[DataMember]
-		DateTime? SystemDetails { get; set; }
+		DateTime? SalesInfoDate { get; set; }
 
 		[DataMember]
-		DateTime? RegisterCell { get; set; }
+		bool PreSurvey { get; set; }
 
 		[DataMember]
-		DateTime? SystemTest { get; set; }
+		DateTime? PreSurveyDate { get; set; }
 
 		[DataMember]
-		DateTime? TechInspection { get; set; }
+		bool IndustryNumbers { get; set; }
 
 		[DataMember]
-		DateTime? PostSurvey { get; set; }
+		DateTime? IndustryNumbersDate { get; set; }
 
 		[DataMember]
-		DateTime? InitialPayment { get; set; }
+		bool EmergencyContacts { get; set; }
 
 		[DataMember]
-		DateTime? SubmitAccountOnline { get; set; }
+		DateTime? EmergencyContactsDate { get; set; }
+
+		[DataMember]
+		bool SystemDetails { get; set; }
+
+		[DataMember]
+		DateTime? SystemDetailsDate { get; set; }
+
+		[DataMember]
+		bool RegisterCell { get; set; }
+
+		[DataMember]
+		DateTime? RegisterCellDate { get; set; }
+
+		[DataMember]
+		bool SystemTest { get; set; }
+
+		[DataMember]
+		DateTime? SystemTestDate { get; set; }
+
+		[DataMember]
+		bool TechInspection { get; set; }
+
+		[DataMember]
+		DateTime? TechInspectionDate { get; set; }
+
+		[DataMember]
+		bool PostSurvey { get; set; }
+
+		[DataMember]
+		DateTime? PostSurveyDate { get; set; }
+
+		[DataMember]
+		bool InitialPayment { get; set; }
+
+		[DataMember]
+		DateTime? InitialPaymentDate { get; set; }
+
+		[DataMember]
+		bool SubmitAccountOnline { get; set; }
+
+		[DataMember]
+		DateTime? SubmitAccountOnlineDate { get; set; }
 	}
 }

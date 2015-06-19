@@ -49,6 +49,7 @@ namespace NXS.Data.Crm
 		public MS_AccountPackageTable MS_AccountPackages { get; set; }
 		public MS_AccountTable MS_Accounts { get; set; }
 		public MS_AccountSalesInformationTable MS_AccountSalesInformations { get; set; }
+		public MS_AccountSetupCheckListTable MS_AccountSetupCheckLists { get; set; }
 		public MS_EquipmentTable MS_Equipments { get; set; }
 		public MS_EquipmentTypeTable MS_EquipmentTypes { get; set; }
 		public QL_AddressTable QL_Addresses { get; set; }
@@ -769,6 +770,24 @@ namespace NXS.Data.Crm
 			public string CreatedBy { get { return _alias + "[CreatedBy]"; } }
 			public string DEX_ROW_TS { get { return _alias + "[DEX_ROW_TS]"; } }
 			public string DEX_ROW_ID { get { return _alias + "[DEX_ROW_ID]"; } }
+		}
+		public partial class MS_AccountSetupCheckListTable : Table<MS_AccountSetupCheckList, long>
+		{
+			public DBase Db { get { return (DBase)_database; } }
+			public MS_AccountSetupCheckListTable(DBase db) : base(db, "MsASCL", "[WISE_CRM].[dbo].[MS_AccountSetupCheckLists]", "AccountID", "bigint", false) { }
+			public string AccountID { get { return _alias + "[AccountID]"; } }
+			public string Qualify { get { return _alias + "[Qualify]"; } }
+			public string SalesInfo { get { return _alias + "[SalesInfo]"; } }
+			public string PreSurvey { get { return _alias + "[PreSurvey]"; } }
+			public string IndustryNumbers { get { return _alias + "[IndustryNumbers]"; } }
+			public string EmergencyContacts { get { return _alias + "[EmergencyContacts]"; } }
+			public string SystemDetails { get { return _alias + "[SystemDetails]"; } }
+			public string RegisterCell { get { return _alias + "[RegisterCell]"; } }
+			public string SystemTest { get { return _alias + "[SystemTest]"; } }
+			public string TechInspection { get { return _alias + "[TechInspection]"; } }
+			public string PostSurvey { get { return _alias + "[PostSurvey]"; } }
+			public string InitialPayment { get { return _alias + "[InitialPayment]"; } }
+			public string SubmitAccountOnline { get { return _alias + "[SubmitAccountOnline]"; } }
 		}
 		public partial class MS_EquipmentTable : Table<MS_Equipment, string>
 		{

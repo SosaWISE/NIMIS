@@ -11,6 +11,7 @@ namespace SOS.FunctionalServices.Models.CentralStation
 		public FnsMsAccountSetupCheckList(MS_AccountSetupCheckList item)
 		{
 			AccountID = item.AccountID;
+			Qualify = item.Qualify;
 			SalesInfo = item.SalesInfo;
 			PreSurvey = item.PreSurvey;
 			IndustryNumbers = item.IndustryNumbers;

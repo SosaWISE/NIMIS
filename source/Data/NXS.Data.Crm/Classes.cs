@@ -724,6 +724,23 @@ namespace NXS.Data.Crm
 		public DateTime DEX_ROW_TS { get; set; }
 		public long DEX_ROW_ID { get; set; }
 	}
+	public partial class MS_AccountSetupCheckList // MS_AccountSetupCheckLists
+	{
+		[IgnorePropertyAttribute(true)] public long ID { get { return AccountID; } set { AccountID = value; } }
+		public long AccountID { get; set; }
+		public DateTime? Qualify { get; set; }
+		public DateTime? SalesInfo { get; set; }
+		public DateTime? PreSurvey { get; set; }
+		public DateTime? IndustryNumbers { get; set; }
+		public DateTime? EmergencyContacts { get; set; }
+		public DateTime? SystemDetails { get; set; }
+		public DateTime? RegisterCell { get; set; }
+		public DateTime? SystemTest { get; set; }
+		public DateTime? TechInspection { get; set; }
+		public DateTime? PostSurvey { get; set; }
+		public DateTime? InitialPayment { get; set; }
+		public DateTime? SubmitAccountOnline { get; set; }
+	}
 	public partial class MS_Equipment // MS_Equipments
 	{
 		[IgnorePropertyAttribute(true)] public string ID { get { return EquipmentID; } set { EquipmentID = value; } }

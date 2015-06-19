@@ -254,16 +254,29 @@ namespace SOS.FunctionalServices
 				MS_EmergencyContact emc = newContact.GetMsEMC();
 				emc.Save(gpEmployeeId);
 
-				// update monitoring station
-				var service = new Main(Main.MonitoringStations.AvantGuard);
-				var updateContactsResult = service.UpdateContacts(contact.AccountId);
-				// copy response states
-				result.Message = updateContactsResult.Message;
-				result.Code = updateContactsResult.Code;
-				// check result
-				if (updateContactsResult.Code == 0)
+				// Check to see if this is an Moni or AvantGuard account.
+				var msAccount = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(contact.AccountId);
+				if (
+					msAccount.IndustryAccount.ReceiverLine.MonitoringStationOS.MonitoringStation.MonitoringStationsID.Equals(
+						MS_MonitoringStation.MetaData.Avant_GuardID))
 				{
-					// ** Save result information
+					// update monitoring station
+					var service = new Main(Main.MonitoringStations.AvantGuard);
+					var updateContactsResult = service.UpdateContacts(contact.AccountId);
+					// copy response states
+					result.Message = updateContactsResult.Message;
+					result.Code = updateContactsResult.Code;
+					// check result
+					if (updateContactsResult.Code == 0)
+					{
+						// ** Save result information
+						result.Value = new FnsMsEmergencyContact(emc);
+					}
+				}
+				else
+				{
+					result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
+					result.Message = BaseErrorCodes.ErrorCodes.Success.Message();
 					result.Value = new FnsMsEmergencyContact(emc);
 				}
 			}
@@ -2897,11 +2910,12 @@ namespace SOS.FunctionalServices
 				// ** Get tuple
 				var tuple = SosCrmDataContext.Instance.MS_AccountSetupCheckLists.LoadByPrimaryKey(accountID);
 
-				if (!tuple.IsLoaded)
+				if (tuple == null)
 				{
 					tuple = new MS_AccountSetupCheckList();
 					tuple.AccountID = accountID;
-					tuple.Save(gpEmployeeID);
+					if (accountID > 0)  // Don't save it because it has not been created yet
+						tuple.Save(gpEmployeeID);
 				}
 
 				// ** Set result values
