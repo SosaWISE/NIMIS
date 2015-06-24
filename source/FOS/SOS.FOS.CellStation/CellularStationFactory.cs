@@ -1,6 +1,6 @@
 ﻿using SOS.FOS.CellStation.AlarmCom;
 using SOS.Data.SosCrm;
-using SSE.Lib.Interfaces.FOS;
+using SOS.Lib.Core.ErrorHandling;
 using SOS.Lib.Core;
 
 namespace SOS.FOS.CellStation
@@ -185,31 +185,35 @@ namespace SOS.FOS.CellStation
 		//    return oIndAcct == null ? CellStationEnum.Inconclusive : GetCellStationEnum(oIndAcct);
 		//}
 
-		public CellStationEnum GetCellStationEnum(MS_IndustryAccount industryAccount)
+		public CellStationEnum GetCellStationEnum(MS_Account msAccount)
 		{
 			// Locals
 			CellStationEnum oTemp;
 
 			// Look at the receiverline
 			//@TODO: ReceiverLine VendorName - something like "industryAccount.ReceiverLine.OSCellVendor.MCellVendor.VendorName"
-			switch ("Alarm.Com")
+			switch (msAccount.CellPackageItemId)
 			{
-				case "Alarmnet":
+				case "CELL_SRV_HW":
 					oTemp = CellStationEnum.AlarmNet;
 					break;
-				case "Alarm.Com":
+				case "CELL_SRV_AC_AI":
+				case "CELL_SRV_AC_BI":
+				case "CELL_SRV_AC_IG":
+				case "CELL_SRV_AC_WSF":
 					oTemp = CellStationEnum.AlarmCom;
 					break;
-				case "Tellular":
+				case "CELL_SRV_TG":
 					oTemp = CellStationEnum.Tellular;
 					break;
 				default:
-					oTemp = CellStationEnum.Inconclusive;
+					oTemp = CellStationEnum.AlarmCom;
+					//oTemp = CellStationEnum.Inconclusive;
 					break;
 			}
 
 			// Check that the stations are the same, if not return inconclusive.
-			return oTemp == GetCellStationEnumByPanelType(industryAccount) ? oTemp : CellStationEnum.Inconclusive;
+			return oTemp;
 		}
 
 		#endregion Public

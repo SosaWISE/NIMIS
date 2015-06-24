@@ -13,6 +13,7 @@ using System.ServiceModel;
 using System.ServiceModel.Activation;
 using SOS.Data.SosCrm;
 using SOS.Data.SosCrm.ControllerExtensions;
+using SOS.FOS.CellStation;
 using SOS.FOS.CellStation.AlarmCom;
 using SOS.FOS.MonitoringStationServices;
 using SOS.FunctionalServices.Contracts;
@@ -196,8 +197,23 @@ namespace SOS.FunctionalServices
 		{
 			#region Get Cellular Device Status
 
+			var cellFactory = new CellularStationFactory();
+
+			if (cellFactory.GetCellStationEnum(msAccount) == CellularStationFactory.CellStationEnum.Tellular)
+			{
+				resultList.Add(new FnsMsAccountOnlineStatusInfo
+				{
+					KeyName = "Cellular Provider: Telguard",
+					Text = "Telguard System",
+					Status = "Unknown",
+					Value = "SUCCESS",
+				});
+				return;
+			}
+
 			var cellServices = new CellStationService();
 			var cellStation = cellServices.GetStation(msAccount.AccountID);
+
 			if (cellStation.Failure)
 			{
 				resultList.Add(new FnsMsAccountOnlineStatusInfo
