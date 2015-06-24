@@ -2,6 +2,9 @@
 using SOS.Data.SosCrm;
 using SOS.Data.SosCrm.ControllerExtensions;
 using SOS.FOS.CellStation.AlarmComWebService;
+using SOS.Lib.Core;
+using SOS.Lib.Core.ErrorHandling;
+using SOS.Lib.Core.ExceptionHandling;
 
 namespace SOS.FOS.CellStation.AlarmCom
 {
@@ -99,7 +102,15 @@ namespace SOS.FOS.CellStation.AlarmCom
 			{
 				// Set CUstomer Email;
 				if (string.IsNullOrEmpty(salesInformationView.Email))
-					throw new Exception("Alarm.com requires that the customer have an email.  Please set an email with the Primary Customer.");
+				{
+					var nxsResult = new Result<bool>
+					{
+						Code = BaseErrorCodes.ErrorCodes.MSAccountAlarmComMissingEmailAddress.Code(),
+						Message = BaseErrorCodes.ErrorCodes.MSAccountAlarmComMissingEmailAddress.Message(),
+						Value = false
+					};
+					throw new NXSResultException<bool>(nxsResult);
+				}
 				CustomerAccountEmail = salesInformationView.Email;
 						ServicePackageID = EnumServicePackage.InteractiveGold;
 			}

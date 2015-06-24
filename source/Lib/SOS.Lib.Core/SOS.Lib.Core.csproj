@@ -63,6 +63,7 @@
     <Compile Include="ErrorHandling\SimpleErrorMessage.cs" />
     <Compile Include="ErrorHandling\SimpleErrorStackFrame.cs" />
     <Compile Include="ExceptionHandling\BaseException.cs" />
+    <Compile Include="ExceptionHandling\NXSResultException.cs" />
     <Compile Include="FileSource.cs" />
     <Compile Include="IBusinessEntity.cs" />
     <Compile Include="Result.cs" />

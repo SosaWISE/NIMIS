@@ -103,6 +103,8 @@ namespace SOS.Lib.Core.ErrorHandling
 			, MSAccountOnboardSuccessful = 80300
 			, MSAccountOOSCatNotImplemented = 80400
 			, MSAccountOOSCatPullPanelFailed = 80410
+			, MSAccountAlarmComGeneral = 80500
+			, MSAccountAlarmComMissingEmailAddress = 80510
 			#endregion Monitoring Station Errors
 
 			#region Central Station Messages
@@ -184,6 +186,8 @@ namespace SOS.Lib.Core.ErrorHandling
 					return "OOS Category '{0}' has not yet been implemented.  Please inform the system adminstrator.";
 				case ErrorCodes.MSAccountOOSCatPullPanelFailed:
 					return "While pulling the panel and error was generated.  Please inform this to the system administrator.";
+				case ErrorCodes.MSAccountAlarmComMissingEmailAddress:
+					return "Alarm.com requires that the customer have an email.  Please go to the Sales Infomration screen and enter an email address.";
 
 			#region Central Station Messages
 				case ErrorCodes.CSLookupNotFound:

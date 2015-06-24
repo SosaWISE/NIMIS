@@ -22,6 +22,7 @@ using SOS.FunctionalServices.Contracts.Models.Reporting;
 using SOS.FunctionalServices.Models;
 using SOS.FunctionalServices.Models.Reporting;
 using SOS.Lib.Core.ErrorHandling;
+using SOS.Lib.Core.ExceptionHandling;
 
 namespace SOS.FunctionalServices
 {
@@ -43,6 +44,7 @@ namespace SOS.FunctionalServices
 			#endregion INITIALIZATION
 
 			#region TRY
+
 			try
 			{
 
@@ -56,17 +58,27 @@ namespace SOS.FunctionalServices
 				result.Value = csStatustList;
 
 			}
-			#endregion TRY
+				#endregion TRY
 
-			#region CATCH
+				#region CATCH
+
+			catch (NXSResultException<bool> nxsex)
+			{
+				result = new FnsResult<List<IFnsMsAccountOnlineStatusInfo>>
+				{
+					Code = nxsex.NXSResult.Code,
+					Message = nxsex.NXSResult.Message
+				};
+			}
 			catch (Exception ex)
 			{
 				result = new FnsResult<List<IFnsMsAccountOnlineStatusInfo>>
 				{
-					Code = (int)ErrorCodes.UnexpectedException,
+					Code = (int) ErrorCodes.UnexpectedException,
 					Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message)
 				};
 			}
+
 			#endregion CATCH
 
 			// ** Return result
