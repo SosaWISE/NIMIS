@@ -21,6 +21,20 @@ namespace NXS.Data.Crm
 
 			return tbl.LoadOneFull(sql);
 		}
+
+		public static async Task<AR> SetByColumnName(this ARTable tbl, long accountId, string columnName)
+		{
+			// ** INITIALIZE
+			var db = new Sprocs(tbl.Db);
+
+			// ** Clean the column ... strip the menusia.
+			columnName = columnName.Substring(columnName.IndexOf('[') + 1);
+			columnName = columnName.Substring(0, columnName.Length - 1);
+
+			// ** Execute
+			return (await db.MS_AccountSetupCheckListSetByKey<AR>(accountId, columnName).ConfigureAwait(false)).FirstOrDefault();
+		}
+
 		#region full load
 		private static Sequel SelectFull(this ARTable tbl, Sequel sql = null, string with = null)
 		{

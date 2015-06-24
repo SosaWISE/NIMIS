@@ -57,13 +57,14 @@ namespace NXS.DataServices.Crm
 				// Set the step for SalesInfo complete.
 				var chkTbl = db.MS_AccountSetupCheckLists;
 				//var chkItem = (await chkTbl.ByIdAsync(accountId).ConfigureAwait(false));
-				var chkItem = (await chkTbl.ByAccountIDAndColumnNameIfNotNull(accountId, chkTbl.SalesInfo).ConfigureAwait(false));
-				if (chkItem != null)
-				{
-					chkItem.SalesInfo = DateTime.UtcNow;
-					int x = await chkTbl.UpdateAsync(accountId, chkItem).ConfigureAwait(false);
-					Debug.WriteLine("The following number of rows was updated: {0}", x);
-				}
+				//var chkItem = (await chkTbl.ByAccountIDAndColumnNameIfNotNull(accountId, chkTbl.SalesInfo).ConfigureAwait(false));
+				var chkItem = (await chkTbl.SetByColumnName(accountId, chkTbl.SalesInfo).ConfigureAwait(false));
+				//if (chkItem != null)
+				//{
+				//	chkItem.SalesInfo = DateTime.UtcNow;
+				//	int x = await chkTbl.UpdateAsync(accountId, chkItem).ConfigureAwait(false);
+				//	Debug.WriteLine("The following number of rows was updated: {0}", x);
+				//}
 
 				return result;
 			}

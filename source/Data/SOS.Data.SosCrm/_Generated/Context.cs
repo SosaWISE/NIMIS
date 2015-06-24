@@ -2486,6 +2486,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MS_MonitronicsTwoWayInitController _MS_MonitronicsTwoWayInits;
+		public MS_MonitronicsTwoWayInitController MS_MonitronicsTwoWayInits
+		{
+			get
+			{
+				if (_MS_MonitronicsTwoWayInits == null) _MS_MonitronicsTwoWayInits = new MS_MonitronicsTwoWayInitController();
+				return _MS_MonitronicsTwoWayInits;
+			}
+		}
+
 		MS_ReceiverLineAlarmNetController _MS_ReceiverLineAlarmNets;
 		public MS_ReceiverLineAlarmNetController MS_ReceiverLineAlarmNets
 		{
@@ -4210,6 +4220,7 @@ namespace SOS.Data.SosCrm
 	public class MS_MonitronicsEntityZoneStateController : BaseTableController<MS_MonitronicsEntityZoneState, MS_MonitronicsEntityZoneStateCollection> { }
 	public class MS_MonitronicsSubmitsGetDataErrorController : BaseTableController<MS_MonitronicsSubmitsGetDataError, MS_MonitronicsSubmitsGetDataErrorCollection> { }
 	public class MS_MonitronicsSubmitsGetDataController : BaseTableController<MS_MonitronicsSubmitsGetData, MS_MonitronicsSubmitsGetDataCollection> { }
+	public class MS_MonitronicsTwoWayInitController : BaseTableController<MS_MonitronicsTwoWayInit, MS_MonitronicsTwoWayInitCollection> { }
 	public class MS_ReceiverLineAlarmNetController : BaseTableController<MS_ReceiverLineAlarmNet, MS_ReceiverLineAlarmNetCollection> { }
 	public class MS_ReceiverLineBlockAlarmComController : BaseTableController<MS_ReceiverLineBlockAlarmCom, MS_ReceiverLineBlockAlarmComCollection> { }
 	public class MS_ReceiverLineBlockAlarmComHistoryController : BaseTableController<MS_ReceiverLineBlockAlarmComHistory, MS_ReceiverLineBlockAlarmComHistoryCollection> { }

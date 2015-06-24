@@ -99,7 +99,10 @@ namespace SOS.Lib.Core.ErrorHandling
 			, MSAccountOnboardMissingConfNumber = 80110
 			, MSAccountNoSignalHistoryFound = 80200
 			, MSAccountInitTwoWayFailed = 80210
+			, MSAccountInitTwoWayAlreadySet = 80220
 			, MSAccountOnboardSuccessful = 80300
+			, MSAccountOOSCatNotImplemented = 80400
+			, MSAccountOOSCatPullPanelFailed = 80410
 			#endregion Monitoring Station Errors
 
 			#region Central Station Messages
@@ -173,8 +176,14 @@ namespace SOS.Lib.Core.ErrorHandling
 					return "While onboarding AccountID '{0}' with CSID '{1}' the confirmation # was not found.  The following error was generated:\r\n{2}";
 				case ErrorCodes.MSAccountInitTwoWayFailed:
 					return "While trying to initiate two-way test with CSID '{0}' the following error was generated:\r\n{1}";
+				case ErrorCodes.MSAccountInitTwoWayAlreadySet:
+					return "The CSID '{0}' is already in two-way test mode.  Go ahead and have the technician send signals.";
 				case ErrorCodes.MSAccountOnboardSuccessful:
 					return "SUCCESFULL Onboarding Account.  Confirmation #{0}";
+				case ErrorCodes.MSAccountOOSCatNotImplemented:
+					return "OOS Category '{0}' has not yet been implemented.  Please inform the system adminstrator.";
+				case ErrorCodes.MSAccountOOSCatPullPanelFailed:
+					return "While pulling the panel and error was generated.  Please inform this to the system administrator.";
 
 			#region Central Station Messages
 				case ErrorCodes.CSLookupNotFound:

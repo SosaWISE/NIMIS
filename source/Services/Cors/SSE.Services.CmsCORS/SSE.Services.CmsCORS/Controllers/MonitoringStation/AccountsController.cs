@@ -217,13 +217,13 @@ namespace SSE.Services.CmsCORS.Controllers.MonitoringStation
 
 		[HttpPost, Route("MsAccounts/{id}/ServiceStatus")] //?oosCat={oosCat}
 		// ReSharper disable once MethodOverloadWithOptionalParameter
-		public Result<string> ClearActiveTests(long id, string oosCat = null)
+		public Result<object> ClearActiveTests(long id, string oosCat = null)
 		{
 			return CORSSecurity.Authorize("Post ServiceStatus", AuthApplications.SSECmsCORSID, null, user =>
 			{
 				var service = SosServiceEngine.Instance.FunctionalServices.Instance<IMonitoringStationService>();
 				var fnsResult = service.SetServiceStatus(id, oosCat, DateTime.Now, "Set Service Status", user.GPEmployeeID);
-				return new Result<string>(fnsResult.Code, fnsResult.Message, fnsResult.GetTValue());
+				return new Result<object>(fnsResult.Code, fnsResult.Message, fnsResult.GetTValue());
 			});
 		}
 

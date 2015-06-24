@@ -33190,19 +33190,6 @@ namespace SOS.Data.SosCrm
 				colvarTeamId.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarTeamId);
 
-				TableSchema.TableColumn colvarID = new TableSchema.TableColumn(schema);
-				colvarID.ColumnName = "ID";
-				colvarID.DataType = DbType.Int32;
-				colvarID.MaxLength = 0;
-				colvarID.AutoIncrement = false;
-				colvarID.IsNullable = true;
-				colvarID.IsPrimaryKey = false;
-				colvarID.IsForeignKey = false;
-				colvarID.IsReadOnly = false;
-				colvarID.DefaultSetting = @"";
-				colvarID.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarID);
-
 				TableSchema.TableColumn colvarVersion = new TableSchema.TableColumn(schema);
 				colvarVersion.ColumnName = "Version";
 				colvarVersion.DataType = DbType.Int32;
@@ -33215,19 +33202,6 @@ namespace SOS.Data.SosCrm
 				colvarVersion.DefaultSetting = @"";
 				colvarVersion.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarVersion);
-
-				TableSchema.TableColumn colvarIsDeleted = new TableSchema.TableColumn(schema);
-				colvarIsDeleted.ColumnName = "IsDeleted";
-				colvarIsDeleted.DataType = DbType.Boolean;
-				colvarIsDeleted.MaxLength = 0;
-				colvarIsDeleted.AutoIncrement = false;
-				colvarIsDeleted.IsNullable = true;
-				colvarIsDeleted.IsPrimaryKey = false;
-				colvarIsDeleted.IsForeignKey = false;
-				colvarIsDeleted.IsReadOnly = false;
-				colvarIsDeleted.DefaultSetting = @"";
-				colvarIsDeleted.ForeignKeyTableName = "";
-				schema.Columns.Add(colvarIsDeleted);
 
 				TableSchema.TableColumn colvarCreatedOn = new TableSchema.TableColumn(schema);
 				colvarCreatedOn.ColumnName = "CreatedOn";
@@ -33360,19 +33334,9 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.TeamId, value); }
 		}
 		[DataMember]
-		public int? ID {
-			get { return GetColumnValue<int?>(Columns.ID); }
-			set { SetColumnValue(Columns.ID, value); }
-		}
-		[DataMember]
 		public int? Version {
 			get { return GetColumnValue<int?>(Columns.Version); }
 			set { SetColumnValue(Columns.Version, value); }
-		}
-		[DataMember]
-		public bool? IsDeleted {
-			get { return GetColumnValue<bool?>(Columns.IsDeleted); }
-			set { SetColumnValue(Columns.IsDeleted, value); }
 		}
 		[DataMember]
 		public DateTime? CreatedOn {
@@ -33428,49 +33392,41 @@ namespace SOS.Data.SosCrm
 		{
 			get { return Schema.Columns[0]; }
 		}
-		public static TableSchema.TableColumn IDColumn
+		public static TableSchema.TableColumn VersionColumn
 		{
 			get { return Schema.Columns[1]; }
 		}
-		public static TableSchema.TableColumn VersionColumn
+		public static TableSchema.TableColumn CreatedOnColumn
 		{
 			get { return Schema.Columns[2]; }
 		}
-		public static TableSchema.TableColumn IsDeletedColumn
+		public static TableSchema.TableColumn CreatedByColumn
 		{
 			get { return Schema.Columns[3]; }
 		}
-		public static TableSchema.TableColumn CreatedOnColumn
+		public static TableSchema.TableColumn ModifiedOnColumn
 		{
 			get { return Schema.Columns[4]; }
 		}
-		public static TableSchema.TableColumn CreatedByColumn
+		public static TableSchema.TableColumn ModifiedByColumn
 		{
 			get { return Schema.Columns[5]; }
 		}
-		public static TableSchema.TableColumn ModifiedOnColumn
+		public static TableSchema.TableColumn AddressIdColumn
 		{
 			get { return Schema.Columns[6]; }
 		}
-		public static TableSchema.TableColumn ModifiedByColumn
+		public static TableSchema.TableColumn LatitudeColumn
 		{
 			get { return Schema.Columns[7]; }
 		}
-		public static TableSchema.TableColumn AddressIdColumn
+		public static TableSchema.TableColumn LongitudeColumn
 		{
 			get { return Schema.Columns[8]; }
 		}
-		public static TableSchema.TableColumn LatitudeColumn
-		{
-			get { return Schema.Columns[9]; }
-		}
-		public static TableSchema.TableColumn LongitudeColumn
-		{
-			get { return Schema.Columns[10]; }
-		}
 		public static TableSchema.TableColumn DescriptionColumn
 		{
-			get { return Schema.Columns[11]; }
+			get { return Schema.Columns[9]; }
 		}
 
 		#endregion
@@ -33479,9 +33435,7 @@ namespace SOS.Data.SosCrm
 		public struct Columns
 		{
 			public const string TeamId = @"TeamId";
-			public const string ID = @"ID";
 			public const string Version = @"Version";
-			public const string IsDeleted = @"IsDeleted";
 			public const string CreatedOn = @"CreatedOn";
 			public const string CreatedBy = @"CreatedBy";
 			public const string ModifiedOn = @"ModifiedOn";

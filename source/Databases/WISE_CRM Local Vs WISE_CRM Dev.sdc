@@ -24,7 +24,7 @@ Version:10.4.8.62-->
     <MigrationsFolderLocation />
     <IntegratedSecurity>False</IntegratedSecurity>
   </DataSource2>
-  <LastCompared>05/07/2015 17:02:06</LastCompared>
+  <LastCompared>06/23/2015 11:18:30</LastCompared>
   <Options>Default, ObjectExistenceChecks, CaseSensitiveObjectDefinition, ForceColumnOrder</Options>
   <InRecycleBin>False</InRecycleBin>
   <Direction>0</Direction>
@@ -617,6 +617,10 @@ Version:10.4.8.62-->
     <value version="1" type="SelectTableEvent">
       <action>SelectItem</action>
       <val>[dbo].[MS_ReceiverLineVendorAlarmComAccountsMap]:[dbo].[MS_ReceiverLineVendorAlarmComAccountsMap]</val>
+    </value>
+    <value version="1" type="SelectTableEvent">
+      <action>SelectItem</action>
+      <val>[dbo].[MS_MonitronicsEntitySiteTypes]:[dbo].[MS_MonitronicsEntitySiteTypes]</val>
     </value>
   </TableActions>
   <SessionSettings>15</SessionSettings>

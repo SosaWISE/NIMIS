@@ -102,7 +102,7 @@ namespace SOS.FOS.MonitoringStationServices
 		{
 			return MsStation.ServiceStatus(accountId, gpEmployeeId);
 		}
-		public FosResult<string> SetServiceStatus(long accountId, string oosCat, DateTime startDate, string comment, string gpEmployeeId)
+		public FosResult<ISystemStatusInfo> SetServiceStatus(long accountId, string oosCat, DateTime startDate, string comment, string gpEmployeeId)
 		{
 			return MsStation.SetServiceStatus(accountId, oosCat, startDate, comment, gpEmployeeId);
 		}

@@ -1,7 +1,6 @@
 ﻿using NXS.Data;
 using NXS.Lib;
 using SOS.Lib.Core;
-using SOS.Lib.Util.Cryptography;
 using SubSonic;
 using System;
 using System.Collections.Generic;

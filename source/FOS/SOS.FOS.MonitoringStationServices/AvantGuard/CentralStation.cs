@@ -831,7 +831,7 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 
 				list.Add(new FosDeviceTest
 				{
-					TestNum = test.TestNum,
+					TestNum = test.TestNum.ToString(),
 					TestCategory = test.TestCategory,
 					TestCategoryDescription = test.TestCategoryDescription,
 					TestType = test.TestType,
@@ -905,9 +905,9 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 			}
 			return result;
 		}
-		public FosResult<string> SetServiceStatus(long accountId, string oosCat, DateTime startDate, string comment, string gpEmployeeId)
+		public FosResult<ISystemStatusInfo> SetServiceStatus(long accountId, string oosCat, DateTime startDate, string comment, string gpEmployeeId)
 		{
-			var result = new FosResult<string>();
+			var result = new FosResult<ISystemStatusInfo>();
 			SessionInfo sess = null;
 			MS_Account msAccount;
 			var msAccountSalesInfo = SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(accountId);
@@ -943,16 +943,20 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 				DateSubmitted = DateTime.UtcNow,
 				WasSuccessfull = result.Code == (int)AGErrorCodes.Success,
 			};
+			var resultValue = new SystemStatusInfo(true, false);
 			switch (oosCat)
 			{
 				case AGOOSTypes.ACTIVE:
 					msSubmit.AccountSubmitTypeId = (int)MS_AccountSubmitType.AccountSubmitTypeEnum.Turn_Service_On;
+					resultValue = new SystemStatusInfo(true, false);
 					break;
 				case AGOOSTypes.PENDING:
 					msSubmit.AccountSubmitTypeId = (int)MS_AccountSubmitType.AccountSubmitTypeEnum.Turn_Service_On_Pending;
+					resultValue = new SystemStatusInfo(false, false);
 					break;
 				case AGOOSTypes.CANCEL:
 					msSubmit.AccountSubmitTypeId = (int)MS_AccountSubmitType.AccountSubmitTypeEnum.Turn_Service_On_Cancel;
+					resultValue = new SystemStatusInfo(false, false);
 					break;
 			}
 			msSubmit.Save(gpEmployeeId);
@@ -968,7 +972,7 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 			};
 			msSubmitAG.Save(gpEmployeeId);
 
-			result.Value = oosCat;
+			result.Value = resultValue;
 			return result;
 		}
 

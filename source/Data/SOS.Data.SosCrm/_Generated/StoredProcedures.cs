@@ -769,9 +769,9 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@StateAB", StateAB, DbType.String);
 			return sp;
 		}
-		public static StoredProcedure MS_AccountSetupCheckListSetByKey(long? AccountId,string Key) {
+		public static StoredProcedure MS_AccountSetupCheckListSetByKey(long? AccountID,string Key) {
 			StoredProcedure sp = new StoredProcedure("custMS_AccountSetupCheckListSetByKey" ,DataService.GetInstance("SosCrmProvider"));
-			sp.Command.AddParameter("@AccountId", AccountId, DbType.Int64);
+			sp.Command.AddParameter("@AccountID", AccountID, DbType.Int64);
 			sp.Command.AddParameter("@Key", Key, DbType.AnsiString);
 			return sp;
 		}
@@ -1451,6 +1451,14 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@CreatedOn", CreatedOn, DbType.AnsiString);
 			sp.Command.AddParameter("@ModifiedBy", ModifiedBy, DbType.AnsiString);
 			sp.Command.AddParameter("@ModifiedOn", ModifiedOn, DbType.AnsiString);
+			return sp;
+		}
+		public static StoredProcedure MS_MonitronicsTwoWayInitSave(long? IndustryAccountID,DateTime? TwoWayTestStartedOn,DateTime? ConfirmedOn,string ConfirmedBy) {
+			StoredProcedure sp = new StoredProcedure("custMS_MonitronicsTwoWayInitSave" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@IndustryAccountID", IndustryAccountID, DbType.Int64);
+			sp.Command.AddParameter("@TwoWayTestStartedOn", TwoWayTestStartedOn, DbType.DateTime);
+			sp.Command.AddParameter("@ConfirmedOn", ConfirmedOn, DbType.DateTime);
+			sp.Command.AddParameter("@ConfirmedBy", ConfirmedBy, DbType.String);
 			return sp;
 		}
 		public static StoredProcedure MS_ReceiverBlockCellDeviceInfoViewGetByAccountID(long? AccountId) {

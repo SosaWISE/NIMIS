@@ -142,7 +142,7 @@ AS
 GO
 /* TEST 
 DECLARE @AccountID BIGINT = 191186;
-SELECT CustomerMasterFileId, AccountID, TotalPoints FROM [dbo].[vwAE_CustomerAccountInfoToGP] WHERE AccountID = @AccountID;
+SELECT * FROM [dbo].[vwAE_CustomerAccountInfoToGP] WHERE (DealerID = 5003);
 --WHERE CUSTOMERMASTERFILEID = 3091526
 --WHERE INSTALLDATE BETWEEN '1/1/15' AND '3/31/15'
 --WHERE [Transaction ID] IS NOT NULL ORDER BY CustomerMasterFileID DESC;

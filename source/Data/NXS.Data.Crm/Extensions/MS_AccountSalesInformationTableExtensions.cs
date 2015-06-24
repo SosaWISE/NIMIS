@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
+// ReSharper disable once CheckNamespace
 namespace NXS.Data.Crm
 {
 	using AR = MS_AccountSalesInformation;
 	using ARTable = DBase.MS_AccountSalesInformationTable;
+// ReSharper disable once InconsistentNaming
 	public static class MS_AccountSalesInformationTableExtensions
 	{
 		public static async Task InsertAsync(this ARTable tbl, AR item, string gpEmployeeId)

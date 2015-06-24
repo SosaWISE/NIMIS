@@ -2172,7 +2172,15 @@ namespace SOS.FunctionalServices
 		{
 			return CallMainFunc(accountId, (main) =>
 			{
-				return main.TwoWayTestData(accountId);
+				var msAcct = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(accountId);
+				if (msAcct.IndustryAccountId != null) return main.TwoWayTestData(msAcct.IndustryAccountId.Value);
+				var result = new FosResult<object>
+				{
+					Code = BaseErrorCodes.ErrorCodes.Success.Code(),
+					Message = BaseErrorCodes.ErrorCodes.Success.Message()
+				};
+
+				return result;
 			});
 		}
 		public IFnsResult<object> InitTwoWayTest(long accountId, string gpEmployeeId)
@@ -2241,11 +2249,19 @@ namespace SOS.FunctionalServices
 				return newResult;
 			});
 		}
-		public IFnsResult<string> SetServiceStatus(long accountId, string oosCat, DateTime startDate, string comment, string gpEmployeeId)
+		public IFnsResult<IFnsMsSystemStatusInfo> SetServiceStatus(long accountId, string oosCat, DateTime startDate, string comment, string gpEmployeeId)
 		{
-			return CallMainFunc(accountId, (main) =>
+			return CallMainFunc<IFnsMsSystemStatusInfo>(accountId, (main) =>
 			{
-				return main.SetServiceStatus(accountId, oosCat, startDate, comment, gpEmployeeId);
+				var result = main.SetServiceStatus(accountId, oosCat, startDate, comment, gpEmployeeId);
+				var fnsResult = new FosResult<IFnsMsSystemStatusInfo>
+				{
+					Code = result.Code,
+					Message = result.Message,
+					Value = new FnsMsSystemStatusInfo(result.Value.InService, result.Value.OnTest)
+				};
+
+				return fnsResult;
 			});
 		}
 
@@ -2436,11 +2452,28 @@ namespace SOS.FunctionalServices
 				{
 					col = SosCrmDataContext.Instance.MS_DispatchAgenciesViews.GetMonitronicsEntityAgencies(city, state, zip);
 					if (col == null || col.Count == 0)
-						return new FnsResult<List<IFnsMsDispatchAgencyView>>
+					{
+
+						// ** Call Moni Central Station to determine a Dispatch Agency List.
+						var moniCS = new CentralStation();
+						var agenciesResult = moniCS.FindDispatchAgency(null, null, city, state, zip, "SYSTEM");
+						if (agenciesResult.Code != BaseErrorCodes.ErrorCodes.Success.Code())
 						{
-							Code = (int)ErrorCodes.SqlItemNotFound,
-							Message = string.Format("Sorry but given a city of '{0}', a state of '{1}', and a zip of '{2}' returned nothing.", city, state, zip)
-						};
+							return new FnsResult<List<IFnsMsDispatchAgencyView>>
+							{
+								Code = agenciesResult.Code,
+								Message = agenciesResult.Message
+							};
+						}
+
+						col = SosCrmDataContext.Instance.MS_DispatchAgenciesViews.GetMonitronicsEntityAgencies(null, null, zip);
+						if (col == null || col.Count == 0)
+							return new FnsResult<List<IFnsMsDispatchAgencyView>>
+							{
+								Code = (int)ErrorCodes.SqlItemNotFound,
+								Message = string.Format("Sorry but given a city of '{0}', a state of '{1}', and a zip of '{2}' returned nothing.", city, state, zip)
+							};
+					}
 				}
 
 				// ** Build result value

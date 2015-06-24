@@ -54,62 +54,62 @@ BEGIN
 	BEGIN TRY
 		IF (@Key = 'Qualify')
 		BEGIN
-			UPDATE dbo.MS_AccountSetupCheckLists SET Qualify = GETUTCDATE() WHERE (AccountID = @AccountID);
+			UPDATE dbo.MS_AccountSetupCheckLists SET Qualify = GETUTCDATE() WHERE (AccountID = @AccountID) AND (Qualify IS NULL);
 		END
 
 		IF (@Key = 'SalesInfo')
 		BEGIN
-			UPDATE dbo.MS_AccountSetupCheckLists SET SalesInfo = GETUTCDATE() WHERE (AccountID = @AccountID);
+			UPDATE dbo.MS_AccountSetupCheckLists SET SalesInfo = GETUTCDATE() WHERE (AccountID = @AccountID) AND (SalesInfo IS NULL);
 		END
 
 		IF (@Key = 'PreSurvey')
 		BEGIN
-			UPDATE dbo.MS_AccountSetupCheckLists SET PreSurvey = GETUTCDATE() WHERE (AccountID = @AccountID);
+			UPDATE dbo.MS_AccountSetupCheckLists SET PreSurvey = GETUTCDATE() WHERE (AccountID = @AccountID) AND (PreSurvey IS NULL);
 		END
 
 		IF (@Key = 'IndustryNumbers')
 		BEGIN
-			UPDATE dbo.MS_AccountSetupCheckLists SET IndustryNumbers = GETUTCDATE() WHERE (AccountID = @AccountID);
+			UPDATE dbo.MS_AccountSetupCheckLists SET IndustryNumbers = GETUTCDATE() WHERE (AccountID = @AccountID) AND (IndustryNumbers IS NULL);
 		END
 
 		IF (@Key = 'EmergencyContacts')
 		BEGIN
-			UPDATE dbo.MS_AccountSetupCheckLists SET EmergencyContacts = GETUTCDATE() WHERE (AccountID = @AccountID);
+			UPDATE dbo.MS_AccountSetupCheckLists SET EmergencyContacts = GETUTCDATE() WHERE (AccountID = @AccountID) AND (EmergencyContacts IS NULL);
 		END
 
 		IF (@Key = 'SystemDetails')
 		BEGIN
-			UPDATE dbo.MS_AccountSetupCheckLists SET SystemDetails = GETUTCDATE() WHERE (AccountID = @AccountID);
+			UPDATE dbo.MS_AccountSetupCheckLists SET SystemDetails = GETUTCDATE() WHERE (AccountID = @AccountID) AND (SystemDetails IS NULL);
 		END
 
 		IF (@Key = 'RegisterCell')
 		BEGIN
-			UPDATE dbo.MS_AccountSetupCheckLists SET RegisterCell = GETUTCDATE() WHERE (AccountID = @AccountID);
+			UPDATE dbo.MS_AccountSetupCheckLists SET RegisterCell = GETUTCDATE() WHERE (AccountID = @AccountID) AND (RegisterCell IS NULL);
 		END
 
 		IF (@Key = 'SystemTest')
 		BEGIN
-			UPDATE dbo.MS_AccountSetupCheckLists SET SystemTest = GETUTCDATE() WHERE (AccountID = @AccountID);
+			UPDATE dbo.MS_AccountSetupCheckLists SET SystemTest = GETUTCDATE() WHERE (AccountID = @AccountID) AND (SystemTest IS NULL);
 		END
 
 		IF (@Key = 'TechInspection')
 		BEGIN
-			UPDATE dbo.MS_AccountSetupCheckLists SET TechInspection = GETUTCDATE() WHERE (AccountID = @AccountID);
+			UPDATE dbo.MS_AccountSetupCheckLists SET TechInspection = GETUTCDATE() WHERE (AccountID = @AccountID) AND (TechInspection IS NULL);
 		END
 
 		IF (@Key = 'PostSurvey')
 		BEGIN
-			UPDATE dbo.MS_AccountSetupCheckLists SET PostSurvey = GETUTCDATE() WHERE (AccountID = @AccountID);
+			UPDATE dbo.MS_AccountSetupCheckLists SET PostSurvey = GETUTCDATE() WHERE (AccountID = @AccountID) AND (PostSurvey IS NULL);
 		END
 
 		IF (@Key = 'InitialPayment')
 		BEGIN
-			UPDATE dbo.MS_AccountSetupCheckLists SET InitialPayment = GETUTCDATE() WHERE (AccountID = @AccountID);
+			UPDATE dbo.MS_AccountSetupCheckLists SET InitialPayment = GETUTCDATE() WHERE (AccountID = @AccountID) AND (InitialPayment IS NULL);
 		END
 
 		IF (@Key = 'SubmitAccountOnline')
 		BEGIN
-			UPDATE dbo.MS_AccountSetupCheckLists SET SubmitAccountOnline = GETUTCDATE() WHERE (AccountID = @AccountID);
+			UPDATE dbo.MS_AccountSetupCheckLists SET SubmitAccountOnline = GETUTCDATE() WHERE (AccountID = @AccountID) AND (SubmitAccountOnline IS NULL);
 		END
 
 	END TRY
@@ -125,4 +125,4 @@ GO
 GRANT EXEC ON dbo.custMS_AccountSetupCheckListSetByKey TO PUBLIC
 GO
 
-/** EXEC dbo.custMS_AccountSetupCheckListSetByKey 191269, 'Qualify' */
+/** EXEC custMS_AccountSetupCheckListSetByKey 191274, 'SalesInfo' */

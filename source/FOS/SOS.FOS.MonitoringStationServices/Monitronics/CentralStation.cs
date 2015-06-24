@@ -755,7 +755,13 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 
 		public FosResult<object> TwoWayTestData(long accountId)
 		{
-			throw new NotImplementedException();
+			var result = new FosResult<object>();
+			var acctState = SosCrmDataContext.Instance.MS_MonitronicsTwoWayInits.LoadByPrimaryKey(accountId);
+			if (acctState != null)
+			{
+				result.Value = acctState;
+			}
+			return result;
 		}
 		public FosResult<object> InitTwoWayTest(long accountId, string gpEmployeeId)
 		{
@@ -779,7 +785,26 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			var deviceId = msAccount.GetMoniSysTypeId();
 			if (deviceId == null)
 			{
-				throw new Exception("This account does not have a panel associated with it that will return a clear Monitronics Device ID.");
+				result.Code = BaseErrorCodes.ErrorCodes.MSAccountInitTwoWayFailed.Code();
+				result.Message = string.Format(BaseErrorCodes.ErrorCodes.MSAccountInitTwoWayFailed.Message(), msAccount.IndustryAccount.Csid, "NMS MESSAGE:  This account does not have a panel associated with it that will return a clear Monitronics Device ID.  Please go to System Details and add a Panel.  If the panel is existing please flag it as such.");
+				result.Value = null;
+				return result;
+			}
+
+			// ** Check to see that the system is not in a two way P2 state.
+			var statusResult = ServiceStatus(accountId, "SYSTEM");
+			if (statusResult.Code != BaseErrorCodes.ErrorCodes.Success.Code())
+			{
+				return new FosResult<object> { Code = statusResult.Code, Message = statusResult.Message };
+			}
+// ReSharper disable once PossibleInvalidOperationException
+			var moniSiteSystem = SosCrmDataContext.Instance.MS_MonitronicsEntitySiteSystems.LoadByPrimaryKey(msAccount.IndustryAccountId.Value);
+			if (moniSiteSystem.sitestat_id.Trim().Equals("P2"))
+			{
+				result.Code = BaseErrorCodes.ErrorCodes.MSAccountInitTwoWayAlreadySet.Code();
+				result.Message = string.Format(BaseErrorCodes.ErrorCodes.MSAccountInitTwoWayAlreadySet.Message(), msAccount.IndustryAccount.Csid);
+				result.Value = null;
+				return result;
 			}
 
 			DataSet dsResult;
@@ -808,11 +833,11 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 						submitItem.Save(gpEmployeeId);
 
 						//** Look for this error
-						if (row.err_text.Equals("Invalid System, must be digital primary  "))
-						{
-							DataSet someResult;
-							moniService.PullPanelResetShell(msAccountSubmit, msAccount.IndustryAccount.Csid, out someResult);
-						}
+						//if (row.err_text.Equals("Invalid System, must be digital primary  "))
+						//{
+						//	DataSet someResult;
+						//	moniService.PullPanelResetShell(msAccountSubmit, msAccount.IndustryAccount.Csid, out someResult);
+						//}
 					}
 
 
@@ -823,6 +848,10 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			}
 			else
 			{
+				SosCrmDataContext.Instance.MS_MonitronicsTwoWayInits.LoadSingle(
+					SosCrmDataStoredProcedureManager.MS_MonitronicsTwoWayInitSave(msAccount.IndustryAccountId, DateTime.UtcNow, null,
+						null));
+
 				msAccountSubmit.WasSuccessfull = true;
 				msAccountSubmit.Save(gpEmployeeId);
 
@@ -839,7 +868,89 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 		}
 		public FosResult<List<IFosDeviceTest>> ActiveTests(long accountId)
 		{
-			throw new NotImplementedException();
+			#region INITIALIZE
+			const string METHOD_NAME = "Monitronics CS Active Tests";
+			const string TEST_NUM = "{0} ({1})";
+			var result = new FosResult<List<IFosDeviceTest>>
+			{
+				Code = BaseErrorCodes.ErrorCodes.Initializing.Code(),
+				Message = string.Format(BaseErrorCodes.ErrorCodes.Initializing.Message(), METHOD_NAME),
+			};
+			#endregion INITIALIZE
+
+			#region TRY
+			try
+			{
+				var statusResult = ServiceStatus(accountId, "SYSTEM");
+				if (statusResult.Code != BaseErrorCodes.ErrorCodes.Success.Code())
+				{
+					return new FosResult<List<IFosDeviceTest>> { Code = statusResult.Code, Message = statusResult.Message };
+				}
+
+				var msAccount = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(accountId);
+				// ReSharper disable once PossibleInvalidOperationException
+				var moniSiteSystem = SosCrmDataContext.Instance.MS_MonitronicsEntitySiteSystems.LoadByPrimaryKey(msAccount.IndustryAccountId.Value);
+				var actionList = new List<IFosDeviceTest>();
+
+				// ** Check to see if the system is on test
+				if (moniSiteSystem.ontest_flag.Equals("yes"))
+					actionList.Add(new FosDeviceTest
+					{
+						TestNum = string.Format(TEST_NUM, msAccount.IndustryAccount.Csid, msAccount.IndustryAccountId),
+						TestCategory = moniSiteSystem.monitor_type,
+						TestCategoryDescription = "On Test",
+						EffectiveOn = null,
+						ExpiresOn = moniSiteSystem.ontest_expire_date,
+						TestType = "Unable to tell"
+					});
+				var sitetype = SosCrmDataContext.Instance.MS_MonitronicsEntitySiteTypes.LoadByPrimaryKey(moniSiteSystem.sitetype_id.Trim());
+				var testCategory = string.Format("{0} : {1}", moniSiteSystem.sitetype_id.Trim(), "Not Found in our DB.");
+				if (sitetype != null)
+				{
+					testCategory = string.Format("{0} : {1}", sitetype.SiteTypeID, sitetype.Description);
+				}
+				var siteState = string.Format("{0}: Undefined State", moniSiteSystem.sitestat_id.Trim());
+				switch (moniSiteSystem.sitestat_id.Trim())
+				{
+					case "A":
+						siteState = "A: Active Account";
+						break;
+					case "P":
+						siteState = "P: Pending Install";
+						break;
+					case "P2":
+						siteState = "P2: Pending Two-Way test";
+						break;
+				}
+				actionList.Add(new FosDeviceTest
+				{
+					TestNum = string.Format(TEST_NUM, msAccount.IndustryAccount.Csid, msAccount.IndustryAccountId),
+					TestCategory = testCategory,
+					TestCategoryDescription = "System State / Type",
+					EffectiveOn = null,
+					ExpiresOn = null,
+					TestType = siteState
+				});
+
+				result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
+				result.Message = BaseErrorCodes.ErrorCodes.Success.Message();
+				result.Value = actionList;
+			}
+			#endregion TRY
+
+			#region CATCH
+			catch (Exception ex)
+			{
+				result.Code = BaseErrorCodes.ErrorCodes.ExceptionThrown.Code();
+				result.Message = string.Format(BaseErrorCodes.ErrorCodes.ExceptionThrown.Message(), METHOD_NAME, ex.Message);
+			}
+			#endregion CATCH
+
+			#region RETURN RESULT
+
+			return result;
+
+			#endregion RETURN RESULT
 		}
 		public FosResult<bool> ClearActiveTests(long accountId)
 		{
@@ -942,9 +1053,76 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			// ** Return result
 			return result;
 		}
-		public FosResult<string> SetServiceStatus(long accountId, string oosCat, DateTime startDate, string comment, string gpEmployeeId)
+		public FosResult<ISystemStatusInfo> SetServiceStatus(long accountId, string oosCat, DateTime startDate, string comment, string gpEmployeeId)
 		{
-			throw new NotImplementedException();
+			#region INITIALIZE
+
+			const string METHOD_NAME = "Moni CS: SetServiceStatus";
+			var result = new FosResult<ISystemStatusInfo>
+			{
+				Code = BaseErrorCodes.ErrorCodes.Initializing.Code(),
+				Message = string.Format(BaseErrorCodes.ErrorCodes.Initializing.Message(), METHOD_NAME)
+			};
+
+			#endregion INITIALIZE
+
+			#region TRY
+			try
+			{
+				#region ARG VALIDAION
+				if (!oosCat.Equals("true"))
+				{
+					result.Code = BaseErrorCodes.ErrorCodes.MSAccountOOSCatNotImplemented.Code();
+					result.Message = string.Format(BaseErrorCodes.ErrorCodes.MSAccountOOSCatNotImplemented.Message(), oosCat);
+					return result;
+				}
+				#endregion ARG VALIDAION
+
+				var msAccount = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(accountId);
+				var msAcctSaI = SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(accountId);
+				var moniService = new NXS.Logic.MonitoringStations.Monitronics(_username, _password);
+				var msAccountSubmit = new MS_AccountSubmit
+				{
+					AccountSubmitTypeId = (int)MS_AccountSubmitType.AccountSubmitTypeEnum.Pull_Panel,
+					AccountId = accountId,
+					IndustryAccountId = msAccount.IndustryAccountId,
+					MonitoringStationOSId = msAccount.IndustryAccount.ReceiverLine.MonitoringStationOSId,
+					GPTechId = msAcctSaI.TechId,
+					DateSubmitted = DateTime.UtcNow,
+					WasSuccessfull = false,
+					Message = "Init Panel Pull",
+					CreatedBy = gpEmployeeId,
+					CreatedOn = DateTime.UtcNow
+				};
+				msAccountSubmit.Save(gpEmployeeId);
+
+
+				DataSet someResult;
+				result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
+				result.Message = BaseErrorCodes.ErrorCodes.Success.Message();
+				result.Value = new AvantGuard.Models.SystemStatusInfo(false, false);
+				if (!moniService.PullPanelResetShell(msAccountSubmit, msAccount.IndustryAccount.Csid, out someResult))
+				{
+					result.Code = BaseErrorCodes.ErrorCodes.MSAccountOOSCatPullPanelFailed.Code();
+					result.Message = BaseErrorCodes.ErrorCodes.MSAccountOOSCatPullPanelFailed.Message();
+				}
+
+				
+			}
+			#endregion TRY
+
+			#region CATCH
+			catch (Exception ex)
+			{
+				result.Code = BaseErrorCodes.ErrorCodes.ExceptionThrown.Code();
+				result.Message = string.Format(BaseErrorCodes.ErrorCodes.ExceptionThrown.Message(), METHOD_NAME, ex.Message);
+			}
+			#endregion CATCH
+
+			#region RETURN RESULT
+
+			return result;
+			#endregion RETURN RESULT
 		}
 
 		public FosResult<bool> GenerateMetaData(long? accountId = null, string username = "SYSTEM")

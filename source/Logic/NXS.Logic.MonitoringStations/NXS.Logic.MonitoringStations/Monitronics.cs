@@ -208,6 +208,7 @@ namespace NXS.Logic.MonitoringStations
 			services.ApplicationIDHeaderValue = appIdHeader;
 			var accountSubmitXml = new MS_AccountSubmitMsXml();
 			accountSubmitXml.AccountSubmitID = accountSubmit.AccountSubmitID;
+			accountSubmit.WasSuccessfull = true;
 
 			try
 			{
@@ -234,8 +235,22 @@ namespace NXS.Logic.MonitoringStations
 				// ** For debugging
 				if (hasErrors)
 				{
+					accountSubmit.WasSuccessfull = false;
+
 					foreach (ErrorsOnBoardAccount.TableRow row in dsErrors.Table.Rows)
 					{
+						var submitItem = new MS_AccountSubmitM();
+						submitItem.AccountSubmitId = accountSubmit.AccountSubmitID;
+						submitItem.TableName = row.Istable_nameNull() ? null : row.table_name;
+						submitItem.EntryId = row.Isentry_idNull() ? null : row.entry_id;
+						submitItem.SiteNo = row.Issite_noNull() ? (int?) null : row.site_no;
+						submitItem.CsNo = row.Iscs_noNull() ? null : row.cs_no;
+						submitItem.ErrNo = row.Iserr_noNull() ? (int?) null : row.err_no;
+						submitItem.MsgType = row.Ismsg_typeNull() ? (byte?) null : row.msg_type;
+						submitItem.ErrText = row.Iserr_textNull() ? null : row.err_text;
+						submitItem.ErrDate = row.Iserr_dateNull() ? (DateTime?)null : row.err_date;
+						submitItem.Save(accountSubmit.CreatedBy);
+
 						Console.WriteLine("TableName: {0} | EntryId: {1} | SiteNo: {2} | CsNo: {3} | ErrNo: {4} | MsgType: {5} | ErrText: {6} | ErrDate: {7}"
 							, row.Istable_nameNull() ? null : row.table_name
 							, row.Isentry_idNull() ? null : row.entry_id
@@ -247,6 +262,8 @@ namespace NXS.Logic.MonitoringStations
 							, row.Iserr_dateNull() ? (DateTime?)null : row.err_date);
 					}
 				}
+
+				accountSubmit.Save(accountSubmit.CreatedBy);
 			}
 			catch (Exception ex)
 			{

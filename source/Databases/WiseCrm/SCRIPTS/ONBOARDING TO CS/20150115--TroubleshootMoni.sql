@@ -15,9 +15,9 @@ AccountSubmitTypeID	AccountSubmitType
 7	Initiate Two Way Test
 8	Pull Panel
 */
-DECLARE @AccountID BIGINT = 191275
-	, @AccountSubmitTypeId INT = 1  -- TWO WAY
-	, @WasSuccessfull BIT = 0;
+DECLARE @AccountID BIGINT = 150927
+	, @AccountSubmitTypeId INT = 8  -- TWO WAY
+	, @WasSuccessfull BIT = NULL;
 SELECT TOP 1 * FROM dbo.MS_AccountSubmits WHERE (AccountID = @AccountID) AND (AccountSubmitTypeId = @AccountSubmitTypeId) AND (@WasSuccessfull IS NULL OR WasSuccessfull = @WasSuccessfull) ORDER BY AccountSubmitID DESC;
 SELECT * FROM MS_Accounts WHERE AccountID = @AccountID;
 SELECT TOP 100 * FROM dbo.MS_AccountSubmitMs 
@@ -26,4 +26,5 @@ ORDER BY AccountSubmitMsID DESC;
 SELECT * FROM dbo.MS_AccountSubmitMsXmls WHERE (AccountSubmitID IN (SELECT TOP 1 AccountSubmitID FROM dbo.MS_AccountSubmits WHERE (AccountID = @AccountID) AND (AccountSubmitTypeId = @AccountSubmitTypeId) AND (@WasSuccessfull IS NULL OR WasSuccessfull = @WasSuccessfull) ORDER BY AccountSubmitID DESC));
 
 
---SELECT * FROM dbo.MS_AccountSubmitMsXmls WHERE (AccountSubmitID = 2);
+--SELECT * FROM dbo.MS_AccountSubmitMsXmls WHERE (AccountSubmitID = 41178);
+--SELECT * FROM dbo.MS_AccountSubmitMs WHERE (AccountSubmitId = 41178);

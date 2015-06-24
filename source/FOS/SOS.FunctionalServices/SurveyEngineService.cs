@@ -1988,21 +1988,23 @@ namespace SOS.FunctionalServices
 						// store result
 						result.Value.Answers.Add(SurveyEngineModels.FnsAnswer.ConvertFrom(item));
 					}
-					var surveyTypeName = itemResult.SurveyTranslation.Survey.SurveyType.Name;
-					switch (surveyTypeName)
-					{
-						case "Post Survey":
-							SosCrmDataContext.Instance.MS_AccountSetupCheckLists.SetKeyValue(itemResult.AccountId,
-								MS_AccountSetupCheckList.Columns.PostSurvey);
-							break;
-						case "Pre Survey":
-							SosCrmDataContext.Instance.MS_AccountSetupCheckLists.SetKeyValue(itemResult.AccountId,
-								MS_AccountSetupCheckList.Columns.PreSurvey);
-							break;
-					}
 
 					return true;
 				});
+				var itemResult1 = SurveyEngineModels.FnsResult.ConvertToDb(input);
+
+				var surveyTypeName = itemResult1.SurveyTranslation.Survey.SurveyType.Name;
+				switch (surveyTypeName)
+				{
+					case "Post Survey":
+						SosCrmDataContext.Instance.MS_AccountSetupCheckLists.SetKeyValue(input.AccountId,
+							MS_AccountSetupCheckList.Columns.PostSurvey);
+						break;
+					case "Pre Survey":
+						SosCrmDataContext.Instance.MS_AccountSetupCheckLists.SetKeyValue(input.AccountId,
+							MS_AccountSetupCheckList.Columns.PreSurvey);
+						break;
+				}
 			}
 			catch (Exception ex)
 			{
