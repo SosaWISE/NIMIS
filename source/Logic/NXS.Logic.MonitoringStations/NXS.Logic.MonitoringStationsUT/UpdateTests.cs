@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NXS.Logic.MonitoringStations;
@@ -41,6 +40,26 @@ namespace NXS.Logic.MonitoringStationsUT
 			var moniService = new Monitronics(_USERID, _PASWRD);
 			DataSet dsRaw;
 			Assert.IsTrue(moniService.Update(RequestTypes.C(), _CS_NO_DIGITAL_PRIMARY, xmlizedString, out dsRaw), string.Format("The following error was generated"));
+		}
+
+		[TestMethod]
+		public void ChangeSiteState()
+		{
+			var account = new Account
+			{
+				SiteSystems = new List<SiteSystem>
+				{
+					new SiteSystem
+					{
+						SiteStateId = "P"
+					}
+				}
+			};
+
+			var xmlizedString = account.Serialize();
+			var moniService = new Monitronics(_USERID, _PASWRD);
+			DataSet dsRaw;
+			Assert.IsTrue(moniService.Update(RequestTypes.C(), "768260194", xmlizedString, out dsRaw), string.Format("The following error was generated."));
 		}
 
 		#endregion Test Methods

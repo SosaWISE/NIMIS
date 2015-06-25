@@ -727,7 +727,7 @@ BEGIN
 					, IsMoni = @IsMoni
 					, IsTakeOver = @IsTakeOver
 					, IsOwner = @IsOwner
-					, ModifiedOn = GetUTCDate()
+					--, ModifiedOn = GetUTCDate() /** TODO:  This can't be updated until we figure out how to save in Contract Admin Screen. */
 					, ModifiedBy = @GPEmployeeID
 				WHERE
 					(AccountID = @AccountID);
