@@ -886,10 +886,13 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 		}
 		public FosResult<ISystemStatusInfo> ServiceStatus(long accountId, string gpEmployeeId)
 		{
+			// ** Init
 			var result = new FosResult<ISystemStatusInfo>();
 			SessionInfo sess = null;
 			MS_Account msAccount;
 			int devNum, siteNum;
+			bool inService = true, onTest = false;
+
 			if (GetAvantGuardNums(result, accountId, ref sess, out msAccount, out siteNum, out devNum).Code != 0)
 			{
 				return result;
@@ -899,10 +902,19 @@ namespace SOS.FOS.MonitoringStationServices.AvantGuard
 			var resp = _gateway.DeviceDetail(sess.SessionNum, sess.SessionPassword, SiteNum: siteNum, DevNum: devNum);
 			if (resp.ResultSet.Count > 0)
 			{
-				var systemInfo = new SystemStatusInfo(string.IsNullOrEmpty(resp.ResultSet[0].OOSCat),
-					string.IsNullOrEmpty(resp.ResultSet[0].OOSCat));
-				result.Value = systemInfo;
+				inService = string.IsNullOrEmpty(resp.ResultSet[0].OOSCat);
 			}
+
+			// ** Check to see if there is an active test going right now.
+			var respAT = ActiveTests(accountId);
+			if (respAT.Code == BaseErrorCodes.ErrorCodes.Success.Code())
+			{
+				if (respAT.Value.Count > 0)
+					onTest = true;
+			}
+
+			var systemInfo = new SystemStatusInfo(inService, onTest);
+			result.Value = systemInfo;
 			return result;
 		}
 		public FosResult<ISystemStatusInfo> SetServiceStatus(long accountId, string oosCat, DateTime startDate, string comment, string gpEmployeeId)
