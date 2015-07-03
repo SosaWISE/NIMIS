@@ -114,6 +114,7 @@ BEGIN
 	SELECT DISTINCT
 		AECA.CustomerMasterFileID AS CMFID
 		, AEC.FirstName + ' ' + AEC.LastName AS [CustomerName]
+		, MSASI.SalesRepId
 		, ADR.StreetAddress
 		, CASE
 			WHEN MASCL.SubmitAccountOnline IS NOT NULL THEN 'ACCT ONLINE'
