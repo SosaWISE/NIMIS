@@ -1,12 +1,9 @@
-﻿using NXS.Data;
-using NXS.Data.HumanResource;
+﻿using NXS.Data.HumanResource;
 //using NXS.DataServices.HumanResource.Models;
 using SOS.Lib.Core;
-using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NXS.DataServices.HumanResource.Models;
 
 namespace NXS.DataServices.HumanResource
 {
@@ -18,8 +15,9 @@ namespace NXS.DataServices.HumanResource
 		//	_gpEmployeeId = gpEmployeeId;
 		//}
 
-		static readonly HashSet<string> knownReports = new HashSet<string>(new string[]{
+		static readonly HashSet<string> KnownReports = new HashSet<string>(new []{
 			"custReport_CreditAndInstalls",
+			"custReport_MyAccounts"
 		});
 
 		public async Task<Result<List<dynamic>>> RunReport(string name, IDictionary<string, string> qryParams)
@@ -27,7 +25,7 @@ namespace NXS.DataServices.HumanResource
 			var result = new Result<List<dynamic>>();
 
 			name = "custReport_" + name;
-			if (!knownReports.Contains(name))
+			if (!KnownReports.Contains(name))
 				return result.Fail(-1, "Unknown report");
 
 			var p = new Dapper.DynamicParameters();

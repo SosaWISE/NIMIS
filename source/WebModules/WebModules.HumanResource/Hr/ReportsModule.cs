@@ -1,13 +1,7 @@
 ﻿using Nancy;
 using NXS.DataServices.HumanResource;
-using NXS.Lib;
-using NXS.Lib.Authentication;
-using SOS.Lib.Core;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebModules.HumanResource
 {
@@ -22,7 +16,7 @@ namespace WebModules.HumanResource
 
 			Post["/{name}", true] = async (x, ct) =>
 			{
-				var qry = ConvertDynamicDictionary(this.Context.Request.Query);
+				var qry = ConvertDynamicDictionary(Context.Request.Query);
 				return await Srv.RunReport((string)x.name, qry);
 			};
 		}
