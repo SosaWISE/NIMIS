@@ -2,9 +2,6 @@
 using NXS.Data.Crm;
 using NXS.DataServices.Crm.Models;
 using SOS.Lib.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NXS.DataServices.Crm
@@ -88,6 +85,15 @@ namespace NXS.DataServices.Crm
 						else
 							msi.PaymentMethodId = item.ID;
 						await db.MS_AccountSalesInformations.UpdateAsync(snapShot, _gpEmployeeId).ConfigureAwait(false);
+					}
+
+					// ** CHeck to see if the payment checklist stamp has been set.
+					var chkList = await db.MS_AccountSetupCheckLists.ByIdAsync(accountId).ConfigureAwait(false);
+					if (chkList.InitialPayment == null)
+					{
+						await
+							db.MS_AccountSetupCheckLists.SetByColumnName(accountId, db.MS_AccountSetupCheckLists.InitialPayment)
+								.ConfigureAwait(false);
 					}
 
 					// commit transaction

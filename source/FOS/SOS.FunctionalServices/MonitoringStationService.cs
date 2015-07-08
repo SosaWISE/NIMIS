@@ -2076,6 +2076,16 @@ namespace SOS.FunctionalServices
 
 			bool shellAccount = shellTechId != null;
 
+			// ** CheckList Validation
+			var chkList = SosCrmDataContext.Instance.MS_AccountSetupCheckLists.LoadByPrimaryKey(accountId);
+			if (chkList.InitialPayment == null)
+			{
+				result.Code = BaseErrorCodes.ErrorCodes.MSAccountCheckListFailed.Code();
+				result.Message = string.Format(BaseErrorCodes.ErrorCodes.MSAccountCheckListFailed.Message(), "");
+				result.Value = null;
+				return result;
+			}
+
 			// ** Get the assigned tech.
 			var msAccount = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(accountId);
 			var msAcctSlI = SosCrmDataContext.Instance.MS_AccountSalesInformations.LoadByPrimaryKey(accountId);

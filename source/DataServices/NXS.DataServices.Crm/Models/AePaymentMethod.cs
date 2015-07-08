@@ -1,9 +1,5 @@
 ﻿using NXS.Data.Crm;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NXS.DataServices.Crm.Models
 {
@@ -35,8 +31,8 @@ namespace NXS.DataServices.Crm.Models
 			{
 				if (nullable)
 					return null;
-				else
-					throw new Exception("payment method is null");
+				
+				throw new Exception("payment method is null");
 			}
 
 			var result = new AePaymentMethod();
@@ -64,23 +60,23 @@ namespace NXS.DataServices.Crm.Models
 
 		internal void ToDb(AE_PaymentMethod item)
 		{
-			if (item.ID != this.ID)
+			if (item.ID != ID)
 				throw new Exception("IDs don't match");
-			item.ID = this.ID;
-			item.PaymentTypeId = this.PaymentTypeId;
-			item.CardTypeId = this.CardTypeId;
-			item.CardNumber = this.CardNumber;
-			item.VerificationValue = this.VerificationValue;
-			item.ExpirationMonth = this.ExpirationMonth;
-			item.ExpirationYear = this.ExpirationYear;
-			item.NameOnCard = this.NameOnCard;
-			item.AccountTypeId = this.AccountTypeId;
-			item.AccountNumber = this.AccountNumber;
-			item.RoutingNumber = this.RoutingNumber;
-			item.NameOnAccount = this.NameOnAccount;
-			item.CheckNumber = this.CheckNumber;
-			item.IsActive = this.IsActive;
-			item.IsDeleted = this.IsDeleted;
+			item.ID = ID;
+			item.PaymentTypeId = PaymentTypeId;
+			item.CardTypeId = CardTypeId;
+			item.CardNumber = CardNumber;
+			item.VerificationValue = VerificationValue;
+			item.ExpirationMonth = ExpirationMonth;
+			item.ExpirationYear = ExpirationYear;
+			item.NameOnCard = NameOnCard;
+			item.AccountTypeId = AccountTypeId;
+			item.AccountNumber = AccountNumber;
+			item.RoutingNumber = RoutingNumber;
+			item.NameOnAccount = NameOnAccount;
+			item.CheckNumber = CheckNumber;
+			item.IsActive = IsActive;
+			item.IsDeleted = IsDeleted;
 			//item.ModifiedOn = this.ModifiedOn;
 			//item.ModifiedBy = this.ModifiedBy;
 			//item.CreatedOn = this.CreatedOn;

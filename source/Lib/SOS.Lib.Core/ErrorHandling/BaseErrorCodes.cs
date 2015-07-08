@@ -102,6 +102,7 @@ namespace SOS.Lib.Core.ErrorHandling
 			, MSAccountInitTwoWayAlreadySet = 80220
 			, MSAccountOnboardSuccessful = 80300
 			, MSAccountOOSCatNotImplemented = 80400
+			, MSAccountCheckListFailed = 80405
 			, MSAccountOOSCatPullPanelFailed = 80410
 			, MSAccountAlarmComGeneral = 80500
 			, MSAccountAlarmComMissingEmailAddress = 80510
@@ -184,6 +185,8 @@ namespace SOS.Lib.Core.ErrorHandling
 					return "SUCCESFULL Onboarding Account.  Confirmation #{0}";
 				case ErrorCodes.MSAccountOOSCatNotImplemented:
 					return "OOS Category '{0}' has not yet been implemented.  Please inform the system adminstrator.";
+				case ErrorCodes.MSAccountCheckListFailed:
+					return "Seriously dude.  What were you thinking!!!  You didn't take payment information.  Pull a stunt like that again and I'm telling Dee.  I know where you live.";
 				case ErrorCodes.MSAccountOOSCatPullPanelFailed:
 					return "While pulling the panel and error was generated.  Please inform this to the system administrator.";
 				case ErrorCodes.MSAccountAlarmComMissingEmailAddress:
