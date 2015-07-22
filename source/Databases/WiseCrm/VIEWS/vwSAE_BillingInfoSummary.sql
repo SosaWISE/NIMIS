@@ -62,4 +62,8 @@ AS
 		
 GO
 /* TEST
-SELECT * FROM vwSAE_BillingInfoSummary  */
+SELECT * FROM vwSAE_BillingInfoSummary WHERE CustomerMasterFileId = 3091689  */
+
+SELECT * FROM SAE_BillingInfoSummary WHERE CustomerMasterFileId IN (3091688,3091689,3091690)
+
+

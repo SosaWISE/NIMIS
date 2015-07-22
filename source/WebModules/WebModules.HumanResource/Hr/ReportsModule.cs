@@ -3,6 +3,7 @@ using NXS.DataServices.HumanResource;
 using System.Collections.Generic;
 using System.Linq;
 
+// ReSharper disable once CheckNamespace
 namespace WebModules.HumanResource
 {
 	public class ReportsModule : BaseModule
@@ -12,7 +13,7 @@ namespace WebModules.HumanResource
 		public ReportsModule()
 			: base("/Hr/Reports")
 		{
-			this.RequiresPermission((string)null, null);
+			RequiresPermission((string)null, null);
 
 			Post["/{name}", true] = async (x, ct) =>
 			{

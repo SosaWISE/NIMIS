@@ -79,28 +79,28 @@ namespace NXS.Logic.HartSoftware.UT
 			//ExecuteByLeadId(1081440);
 		}
 
-		private void ExecuteByLeadId(long leadId)
-		{
-			var hartService = new Main();
-			var lead = new SosCrmDataContext().QL_Leads.LoadByPrimaryKey(leadId);
-			IWSLead oWSLead = new WSLead(lead);
-			IWSAddress wsAddress = new WSAddress(lead.Address);
-			string[] szaBureaus = { "TU" };
-			var ruSeason = HumanResourceDataContext.Instance.RU_Seasons.LoadByPrimaryKey(lead.SeasonId);
-			IWSSeason season = new WSSeason(ruSeason);
-			const string AD_USERNAME = "ASOSA001";
-			var messageList = new List<WSMessage>();
-			IWSCreditReportInfo wsCreditReportInfo;
+		//private void ExecuteByLeadId(long leadId)
+		//{
+		//	var hartService = new Main();
+		//	var lead = new SosCrmDataContext().QL_Leads.LoadByPrimaryKey(leadId);
+		//	IWSLead oWSLead = new WSLead(lead);
+		//	IWSAddress wsAddress = new WSAddress(lead.Address);
+		//	string[] szaBureaus = { "TU" };
+		//	var ruSeason = HumanResourceDataContext.Instance.RU_Seasons.LoadByPrimaryKey(lead.SeasonId);
+		//	IWSSeason season = new WSSeason(ruSeason);
+		//	const string AD_USERNAME = "ASOSA001";
+		//	var messageList = new List<WSMessage>();
+		//	IWSCreditReportInfo wsCreditReportInfo;
 
-			var result = hartService.RunService(oWSLead, wsAddress, szaBureaus, season, AD_USERNAME, ref messageList,
-				out wsCreditReportInfo);
+		//	var result = hartService.RunService(oWSLead, wsAddress, szaBureaus, season, AD_USERNAME, ref messageList,
+		//		out wsCreditReportInfo);
 
-			foreach (var wsMessage in messageList)
-			{
-				Assert.IsTrue(wsMessage.MessageType == ErrorMessageType.Success, string.Format("The following error was generated: {0}", wsMessage.DisplayMessage));
-			}
+		//	foreach (var wsMessage in messageList)
+		//	{
+		//		Assert.IsTrue(wsMessage.MessageType == ErrorMessageType.Success, string.Format("The following error was generated: {0}", wsMessage.DisplayMessage));
+		//	}
 
-			Assert.IsTrue(result, "There was an error when executing a credit.");
-		}
+		//	Assert.IsTrue(result, "There was an error when executing a credit.");
+		//}
 	}
 }

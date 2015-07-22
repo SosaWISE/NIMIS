@@ -37,7 +37,7 @@ GO
 *******************************************************************************/
 CREATE Procedure dbo.custReport_MyAccounts
 (
-	@officeId INT
+	@officeId INT = NULL
 	, @salesRepId VARCHAR(50) = NULL
 	, @startDate DATETIME
 	, @endDate DATETIME
@@ -113,6 +113,7 @@ BEGIN
 
 	SELECT DISTINCT
 		AECA.CustomerMasterFileID AS CMFID
+		, MSASI.TeamLocationId
 		, AEC.FirstName + ' ' + AEC.LastName AS [CustomerName]
 		, MSASI.SalesRepId
 		, ADR.StreetAddress
@@ -172,6 +173,7 @@ BEGIN
 			(MASCL.AccountID = MSA.AccountID)
 	WHERE
 		(@salesRepId IS NULL OR MSASI.SalesRepID = @salesRepId)
+		AND (@OfficeId IS NULL OR MSASI.TeamLocationId = @OfficeId)
 		AND ((CONVERT(DATE, MASCL.SubmitAccountOnline) BETWEEN @startDate AND @endDate)
 			OR (CONVERT(DATE, MASCL.InitialPayment) BETWEEN @startDate AND @endDate)
 			OR (CONVERT(DATE, MASCL.PostSurvey) BETWEEN @startDate AND @endDate)
@@ -197,5 +199,5 @@ GO
 /*
 */
 
-EXEC dbo.custReport_MyAccounts @officeId=0, @endDate='2015-06-01 05:00:00', @startDate='1/2/2003'
+EXEC dbo.custReport_MyAccounts NULL, null, '1/2/2003', '2015-07-10 05:00:00'
 

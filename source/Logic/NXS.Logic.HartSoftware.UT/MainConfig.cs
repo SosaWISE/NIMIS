@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using SOS.Data;
 using NXS.Lib;
 using System.IO;

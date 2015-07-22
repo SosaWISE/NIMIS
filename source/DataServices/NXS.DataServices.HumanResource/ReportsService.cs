@@ -17,7 +17,8 @@ namespace NXS.DataServices.HumanResource
 
 		static readonly HashSet<string> KnownReports = new HashSet<string>(new []{
 			"custReport_CreditAndInstalls",
-			"custReport_MyAccounts"
+			"custReport_MyAccounts",
+			"custReport_Performance"
 		});
 
 		public async Task<Result<List<dynamic>>> RunReport(string name, IDictionary<string, string> qryParams)

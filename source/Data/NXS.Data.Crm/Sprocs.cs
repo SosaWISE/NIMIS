@@ -1664,6 +1664,15 @@ namespace NXS.Data.Crm
 			p.Add("@ModifiedOn", ModifiedOn);
 			return db.QueryAsync<T>("custMS_MonitronicsEquipEventXRefSave", p, commandType: System.Data.CommandType.StoredProcedure);
 		}
+		public Task<IEnumerable<T>> MS_MonitronicsTwoWayInitSave<T>(long? IndustryAccountID,DateTime? TwoWayTestStartedOn,DateTime? ConfirmedOn,string ConfirmedBy)
+		{
+			var p = new Dapper.DynamicParameters();
+			p.Add("@IndustryAccountID", IndustryAccountID);
+			p.Add("@TwoWayTestStartedOn", TwoWayTestStartedOn);
+			p.Add("@ConfirmedOn", ConfirmedOn);
+			p.Add("@ConfirmedBy", ConfirmedBy);
+			return db.QueryAsync<T>("custMS_MonitronicsTwoWayInitSave", p, commandType: System.Data.CommandType.StoredProcedure);
+		}
 		public Task<IEnumerable<T>> MS_ReceiverBlockCellDeviceInfoViewGetByAccountID<T>(long? AccountId)
 		{
 			var p = new Dapper.DynamicParameters();
@@ -1812,15 +1821,19 @@ namespace NXS.Data.Crm
 			p.Add("@LeadID", LeadID);
 			return db.QueryAsync<T>("custQL_QualifyCustomerInfoViewByLeadID", p, commandType: System.Data.CommandType.StoredProcedure);
 		}
+		public Task<IEnumerable<T>> Report_MyAccounts<T>(int? officeId,string salesRepId,DateTime? startDate,DateTime? endDate)
+		{
+			var p = new Dapper.DynamicParameters();
+			p.Add("@officeId", officeId);
+			p.Add("@salesRepId", salesRepId);
+			p.Add("@startDate", startDate);
+			p.Add("@endDate", endDate);
+			return db.QueryAsync<T>("custReport_MyAccounts", p, commandType: System.Data.CommandType.StoredProcedure);
+		}
 		public Task<IEnumerable<T>> SAE_AgingAddFromGreatPlains<T>()
 		{
 			var p = new Dapper.DynamicParameters();
 			return db.QueryAsync<T>("custSAE_AgingAddFromGreatPlains", p, commandType: System.Data.CommandType.StoredProcedure);
-		}
-		public Task<IEnumerable<T>> SAE_BillingHistoryAddFromGreatPlains<T>()
-		{
-			var p = new Dapper.DynamicParameters();
-			return db.QueryAsync<T>("custSAE_BillingHistoryAddFromGreatPlains", p, commandType: System.Data.CommandType.StoredProcedure);
 		}
 		public Task<IEnumerable<T>> SAE_BillingHistoryByCMFID<T>(long? CMFID)
 		{

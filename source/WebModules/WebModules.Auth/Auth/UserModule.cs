@@ -2,11 +2,6 @@
 using NXS.Lib;
 using NXS.Lib.Authentication;
 using SOS.Lib.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebModules.Auth.Auth
 {
@@ -75,19 +70,19 @@ namespace WebModules.Auth.Auth
 				var result = new Result<AuthResult>();
 				var _authService = BaseModule.AuthService;
 
-				var credentials = this.BindBody<Credentials>();
+				var credentials = BindBody<Credentials>();
 				if (credentials == null)
 				{
 					result.Code = -1;
 					result.Message = "Invalid credentials";
 					return result;
 				}
-				var authResult = _authService.Authenticate(credentials.Username, credentials.Password, this.Request.UserHostAddress);
+				var authResult = _authService.Authenticate(credentials.Username, credentials.Password, Request.UserHostAddress);
 				if (authResult.Success)
 				{
 					var identity = authResult.Value;
-					result.Value = new AuthResult() { User = _authService.ToUserModel(identity), };
-					result.Value.Token = _tokenConfig.Tokenizer.Tokenize(identity.ToTokenIdentity(), this.Context);
+					result.Value = new AuthResult { User = _authService.ToUserModel(identity), };
+					result.Value.Token = _tokenConfig.Tokenizer.Tokenize(identity.ToTokenIdentity(), Context);
 				}
 				else
 				{
