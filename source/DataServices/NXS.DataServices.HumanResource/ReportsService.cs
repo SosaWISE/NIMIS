@@ -18,7 +18,8 @@ namespace NXS.DataServices.HumanResource
 		static readonly HashSet<string> KnownReports = new HashSet<string>(new []{
 			"custReport_CreditAndInstalls",
 			"custReport_MyAccounts",
-			"custReport_Performance"
+			"custReport_Performance",
+			"custReport_AccountHolds"
 		});
 
 		public async Task<Result<List<dynamic>>> RunReport(string name, IDictionary<string, string> qryParams)
@@ -31,7 +32,11 @@ namespace NXS.DataServices.HumanResource
 
 			var p = new Dapper.DynamicParameters();
 			foreach (var kvp in qryParams)
+			{
+				if (string.IsNullOrEmpty(kvp.Value))
+					continue;
 				p.Add(kvp.Key, kvp.Value);
+			}
 
 			using (var db = DBase.Connect())
 			{

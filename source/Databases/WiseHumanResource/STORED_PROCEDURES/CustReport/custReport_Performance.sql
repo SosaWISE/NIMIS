@@ -64,11 +64,14 @@ BEGIN
 		, Installations INT
 		, SalesPrice MONEY
 		, Term INT
+		, EzPay DECIMAL(5,2)
 		, CloseRate MONEY
 		, SetupFee MONEY
-		, [1stMonth] MONEY
+		, FirstMonth MONEY
 		, [Over3Months] MONEY
+		, Referrals INT
 		, [PackageSold] INT
+		, Margins MONEY
 	);
 
 	/** DECLARE CURSOR */
@@ -99,7 +102,7 @@ BEGIN
 			, Term
 			, CloseRate
 			, SetupFee
-			, [1stMonth]
+			, [FirstMonth]
 			, [Over3Months]
 			, [PackageSold]
 		)
