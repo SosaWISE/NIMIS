@@ -79,6 +79,7 @@ AS
 		, MSI.IsMoni
 		, MSI.ContractSignedDate
 		, MSI.SalesRepId
+		, [dbo].fxGetTeamLocationIdByAccountId(MSA.AccountID) AS TeamLocationId
 		, MSI.InstallDate
 		, MSI.TechId
 		, MSI.CancelDate

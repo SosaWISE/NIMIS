@@ -1,8 +1,6 @@
 ﻿using Nancy;
 using Nancy.Extensions;
 using Nancy.ModelBinding;
-using Nancy.Responses;
-using Nancy.Security;
 using NXS.Lib;
 using NXS.Lib.Authentication;
 using SOS.Lib.Core;

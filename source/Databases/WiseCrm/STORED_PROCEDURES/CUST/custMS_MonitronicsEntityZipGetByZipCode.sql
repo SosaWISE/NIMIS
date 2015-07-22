@@ -67,4 +67,4 @@ GO
 GRANT EXEC ON dbo.custMS_MonitronicsEntityZipGetByZipCode TO PUBLIC
 GO
 
-/** EXEC dbo.custMS_MonitronicsEntityZipGetByZipCode 63112 */
+/** EXEC dbo.custMS_MonitronicsEntityZipGetByZipCode 84045 */
