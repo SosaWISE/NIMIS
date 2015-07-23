@@ -85,9 +85,9 @@ BEGIN
 		INNER JOIN [WISE_CRM].[dbo].[MC_Addresses] AS MADR WITH (NOLOCK)
 		ON
 			(MADR.AddressID = MSA.PremiseAddressId)
-	WHERE
-		(MSASI.SalesRepId = @salesRepId)
-		AND (MAH.CreatedOn BETWEEN @startDate AND @endDate);
+	--WHERE
+	--	(MSASI.SalesRepId = @salesRepId)
+	--	AND (MAH.CreatedOn BETWEEN @startDate AND @endDate);
 END
 GO
 

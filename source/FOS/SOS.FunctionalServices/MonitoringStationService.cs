@@ -2122,6 +2122,13 @@ namespace SOS.FunctionalServices
 			result.Message = fosResult.Message;
 			result.Value = new FnsMsAccountSubmit(fosResult.Value);
 
+			// ** Mark the CheckList
+			if (fosResult.Code == BaseErrorCodes.ErrorCodes.Success.Code())
+			{
+				SosCrmDataContext.Instance.MS_AccountSetupCheckLists.SetKeyValue(accountId,
+					MS_AccountSetupCheckList.Columns.SubmitAccountOnline);
+			}
+
 			// return result
 			return result;
 		}

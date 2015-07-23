@@ -19,7 +19,8 @@ namespace NXS.DataServices.HumanResource
 			"custReport_CreditAndInstalls",
 			"custReport_MyAccounts",
 			"custReport_Performance",
-			"custReport_AccountHolds"
+			"custReport_AccountHolds",
+			"custReport_PendingInstalls"
 		});
 
 		public async Task<Result<List<dynamic>>> RunReport(string name, IDictionary<string, string> qryParams)

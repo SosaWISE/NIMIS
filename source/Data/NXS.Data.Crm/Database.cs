@@ -762,6 +762,7 @@ namespace NXS.Data.Crm
 			public string OptOutCorporate { get { return _alias + "[OptOutCorporate]"; } }
 			public string OptOutAffiliate { get { return _alias + "[OptOutAffiliate]"; } }
 			public string Waived1stmonth { get { return _alias + "[Waived1stmonth]"; } }
+			public string RMRPaidInFullId { get { return _alias + "[RMRPaidInFullId]"; } }
 			public string RMRIncreasePoints { get { return _alias + "[RMRIncreasePoints]"; } }
 			public string AccountCreationTypeId { get { return _alias + "[AccountCreationTypeId]"; } }
 			public string ModifiedOn { get { return _alias + "[ModifiedOn]"; } }

@@ -715,6 +715,7 @@ namespace NXS.Data.Crm
 		public bool OptOutCorporate { get; set; }
 		public bool OptOutAffiliate { get; set; }
 		public bool? Waived1stmonth { get; set; }
+		public string RMRPaidInFullId { get; set; }
 		public decimal? RMRIncreasePoints { get; set; }
 		public string AccountCreationTypeId { get; set; }
 		public DateTime ModifiedOn { get; set; }

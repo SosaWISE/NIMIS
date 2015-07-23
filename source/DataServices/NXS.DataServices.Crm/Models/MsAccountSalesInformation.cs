@@ -38,6 +38,7 @@ namespace NXS.DataServices.Crm.Models
 		public bool OptOutCorporate { get; set; }
 		public bool OptOutAffiliate { get; set; }
 		public bool? Waived1stmonth { get; set; }
+		public string RMRPaidInFullId { get; set; }
 		public decimal? RMRIncreasePoints { get; set; }
 		public string AccountCreationTypeId { get; set; }
 		public DateTime ModifiedOn { get; set; }
@@ -90,6 +91,7 @@ namespace NXS.DataServices.Crm.Models
 			result.OptOutAffiliate = item.OptOutAffiliate;
 			result.Waived1stmonth = item.Waived1stmonth;
 			result.RMRIncreasePoints = item.RMRIncreasePoints;
+			result.RMRPaidInFullId = item.RMRPaidInFullId;
 			result.AccountCreationTypeId = item.AccountCreationTypeId;
 			result.ModifiedOn = item.ModifiedOn;
 			result.ModifiedBy = item.ModifiedBy;
@@ -137,6 +139,7 @@ namespace NXS.DataServices.Crm.Models
 			item.OptOutAffiliate = this.OptOutAffiliate;
 			item.Waived1stmonth = this.Waived1stmonth;
 			item.RMRIncreasePoints = this.RMRIncreasePoints;
+			item.RMRPaidInFullId = this.RMRPaidInFullId;
 			item.AccountCreationTypeId = this.AccountCreationTypeId;
 			//item.ModifiedOn = this.ModifiedOn;
 			//item.ModifiedBy = this.ModifiedBy;
