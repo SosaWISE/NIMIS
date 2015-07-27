@@ -18,19 +18,20 @@ DECLARE @SalesRepID VARCHAR(50) = 'CARTB001'
 	, @CMFID BIGINT = 3091655
 	, @FullName VARCHAR(100) = 'Ralph Lynch';
 
-SET @FullName = 'Charles Quarells';
-SET @CMFID = 3091651;
-EXEC dbo.wiseMC_ChangeSalesRepIdOnAccounts @SalesRepID, @CMFID, @FullName;
-SET @FullName = 'Little Bethel COGIC';
-SET @CMFID = 3091652;
-EXEC dbo.wiseMC_ChangeSalesRepIdOnAccounts @SalesRepID, @CMFID, @FullName;
-SET @FullName = 'Tonya Wallace';
-SET @CMFID = 3091644;
+SET @FullName = 'Richard Kroon';
+SET @CMFID = 3091698;
 EXEC dbo.wiseMC_ChangeSalesRepIdOnAccounts @SalesRepID, @CMFID, @FullName;
 
+--SET @FullName = 'Little Bethel COGIC';
+--SET @CMFID = 3091652;
+--EXEC dbo.wiseMC_ChangeSalesRepIdOnAccounts @SalesRepID, @CMFID, @FullName;
+--SET @FullName = 'Tonya Wallace';
+--SET @CMFID = 3091644;
+--EXEC dbo.wiseMC_ChangeSalesRepIdOnAccounts @SalesRepID, @CMFID, @FullName;
 
-BEGIN TRANSACTION
-SELECT * FROM [WISE_HumanResource].[dbo].RU_Users WHERE UserID = 2272;
-UPDATE [WISE_HumanResource].[dbo].RU_Users SET GPEmployeeId = 'CORP000' WHERE UserID = 2272;
 
-ROLLBACK TRANSACTION
+--BEGIN TRANSACTION
+--SELECT * FROM [WISE_HumanResource].[dbo].RU_Users WHERE UserID = 2272;
+--UPDATE [WISE_HumanResource].[dbo].RU_Users SET GPEmployeeId = 'CORP000' WHERE UserID = 2272;
+
+--ROLLBACK TRANSACTION

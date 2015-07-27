@@ -2123,7 +2123,7 @@ namespace SOS.FunctionalServices
 			result.Value = new FnsMsAccountSubmit(fosResult.Value);
 
 			// ** Mark the CheckList
-			if (fosResult.Code == BaseErrorCodes.ErrorCodes.Success.Code())
+			if (fosResult.Code == BaseErrorCodes.ErrorCodes.MSAccountOnboardSuccessful.Code())
 			{
 				SosCrmDataContext.Instance.MS_AccountSetupCheckLists.SetKeyValue(accountId,
 					MS_AccountSetupCheckList.Columns.SubmitAccountOnline);
@@ -2468,7 +2468,7 @@ namespace SOS.FunctionalServices
 				if (col == null || col.Count < 3)
 				{
 					col = SosCrmDataContext.Instance.MS_DispatchAgenciesViews.GetMonitronicsEntityAgencies(city, state, zip);
-					if (col == null || col.Count == 0)
+					if (col == null || col.Count < 3)
 					{
 
 						// ** Call Moni Central Station to determine a Dispatch Agency List.
