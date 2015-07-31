@@ -3,18 +3,18 @@ GO
 
 -- TF = Table function
 -- IF = Inline Table function
-IF EXISTS (SELECT * FROM sysobjects WHERE (type = 'TF' OR type = 'IF') AND name = 'fxRepts_QualifiedByRepIdOfficeIdAll')
+IF EXISTS (SELECT * FROM sysobjects WHERE (type = 'TF' OR type = 'IF') AND name = 'fxRepts_NoSalesByRepIdOfficeIdAll')
 	BEGIN
-		PRINT 'Dropping FUNCTION fxRepts_QualifiedByRepIdOfficeIdAll'
-		DROP FUNCTION  dbo.fxRepts_QualifiedByRepIdOfficeIdAll
+		PRINT 'Dropping FUNCTION fxRepts_NoSalesByRepIdOfficeIdAll'
+		DROP FUNCTION  dbo.fxRepts_NoSalesByRepIdOfficeIdAll
 	END
 GO
 
-PRINT 'Creating FUNCTION fxRepts_QualifiedByRepIdOfficeIdAll'
+PRINT 'Creating FUNCTION fxRepts_NoSalesByRepIdOfficeIdAll'
 GO
 /******************************************************************************
-**		File: fxRepts_QualifiedByRepIdOfficeIdAll.sql
-**		Name: fxRepts_QualifiedByRepIdOfficeIdAll
+**		File: fxRepts_NoSalesByRepIdOfficeIdAll.sql
+**		Name: fxRepts_NoSalesByRepIdOfficeIdAll
 **		Desc: 
 **
 **		This template can be customized:
@@ -37,7 +37,7 @@ GO
 **	07/17/2015	Andrés E. Sosa	Created By
 **	
 *******************************************************************************/
-CREATE FUNCTION dbo.fxRepts_QualifiedByRepIdOfficeIdAll
+CREATE FUNCTION dbo.fxRepts_NoSalesByRepIdOfficeIdAll
 (
 	@officeId INT = NULL
 	, @salesRepId VARCHAR(50) = NULL
@@ -88,7 +88,7 @@ BEGIN
 		(QL.CreatedOn BETWEEN @StartDate AND @EndDate)
 		AND (@dealerId IS NULL OR (QL.DealerId = @dealerId))
 		AND (QL.CustomerTypeId = 'PRI')
-		--AND (LeadID NOT IN (SELECT LeadId FROM [WISE_CRM].[dbo].[AE_CUstomers])) -- This is a customer already.
+		AND (LeadID NOT IN (SELECT LeadId FROM [WISE_CRM].[dbo].[AE_CUstomers])) -- This is a customer already.
 		AND (@officeId IS NULL OR (QL.TeamLocationId = @officeId))
 		AND (@salesRepID IS NULL OR (QL.SalesRepId = @salesRepID));
 
@@ -97,4 +97,4 @@ END
 GO
 
 /** Execute */
-SELECT * FROM [dbo].fxRepts_QualifiedByRepIdOfficeIdAll(NULL, NULL, NULL, '7/9/2015', '7/18/2015');
+SELECT * FROM [dbo].fxRepts_NoSalesByRepIdOfficeIdAll(NULL, NULL, NULL, '7/9/2000', '8/18/2015');

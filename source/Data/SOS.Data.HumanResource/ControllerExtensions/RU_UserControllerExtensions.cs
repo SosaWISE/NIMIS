@@ -1,6 +1,5 @@
 ﻿using System;
 using SOS.Data.Extensions;
-using SOS.Data.HumanResource.Models;
 using SOS.Lib.Util;
 using SubSonic;
 using AR = SOS.Data.HumanResource.RU_User;
