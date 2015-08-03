@@ -1,18 +1,18 @@
 ﻿USE [WISE_HumanResource]
 GO
 
-IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'custReport_Performance')
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'custReport_PerformanceOfficeBreakDown')
 	BEGIN
-		PRINT 'Dropping Procedure custReport_Performance'
-		DROP  Procedure  dbo.custReport_Performance
+		PRINT 'Dropping Procedure custReport_PerformanceOfficeBreakDown'
+		DROP  Procedure  dbo.custReport_PerformanceOfficeBreakDown
 	END
 GO
 
-PRINT 'Creating Procedure custReport_Performance'
+PRINT 'Creating Procedure custReport_PerformanceOfficeBreakDown'
 GO
 /******************************************************************************
-**		File: custReport_Performance.sql
-**		Name: custReport_Performance
+**		File: custReport_PerformanceOfficeBreakDown.sql
+**		Name: custReport_PerformanceOfficeBreakDown
 **		Desc: 
 **
 **		This template can be customized:
@@ -26,16 +26,16 @@ GO
 **     ----------						-----------
 **
 **		Auth: Andres Sosa
-**		Date: 07/01/2015
+**		Date: 07/31/2015
 *******************************************************************************
 **	Change History
 *******************************************************************************
 **	Date:		Author:			Description:
 **	-----------	---------------	-----------------------------------------------
-**	07/01/2015	Andres Sosa		Creating the report
+**	07/31/2015	Andres Sosa		Creating the report
 **	
 *******************************************************************************/
-CREATE Procedure dbo.custReport_Performance
+CREATE Procedure dbo.custReport_PerformanceOfficeBreakDown
 (
 	@officeId INT = NULL
 	, @salesRepId VARCHAR(50) = NULL
@@ -50,7 +50,7 @@ BEGIN
 		, @Qualifications INT
 		, @NoSales INT
 		, @Installations INT
-		, @OfficeName VARCHAR(50)
+		, @RepName VARCHAR(50)
 
 	PRINT 'OfficeID: ' + CAST(@officeId AS VARCHAR(20));
 	--SET @startDate = '1/1/2013';
@@ -58,8 +58,8 @@ BEGIN
 
 	/** RESULT TABLE */
 	DECLARE @TableResult TABLE (
-		OfficeID INT
-		, OfficeName VARCHAR(50)
+		SalesRepID VARCHAR(50)
+		, RepName VARCHAR(50)
 		, ContactsMade INT
 		, CreditsRun INT
 		, NoSales INT
@@ -77,13 +77,26 @@ BEGIN
 	);
 
 	/** DECLARE CURSOR */
-	DECLARE officeCur CURSOR FOR 
-	SELECT TeamLocationID, Description AS [OfficeName] FROM [WISE_HumanResource].[dbo].[RU_TeamLocations] WHERE (@officeId IS NULL OR (TeamLocationID = @officeId)) AND (IsActive = 1 AND IsDeleted = 0);
+	DECLARE repCur CURSOR FOR 
+	SELECT DISTINCT
+		SalesRepID 
+		, RU.FullName AS RepName
+	FROM
+		[WISE_CRM].[dbo].[SAE_ReportsPerformance] AS PERFM
+		INNER JOIN [dbo].[RU_Users] AS RU WITH (NOLOCK)
+		ON
+			(PERFM.SalesRepId = RU.GPEmployeeId)
+	WHERE
+		(OfficeId = @officeId 
+		AND ((PERFM.SubmitAccountOnline BETWEEN @StartDate AND @EndDate) OR (PERFM.InstallDate BETWEEN @startDate AND @endDate)))
+	ORDER BY
+		RU.FullName;
+--	SELECT TeamLocationID, Description AS [OfficeName] FROM [WISE_HumanResource].[dbo].[RU_TeamLocations] WHERE (@officeId IS NULL OR (TeamLocationID = @officeId)) AND (IsActive = 1 AND IsDeleted = 0);
 
-	OPEN officeCur;
+	OPEN repCur;
 	
-	FETCH NEXT FROM officeCur
-	INTO @officeId, @OfficeName;
+	FETCH NEXT FROM repCur
+	INTO @salesRepId, @RepName;
 
 	WHILE (@@FETCH_STATUS = 0)
 	BEGIN
@@ -95,8 +108,8 @@ BEGIN
 		SELECT @NoSales = COUNT(*) FROM [WISE_CRM].[dbo].fxRepts_NoSalesByRepIdOfficeIdAll(@officeId, @salesRepId, @dealerId, @startDate, @endDate);
 
 		INSERT INTO @TableResult (
-			OfficeID
-			, OfficeName
+			SalesRepID
+			, RepName
 			, ContactsMade
 			, CreditsRun
 			, NoSales
@@ -110,8 +123,8 @@ BEGIN
 			, [PackageSold]
 		)
 		SELECT
-			@officeId
-			, @OfficeName
+			@salesRepId
+			, @RepName
 			, @Contacts AS ContactsMade
 			, @Qualifications AS CreditsRun
 			, @NoSales AS NoSales
@@ -130,13 +143,13 @@ BEGIN
 			[WISE_CRM].[dbo].fxRepts_InstallsByRepIdOfficeIdAll(@officeId, @salesRepId, @dealerId, @startDate, @endDate) AS [FXF];
 
 		-- Get Next
-		FETCH NEXT FROM officeCur
-		INTO @officeId, @OfficeName;
+		FETCH NEXT FROM repCur
+		INTO @salesRepId, @RepName;
 	END
 
 	/** CLOSE CURSOR */
-	CLOSE officeCur;
-	DEALLOCATE officeCur;
+	CLOSE repCur;
+	DEALLOCATE repCur;
 
 	/** RETURN RESULT */
 	SELECT * FROM @TableResult;
@@ -144,18 +157,18 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON dbo.custReport_Performance TO PUBLIC
+GRANT EXEC ON dbo.custReport_PerformanceOfficeBreakDown TO PUBLIC
 GO
 
 /*
 */
-DECLARE @officeId INT = NULL
+DECLARE @officeId INT = 1
 	, @salesRepId VARCHAR(50) = NULL
 	, @DealerId INT = 5000
 	, @startDate DATETIME = '1/1/2013'
 	, @endDate DATETIME = '2015-08-01 05:00:00';
 
-EXEC dbo.custReport_Performance @officeId, NULL, @DealerId, @startDate, @endDate
+EXEC dbo.custReport_PerformanceOfficeBreakDown @officeId, NULL, @DealerId, @startDate, @endDate
 
 --SELECT
 --	RUT.TeamLocationID 

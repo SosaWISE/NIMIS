@@ -82,7 +82,7 @@ BEGIN
 		, Over3Months
 		, PackageSoldId
 	)
-	VALUES (@officeId, 0, 0, 32, 0, 0, 0, NULL)
+	VALUES (@officeId, 0, 0, 0, 0, 0, 0, NULL)
 
 	UPDATE OFFICE SET
 		OFFICE.Installs = ISNULL(AGR.Installs, 0)
@@ -96,12 +96,37 @@ BEGIN
 		@ParsedList AS OFFICE
 		LEFT OUTER JOIN
 		(SELECT
+			PERFM.OfficeId
+			, COUNT(PERFM.AccountID) AS Installs
+			, AVG(PERFM.Term) AS Term
+			, 0 AS [CloseRate]
+			, AVG(PERFM.SetupFee) AS [SetupFee]
+			, AVG(PERFM.[1stMonth]) AS [1stMonth]
+			, COUNT(PERFM.Over3Months) AS [Over3Months]
+			, COUNT(PERFM.[PackageSoldId]) AS [PackageSoldId]
+		FROM
+			@ParsedList AS OFFICE
+			INNER JOIN vwReports_Performance AS PERFM
+			ON
+				(OFFICE.OfficeId = PERFM.OfficeId)
+		WHERE
+			((PERFM.SubmitAccountOnline BETWEEN @StartDate AND @EndDate) OR (PERFM.InstallDate BETWEEN @startDate AND @endDate))
+			AND (@dealerId IS NULL OR (PERFM.DealerId = @DealerId))
+			AND (@officeId IS NULL OR (PERFM.OfficeId = @officeId))
+			AND (@SalesRepID IS NULL OR (PERFM.SalesRepId = @SalesRepID))
+		GROUP BY
+			PERFM.OfficeId
+		) AS AGR
+		ON
+			(AGR.OfficeId = OFFICE.OfficeId)
+/**/
+/*		(SELECT
 			--AEC.CustomerMasterFileId
 			--, MSASI.AccountID
 			MSASI.TeamLocationId AS OfficeId
 			, COUNT(MSASI.AccountID) AS Installs
 			, AVG(MSASI.ContractLength) AS Term
-			, 32 AS [CloseRate]
+			, 0 AS [CloseRate]
 			, AVG(MSASI.SetupFee) AS [SetupFee]
 			, AVG(MSASI.SetupFee1stMonth) AS [1stMonth]
 			, COUNT(MSASI.Over3Months) AS [Over3Months]
@@ -132,13 +157,14 @@ BEGIN
 			MSASI.TeamLocationId) AS AGR
 		ON
 			(AGR.OfficeId = OFFICE.OfficeId)
+*/
 
 	RETURN;
 END
 
 GO
 /*
-DECLARE @officeId INT = 1
+DECLARE @officeId INT = 2
 	, @salesRepId VARCHAR(50) = NULL
 	, @DealerId INT = 5000
 	, @startDate DATETIME = '1/1/2013'
