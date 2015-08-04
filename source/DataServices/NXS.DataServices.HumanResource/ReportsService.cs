@@ -20,6 +20,7 @@ namespace NXS.DataServices.HumanResource
 			"custReport_MyAccounts",
 			"custReport_Performance",
 			"custReport_PerformanceOfficeBreakDown",
+			"custReport_PerformanceSalesRepBreakDown",
 			"custReport_AccountHolds",
 			"custReport_PendingInstalls"
 		});

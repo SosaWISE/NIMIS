@@ -51,6 +51,8 @@ BEGIN
 		, @NoSales INT
 		, @Installations INT
 		, @OfficeName VARCHAR(50)
+		, @Over3Months INT
+		, @PackagesSold INT;
 
 	PRINT 'OfficeID: ' + CAST(@officeId AS VARCHAR(20));
 	--SET @startDate = '1/1/2013';
@@ -87,47 +89,143 @@ BEGIN
 
 	WHILE (@@FETCH_STATUS = 0)
 	BEGIN
+		
+		INSERT INTO @TableResult (OfficeID, OfficeName) VALUES (@officeId, @OfficeName);
 
-		SELECT @Contacts = COUNT(*) FROM [NXSE_Sales].[dbo].fxRepts_ContactsByRepIdOfficeIdAll(@officeId, @salesRepId, @dealerId, @startDate, @endDate);
+		/** GET CONTACTS */
+		SELECT @Contacts = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
+		WHERE
+			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
+			--AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
+			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
+			--AND (PERFM.LeadDate IS NOT NULL)
+			AND (PERFM.IsContact = 'TRUE')
+			AND (PERFM.InstallDate BETWEEN @startDate AND @endDate OR PERFM.LeadDate BETWEEN @startDate AND @endDate)
+		GROUP BY
+			PERFM.OfficeId
 
-		SELECT @Qualifications = COUNT(*) FROM [WISE_CRM].[dbo].fxRepts_QualifiedByRepIdOfficeIdAll(@officeId, @salesRepId, @dealerId, @startDate, @endDate);
+		/** GET Qualifications */
+		SELECT @Qualifications = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
+		WHERE
+			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
+			--AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
+			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
+			--AND (PERFM.LeadDate IS NOT NULL)
+			--AND (PERFM.IsLead = 'TRUE')
+			AND (PERFM.InstallDate BETWEEN @startDate AND @endDate OR PERFM.LeadDate BETWEEN @startDate AND @endDate)
+		GROUP BY
+			PERFM.OfficeId
 
-		SELECT @NoSales = COUNT(*) FROM [WISE_CRM].[dbo].fxRepts_NoSalesByRepIdOfficeIdAll(@officeId, @salesRepId, @dealerId, @startDate, @endDate);
+		/** Get NO SALES */
+		SELECT @NoSales = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
+		WHERE
+			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
+			--AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
+			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
+			--AND (PERFM.LeadDate IS NOT NULL)
+			--AND (PERFM.IsContact = 'FALSE' OR PERFM.IsContact IS NULL)
+			--AND (PERFM.IsLead = 'FALSE' OR PERFM.IsLead IS NULL)
+			AND (PERFM.InstallDate IS NULL)
+			AND (PERFM.LeadDate BETWEEN @startDate AND @endDate)
+		GROUP BY
+			PERFM.OfficeId
 
-		INSERT INTO @TableResult (
-			OfficeID
-			, OfficeName
-			, ContactsMade
-			, CreditsRun
-			, NoSales
-			, Installations
-			, SalesPrice
-			, Term
-			, CloseRate
-			, SetupFee
-			, [FirstMonth]
-			, [Over3Months]
-			, [PackageSold]
-		)
+		/** Get INSTALLS */
+		SELECT @Installations = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
+		WHERE
+			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
+			--AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
+			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
+			--AND (PERFM.LeadDate IS NOT NULL)
+			AND (PERFM.IsContact = 'FALSE' OR PERFM.IsContact IS NULL)
+			AND (PERFM.IsLead = 'FALSE' OR PERFM.IsLead IS NULL)
+			AND (PERFM.InstallDate BETWEEN @startDate AND @endDate OR PERFM.LeadDate BETWEEN @startDate AND @endDate)
+		GROUP BY
+			PERFM.OfficeId
+
+		/** Figure out the number of Over 3 Months */
 		SELECT
-			@officeId
-			, @OfficeName
-			, @Contacts AS ContactsMade
-			, @Qualifications AS CreditsRun
-			, @NoSales AS NoSales
-			, FXF.Installs AS Installations
-			, 0 AS [SalesPrice]
-			, FXF.Term
+			@Over3Months = COUNT(*)
+		FROM
+			[WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
+			LEFT OUTER JOIN [dbo].[RU_TeamLocations] AS RT WITH (NOLOCK)
+			ON
+				(PERFM.OfficeId = RT.TeamLocationID)
+		WHERE
+			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
+			--AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
+			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
+			--AND (PERFM.LeadDate IS NOT NULL)
+			AND (PERFM.Over3Months = 'TRUE')
+			AND (PERFM.InstallDate BETWEEN @startDate AND @endDate
+				OR PERFM.LeadDate BETWEEN @startDate AND @endDate)
+
+		/** Sum Packages Sold */
+		SELECT
+			@PackagesSold = COUNT(*)
+		FROM
+			[WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
+			LEFT OUTER JOIN [dbo].[RU_TeamLocations] AS RT WITH (NOLOCK)
+			ON
+				(PERFM.OfficeId = RT.TeamLocationID)
+		WHERE
+			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
+			--AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
+			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
+			--AND (PERFM.LeadDate IS NOT NULL)
+			AND (PERFM.[PackageSoldId] IS NOT NULL)
+			AND (PERFM.Over3Months = 'TRUE')
+			AND (PERFM.InstallDate BETWEEN @startDate AND @endDate
+				OR PERFM.LeadDate BETWEEN @startDate AND @endDate)
+
+		/** EXECUTE UPDATING DATA */
+		UPDATE TBR SET
+			TBR.ContactsMade = AllData.ContactsMade
+			, TBR.CreditsRun = AllData.CreditsRun
+			, TBR.NoSales = AllData.NoSales
+			, TBR.Installations = AllData.Installations
+			, TBR.SalesPrice = AllData.SalesPrice
+			, TBR.Term = AllData.Term
+			, TBR.CloseRate = AllData.CloseRate
+			, TBR.SetupFee = AllData.SetupFee
+			, TBR.[FirstMonth] = AllData.FirstMonth
+			, TBR.[Over3Months] = AllData.Over3Months
+			, TBR.[PackageSold] = AllData.PackageSold
+		FROM
+			@TableResult AS TBR
+			INNER JOIN (
+			SELECT
+			PERFM.OfficeId
+			, ISNULL(@Contacts, 0) AS ContactsMade
+			, ISNULL(@Qualifications, 0) AS CreditsRun
+			, ISNULL(@NoSales, 0) AS NoSales
+			, ISNULL(@Installations, 0) AS Installations
+			, 0 AS SalesPrice
+			, AVG(PERFM.Term) AS Term
 			, CASE
 				WHEN @Qualifications IS NULL OR @Qualifications = 0 THEN 0
-				ELSE CAST(FXF.Installs AS FLOAT)/CAST(@Qualifications AS FLOAT)
-			  END  AS [CloseRate]
-			, FXF.SetupFee
-			, FXF.[1stMonth]
-			, FXF.[Over3Months]
-			, FXF.[PackageSoldId]
-		FROM
-			[WISE_CRM].[dbo].fxRepts_InstallsByRepIdOfficeIdAll(@officeId, @salesRepId, @dealerId, @startDate, @endDate) AS [FXF];
+				ELSE CAST(@Installations AS FLOAT)/CAST(@Qualifications AS FLOAT)
+			  END AS CloseRate
+			, AVG(PERFM.SetupFee) AS SetupFee
+			, AVG(PERFM.[1stMonth]) AS FirstMonth
+			, @Over3Months AS Over3Months
+			, @PackagesSold AS [PackageSold]
+			FROM			
+				[WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
+				LEFT OUTER JOIN [dbo].[RU_TeamLocations] AS RT WITH (NOLOCK)
+				ON
+					(PERFM.OfficeId = RT.TeamLocationID)
+			WHERE
+				(@officeId IS NULL OR PERFM.OfficeId = @officeId)
+				--AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
+				--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
+				--AND (PERFM.LeadDate IS NOT NULL)
+				AND (PERFM.InstallDate BETWEEN @startDate AND @endDate
+					OR PERFM.LeadDate BETWEEN @startDate AND @endDate)
+			GROUP BY
+				PERFM.OfficeId) AS AllData
+			ON
+				(TBR.OfficeId = AllData.OfficeId)
 
 		-- Get Next
 		FETCH NEXT FROM officeCur
@@ -155,7 +253,7 @@ DECLARE @officeId INT = NULL
 	, @startDate DATETIME = '1/1/2013'
 	, @endDate DATETIME = '2015-08-01 05:00:00';
 
-EXEC dbo.custReport_Performance @officeId, NULL, @DealerId, @startDate, @endDate
+--EXEC dbo.custReport_Performance @officeId, NULL, @DealerId, @startDate, @endDate
 
 --SELECT
 --	RUT.TeamLocationID 

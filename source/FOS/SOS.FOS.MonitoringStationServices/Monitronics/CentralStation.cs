@@ -138,7 +138,6 @@ namespace SOS.FOS.MonitoringStationServices.Monitronics
 			if (panelLocation == null)
 				throw new Exception("Unable to find a panel location for this account. &nbsp;Either the panel is not present in the account or the panel location was not set in the System Details screen.");
 			var installDate = DateTime.Now;
-
 			var acct = new Account
 			{
 				#region SiteSystem

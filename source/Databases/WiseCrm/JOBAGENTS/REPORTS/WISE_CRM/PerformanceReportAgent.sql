@@ -18,17 +18,18 @@ TRUNCATE TABLE [WISE_CRM].[dbo].[SAE_ReportsPerformance];
 
 INSERT INTO [WISE_CRM].[dbo].[SAE_ReportsPerformance] (
 	[OfficeId]
-	,[AccountID]
-	,[Term]
-	,[CloseRate]
-	,[SetupFee]
-	,[1stMonth]
-	,[Over3Months]
-	,[PackageSoldId]
-	,[SubmitAccountOnline]
-	,[InstallDate]
-	,[DealerId]
-	,[SalesRepId]
+	, [AccountID]
+	, [Term]
+	, [CloseRate]
+	, [SetupFee]
+	, [1stMonth]
+	, [Over3Months]
+	, [PackageSoldId]
+	, [SubmitAccountOnline]
+	, [InstallDate]
+	, [DealerId]
+	, [SalesRepId]
+	, [SeasonId]
 )
 SELECT * FROM [WISE_CRM].[dbo].[vwReports_Performance];
 
@@ -36,37 +37,39 @@ SELECT * FROM [WISE_CRM].[dbo].[vwReports_Performance];
 TRUNCATE TABLE [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData];
 INSERT INTO [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] (
 	[OfficeId]
-	,[CustomerMasterFileId]
-	,[AccountID]
-	,[CustomerId]
-	,[Prefix]
-	,[FirstName]
-	,[MiddleName]
-	,[LastName]
-	,[Postfix]
-	,[StreetAddress]
-	,[StreetAddress2]
-	,[City]
-	,[StateId]
-	,[PostalCode]
-	,[County]
-	,[Phone]
-	,[Term]
-	,[CloseRate]
-	,[SetupFee]
-	,[1stMonth]
-	,[Over3Months]
-	,[PackageSoldId]
-	,[SubmitAccountOnline]
-	,[InstallDate]
-	,[DealerId]
-	,[SalesRepId]
+	, [CustomerMasterFileId]
+	, [AccountID]
+	, [CustomerId]
+	, [SeasonId]
+	, [Prefix]
+	, [FirstName]
+	, [MiddleName]
+	, [LastName]
+	, [Postfix]
+	, [StreetAddress]
+	, [StreetAddress2]
+	, [City]
+	, [StateId]
+	, [PostalCode]
+	, [County]
+	, [Phone]
+	, [Term]
+	, [CloseRate]
+	, [SetupFee]
+	, [1stMonth]
+	, [Over3Months]
+	, [PackageSoldId]
+	, [SubmitAccountOnline]
+	, [InstallDate]
+	, [DealerId]
+	, [SalesRepId]
 )
 SELECT 
 	PERFM.OfficeId
 	, AECA.CustomerMasterFileId
 	, PERFM.AccountID
 	, AECA.CustomerId
+	, PERFM.SeasonId
 	, AEC.Prefix
 	, AEC.FirstName
 	, AEC.MiddleName
@@ -101,7 +104,111 @@ FROM
 	INNER JOIN [WISE_CRM].[dbo].[MC_Addresses] AS ADR WITH (NOLOCK)
 	ON
 		(ADR.AddressID = AEC.AddressId)
-ROLLBACK TRANSACTION
 
---WHERE
---	((PERFM.SubmitAccountOnline BETWEEN @StartDate AND @EndDate) OR (PERFM.InstallDate BETWEEN @startDate AND @endDate));
+INSERT INTO [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] (
+	[CustomerMasterFileId]
+	,[LeadId]
+	,[DealerId]
+	,[SalesRepId]
+	,[OfficeId]
+	,[SeasonId]
+	,[IsContact]
+	,[IsLead]
+	,[Prefix]
+	,[FirstName]
+	,[MiddleName]
+	,[LastName]
+	,[Postfix]
+	,[StreetAddress]
+	,[StreetAddress2]
+	,[City]
+	,[StateId]
+	,[PostalCode]
+	,[County]
+	,[Phone]
+	--,[Term]
+	,[CloseRate]
+	--,[SetupFee]
+	--,[1stMonth]
+	--,[Over3Months]
+	--,[PackageSoldId]
+	--,[SubmitAccountOnline]
+	--,[InstallDate]
+	,[LeadDate]
+)
+SELECT
+	QL.CustomerMasterFileId
+	, QL.LeadID
+	, QL.DealerId
+	, QL.SalesRepId
+	, QL.TeamLocationId AS OfficeId
+	, QL.SeasonId
+	, 0 AS IsContact
+	, 1 AS IsLead
+	, QL.Suffix AS Prefix
+	, QL.FirstName
+	, QL.MiddleName
+	, QL.LastName
+	, QL.Salutation AS PostFix
+	, ADR.StreetAddress
+	, ADR.StreetAddress2
+	, ADR.City
+	, ADR.StateId
+	, ADR.PostalCode
+	, ADR.County
+	, ADR.Phone
+	, 0 AS CloseRate
+	, QL.CreatedOn
+FROM
+	[WISE_CRM].[dbo].[QL_Leads] AS QL
+	LEFT OUTER JOIN [WISE_CRM].[dbo].[QL_Address] AS ADR
+	ON
+		(ADR.AddressID = QL.AddressId)
+WHERE
+	(LeadID NOT IN (SELECT LeadId FROM [WISE_CRM].[dbo].[AE_Customers])) -- This is a customer already.
+--	AND (QL.CreatedOn BETWEEN @StartDate AND @EndDate)
+--	AND (@dealerId IS NULL OR (QL.DealerId = @dealerId))
+--	AND (QL.CustomerTypeId = 'PRI')
+--	AND (@officeId IS NULL OR (QL.TeamLocationId = @officeId))
+--	AND (@salesRepID IS NULL OR (QL.SalesRepId = @salesRepID));
+
+/** Add Contacts */
+INSERT INTO [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] (
+	[ContactId]
+	,[SalesRepId]
+	,[OfficeId]
+	,[IsContact]
+	,[CloseRate]
+	,[FirstName]
+	,[LastName]
+	,[StreetAddress]
+	,[StreetAddress2]
+	,[City]
+	,[StateId]
+	,[PostalCode]
+	,[LeadDate]
+)
+SELECT 
+	SLCN.ContactID
+	, RepCompanyID
+	, ISNULL(SLC.TeamLocationId, 0)
+	, 1 AS IsContact
+	, 0 AS CloseRate
+	, ISNULL(SLCN.FirstName, '') AS FirstName
+	, ISNULL(SLCN.LastName, '') AS LastName
+	, SLCADR.Address AS [StreetAddress]
+	, SLCADR.Address2 AS [StreetAddress2]
+	, SLCADR.City
+	, SLCADR.[State] AS StateID
+	, SLCADR.Zip AS PostalCode
+	, SLC.CreatedOn AS [LeadDate]
+FROM
+	[NXSE_SALES].[dbo].[SL_Contacts] AS SLC WITH (NOLOCK)
+	INNER JOIN [NXSE_SALES].[dbo].[SL_ContactNotes] AS SLCN WITH (NOLOCK)
+	ON
+		(SLCN.ContactID = SLC.ID)
+	INNER JOIN [NXSE_Sales].[dbo].[SL_ContactAddresses] AS SLCADR
+	ON
+		(SLCADR.ContactId = SLCN.ContactId)
+
+COMMIT TRANSACTION

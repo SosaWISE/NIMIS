@@ -58,6 +58,7 @@ AS
 		, MSASI.InstallDate
 		, MSASI.DealerId
 		, MSASI.SalesRepId
+		, MSASI.SeasonId
 	FROM
 		[WISE_CRM].[dbo].vwMS_AccountSalesInformations AS MSASI WITH (NOLOCK)
 		--ON
