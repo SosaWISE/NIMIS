@@ -40,6 +40,7 @@ INSERT INTO [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] (
 	, [CustomerMasterFileId]
 	, [AccountID]
 	, [CustomerId]
+	, [LeadId]
 	, [SeasonId]
 	, [Prefix]
 	, [FirstName]
@@ -63,12 +64,14 @@ INSERT INTO [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] (
 	, [InstallDate]
 	, [DealerId]
 	, [SalesRepId]
+	, [LeadDate]
 )
 SELECT 
 	PERFM.OfficeId
 	, AECA.CustomerMasterFileId
 	, PERFM.AccountID
 	, AECA.CustomerId
+	, AECA.LeadId
 	, PERFM.SeasonId
 	, AEC.Prefix
 	, AEC.FirstName
@@ -92,6 +95,7 @@ SELECT
 	, PERFM.InstallDate
 	, PERFM.DealerId
 	, PERFM.SalesRepId
+	, QL.CreatedOn
 FROM
 	[WISE_CRM].[dbo].[SAE_ReportsPerformance] AS PERFM
 	INNER JOIN [WISE_CRM].[dbo].[vwAE_CustomerAccounts] AS AECA WITH (NOLOCK)
@@ -104,6 +108,9 @@ FROM
 	INNER JOIN [WISE_CRM].[dbo].[MC_Addresses] AS ADR WITH (NOLOCK)
 	ON
 		(ADR.AddressID = AEC.AddressId)
+	LEFT OUTER JOIN [WISE_CRM].[dbo].[QL_Leads] AS QL WITH (NOLOCK)
+	ON
+		(QL.LeadID = AEC.LeadId)
 
 INSERT INTO [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] (
 	[CustomerMasterFileId]

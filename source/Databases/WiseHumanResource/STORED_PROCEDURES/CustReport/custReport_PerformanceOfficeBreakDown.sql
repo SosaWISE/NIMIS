@@ -83,13 +83,15 @@ BEGIN
 		SalesRepID 
 		, RU.FullName AS RepName
 	FROM
-		[WISE_CRM].[dbo].[SAE_ReportsPerformance] AS PERFM
+		[WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM
 		INNER JOIN [dbo].[RU_Users] AS RU WITH (NOLOCK)
 		ON
 			(PERFM.SalesRepId = RU.GPEmployeeId)
 	WHERE
-		(OfficeId = @officeId 
-		AND ((PERFM.SubmitAccountOnline BETWEEN @StartDate AND @EndDate) OR (PERFM.InstallDate BETWEEN @startDate AND @endDate)))
+		(OfficeId = @officeId)
+		AND ((PERFM.SubmitAccountOnline BETWEEN @StartDate AND @EndDate) 
+		OR (PERFM.InstallDate BETWEEN @startDate AND @endDate)
+		OR (PERFM.LeadDate BETWEEN @startDate AND @endDate))
 	ORDER BY
 		RU.FullName;
 --	SELECT TeamLocationID, Description AS [OfficeName] FROM [WISE_HumanResource].[dbo].[RU_TeamLocations] WHERE (@officeId IS NULL OR (TeamLocationID = @officeId)) AND (IsActive = 1 AND IsDeleted = 0);
@@ -125,9 +127,6 @@ BEGIN
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
 			AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
-			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
-			--AND (PERFM.LeadDate IS NOT NULL)
-			--AND (PERFM.IsLead = 'TRUE')
 			AND (PERFM.InstallDate BETWEEN @startDate AND @endDate OR PERFM.LeadDate BETWEEN @startDate AND @endDate)
 		GROUP BY
 			PERFM.OfficeId
@@ -137,10 +136,6 @@ BEGIN
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
 			AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
-			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
-			--AND (PERFM.LeadDate IS NOT NULL)
-			--AND (PERFM.IsContact = 'FALSE' OR PERFM.IsContact IS NULL)
-			--AND (PERFM.IsLead = 'FALSE' OR PERFM.IsLead IS NULL)
 			AND (PERFM.InstallDate IS NULL)
 			AND (PERFM.LeadDate BETWEEN @startDate AND @endDate)
 		GROUP BY
@@ -151,11 +146,10 @@ BEGIN
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
 			AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
-			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
-			--AND (PERFM.LeadDate IS NOT NULL)
-			AND (PERFM.IsContact = 'FALSE' OR PERFM.IsContact IS NULL)
-			AND (PERFM.IsLead = 'FALSE' OR PERFM.IsLead IS NULL)
-			AND (PERFM.InstallDate BETWEEN @startDate AND @endDate OR PERFM.LeadDate BETWEEN @startDate AND @endDate)
+			AND (PERFM.InstallDate IS NOT NULL)
+			AND ((PERFM.SubmitAccountOnline BETWEEN @StartDate AND @EndDate) 
+			OR (PERFM.InstallDate BETWEEN @startDate AND @endDate)
+			OR (PERFM.LeadDate BETWEEN @startDate AND @endDate))
 		GROUP BY
 			PERFM.OfficeId
 
@@ -246,11 +240,11 @@ GO
 
 /*
 */
-DECLARE @officeId INT = 7
-	, @salesRepId VARCHAR(50) = NULL
-	, @DealerId INT = 5000
-	, @startDate DATETIME = '7/5/2015'
-	, @endDate DATETIME = '2015-08-06 05:00:00';
+DECLARE @officeId INT = 11
+	, @salesRepId VARCHAR(50)
+	, @DealerId INT
+	, @startDate DATETIME = '2015-05-06 06:00:00'
+	, @endDate DATETIME = '2015-08-05 05:59:59';
 
 EXEC dbo.custReport_PerformanceOfficeBreakDown @officeId, NULL, @DealerId, @startDate, @endDate
 

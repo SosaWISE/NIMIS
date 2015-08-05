@@ -55,6 +55,7 @@ BEGIN
 	/** RESULT TABLE */
 	DECLARE @TableResult TABLE (
 		CMFID BIGINT
+		, LeadId BIGINT
 		, AccountID BIGINT
 		, SalesRepID VARCHAR(50)
 		, RepName VARCHAR(50)
@@ -73,6 +74,8 @@ BEGIN
 		, Referrals INT
 		, [PackageSold] VARCHAR(100)
 		, Margins MONEY
+		, InstallDate DATETIME
+		, LeadDate DATETIME
 	);
 
 	/** DECLARE CURSOR */
@@ -81,14 +84,16 @@ BEGIN
 		SalesRepID 
 		, RU.FullName AS RepName
 	FROM
-		[WISE_CRM].[dbo].[SAE_ReportsPerformance] AS PERFM
+		[WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM
 		INNER JOIN [dbo].[RU_Users] AS RU WITH (NOLOCK)
 		ON
 			(PERFM.SalesRepId = RU.GPEmployeeId)
 	WHERE
 		(OfficeId = @officeId)
 		AND (SalesRepId = @salesRepId)
-		AND ((PERFM.SubmitAccountOnline BETWEEN @StartDate AND @EndDate) OR (PERFM.InstallDate BETWEEN @startDate AND @endDate))
+		AND ((PERFM.SubmitAccountOnline BETWEEN @StartDate AND @EndDate) 
+		OR (PERFM.InstallDate BETWEEN @startDate AND @endDate)
+		OR (PERFM.LeadDate BETWEEN @startDate AND @endDate))
 	ORDER BY
 		RU.FullName;
 --	SELECT TeamLocationID, Description AS [OfficeName] FROM [WISE_HumanResource].[dbo].[RU_TeamLocations] WHERE (@officeId IS NULL OR (TeamLocationID = @officeId)) AND (IsActive = 1 AND IsDeleted = 0);
@@ -102,6 +107,7 @@ BEGIN
 	BEGIN
 		INSERT INTO @TableResult (
 			CMFID
+			, LeadId
 			, AccountID
 			, SalesRepID
 			, RepName
@@ -117,39 +123,57 @@ BEGIN
 			, [FirstMonth]
 			, [Over3Months]
 			, [PackageSold]
+			, [InstallDate]
+			, [LeadDate]
 		)
 		SELECT
 			FXF.CustomerMasterFileId
+			, FXF.LeadId
 			, FXF.AccountID
 			, @salesRepId
 			, @RepName
-			, FXF.FirstName + ' ' + FXF.LastName + ' ([C:' + CAST(FXF.CustomerMasterFileId AS VARCHAR) + ']|[' + 'A:' + CAST(FXF.AccountID AS VARCHAR) + '])' AS CustomerName
+			, CASE
+				WHEN FXF.AccountID IS NOT NULL THEN FXF.FirstName + ' ' + FXF.LastName + ' ([C:' + CAST(FXF.CustomerMasterFileId AS VARCHAR) + ']|[' + 'A:' + CAST(FXF.AccountID AS VARCHAR) + '])' 
+				WHEN FXF.CustomerMasterFileId IS NOT NULL THEN FXF.FirstName + ' ' + FXF.LastName + ' ([C:' + CAST(FXF.CustomerMasterFileId AS VARCHAR) + ']|[' + 'L:' + CAST(FXF.LeadId AS VARCHAR) + '])' 
+				WHEN FXF.ContactId IS NOT NULL THEN FXF.FirstName + ' ' + FXF.LastName + ' ([N:' + CAST(FXF.ContactId AS VARCHAR) + '])'
+				ELSE FXF.FirstName + ' ' + FXF.LastName
+			  END AS CustomerName
 			, FXF.IsContact
 			, CASE
-				WHEN FXF.IsLead = 'TRUE' THEN 1
 				WHEN FXF.InstallDate IS NOT NULL THEN 1
+				WHEN FXF.LeadDate IS NOT NULL THEN 1
 				ELSE 0
 			  END AS CreditsRun
 			, CASE 
-				WHEN FXF.IsLead = 'TRUE' AND FXF.InstallDate IS NULL THEN 1
+				WHEN FXF.LeadDate IS NOT NULL AND FXF.InstallDate IS NULL THEN 1
 				ELSE 0
 			  END AS NoSales
-			, 1 AS Installations
+			, CASE 
+				WHEN FXF.InstallDate IS NOT NULL THEN 1
+				ELSE 0
+			  END AS Installations
 			, 0 AS [SalesPrice]
 			, FXF.Term
-			, 1 AS [CloseRate]
+			,  CASE
+				WHEN FXF.LeadDate IS NULL THEN 0
+				WHEN FXF.InstallDate IS NOT NULL THEN 1
+				ELSE 0
+			  END  AS [CloseRate]
 			, FXF.SetupFee
 			, FXF.[1stMonth]
 			, FXF.[Over3Months]
 			, MAP.AccountPackageName
+			, FXF.InstallDate
+			, FXF.LeadDate
 		FROM
 			[WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS [FXF]
 			LEFT OUTER JOIN [WISE_CRM].[dbo].[MS_AccountPackages] AS MAP WITH (NOLOCK)
 			ON
 				(FXF.PackageSoldId = MAP.AccountPackageID)
 		WHERE
-			((FXF.SubmitAccountOnline BETWEEN @StartDate AND @EndDate) OR (FXF.InstallDate BETWEEN @startDate AND @endDate))
-			AND (@dealerId IS NULL OR (FXF.DealerId = @DealerId))
+			((FXF.SubmitAccountOnline BETWEEN @StartDate AND @EndDate) 
+			OR (FXF.InstallDate BETWEEN @startDate AND @endDate)
+			OR (FXF.LeadDate BETWEEN @startDate AND @endDate))
 			AND (@officeId IS NULL OR (FXF.OfficeId = @officeId))
 			AND (@SalesRepID IS NULL OR (FXF.SalesRepId = @SalesRepID));
 
@@ -173,14 +197,20 @@ GO
 
 /*
 */
-DECLARE @officeId INT = 1
-	, @salesRepId VARCHAR(50) = NULL
-	, @DealerId INT = 5000
-	, @startDate DATETIME = '1/1/2013'
-	, @endDate DATETIME = '2015-08-01 05:00:00';
+DECLARE @officeId INT = 10
+	, @salesRepId VARCHAR(50) = 'FARRB001'
+	, @DealerId INT
+	, @startDate DATETIME = '2015-05-05 06:00:00'
+	, @endDate DATETIME = '2015-08-05 05:59:59';
 
-EXEC dbo.custReport_PerformanceSalesRepBreakDown @officeId, NULL, @DealerId, @startDate, @endDate
+EXEC [dbo].[custReport_PerformanceSalesRepBreakDown]
+	@officeId
+	, @salesRepId
+	, @DealerId
+	, @startDate
+	, @endDate;
 
+--SELECT * FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] WHERE LeadID = 1091469;
 --SELECT
 --	RUT.TeamLocationID 
 --	, FXF.OfficeId

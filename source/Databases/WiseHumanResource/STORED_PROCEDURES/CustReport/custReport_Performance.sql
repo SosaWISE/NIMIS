@@ -80,7 +80,13 @@ BEGIN
 
 	/** DECLARE CURSOR */
 	DECLARE officeCur CURSOR FOR 
-	SELECT TeamLocationID, Description AS [OfficeName] FROM [WISE_HumanResource].[dbo].[RU_TeamLocations] WHERE (@officeId IS NULL OR (TeamLocationID = @officeId)) AND (IsActive = 1 AND IsDeleted = 0);
+	SELECT 
+		TeamLocationID
+		, Description AS [OfficeName]
+	FROM
+		[WISE_HumanResource].[dbo].[RU_TeamLocations]
+	WHERE
+		(@officeId IS NULL OR (TeamLocationID = @officeId)) AND (IsActive = 1 AND IsDeleted = 0);
 
 	OPEN officeCur;
 	
@@ -96,9 +102,6 @@ BEGIN
 		SELECT @Contacts = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
-			--AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
-			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
-			--AND (PERFM.LeadDate IS NOT NULL)
 			AND (PERFM.IsContact = 'TRUE')
 			AND (PERFM.InstallDate BETWEEN @startDate AND @endDate OR PERFM.LeadDate BETWEEN @startDate AND @endDate)
 		GROUP BY
@@ -108,10 +111,6 @@ BEGIN
 		SELECT @Qualifications = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
-			--AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
-			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
-			--AND (PERFM.LeadDate IS NOT NULL)
-			--AND (PERFM.IsLead = 'TRUE')
 			AND (PERFM.InstallDate BETWEEN @startDate AND @endDate OR PERFM.LeadDate BETWEEN @startDate AND @endDate)
 		GROUP BY
 			PERFM.OfficeId
@@ -120,11 +119,6 @@ BEGIN
 		SELECT @NoSales = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
-			--AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
-			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
-			--AND (PERFM.LeadDate IS NOT NULL)
-			--AND (PERFM.IsContact = 'FALSE' OR PERFM.IsContact IS NULL)
-			--AND (PERFM.IsLead = 'FALSE' OR PERFM.IsLead IS NULL)
 			AND (PERFM.InstallDate IS NULL)
 			AND (PERFM.LeadDate BETWEEN @startDate AND @endDate)
 		GROUP BY
@@ -134,12 +128,10 @@ BEGIN
 		SELECT @Installations = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
-			--AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
-			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
-			--AND (PERFM.LeadDate IS NOT NULL)
-			AND (PERFM.IsContact = 'FALSE' OR PERFM.IsContact IS NULL)
-			AND (PERFM.IsLead = 'FALSE' OR PERFM.IsLead IS NULL)
-			AND (PERFM.InstallDate BETWEEN @startDate AND @endDate OR PERFM.LeadDate BETWEEN @startDate AND @endDate)
+			AND (PERFM.InstallDate IS NOT NULL)
+			AND ((PERFM.SubmitAccountOnline BETWEEN @StartDate AND @EndDate) 
+			OR (PERFM.InstallDate BETWEEN @startDate AND @endDate)
+			OR (PERFM.LeadDate BETWEEN @startDate AND @endDate))
 		GROUP BY
 			PERFM.OfficeId
 
@@ -153,9 +145,6 @@ BEGIN
 				(PERFM.OfficeId = RT.TeamLocationID)
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
-			--AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
-			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
-			--AND (PERFM.LeadDate IS NOT NULL)
 			AND (PERFM.Over3Months = 'TRUE')
 			AND (PERFM.InstallDate BETWEEN @startDate AND @endDate
 				OR PERFM.LeadDate BETWEEN @startDate AND @endDate)
@@ -170,9 +159,6 @@ BEGIN
 				(PERFM.OfficeId = RT.TeamLocationID)
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
-			--AND (@salesRepId IS NULL OR (PERFM.SalesRepId = @salesRepId))
-			--AND (@DealerId IS NULL OR (PERFM.DealerId = @DealerId))
-			--AND (PERFM.LeadDate IS NOT NULL)
 			AND (PERFM.[PackageSoldId] IS NOT NULL)
 			AND (PERFM.Over3Months = 'TRUE')
 			AND (PERFM.InstallDate BETWEEN @startDate AND @endDate
@@ -250,10 +236,10 @@ GO
 DECLARE @officeId INT = NULL
 	, @salesRepId VARCHAR(50) = NULL
 	, @DealerId INT = 5000
-	, @startDate DATETIME = '1/1/2013'
-	, @endDate DATETIME = '2015-08-01 05:00:00';
+	, @startDate DATETIME = '2015-05-05 06:00:00'
+	, @endDate DATETIME = '2015-08-05 05:59:59';
 
---EXEC dbo.custReport_Performance @officeId, NULL, @DealerId, @startDate, @endDate
+EXEC dbo.custReport_Performance @officeId, NULL, @DealerId, @startDate, @endDate
 
 --SELECT
 --	RUT.TeamLocationID 
