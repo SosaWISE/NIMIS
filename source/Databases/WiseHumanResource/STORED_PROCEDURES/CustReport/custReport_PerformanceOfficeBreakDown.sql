@@ -111,6 +111,7 @@ BEGIN
 		SET @Over3Months = 0;
 
 		/** GET CONTACTS */
+		SET @Contacts = 0;
 		SELECT @Contacts = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
@@ -123,6 +124,7 @@ BEGIN
 			PERFM.OfficeId
 
 		/** GET Qualifications */
+		SET @Qualifications = 0;
 		SELECT @Qualifications = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
@@ -132,6 +134,7 @@ BEGIN
 			PERFM.OfficeId
 
 		/** Get NO SALES */
+		SET @NoSales = 0;
 		SELECT @NoSales = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
@@ -142,6 +145,7 @@ BEGIN
 			PERFM.OfficeId
 
 		/** Get INSTALLS */
+		SET @Installations = 0;
 		SELECT @Installations = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
@@ -154,6 +158,7 @@ BEGIN
 			PERFM.OfficeId
 
 		/** Figure out the number of Over 3 Months */
+		SET @Over3Months = 0;
 		SELECT
 			@Over3Months = COUNT(*)
 		FROM

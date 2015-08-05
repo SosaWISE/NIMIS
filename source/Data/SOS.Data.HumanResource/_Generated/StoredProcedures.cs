@@ -412,6 +412,12 @@ namespace SOS.Data.HumanResource {
 			sp.Command.AddParameter("@UserID", UserID, DbType.Int32);
 			return sp;
 		}
+		public static StoredProcedure RU_SalesRepViewGetByArgs(string SalesRepID,int? SeasonId) {
+			StoredProcedure sp = new StoredProcedure("custRU_SalesRepViewGetByArgs" ,DataService.GetInstance("SosHumanResourceProvider"));
+			sp.Command.AddParameter("@SalesRepID", SalesRepID, DbType.AnsiString);
+			sp.Command.AddParameter("@SeasonId", SeasonId, DbType.Int32);
+			return sp;
+		}
 		public static StoredProcedure RU_SeasonGetActiveSeasonsForAUserByUserID(int? UserID) {
 			StoredProcedure sp = new StoredProcedure("custRU_SeasonGetActiveSeasonsForAUserByUserID" ,DataService.GetInstance("SosHumanResourceProvider"));
 			sp.Command.AddParameter("@UserID", UserID, DbType.Int32);

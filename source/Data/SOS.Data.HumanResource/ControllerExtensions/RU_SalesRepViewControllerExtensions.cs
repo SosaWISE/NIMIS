@@ -14,12 +14,9 @@ namespace SOS.Data.HumanResource.ControllerExtensions
 
             return cntlr.LoadSingle(qry);
         }
-        public static ARCollection GetRuSalesRepList(this ARController cntlr)
+        public static ARCollection GetRuSalesRepList(this ARController cntlr, string salesRepId = null, int? seasonId = null)
         {
-            var qry = AR.Query();
-               // .WHERE(AR.Columns.IsDeleted, false);
-
-            return cntlr.LoadCollection(qry);
+            return cntlr.LoadCollection(HumanResourceDataStoredProcedureManager.RU_SalesRepViewGetByArgs(salesRepId, seasonId));
         }
 
 	}

@@ -141,5 +141,5 @@ GO
 /*
 */
 
-EXEC dbo.custReport_MyAccounts 0, 'SOSAA001', '2013-02-01 00:00:00', '2015-08-06 05:00:00'
+EXEC dbo.custReport_MyAccounts 0, 'FARRB001', '2013-02-01 00:00:00', '2015-08-06 05:00:00'
 

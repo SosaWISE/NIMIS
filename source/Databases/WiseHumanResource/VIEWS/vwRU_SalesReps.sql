@@ -80,6 +80,7 @@ FROM
 	) AS AR
 WHERE
 	(AR.RWN = 1)
+
 GO
 /* TEST */
 SELECT * FROM vwRU_SalesReps

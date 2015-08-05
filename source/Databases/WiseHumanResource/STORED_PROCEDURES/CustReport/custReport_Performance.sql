@@ -99,6 +99,7 @@ BEGIN
 		INSERT INTO @TableResult (OfficeID, OfficeName) VALUES (@officeId, @OfficeName);
 
 		/** GET CONTACTS */
+		SET @Contacts = 0;
 		SELECT @Contacts = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
@@ -108,6 +109,7 @@ BEGIN
 			PERFM.OfficeId
 
 		/** GET Qualifications */
+		SET @Qualifications = 0;
 		SELECT @Qualifications = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
@@ -116,6 +118,7 @@ BEGIN
 			PERFM.OfficeId
 
 		/** Get NO SALES */
+		SET @NoSales = 0;
 		SELECT @NoSales = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
@@ -125,6 +128,7 @@ BEGIN
 			PERFM.OfficeId
 
 		/** Get INSTALLS */
+		SET @Installations = 0;
 		SELECT @Installations = COUNT(*) FROM [WISE_CRM].[dbo].[SAE_ReportsPerformanceAllData] AS PERFM WITH (NOLOCK)
 		WHERE
 			(@officeId IS NULL OR PERFM.OfficeId = @officeId)
@@ -136,6 +140,7 @@ BEGIN
 			PERFM.OfficeId
 
 		/** Figure out the number of Over 3 Months */
+		SET @Over3Months = 0;
 		SELECT
 			@Over3Months = COUNT(*)
 		FROM
@@ -150,6 +155,7 @@ BEGIN
 				OR PERFM.LeadDate BETWEEN @startDate AND @endDate)
 
 		/** Sum Packages Sold */
+		SET @PackagesSold = 0;
 		SELECT
 			@PackagesSold = COUNT(*)
 		FROM
@@ -236,7 +242,7 @@ GO
 DECLARE @officeId INT = NULL
 	, @salesRepId VARCHAR(50) = NULL
 	, @DealerId INT = 5000
-	, @startDate DATETIME = '2015-05-05 06:00:00'
+	, @startDate DATETIME = '2013-02-01 06:00:00'
 	, @endDate DATETIME = '2015-08-05 05:59:59';
 
 EXEC dbo.custReport_Performance @officeId, NULL, @DealerId, @startDate, @endDate
