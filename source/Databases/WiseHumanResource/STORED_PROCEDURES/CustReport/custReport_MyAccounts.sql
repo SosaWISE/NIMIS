@@ -44,76 +44,17 @@ CREATE Procedure dbo.custReport_MyAccounts
 )
 AS
 BEGIN
-
-	--SELECT
-	--	CGP.CustomerMasterFileID AS CMFID
-	--	, CGP.PrimaryCustomerName AS CustomerName
-	--	, ADR.StreetAddress
-	--	, CASE
-	--		WHEN MASCL.SubmitAccountOnline IS NOT NULL THEN 'ACCT ONLINE'
-	--		WHEN MASCL.InitialPayment IS NOT NULL THEN 'PAYMNT TAKEN'
-	--		WHEN MASCL.PostSurvey IS NOT NULL THEN 'POST SURVEY'
-	--		WHEN MASCL.TechInspection IS NOT NULL THEN 'TECH INSP PASSED'
-	--		WHEN MASCL.SystemTest IS NOT NULL THEN 'SYS TEST PASSED'
-	--		WHEN MASCL.RegisterCell IS NOT NULL THEN 'CELL REGISTERED'
-	--		WHEN MASCL.SystemDetails IS NOT NULL THEN 'SYS DETAILS ENTERING'
-	--		WHEN MASCL.EmergencyContacts IS NOT NULL THEN 'EMC ENTERING'
-	--		WHEN MASCL.IndustryNumbers IS NOT NULL THEN 'ISSUED CSID'
-	--		WHEN MASCL.PreSurvey IS NOT NULL THEN 'PRE SURVEY'
-	--		WHEN MASCL.SalesInfo IS NOT NULL THEN 'SALES INFO FILLED'
-	--		WHEN MASCL.Qualify IS NOT NULL THEN 'QUALIFIED'
-	--		WHEN CGP.InstallDATE IS NOT NULL THEN 'INSTALLED'
-	--		ELSE 'LEAD' 
-	--	  END AS [Status]
-	--	, CASE
-	--		WHEN MASCL.SubmitAccountOnline IS NOT NULL THEN MASCL.SubmitAccountOnline
-	--		WHEN MASCL.InitialPayment IS NOT NULL THEN MASCL.InitialPayment
-	--		WHEN MASCL.PostSurvey IS NOT NULL THEN MASCL.PostSurvey
-	--		WHEN MASCL.TechInspection IS NOT NULL THEN MASCL.TechInspection
-	--		WHEN MASCL.SystemTest IS NOT NULL THEN MASCL.SystemTest
-	--		WHEN MASCL.RegisterCell IS NOT NULL THEN MASCL.RegisterCell
-	--		WHEN MASCL.SystemDetails IS NOT NULL THEN MASCL.SystemDetails
-	--		WHEN MASCL.EmergencyContacts IS NOT NULL THEN MASCL.EmergencyContacts
-	--		WHEN MASCL.IndustryNumbers IS NOT NULL THEN MASCL.IndustryNumbers
-	--		WHEN MASCL.PreSurvey IS NOT NULL THEN MASCL.PreSurvey
-	--		WHEN MASCL.SalesInfo IS NOT NULL THEN MASCL.SalesInfo
-	--		WHEN MASCL.Qualify IS NOT NULL THEN MASCL.Qualify
-	--		WHEN CGP.InstallDATE IS NOT NULL THEN CGP.InstallDATE
-	--	  END AS [Date]
-	--	, dbo.fxRU_SeasonCreditGroup(CGP.SeasonId, CGP.CreditScore) AS Qualify
-	--	, [WISE_CRM].[dbo].fxGetMS_AccountHoldsCountByAccountId(CGP.AccountID) AS [Holds]
-	--	, CGP.ActivationFee AS SetupFee
-	--	, CGP.RMR AS MMR
-	--FROM
-	--	[WISE_CRM].[dbo].[vwAE_CustomerAccountInfoToGP] AS CGP
-	--	INNER JOIN [WISE_CRM].[dbo].[MS_Accounts] AS MSA WITH (NOLOCK)
-	--	ON
-	--		(MSA.AccountID = CGP.AccountID)
-	--	INNER JOIN [WISE_CRM].[dbo].[MC_Addresses] AS ADR WITH (NOLOCK)
-	--	ON
-	--		(ADR.AddressID = MSA.PremiseAddressId)
-	--	INNER JOIN [WISE_CRM].[dbo].MS_AccountSetupCheckLists AS MASCL WITH (NOLOCK)
-	--	ON
-	--		(MASCL.AccountID = MSA.AccountID)
-	--WHERE
-	--	(@salesRepId IS NULL OR CGP.SalesRepID = @salesRepId)
-	--	AND ((CONVERT(DATE, MASCL.SubmitAccountOnline) BETWEEN @startDate AND @endDate)
-	--		OR (CONVERT(DATE, MASCL.InitialPayment) BETWEEN @startDate AND @endDate)
-	--		OR (CONVERT(DATE, MASCL.PostSurvey) BETWEEN @startDate AND @endDate)
-	--		OR (CONVERT(DATE, MASCL.TechInspection) BETWEEN @startDate AND @endDate)
-	--		OR (CONVERT(DATE, MASCL.SystemTest) BETWEEN @startDate AND @endDate)
-	--		OR (CONVERT(DATE, MASCL.RegisterCell) BETWEEN @startDate AND @endDate)
-	--		OR (CONVERT(DATE, MASCL.SystemDetails) BETWEEN @startDate AND @endDate)
-	--		OR (CONVERT(DATE, MASCL.EmergencyContacts) BETWEEN @startDate AND @endDate)
-	--		OR (CONVERT(DATE, MASCL.IndustryNumbers) BETWEEN @startDate AND @endDate)
-	--		OR (CONVERT(DATE, MASCL.PreSurvey) BETWEEN @startDate AND @endDate)
-	--		OR (CONVERT(DATE, MASCL.SalesInfo) BETWEEN @startDate AND @endDate)
-	--		OR (CONVERT(DATE, MASCL.Qualify) BETWEEN @startDate AND @endDate)
-	--		OR (CONVERT(DATE, CGP.InstallDATE) BETWEEN @startDate AND @endDate));
-
+	/** INITIALIZE */
+	IF (@officeId = 0)
+	BEGIN
+		SET @officeId = NULL;
+	END
+	
+	/** EXECUTION */
 	SELECT DISTINCT
 		AECA.CustomerMasterFileID AS CMFID
 		, MSASI.TeamLocationId
+		, RT.Description AS [OfficeName]
 		, AEC.FirstName + ' ' + AEC.LastName AS [CustomerName]
 		, MSASI.SalesRepId
 		, ADR.StreetAddress
@@ -171,6 +112,9 @@ BEGIN
 		INNER JOIN [WISE_CRM].[dbo].MS_AccountSetupCheckLists AS MASCL WITH (NOLOCK)
 		ON
 			(MASCL.AccountID = MSA.AccountID)
+		LEFT OUTER JOIN [WISE_HumanResource].[dbo].[RU_TeamLocations] AS RT WITH (NOLOCK)
+		ON
+			(RT.TeamLocationID = MSASI.TeamLocationId)
 	WHERE
 		(@salesRepId IS NULL OR MSASI.SalesRepID = @salesRepId)
 		AND (@OfficeId IS NULL OR MSASI.TeamLocationId = @OfficeId)
@@ -188,8 +132,6 @@ BEGIN
 			OR (CONVERT(DATE, MASCL.Qualify) BETWEEN @startDate AND @endDate)
 			OR (CONVERT(DATE, MSASI.InstallDATE) BETWEEN @startDate AND @endDate));
 
-
-
 END
 GO
 
@@ -199,5 +141,5 @@ GO
 /*
 */
 
-EXEC dbo.custReport_MyAccounts NULL, null, '1/2/2003', '2015-07-10 05:00:00'
+EXEC dbo.custReport_MyAccounts 0, 'SOSAA001', '2013-02-01 00:00:00', '2015-08-06 05:00:00'
 

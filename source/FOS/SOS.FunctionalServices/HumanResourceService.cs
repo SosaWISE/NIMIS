@@ -342,6 +342,51 @@ namespace SOS.FunctionalServices
 			return result;
 		}
 
+		public IFnsResult<List<IFnsRuSalesRep>> GetRuSalesRepList()
+		{
+			#region INITIALIZATION
+
+			// ** Initialize 
+			const string METHOD_NAME = "FOS GetRuSalesRepList Get";
+			var result = new FnsResult<List<IFnsRuSalesRep>>
+			{
+				Code = (int)ErrorCodes.GeneralMessage,
+				Message = string.Format("Initializing {0}", METHOD_NAME)
+			};
+
+			#endregion INITIALIZATION
+
+			#region TRY
+			try
+			{
+
+
+				RU_SalesRepsViewCollection ruSalesRepList = HumanResourceDataContext.Instance.RU_SalesRepsViews.GetRuSalesRepList();
+				var resultList = ruSalesRepList.Select(item => new FnsRuSalesRep(item)).Cast<IFnsRuSalesRep>().ToList();
+
+
+				// ** Save result information
+				result.Code = (int)ErrorCodes.Success;
+				result.Message = "Success";
+				result.Value = resultList;
+			}
+			#endregion TRY
+
+			#region CATCH
+			catch (Exception ex)
+			{
+				result = new FnsResult<List<IFnsRuSalesRep>>
+				{
+					Code = (int)ErrorCodes.UnexpectedException
+					, Message = string.Format("Exception thrown at {0}: {1}", METHOD_NAME, ex.Message)
+				};
+			}
+			#endregion CATCH
+
+			// ** Return result
+			return result;
+		}
+
 		public IFnsResult<IFnsRuTechnician> RuTechnicianGetByTechnicianId(string technicianId)
 		{
 			#region INITIALIZATION

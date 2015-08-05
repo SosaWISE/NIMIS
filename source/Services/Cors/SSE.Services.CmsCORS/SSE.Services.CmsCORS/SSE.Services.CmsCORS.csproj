@@ -163,6 +163,7 @@
     <Compile Include="Controllers\Funding\PacketItemsController.cs" />
     <Compile Include="Controllers\Funding\PacketsController.cs" />
     <Compile Include="Controllers\HumanResource\RecruitsController.cs" />
+    <Compile Include="Controllers\HumanResource\RuSalesRepController.cs" />
     <Compile Include="Controllers\HumanResource\RuTeamLocationController.cs" />
     <Compile Include="Controllers\HumanResource\RuTechnicianController.cs" />
     <Compile Include="Controllers\HumanResource\TeamsController.cs" />

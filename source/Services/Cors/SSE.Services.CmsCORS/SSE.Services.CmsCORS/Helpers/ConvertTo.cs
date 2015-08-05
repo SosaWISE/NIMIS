@@ -1008,10 +1008,23 @@ namespace SSE.Services.CmsCORS.Helpers
 				TechBirthDate = item.TechBirthDate,
 				TechSeasonId = item.TechSeasonId,
 				TechSeasonName = item.TechSeasonName
-
-
 			}).ToList();
 		}
+
+		public static List<RuSalesRep> CastFnsToRuSalesRepList(List<IFnsRuSalesRep> ruSalesRepList)
+		{
+			return ruSalesRepList.Select(item => new RuSalesRep
+			{
+				SalesRepId = item.SalesRepId,
+				FullName = item.FullName,
+				RepFirstName = item.RepFirstName,
+				RepLastName = item.RepLastName,
+				RepBirthDate = item.RepBirthDate,
+				RepSeasonId = item.RepSeasonId,
+				RepSeasonName = item.RepSeasonName
+			}).ToList();
+		}
+
 
 		public static RuTechnician CastFnsToRuTechnician(IFnsRuTechnician ruTechnician)
 		{

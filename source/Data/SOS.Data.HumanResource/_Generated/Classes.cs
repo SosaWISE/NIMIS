@@ -88468,6 +88468,21 @@ namespace SOS.Data.HumanResource
 			}
 		}
 
+		private RU_SeasonTeamLocationDefaultCollection _RU_SeasonTeamLocationDefaultsCol;
+		//Relationship: FK_RU_SeasonTeamLocationDefaults_RU_Season
+		public RU_SeasonTeamLocationDefaultCollection RU_SeasonTeamLocationDefaultsCol
+		{
+			get
+			{
+				if(_RU_SeasonTeamLocationDefaultsCol == null) {
+					_RU_SeasonTeamLocationDefaultsCol = new RU_SeasonTeamLocationDefaultCollection();
+					_RU_SeasonTeamLocationDefaultsCol.LoadAndCloseReader(RU_SeasonTeamLocationDefault.Query()
+						.WHERE(RU_SeasonTeamLocationDefault.Columns.SeasonID, SeasonID).ExecuteReader());
+				}
+				return _RU_SeasonTeamLocationDefaultsCol;
+			}
+		}
+
 		private RU_TeamLocationCollection _RU_TeamLocationsCol;
 		//Relationship: FK_RU_TeamLocations_RU_Season
 		public RU_TeamLocationCollection RU_TeamLocationsCol
@@ -88848,6 +88863,221 @@ namespace SOS.Data.HumanResource
 		public override object PrimaryKeyValue
 		{
 			get { return SeasonSummerID; }
+		}
+		*/
+
+
+	}
+	/// <summary>
+	/// Strongly-typed collection for the RU_SeasonTeamLocationDefault class.
+	/// </summary>
+	[DataContract]
+	public partial class RU_SeasonTeamLocationDefaultCollection : ActiveList<RU_SeasonTeamLocationDefault, RU_SeasonTeamLocationDefaultCollection>
+	{
+		public static RU_SeasonTeamLocationDefaultCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			RU_SeasonTeamLocationDefaultCollection result = new RU_SeasonTeamLocationDefaultCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+		public string GetInList(string columnName)
+		{
+			return JoinColumnList(columnName, ",");
+		}
+		public string JoinColumnList(string columnName, string seperator)
+		{
+			return SOS.Lib.Util.StringHelper.Join(GetJoinColumnList(columnName), seperator);
+		}
+		public IEnumerable<object> GetJoinColumnList(string columnName)
+		{
+			foreach (RU_SeasonTeamLocationDefault item in this) {
+				object value = item.GetColumnValue<object>(columnName);
+				if (value != null) {
+					yield return value;
+				}
+			}
+		}
+	}
+
+	/// <summary>
+	/// This is an ActiveRecord class which wraps the RU_SeasonTeamLocationDefaults table.
+	/// </summary>
+	[DataContract]
+	public partial class RU_SeasonTeamLocationDefault : ActiveRecord<RU_SeasonTeamLocationDefault>, INotifyPropertyChanged
+	{
+
+
+		#region Events
+		public event PropertyChangedEventHandler PropertyChanged;
+		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+		{
+			if (PropertyChanged != null)
+				PropertyChanged(this, e);
+		}
+		#endregion Events
+
+		#region .ctors and Default Settings
+
+		public RU_SeasonTeamLocationDefault()
+		{
+			SetSQLProps();InitSetDefaults();MarkNew();
+		}
+		private void InitSetDefaults() { SetDefaults(); }
+		protected static void SetSQLProps() { GetTableSchema(); }
+
+		#endregion
+
+		#region Schema and Query Accessor
+		public static Query CreateQuery() { return new Query(Schema); }
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("RU_SeasonTeamLocationDefaults", TableType.Table, DataService.GetInstance("SosHumanResourceProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarSeasonID = new TableSchema.TableColumn(schema);
+				colvarSeasonID.ColumnName = "SeasonID";
+				colvarSeasonID.DataType = DbType.Int32;
+				colvarSeasonID.MaxLength = 0;
+				colvarSeasonID.AutoIncrement = false;
+				colvarSeasonID.IsNullable = false;
+				colvarSeasonID.IsPrimaryKey = true;
+				colvarSeasonID.IsForeignKey = false;
+				colvarSeasonID.IsReadOnly = false;
+				colvarSeasonID.DefaultSetting = @"";
+				colvarSeasonID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSeasonID);
+
+				TableSchema.TableColumn colvarTeamLocationId = new TableSchema.TableColumn(schema);
+				colvarTeamLocationId.ColumnName = "TeamLocationId";
+				colvarTeamLocationId.DataType = DbType.Int32;
+				colvarTeamLocationId.MaxLength = 0;
+				colvarTeamLocationId.AutoIncrement = false;
+				colvarTeamLocationId.IsNullable = false;
+				colvarTeamLocationId.IsPrimaryKey = false;
+				colvarTeamLocationId.IsForeignKey = true;
+				colvarTeamLocationId.IsReadOnly = false;
+				colvarTeamLocationId.DefaultSetting = @"";
+				colvarTeamLocationId.ForeignKeyTableName = "RU_TeamLocations";
+				schema.Columns.Add(colvarTeamLocationId);
+
+				BaseSchema = schema;
+				DataService.Providers["SosHumanResourceProvider"].AddSchema("RU_SeasonTeamLocationDefaults",schema);
+			}
+		}
+		#endregion // Schema and Query Accessor
+
+		public static RU_SeasonTeamLocationDefault LoadFrom(RU_SeasonTeamLocationDefault item)
+		{
+			RU_SeasonTeamLocationDefault result = new RU_SeasonTeamLocationDefault();
+			if (item.SeasonID != default(int)) {
+				result.LoadByKey(item.SeasonID);
+			}
+			result.CopyFrom(item);
+			return result;
+		}
+
+		#region Properties
+		[DataMember]
+		public int SeasonID {
+			get { return GetColumnValue<int>(Columns.SeasonID); }
+			set {
+				SetColumnValue(Columns.SeasonID, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.SeasonID));
+			}
+		}
+		[DataMember]
+		public int TeamLocationId {
+			get { return GetColumnValue<int>(Columns.TeamLocationId); }
+			set {
+				SetColumnValue(Columns.TeamLocationId, value);
+				OnPropertyChanged(new PropertyChangedEventArgs(Columns.TeamLocationId));
+			}
+		}
+
+		#endregion //Properties
+
+		#region ForeignKey Properties
+
+		private RU_Season _Season;
+		//Relationship: FK_RU_SeasonTeamLocationDefaults_RU_Season
+		public RU_Season Season
+		{
+			get
+			{
+				if(_Season == null) {
+					_Season = RU_Season.FetchByID(this.SeasonID);
+				}
+				return _Season;
+			}
+			set
+			{
+				SetColumnValue("SeasonID", value.SeasonID);
+				_Season = value;
+			}
+		}
+
+		private RU_TeamLocation _TeamLocation;
+		//Relationship: FK_RU_SeasonTeamLocationDefaults_RU_TeamLocations
+		public RU_TeamLocation TeamLocation
+		{
+			get
+			{
+				if(_TeamLocation == null) {
+					_TeamLocation = RU_TeamLocation.FetchByID(this.TeamLocationId);
+				}
+				return _TeamLocation;
+			}
+			set
+			{
+				SetColumnValue("TeamLocationId", value.TeamLocationID);
+				_TeamLocation = value;
+			}
+		}
+
+		#endregion //ForeignKey Properties
+
+		public override string ToString()
+		{
+			return SeasonID.ToString();
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn SeasonIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn TeamLocationIdColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public static readonly string SeasonID = @"SeasonID";
+			public static readonly string TeamLocationId = @"TeamLocationId";
+		}
+		#endregion Columns Struct
+
+		/*
+		public override object PrimaryKeyValue
+		{
+			get { return SeasonID; }
 		}
 		*/
 
@@ -90510,6 +90740,21 @@ namespace SOS.Data.HumanResource
 						.WHERE(RU_RollCall.Columns.TeamLocationID, TeamLocationID).ExecuteReader());
 				}
 				return _RU_RollCallsCol;
+			}
+		}
+
+		private RU_SeasonTeamLocationDefaultCollection _RU_SeasonTeamLocationDefaultsCol;
+		//Relationship: FK_RU_SeasonTeamLocationDefaults_RU_TeamLocations
+		public RU_SeasonTeamLocationDefaultCollection RU_SeasonTeamLocationDefaultsCol
+		{
+			get
+			{
+				if(_RU_SeasonTeamLocationDefaultsCol == null) {
+					_RU_SeasonTeamLocationDefaultsCol = new RU_SeasonTeamLocationDefaultCollection();
+					_RU_SeasonTeamLocationDefaultsCol.LoadAndCloseReader(RU_SeasonTeamLocationDefault.Query()
+						.WHERE(RU_SeasonTeamLocationDefault.Columns.TeamLocationId, TeamLocationID).ExecuteReader());
+				}
+				return _RU_SeasonTeamLocationDefaultsCol;
 			}
 		}
 

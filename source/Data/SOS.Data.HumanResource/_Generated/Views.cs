@@ -6093,6 +6093,249 @@ namespace SOS.Data.HumanResource
 		#endregion Columns Struct
 	}
 	/// <summary>
+	/// Strongly-typed collection for the RU_SalesRepsView class.
+	/// </summary>
+	[DataContract]
+	public partial class RU_SalesRepsViewCollection : ReadOnlyList<RU_SalesRepsView, RU_SalesRepsViewCollection>
+	{
+		public static RU_SalesRepsViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			RU_SalesRepsViewCollection result = new RU_SalesRepsViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwRU_SalesReps view.
+	/// </summary>
+	[DataContract]
+	public partial class RU_SalesRepsView : ReadOnlyRecord<RU_SalesRepsView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwRU_SalesReps", TableType.Table, DataService.GetInstance("SosHumanResourceProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarSalesRepId = new TableSchema.TableColumn(schema);
+				colvarSalesRepId.ColumnName = "SalesRepId";
+				colvarSalesRepId.DataType = DbType.String;
+				colvarSalesRepId.MaxLength = 25;
+				colvarSalesRepId.AutoIncrement = false;
+				colvarSalesRepId.IsNullable = false;
+				colvarSalesRepId.IsPrimaryKey = false;
+				colvarSalesRepId.IsForeignKey = false;
+				colvarSalesRepId.IsReadOnly = false;
+				colvarSalesRepId.DefaultSetting = @"";
+				colvarSalesRepId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSalesRepId);
+
+				TableSchema.TableColumn colvarFullName = new TableSchema.TableColumn(schema);
+				colvarFullName.ColumnName = "FullName";
+				colvarFullName.DataType = DbType.String;
+				colvarFullName.MaxLength = 101;
+				colvarFullName.AutoIncrement = false;
+				colvarFullName.IsNullable = true;
+				colvarFullName.IsPrimaryKey = false;
+				colvarFullName.IsForeignKey = false;
+				colvarFullName.IsReadOnly = false;
+				colvarFullName.DefaultSetting = @"";
+				colvarFullName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarFullName);
+
+				TableSchema.TableColumn colvarRepFirstName = new TableSchema.TableColumn(schema);
+				colvarRepFirstName.ColumnName = "RepFirstName";
+				colvarRepFirstName.DataType = DbType.String;
+				colvarRepFirstName.MaxLength = 50;
+				colvarRepFirstName.AutoIncrement = false;
+				colvarRepFirstName.IsNullable = true;
+				colvarRepFirstName.IsPrimaryKey = false;
+				colvarRepFirstName.IsForeignKey = false;
+				colvarRepFirstName.IsReadOnly = false;
+				colvarRepFirstName.DefaultSetting = @"";
+				colvarRepFirstName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRepFirstName);
+
+				TableSchema.TableColumn colvarRepLastName = new TableSchema.TableColumn(schema);
+				colvarRepLastName.ColumnName = "RepLastName";
+				colvarRepLastName.DataType = DbType.String;
+				colvarRepLastName.MaxLength = 50;
+				colvarRepLastName.AutoIncrement = false;
+				colvarRepLastName.IsNullable = true;
+				colvarRepLastName.IsPrimaryKey = false;
+				colvarRepLastName.IsForeignKey = false;
+				colvarRepLastName.IsReadOnly = false;
+				colvarRepLastName.DefaultSetting = @"";
+				colvarRepLastName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRepLastName);
+
+				TableSchema.TableColumn colvarRepBirthDate = new TableSchema.TableColumn(schema);
+				colvarRepBirthDate.ColumnName = "RepBirthDate";
+				colvarRepBirthDate.DataType = DbType.DateTime;
+				colvarRepBirthDate.MaxLength = 0;
+				colvarRepBirthDate.AutoIncrement = false;
+				colvarRepBirthDate.IsNullable = true;
+				colvarRepBirthDate.IsPrimaryKey = false;
+				colvarRepBirthDate.IsForeignKey = false;
+				colvarRepBirthDate.IsReadOnly = false;
+				colvarRepBirthDate.DefaultSetting = @"";
+				colvarRepBirthDate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRepBirthDate);
+
+				TableSchema.TableColumn colvarRepSeasonId = new TableSchema.TableColumn(schema);
+				colvarRepSeasonId.ColumnName = "RepSeasonId";
+				colvarRepSeasonId.DataType = DbType.Int32;
+				colvarRepSeasonId.MaxLength = 0;
+				colvarRepSeasonId.AutoIncrement = false;
+				colvarRepSeasonId.IsNullable = false;
+				colvarRepSeasonId.IsPrimaryKey = false;
+				colvarRepSeasonId.IsForeignKey = false;
+				colvarRepSeasonId.IsReadOnly = false;
+				colvarRepSeasonId.DefaultSetting = @"";
+				colvarRepSeasonId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRepSeasonId);
+
+				TableSchema.TableColumn colvarRepSeasonName = new TableSchema.TableColumn(schema);
+				colvarRepSeasonName.ColumnName = "RepSeasonName";
+				colvarRepSeasonName.DataType = DbType.String;
+				colvarRepSeasonName.MaxLength = 50;
+				colvarRepSeasonName.AutoIncrement = false;
+				colvarRepSeasonName.IsNullable = false;
+				colvarRepSeasonName.IsPrimaryKey = false;
+				colvarRepSeasonName.IsForeignKey = false;
+				colvarRepSeasonName.IsReadOnly = false;
+				colvarRepSeasonName.DefaultSetting = @"";
+				colvarRepSeasonName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRepSeasonName);
+
+				BaseSchema = schema;
+				DataService.Providers["SosHumanResourceProvider"].AddSchema("vwRU_SalesReps",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public RU_SalesRepsView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public string SalesRepId {
+			get { return GetColumnValue<string>(Columns.SalesRepId); }
+			set { SetColumnValue(Columns.SalesRepId, value); }
+		}
+		[DataMember]
+		public string FullName {
+			get { return GetColumnValue<string>(Columns.FullName); }
+			set { SetColumnValue(Columns.FullName, value); }
+		}
+		[DataMember]
+		public string RepFirstName {
+			get { return GetColumnValue<string>(Columns.RepFirstName); }
+			set { SetColumnValue(Columns.RepFirstName, value); }
+		}
+		[DataMember]
+		public string RepLastName {
+			get { return GetColumnValue<string>(Columns.RepLastName); }
+			set { SetColumnValue(Columns.RepLastName, value); }
+		}
+		[DataMember]
+		public DateTime? RepBirthDate {
+			get { return GetColumnValue<DateTime?>(Columns.RepBirthDate); }
+			set { SetColumnValue(Columns.RepBirthDate, value); }
+		}
+		[DataMember]
+		public int RepSeasonId {
+			get { return GetColumnValue<int>(Columns.RepSeasonId); }
+			set { SetColumnValue(Columns.RepSeasonId, value); }
+		}
+		[DataMember]
+		public string RepSeasonName {
+			get { return GetColumnValue<string>(Columns.RepSeasonName); }
+			set { SetColumnValue(Columns.RepSeasonName, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return FullName;
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn SalesRepIdColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn FullNameColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn RepFirstNameColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn RepLastNameColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn RepBirthDateColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn RepSeasonIdColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn RepSeasonNameColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string SalesRepId = @"SalesRepId";
+			public const string FullName = @"FullName";
+			public const string RepFirstName = @"RepFirstName";
+			public const string RepLastName = @"RepLastName";
+			public const string RepBirthDate = @"RepBirthDate";
+			public const string RepSeasonId = @"RepSeasonId";
+			public const string RepSeasonName = @"RepSeasonName";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
 	/// Strongly-typed collection for the RU_TeamLocationView class.
 	/// </summary>
 	[DataContract]
@@ -7226,7 +7469,7 @@ namespace SOS.Data.HumanResource
 				colvarTechnicianId.DataType = DbType.String;
 				colvarTechnicianId.MaxLength = 25;
 				colvarTechnicianId.AutoIncrement = false;
-				colvarTechnicianId.IsNullable = true;
+				colvarTechnicianId.IsNullable = false;
 				colvarTechnicianId.IsPrimaryKey = false;
 				colvarTechnicianId.IsForeignKey = false;
 				colvarTechnicianId.IsReadOnly = false;
@@ -7997,6 +8240,249 @@ namespace SOS.Data.HumanResource
 			public const string CreatedByID = @"CreatedByID";
 			public const string CreatedByDate = @"CreatedByDate";
 			public const string OfficeName = @"OfficeName";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
+	/// Strongly-typed collection for the RU_UserSalesInfoConnextView class.
+	/// </summary>
+	[DataContract]
+	public partial class RU_UserSalesInfoConnextViewCollection : ReadOnlyList<RU_UserSalesInfoConnextView, RU_UserSalesInfoConnextViewCollection>
+	{
+		public static RU_UserSalesInfoConnextViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			RU_UserSalesInfoConnextViewCollection result = new RU_UserSalesInfoConnextViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwRU_UserSalesInfoConnext view.
+	/// </summary>
+	[DataContract]
+	public partial class RU_UserSalesInfoConnextView : ReadOnlyRecord<RU_UserSalesInfoConnextView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwRU_UserSalesInfoConnext", TableType.Table, DataService.GetInstance("SosHumanResourceProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarUserID = new TableSchema.TableColumn(schema);
+				colvarUserID.ColumnName = "UserID";
+				colvarUserID.DataType = DbType.Int32;
+				colvarUserID.MaxLength = 0;
+				colvarUserID.AutoIncrement = true;
+				colvarUserID.IsNullable = false;
+				colvarUserID.IsPrimaryKey = false;
+				colvarUserID.IsForeignKey = false;
+				colvarUserID.IsReadOnly = false;
+				colvarUserID.DefaultSetting = @"";
+				colvarUserID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarUserID);
+
+				TableSchema.TableColumn colvarFirstName = new TableSchema.TableColumn(schema);
+				colvarFirstName.ColumnName = "FirstName";
+				colvarFirstName.DataType = DbType.String;
+				colvarFirstName.MaxLength = 50;
+				colvarFirstName.AutoIncrement = false;
+				colvarFirstName.IsNullable = true;
+				colvarFirstName.IsPrimaryKey = false;
+				colvarFirstName.IsForeignKey = false;
+				colvarFirstName.IsReadOnly = false;
+				colvarFirstName.DefaultSetting = @"";
+				colvarFirstName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarFirstName);
+
+				TableSchema.TableColumn colvarMiddleName = new TableSchema.TableColumn(schema);
+				colvarMiddleName.ColumnName = "MiddleName";
+				colvarMiddleName.DataType = DbType.String;
+				colvarMiddleName.MaxLength = 50;
+				colvarMiddleName.AutoIncrement = false;
+				colvarMiddleName.IsNullable = true;
+				colvarMiddleName.IsPrimaryKey = false;
+				colvarMiddleName.IsForeignKey = false;
+				colvarMiddleName.IsReadOnly = false;
+				colvarMiddleName.DefaultSetting = @"";
+				colvarMiddleName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarMiddleName);
+
+				TableSchema.TableColumn colvarLastName = new TableSchema.TableColumn(schema);
+				colvarLastName.ColumnName = "LastName";
+				colvarLastName.DataType = DbType.String;
+				colvarLastName.MaxLength = 50;
+				colvarLastName.AutoIncrement = false;
+				colvarLastName.IsNullable = true;
+				colvarLastName.IsPrimaryKey = false;
+				colvarLastName.IsForeignKey = false;
+				colvarLastName.IsReadOnly = false;
+				colvarLastName.DefaultSetting = @"";
+				colvarLastName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLastName);
+
+				TableSchema.TableColumn colvarMLMDepth = new TableSchema.TableColumn(schema);
+				colvarMLMDepth.ColumnName = "MLMDepth";
+				colvarMLMDepth.DataType = DbType.Int64;
+				colvarMLMDepth.MaxLength = 0;
+				colvarMLMDepth.AutoIncrement = false;
+				colvarMLMDepth.IsNullable = true;
+				colvarMLMDepth.IsPrimaryKey = false;
+				colvarMLMDepth.IsForeignKey = false;
+				colvarMLMDepth.IsReadOnly = false;
+				colvarMLMDepth.DefaultSetting = @"";
+				colvarMLMDepth.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarMLMDepth);
+
+				TableSchema.TableColumn colvarManagerHasOwnTeam = new TableSchema.TableColumn(schema);
+				colvarManagerHasOwnTeam.ColumnName = "ManagerHasOwnTeam";
+				colvarManagerHasOwnTeam.DataType = DbType.Boolean;
+				colvarManagerHasOwnTeam.MaxLength = 0;
+				colvarManagerHasOwnTeam.AutoIncrement = false;
+				colvarManagerHasOwnTeam.IsNullable = true;
+				colvarManagerHasOwnTeam.IsPrimaryKey = false;
+				colvarManagerHasOwnTeam.IsForeignKey = false;
+				colvarManagerHasOwnTeam.IsReadOnly = false;
+				colvarManagerHasOwnTeam.DefaultSetting = @"";
+				colvarManagerHasOwnTeam.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarManagerHasOwnTeam);
+
+				TableSchema.TableColumn colvarTeamName = new TableSchema.TableColumn(schema);
+				colvarTeamName.ColumnName = "TeamName";
+				colvarTeamName.DataType = DbType.AnsiString;
+				colvarTeamName.MaxLength = 9;
+				colvarTeamName.AutoIncrement = false;
+				colvarTeamName.IsNullable = false;
+				colvarTeamName.IsPrimaryKey = false;
+				colvarTeamName.IsForeignKey = false;
+				colvarTeamName.IsReadOnly = false;
+				colvarTeamName.DefaultSetting = @"";
+				colvarTeamName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTeamName);
+
+				BaseSchema = schema;
+				DataService.Providers["SosHumanResourceProvider"].AddSchema("vwRU_UserSalesInfoConnext",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public RU_UserSalesInfoConnextView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public int UserID {
+			get { return GetColumnValue<int>(Columns.UserID); }
+			set { SetColumnValue(Columns.UserID, value); }
+		}
+		[DataMember]
+		public string FirstName {
+			get { return GetColumnValue<string>(Columns.FirstName); }
+			set { SetColumnValue(Columns.FirstName, value); }
+		}
+		[DataMember]
+		public string MiddleName {
+			get { return GetColumnValue<string>(Columns.MiddleName); }
+			set { SetColumnValue(Columns.MiddleName, value); }
+		}
+		[DataMember]
+		public string LastName {
+			get { return GetColumnValue<string>(Columns.LastName); }
+			set { SetColumnValue(Columns.LastName, value); }
+		}
+		[DataMember]
+		public long? MLMDepth {
+			get { return GetColumnValue<long?>(Columns.MLMDepth); }
+			set { SetColumnValue(Columns.MLMDepth, value); }
+		}
+		[DataMember]
+		public bool? ManagerHasOwnTeam {
+			get { return GetColumnValue<bool?>(Columns.ManagerHasOwnTeam); }
+			set { SetColumnValue(Columns.ManagerHasOwnTeam, value); }
+		}
+		[DataMember]
+		public string TeamName {
+			get { return GetColumnValue<string>(Columns.TeamName); }
+			set { SetColumnValue(Columns.TeamName, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return FirstName;
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn UserIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn FirstNameColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn MiddleNameColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn LastNameColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn MLMDepthColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn ManagerHasOwnTeamColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn TeamNameColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string UserID = @"UserID";
+			public const string FirstName = @"FirstName";
+			public const string MiddleName = @"MiddleName";
+			public const string LastName = @"LastName";
+			public const string MLMDepth = @"MLMDepth";
+			public const string ManagerHasOwnTeam = @"ManagerHasOwnTeam";
+			public const string TeamName = @"TeamName";
 		}
 		#endregion Columns Struct
 	}

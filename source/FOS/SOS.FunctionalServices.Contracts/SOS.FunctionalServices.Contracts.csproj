@@ -87,6 +87,7 @@
     <Compile Include="Models\Funding\IFnsFeCriteria.cs" />
     <Compile Include="Models\Funding\IFnsFePacketItemView.cs" />
     <Compile Include="Models\Funding\IFnsFePacketView.cs" />
+    <Compile Include="Models\HumanResource\IFnsRuSalesRep.cs" />
     <Compile Include="Models\HumanResource\IFnsSalesSalespersonMonthlyHolds.cs" />
     <Compile Include="Models\HumanResource\IFnsSalesSalespersonMonthlyCommissions.cs" />
     <Compile Include="Models\HumanResource\IFnsSalesSalespersonMonthlyEarningsSummary.cs" />

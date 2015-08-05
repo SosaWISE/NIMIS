@@ -13,6 +13,74 @@ namespace SOS.Data.HumanResource {
 			sp.Command.AddParameter("@DocumentID", DocumentID, DbType.Int32);
 			return sp;
 		}
+		public static StoredProcedure Report_AccountHolds(string salesRepId,int? dealerId,DateTime? startDate,DateTime? endDate) {
+			StoredProcedure sp = new StoredProcedure("custReport_AccountHolds" ,DataService.GetInstance("SosHumanResourceProvider"));
+			sp.Command.AddParameter("@salesRepId", salesRepId, DbType.AnsiString);
+			sp.Command.AddParameter("@dealerId", dealerId, DbType.Int32);
+			sp.Command.AddParameter("@startDate", startDate, DbType.DateTime);
+			sp.Command.AddParameter("@endDate", endDate, DbType.DateTime);
+			return sp;
+		}
+		public static StoredProcedure Report_CreditAndInstalls(int? officeId,DateTime? startDate,DateTime? endDate) {
+			StoredProcedure sp = new StoredProcedure("custReport_CreditAndInstalls" ,DataService.GetInstance("SosHumanResourceProvider"));
+			sp.Command.AddParameter("@officeId", officeId, DbType.Int32);
+			sp.Command.AddParameter("@startDate", startDate, DbType.DateTime);
+			sp.Command.AddParameter("@endDate", endDate, DbType.DateTime);
+			return sp;
+		}
+		public static StoredProcedure Report_MyAccounts(int? officeId,string salesRepId,DateTime? startDate,DateTime? endDate) {
+			StoredProcedure sp = new StoredProcedure("custReport_MyAccounts" ,DataService.GetInstance("SosHumanResourceProvider"));
+			sp.Command.AddParameter("@officeId", officeId, DbType.Int32);
+			sp.Command.AddParameter("@salesRepId", salesRepId, DbType.AnsiString);
+			sp.Command.AddParameter("@startDate", startDate, DbType.DateTime);
+			sp.Command.AddParameter("@endDate", endDate, DbType.DateTime);
+			return sp;
+		}
+		public static StoredProcedure Report_PendingInstalls(int? officeId,string salesRepId,int? DealerId,DateTime? startDate,DateTime? endDate) {
+			StoredProcedure sp = new StoredProcedure("custReport_PendingInstalls" ,DataService.GetInstance("SosHumanResourceProvider"));
+			sp.Command.AddParameter("@officeId", officeId, DbType.Int32);
+			sp.Command.AddParameter("@salesRepId", salesRepId, DbType.AnsiString);
+			sp.Command.AddParameter("@DealerId", DealerId, DbType.Int32);
+			sp.Command.AddParameter("@startDate", startDate, DbType.DateTime);
+			sp.Command.AddParameter("@endDate", endDate, DbType.DateTime);
+			return sp;
+		}
+		public static StoredProcedure Report_Performance(int? officeId,string salesRepId,int? DealerId,DateTime? startDate,DateTime? endDate) {
+			StoredProcedure sp = new StoredProcedure("custReport_Performance" ,DataService.GetInstance("SosHumanResourceProvider"));
+			sp.Command.AddParameter("@officeId", officeId, DbType.Int32);
+			sp.Command.AddParameter("@salesRepId", salesRepId, DbType.AnsiString);
+			sp.Command.AddParameter("@DealerId", DealerId, DbType.Int32);
+			sp.Command.AddParameter("@startDate", startDate, DbType.DateTime);
+			sp.Command.AddParameter("@endDate", endDate, DbType.DateTime);
+			return sp;
+		}
+		public static StoredProcedure Report_Performance2(int? officeId,string salesRepId,int? DealerId,DateTime? startDate,DateTime? endDate) {
+			StoredProcedure sp = new StoredProcedure("custReport_Performance2" ,DataService.GetInstance("SosHumanResourceProvider"));
+			sp.Command.AddParameter("@officeId", officeId, DbType.Int32);
+			sp.Command.AddParameter("@salesRepId", salesRepId, DbType.AnsiString);
+			sp.Command.AddParameter("@DealerId", DealerId, DbType.Int32);
+			sp.Command.AddParameter("@startDate", startDate, DbType.DateTime);
+			sp.Command.AddParameter("@endDate", endDate, DbType.DateTime);
+			return sp;
+		}
+		public static StoredProcedure Report_PerformanceOfficeBreakDown(int? officeId,string salesRepId,int? DealerId,DateTime? startDate,DateTime? endDate) {
+			StoredProcedure sp = new StoredProcedure("custReport_PerformanceOfficeBreakDown" ,DataService.GetInstance("SosHumanResourceProvider"));
+			sp.Command.AddParameter("@officeId", officeId, DbType.Int32);
+			sp.Command.AddParameter("@salesRepId", salesRepId, DbType.AnsiString);
+			sp.Command.AddParameter("@DealerId", DealerId, DbType.Int32);
+			sp.Command.AddParameter("@startDate", startDate, DbType.DateTime);
+			sp.Command.AddParameter("@endDate", endDate, DbType.DateTime);
+			return sp;
+		}
+		public static StoredProcedure Report_PerformanceSalesRepBreakDown(int? officeId,string salesRepId,int? DealerId,DateTime? startDate,DateTime? endDate) {
+			StoredProcedure sp = new StoredProcedure("custReport_PerformanceSalesRepBreakDown" ,DataService.GetInstance("SosHumanResourceProvider"));
+			sp.Command.AddParameter("@officeId", officeId, DbType.Int32);
+			sp.Command.AddParameter("@salesRepId", salesRepId, DbType.AnsiString);
+			sp.Command.AddParameter("@DealerId", DealerId, DbType.Int32);
+			sp.Command.AddParameter("@startDate", startDate, DbType.DateTime);
+			sp.Command.AddParameter("@endDate", endDate, DbType.DateTime);
+			return sp;
+		}
 		public static StoredProcedure RU_RecruitGetAllTechsBySeasonID(int? SeasonID) {
 			StoredProcedure sp = new StoredProcedure("custRU_RecruitGetAllTechsBySeasonID" ,DataService.GetInstance("SosHumanResourceProvider"));
 			sp.Command.AddParameter("@SeasonID", SeasonID, DbType.Int32);

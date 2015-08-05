@@ -89,6 +89,7 @@
     <Compile Include="Models\Funding\FnsFePacketView.cs" />
     <Compile Include="Models\HumanResource\FnsConnextAccountInfo.cs" />
     <Compile Include="Models\HumanResource\FnsConnextCombinedMonthlySalesDetails.cs" />
+    <Compile Include="Models\HumanResource\FnsRuSalesRep.cs" />
     <Compile Include="Models\HumanResource\FnsSalesSalespersonMonthlyHolds.cs" />
     <Compile Include="Models\HumanResource\FnsSalesSalespersonMonthlyCommissions.cs" />
     <Compile Include="Models\HumanResource\FnsSalesSalespersonMonthlyEarnings.cs" />

@@ -21,6 +21,8 @@ namespace SOS.FunctionalServices.Contracts
         IFnsResult<List<IFnsRuTechnician>> GetRuTechnicianList();
         IFnsResult<IFnsRuTechnician> RuTechnicianGetByTechnicianId(string technicianId);
 
+		IFnsResult<List<IFnsRuSalesRep>> GetRuSalesRepList();
+
 		IFnsResult<IFnsRuTeam> TeamGet(int teamid);
 		IFnsResult<IFnsRuTeam> TeamSave(IFnsRuTeam fnsTeam, string gpEmployeeId);
 		IFnsResult<object> TeamsSearch(object teamSearchInfo);

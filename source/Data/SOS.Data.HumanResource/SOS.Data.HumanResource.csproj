@@ -59,6 +59,7 @@
     <Compile Include="ControllerExtensions\RU_RoleLocationControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\RU_SeasonControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\RU_TeamControllerExtensions.cs" />
+    <Compile Include="ControllerExtensions\RU_SalesRepViewControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\RU_TechnicianControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\RU_TeamLocationControllerExtensions.cs" />
     <Compile Include="ControllerExtensions\RU_TerminationCategoryControllerExtensions.cs" />

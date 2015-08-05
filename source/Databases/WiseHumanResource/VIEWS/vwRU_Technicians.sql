@@ -68,36 +68,7 @@ FROM
        INNER JOIN [WISE_HumanResource].[dbo].[RU_Season] AS RS WITH (NOLOCK)
        ON
               (RS.SeasonID = RR.SeasonID)
-/*
-
--- this query is from andres
--- it returns duplicate names for technician
-
-SELECT
-       MSA.AccountID
-       , MSA.TechId
-       , RU.FirstName AS TechFirstName
-       , RU.LastName AS TechLastName
-       , RU.BirthDate AS [TechB-Day]
-       , RS.SeasonID AS TechSeasonId
-       , RS.SeasonName AS TechSeasonName
-FROM
-       [dbo].MS_Accounts AS MSA WITH (NOLOCK)
-       INNER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS RU WITH (NOLOCK)
-       ON
-              (RU.GPEmployeeID = MSA.TechId)
-       INNER JOIN [WISE_HumanResource].[dbo].[RU_Recruits] AS RR WITH (NOLOCK)
-       ON
-              (RR.UserID = RU.UserID)
-       INNER JOIN [WISE_HumanResource].[dbo].[RU_Season] AS RS WITH (NOLOCK)
-       ON
-              (RS.SeasonID = RR.SeasonID)
- */
-
-
-
-
 
 GO
 /* TEST */
--- SELECT * FROM vwRU_Technicians
+SELECT * FROM vwRU_Technicians

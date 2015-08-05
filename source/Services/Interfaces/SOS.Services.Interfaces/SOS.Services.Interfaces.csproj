@@ -102,6 +102,7 @@
     <Compile Include="Models\GpsTracking\GsAccountGeoFenceTypes.cs" />
     <Compile Include="Models\GpsTracking\GsDeviceEvents.cs" />
     <Compile Include="Models\GpsTracking\GsEventTypeView.cs" />
+    <Compile Include="Models\HumanResources\RuSalesRep.cs" />
     <Compile Include="Models\HumanResources\SAESalesSalespersonMonthlyHolds.cs" />
     <Compile Include="Models\HumanResources\SAESalesSalespersonMonthlyCommissions.cs" />
     <Compile Include="Models\HumanResources\SAESalesSalespersonMonthlyEarnings.cs" />

@@ -1896,6 +1896,16 @@ namespace SOS.Data.HumanResource
 			}
 		}
 
+		RU_SeasonTeamLocationDefaultController _RU_SeasonTeamLocationDefaults;
+		public RU_SeasonTeamLocationDefaultController RU_SeasonTeamLocationDefaults
+		{
+			get
+			{
+				if (_RU_SeasonTeamLocationDefaults == null) _RU_SeasonTeamLocationDefaults = new RU_SeasonTeamLocationDefaultController();
+				return _RU_SeasonTeamLocationDefaults;
+			}
+		}
+
 		RU_SiteCodeController _RU_SiteCodes;
 		public RU_SiteCodeController RU_SiteCodes
 		{
@@ -2410,6 +2420,16 @@ namespace SOS.Data.HumanResource
 			}
 		}
 
+		RU_SalesRepsViewController _RU_SalesRepsViews;
+		public RU_SalesRepsViewController RU_SalesRepsViews
+		{
+			get
+			{
+				if (_RU_SalesRepsViews == null) _RU_SalesRepsViews = new RU_SalesRepsViewController();
+				return _RU_SalesRepsViews;
+			}
+		}
+
 		RU_TeamLocationViewController _RU_TeamLocationViews;
 		public RU_TeamLocationViewController RU_TeamLocationViews
 		{
@@ -2477,6 +2497,16 @@ namespace SOS.Data.HumanResource
 			{
 				if (_RU_TerminationsWithStatusViews == null) _RU_TerminationsWithStatusViews = new RU_TerminationsWithStatusViewController();
 				return _RU_TerminationsWithStatusViews;
+			}
+		}
+
+		RU_UserSalesInfoConnextViewController _RU_UserSalesInfoConnextViews;
+		public RU_UserSalesInfoConnextViewController RU_UserSalesInfoConnextViews
+		{
+			get
+			{
+				if (_RU_UserSalesInfoConnextViews == null) _RU_UserSalesInfoConnextViews = new RU_UserSalesInfoConnextViewController();
+				return _RU_UserSalesInfoConnextViews;
 			}
 		}
 
@@ -2701,6 +2731,7 @@ namespace SOS.Data.HumanResource
 	public class RU_SeasonController : BaseTableController<RU_Season, RU_SeasonCollection> { }
 	public class RU_SeasonSummerController : BaseTableController<RU_SeasonSummer, RU_SeasonSummerCollection> { }
 	public class RU_SeasonSummerSeason_MapController : BaseTableController<RU_SeasonSummerSeason_Map, RU_SeasonSummerSeason_MapCollection> { }
+	public class RU_SeasonTeamLocationDefaultController : BaseTableController<RU_SeasonTeamLocationDefault, RU_SeasonTeamLocationDefaultCollection> { }
 	public class RU_SiteCodeController : BaseTableController<RU_SiteCode, RU_SiteCodeCollection> { }
 	public class RU_TeamLocationRosterController : BaseTableController<RU_TeamLocationRoster, RU_TeamLocationRosterCollection> { }
 	public class RU_TeamLocationController : BaseTableController<RU_TeamLocation, RU_TeamLocationCollection> { }
@@ -2757,6 +2788,7 @@ namespace SOS.Data.HumanResource
 	public class TeamSalesManagersViewController : BaseViewController<TeamSalesManagersView, TeamSalesManagersViewCollection> { }
 	public class RU_RecruitUserViewController : BaseViewController<RU_RecruitUserView, RU_RecruitUserViewCollection> { }
 	public class RU_RollCallRecordsLatestByRecruitViewController : BaseViewController<RU_RollCallRecordsLatestByRecruitView, RU_RollCallRecordsLatestByRecruitViewCollection> { }
+	public class RU_SalesRepsViewController : BaseViewController<RU_SalesRepsView, RU_SalesRepsViewCollection> { }
 	public class RU_TeamLocationViewController : BaseViewController<RU_TeamLocationView, RU_TeamLocationViewCollection> { }
 	public class RU_TeamLocationRosterByWeekViewController : BaseViewController<RU_TeamLocationRosterByWeekView, RU_TeamLocationRosterByWeekViewCollection> { }
 	public class RU_TeamLocationRosterTransfersViewController : BaseViewController<RU_TeamLocationRosterTransfersView, RU_TeamLocationRosterTransfersViewCollection> { }
@@ -2764,6 +2796,7 @@ namespace SOS.Data.HumanResource
 	public class RU_TechniciansViewController : BaseViewController<RU_TechniciansView, RU_TechniciansViewCollection> { }
 	public class RU_TerminationStatusCurrentStatusViewController : BaseViewController<RU_TerminationStatusCurrentStatusView, RU_TerminationStatusCurrentStatusViewCollection> { }
 	public class RU_TerminationsWithStatusViewController : BaseViewController<RU_TerminationsWithStatusView, RU_TerminationsWithStatusViewCollection> { }
+	public class RU_UserSalesInfoConnextViewController : BaseViewController<RU_UserSalesInfoConnextView, RU_UserSalesInfoConnextViewCollection> { }
 	public class RU_UsersCallerIDViewController : BaseViewController<RU_UsersCallerIDView, RU_UsersCallerIDViewCollection> { }
 	public class RU_UsersTechViewController : BaseViewController<RU_UsersTechView, RU_UsersTechViewCollection> { }
 	public class TechniciansViewController : BaseViewController<TechniciansView, TechniciansViewCollection> { }

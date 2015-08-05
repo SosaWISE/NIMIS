@@ -1,7 +1,6 @@
 ﻿using SOS.Data.HumanResource;
 using SOS.FunctionalServices.Contracts.Models.HumanResource;
 using System;
-using System.Collections.Generic;
 
 namespace SOS.FunctionalServices.Models.HumanResource
 {
