@@ -81,4 +81,3 @@ GRANT EXEC ON dbo.wiseMC_ChangeTeamLocationIdByAccountID TO PUBLIC
 GO
 
 /** */
-EXEC dbo.wiseMC_ChangeTeamLocationIdByAccountID 191201, 7;

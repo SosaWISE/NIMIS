@@ -86,7 +86,9 @@ BEGIN
 	FROM
 		[WISE_HumanResource].[dbo].[RU_TeamLocations]
 	WHERE
-		(@officeId IS NULL OR (TeamLocationID = @officeId)) AND (IsActive = 1 AND IsDeleted = 0);
+		(@officeId IS NULL OR (TeamLocationID = @officeId))
+		AND (TeamLocationID <> 3)  -- Exclude MISC office
+		AND (IsActive = 1 AND IsDeleted = 0);
 
 	OPEN officeCur;
 	
@@ -262,3 +264,5 @@ EXEC dbo.custReport_Performance @officeId, NULL, @DealerId, @startDate, @endDate
 --	[WISE_CRM].[dbo].fxRepts_InstallsByRepIdOfficeIdAll(@officeId, @salesRepId, @dealerId, @startDate, @endDate) AS [FXF]
 --	ON
 --		(RUT.TeamLocationID = FXF.OfficeId);
+
+SELECT * FROM [SAE_ReportsPerformanceAllData] WHERE (OfficeId = 3)
