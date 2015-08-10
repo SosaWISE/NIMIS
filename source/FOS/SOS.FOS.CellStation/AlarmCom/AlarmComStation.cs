@@ -32,6 +32,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 		#endregion Properties
 
 		#region Methods
+
 		#region Private
 
 		private Authentication GetAuth()
@@ -89,6 +90,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 		}
 
 		#endregion Private
+
 		#region Public
 
 		/// <summary>
@@ -460,6 +462,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 		//    return customerFound;
 		//}
 		#endregion Public
+
 		#region Events
 
 		//private static IMonitoredMessage ErrorManagerOnNewMessage(MonitoredMessageType eMessageType, Exception ex, string szTitle, string szMessage) {
@@ -473,6 +476,7 @@ namespace SOS.FOS.CellStation.AlarmCom
 		//}
 
 		#endregion Events
+
 		#endregion Methods
 
 		/// <summary>

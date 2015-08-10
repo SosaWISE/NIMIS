@@ -53,6 +53,7 @@ BEGIN
 	/** EXECUTION */
 	SELECT DISTINCT
 		AECA.CustomerMasterFileID AS CMFID
+		, MSASI.AccountID
 		, MSASI.TeamLocationId
 		, RT.Description AS [OfficeName]
 		, AEC.FirstName + ' ' + AEC.LastName AS [CustomerName]
@@ -139,7 +140,5 @@ GRANT EXEC ON dbo.custReport_MyAccounts TO PUBLIC
 GO
 
 /*
+EXEC dbo.custReport_MyAccounts 0, 'JOHNT001', '2013-02-01 00:00:00', '2015-08-06 05:00:00'
 */
-
-EXEC dbo.custReport_MyAccounts 0, 'FARRB001', '2013-02-01 00:00:00', '2015-08-06 05:00:00'
-

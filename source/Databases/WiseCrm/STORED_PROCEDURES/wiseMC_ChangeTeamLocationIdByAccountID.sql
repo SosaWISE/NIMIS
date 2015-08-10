@@ -45,10 +45,6 @@ BEGIN
 	/** SET NO COUNTING */
 	SET NOCOUNT ON
 
-	/** DECLARATIONS */
-	DECLARE @LeadID BIGINT
-		, @AddressID BIGINT;
-
 	/** CHECK THAT THIS IS A LEGIT REP ID. */
 	IF(NOT EXISTS (SELECT * FROM [dbo].[MS_Accounts] WHERE AccountID = @AccountID))
 	BEGIN
@@ -64,11 +60,8 @@ BEGIN
 	BEGIN TRY
 		BEGIN TRANSACTION
 			/** GET LEAD ID */
-			SELECT @LeadID = LeadID FROM dbo.vwAE_CustomerAccounts WHERE (AccountId = @AccountID) AND (CustomerTypeId = 'PRI');
-			SELECT @AddressID = AddressID FROM dbo.QL_Leads WHERE (LeadID = @LeadID);
-
-			UPDATE [dbo].[QL_Leads] SET TeamLocationId = @TeamLocationID WHERE (LeadID = @LeadID);
-			UPDATE [dbo].[QL_Address] SET TeamLocationId = @TeamLocationID WHERE (AddressID = @AddressID);
+			UPDATE [dbo].[QL_Leads] SET TeamLocationId = @TeamLocationID WHERE (LeadID IN (SELECT LeadID FROM dbo.vwAE_CustomerAccounts WHERE (AccountId = @AccountID)));
+			UPDATE [dbo].[QL_Address] SET TeamLocationId = @TeamLocationID WHERE (AddressID IN (SELECT AddressID FROM dbo.QL_Leads WHERE (LeadID IN (SELECT LeadID FROM dbo.vwAE_CustomerAccounts WHERE (AccountId = @AccountID)))));
 
 		COMMIT TRANSACTION
 	END TRY
@@ -88,4 +81,4 @@ GRANT EXEC ON dbo.wiseMC_ChangeTeamLocationIdByAccountID TO PUBLIC
 GO
 
 /** */
-EXEC dbo.wiseMC_ChangeTeamLocationIdByAccountID 191327, 8;
+EXEC dbo.wiseMC_ChangeTeamLocationIdByAccountID 191201, 7;

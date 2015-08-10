@@ -15,7 +15,7 @@ AccountSubmitTypeID	AccountSubmitType
 7	Initiate Two Way Test
 8	Pull Panel
 */
-DECLARE @AccountID BIGINT = 191333
+DECLARE @AccountID BIGINT = 160927
 	, @AccountSubmitTypeId INT = 1  -- Onboard System
 	, @WasSuccessfull BIT = NULL;
 SELECT TOP 1 * FROM dbo.MS_AccountSubmits WHERE (AccountID = @AccountID) AND (AccountSubmitTypeId = @AccountSubmitTypeId) AND (@WasSuccessfull IS NULL OR WasSuccessfull = @WasSuccessfull) ORDER BY AccountSubmitID DESC;
