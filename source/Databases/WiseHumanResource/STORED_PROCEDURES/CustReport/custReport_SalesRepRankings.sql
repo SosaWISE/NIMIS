@@ -49,7 +49,9 @@ BEGIN
 		 DAT1.SalesRepId
 		, DAT1.SalesRepName
 		, DAT1.NumOfSales
-		, ROW_NUMBER() OVER (PARTITION BY DAT1.[RowCount] ORDER BY DAT1.NumOfSales DESC) AS Ranking
+--		, ROW_NUMBER() OVER (PARTITION BY DAT1.[RowCount] ORDER BY DAT1.NumOfSales DESC) AS Ranking
+--		, RANK() OVER (ORDER BY DAT1.NumOfSales DESC) AS Ranking
+		, DENSE_RANK() OVER (ORDER BY DAT1.NumOfSales DESC) AS Ranking
 	FROM
 	(
 		SELECT 
