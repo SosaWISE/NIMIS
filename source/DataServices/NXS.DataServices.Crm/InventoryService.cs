@@ -2,7 +2,6 @@
 using NXS.Data.Crm;
 using NXS.DataServices.Crm.Models;
 using SOS.Lib.Core;
-using SOS.Lib.Core.ErrorHandling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,6 +60,22 @@ namespace NXS.DataServices.Crm
 				var result = new Result<IeProductBarcodeLast>(value: IeProductBarcodeLast.FromDb(item, true));
 				return result;
 			}
+		}
+
+		public async Task<Result<List<dynamic>>> ProductBarcodeHistoryByID(string id)
+		{
+			var result = new Result<List<dynamic>>();
+
+			var p = new Dapper.DynamicParameters();
+			p.Add("ProductBarcodeId", id);
+
+			using (var db = DBase.Connect())
+			{
+				var items = await db.QueryAsync("custIE_ProductBarcodeTrackingHistoryByBarcodeID", p, commandType: System.Data.CommandType.StoredProcedure);
+				result.Value = items.ToList();
+			}
+			return result;
+			
 		}
 
 		public static DateTime CloseOn { get { return DateTime.Now.Subtract(TimeSpan.FromHours(24)); } }

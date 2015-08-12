@@ -47,19 +47,20 @@ AS
 	-- Enter Query here
 	SELECT
 		IEP.[ProductBarcodeId]
-		,AEI.[ItemDesc]
+		, AEI.ItemSKU
+		, AEI.ModelNumber
+		, AEI.[ItemDesc]
 	FROM
-	[dbo].[IE_ProductBarcodes] AS IEP WITH (NOLOCK)
-	INNER JOIN
-	[dbo].[IE_PurchaseOrderItems] AS IEPOI WITH (NOLOCK)
-	ON
-	IEPOI.[PurchaseOrderItemID] = IEP.[PurchaseOrderItemId]
-	INNER JOIN
-	[dbo].[AE_Items] AS AEI
-	ON
-	AEI.[ItemID] = IEPOI.[ItemId]
+		[dbo].[IE_ProductBarcodes] AS IEP WITH (NOLOCK)
+		INNER JOIN [dbo].[IE_PurchaseOrderItems] AS IEPOI WITH (NOLOCK)
+		ON
+			(IEPOI.[PurchaseOrderItemID] = IEP.[PurchaseOrderItemId])
+		INNER JOIN [dbo].[AE_Items] AS AEI
+		ON
+			(AEI.[ItemID] = IEPOI.[ItemId])
 
 
 GO
 /* TEST */
--- SELECT * FROM vwIE_ProductBarcodeLocation where [LocationID] = 100154
+-- SELECT * FROM vwIE_ProductBarcodeLocation where [LocationID] = '100154';
+SELECT * FROM [dbo].[vwIE_ProductBarcodeItem]

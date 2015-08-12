@@ -461,6 +461,7 @@ namespace SSE.Services.CmsCORS.Controllers.MsAccountSetup
 
 			/** Initialize. */
 			const string METHOD_NAME = "Get PhoneTypes";
+// ReSharper disable once RedundantAssignment
 			var result = new CmsCORSResult<List<MsEmergencyContactPhoneType>>((int)CmsResultCodes.Initializing
 				, string.Format("Initializing {0}.", METHOD_NAME));
 

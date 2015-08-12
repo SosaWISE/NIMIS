@@ -114,6 +114,10 @@ namespace SOS.Lib.Core.ErrorHandling
 			, CSLookupFailed = 90200
 			, CSDispatchAgencyNotFound = 90300
 			#endregion Central Station Messages
+
+			#region Helpful Messages
+			, HMIndustryAccountNotSetYet = 100000
+			#endregion Helpful Messages
 		}
 
 		#endregion Properties
@@ -171,6 +175,11 @@ namespace SOS.Lib.Core.ErrorHandling
 					return "The primary key passed ('{0}') did not return a value.";
 			#endregion General Errors and Sessions
 
+			#region SQL MESSAGES
+				case ErrorCodes.SqlItemNotFound:
+					return "The search performed returned no results";
+			#endregion SQL MESSAGES
+
 				case ErrorCodes.MSAccountSystemInfoGetFailed:
 					return "While pulling sytem information on AccountID '{0}' with CSID '{1}' the following error was returned:\r\n{2}";
 				case ErrorCodes.MSAccountOnboardError:
@@ -203,6 +212,12 @@ namespace SOS.Lib.Core.ErrorHandling
 					return "The central station '{0}' did not return any signal history for CSID '{1}'.";
 
 					#endregion Central Station Messages
+
+			#region Helpful Messages
+				case ErrorCodes.HMIndustryAccountNotSetYet:
+					return "This account has not had an industry number assigned to it.  To be able to continue make sure that is done.";
+			#endregion Helpful Messages
+
 				default:
 					return "Unknown Error";
 			}

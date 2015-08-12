@@ -22,6 +22,7 @@ using SOS.FunctionalServices.Contracts.Models;
 using SOS.FunctionalServices.Contracts.Models.Reporting;
 using SOS.FunctionalServices.Models;
 using SOS.FunctionalServices.Models.Reporting;
+using SOS.Lib.Core;
 using SOS.Lib.Core.ErrorHandling;
 using SOS.Lib.Core.ExceptionHandling;
 
@@ -48,8 +49,43 @@ namespace SOS.FunctionalServices
 
 			try
 			{
-
+				// ** Get the msaccount information
 				var msAccount = SosCrmDataContext.Instance.MS_Accounts.LoadByPrimaryKey(accountId);
+
+				// ** Check that there is an industry number assigned to this account.
+				if (msAccount.IndustryAccount == null)
+				{
+					var csStatusListNoCSNum = new List<IFnsMsAccountOnlineStatusInfo>();
+					csStatusListNoCSNum.Add(new FnsMsAccountOnlineStatusInfo
+					{
+						KeyName = "Central Station",
+						Status = "Unknown",
+						Value = "Online Date: Not Set | Confirmation #: Not Set"
+					});
+					csStatusListNoCSNum.Add(new FnsMsAccountOnlineStatusInfo
+					{
+						KeyName = "Monitoring Status",
+						Status = "Unknown",
+						Value = "Monitoring: Unknown | On Test: Unknown"
+					});
+					csStatusListNoCSNum.Add(new FnsMsAccountOnlineStatusInfo
+					{
+						KeyName = "Cellular Provider: Unknown",
+						Status = "Unknown",
+						Value = "Cellular Vendor: Unknown"
+					});
+					csStatusListNoCSNum.Add(new FnsMsAccountOnlineStatusInfo
+					{
+						KeyName = "Device Status: Not Registered",
+						Status = "Unknown",
+						Value = "Serial Number: Unknown"
+					});
+					result.Code = BaseErrorCodes.ErrorCodes.Success.Code();
+					result.Message = BaseErrorCodes.ErrorCodes.Success.Message();
+					result.Value = csStatusListNoCSNum;
+					return result;
+				}
+
 				var csStatustList = GetCentralStationInfo(msAccount, gpEmployeeId);
 				GetCellularDeviceInfo(msAccount, csStatustList);
 

@@ -45,7 +45,7 @@ CREATE Procedure dbo.custReport_AccountHolds
 AS
 BEGIN
 
-	SELECT TOP 10 
+	SELECT
 		AECA.CustomerMasterFileId AS CustomerNumber
 		, MAH.AccountHoldID
 		, AECA.CustomerId
@@ -85,9 +85,9 @@ BEGIN
 		INNER JOIN [WISE_CRM].[dbo].[MC_Addresses] AS MADR WITH (NOLOCK)
 		ON
 			(MADR.AddressID = MSA.PremiseAddressId)
-	--WHERE
-	--	(MSASI.SalesRepId = @salesRepId)
-	--	AND (MAH.CreatedOn BETWEEN @startDate AND @endDate);
+	WHERE
+		(@salesRepId IS NULL OR MSASI.SalesRepId = @salesRepId)
+		AND (MAH.CreatedOn BETWEEN @startDate AND @endDate);
 END
 GO
 

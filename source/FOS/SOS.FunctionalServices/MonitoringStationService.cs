@@ -542,8 +542,8 @@ namespace SOS.FunctionalServices
 				var account = db.MS_Accounts.LoadByPrimaryKey(accountId);
 				if (account == null || account.IndustryAccount == null)
 				{
-					result.Code = (int)ErrorCodes.SqlItemNotFound;
-					result.Message = string.Format("Account {0} not found or missing industry account", accountId);
+					result.Code = BaseErrorCodes.ErrorCodes.HMIndustryAccountNotSetYet.Code();
+					result.Message = BaseErrorCodes.ErrorCodes.HMIndustryAccountNotSetYet.Message();
 				}
 				else
 				{
@@ -604,8 +604,8 @@ namespace SOS.FunctionalServices
 				var account = db.MS_Accounts.LoadByPrimaryKey(accountId);
 				if (account == null || account.IndustryAccount == null)
 				{
-					result.Code = (int)ErrorCodes.SqlItemNotFound;
-					result.Message = string.Format("Account {0} not found or missing industry account", accountId);
+					result.Code = BaseErrorCodes.ErrorCodes.HMIndustryAccountNotSetYet.Code();
+					result.Message = BaseErrorCodes.ErrorCodes.HMIndustryAccountNotSetYet.Message();
 				}
 				else
 				{
@@ -658,8 +658,8 @@ namespace SOS.FunctionalServices
 				var account = db.MS_Accounts.LoadByPrimaryKey(accountId);
 				if (account == null || account.IndustryAccount == null)
 				{
-					result.Code = (int)ErrorCodes.SqlItemNotFound;
-					result.Message = string.Format("Account {0} not found or missing industry account", accountId);
+					result.Code = BaseErrorCodes.ErrorCodes.HMIndustryAccountNotSetYet.Code();
+					result.Message = BaseErrorCodes.ErrorCodes.HMIndustryAccountNotSetYet.Message();
 				}
 				else
 				{
@@ -712,8 +712,8 @@ namespace SOS.FunctionalServices
 				var account = db.MS_Accounts.LoadByPrimaryKey(accountId);
 				if (account == null || account.IndustryAccount == null)
 				{
-					result.Code = (int)ErrorCodes.SqlItemNotFound;
-					result.Message = string.Format("Account {0} not found or missing industry account", accountId);
+					result.Code = BaseErrorCodes.ErrorCodes.HMIndustryAccountNotSetYet.Code();
+					result.Message = BaseErrorCodes.ErrorCodes.HMIndustryAccountNotSetYet.Message();
 				}
 				else
 				{
