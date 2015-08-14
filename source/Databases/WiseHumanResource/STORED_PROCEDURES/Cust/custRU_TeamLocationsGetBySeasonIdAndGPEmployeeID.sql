@@ -122,10 +122,9 @@ GO
 /** Testing 
 */
 
-DECLARE @SeasonId INT = 4
-	, @GPEmployeeId NVARCHAR(25) = 'NEXSE001';
-EXEC dbo.custRU_TeamLocationsGetBySeasonIdAndGPEmployeeID 4, 'SHEED001'
-EXEC dbo.custRU_TeamLocationsGetBySeasonIdAndGPEmployeeID 4, 'NEXSE001'
+DECLARE @SeasonId INT = 7
+	, @GPEmployeeId NVARCHAR(25) = 'CARTB001';
+EXEC dbo.custRU_TeamLocationsGetBySeasonIdAndGPEmployeeID @SeasonId, @GPEmployeeId
 
 		SELECT TOP 1
 			RT.TeamLocationID

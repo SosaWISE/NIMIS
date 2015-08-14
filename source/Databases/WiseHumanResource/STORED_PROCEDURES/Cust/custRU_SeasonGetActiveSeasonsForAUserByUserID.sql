@@ -68,7 +68,7 @@ GRANT EXEC ON dbo.custRU_SeasonGetActiveSeasonsForAUserByUserID TO PUBLIC
 GO
 
 /** TEST
-EXEC dbo.custRU_SeasonGetActiveSeasonsForAUserByUserID 1260
+EXEC dbo.custRU_SeasonGetActiveSeasonsForAUserByUserID 1112
 
 	SELECT
 		RR.RecruitID

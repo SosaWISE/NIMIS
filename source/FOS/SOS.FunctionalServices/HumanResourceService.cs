@@ -62,11 +62,25 @@ namespace SOS.FunctionalServices
 
 					/** Init. */
 					FnsSalesRepInfo resultValue;
-					// ** Get Default TeamLocation
+
+					 //** Get Default TeamLocation
 					if (seasons.Count > 0)
 					{
-						RU_TeamLocation ruTeamLocation =
-							HumanResourceDataContext.Instance.RU_TeamLocations.GetBySeasonIdAndGPEmployeeID(seasons[0].SeasonID, companyId);
+						var ruTeamLocation = new RU_TeamLocation();
+						foreach (var season in seasons)
+						{
+							ruTeamLocation =
+								HumanResourceDataContext.Instance.RU_TeamLocations.GetBySeasonIdAndGPEmployeeID(season.SeasonID, companyId);
+
+							if (ruTeamLocation != null) break;
+						}
+
+						// ** Check to see if there has been a team location found.
+						if (ruTeamLocation == null)
+						{
+							var ruSeasonTlDefault = HumanResourceDataContext.Instance.RU_SeasonTeamLocationDefaults.LoadByPrimaryKey(seasons[0].SeasonID);
+							ruTeamLocation = ruSeasonTlDefault.TeamLocation;
+						}
 
 						// ** Create the result object.
 						resultValue = new FnsSalesRepInfo(item, seasons, ruTeamLocation);
