@@ -14,7 +14,8 @@
 			@"TS_Teams,^SE_"
 			+ ",sysdiagrams,dtproperty,MSreplication_objects,MSreplication_subscriptions"
 			+ ",MSsavedforeignkeycolumns,MSsavedforeignkeyextendedproperties,MSsavedforeignkeys"
-			+ ",MSsnapshotdeliveryprogress,MSsubscription_agents,MSsubscription_properties,^temp$";
+			+ ",MSsnapshotdeliveryprogress,MSsubscription_agents,MSsubscription_properties,^temp$"
+			+ ",SAE_ReportsPerformance,SAE_ReportsPerformanceAllData";
 
 		const string RegexReplaceExpression = "";
 		const string RegexMatchExpression = "";

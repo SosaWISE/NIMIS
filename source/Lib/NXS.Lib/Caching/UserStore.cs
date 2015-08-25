@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
+using System.Globalization;
 using System.Runtime.Caching;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NXS.Lib.Caching
 {
@@ -12,14 +8,7 @@ namespace NXS.Lib.Caching
 
 	public class UserStore : IDisposable
 	{
-		static int _count = 0;
-
-		LockBy<string> _idlocker;
-
-		ReadUserFunc _readUser;
-		TimeSpan _hardExpirationLength;
-		MemoryCache _cache;
-
+		#region .ctor
 		public UserStore(ReadUserFunc readUser, TimeSpan hardExpirationLength,
 			int? memoryLimitMb = null, int? physicalMemoryLimitPercent = null, TimeSpan? pollingInterval = null)
 		{
@@ -28,14 +17,29 @@ namespace NXS.Lib.Caching
 			_readUser = readUser;
 			_hardExpirationLength = hardExpirationLength;
 
+// ReSharper disable once UseObjectOrCollectionInitializer
 			var cacheSettings = new System.Collections.Specialized.NameValueCollection();
 			cacheSettings.Add("CacheMemoryLimitMegabytes", memoryLimitMb.HasValue ? memoryLimitMb.ToString() : "10");
-			cacheSettings.Add("physicalMemoryLimitPercentage", physicalMemoryLimitPercent.HasValue ? physicalMemoryLimitPercent.Value.ToString() : "49");  //set % here
+			cacheSettings.Add("physicalMemoryLimitPercentage", physicalMemoryLimitPercent.HasValue ? physicalMemoryLimitPercent.Value.ToString(CultureInfo.InvariantCulture) : "49");  //set % here
 			cacheSettings.Add("pollingInterval", pollingInterval.HasValue ? pollingInterval.ToString() : "00:02:30");
 			_cache = new MemoryCache("UserStore" + (++_count), cacheSettings);
 		}
+		#endregion .ctor
 
+		#region Properties
+		static int _count;
+
+		readonly LockBy<string> _idlocker;
+
+		readonly ReadUserFunc _readUser;
+		readonly TimeSpan _hardExpirationLength;
+		readonly MemoryCache _cache;
+
+// ReSharper disable once RedundantDefaultFieldInitializer
 		bool _disposed = false;
+		#endregion Properties
+
+		#region Methods
 		public void Dispose()
 		{
 			if (_disposed)
@@ -65,11 +69,11 @@ namespace NXS.Lib.Caching
 					user = _readUser(username);
 					if (user != default(User))
 					{
-						var p = new CacheItemPolicy()
+						var p = new CacheItemPolicy
 						{
 							AbsoluteExpiration = DateTimeOffset.UtcNow.Add(_hardExpirationLength),
 							Priority = CacheItemPriority.Default,
-							RemovedCallback = this.OnRemoved,
+							RemovedCallback = OnRemoved,
 						};
 						_cache.Set(username, user, p);
 					}
@@ -88,8 +92,10 @@ namespace NXS.Lib.Caching
 
 			_idlocker.Lock(username, () =>
 			{
+// ReSharper disable once ConvertToLambdaExpression
 				_cache.Remove(username);
 			});
 		}
+		#endregion Methods
 	}
 }

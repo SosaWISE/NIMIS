@@ -9,14 +9,14 @@ namespace NXS.Lib
 		public AuthInformation AuthInfo { get; private set; }
 		public IEnumerable<string> Claims
 		{
-			get { return new string[] { SystemUserIdentity.AuthNumToString(this.AuthInfo.AuthNum), this.AuthInfo.AuthType }; }
+			get { return new [] { SystemUserIdentity.AuthNumToString(AuthInfo.AuthNum), AuthInfo.AuthType }; }
 		}
 		public string UserName { get; private set; }
 
 		public TokenUserIdentity(AuthInformation authInfo, string userName)
 		{
-			this.AuthInfo = authInfo;
-			this.UserName = userName;
+			AuthInfo = authInfo;
+			UserName = userName;
 		}
 	}
 
@@ -24,8 +24,8 @@ namespace NXS.Lib
 	{
 		public static class AuthTypes
 		{
-			public const string Session = "Session";
-			public const string ActionRequest = "ActionRequest";
+			public const string SESSION = "Session";
+			public const string ACTION_REQUEST = "ActionRequest";
 		}
 
 		public IEnumerable<string> Claims { get; private set; }
@@ -41,20 +41,20 @@ namespace NXS.Lib
 
 		public SystemUserIdentity(string authType, byte[] authNum, User user, IEnumerable<string> applications, IEnumerable<string> actions)
 		{
-			this.AuthInfo = AuthInformation.Create(authType, authNum);
-			this.Claims = user.Groups;
-			this.Applications = applications;
-			this.Actions = actions;
-			this.UserID = user.UserID;
-			this.UserName = user.Username;
-			this.FirstName = user.FirstName;
-			this.LastName = user.LastName;
-			this.GPEmployeeID = user.GPEmployeeID;
-			this.DealerId = user.DealerId;
+			AuthInfo = AuthInformation.Create(authType, authNum);
+			Claims = user.Groups;
+			Applications = applications;
+			Actions = actions;
+			UserID = user.UserID;
+			UserName = user.Username;
+			FirstName = user.FirstName;
+			LastName = user.LastName;
+			GPEmployeeID = user.GPEmployeeID;
+			DealerId = user.DealerId;
 		}
 		public TokenUserIdentity ToTokenIdentity()
 		{
-			return new TokenUserIdentity(this.AuthInfo, this.UserName);
+			return new TokenUserIdentity(AuthInfo, UserName);
 		}
 
 		public static string AuthNumToString(byte[] authNum)
@@ -73,6 +73,7 @@ namespace NXS.Lib
 			foreach (var str in claims)
 			{
 				if (index == 0)
+// ReSharper disable once RedundantNameQualifier
 					authNum = SystemUserIdentity.AuthNumFromString(str);
 				else if (index == 1)
 					authType = str;
@@ -81,7 +82,7 @@ namespace NXS.Lib
 				index++;
 			}
 			if (authNum != null)
-				return AuthInformation.Create(authType ?? AuthTypes.Session, authNum);
+				return AuthInformation.Create(authType ?? AuthTypes.SESSION, authNum);
 			return null;
 		}
 
@@ -90,15 +91,15 @@ namespace NXS.Lib
 		{
 			// SHA1Managed is not thread safe: http://stackoverflow.com/questions/12644257
 			// having this as a member variable caused random/wrong sessionKeys
-			var _sha1 = System.Security.Cryptography.SHA1.Create();
-			return Convert.ToBase64String(_sha1.ComputeHash(authNum));
+			var sha1 = System.Security.Cryptography.SHA1.Create();
+			return Convert.ToBase64String(sha1.ComputeHash(authNum));
 		}
 
-		private static readonly System.Security.Cryptography.RandomNumberGenerator _rnd = System.Security.Cryptography.RandomNumberGenerator.Create();
+		private static readonly System.Security.Cryptography.RandomNumberGenerator Rnd = System.Security.Cryptography.RandomNumberGenerator.Create();
 		public static byte[] NewAuthNum()
 		{
 			var key = new byte[16]; // 128 / 8
-			_rnd.GetBytes(key);
+			Rnd.GetBytes(key);
 			return key;
 		}
 	}
@@ -146,7 +147,9 @@ namespace NXS.Lib
 		}
 		public override int GetHashCode()
 		{
+// ReSharper disable NonReadonlyFieldInGetHashCode
 			return (Username != null) ? Username.GetHashCode() : 0;
+// ReSharper restore NonReadonlyFieldInGetHashCode
 		}
 	}
 	public struct Session
@@ -171,7 +174,9 @@ namespace NXS.Lib
 		}
 		public override int GetHashCode()
 		{
+// ReSharper disable NonReadonlyFieldInGetHashCode
 			return SessionKey.GetHashCode();
+// ReSharper restore NonReadonlyFieldInGetHashCode
 		}
 	}
 

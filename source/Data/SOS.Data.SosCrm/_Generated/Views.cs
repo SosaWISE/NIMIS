@@ -213,6 +213,548 @@ namespace SOS.Data.SosCrm
 		#endregion Columns Struct
 	}
 	/// <summary>
+	/// Strongly-typed collection for the AE_Cust_Import_toGPView class.
+	/// </summary>
+	[DataContract]
+	public partial class AE_Cust_Import_toGPViewCollection : ReadOnlyList<AE_Cust_Import_toGPView, AE_Cust_Import_toGPViewCollection>
+	{
+		public static AE_Cust_Import_toGPViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			AE_Cust_Import_toGPViewCollection result = new AE_Cust_Import_toGPViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwAE_Cust_Import_toGP view.
+	/// </summary>
+	[DataContract]
+	public partial class AE_Cust_Import_toGPView : ReadOnlyRecord<AE_Cust_Import_toGPView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwAE_Cust_Import_toGP", TableType.Table, DataService.GetInstance("SosCrmProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarCustnmbr = new TableSchema.TableColumn(schema);
+				colvarCustnmbr.ColumnName = "Custnmbr";
+				colvarCustnmbr.DataType = DbType.AnsiString;
+				colvarCustnmbr.MaxLength = 24;
+				colvarCustnmbr.AutoIncrement = false;
+				colvarCustnmbr.IsNullable = true;
+				colvarCustnmbr.IsPrimaryKey = false;
+				colvarCustnmbr.IsForeignKey = false;
+				colvarCustnmbr.IsReadOnly = false;
+				colvarCustnmbr.DefaultSetting = @"";
+				colvarCustnmbr.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCustnmbr);
+
+				TableSchema.TableColumn colvarCustName = new TableSchema.TableColumn(schema);
+				colvarCustName.ColumnName = "CustName";
+				colvarCustName.DataType = DbType.String;
+				colvarCustName.MaxLength = 101;
+				colvarCustName.AutoIncrement = false;
+				colvarCustName.IsNullable = true;
+				colvarCustName.IsPrimaryKey = false;
+				colvarCustName.IsForeignKey = false;
+				colvarCustName.IsReadOnly = false;
+				colvarCustName.DefaultSetting = @"";
+				colvarCustName.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCustName);
+
+				TableSchema.TableColumn colvarCustClass = new TableSchema.TableColumn(schema);
+				colvarCustClass.ColumnName = "CustClass";
+				colvarCustClass.DataType = DbType.AnsiString;
+				colvarCustClass.MaxLength = 12;
+				colvarCustClass.AutoIncrement = false;
+				colvarCustClass.IsNullable = false;
+				colvarCustClass.IsPrimaryKey = false;
+				colvarCustClass.IsForeignKey = false;
+				colvarCustClass.IsReadOnly = false;
+				colvarCustClass.DefaultSetting = @"";
+				colvarCustClass.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCustClass);
+
+				TableSchema.TableColumn colvaraddrscode = new TableSchema.TableColumn(schema);
+				colvaraddrscode.ColumnName = "addrscode";
+				colvaraddrscode.DataType = DbType.AnsiString;
+				colvaraddrscode.MaxLength = 4;
+				colvaraddrscode.AutoIncrement = false;
+				colvaraddrscode.IsNullable = false;
+				colvaraddrscode.IsPrimaryKey = false;
+				colvaraddrscode.IsForeignKey = false;
+				colvaraddrscode.IsReadOnly = false;
+				colvaraddrscode.DefaultSetting = @"";
+				colvaraddrscode.ForeignKeyTableName = "";
+				schema.Columns.Add(colvaraddrscode);
+
+				TableSchema.TableColumn colvarCity = new TableSchema.TableColumn(schema);
+				colvarCity.ColumnName = "City";
+				colvarCity.DataType = DbType.String;
+				colvarCity.MaxLength = 50;
+				colvarCity.AutoIncrement = false;
+				colvarCity.IsNullable = true;
+				colvarCity.IsPrimaryKey = false;
+				colvarCity.IsForeignKey = false;
+				colvarCity.IsReadOnly = false;
+				colvarCity.DefaultSetting = @"";
+				colvarCity.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCity);
+
+				TableSchema.TableColumn colvarState = new TableSchema.TableColumn(schema);
+				colvarState.ColumnName = "State";
+				colvarState.DataType = DbType.AnsiString;
+				colvarState.MaxLength = 2;
+				colvarState.AutoIncrement = false;
+				colvarState.IsNullable = true;
+				colvarState.IsPrimaryKey = false;
+				colvarState.IsForeignKey = false;
+				colvarState.IsReadOnly = false;
+				colvarState.DefaultSetting = @"";
+				colvarState.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarState);
+
+				TableSchema.TableColumn colvarZip = new TableSchema.TableColumn(schema);
+				colvarZip.ColumnName = "Zip";
+				colvarZip.DataType = DbType.AnsiString;
+				colvarZip.MaxLength = 5;
+				colvarZip.AutoIncrement = false;
+				colvarZip.IsNullable = true;
+				colvarZip.IsPrimaryKey = false;
+				colvarZip.IsForeignKey = false;
+				colvarZip.IsReadOnly = false;
+				colvarZip.DefaultSetting = @"";
+				colvarZip.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarZip);
+
+				TableSchema.TableColumn colvarAddress1 = new TableSchema.TableColumn(schema);
+				colvarAddress1.ColumnName = "Address1";
+				colvarAddress1.DataType = DbType.String;
+				colvarAddress1.MaxLength = 50;
+				colvarAddress1.AutoIncrement = false;
+				colvarAddress1.IsNullable = true;
+				colvarAddress1.IsPrimaryKey = false;
+				colvarAddress1.IsForeignKey = false;
+				colvarAddress1.IsReadOnly = false;
+				colvarAddress1.DefaultSetting = @"";
+				colvarAddress1.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAddress1);
+
+				TableSchema.TableColumn colvarCcode = new TableSchema.TableColumn(schema);
+				colvarCcode.ColumnName = "Ccode";
+				colvarCcode.DataType = DbType.AnsiString;
+				colvarCcode.MaxLength = 3;
+				colvarCcode.AutoIncrement = false;
+				colvarCcode.IsNullable = false;
+				colvarCcode.IsPrimaryKey = false;
+				colvarCcode.IsForeignKey = false;
+				colvarCcode.IsReadOnly = false;
+				colvarCcode.DefaultSetting = @"";
+				colvarCcode.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCcode);
+
+				TableSchema.TableColumn colvarPhone1 = new TableSchema.TableColumn(schema);
+				colvarPhone1.ColumnName = "Phone1";
+				colvarPhone1.DataType = DbType.AnsiString;
+				colvarPhone1.MaxLength = 20;
+				colvarPhone1.AutoIncrement = false;
+				colvarPhone1.IsNullable = true;
+				colvarPhone1.IsPrimaryKey = false;
+				colvarPhone1.IsForeignKey = false;
+				colvarPhone1.IsReadOnly = false;
+				colvarPhone1.DefaultSetting = @"";
+				colvarPhone1.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPhone1);
+
+				TableSchema.TableColumn colvarPhone2 = new TableSchema.TableColumn(schema);
+				colvarPhone2.ColumnName = "Phone2";
+				colvarPhone2.DataType = DbType.AnsiString;
+				colvarPhone2.MaxLength = 20;
+				colvarPhone2.AutoIncrement = false;
+				colvarPhone2.IsNullable = true;
+				colvarPhone2.IsPrimaryKey = false;
+				colvarPhone2.IsForeignKey = false;
+				colvarPhone2.IsReadOnly = false;
+				colvarPhone2.DefaultSetting = @"";
+				colvarPhone2.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPhone2);
+
+				TableSchema.TableColumn colvarPhone3 = new TableSchema.TableColumn(schema);
+				colvarPhone3.ColumnName = "Phone3";
+				colvarPhone3.DataType = DbType.AnsiString;
+				colvarPhone3.MaxLength = 30;
+				colvarPhone3.AutoIncrement = false;
+				colvarPhone3.IsNullable = true;
+				colvarPhone3.IsPrimaryKey = false;
+				colvarPhone3.IsForeignKey = false;
+				colvarPhone3.IsReadOnly = false;
+				colvarPhone3.DefaultSetting = @"";
+				colvarPhone3.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPhone3);
+
+				TableSchema.TableColumn colvarTaxSchID = new TableSchema.TableColumn(schema);
+				colvarTaxSchID.ColumnName = "TaxSchID";
+				colvarTaxSchID.DataType = DbType.AnsiString;
+				colvarTaxSchID.MaxLength = 11;
+				colvarTaxSchID.AutoIncrement = false;
+				colvarTaxSchID.IsNullable = true;
+				colvarTaxSchID.IsPrimaryKey = false;
+				colvarTaxSchID.IsForeignKey = false;
+				colvarTaxSchID.IsReadOnly = false;
+				colvarTaxSchID.DefaultSetting = @"";
+				colvarTaxSchID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTaxSchID);
+
+				TableSchema.TableColumn colvarRepID = new TableSchema.TableColumn(schema);
+				colvarRepID.ColumnName = "RepID";
+				colvarRepID.DataType = DbType.String;
+				colvarRepID.MaxLength = 25;
+				colvarRepID.AutoIncrement = false;
+				colvarRepID.IsNullable = true;
+				colvarRepID.IsPrimaryKey = false;
+				colvarRepID.IsForeignKey = false;
+				colvarRepID.IsReadOnly = false;
+				colvarRepID.DefaultSetting = @"";
+				colvarRepID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarRepID);
+
+				TableSchema.TableColumn colvarTechID_Userdef2 = new TableSchema.TableColumn(schema);
+				colvarTechID_Userdef2.ColumnName = "TechID_Userdef2";
+				colvarTechID_Userdef2.DataType = DbType.AnsiString;
+				colvarTechID_Userdef2.MaxLength = 10;
+				colvarTechID_Userdef2.AutoIncrement = false;
+				colvarTechID_Userdef2.IsNullable = true;
+				colvarTechID_Userdef2.IsPrimaryKey = false;
+				colvarTechID_Userdef2.IsForeignKey = false;
+				colvarTechID_Userdef2.IsReadOnly = false;
+				colvarTechID_Userdef2.DefaultSetting = @"";
+				colvarTechID_Userdef2.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTechID_Userdef2);
+
+				TableSchema.TableColumn colvarMMR_Prclevel = new TableSchema.TableColumn(schema);
+				colvarMMR_Prclevel.ColumnName = "MMR_Prclevel";
+				colvarMMR_Prclevel.DataType = DbType.Currency;
+				colvarMMR_Prclevel.MaxLength = 0;
+				colvarMMR_Prclevel.AutoIncrement = false;
+				colvarMMR_Prclevel.IsNullable = true;
+				colvarMMR_Prclevel.IsPrimaryKey = false;
+				colvarMMR_Prclevel.IsForeignKey = false;
+				colvarMMR_Prclevel.IsReadOnly = false;
+				colvarMMR_Prclevel.DefaultSetting = @"";
+				colvarMMR_Prclevel.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarMMR_Prclevel);
+
+				TableSchema.TableColumn colvarContractLength = new TableSchema.TableColumn(schema);
+				colvarContractLength.ColumnName = "ContractLength";
+				colvarContractLength.DataType = DbType.Int16;
+				colvarContractLength.MaxLength = 0;
+				colvarContractLength.AutoIncrement = false;
+				colvarContractLength.IsNullable = true;
+				colvarContractLength.IsPrimaryKey = false;
+				colvarContractLength.IsForeignKey = false;
+				colvarContractLength.IsReadOnly = false;
+				colvarContractLength.DefaultSetting = @"";
+				colvarContractLength.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarContractLength);
+
+				TableSchema.TableColumn colvarscore = new TableSchema.TableColumn(schema);
+				colvarscore.ColumnName = "score";
+				colvarscore.DataType = DbType.Int32;
+				colvarscore.MaxLength = 0;
+				colvarscore.AutoIncrement = false;
+				colvarscore.IsNullable = true;
+				colvarscore.IsPrimaryKey = false;
+				colvarscore.IsForeignKey = false;
+				colvarscore.IsReadOnly = false;
+				colvarscore.DefaultSetting = @"";
+				colvarscore.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarscore);
+
+				TableSchema.TableColumn colvarEmail = new TableSchema.TableColumn(schema);
+				colvarEmail.ColumnName = "Email";
+				colvarEmail.DataType = DbType.AnsiString;
+				colvarEmail.MaxLength = 256;
+				colvarEmail.AutoIncrement = false;
+				colvarEmail.IsNullable = true;
+				colvarEmail.IsPrimaryKey = false;
+				colvarEmail.IsForeignKey = false;
+				colvarEmail.IsReadOnly = false;
+				colvarEmail.DefaultSetting = @"";
+				colvarEmail.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarEmail);
+
+				TableSchema.TableColumn colvarInstallDt = new TableSchema.TableColumn(schema);
+				colvarInstallDt.ColumnName = "InstallDt";
+				colvarInstallDt.DataType = DbType.AnsiStringFixedLength;
+				colvarInstallDt.MaxLength = 10;
+				colvarInstallDt.AutoIncrement = false;
+				colvarInstallDt.IsNullable = true;
+				colvarInstallDt.IsPrimaryKey = false;
+				colvarInstallDt.IsForeignKey = false;
+				colvarInstallDt.IsReadOnly = false;
+				colvarInstallDt.DefaultSetting = @"";
+				colvarInstallDt.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarInstallDt);
+
+				BaseSchema = schema;
+				DataService.Providers["SosCrmProvider"].AddSchema("vwAE_Cust_Import_toGP",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public AE_Cust_Import_toGPView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public string Custnmbr {
+			get { return GetColumnValue<string>(Columns.Custnmbr); }
+			set { SetColumnValue(Columns.Custnmbr, value); }
+		}
+		[DataMember]
+		public string CustName {
+			get { return GetColumnValue<string>(Columns.CustName); }
+			set { SetColumnValue(Columns.CustName, value); }
+		}
+		[DataMember]
+		public string CustClass {
+			get { return GetColumnValue<string>(Columns.CustClass); }
+			set { SetColumnValue(Columns.CustClass, value); }
+		}
+		[DataMember]
+		public string addrscode {
+			get { return GetColumnValue<string>(Columns.addrscode); }
+			set { SetColumnValue(Columns.addrscode, value); }
+		}
+		[DataMember]
+		public string City {
+			get { return GetColumnValue<string>(Columns.City); }
+			set { SetColumnValue(Columns.City, value); }
+		}
+		[DataMember]
+		public string State {
+			get { return GetColumnValue<string>(Columns.State); }
+			set { SetColumnValue(Columns.State, value); }
+		}
+		[DataMember]
+		public string Zip {
+			get { return GetColumnValue<string>(Columns.Zip); }
+			set { SetColumnValue(Columns.Zip, value); }
+		}
+		[DataMember]
+		public string Address1 {
+			get { return GetColumnValue<string>(Columns.Address1); }
+			set { SetColumnValue(Columns.Address1, value); }
+		}
+		[DataMember]
+		public string Ccode {
+			get { return GetColumnValue<string>(Columns.Ccode); }
+			set { SetColumnValue(Columns.Ccode, value); }
+		}
+		[DataMember]
+		public string Phone1 {
+			get { return GetColumnValue<string>(Columns.Phone1); }
+			set { SetColumnValue(Columns.Phone1, value); }
+		}
+		[DataMember]
+		public string Phone2 {
+			get { return GetColumnValue<string>(Columns.Phone2); }
+			set { SetColumnValue(Columns.Phone2, value); }
+		}
+		[DataMember]
+		public string Phone3 {
+			get { return GetColumnValue<string>(Columns.Phone3); }
+			set { SetColumnValue(Columns.Phone3, value); }
+		}
+		[DataMember]
+		public string TaxSchID {
+			get { return GetColumnValue<string>(Columns.TaxSchID); }
+			set { SetColumnValue(Columns.TaxSchID, value); }
+		}
+		[DataMember]
+		public string RepID {
+			get { return GetColumnValue<string>(Columns.RepID); }
+			set { SetColumnValue(Columns.RepID, value); }
+		}
+		[DataMember]
+		public string TechID_Userdef2 {
+			get { return GetColumnValue<string>(Columns.TechID_Userdef2); }
+			set { SetColumnValue(Columns.TechID_Userdef2, value); }
+		}
+		[DataMember]
+		public decimal? MMR_Prclevel {
+			get { return GetColumnValue<decimal?>(Columns.MMR_Prclevel); }
+			set { SetColumnValue(Columns.MMR_Prclevel, value); }
+		}
+		[DataMember]
+		public short? ContractLength {
+			get { return GetColumnValue<short?>(Columns.ContractLength); }
+			set { SetColumnValue(Columns.ContractLength, value); }
+		}
+		[DataMember]
+		public int? score {
+			get { return GetColumnValue<int?>(Columns.score); }
+			set { SetColumnValue(Columns.score, value); }
+		}
+		[DataMember]
+		public string Email {
+			get { return GetColumnValue<string>(Columns.Email); }
+			set { SetColumnValue(Columns.Email, value); }
+		}
+		[DataMember]
+		public string InstallDt {
+			get { return GetColumnValue<string>(Columns.InstallDt); }
+			set { SetColumnValue(Columns.InstallDt, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return CustName;
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn CustnmbrColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn CustNameColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn CustClassColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn addrscodeColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn CityColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn StateColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn ZipColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+		public static TableSchema.TableColumn Address1Column
+		{
+			get { return Schema.Columns[7]; }
+		}
+		public static TableSchema.TableColumn CcodeColumn
+		{
+			get { return Schema.Columns[8]; }
+		}
+		public static TableSchema.TableColumn Phone1Column
+		{
+			get { return Schema.Columns[9]; }
+		}
+		public static TableSchema.TableColumn Phone2Column
+		{
+			get { return Schema.Columns[10]; }
+		}
+		public static TableSchema.TableColumn Phone3Column
+		{
+			get { return Schema.Columns[11]; }
+		}
+		public static TableSchema.TableColumn TaxSchIDColumn
+		{
+			get { return Schema.Columns[12]; }
+		}
+		public static TableSchema.TableColumn RepIDColumn
+		{
+			get { return Schema.Columns[13]; }
+		}
+		public static TableSchema.TableColumn TechID_Userdef2Column
+		{
+			get { return Schema.Columns[14]; }
+		}
+		public static TableSchema.TableColumn MMR_PrclevelColumn
+		{
+			get { return Schema.Columns[15]; }
+		}
+		public static TableSchema.TableColumn ContractLengthColumn
+		{
+			get { return Schema.Columns[16]; }
+		}
+		public static TableSchema.TableColumn scoreColumn
+		{
+			get { return Schema.Columns[17]; }
+		}
+		public static TableSchema.TableColumn EmailColumn
+		{
+			get { return Schema.Columns[18]; }
+		}
+		public static TableSchema.TableColumn InstallDtColumn
+		{
+			get { return Schema.Columns[19]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string Custnmbr = @"Custnmbr";
+			public const string CustName = @"CustName";
+			public const string CustClass = @"CustClass";
+			public const string addrscode = @"addrscode";
+			public const string City = @"City";
+			public const string State = @"State";
+			public const string Zip = @"Zip";
+			public const string Address1 = @"Address1";
+			public const string Ccode = @"Ccode";
+			public const string Phone1 = @"Phone1";
+			public const string Phone2 = @"Phone2";
+			public const string Phone3 = @"Phone3";
+			public const string TaxSchID = @"TaxSchID";
+			public const string RepID = @"RepID";
+			public const string TechID_Userdef2 = @"TechID_Userdef2";
+			public const string MMR_Prclevel = @"MMR_Prclevel";
+			public const string ContractLength = @"ContractLength";
+			public const string score = @"score";
+			public const string Email = @"Email";
+			public const string InstallDt = @"InstallDt";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
 	/// Strongly-typed collection for the AE_CustomerAccountInfoToGPView class.
 	/// </summary>
 	[DataContract]
@@ -698,7 +1240,7 @@ namespace SOS.Data.SosCrm
 
 				TableSchema.TableColumn colvarTotalPoints = new TableSchema.TableColumn(schema);
 				colvarTotalPoints.ColumnName = "TotalPoints";
-				colvarTotalPoints.DataType = DbType.Int32;
+				colvarTotalPoints.DataType = DbType.Decimal;
 				colvarTotalPoints.MaxLength = 0;
 				colvarTotalPoints.AutoIncrement = false;
 				colvarTotalPoints.IsNullable = true;
@@ -1018,8 +1560,8 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.AccountPackageName, value); }
 		}
 		[DataMember]
-		public int? TotalPoints {
-			get { return GetColumnValue<int?>(Columns.TotalPoints); }
+		public decimal? TotalPoints {
+			get { return GetColumnValue<decimal?>(Columns.TotalPoints); }
 			set { SetColumnValue(Columns.TotalPoints, value); }
 		}
 		[DataMember]
@@ -1303,6 +1845,295 @@ namespace SOS.Data.SosCrm
 			public const string Bureau = @"Bureau";
 			public const string Gateway = @"Gateway";
 			public const string Points = @"Points";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
+	/// Strongly-typed collection for the AE_CustomerAccountsView class.
+	/// </summary>
+	[DataContract]
+	public partial class AE_CustomerAccountsViewCollection : ReadOnlyList<AE_CustomerAccountsView, AE_CustomerAccountsViewCollection>
+	{
+		public static AE_CustomerAccountsViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			AE_CustomerAccountsViewCollection result = new AE_CustomerAccountsViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwAE_CustomerAccounts view.
+	/// </summary>
+	[DataContract]
+	public partial class AE_CustomerAccountsView : ReadOnlyRecord<AE_CustomerAccountsView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwAE_CustomerAccounts", TableType.Table, DataService.GetInstance("SosCrmProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarCustomerMasterFileId = new TableSchema.TableColumn(schema);
+				colvarCustomerMasterFileId.ColumnName = "CustomerMasterFileId";
+				colvarCustomerMasterFileId.DataType = DbType.Int64;
+				colvarCustomerMasterFileId.MaxLength = 0;
+				colvarCustomerMasterFileId.AutoIncrement = false;
+				colvarCustomerMasterFileId.IsNullable = false;
+				colvarCustomerMasterFileId.IsPrimaryKey = false;
+				colvarCustomerMasterFileId.IsForeignKey = false;
+				colvarCustomerMasterFileId.IsReadOnly = false;
+				colvarCustomerMasterFileId.DefaultSetting = @"";
+				colvarCustomerMasterFileId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCustomerMasterFileId);
+
+				TableSchema.TableColumn colvarCustomerAccountID = new TableSchema.TableColumn(schema);
+				colvarCustomerAccountID.ColumnName = "CustomerAccountID";
+				colvarCustomerAccountID.DataType = DbType.Int64;
+				colvarCustomerAccountID.MaxLength = 0;
+				colvarCustomerAccountID.AutoIncrement = false;
+				colvarCustomerAccountID.IsNullable = false;
+				colvarCustomerAccountID.IsPrimaryKey = false;
+				colvarCustomerAccountID.IsForeignKey = false;
+				colvarCustomerAccountID.IsReadOnly = false;
+				colvarCustomerAccountID.DefaultSetting = @"";
+				colvarCustomerAccountID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCustomerAccountID);
+
+				TableSchema.TableColumn colvarLeadId = new TableSchema.TableColumn(schema);
+				colvarLeadId.ColumnName = "LeadId";
+				colvarLeadId.DataType = DbType.Int64;
+				colvarLeadId.MaxLength = 0;
+				colvarLeadId.AutoIncrement = false;
+				colvarLeadId.IsNullable = false;
+				colvarLeadId.IsPrimaryKey = false;
+				colvarLeadId.IsForeignKey = false;
+				colvarLeadId.IsReadOnly = false;
+				colvarLeadId.DefaultSetting = @"";
+				colvarLeadId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarLeadId);
+
+				TableSchema.TableColumn colvarAccountId = new TableSchema.TableColumn(schema);
+				colvarAccountId.ColumnName = "AccountId";
+				colvarAccountId.DataType = DbType.Int64;
+				colvarAccountId.MaxLength = 0;
+				colvarAccountId.AutoIncrement = false;
+				colvarAccountId.IsNullable = false;
+				colvarAccountId.IsPrimaryKey = false;
+				colvarAccountId.IsForeignKey = false;
+				colvarAccountId.IsReadOnly = false;
+				colvarAccountId.DefaultSetting = @"";
+				colvarAccountId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAccountId);
+
+				TableSchema.TableColumn colvarCustomerId = new TableSchema.TableColumn(schema);
+				colvarCustomerId.ColumnName = "CustomerId";
+				colvarCustomerId.DataType = DbType.Int64;
+				colvarCustomerId.MaxLength = 0;
+				colvarCustomerId.AutoIncrement = false;
+				colvarCustomerId.IsNullable = false;
+				colvarCustomerId.IsPrimaryKey = false;
+				colvarCustomerId.IsForeignKey = false;
+				colvarCustomerId.IsReadOnly = false;
+				colvarCustomerId.DefaultSetting = @"";
+				colvarCustomerId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCustomerId);
+
+				TableSchema.TableColumn colvarCustomerTypeId = new TableSchema.TableColumn(schema);
+				colvarCustomerTypeId.ColumnName = "CustomerTypeId";
+				colvarCustomerTypeId.DataType = DbType.AnsiString;
+				colvarCustomerTypeId.MaxLength = 20;
+				colvarCustomerTypeId.AutoIncrement = false;
+				colvarCustomerTypeId.IsNullable = false;
+				colvarCustomerTypeId.IsPrimaryKey = false;
+				colvarCustomerTypeId.IsForeignKey = false;
+				colvarCustomerTypeId.IsReadOnly = false;
+				colvarCustomerTypeId.DefaultSetting = @"";
+				colvarCustomerTypeId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCustomerTypeId);
+
+				TableSchema.TableColumn colvarCreatedOn = new TableSchema.TableColumn(schema);
+				colvarCreatedOn.ColumnName = "CreatedOn";
+				colvarCreatedOn.DataType = DbType.DateTime;
+				colvarCreatedOn.MaxLength = 0;
+				colvarCreatedOn.AutoIncrement = false;
+				colvarCreatedOn.IsNullable = false;
+				colvarCreatedOn.IsPrimaryKey = false;
+				colvarCreatedOn.IsForeignKey = false;
+				colvarCreatedOn.IsReadOnly = false;
+				colvarCreatedOn.DefaultSetting = @"";
+				colvarCreatedOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreatedOn);
+
+				TableSchema.TableColumn colvarCreatedBy = new TableSchema.TableColumn(schema);
+				colvarCreatedBy.ColumnName = "CreatedBy";
+				colvarCreatedBy.DataType = DbType.String;
+				colvarCreatedBy.MaxLength = 50;
+				colvarCreatedBy.AutoIncrement = false;
+				colvarCreatedBy.IsNullable = false;
+				colvarCreatedBy.IsPrimaryKey = false;
+				colvarCreatedBy.IsForeignKey = false;
+				colvarCreatedBy.IsReadOnly = false;
+				colvarCreatedBy.DefaultSetting = @"";
+				colvarCreatedBy.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreatedBy);
+
+				TableSchema.TableColumn colvarDEX_ROW_TS = new TableSchema.TableColumn(schema);
+				colvarDEX_ROW_TS.ColumnName = "DEX_ROW_TS";
+				colvarDEX_ROW_TS.DataType = DbType.DateTime;
+				colvarDEX_ROW_TS.MaxLength = 0;
+				colvarDEX_ROW_TS.AutoIncrement = false;
+				colvarDEX_ROW_TS.IsNullable = false;
+				colvarDEX_ROW_TS.IsPrimaryKey = false;
+				colvarDEX_ROW_TS.IsForeignKey = false;
+				colvarDEX_ROW_TS.IsReadOnly = false;
+				colvarDEX_ROW_TS.DefaultSetting = @"";
+				colvarDEX_ROW_TS.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarDEX_ROW_TS);
+
+				BaseSchema = schema;
+				DataService.Providers["SosCrmProvider"].AddSchema("vwAE_CustomerAccounts",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public AE_CustomerAccountsView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public long CustomerMasterFileId {
+			get { return GetColumnValue<long>(Columns.CustomerMasterFileId); }
+			set { SetColumnValue(Columns.CustomerMasterFileId, value); }
+		}
+		[DataMember]
+		public long CustomerAccountID {
+			get { return GetColumnValue<long>(Columns.CustomerAccountID); }
+			set { SetColumnValue(Columns.CustomerAccountID, value); }
+		}
+		[DataMember]
+		public long LeadId {
+			get { return GetColumnValue<long>(Columns.LeadId); }
+			set { SetColumnValue(Columns.LeadId, value); }
+		}
+		[DataMember]
+		public long AccountId {
+			get { return GetColumnValue<long>(Columns.AccountId); }
+			set { SetColumnValue(Columns.AccountId, value); }
+		}
+		[DataMember]
+		public long CustomerId {
+			get { return GetColumnValue<long>(Columns.CustomerId); }
+			set { SetColumnValue(Columns.CustomerId, value); }
+		}
+		[DataMember]
+		public string CustomerTypeId {
+			get { return GetColumnValue<string>(Columns.CustomerTypeId); }
+			set { SetColumnValue(Columns.CustomerTypeId, value); }
+		}
+		[DataMember]
+		public DateTime CreatedOn {
+			get { return GetColumnValue<DateTime>(Columns.CreatedOn); }
+			set { SetColumnValue(Columns.CreatedOn, value); }
+		}
+		[DataMember]
+		public string CreatedBy {
+			get { return GetColumnValue<string>(Columns.CreatedBy); }
+			set { SetColumnValue(Columns.CreatedBy, value); }
+		}
+		[DataMember]
+		public DateTime DEX_ROW_TS {
+			get { return GetColumnValue<DateTime>(Columns.DEX_ROW_TS); }
+			set { SetColumnValue(Columns.DEX_ROW_TS, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return CustomerMasterFileId.ToString();
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn CustomerMasterFileIdColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn CustomerAccountIDColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn LeadIdColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn AccountIdColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn CustomerIdColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn CustomerTypeIdColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn CreatedOnColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+		public static TableSchema.TableColumn CreatedByColumn
+		{
+			get { return Schema.Columns[7]; }
+		}
+		public static TableSchema.TableColumn DEX_ROW_TSColumn
+		{
+			get { return Schema.Columns[8]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string CustomerMasterFileId = @"CustomerMasterFileId";
+			public const string CustomerAccountID = @"CustomerAccountID";
+			public const string LeadId = @"LeadId";
+			public const string AccountId = @"AccountId";
+			public const string CustomerId = @"CustomerId";
+			public const string CustomerTypeId = @"CustomerTypeId";
+			public const string CreatedOn = @"CreatedOn";
+			public const string CreatedBy = @"CreatedBy";
+			public const string DEX_ROW_TS = @"DEX_ROW_TS";
 		}
 		#endregion Columns Struct
 	}
@@ -11818,6 +12649,180 @@ namespace SOS.Data.SosCrm
 		#endregion Columns Struct
 	}
 	/// <summary>
+	/// Strongly-typed collection for the IE_ProductBarcodeItemView class.
+	/// </summary>
+	[DataContract]
+	public partial class IE_ProductBarcodeItemViewCollection : ReadOnlyList<IE_ProductBarcodeItemView, IE_ProductBarcodeItemViewCollection>
+	{
+		public static IE_ProductBarcodeItemViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			IE_ProductBarcodeItemViewCollection result = new IE_ProductBarcodeItemViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwIE_ProductBarcodeItem view.
+	/// </summary>
+	[DataContract]
+	public partial class IE_ProductBarcodeItemView : ReadOnlyRecord<IE_ProductBarcodeItemView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwIE_ProductBarcodeItem", TableType.Table, DataService.GetInstance("SosCrmProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarProductBarcodeId = new TableSchema.TableColumn(schema);
+				colvarProductBarcodeId.ColumnName = "ProductBarcodeId";
+				colvarProductBarcodeId.DataType = DbType.String;
+				colvarProductBarcodeId.MaxLength = 50;
+				colvarProductBarcodeId.AutoIncrement = false;
+				colvarProductBarcodeId.IsNullable = false;
+				colvarProductBarcodeId.IsPrimaryKey = false;
+				colvarProductBarcodeId.IsForeignKey = false;
+				colvarProductBarcodeId.IsReadOnly = false;
+				colvarProductBarcodeId.DefaultSetting = @"";
+				colvarProductBarcodeId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarProductBarcodeId);
+
+				TableSchema.TableColumn colvarItemSKU = new TableSchema.TableColumn(schema);
+				colvarItemSKU.ColumnName = "ItemSKU";
+				colvarItemSKU.DataType = DbType.String;
+				colvarItemSKU.MaxLength = 50;
+				colvarItemSKU.AutoIncrement = false;
+				colvarItemSKU.IsNullable = true;
+				colvarItemSKU.IsPrimaryKey = false;
+				colvarItemSKU.IsForeignKey = false;
+				colvarItemSKU.IsReadOnly = false;
+				colvarItemSKU.DefaultSetting = @"";
+				colvarItemSKU.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarItemSKU);
+
+				TableSchema.TableColumn colvarModelNumber = new TableSchema.TableColumn(schema);
+				colvarModelNumber.ColumnName = "ModelNumber";
+				colvarModelNumber.DataType = DbType.AnsiString;
+				colvarModelNumber.MaxLength = 30;
+				colvarModelNumber.AutoIncrement = false;
+				colvarModelNumber.IsNullable = true;
+				colvarModelNumber.IsPrimaryKey = false;
+				colvarModelNumber.IsForeignKey = false;
+				colvarModelNumber.IsReadOnly = false;
+				colvarModelNumber.DefaultSetting = @"";
+				colvarModelNumber.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarModelNumber);
+
+				TableSchema.TableColumn colvarItemDesc = new TableSchema.TableColumn(schema);
+				colvarItemDesc.ColumnName = "ItemDesc";
+				colvarItemDesc.DataType = DbType.String;
+				colvarItemDesc.MaxLength = 136;
+				colvarItemDesc.AutoIncrement = false;
+				colvarItemDesc.IsNullable = false;
+				colvarItemDesc.IsPrimaryKey = false;
+				colvarItemDesc.IsForeignKey = false;
+				colvarItemDesc.IsReadOnly = false;
+				colvarItemDesc.DefaultSetting = @"";
+				colvarItemDesc.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarItemDesc);
+
+				BaseSchema = schema;
+				DataService.Providers["SosCrmProvider"].AddSchema("vwIE_ProductBarcodeItem",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public IE_ProductBarcodeItemView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public string ProductBarcodeId {
+			get { return GetColumnValue<string>(Columns.ProductBarcodeId); }
+			set { SetColumnValue(Columns.ProductBarcodeId, value); }
+		}
+		[DataMember]
+		public string ItemSKU {
+			get { return GetColumnValue<string>(Columns.ItemSKU); }
+			set { SetColumnValue(Columns.ItemSKU, value); }
+		}
+		[DataMember]
+		public string ModelNumber {
+			get { return GetColumnValue<string>(Columns.ModelNumber); }
+			set { SetColumnValue(Columns.ModelNumber, value); }
+		}
+		[DataMember]
+		public string ItemDesc {
+			get { return GetColumnValue<string>(Columns.ItemDesc); }
+			set { SetColumnValue(Columns.ItemDesc, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return ItemSKU;
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn ProductBarcodeIdColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn ItemSKUColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn ModelNumberColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn ItemDescColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string ProductBarcodeId = @"ProductBarcodeId";
+			public const string ItemSKU = @"ItemSKU";
+			public const string ModelNumber = @"ModelNumber";
+			public const string ItemDesc = @"ItemDesc";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
 	/// Strongly-typed collection for the IE_ProductBarcodeLocationView class.
 	/// </summary>
 	[DataContract]
@@ -19304,6 +20309,433 @@ namespace SOS.Data.SosCrm
 		#endregion Columns Struct
 	}
 	/// <summary>
+	/// Strongly-typed collection for the MS_AccountHoldsView class.
+	/// </summary>
+	[DataContract]
+	public partial class MS_AccountHoldsViewCollection : ReadOnlyList<MS_AccountHoldsView, MS_AccountHoldsViewCollection>
+	{
+		public static MS_AccountHoldsViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			MS_AccountHoldsViewCollection result = new MS_AccountHoldsViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwMS_AccountHolds view.
+	/// </summary>
+	[DataContract]
+	public partial class MS_AccountHoldsView : ReadOnlyRecord<MS_AccountHoldsView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwMS_AccountHolds", TableType.Table, DataService.GetInstance("SosCrmProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarAccountHoldID = new TableSchema.TableColumn(schema);
+				colvarAccountHoldID.ColumnName = "AccountHoldID";
+				colvarAccountHoldID.DataType = DbType.Int64;
+				colvarAccountHoldID.MaxLength = 0;
+				colvarAccountHoldID.AutoIncrement = false;
+				colvarAccountHoldID.IsNullable = false;
+				colvarAccountHoldID.IsPrimaryKey = false;
+				colvarAccountHoldID.IsForeignKey = false;
+				colvarAccountHoldID.IsReadOnly = false;
+				colvarAccountHoldID.DefaultSetting = @"";
+				colvarAccountHoldID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAccountHoldID);
+
+				TableSchema.TableColumn colvarAccountId = new TableSchema.TableColumn(schema);
+				colvarAccountId.ColumnName = "AccountId";
+				colvarAccountId.DataType = DbType.Int64;
+				colvarAccountId.MaxLength = 0;
+				colvarAccountId.AutoIncrement = false;
+				colvarAccountId.IsNullable = false;
+				colvarAccountId.IsPrimaryKey = false;
+				colvarAccountId.IsForeignKey = false;
+				colvarAccountId.IsReadOnly = false;
+				colvarAccountId.DefaultSetting = @"";
+				colvarAccountId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAccountId);
+
+				TableSchema.TableColumn colvarCatg1ID = new TableSchema.TableColumn(schema);
+				colvarCatg1ID.ColumnName = "Catg1ID";
+				colvarCatg1ID.DataType = DbType.Int32;
+				colvarCatg1ID.MaxLength = 0;
+				colvarCatg1ID.AutoIncrement = false;
+				colvarCatg1ID.IsNullable = false;
+				colvarCatg1ID.IsPrimaryKey = false;
+				colvarCatg1ID.IsForeignKey = false;
+				colvarCatg1ID.IsReadOnly = false;
+				colvarCatg1ID.DefaultSetting = @"";
+				colvarCatg1ID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCatg1ID);
+
+				TableSchema.TableColumn colvarCatg2Id = new TableSchema.TableColumn(schema);
+				colvarCatg2Id.ColumnName = "Catg2Id";
+				colvarCatg2Id.DataType = DbType.Int32;
+				colvarCatg2Id.MaxLength = 0;
+				colvarCatg2Id.AutoIncrement = false;
+				colvarCatg2Id.IsNullable = false;
+				colvarCatg2Id.IsPrimaryKey = false;
+				colvarCatg2Id.IsForeignKey = false;
+				colvarCatg2Id.IsReadOnly = false;
+				colvarCatg2Id.DefaultSetting = @"";
+				colvarCatg2Id.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCatg2Id);
+
+				TableSchema.TableColumn colvarCatg1 = new TableSchema.TableColumn(schema);
+				colvarCatg1.ColumnName = "Catg1";
+				colvarCatg1.DataType = DbType.String;
+				colvarCatg1.MaxLength = -1;
+				colvarCatg1.AutoIncrement = false;
+				colvarCatg1.IsNullable = true;
+				colvarCatg1.IsPrimaryKey = false;
+				colvarCatg1.IsForeignKey = false;
+				colvarCatg1.IsReadOnly = false;
+				colvarCatg1.DefaultSetting = @"";
+				colvarCatg1.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCatg1);
+
+				TableSchema.TableColumn colvarCatg2 = new TableSchema.TableColumn(schema);
+				colvarCatg2.ColumnName = "Catg2";
+				colvarCatg2.DataType = DbType.String;
+				colvarCatg2.MaxLength = -1;
+				colvarCatg2.AutoIncrement = false;
+				colvarCatg2.IsNullable = true;
+				colvarCatg2.IsPrimaryKey = false;
+				colvarCatg2.IsForeignKey = false;
+				colvarCatg2.IsReadOnly = false;
+				colvarCatg2.DefaultSetting = @"";
+				colvarCatg2.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCatg2);
+
+				TableSchema.TableColumn colvarHoldDescription = new TableSchema.TableColumn(schema);
+				colvarHoldDescription.ColumnName = "HoldDescription";
+				colvarHoldDescription.DataType = DbType.String;
+				colvarHoldDescription.MaxLength = 4000;
+				colvarHoldDescription.AutoIncrement = false;
+				colvarHoldDescription.IsNullable = true;
+				colvarHoldDescription.IsPrimaryKey = false;
+				colvarHoldDescription.IsForeignKey = false;
+				colvarHoldDescription.IsReadOnly = false;
+				colvarHoldDescription.DefaultSetting = @"";
+				colvarHoldDescription.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarHoldDescription);
+
+				TableSchema.TableColumn colvarFixedNote = new TableSchema.TableColumn(schema);
+				colvarFixedNote.ColumnName = "FixedNote";
+				colvarFixedNote.DataType = DbType.String;
+				colvarFixedNote.MaxLength = 4000;
+				colvarFixedNote.AutoIncrement = false;
+				colvarFixedNote.IsNullable = true;
+				colvarFixedNote.IsPrimaryKey = false;
+				colvarFixedNote.IsForeignKey = false;
+				colvarFixedNote.IsReadOnly = false;
+				colvarFixedNote.DefaultSetting = @"";
+				colvarFixedNote.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarFixedNote);
+
+				TableSchema.TableColumn colvarFixedBy = new TableSchema.TableColumn(schema);
+				colvarFixedBy.ColumnName = "FixedBy";
+				colvarFixedBy.DataType = DbType.String;
+				colvarFixedBy.MaxLength = 50;
+				colvarFixedBy.AutoIncrement = false;
+				colvarFixedBy.IsNullable = true;
+				colvarFixedBy.IsPrimaryKey = false;
+				colvarFixedBy.IsForeignKey = false;
+				colvarFixedBy.IsReadOnly = false;
+				colvarFixedBy.DefaultSetting = @"";
+				colvarFixedBy.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarFixedBy);
+
+				TableSchema.TableColumn colvarFixedOn = new TableSchema.TableColumn(schema);
+				colvarFixedOn.ColumnName = "FixedOn";
+				colvarFixedOn.DataType = DbType.DateTime;
+				colvarFixedOn.MaxLength = 0;
+				colvarFixedOn.AutoIncrement = false;
+				colvarFixedOn.IsNullable = true;
+				colvarFixedOn.IsPrimaryKey = false;
+				colvarFixedOn.IsForeignKey = false;
+				colvarFixedOn.IsReadOnly = false;
+				colvarFixedOn.DefaultSetting = @"";
+				colvarFixedOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarFixedOn);
+
+				TableSchema.TableColumn colvarIsActive = new TableSchema.TableColumn(schema);
+				colvarIsActive.ColumnName = "IsActive";
+				colvarIsActive.DataType = DbType.Boolean;
+				colvarIsActive.MaxLength = 0;
+				colvarIsActive.AutoIncrement = false;
+				colvarIsActive.IsNullable = false;
+				colvarIsActive.IsPrimaryKey = false;
+				colvarIsActive.IsForeignKey = false;
+				colvarIsActive.IsReadOnly = false;
+				colvarIsActive.DefaultSetting = @"";
+				colvarIsActive.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarIsActive);
+
+				TableSchema.TableColumn colvarCreatedBy = new TableSchema.TableColumn(schema);
+				colvarCreatedBy.ColumnName = "CreatedBy";
+				colvarCreatedBy.DataType = DbType.String;
+				colvarCreatedBy.MaxLength = 50;
+				colvarCreatedBy.AutoIncrement = false;
+				colvarCreatedBy.IsNullable = false;
+				colvarCreatedBy.IsPrimaryKey = false;
+				colvarCreatedBy.IsForeignKey = false;
+				colvarCreatedBy.IsReadOnly = false;
+				colvarCreatedBy.DefaultSetting = @"";
+				colvarCreatedBy.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreatedBy);
+
+				TableSchema.TableColumn colvarCreatedOn = new TableSchema.TableColumn(schema);
+				colvarCreatedOn.ColumnName = "CreatedOn";
+				colvarCreatedOn.DataType = DbType.DateTime;
+				colvarCreatedOn.MaxLength = 0;
+				colvarCreatedOn.AutoIncrement = false;
+				colvarCreatedOn.IsNullable = false;
+				colvarCreatedOn.IsPrimaryKey = false;
+				colvarCreatedOn.IsForeignKey = false;
+				colvarCreatedOn.IsReadOnly = false;
+				colvarCreatedOn.DefaultSetting = @"";
+				colvarCreatedOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCreatedOn);
+
+				TableSchema.TableColumn colvarModifiedBy = new TableSchema.TableColumn(schema);
+				colvarModifiedBy.ColumnName = "ModifiedBy";
+				colvarModifiedBy.DataType = DbType.String;
+				colvarModifiedBy.MaxLength = 50;
+				colvarModifiedBy.AutoIncrement = false;
+				colvarModifiedBy.IsNullable = false;
+				colvarModifiedBy.IsPrimaryKey = false;
+				colvarModifiedBy.IsForeignKey = false;
+				colvarModifiedBy.IsReadOnly = false;
+				colvarModifiedBy.DefaultSetting = @"";
+				colvarModifiedBy.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarModifiedBy);
+
+				TableSchema.TableColumn colvarModifiedOn = new TableSchema.TableColumn(schema);
+				colvarModifiedOn.ColumnName = "ModifiedOn";
+				colvarModifiedOn.DataType = DbType.DateTime;
+				colvarModifiedOn.MaxLength = 0;
+				colvarModifiedOn.AutoIncrement = false;
+				colvarModifiedOn.IsNullable = false;
+				colvarModifiedOn.IsPrimaryKey = false;
+				colvarModifiedOn.IsForeignKey = false;
+				colvarModifiedOn.IsReadOnly = false;
+				colvarModifiedOn.DefaultSetting = @"";
+				colvarModifiedOn.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarModifiedOn);
+
+				BaseSchema = schema;
+				DataService.Providers["SosCrmProvider"].AddSchema("vwMS_AccountHolds",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public MS_AccountHoldsView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public long AccountHoldID {
+			get { return GetColumnValue<long>(Columns.AccountHoldID); }
+			set { SetColumnValue(Columns.AccountHoldID, value); }
+		}
+		[DataMember]
+		public long AccountId {
+			get { return GetColumnValue<long>(Columns.AccountId); }
+			set { SetColumnValue(Columns.AccountId, value); }
+		}
+		[DataMember]
+		public int Catg1ID {
+			get { return GetColumnValue<int>(Columns.Catg1ID); }
+			set { SetColumnValue(Columns.Catg1ID, value); }
+		}
+		[DataMember]
+		public int Catg2Id {
+			get { return GetColumnValue<int>(Columns.Catg2Id); }
+			set { SetColumnValue(Columns.Catg2Id, value); }
+		}
+		[DataMember]
+		public string Catg1 {
+			get { return GetColumnValue<string>(Columns.Catg1); }
+			set { SetColumnValue(Columns.Catg1, value); }
+		}
+		[DataMember]
+		public string Catg2 {
+			get { return GetColumnValue<string>(Columns.Catg2); }
+			set { SetColumnValue(Columns.Catg2, value); }
+		}
+		[DataMember]
+		public string HoldDescription {
+			get { return GetColumnValue<string>(Columns.HoldDescription); }
+			set { SetColumnValue(Columns.HoldDescription, value); }
+		}
+		[DataMember]
+		public string FixedNote {
+			get { return GetColumnValue<string>(Columns.FixedNote); }
+			set { SetColumnValue(Columns.FixedNote, value); }
+		}
+		[DataMember]
+		public string FixedBy {
+			get { return GetColumnValue<string>(Columns.FixedBy); }
+			set { SetColumnValue(Columns.FixedBy, value); }
+		}
+		[DataMember]
+		public DateTime? FixedOn {
+			get { return GetColumnValue<DateTime?>(Columns.FixedOn); }
+			set { SetColumnValue(Columns.FixedOn, value); }
+		}
+		[DataMember]
+		public bool IsActive {
+			get { return GetColumnValue<bool>(Columns.IsActive); }
+			set { SetColumnValue(Columns.IsActive, value); }
+		}
+		[DataMember]
+		public string CreatedBy {
+			get { return GetColumnValue<string>(Columns.CreatedBy); }
+			set { SetColumnValue(Columns.CreatedBy, value); }
+		}
+		[DataMember]
+		public DateTime CreatedOn {
+			get { return GetColumnValue<DateTime>(Columns.CreatedOn); }
+			set { SetColumnValue(Columns.CreatedOn, value); }
+		}
+		[DataMember]
+		public string ModifiedBy {
+			get { return GetColumnValue<string>(Columns.ModifiedBy); }
+			set { SetColumnValue(Columns.ModifiedBy, value); }
+		}
+		[DataMember]
+		public DateTime ModifiedOn {
+			get { return GetColumnValue<DateTime>(Columns.ModifiedOn); }
+			set { SetColumnValue(Columns.ModifiedOn, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return AccountHoldID.ToString();
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn AccountHoldIDColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn AccountIdColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn Catg1IDColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn Catg2IdColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn Catg1Column
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn Catg2Column
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn HoldDescriptionColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+		public static TableSchema.TableColumn FixedNoteColumn
+		{
+			get { return Schema.Columns[7]; }
+		}
+		public static TableSchema.TableColumn FixedByColumn
+		{
+			get { return Schema.Columns[8]; }
+		}
+		public static TableSchema.TableColumn FixedOnColumn
+		{
+			get { return Schema.Columns[9]; }
+		}
+		public static TableSchema.TableColumn IsActiveColumn
+		{
+			get { return Schema.Columns[10]; }
+		}
+		public static TableSchema.TableColumn CreatedByColumn
+		{
+			get { return Schema.Columns[11]; }
+		}
+		public static TableSchema.TableColumn CreatedOnColumn
+		{
+			get { return Schema.Columns[12]; }
+		}
+		public static TableSchema.TableColumn ModifiedByColumn
+		{
+			get { return Schema.Columns[13]; }
+		}
+		public static TableSchema.TableColumn ModifiedOnColumn
+		{
+			get { return Schema.Columns[14]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string AccountHoldID = @"AccountHoldID";
+			public const string AccountId = @"AccountId";
+			public const string Catg1ID = @"Catg1ID";
+			public const string Catg2Id = @"Catg2Id";
+			public const string Catg1 = @"Catg1";
+			public const string Catg2 = @"Catg2";
+			public const string HoldDescription = @"HoldDescription";
+			public const string FixedNote = @"FixedNote";
+			public const string FixedBy = @"FixedBy";
+			public const string FixedOn = @"FixedOn";
+			public const string IsActive = @"IsActive";
+			public const string CreatedBy = @"CreatedBy";
+			public const string CreatedOn = @"CreatedOn";
+			public const string ModifiedBy = @"ModifiedBy";
+			public const string ModifiedOn = @"ModifiedOn";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
 	/// Strongly-typed collection for the MS_AccountMonitorInformationsView class.
 	/// </summary>
 	[DataContract]
@@ -20349,7 +21781,7 @@ namespace SOS.Data.SosCrm
 
 				TableSchema.TableColumn colvarTotalPoints = new TableSchema.TableColumn(schema);
 				colvarTotalPoints.ColumnName = "TotalPoints";
-				colvarTotalPoints.DataType = DbType.Int32;
+				colvarTotalPoints.DataType = DbType.Decimal;
 				colvarTotalPoints.MaxLength = 0;
 				colvarTotalPoints.AutoIncrement = false;
 				colvarTotalPoints.IsNullable = true;
@@ -20489,6 +21921,19 @@ namespace SOS.Data.SosCrm
 				colvarSalesRepId.DefaultSetting = @"";
 				colvarSalesRepId.ForeignKeyTableName = "";
 				schema.Columns.Add(colvarSalesRepId);
+
+				TableSchema.TableColumn colvarTeamLocationId = new TableSchema.TableColumn(schema);
+				colvarTeamLocationId.ColumnName = "TeamLocationId";
+				colvarTeamLocationId.DataType = DbType.Int32;
+				colvarTeamLocationId.MaxLength = 0;
+				colvarTeamLocationId.AutoIncrement = false;
+				colvarTeamLocationId.IsNullable = true;
+				colvarTeamLocationId.IsPrimaryKey = false;
+				colvarTeamLocationId.IsForeignKey = false;
+				colvarTeamLocationId.IsReadOnly = false;
+				colvarTeamLocationId.DefaultSetting = @"";
+				colvarTeamLocationId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTeamLocationId);
 
 				TableSchema.TableColumn colvarInstallDate = new TableSchema.TableColumn(schema);
 				colvarInstallDate.ColumnName = "InstallDate";
@@ -20869,8 +22314,8 @@ namespace SOS.Data.SosCrm
 			set { SetColumnValue(Columns.Over3Months, value); }
 		}
 		[DataMember]
-		public int? TotalPoints {
-			get { return GetColumnValue<int?>(Columns.TotalPoints); }
+		public decimal? TotalPoints {
+			get { return GetColumnValue<decimal?>(Columns.TotalPoints); }
 			set { SetColumnValue(Columns.TotalPoints, value); }
 		}
 		[DataMember]
@@ -20922,6 +22367,11 @@ namespace SOS.Data.SosCrm
 		public string SalesRepId {
 			get { return GetColumnValue<string>(Columns.SalesRepId); }
 			set { SetColumnValue(Columns.SalesRepId, value); }
+		}
+		[DataMember]
+		public int? TeamLocationId {
+			get { return GetColumnValue<int?>(Columns.TeamLocationId); }
+			set { SetColumnValue(Columns.TeamLocationId, value); }
 		}
 		[DataMember]
 		public DateTime? InstallDate {
@@ -21160,81 +22610,85 @@ namespace SOS.Data.SosCrm
 		{
 			get { return Schema.Columns[32]; }
 		}
-		public static TableSchema.TableColumn InstallDateColumn
+		public static TableSchema.TableColumn TeamLocationIdColumn
 		{
 			get { return Schema.Columns[33]; }
 		}
-		public static TableSchema.TableColumn TechIdColumn
+		public static TableSchema.TableColumn InstallDateColumn
 		{
 			get { return Schema.Columns[34]; }
 		}
-		public static TableSchema.TableColumn CancelDateColumn
+		public static TableSchema.TableColumn TechIdColumn
 		{
 			get { return Schema.Columns[35]; }
 		}
-		public static TableSchema.TableColumn AccountCancelReasonIdColumn
+		public static TableSchema.TableColumn CancelDateColumn
 		{
 			get { return Schema.Columns[36]; }
 		}
-		public static TableSchema.TableColumn FriendsAndFamilyTypeIdColumn
+		public static TableSchema.TableColumn AccountCancelReasonIdColumn
 		{
 			get { return Schema.Columns[37]; }
 		}
-		public static TableSchema.TableColumn AccountSubmitIdColumn
+		public static TableSchema.TableColumn FriendsAndFamilyTypeIdColumn
 		{
 			get { return Schema.Columns[38]; }
 		}
-		public static TableSchema.TableColumn SubmittedToCSDateColumn
+		public static TableSchema.TableColumn AccountSubmitIdColumn
 		{
 			get { return Schema.Columns[39]; }
 		}
-		public static TableSchema.TableColumn CsConfirmationNumberColumn
+		public static TableSchema.TableColumn SubmittedToCSDateColumn
 		{
 			get { return Schema.Columns[40]; }
 		}
-		public static TableSchema.TableColumn CsTwoWayConfNumberColumn
+		public static TableSchema.TableColumn CsConfirmationNumberColumn
 		{
 			get { return Schema.Columns[41]; }
 		}
-		public static TableSchema.TableColumn SubmittedToGPDateColumn
+		public static TableSchema.TableColumn CsTwoWayConfNumberColumn
 		{
 			get { return Schema.Columns[42]; }
 		}
-		public static TableSchema.TableColumn AMAColumn
+		public static TableSchema.TableColumn SubmittedToGPDateColumn
 		{
 			get { return Schema.Columns[43]; }
 		}
-		public static TableSchema.TableColumn NOCColumn
+		public static TableSchema.TableColumn AMAColumn
 		{
 			get { return Schema.Columns[44]; }
 		}
-		public static TableSchema.TableColumn SOPColumn
+		public static TableSchema.TableColumn NOCColumn
 		{
 			get { return Schema.Columns[45]; }
 		}
-		public static TableSchema.TableColumn ApprovedDateColumn
+		public static TableSchema.TableColumn SOPColumn
 		{
 			get { return Schema.Columns[46]; }
 		}
-		public static TableSchema.TableColumn ApproverIDColumn
+		public static TableSchema.TableColumn ApprovedDateColumn
 		{
 			get { return Schema.Columns[47]; }
 		}
-		public static TableSchema.TableColumn NOCDateColumn
+		public static TableSchema.TableColumn ApproverIDColumn
 		{
 			get { return Schema.Columns[48]; }
 		}
-		public static TableSchema.TableColumn NOCDateCalculatedColumn
+		public static TableSchema.TableColumn NOCDateColumn
 		{
 			get { return Schema.Columns[49]; }
 		}
-		public static TableSchema.TableColumn OptOutCorporateColumn
+		public static TableSchema.TableColumn NOCDateCalculatedColumn
 		{
 			get { return Schema.Columns[50]; }
 		}
-		public static TableSchema.TableColumn OptOutAffiliateColumn
+		public static TableSchema.TableColumn OptOutCorporateColumn
 		{
 			get { return Schema.Columns[51]; }
+		}
+		public static TableSchema.TableColumn OptOutAffiliateColumn
+		{
+			get { return Schema.Columns[52]; }
 		}
 
 		#endregion
@@ -21275,6 +22729,7 @@ namespace SOS.Data.SosCrm
 			public const string IsMoni = @"IsMoni";
 			public const string ContractSignedDate = @"ContractSignedDate";
 			public const string SalesRepId = @"SalesRepId";
+			public const string TeamLocationId = @"TeamLocationId";
 			public const string InstallDate = @"InstallDate";
 			public const string TechId = @"TechId";
 			public const string CancelDate = @"CancelDate";
@@ -28106,6 +29561,387 @@ namespace SOS.Data.SosCrm
 		public struct Columns
 		{
 			public const string rndResult = @"rndResult";
+		}
+		#endregion Columns Struct
+	}
+	/// <summary>
+	/// Strongly-typed collection for the Reports_PerformanceView class.
+	/// </summary>
+	[DataContract]
+	public partial class Reports_PerformanceViewCollection : ReadOnlyList<Reports_PerformanceView, Reports_PerformanceViewCollection>
+	{
+		public static Reports_PerformanceViewCollection LoadByStoredProcedure(StoredProcedure sp)
+		{
+			Reports_PerformanceViewCollection result = new Reports_PerformanceViewCollection();
+			result.LoadAndCloseReader(sp.GetReader());
+			return result;
+		}
+	}
+
+	/// <summary>
+	/// This is a Read-only wrapper class for the vwReports_Performance view.
+	/// </summary>
+	[DataContract]
+	public partial class Reports_PerformanceView : ReadOnlyRecord<Reports_PerformanceView>
+	{
+		#region Default Settings
+		protected static void SetSQLProps() { GetTableSchema(); }
+		#endregion
+
+		#region Schema Accessor
+		public static TableSchema.Table Schema
+		{
+			get {
+				if (BaseSchema == null) SetSQLProps();
+				return BaseSchema;
+			}
+		}
+		private static void GetTableSchema()
+		{
+			if(!IsSchemaInitialized)
+			{
+				//Schema declaration
+				TableSchema.Table schema = new TableSchema.Table("vwReports_Performance", TableType.Table, DataService.GetInstance("SosCrmProvider"));
+				schema.Columns = new TableSchema.TableColumnCollection();
+				schema.SchemaName = @"dbo";
+				//columns
+
+				TableSchema.TableColumn colvarOfficeId = new TableSchema.TableColumn(schema);
+				colvarOfficeId.ColumnName = "OfficeId";
+				colvarOfficeId.DataType = DbType.Int32;
+				colvarOfficeId.MaxLength = 0;
+				colvarOfficeId.AutoIncrement = false;
+				colvarOfficeId.IsNullable = true;
+				colvarOfficeId.IsPrimaryKey = false;
+				colvarOfficeId.IsForeignKey = false;
+				colvarOfficeId.IsReadOnly = false;
+				colvarOfficeId.DefaultSetting = @"";
+				colvarOfficeId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarOfficeId);
+
+				TableSchema.TableColumn colvarAccountID = new TableSchema.TableColumn(schema);
+				colvarAccountID.ColumnName = "AccountID";
+				colvarAccountID.DataType = DbType.Int64;
+				colvarAccountID.MaxLength = 0;
+				colvarAccountID.AutoIncrement = false;
+				colvarAccountID.IsNullable = false;
+				colvarAccountID.IsPrimaryKey = false;
+				colvarAccountID.IsForeignKey = false;
+				colvarAccountID.IsReadOnly = false;
+				colvarAccountID.DefaultSetting = @"";
+				colvarAccountID.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarAccountID);
+
+				TableSchema.TableColumn colvarTerm = new TableSchema.TableColumn(schema);
+				colvarTerm.ColumnName = "Term";
+				colvarTerm.DataType = DbType.Int16;
+				colvarTerm.MaxLength = 0;
+				colvarTerm.AutoIncrement = false;
+				colvarTerm.IsNullable = true;
+				colvarTerm.IsPrimaryKey = false;
+				colvarTerm.IsForeignKey = false;
+				colvarTerm.IsReadOnly = false;
+				colvarTerm.DefaultSetting = @"";
+				colvarTerm.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarTerm);
+
+				TableSchema.TableColumn colvarCloseRate = new TableSchema.TableColumn(schema);
+				colvarCloseRate.ColumnName = "CloseRate";
+				colvarCloseRate.DataType = DbType.Int32;
+				colvarCloseRate.MaxLength = 0;
+				colvarCloseRate.AutoIncrement = false;
+				colvarCloseRate.IsNullable = false;
+				colvarCloseRate.IsPrimaryKey = false;
+				colvarCloseRate.IsForeignKey = false;
+				colvarCloseRate.IsReadOnly = false;
+				colvarCloseRate.DefaultSetting = @"";
+				colvarCloseRate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarCloseRate);
+
+				TableSchema.TableColumn colvarSetupFee = new TableSchema.TableColumn(schema);
+				colvarSetupFee.ColumnName = "SetupFee";
+				colvarSetupFee.DataType = DbType.Currency;
+				colvarSetupFee.MaxLength = 0;
+				colvarSetupFee.AutoIncrement = false;
+				colvarSetupFee.IsNullable = true;
+				colvarSetupFee.IsPrimaryKey = false;
+				colvarSetupFee.IsForeignKey = false;
+				colvarSetupFee.IsReadOnly = false;
+				colvarSetupFee.DefaultSetting = @"";
+				colvarSetupFee.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSetupFee);
+
+				TableSchema.TableColumn colvarFirstMonth = new TableSchema.TableColumn(schema);
+				colvarFirstMonth.ColumnName = "FirstMonth";
+				colvarFirstMonth.DataType = DbType.Currency;
+				colvarFirstMonth.MaxLength = 0;
+				colvarFirstMonth.AutoIncrement = false;
+				colvarFirstMonth.IsNullable = true;
+				colvarFirstMonth.IsPrimaryKey = false;
+				colvarFirstMonth.IsForeignKey = false;
+				colvarFirstMonth.IsReadOnly = false;
+				colvarFirstMonth.DefaultSetting = @"";
+				colvarFirstMonth.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarFirstMonth);
+
+				TableSchema.TableColumn colvarOver3Months = new TableSchema.TableColumn(schema);
+				colvarOver3Months.ColumnName = "Over3Months";
+				colvarOver3Months.DataType = DbType.Boolean;
+				colvarOver3Months.MaxLength = 0;
+				colvarOver3Months.AutoIncrement = false;
+				colvarOver3Months.IsNullable = true;
+				colvarOver3Months.IsPrimaryKey = false;
+				colvarOver3Months.IsForeignKey = false;
+				colvarOver3Months.IsReadOnly = false;
+				colvarOver3Months.DefaultSetting = @"";
+				colvarOver3Months.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarOver3Months);
+
+				TableSchema.TableColumn colvarPackageSoldId = new TableSchema.TableColumn(schema);
+				colvarPackageSoldId.ColumnName = "PackageSoldId";
+				colvarPackageSoldId.DataType = DbType.Int32;
+				colvarPackageSoldId.MaxLength = 0;
+				colvarPackageSoldId.AutoIncrement = false;
+				colvarPackageSoldId.IsNullable = true;
+				colvarPackageSoldId.IsPrimaryKey = false;
+				colvarPackageSoldId.IsForeignKey = false;
+				colvarPackageSoldId.IsReadOnly = false;
+				colvarPackageSoldId.DefaultSetting = @"";
+				colvarPackageSoldId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarPackageSoldId);
+
+				TableSchema.TableColumn colvarSubmitAccountOnline = new TableSchema.TableColumn(schema);
+				colvarSubmitAccountOnline.ColumnName = "SubmitAccountOnline";
+				colvarSubmitAccountOnline.DataType = DbType.DateTime;
+				colvarSubmitAccountOnline.MaxLength = 0;
+				colvarSubmitAccountOnline.AutoIncrement = false;
+				colvarSubmitAccountOnline.IsNullable = true;
+				colvarSubmitAccountOnline.IsPrimaryKey = false;
+				colvarSubmitAccountOnline.IsForeignKey = false;
+				colvarSubmitAccountOnline.IsReadOnly = false;
+				colvarSubmitAccountOnline.DefaultSetting = @"";
+				colvarSubmitAccountOnline.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSubmitAccountOnline);
+
+				TableSchema.TableColumn colvarInstallDate = new TableSchema.TableColumn(schema);
+				colvarInstallDate.ColumnName = "InstallDate";
+				colvarInstallDate.DataType = DbType.DateTime;
+				colvarInstallDate.MaxLength = 0;
+				colvarInstallDate.AutoIncrement = false;
+				colvarInstallDate.IsNullable = true;
+				colvarInstallDate.IsPrimaryKey = false;
+				colvarInstallDate.IsForeignKey = false;
+				colvarInstallDate.IsReadOnly = false;
+				colvarInstallDate.DefaultSetting = @"";
+				colvarInstallDate.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarInstallDate);
+
+				TableSchema.TableColumn colvarDealerId = new TableSchema.TableColumn(schema);
+				colvarDealerId.ColumnName = "DealerId";
+				colvarDealerId.DataType = DbType.Int32;
+				colvarDealerId.MaxLength = 0;
+				colvarDealerId.AutoIncrement = false;
+				colvarDealerId.IsNullable = true;
+				colvarDealerId.IsPrimaryKey = false;
+				colvarDealerId.IsForeignKey = false;
+				colvarDealerId.IsReadOnly = false;
+				colvarDealerId.DefaultSetting = @"";
+				colvarDealerId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarDealerId);
+
+				TableSchema.TableColumn colvarSalesRepId = new TableSchema.TableColumn(schema);
+				colvarSalesRepId.ColumnName = "SalesRepId";
+				colvarSalesRepId.DataType = DbType.AnsiString;
+				colvarSalesRepId.MaxLength = 10;
+				colvarSalesRepId.AutoIncrement = false;
+				colvarSalesRepId.IsNullable = true;
+				colvarSalesRepId.IsPrimaryKey = false;
+				colvarSalesRepId.IsForeignKey = false;
+				colvarSalesRepId.IsReadOnly = false;
+				colvarSalesRepId.DefaultSetting = @"";
+				colvarSalesRepId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSalesRepId);
+
+				TableSchema.TableColumn colvarSeasonId = new TableSchema.TableColumn(schema);
+				colvarSeasonId.ColumnName = "SeasonId";
+				colvarSeasonId.DataType = DbType.Int32;
+				colvarSeasonId.MaxLength = 0;
+				colvarSeasonId.AutoIncrement = false;
+				colvarSeasonId.IsNullable = true;
+				colvarSeasonId.IsPrimaryKey = false;
+				colvarSeasonId.IsForeignKey = false;
+				colvarSeasonId.IsReadOnly = false;
+				colvarSeasonId.DefaultSetting = @"";
+				colvarSeasonId.ForeignKeyTableName = "";
+				schema.Columns.Add(colvarSeasonId);
+
+				BaseSchema = schema;
+				DataService.Providers["SosCrmProvider"].AddSchema("vwReports_Performance",schema);
+			}
+		}
+		#endregion //Schema Accessor
+
+		#region Query Accessor
+		public static Query CreateQuery()
+		{
+			return new Query(Schema);
+		}
+		#endregion //Query Accessor
+
+		#region .ctors
+		public Reports_PerformanceView()
+		{
+			SetSQLProps();SetDefaults();MarkNew();
+		}
+		#endregion
+
+		#region Properties
+		[DataMember]
+		public int? OfficeId {
+			get { return GetColumnValue<int?>(Columns.OfficeId); }
+			set { SetColumnValue(Columns.OfficeId, value); }
+		}
+		[DataMember]
+		public long AccountID {
+			get { return GetColumnValue<long>(Columns.AccountID); }
+			set { SetColumnValue(Columns.AccountID, value); }
+		}
+		[DataMember]
+		public short? Term {
+			get { return GetColumnValue<short?>(Columns.Term); }
+			set { SetColumnValue(Columns.Term, value); }
+		}
+		[DataMember]
+		public int CloseRate {
+			get { return GetColumnValue<int>(Columns.CloseRate); }
+			set { SetColumnValue(Columns.CloseRate, value); }
+		}
+		[DataMember]
+		public decimal? SetupFee {
+			get { return GetColumnValue<decimal?>(Columns.SetupFee); }
+			set { SetColumnValue(Columns.SetupFee, value); }
+		}
+		[DataMember]
+		public decimal? FirstMonth {
+			get { return GetColumnValue<decimal?>(Columns.FirstMonth); }
+			set { SetColumnValue(Columns.FirstMonth, value); }
+		}
+		[DataMember]
+		public bool? Over3Months {
+			get { return GetColumnValue<bool?>(Columns.Over3Months); }
+			set { SetColumnValue(Columns.Over3Months, value); }
+		}
+		[DataMember]
+		public int? PackageSoldId {
+			get { return GetColumnValue<int?>(Columns.PackageSoldId); }
+			set { SetColumnValue(Columns.PackageSoldId, value); }
+		}
+		[DataMember]
+		public DateTime? SubmitAccountOnline {
+			get { return GetColumnValue<DateTime?>(Columns.SubmitAccountOnline); }
+			set { SetColumnValue(Columns.SubmitAccountOnline, value); }
+		}
+		[DataMember]
+		public DateTime? InstallDate {
+			get { return GetColumnValue<DateTime?>(Columns.InstallDate); }
+			set { SetColumnValue(Columns.InstallDate, value); }
+		}
+		[DataMember]
+		public int? DealerId {
+			get { return GetColumnValue<int?>(Columns.DealerId); }
+			set { SetColumnValue(Columns.DealerId, value); }
+		}
+		[DataMember]
+		public string SalesRepId {
+			get { return GetColumnValue<string>(Columns.SalesRepId); }
+			set { SetColumnValue(Columns.SalesRepId, value); }
+		}
+		[DataMember]
+		public int? SeasonId {
+			get { return GetColumnValue<int?>(Columns.SeasonId); }
+			set { SetColumnValue(Columns.SeasonId, value); }
+		}
+
+		#endregion //Properties
+
+		public override string ToString()
+		{
+			return OfficeId.ToString();
+		}
+
+		#region Typed Columns
+
+		public static TableSchema.TableColumn OfficeIdColumn
+		{
+			get { return Schema.Columns[0]; }
+		}
+		public static TableSchema.TableColumn AccountIDColumn
+		{
+			get { return Schema.Columns[1]; }
+		}
+		public static TableSchema.TableColumn TermColumn
+		{
+			get { return Schema.Columns[2]; }
+		}
+		public static TableSchema.TableColumn CloseRateColumn
+		{
+			get { return Schema.Columns[3]; }
+		}
+		public static TableSchema.TableColumn SetupFeeColumn
+		{
+			get { return Schema.Columns[4]; }
+		}
+		public static TableSchema.TableColumn FirstMonthColumn
+		{
+			get { return Schema.Columns[5]; }
+		}
+		public static TableSchema.TableColumn Over3MonthsColumn
+		{
+			get { return Schema.Columns[6]; }
+		}
+		public static TableSchema.TableColumn PackageSoldIdColumn
+		{
+			get { return Schema.Columns[7]; }
+		}
+		public static TableSchema.TableColumn SubmitAccountOnlineColumn
+		{
+			get { return Schema.Columns[8]; }
+		}
+		public static TableSchema.TableColumn InstallDateColumn
+		{
+			get { return Schema.Columns[9]; }
+		}
+		public static TableSchema.TableColumn DealerIdColumn
+		{
+			get { return Schema.Columns[10]; }
+		}
+		public static TableSchema.TableColumn SalesRepIdColumn
+		{
+			get { return Schema.Columns[11]; }
+		}
+		public static TableSchema.TableColumn SeasonIdColumn
+		{
+			get { return Schema.Columns[12]; }
+		}
+
+		#endregion
+
+		#region Columns Struct
+		public struct Columns
+		{
+			public const string OfficeId = @"OfficeId";
+			public const string AccountID = @"AccountID";
+			public const string Term = @"Term";
+			public const string CloseRate = @"CloseRate";
+			public const string SetupFee = @"SetupFee";
+			public const string FirstMonth = @"FirstMonth";
+			public const string Over3Months = @"Over3Months";
+			public const string PackageSoldId = @"PackageSoldId";
+			public const string SubmitAccountOnline = @"SubmitAccountOnline";
+			public const string InstallDate = @"InstallDate";
+			public const string DealerId = @"DealerId";
+			public const string SalesRepId = @"SalesRepId";
+			public const string SeasonId = @"SeasonId";
 		}
 		#endregion Columns Struct
 	}

@@ -71,7 +71,7 @@ namespace Api.Core
 				if (valid)
 				{
 					var sessionNum = _sessionStore.Create(username, ipAddress);
-					result.Value = new SystemUserIdentity(SystemUserIdentity.AuthTypes.Session, sessionNum, user, null, null);
+					result.Value = new SystemUserIdentity(SystemUserIdentity.AuthTypes.SESSION, sessionNum, user, null, null);
 					return result;
 				}
 			}

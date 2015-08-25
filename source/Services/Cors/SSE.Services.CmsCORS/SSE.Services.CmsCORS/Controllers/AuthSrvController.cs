@@ -121,7 +121,7 @@ namespace SSE.Services.CmsCORS.Controllers
 				AuthInformation authInfo;
 				if (!HttpContext.Current.GetSessionData(_tokenConfig.Tokenizer, out token, out username, out authInfo))
 					return result;
-				if (authInfo.AuthType == SystemUserIdentity.AuthTypes.Session)
+				if (authInfo.AuthType == SystemUserIdentity.AuthTypes.SESSION)
 				{
 					_authService.EndSession(authInfo.AuthNum);
 					result.Value = true;

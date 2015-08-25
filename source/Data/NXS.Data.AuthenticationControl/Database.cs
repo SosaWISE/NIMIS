@@ -1,6 +1,3 @@
-using NXS.Data;
-using System;
-
 namespace NXS.Data.AuthenticationControl
 {
 	public partial class DBase : Database<DBase>
@@ -12,6 +9,7 @@ namespace NXS.Data.AuthenticationControl
 			Sprocs = new Sprocs(this);
 		}
 
+// ReSharper disable InconsistentNaming
 		public AC_ActionRequestTable AC_ActionRequests { get; set; }
 		public AC_ActionTable AC_Actions { get; set; }
 		public AC_ApplicationTable AC_Applications { get; set; }
@@ -23,6 +21,7 @@ namespace NXS.Data.AuthenticationControl
 		public AC_UserTable AC_Users { get; set; }
 		public AC_UserSessionTable AC_UserSessions { get; set; }
 		public AC_UsersAppAuthenticationViewTable AC_UsersAppAuthenticationViews { get; set; }
+// ReSharper restore InconsistentNaming
 
 		public partial class AC_ActionRequestTable : Table<AC_ActionRequest, int>
 		{

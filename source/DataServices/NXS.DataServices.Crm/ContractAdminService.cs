@@ -90,7 +90,15 @@ namespace NXS.DataServices.Crm
 						custAccounts.Remove(custAcct); // don't delete this one
 					// delete existing customer accounts except current (there should only be one but the db schema allows more than one)
 					foreach (var item in custAccounts)
-						await tbl.DeleteAsync(item.CustomerAccountID).ConfigureAwait(false);
+					{
+						//await tbl.DeleteAsync(item.CustomerAccountID).ConfigureAwait(false);
+						var custTbl = db.AE_Customers;
+						var cust1 = (await custTbl.ByIdAsync(item.CustomerId));
+						var snapshot1 = Snapshotter.Start(cust1);
+						cust1.IsActive = false;
+						cust1.IsDeleted = true;
+						await custTbl.UpdateAsync(snapshot1, _gpEmployeeId).ConfigureAwait(false);
+					}
 
 					// ensure MC_Address
 					var mcAddress = (await UpdateOrCreateMcAddress(_gpEmployeeId, db, qlAddress).ConfigureAwait(false));

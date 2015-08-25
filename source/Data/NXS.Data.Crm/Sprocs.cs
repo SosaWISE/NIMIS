@@ -584,6 +584,12 @@ namespace NXS.Data.Crm
 			p.Add("@GPEmployeeId", GPEmployeeId);
 			return db.QueryAsync<T>("custIE_ProductBarcodeTrackingCreate", p, commandType: System.Data.CommandType.StoredProcedure);
 		}
+		public Task<IEnumerable<T>> IE_ProductBarcodeTrackingHistoryByBarcodeID<T>(long? ProductBarcodeId)
+		{
+			var p = new Dapper.DynamicParameters();
+			p.Add("@ProductBarcodeId", ProductBarcodeId);
+			return db.QueryAsync<T>("custIE_ProductBarcodeTrackingHistoryByBarcodeID", p, commandType: System.Data.CommandType.StoredProcedure);
+		}
 		public Task<IEnumerable<T>> IE_PurchaseOrdersAddFromGreatPlains<T>()
 		{
 			var p = new Dapper.DynamicParameters();
@@ -1834,6 +1840,11 @@ namespace NXS.Data.Crm
 		{
 			var p = new Dapper.DynamicParameters();
 			return db.QueryAsync<T>("custSAE_AgingAddFromGreatPlains", p, commandType: System.Data.CommandType.StoredProcedure);
+		}
+		public Task<IEnumerable<T>> SAE_BillingHistoryAddFromGreatPlains<T>()
+		{
+			var p = new Dapper.DynamicParameters();
+			return db.QueryAsync<T>("custSAE_BillingHistoryAddFromGreatPlains", p, commandType: System.Data.CommandType.StoredProcedure);
 		}
 		public Task<IEnumerable<T>> SAE_BillingHistoryByCMFID<T>(long? CMFID)
 		{

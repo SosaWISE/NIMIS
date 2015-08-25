@@ -51,7 +51,7 @@ AS
 		, MSASI.ContractLength AS Term
 		, 0 AS [CloseRate]
 		, MSASI.SetupFee AS [SetupFee]
-		, MSASI.SetupFee1stMonth AS [1stMonth]
+		, MSASI.SetupFee1stMonth AS [FirstMonth]
 		, MSASI.Over3Months AS [Over3Months]
 		, MSASI.AccountPackageId AS [PackageSoldId]
 		, MSASCL.SubmitAccountOnline

@@ -2556,6 +2556,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		MS_ReceiverLineBlockVendorAlarmComAccountsMapController _MS_ReceiverLineBlockVendorAlarmComAccountsMaps;
+		public MS_ReceiverLineBlockVendorAlarmComAccountsMapController MS_ReceiverLineBlockVendorAlarmComAccountsMaps
+		{
+			get
+			{
+				if (_MS_ReceiverLineBlockVendorAlarmComAccountsMaps == null) _MS_ReceiverLineBlockVendorAlarmComAccountsMaps = new MS_ReceiverLineBlockVendorAlarmComAccountsMapController();
+				return _MS_ReceiverLineBlockVendorAlarmComAccountsMaps;
+			}
+		}
+
 		MS_ReceiverLineController _MS_ReceiverLines;
 		public MS_ReceiverLineController MS_ReceiverLines
 		{
@@ -3220,6 +3230,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		AE_Cust_Import_toGPViewController _AE_Cust_Import_toGPViews;
+		public AE_Cust_Import_toGPViewController AE_Cust_Import_toGPViews
+		{
+			get
+			{
+				if (_AE_Cust_Import_toGPViews == null) _AE_Cust_Import_toGPViews = new AE_Cust_Import_toGPViewController();
+				return _AE_Cust_Import_toGPViews;
+			}
+		}
+
 		AE_CustomerAccountInfoToGPViewController _AE_CustomerAccountInfoToGPViews;
 		public AE_CustomerAccountInfoToGPViewController AE_CustomerAccountInfoToGPViews
 		{
@@ -3227,6 +3247,16 @@ namespace SOS.Data.SosCrm
 			{
 				if (_AE_CustomerAccountInfoToGPViews == null) _AE_CustomerAccountInfoToGPViews = new AE_CustomerAccountInfoToGPViewController();
 				return _AE_CustomerAccountInfoToGPViews;
+			}
+		}
+
+		AE_CustomerAccountsViewController _AE_CustomerAccountsViews;
+		public AE_CustomerAccountsViewController AE_CustomerAccountsViews
+		{
+			get
+			{
+				if (_AE_CustomerAccountsViews == null) _AE_CustomerAccountsViews = new AE_CustomerAccountsViewController();
+				return _AE_CustomerAccountsViews;
 			}
 		}
 
@@ -3460,6 +3490,16 @@ namespace SOS.Data.SosCrm
 			}
 		}
 
+		IE_ProductBarcodeItemViewController _IE_ProductBarcodeItemViews;
+		public IE_ProductBarcodeItemViewController IE_ProductBarcodeItemViews
+		{
+			get
+			{
+				if (_IE_ProductBarcodeItemViews == null) _IE_ProductBarcodeItemViews = new IE_ProductBarcodeItemViewController();
+				return _IE_ProductBarcodeItemViews;
+			}
+		}
+
 		IE_ProductBarcodeLocationViewController _IE_ProductBarcodeLocationViews;
 		public IE_ProductBarcodeLocationViewController IE_ProductBarcodeLocationViews
 		{
@@ -3607,6 +3647,16 @@ namespace SOS.Data.SosCrm
 			{
 				if (_MS_AccountEventViews == null) _MS_AccountEventViews = new MS_AccountEventViewController();
 				return _MS_AccountEventViews;
+			}
+		}
+
+		MS_AccountHoldsViewController _MS_AccountHoldsViews;
+		public MS_AccountHoldsViewController MS_AccountHoldsViews
+		{
+			get
+			{
+				if (_MS_AccountHoldsViews == null) _MS_AccountHoldsViews = new MS_AccountHoldsViewController();
+				return _MS_AccountHoldsViews;
 			}
 		}
 
@@ -3817,6 +3867,16 @@ namespace SOS.Data.SosCrm
 			{
 				if (_RandNumberViews == null) _RandNumberViews = new RandNumberViewController();
 				return _RandNumberViews;
+			}
+		}
+
+		Reports_PerformanceViewController _Reports_PerformanceViews;
+		public Reports_PerformanceViewController Reports_PerformanceViews
+		{
+			get
+			{
+				if (_Reports_PerformanceViews == null) _Reports_PerformanceViews = new Reports_PerformanceViewController();
+				return _Reports_PerformanceViews;
 			}
 		}
 
@@ -4227,6 +4287,7 @@ namespace SOS.Data.SosCrm
 	public class MS_ReceiverLineBlockAlarmnetController : BaseTableController<MS_ReceiverLineBlockAlarmnet, MS_ReceiverLineBlockAlarmnetCollection> { }
 	public class MS_ReceiverLineBlockController : BaseTableController<MS_ReceiverLineBlock, MS_ReceiverLineBlockCollection> { }
 	public class MS_ReceiverLineBlockTelguardController : BaseTableController<MS_ReceiverLineBlockTelguard, MS_ReceiverLineBlockTelguardCollection> { }
+	public class MS_ReceiverLineBlockVendorAlarmComAccountsMapController : BaseTableController<MS_ReceiverLineBlockVendorAlarmComAccountsMap, MS_ReceiverLineBlockVendorAlarmComAccountsMapCollection> { }
 	public class MS_ReceiverLineController : BaseTableController<MS_ReceiverLine, MS_ReceiverLineCollection> { }
 	public class MS_ReceiverLineTypeController : BaseTableController<MS_ReceiverLineType, MS_ReceiverLineTypeCollection> { }
 	public class MS_ReceiverLineVendorAlarmComAccountsMapController : BaseTableController<MS_ReceiverLineVendorAlarmComAccountsMap, MS_ReceiverLineVendorAlarmComAccountsMapCollection> { }
@@ -4298,7 +4359,9 @@ namespace SOS.Data.SosCrm
 	#region View Controllers
 
 	public class AE_AgingViewController : BaseViewController<AE_AgingView, AE_AgingViewCollection> { }
+	public class AE_Cust_Import_toGPViewController : BaseViewController<AE_Cust_Import_toGPView, AE_Cust_Import_toGPViewCollection> { }
 	public class AE_CustomerAccountInfoToGPViewController : BaseViewController<AE_CustomerAccountInfoToGPView, AE_CustomerAccountInfoToGPViewCollection> { }
+	public class AE_CustomerAccountsViewController : BaseViewController<AE_CustomerAccountsView, AE_CustomerAccountsViewCollection> { }
 	public class AE_CustomerGpsClientsViewController : BaseViewController<AE_CustomerGpsClientsView, AE_CustomerGpsClientsViewCollection> { }
 	public class AE_CustomerInformationViewController : BaseViewController<AE_CustomerInformationView, AE_CustomerInformationViewCollection> { }
 	public class AE_CustomerMasterFileGeneralViewController : BaseViewController<AE_CustomerMasterFileGeneralView, AE_CustomerMasterFileGeneralViewCollection> { }
@@ -4322,6 +4385,7 @@ namespace SOS.Data.SosCrm
 	public class BX_DocumentFieldsSONXS001ViewController : BaseViewController<BX_DocumentFieldsSONXS001View, BX_DocumentFieldsSONXS001ViewCollection> { }
 	public class IE_LocationViewController : BaseViewController<IE_LocationView, IE_LocationViewCollection> { }
 	public class IE_PackingSlipViewController : BaseViewController<IE_PackingSlipView, IE_PackingSlipViewCollection> { }
+	public class IE_ProductBarcodeItemViewController : BaseViewController<IE_ProductBarcodeItemView, IE_ProductBarcodeItemViewCollection> { }
 	public class IE_ProductBarcodeLocationViewController : BaseViewController<IE_ProductBarcodeLocationView, IE_ProductBarcodeLocationViewCollection> { }
 	public class IE_ProductBarcodeTrackingViewController : BaseViewController<IE_ProductBarcodeTrackingView, IE_ProductBarcodeTrackingViewCollection> { }
 	public class IE_PurchaseOrderItemsViewController : BaseViewController<IE_PurchaseOrderItemsView, IE_PurchaseOrderItemsViewCollection> { }
@@ -4337,6 +4401,7 @@ namespace SOS.Data.SosCrm
 	public class MS_AccountEquipmentsViewController : BaseViewController<MS_AccountEquipmentsView, MS_AccountEquipmentsViewCollection> { }
 	public class MS_AccountEquipmentsAllViewController : BaseViewController<MS_AccountEquipmentsAllView, MS_AccountEquipmentsAllViewCollection> { }
 	public class MS_AccountEventViewController : BaseViewController<MS_AccountEventView, MS_AccountEventViewCollection> { }
+	public class MS_AccountHoldsViewController : BaseViewController<MS_AccountHoldsView, MS_AccountHoldsViewCollection> { }
 	public class MS_AccountMonitorInformationsViewController : BaseViewController<MS_AccountMonitorInformationsView, MS_AccountMonitorInformationsViewCollection> { }
 	public class MS_AccountOnlineStatusInfoViewController : BaseViewController<MS_AccountOnlineStatusInfoView, MS_AccountOnlineStatusInfoViewCollection> { }
 	public class MS_AccountSalesInformationsViewController : BaseViewController<MS_AccountSalesInformationsView, MS_AccountSalesInformationsViewCollection> { }
@@ -4358,6 +4423,7 @@ namespace SOS.Data.SosCrm
 	public class QL_LeadSearchResultViewController : BaseViewController<QL_LeadSearchResultView, QL_LeadSearchResultViewCollection> { }
 	public class QL_QualifyCustomerInfoViewController : BaseViewController<QL_QualifyCustomerInfoView, QL_QualifyCustomerInfoViewCollection> { }
 	public class RandNumberViewController : BaseViewController<RandNumberView, RandNumberViewCollection> { }
+	public class Reports_PerformanceViewController : BaseViewController<Reports_PerformanceView, Reports_PerformanceViewCollection> { }
 	public class SAE_BillingHistoryViewController : BaseViewController<SAE_BillingHistoryView, SAE_BillingHistoryViewCollection> { }
 	public class SAE_BillingInfoSummaryViewController : BaseViewController<SAE_BillingInfoSummaryView, SAE_BillingInfoSummaryViewCollection> { }
 	public class SE_AccountTicketsViewController : BaseViewController<SE_AccountTicketsView, SE_AccountTicketsViewCollection> { }

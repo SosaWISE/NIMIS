@@ -53,7 +53,8 @@ namespace SOS.Data.SosCrm.ControllerExtensions
 
 		public static ARCollection ByCmfid(this ARController cntlr, long cmfid)
 		{
-			return cntlr.LoadCollection(AR.Query().WHERE(AR.Columns.CustomerMasterFileId, cmfid));
+			// return cntlr.LoadCollection(AR.Query().WHERE(AR.Columns.CustomerMasterFileId, cmfid).AND(AR.Columns.IsDeleted, false).AND(AR.Columns.IsActive, true));
+			return cntlr.LoadCollection(SosCrmDataStoredProcedureManager.AE_CustomerByCMFID(cmfid));
 		}
 		public static bool ExistsForCmfid(this ARController cntlr, long cmfid)
 		{

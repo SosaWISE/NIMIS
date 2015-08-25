@@ -63,7 +63,7 @@ RETURNS
 	, [Term] [INT] NULL
 	, [CloseRate] [INT] NULL
 	, [SetupFee] [MONEY] NULL
-	, [1stMonth] [MONEY] NULL
+	, [FirstMonth] [MONEY] NULL
 	, [Over3Months] [MONEY] NULL
 	, [PackageSoldId] [INT] NULL
 )
@@ -78,7 +78,7 @@ BEGIN
 		, Term
 		, CloseRate
 		, SetupFee
-		, [1stMonth]
+		, [FirstMonth]
 		, Over3Months
 		, PackageSoldId
 	)
@@ -89,7 +89,7 @@ BEGIN
 		, OFFICE.Term = ISNULL(AGR.Term, 0)
 		, OFFICE.CloseRate = ISNULL(AGR.CloseRate, 0)
 		, OFFICE.SetupFee = ISNULL(AGR.SetupFee, 0)
-		, OFFICE.[1stMonth] = ISNULL(AGR.[1stMonth], 0)
+		, OFFICE.[FirstMonth] = ISNULL(AGR.[FirstMonth], 0)
 		, OFFICE.Over3Months = ISNULL(AGR.Over3Months, 0)
 		, OFFICE.PackageSoldId = ISNULL(AGR.PackageSoldId, 0)
 	FROM
@@ -101,7 +101,7 @@ BEGIN
 			, AVG(PERFM.Term) AS Term
 			, 0 AS [CloseRate]
 			, AVG(PERFM.SetupFee) AS [SetupFee]
-			, AVG(PERFM.[1stMonth]) AS [1stMonth]
+			, AVG(PERFM.[FirstMonth]) AS [FirstMonth]
 			, COUNT(PERFM.Over3Months) AS [Over3Months]
 			, COUNT(PERFM.[PackageSoldId]) AS [PackageSoldId]
 		FROM
@@ -128,7 +128,7 @@ BEGIN
 			, AVG(MSASI.ContractLength) AS Term
 			, 0 AS [CloseRate]
 			, AVG(MSASI.SetupFee) AS [SetupFee]
-			, AVG(MSASI.SetupFee1stMonth) AS [1stMonth]
+			, AVG(MSASI.SetupFee1stMonth) AS [FirstMonth]
 			, COUNT(MSASI.Over3Months) AS [Over3Months]
 			, COUNT(MSASI.AccountPackageId) AS [PackageSoldId]
 		FROM 
@@ -176,7 +176,7 @@ SELECT
 	, FXF.Term
 	, FXF.CloseRate
 	, FXF.SetupFee
-	, FXF.[1stMonth]
+	, FXF.[FirstMonth]
 	, FXF.Over3Months
 	, FXF.PackageSoldId
 FROM

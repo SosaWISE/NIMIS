@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebModules
 {
@@ -13,8 +10,8 @@ namespace WebModules
 
 		public AuthNeeds(IEnumerable<string> apps, IEnumerable<string> actions)
 		{
-			this.ApplicationId = FirstOrDefault(apps);
-			this.ActionId = FirstOrDefault(actions);
+			ApplicationId = FirstOrDefault(apps);
+			ActionId = FirstOrDefault(actions);
 		}
 
 		private static string FirstOrDefault(IEnumerable<string> list)

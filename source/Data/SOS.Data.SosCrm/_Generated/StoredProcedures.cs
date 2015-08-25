@@ -28,6 +28,11 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@CMFID", CMFID, DbType.Int64);
 			return sp;
 		}
+		public static StoredProcedure AE_CustomerByCMFID(long? CMFID) {
+			StoredProcedure sp = new StoredProcedure("custAE_CustomerByCMFID" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@CMFID", CMFID, DbType.Int64);
+			return sp;
+		}
 		public static StoredProcedure AE_CustomerCreateByCustomerID(long? CustomerID,string CustomerTypeId,long? BillingAddressId) {
 			StoredProcedure sp = new StoredProcedure("custAE_CustomerCreateByCustomerID" ,DataService.GetInstance("SosCrmProvider"));
 			sp.Command.AddParameter("@CustomerID", CustomerID, DbType.Int64);
@@ -511,6 +516,11 @@ namespace SOS.Data.SosCrm {
 			sp.Command.AddParameter("@LocationID", LocationID, DbType.String);
 			sp.Command.AddParameter("@Comment", Comment, DbType.String);
 			sp.Command.AddParameter("@GPEmployeeId", GPEmployeeId, DbType.AnsiString);
+			return sp;
+		}
+		public static StoredProcedure IE_ProductBarcodeTrackingHistoryByBarcodeID(long? ProductBarcodeId) {
+			StoredProcedure sp = new StoredProcedure("custIE_ProductBarcodeTrackingHistoryByBarcodeID" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@ProductBarcodeId", ProductBarcodeId, DbType.Int64);
 			return sp;
 		}
 		public static StoredProcedure IE_PurchaseOrdersAddFromGreatPlains() {
@@ -1592,6 +1602,14 @@ namespace SOS.Data.SosCrm {
 		public static StoredProcedure QL_QualifyCustomerInfoViewByLeadID(long? LeadID) {
 			StoredProcedure sp = new StoredProcedure("custQL_QualifyCustomerInfoViewByLeadID" ,DataService.GetInstance("SosCrmProvider"));
 			sp.Command.AddParameter("@LeadID", LeadID, DbType.Int64);
+			return sp;
+		}
+		public static StoredProcedure Report_MyAccounts(int? officeId,string salesRepId,DateTime? startDate,DateTime? endDate) {
+			StoredProcedure sp = new StoredProcedure("custReport_MyAccounts" ,DataService.GetInstance("SosCrmProvider"));
+			sp.Command.AddParameter("@officeId", officeId, DbType.Int32);
+			sp.Command.AddParameter("@salesRepId", salesRepId, DbType.AnsiString);
+			sp.Command.AddParameter("@startDate", startDate, DbType.DateTime);
+			sp.Command.AddParameter("@endDate", endDate, DbType.DateTime);
 			return sp;
 		}
 		public static StoredProcedure SAE_AgingAddFromGreatPlains() {

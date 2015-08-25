@@ -28,7 +28,7 @@ namespace WebModules.AuthControl
 				var result = await Srv.CreateActionRequestAsync(input).ConfigureAwait(false);
 				if (result.Value != null)
 				{
-					var authInfo = AuthInformation.Create(SystemUserIdentity.AuthTypes.ActionRequest, authNum);
+					var authInfo = AuthInformation.Create(SystemUserIdentity.AuthTypes.ACTION_REQUEST, authNum);
 					var identity = new TokenUserIdentity(authInfo, this.User.UserName);
 					result.Value.Token = tokenConfig.Tokenizer.Tokenize(identity, this.Context);
 				}
