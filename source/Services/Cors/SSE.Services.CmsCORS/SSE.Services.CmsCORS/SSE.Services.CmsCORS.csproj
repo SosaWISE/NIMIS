@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -263,6 +264,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="api\web.config" />
+    <None Include="Properties\PublishProfiles\NxsCmsCors.pubxml" />
     <None Include="Properties\PublishProfiles\To DEV.pubxml" />
     <None Include="Properties\PublishProfiles\To LOCAL.pubxml" />
     <None Include="Properties\PublishProfiles\To STAGE.pubxml" />

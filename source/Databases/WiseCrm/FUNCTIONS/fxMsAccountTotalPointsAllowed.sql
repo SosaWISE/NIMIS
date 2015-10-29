@@ -128,7 +128,7 @@ BEGIN
 			ELSE 'POOR'
 		END
 	FROM
-		[WISE_HumanResource].[dbo].[RU_Season] AS RUS WITH (NOLOCK)
+		[dbo].[RU_Season] AS RUS WITH (NOLOCK)
 	WHERE
 		(RUS.SeasonID = @SeasonID)
 

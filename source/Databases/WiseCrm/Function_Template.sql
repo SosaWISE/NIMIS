@@ -1,20 +1,26 @@
-USE [WISE_CRM]
+USE [SG9_CRM]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
 GO
 
 -- TF = Table function
 -- IF = Inline Table function
-IF EXISTS (SELECT * FROM sysobjects WHERE (type = 'TF' OR type = 'IF' OR type = 'FN') AND name = 'FUNCTION_TEMPLATE')
+IF EXISTS (SELECT * FROM sysobjects WHERE (type = 'TF' OR type = 'IF' OR type = 'FN') AND name = 'fxGetSystemAdminGuid')
 	BEGIN
-		PRINT 'Dropping FUNCTION FUNCTION_TEMPLATE'
-		DROP FUNCTION  dbo.FUNCTION_TEMPLATE
+		PRINT 'Dropping FUNCTION fxGetSystemAdminGuid'
+		DROP FUNCTION  dbo.fxGetSystemAdminGuid
 	END
 GO
 
-PRINT 'Creating FUNCTION FUNCTION_TEMPLATE'
+PRINT 'Creating FUNCTION fxGetSystemAdminGuid'
 GO
 /******************************************************************************
-**		File: FUNCTION_TEMPLATE.sql
-**		Name: FUNCTION_TEMPLATE
+**		File: fxGetSystemAdminGuid.sql
+**		Name: fxGetSystemAdminGuid
 **		Desc: 
 **
 **		This template can be customized:
@@ -28,28 +34,37 @@ GO
 **     ----------						-----------
 **
 **		Auth: Andrés E. Sosa
-**		Date: 02/20/2015
+**		Date: 10/27/2015
 *******************************************************************************
 **	Change History
 *******************************************************************************
 **	Date:		Author:			Description:
 **	-----------	---------------	-------------------------------------------
-**	02/20/2015	Andrés E. Sosa	Created By
+**	10/27/2015	Andrés E. Sosa	Created By
 **	
 *******************************************************************************/
-CREATE FUNCTION dbo.FUNCTION_TEMPLATE
+CREATE FUNCTION dbo.fxGetSystemAdminGuid
 (
-	@CustomerId BIGINT
+	@UserName NVARCHAR(250) = NULL
 )
-RETURNS INT
+RETURNS UNIQUEIDENTIFIER
+WITH SCHEMABINDING
 AS
 BEGIN
 	/** Declarations */
-	DECLARE @Score INT;
+	DECLARE @Result UNIQUEIDENTIFIER = 'F4B7963E-27F7-42AF-BABF-77BB6737B451';
 
 	/** Execute actions. */
-	SELECT @Score = Score FROM dbo.fxQlCreditReportGetByMsAccountID(@CustomerId);
+	SELECT TOP 1
+		@Result = UserId
+	FROM
+		USR.Users 
+	WHERE
+		(UserName = @UserName);
+----		OR (UserName = 'admin@thevoid.com');
 
-	RETURN @Score;
+	RETURN @Result;
 END
 GO
+PRINT 'Created FUNCTION fxGetSystemAdminGuid';
+SELECT dbo.fxGetSystemAdminGuid('sosawise@gmail.com')

@@ -1,4 +1,4 @@
-USE [WISE_AuthenticationControl]
+USE [WISE_CRM]
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE type = 'V' AND name = 'vwAC_UsersAppAuthentication')
@@ -60,15 +60,15 @@ AS
 		, CAST(NULL AS INT) AS [SessionId]
 		, HRUET.[UserEmployeeTypeID]
 		, HRUET.[UserEmployeeTypeName]
-		, [WISE_HumanResource].dbo.fxGetUserSecurityLevelByUserId(URS.[HRUserId]) AS 'SecurityLevel'
+		, dbo.fxGetUserSecurityLevelByUserId(URS.[HRUserId]) AS 'SecurityLevel'
 		, URS.IsActive
 		, URS.IsDeleted
 	FROM
-		[WISE_AuthenticationControl].[dbo].AC_Users AS URS WITH (NOLOCK)
-		INNER JOIN [WISE_HumanResource].[dbo].RU_Users AS HRU WITH (NOLOCK)
+		[dbo].AC_Users AS URS WITH (NOLOCK)
+		INNER JOIN [dbo].RU_Users AS HRU WITH (NOLOCK)
 		ON
 			(URS.HRUserID = HRU.UserID)
-		INNER JOIN  [WISE_HumanResource].[dbo].[RU_UserEmployeeTypes] HRUET
+		INNER JOIN  [dbo].[RU_UserEmployeeTypes] HRUET
 		ON
 		(HRUET.[UserEmployeeTypeID] = HRU.[UserEmployeeTypeId])
 
@@ -89,7 +89,7 @@ SELECT
 	*
 FROM
 	vwAC_UsersAppAuthentication AS USR
-	INNER JOIN [WISE_AuthenticationControl].[dbo].AC_UserACLs AS ACL WITH (NOLOCK)
+	INNER JOIN [dbo].AC_UserACLs AS ACL WITH (NOLOCK)
 	ON
 		(USR.UserID = ACL.UserId)
 WHERE
@@ -99,6 +99,6 @@ WHERE
 	AND (USR.IsActive = 1) AND (USR.IsDeleted = 0);
 
 
-	SELECT * FROM [WISE_AuthenticationControl].[dbo].[vwAC_UsersAppAuthentication]
+	SELECT * FROM [dbo].[vwAC_UsersAppAuthentication]
 
 */

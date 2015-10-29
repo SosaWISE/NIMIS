@@ -62,7 +62,7 @@ BEGIN
 			INNER JOIN [dbo].[QL_Leads] AS QLD WITH (NOLOCK)
 			ON
 				(CUST.LeadId = QLD.LeadID)
-			INNER JOIN [WISE_HumanResource].dbo.RU_Users AS RUU WITH (NOLOCK)
+			INNER JOIN dbo.RU_Users AS RUU WITH (NOLOCK)
 			ON
 				(QLD.SalesRepID = RUU.GPEmployeeID)
 		--WHERE 

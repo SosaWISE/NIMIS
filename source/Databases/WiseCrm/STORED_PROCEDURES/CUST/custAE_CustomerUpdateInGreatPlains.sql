@@ -121,7 +121,7 @@ BEGIN
 				ON AE_CustomerMasterFiles.CustomerMasterFileID = QL_Leads.CustomerMasterFileId
 
 			-- TEAM LOCATIONS
-			INNER JOIN WISE_HumanResource.dbo.RU_TeamLocations 
+			INNER JOIN dbo.RU_TeamLocations 
 				ON QL_Leads.TeamLocationID = RU_TeamLocations.TeamLocationId
 		WHERE 
 			AE_CustomerMasterFiles.CustomerMasterFileID = @CMFID
@@ -283,7 +283,7 @@ BEGIN
 				ON AE_CustomerMasterFiles.CustomerMasterFileID = QL_Leads.CustomerMasterFileId
 
 			-- TEAM LOCATIONS (SALES TERRITORY)
-			INNER JOIN WISE_HumanResource.dbo.RU_TeamLocations 
+			INNER JOIN dbo.RU_TeamLocations 
 				ON QL_Leads.TeamLocationID = RU_TeamLocations.TeamLocationId
 		WHERE 
 			AE_CustomerMasterFiles.CustomerMasterFileID = @CMFID

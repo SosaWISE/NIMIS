@@ -48,7 +48,7 @@ BEGIN
 	/** Declarations */
 	DECLARE @FullName NVARCHAR(250);
 
-	SET @FullName = ISNULL( (SELECT FullName FROM [WISE_HumanResource].[dbo].[RU_Users] WHERE GPEmployeeId = @TechnicianId), NULL);
+	SET @FullName = ISNULL( (SELECT FullName FROM [dbo].[RU_Users] WHERE GPEmployeeId = @TechnicianId), NULL);
 
 
 	RETURN @FullName;
