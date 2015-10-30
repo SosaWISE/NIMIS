@@ -124,10 +124,10 @@ AS
 		LEFT OUTER JOIN TS_Techs AS T WITH(NOLOCK)
 		ON
 			(APPT.TechId = T.ID)
-		LEFT OUTER JOIN [WISE_HumanResource].[dbo].[RU_Recruits] AS RR WITH (NOLOCK)
+		LEFT OUTER JOIN [dbo].[RU_Recruits] AS RR WITH (NOLOCK)
 		ON
 			(T.RecruitId = RR.RecruitID)
-		LEFT OUTER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS RU WITH (NOLOCK)
+		LEFT OUTER JOIN [dbo].[RU_Users] AS RU WITH (NOLOCK)
 		ON
 			(RR.UserID = RU.UserID)
 

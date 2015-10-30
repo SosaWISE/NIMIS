@@ -1,4 +1,4 @@
-﻿USE [WISE_HumanResource]
+﻿USE [WISE_CRM]
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'custRU_UsersGetActivationWaives')
@@ -50,11 +50,11 @@ BEGIN
 	SELECT
 		COUNT(*) AS ActWaives
 	FROM dbo.SAE_ValidSales AS VS WITH(NOLOCK)
-	INNER JOIN Platinum_Protection_InterimCRM.dbo.MS_Account MSA WITH (NOLOCK)
+	INNER JOIN dbo.vwMS_AccountSalesInformations MSA WITH (NOLOCK)
 	ON
 		VS.AccountID = MSA.AccountID
 	WHERE
-		(MSA.ActivationFee = 0)
+		(MSA.SetupFee = 0)
 		AND (VS.InstallDate IS NOT NULL)
 		AND (VS.SalesRepUserID = @UserID)
 		AND (VS.SeasonID = @SeasonID)

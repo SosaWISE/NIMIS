@@ -59,7 +59,7 @@ BEGIN
 				THEN MAX(CONVERT(INT,SUBSTRING(ItemID,LEN('EQPM_INVT')+1,LEN(ItemId))))
 			ELSE 0
 		END
-	FROM WISE_CRM.dbo.AE_ITEMS
+	FROM dbo.AE_ITEMS
 	WHERE 
 		ItemTypeId = 'EQPM_INVT'
 		AND ISNUMERIC(SUBSTRING(ItemID,LEN('EQPM_INVT')+1,LEN(ItemId))) = 1
@@ -67,7 +67,7 @@ BEGIN
 	/************************************
 	***  INSERT NEW SKUs ON AE_ITEMS  ***
 	*************************************/
-	INSERT WISE_CRM.DBO.AE_Items (
+	INSERT DBO.AE_Items (
 		ItemID,
 		ItemTypeId,
 		TaxOptionId,
@@ -157,7 +157,7 @@ BEGIN
 		ModifiedOn = GP_SKUs.MODIFDT
 	FROM 
 		[DYSNEYDAD].NEX.dbo.IV00101 AS GP_SKUs WITH(NOLOCK)
-		JOIN WISE_CRM.dbo.AE_ITEMS AS CRM_SKUs WITH(NOLOCK)
+		JOIN dbo.AE_ITEMS AS CRM_SKUs WITH(NOLOCK)
 			ON GP_SKUs.ITEMNMBR = CRM_SKUs.ItemSKU
 			and GP_SKUs.MODIFDT > CRM_SKUs.ModifiedOn
 

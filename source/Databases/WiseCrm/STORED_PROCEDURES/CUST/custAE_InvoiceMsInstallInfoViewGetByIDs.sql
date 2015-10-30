@@ -76,7 +76,7 @@ BEGIN
 	-- Check that there is an AccountID
 	IF (@InvoiceID IS NULL AND @AccountId IS NULL)
 	BEGIN
-		RAISERROR (N'Arguments InvoiceID and AccountId can not be "NULL" at the same time.', 19, 1, @MonthlyMonitoringRateItemId) WITH LOG;
+		RAISERROR (N'Arguments InvoiceID and AccountId can not be "NULL" at the same time.', 19, 1, @MonthlyMonitoringRateItemId) ;
 		RETURN;
 	END
 	ELSE IF (@AccountId IS NULL)
@@ -125,12 +125,12 @@ BEGIN
 		SELECT @ActivationFee = Price FROM dbo.AE_Items WHERE (ItemID = @ActivationFeeItemId) AND (IsActive = 1 AND IsDeleted = 0);
 		IF (@ActivationFee IS NULL)
 		BEGIN
-			RAISERROR (N'The itemid for the activation fee ''%s'' was not found.', 19, 1, @ActivationFeeItemId) WITH LOG;
+			RAISERROR (N'The itemid for the activation fee ''%s'' was not found.', 19, 1, @ActivationFeeItemId) ;
 		END
 		SELECT @MonthlyMonitoringRate = Price FROM dbo.AE_Items WHERE (ItemID = @MonthlyMonitoringRateItemId) AND (IsActive = 1 AND IsDeleted = 0);
 		IF (@MonthlyMonitoringRate IS NULL)
 		BEGIN
-			RAISERROR (N'The itemid for the MMR ''%s'' was not found.', 19, 1, @MonthlyMonitoringRateItemId) WITH LOG;
+			RAISERROR (N'The itemid for the MMR ''%s'' was not found.', 19, 1, @MonthlyMonitoringRateItemId) ;
 		END
 
 		/** Check to see if the invoice exists. */

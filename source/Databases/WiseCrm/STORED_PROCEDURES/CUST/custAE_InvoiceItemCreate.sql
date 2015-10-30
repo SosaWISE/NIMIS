@@ -62,7 +62,7 @@ BEGIN
 			/** Get Items information */
 			IF (NOT EXISTS(SELECT * FROM AE_Items WHERE (ItemID = @ItemId)))
 			BEGIN
-				RAISERROR (N'The ItemId ''%s'' did not produce a value from the AE_Items table.', 19, 1, @ItemId) WITH LOG;
+				RAISERROR (N'The ItemId ''%s'' did not produce a value from the AE_Items table.', 19, 1, @ItemId) ;
 			END
 			SELECT @TaxOptionId = TaxOptionId, @Cost = Cost, @RetailPrice = Price, @PriceWithTax = Price FROM [dbo].AE_Items WHERE (ItemID = @ItemId);
 	

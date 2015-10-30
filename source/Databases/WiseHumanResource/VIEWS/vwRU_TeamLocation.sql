@@ -1,4 +1,4 @@
-USE [WISE_HumanResource]
+USE [WISE_CRM]
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE type = 'V' AND name = 'vwRU_TeamLocation')
@@ -64,13 +64,13 @@ FROM
 	INNER JOIN RU_Season AS RS WITH (NOLOCK)
 	ON
 		(TL.SeasonID = RS.SeasonID)
-	INNER JOIN WISE_CRM.dbo.MC_Markets AS MM WITH (NOLOCK)
+	INNER JOIN dbo.MC_Markets AS MM WITH (NOLOCK)
 	ON
 		(TL.MarketId = MM.MarketID)
-	INNER JOIN WISE_CRM.dbo.MC_PoliticalStates AS PS WITH (NOLOCK)
+	INNER JOIN dbo.MC_PoliticalStates AS PS WITH (NOLOCK)
 	ON
 		(TL.StateId = PS.StateID)
-	LEFT OUTER JOIN WISE_CRM.dbo.MC_PoliticalTimeZones AS PTZ WITH (NOLOCK)
+	LEFT OUTER JOIN dbo.MC_PoliticalTimeZones AS PTZ WITH (NOLOCK)
 	ON
 		(TL.TimeZoneId = PTZ.TimeZoneID)
 WHERE

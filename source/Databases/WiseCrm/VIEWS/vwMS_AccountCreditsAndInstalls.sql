@@ -62,22 +62,22 @@ AS
 			, Credits_qry.CreditDate
 		FROM
 			-- RU_Users
-			WISE_HumanResource.dbo.RU_Users WITH(NOLOCK)
+			RU_Users WITH(NOLOCK)
 
 			-- RU_Recruits
-			JOIN WISE_HumanResource.dbo.RU_Recruits WITH(NOLOCK)
+			JOIN RU_Recruits WITH(NOLOCK)
 			ON
 				RU_Users.UserID = RU_Recruits.UserId
 				AND RU_Recruits.IsDeleted = 'FALSE'
 
 			-- RU_Teams
-			JOIN WISE_HumanResource.dbo.RU_Teams WITH(NOLOCK)
+			JOIN RU_Teams WITH(NOLOCK)
 			ON
 				RU_Recruits.TeamId = RU_Teams.TeamID
-			JOIN WISE_HumanResource.dbo.RU_TeamLocations WITH (NOLOCK)
+			JOIN RU_TeamLocations WITH (NOLOCK)
 			ON
-				(WISE_HumanResource.dbo.RU_TeamLocations.TeamLocationID = WISE_HumanResource.dbo.RU_Teams.TeamLocationId)
---				AND (@OfficeID IS NULL OR WISE_HumanResource.dbo.RU_TeamLocations.TeamLocationID = @OfficeID)
+				(RU_TeamLocations.TeamLocationID = RU_Teams.TeamLocationId)
+--				AND (@OfficeID IS NULL OR RU_TeamLocations.TeamLocationID = @OfficeID)
 
 			/**********************
 			***  INSTALLATIONS  ***
@@ -91,22 +91,22 @@ AS
 				-- ,COUNT(*) AS NumInstalls
 			FROM
 				-- MC_Customers
-				WISE_CRM.dbo.MC_Accounts WITH(NOLOCK)
+				dbo.MC_Accounts WITH(NOLOCK)
 
 				-- MS_AccountCustomers
-				JOIN WISE_CRM.dbo.AE_CustomerAccounts WITH(NOLOCK)
+				JOIN dbo.AE_CustomerAccounts WITH(NOLOCK)
 				ON
 					MC_Accounts.AccountID = AE_CustomerAccounts.AccountId
 
 				--MS_Accounts
-				JOIN WISE_CRM.dbo.MS_Accounts WITH(NOLOCK)
+				JOIN dbo.MS_Accounts WITH(NOLOCK)
 				ON
 					AE_CustomerAccounts.AccountId = MS_Accounts.AccountID
 					AND MS_Accounts.IsDeleted = 'FALSE'
 					AND MS_Accounts.ContractId IS NOT NULL
 
 				-- MS_AccountSalesInformations
-				--JOIN WISE_CRM.dbo.MS_AccountSalesInformations WITH(NOLOCK)
+				--JOIN dbo.MS_AccountSalesInformations WITH(NOLOCK)
 					--ON MS_Accounts.AccountID = MS_AccountSalesInformations.AccountID
 				JOIN vwMS_AccountSalesInformations
 				ON
@@ -133,10 +133,10 @@ AS
 			FROM
 
 				-- QL_CreditReports
-				WISE_CRM.dbo.QL_CreditReports WITH(NOLOCK)
+				dbo.QL_CreditReports WITH(NOLOCK)
 
 				-- QL_Leads
-				JOIN WISE_CRM.dbo.QL_Leads WITH(NOLOCK)
+				JOIN dbo.QL_Leads WITH(NOLOCK)
 					ON QL_CreditReports.LeadId = QL_Leads.LeadID
 					AND QL_Leads.IsDeleted = 'FALSE'
 			WHERE 

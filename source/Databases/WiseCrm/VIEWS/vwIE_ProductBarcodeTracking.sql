@@ -50,13 +50,13 @@ AS
         ,[ProductBarcodeTrackingTypeId]
 		,[ProductBarcodeId]
 		,[TransferToWarehouseSiteId]
-		,(SELECT [City] FROM  [WISE_HumanResource].[dbo].[RU_TeamLocations] WHERE [TeamLocationID] =  [IE_ProductBarcodeTracking].[TransferToWarehouseSiteId]) AS [Location]
+		,(SELECT [City] FROM  [RU_TeamLocations] WHERE [TeamLocationID] =  [IE_ProductBarcodeTracking].[TransferToWarehouseSiteId]) AS [Location]
 		,[ReturnToVendorId]
 		,[AssignedToCustomerId]
 		,[AssignedToDealerId]
 		,[RtmaNumberId]
 		,[Comment]
-	FROM [WISE_CRM].[dbo].[IE_ProductBarcodeTracking]*/
+	FROM [dbo].[IE_ProductBarcodeTracking]*/
 
 		SELECT
 	     IEPBT.[ProductBarcodeTrackingID]
@@ -71,8 +71,8 @@ AS
 		,IEPBT.[AssignedToDealerId]
 		,IEPBT.[RtmaNumberId]*/
 		,IEPBT.[Comment]
-		FROM [WISE_CRM].[dbo].[IE_ProductBarcodeTracking] IEPBT
-	--FROM [WISE_CRM].[dbo].[IE_ProductBarcodeTracking] IEPBT INNER JOIN IE_WarehouseSites IEWS
+		FROM [dbo].[IE_ProductBarcodeTracking] IEPBT
+	--FROM [dbo].[IE_ProductBarcodeTracking] IEPBT INNER JOIN IE_WarehouseSites IEWS
 	--on
 	--IEPBT.[TransferToWarehouseSiteId] = IEWS.[WarehouseSiteID]
 

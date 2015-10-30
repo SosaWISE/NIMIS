@@ -55,9 +55,9 @@ AS
 		, IN2.Csid AS [Csid2]
 		, IN2.ReceiverLineId AS [ReceiverLine2Id]
 		, MASI.TechId
-		, [WISE_HumanResource].[dbo].fxRU_UsersGetFullnameByGPEmployeeID(MASI.TechId) AS TechFullName
+		, dbo.fxRU_UsersGetFullnameByGPEmployeeID(MASI.TechId) AS TechFullName
 		, LDS.SalesRepId
-		, [WISE_HumanResource].[dbo].fxRU_UsersGetFullnameByGPEmployeeID(LDS.SalesRepId) AS SalesFullName
+		, dbo.fxRU_UsersGetFullnameByGPEmployeeID(LDS.SalesRepId) AS SalesFullName
 		, MSA.SystemTypeId
 		, MSA.CellularTypeId
 		, MSA.PanelTypeId

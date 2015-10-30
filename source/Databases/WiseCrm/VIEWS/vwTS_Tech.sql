@@ -68,17 +68,17 @@ AS
 		, RU.GPEmployeeID
 		, RS.SeasonID
 		, RS.SeasonName
-	FROM [WISE_HumanResource].[dbo].[RU_Recruits] AS RR WITH (NOLOCK)
+	FROM [dbo].[RU_Recruits] AS RR WITH (NOLOCK)
 	LEFT OUTER JOIN TS_Techs AS T WITH(NOLOCK)
 	ON
 		RR.RecruitID = T.RecruitId
-	INNER JOIN [WISE_HumanResource].[dbo].[RU_UserType] AS UT WITH (NOLOCK)
+	INNER JOIN [dbo].[RU_UserType] AS UT WITH (NOLOCK)
 	ON
 		RR.UserTypeId = UT.UserTypeID
-	INNER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS RU WITH (NOLOCK)
+	INNER JOIN [dbo].[RU_Users] AS RU WITH (NOLOCK)
 	ON
 		(RR.UserID = RU.UserID)
-	INNER JOIN [WISE_HumanResource].[dbo].[RU_Season] AS RS WITH (NOLOCK)
+	INNER JOIN [dbo].[RU_Season] AS RS WITH (NOLOCK)
 	ON
 		(RS.SeasonID = RR.SeasonID)
 	WHERE

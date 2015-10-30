@@ -25,7 +25,7 @@ GO
 **      Pass value: The ID for the old EmergencyContactType
 **		Return value: The ID for the new EmergencyContactType
 ** 
-**		Called by: WISE_CRM.dbo.custAE_CustomerSWINGFromInterim
+**		Called by: dbo.custAE_CustomerSWINGFromInterim
 **              
 **		Parameters:
 **		Input							Output

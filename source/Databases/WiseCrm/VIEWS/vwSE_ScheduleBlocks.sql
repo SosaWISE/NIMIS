@@ -85,7 +85,7 @@ AS
 		--ON
 		--SESB.ZipCode = SEZC.[ZipCode]
 		--LEFT JOIN
-		--[WISE_HumanResource].[dbo].[vwRU_Technicians] RUT
+		--[dbo].[vwRU_Technicians] RUT
 		--ON
 		--SESB.TechnicianId = RUT.TechnicianId
 		--LEFT JOIN

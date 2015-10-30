@@ -54,39 +54,40 @@ BEGIN
 		IF(NOT EXISTS(SELECT * FROM [dbo].[IE_PurchaseOrders] WHERE (GPPONumber = @GPPONumber)))
 		BEGIN
 
-			/*** WAREHOUSES  ***/
-			INSERT INTO [dbo].[IE_WarehouseSites] (
-                     [WarehouseSiteID]
-                     , [WarehouseSiteName]
-			)
-			SELECT 
-				IV40700.LOCNCODE
-				, IV40700.LOCNDSCR
-			FROM 
-				[DYSNEYDAD].NEX.dbo.IV40700
-				LEFT JOIN [dbo].[IE_WarehouseSites]
-				ON
-					(IV40700.LOCNCODE = IE_WarehouseSites.WarehouseSiteID)
-			WHERE
-				(IE_WarehouseSites.WarehouseSiteID IS NULL);
+			/** TODO:  Change to point to a GP DB.*/
+			--/*** WAREHOUSES  ***/
+			--INSERT INTO [dbo].[IE_WarehouseSites] (
+   --                  [WarehouseSiteID]
+   --                  , [WarehouseSiteName]
+			--)
+			--SELECT 
+			--	IV40700.LOCNCODE
+			--	, IV40700.LOCNDSCR
+			--FROM 
+			--	[WISE_GP].[NEX}.dbo.IV40700
+			--	LEFT JOIN [dbo].[IE_WarehouseSites]
+			--	ON
+			--		(IV40700.LOCNCODE = IE_WarehouseSites.WarehouseSiteID)
+			--WHERE
+			--	(IE_WarehouseSites.WarehouseSiteID IS NULL);
 
 			/*** VENDOR  ***/
-			DECLARE @VENDORID VARCHAR(30)
-			SELECT @VENDORID = VENDORID FROM [DYSNEYDAD].NEX.dbo.POP10100 WHERE (PONUMBER = @GPPONumber)
+			--DECLARE @VENDORID VARCHAR(30)
+			--SELECT @VENDORID = VENDORID FROM [WISE_GP].[NEX}.dbo.POP10100 WHERE (PONUMBER = @GPPONumber)
 
-			IF (NOT EXISTS(SELECT * FROM [dbo].[IE_Vendors] WHERE (VendorID = @VENDORID)))
-			BEGIN
-				INSERT INTO [dbo].[IE_Vendors](
-					[VendorID]
-					, [VendorName]
-				)
-				SELECT
-					VENDORID,
-					VENDNAME 
-				FROM DYSNEYDAD.NEX.dbo.PM00200 
-				WHERE
-					(VENDORID = @VENDORID);
-			END
+			--IF (NOT EXISTS(SELECT * FROM [dbo].[IE_Vendors] WHERE (VendorID = @VENDORID)))
+			--BEGIN
+			--	INSERT INTO [dbo].[IE_Vendors](
+			--		[VendorID]
+			--		, [VendorName]
+			--	)
+			--	SELECT
+			--		VENDORID,
+			--		VENDNAME 
+			--	FROM [WISE_GP].[NEX}.dbo.PM00200 
+			--	WHERE
+			--		(VENDORID = @VENDORID);
+			--END
 
 			/*** PO HEADER  ***/
 			/** Pull from GP and Create the PO row with it's respective PO Items. */
@@ -98,16 +99,18 @@ BEGIN
 				,[ModifiedBy]
 				,[CreatedBy]
 			) 
-			SELECT
-				VENDORID
-				,PONUMBER
-				--CLOSEDATE
-				,@GPEmployeeID -- ModifiedBy - nvarchar(50)
-				,@GPEmployeeID -- CreatedBy - nvarchar(50)
-			FROM
-				[DYSNEYDAD].NEX.dbo.POP10100
-			WHERE
-				(PONUMBER = @GPPONUMBER);
+			/** TODO:  Change to point to a GP DB.*/
+			SELECT VendorId, GPPONumber, ModifiedBy, CreatedBy FROM [dbo].[IE_PurchaseOrders] WHERE (PurchaseOrderID = -1);
+			--SELECT
+			--	VENDORID
+			--	,PONUMBER
+			--	--CLOSEDATE
+			--	,@GPEmployeeID -- ModifiedBy - nvarchar(50)
+			--	,@GPEmployeeID -- CreatedBy - nvarchar(50)
+			--FROM
+			--	[WISE_GP].[NEX}.dbo.POP10100
+			--WHERE
+			--	(PONUMBER = @GPPONUMBER);
 
 			SET @PurchaseOrderID = SCOPE_IDENTITY();
 
@@ -120,20 +123,22 @@ BEGIN
 				,ModifiedBy
 				,CreatedBy
 			)
-			SELECT
-				@PurchaseOrderID
-				, ITM.ItemID
-				, GPITM.LOCNCODE
-				, GPITM.QTYORDER
-				,@GPEmployeeID -- ModifiedBy - nvarchar(50)
-				,@GPEmployeeID -- CreatedBy - nvarchar(50)
-			FROM
-				[DYSNEYDAD].NEX.dbo.POP10110 AS GPITM WITH (NOLOCK)
-				INNER JOIN [dbo].[AE_Items] AS ITM WITH (NOLOCK)
-				ON
-					(ITM.ItemSKU = GPITM.ITEMNMBR)
-			WHERE
-				(GPITM.PONUMBER = @GPPONumber);
+			/** TODO:  Change to point to a GP DB.*/
+			SELECT PurchaseOrderItemID, ItemId, WarehouseSiteId, Quantity, ModifiedBy, CreatedBy FROM [dbo].IE_PurchaseOrderItems WHERE (PurchaseOrderItemID = -1);
+			--SELECT
+			--	@PurchaseOrderID
+			--	, ITM.ItemID
+			--	, GPITM.LOCNCODE
+			--	, GPITM.QTYORDER
+			--	,@GPEmployeeID -- ModifiedBy - nvarchar(50)
+			--	,@GPEmployeeID -- CreatedBy - nvarchar(50)
+			--FROM
+			--	[WISE_GP].[NEX}.dbo.POP10110 AS GPITM WITH (NOLOCK)
+			--	INNER JOIN [dbo].[AE_Items] AS ITM WITH (NOLOCK)
+			--	ON
+			--		(ITM.ItemSKU = GPITM.ITEMNMBR)
+			--WHERE
+			--	(GPITM.PONUMBER = @GPPONumber);
 		END
 
 		COMMIT TRANSACTION;

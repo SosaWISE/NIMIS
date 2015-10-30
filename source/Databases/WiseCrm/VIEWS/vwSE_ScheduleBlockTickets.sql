@@ -55,7 +55,7 @@ AS
 		, SETT.[Weight]
 		, TICKET.StatusCodeId
 		, SETSS.StatusCode
-		, TICKET.MoniConfirmation
+			, TICKET.MoniConfirmation
 		, SESB.[IsTechConfirmed]
 		, SESB.[DateTechConfirmed]
 		, SESB.TechnicianId

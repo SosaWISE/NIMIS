@@ -59,8 +59,8 @@ AS
 
 	  , AEI.ItemSKU AS ProductSKU
 
-	FROM [WISE_CRM].[dbo].[IE_PurchaseOrderItems] AS IEPOIS WITH (NOLOCK)
-		INNER JOIN [WISE_CRM].[dbo].[AE_Items] AS AEI WITH (NOLOCK)
+	FROM [dbo].[IE_PurchaseOrderItems] AS IEPOIS WITH (NOLOCK)
+		INNER JOIN [dbo].[AE_Items] AS AEI WITH (NOLOCK)
 		ON
 			(IEPOIS.ItemId =AEI.ItemID  )
 

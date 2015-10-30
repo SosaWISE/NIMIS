@@ -94,7 +94,7 @@ BEGIN
 			+ 
 		') 
 		FROM 
-			DYSNEYDAD.NEX.dbo.RM00103 WITH (NOLOCK) 
+			[WISE_GP].[NEX].dbo.RM00103 WITH (NOLOCK) 
 			JOIN AE_CustomerMasterFiles
 				ON CONVERT(BIGINT,RM00103.CUSTNMBR) = AE_CustomerMasterFiles.CustomerMasterFileID
 		WHERE ISNUMERIC(RM00103.CUSTNMBR) = 1'

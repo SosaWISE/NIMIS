@@ -1,4 +1,4 @@
-USE [WISE_HumanResource]
+USE [WISE_CRM]
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE type = 'V' AND name = 'VW_Teams')
@@ -84,7 +84,7 @@ ON
 INNER JOIN RU_Season AS RS WITH(NOLOCK)
 ON
 	(RUTL.SeasonID = RS.SeasonID)
-INNER JOIN [WISE_CRM].[dbo].MC_PoliticalStates AS RST WITH(NOLOCK)
+INNER JOIN [dbo].MC_PoliticalStates AS RST WITH(NOLOCK)
 ON
 	(RUTL.StateID = RST.StateID)
 LEFT OUTER JOIN RU_RoleLocations AS RRL WITH (NOLOCK)

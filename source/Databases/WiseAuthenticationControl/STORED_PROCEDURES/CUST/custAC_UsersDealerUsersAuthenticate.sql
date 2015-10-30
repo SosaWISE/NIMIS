@@ -1,4 +1,4 @@
-﻿USE [WISE_AuthenticationControl]
+﻿USE [WISE_CRM]
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'custAC_UsersDealerUsersAuthenticate')
@@ -52,7 +52,7 @@ BEGIN
 	
 	BEGIN TRANSACTION
 	/** Validate SessionId */
-	IF (EXISTS(SELECT * FROM WISE_AuthenticationControl.dbo.AC_Sessions WHERE (SessionID = @SessionId) 
+	IF (EXISTS(SELECT * FROM dbo.AC_Sessions WHERE (SessionID = @SessionId) 
 				AND (DATEADD(mi, 20, LastAccessedOn) <= GETDATE())))
 	BEGIN
 		RAISERROR (N'Msg:The SessionId %s has expired',
@@ -66,17 +66,17 @@ BEGIN
 	
 	/** Perform authentication against CRM. */
 	DECLARE @DealerUserID INT
-	SELECT @DealerUserID = DealerUserID FROM WISE_CRM.dbo.MC_DealerUsers AS DU WITH (NOLOCK) WHERE (DU.Username = @Username AND DU.Password = @Password AND DU.IsActive = 1)
+	SELECT @DealerUserID = DealerUserID FROM dbo.MC_DealerUsers AS DU WITH (NOLOCK) WHERE (DU.Username = @Username AND DU.Password = @Password AND DU.IsActive = 1)
 	IF (@DealerUserID IS NOT NULL)
 	BEGIN
 		/** Initilize the session. */
 			DECLARE @UserID INT
-			SELECT @UserID = UserID FROM WISE_AuthenticationControl.dbo.AC_Users AS AU WITH (NOLOCK) WHERE (AU.Username = @Username AND AU.Password = @Password AND AU.IsActive = 1)
+			SELECT @UserID = UserID FROM dbo.AC_Users AS AU WITH (NOLOCK) WHERE (AU.Username = @Username AND AU.Password = @Password AND AU.IsActive = 1)
 		-- Check that there is a User in AC.
 		IF (@UserID IS NULL)
 		BEGIN
 			/** Init */
-			INSERT INTO WISE_AuthenticationControl.dbo.AC_Users (
+			INSERT INTO dbo.AC_Users (
 				Username ,
 				Password 
 			) VALUES (
@@ -86,7 +86,7 @@ BEGIN
 			SET @UserID = @@Identity
 			PRINT 'Got User ID ' + CAST(@UserID AS VARCHAR)
 			/** Update Dealer User account with User ID */
-			UPDATE WISE_CRM.dbo.MC_DealerUsers SET
+			UPDATE dbo.MC_DealerUsers SET
 				AuthUserID = @UserID
 			WHERE
 				(DealerUserID = @DealerUserID)
@@ -98,18 +98,18 @@ BEGIN
 		END
 		
 		/** Update AuthControl User entity */
-		UPDATE WISE_AuthenticationControl.dbo.AC_Users SET
+		UPDATE dbo.AC_Users SET
 			[Password] = @Password
 		WHERE
 			(UserID = @UserID)
 		/** Update Session */
-		UPDATE WISE_AuthenticationControl.dbo.AC_Sessions SET
+		UPDATE dbo.AC_Sessions SET
 			LastAccessedOn = GETDATE()
 		WHERE
 			(SessionID = @SessionId)
 		/** Update Dealer Last access date. */
 		PRINT('Update LastLoginOn');
-		UPDATE WISE_CRM.dbo.MC_DealerUsers SET
+		UPDATE dbo.MC_DealerUsers SET
 			LastLoginOn = GETDATE()
 		WHERE
 			(DealerUserID = @DealerUserID)
@@ -133,7 +133,7 @@ BEGIN
 			(SessionID = @SessionID);
 			
 		/** Return result */
-		--SELECT * FROM WISE_CRM.dbo.MC_DealerUsers AS DU WITH (NOLOCK) WHERE (DU.DealerUserID = @DealerUserID)
+		--SELECT * FROM dbo.MC_DealerUsers AS DU WITH (NOLOCK) WHERE (DU.DealerUserID = @DealerUserID)
 		SELECT 
 			*
 		FROM

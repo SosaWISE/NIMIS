@@ -51,8 +51,8 @@ BEGIN
 	SELECT 
 		  @Result = SUM([RetailPrice])
 	FROM 
-		[WISE_CRM].[dbo].[AE_InvoiceItems] AS AII WITH (NOLOCK)
-		INNER JOIN [WISE_CRM].[dbo].[AE_Items] AS ITM WITH (NOLOCK)
+		[dbo].[AE_InvoiceItems] AS AII WITH (NOLOCK)
+		INNER JOIN [dbo].[AE_Items] AS ITM WITH (NOLOCK)
 		ON	(ITM.ItemID = AII.ItemId)
 	WHERE
 		(ITM.ItemTypeId IN ('MON_CONT', 'MMR_SREP_UPSL', 'MMR_SREP_DISC'))

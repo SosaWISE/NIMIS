@@ -48,7 +48,7 @@ BEGIN
 	
 	BEGIN TRANSACTION
 	/** Validate SessionId */
-	IF (EXISTS(SELECT * FROM WISE_AuthenticationControl.dbo.AC_Sessions WHERE (SessionID = @SessionId) 
+	IF (EXISTS(SELECT * FROM dbo.AC_Sessions WHERE (SessionID = @SessionId) 
 				AND (DATEADD(mi, 20, LastAccessedOn) <= GETDATE())))
 	BEGIN
 		DECLARE @SessionIdString VARCHAR(20)
@@ -67,12 +67,12 @@ BEGIN
 	BEGIN
 		/** Initilize the session. */
 			DECLARE @UserID INT
-			SELECT @UserID = UserID FROM WISE_AuthenticationControl.dbo.AC_Users AS AU WITH (NOLOCK) WHERE (AU.Username = @Username AND AU.Password = @Password)
+			SELECT @UserID = UserID FROM dbo.AC_Users AS AU WITH (NOLOCK) WHERE (AU.Username = @Username AND AU.Password = @Password)
 		-- Check that there is a User in AC.
 		IF (@UserID IS NULL)
 		BEGIN
 			/** Init */
-			INSERT INTO WISE_AuthenticationControl.dbo.AC_Users
+			INSERT INTO dbo.AC_Users
 			        ( Username ,
 			          Password 
 			        )
@@ -93,12 +93,12 @@ BEGIN
 		END
 		
 		/** Update AuthControl User entity */
-		UPDATE WISE_AuthenticationControl.dbo.AC_Users SET
+		UPDATE dbo.AC_Users SET
 			[Password] = @Password
 		WHERE
 			(UserID = @UserID)
 		/** Update Session */
-		UPDATE WISE_AuthenticationControl.dbo.AC_Sessions SET
+		UPDATE dbo.AC_Sessions SET
 			LastAccessedOn = GETDATE()
 		WHERE
 			(SessionID = @SessionId)

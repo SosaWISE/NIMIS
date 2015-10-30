@@ -70,7 +70,7 @@ BEGIN
 
 		-- increment @daysAdded if it's a weekday and not a Federal holiday.
 		IF DATEPART(DW, @CancellationDeadlineDate) IN (2,3,4,5,6) -- Monday thru Friday
-			AND @CancellationDeadlineDate NOT IN (SELECT HolidayDate FROM WISE_CRM.dbo.MC_Holidays WHERE HolidayDate = @CancellationDeadlineDate)
+			AND @CancellationDeadlineDate NOT IN (SELECT HolidayDate FROM dbo.MC_Holidays WHERE HolidayDate = @CancellationDeadlineDate)
 		SET @daysAdded = @daysAdded + 1
 	END
 

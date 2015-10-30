@@ -53,7 +53,7 @@ BEGIN
 	
 	BEGIN TRANSACTION
 	/** Validate SessionId */
-	IF (EXISTS(SELECT * FROM WISE_AuthenticationControl.dbo.AC_Sessions WHERE (SessionID = @SessionId) 
+	IF (EXISTS(SELECT * FROM dbo.AC_Sessions WHERE (SessionID = @SessionId) 
 				AND (DATEADD(mi, 20, LastAccessedOn) <= GETDATE())))
 	BEGIN
 		RAISERROR (N'Msg:The SessionId %s has expired',
@@ -75,14 +75,14 @@ BEGIN
 				, @Username = AU.Username
 				, @Password = AU.[Password]
 			FROM
-				WISE_CRM.dbo.MC_DealerUsers AS AU WITH (NOLOCK)
+				dbo.MC_DealerUsers AS AU WITH (NOLOCK)
 			WHERE
 				(AU.DealerUserID = @DealerUserID AND AU.IsActive = 1)
 		-- Check that there is a User in AC.
 		IF (@UserID IS NULL)
 		BEGIN
 			/** Init */
-			INSERT INTO WISE_AuthenticationControl.dbo.AC_Users (
+			INSERT INTO dbo.AC_Users (
 				Username ,
 				Password 
 			) VALUES (
@@ -92,7 +92,7 @@ BEGIN
 			SET @UserID = @@Identity
 			PRINT 'Got User ID ' + CAST(@UserID AS VARCHAR)
 			/** Update Dealer User account with User ID */
-			UPDATE WISE_CRM.dbo.MC_DealerUsers SET
+			UPDATE dbo.MC_DealerUsers SET
 				AuthUserID = @UserID
 			WHERE
 				(DealerUserID = @DealerUserID)
@@ -104,18 +104,18 @@ BEGIN
 		END
 		
 		/** Update AuthControl User entity */
-		UPDATE WISE_AuthenticationControl.dbo.AC_Users SET
+		UPDATE dbo.AC_Users SET
 			[Password] = @Password
 		WHERE
 			(UserID = @UserID)
 		/** Update Session */
-		UPDATE WISE_AuthenticationControl.dbo.AC_Sessions SET
+		UPDATE dbo.AC_Sessions SET
 			LastAccessedOn = GETDATE()
 		WHERE
 			(SessionID = @SessionId)
 		/** Update Dealer Last access date. */
 		PRINT('Update LastLoginOn');
-		UPDATE WISE_CRM.dbo.MC_DealerUsers SET
+		UPDATE dbo.MC_DealerUsers SET
 			LastLoginOn = GETDATE()
 		WHERE
 			(DealerUserID = @DealerUserID)
@@ -139,7 +139,7 @@ BEGIN
 			(SessionID = @SessionID);
 			
 		/** Return result */
-		--SELECT * FROM WISE_CRM.dbo.MC_DealerUsers AS DU WITH (NOLOCK) WHERE (DU.DealerUserID = @DealerUserID)
+		--SELECT * FROM dbo.MC_DealerUsers AS DU WITH (NOLOCK) WHERE (DU.DealerUserID = @DealerUserID)
 		SELECT 
 			*
 		FROM

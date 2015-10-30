@@ -46,7 +46,7 @@ AS
 BEGIN
 	DECLARE @ProductBarcodeCount INT
 
-	SET @ProductBarcodeCount = (SELECT COUNT([ProductBarcodeID]) FROM [WISE_CRM].[dbo].[IE_ProductBarcodes] AS IEPB
+	SET @ProductBarcodeCount = (SELECT COUNT([ProductBarcodeID]) FROM [dbo].[IE_ProductBarcodes] AS IEPB
 								 WHERE  IEPB.PurchaseOrderItemId=@PurchaseOrderItemId  )
 	RETURN ISNULL(@ProductBarcodeCount,0)
 END

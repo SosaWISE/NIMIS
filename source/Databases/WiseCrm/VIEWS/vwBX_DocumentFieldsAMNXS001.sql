@@ -224,7 +224,7 @@ AS
 		INNER JOIN [dbo].[QL_Leads] AS LEDS WITH (NOLOCK)
 		ON
 			(LEDS.LeadID = MSAC1.LeadId)
-		LEFT OUTER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS SALER WITH (NOLOCK)
+		LEFT OUTER JOIN [dbo].[RU_Users] AS SALER WITH (NOLOCK)
 		ON
 			(SALER.GPEmployeeID = LEDS.SalesRepId)
 		

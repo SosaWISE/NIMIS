@@ -68,7 +68,7 @@ BEGIN
 					123 AS 'LocationID'
 					,'TEST' AS 'LocationName'
 			--FROM
-					--[Platinum_Protection_InterimCRM].[dbo].MS_Account AS MAS WITH (NOLOCK)
+					--[dbo].MS_Account AS MAS WITH (NOLOCK)
 			*/
 
 

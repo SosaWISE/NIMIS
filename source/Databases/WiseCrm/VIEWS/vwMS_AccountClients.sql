@@ -56,10 +56,10 @@ AS
 		--  END AS [AccountName]
 		, [dbo].fxGetDeviceName(MSA.SystemTypeId, MSA.PanelTypeId, MCA.AccountName) [AccountName]
 		, MCA.AccountDesc
-		, GEN.EventID
-		, GEN.EventDate
-		, GEN.Lattitude AS [LastLatt]
-		, GEN.Longitude AS [LastLong]
+		--, GEN.EventID
+		--, GEN.EventDate
+		--, GEN.Lattitude AS [LastLatt]
+		--, GEN.Longitude AS [LastLong]
 		, MAP.UIName
 --		, MSA.GpsWatchUnitID
 		, ACM.[Username]
@@ -93,11 +93,11 @@ AS
 		INNER JOIN [dbo].[vwMS_IndustryAccountNumbers] AS IAN
 		ON
 			(MSA.IndustryAccountId = IAN.IndustryAccountID)
-		LEFT OUTER JOIN (
-			SELECT * FROM [WISE_GPSTRACKING].[dbo].[vwGS_EventsLast]
-		) AS GEN
-		ON
-			(MCA.AccountID = GEN.AccountId)
+		--LEFT OUTER JOIN (
+		--	SELECT * FROM [WISE_GPSTRACKING].[dbo].[vwGS_EventsLast]
+		--) AS GEN
+		--ON
+		--	(MCA.AccountID = GEN.AccountId)
 
 GO
 /* TEST */

@@ -63,7 +63,7 @@ BEGIN
 		/** Insert equipment */
 		INSERT INTO dbo.MS_AccountEquipment (
 			AccountId 
-			, ItemId 
+			, EquipmentId 
 			, EquipmentLocationId 
 			, GPEmployeeId 
 			, OfficeReconciliationItemId 

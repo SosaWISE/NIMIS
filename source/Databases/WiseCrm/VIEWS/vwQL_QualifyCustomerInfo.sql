@@ -98,13 +98,13 @@ AS
 		INNER JOIN [dbo].QL_CreditReportBureaus AS CRB WITH (NOLOCK)
 		ON
 			(CRB.BureauID = CR.BureauId)
-		LEFT OUTER JOIN [WISE_HumanResource].[dbo].[RU_Users] AS SREP WITH (NOLOCK)
+		LEFT OUTER JOIN [RU_Users] AS SREP WITH (NOLOCK)
 		ON
 			(LED.SalesRepID = SREP.GPEmployeeID)
-		INNER JOIN [WISE_HumanResource].[dbo].[RU_Season] AS SES WITH (NOLOCK)
+		INNER JOIN [RU_Season] AS SES WITH (NOLOCK)
 		ON
 			(SES.SeasonID = LED.SeasonId)
-		LEFT OUTER JOIN [WISE_HumanResource].[dbo].[RU_PhoneCellCarrier] AS PCC WITH (NOLOCK)
+		LEFT OUTER JOIN [RU_PhoneCellCarrier] AS PCC WITH (NOLOCK)
 		ON
 			(PCC.PhoneCellCarrierID = SREP.PhoneCellCarrierID)
 GO

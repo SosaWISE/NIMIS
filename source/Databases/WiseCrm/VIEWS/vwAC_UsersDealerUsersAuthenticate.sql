@@ -76,17 +76,17 @@ AS
 		, MDU.IsActive AS MduIsActive
 	FROM
 		dbo.AC_Users AS AU WITH (NOLOCK)
-		INNER JOIN WISE_CRM.dbo.MC_DealerUsers AS MDU WITH (NOLOCK)
+		INNER JOIN dbo.MC_DealerUsers AS MDU WITH (NOLOCK)
 		ON
 			(AU.UserID = MDU.AuthUserId)
 --			AND (AU.IsActive = 1)
 			AND (AU.IsDeleted = 0)
 --			AND (MDU.IsActive = 1)
 			AND (MDU.IsDeleted = 0)
-		INNER JOIN WISE_CRM.dbo.MC_DealerUserTypes AS MDUT WITH (NOLOCK)
+		INNER JOIN dbo.MC_DealerUserTypes AS MDUT WITH (NOLOCK)
 		ON
 			(MDU.DealerUserTypeId = MDUT.DealerUserTypeID)
-		INNER JOIN WISE_CRM.dbo.AE_Dealers AS DLR WITH (NOLOCK)
+		INNER JOIN dbo.AE_Dealers AS DLR WITH (NOLOCK)
 		ON
 			(MDU.DealerId = DLR.DealerID)
 		INNER JOIN (SELECT

@@ -53,15 +53,17 @@ BEGIN
                     [WarehouseSiteID]
                     , [WarehouseSiteName]
 		)
-		SELECT 
-			LTRIM(RTRIM(IV40700.LOCNCODE))
-			, LTRIM(RTRIM(IV40700.LOCNDSCR))
-		FROM 
-			[DYSNEYDAD].NEX.dbo.IV40700
-			LEFT JOIN [dbo].[IE_WarehouseSites]
-				ON (IV40700.LOCNCODE = IE_WarehouseSites.WarehouseSiteID)
-		WHERE
-			(IE_WarehouseSites.WarehouseSiteID IS NULL);
+		/** TODO:  Add GP integration. */
+		SELECT WarehouseSiteID, WarehouseSiteName FROM [dbo].[IE_WarehouseSites] WHERE (WarehouseSiteID = -1);
+		--SELECT 
+		--	LTRIM(RTRIM(IV40700.LOCNCODE))
+		--	, LTRIM(RTRIM(IV40700.LOCNDSCR))
+		--FROM 
+		--	[WISE_GP].[NEX].dbo.IV40700
+		--	LEFT JOIN [dbo].[IE_WarehouseSites]
+		--		ON (IV40700.LOCNCODE = IE_WarehouseSites.WarehouseSiteID)
+		--WHERE
+		--	(IE_WarehouseSites.WarehouseSiteID IS NULL);
 
 	END TRY
 	BEGIN CATCH

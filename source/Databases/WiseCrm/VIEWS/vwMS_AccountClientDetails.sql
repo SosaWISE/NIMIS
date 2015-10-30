@@ -96,19 +96,19 @@ AS
 		, IAN.Designator
 		, IAN.SubscriberNumber
 	FROM
-		[WISE_CRM].[dbo].[AE_CustomerAccounts] AS ACA WITH (NOLOCK)
-		INNER JOIN [WISE_CRM].[dbo].AE_Customers AS CST WITH(NOLOCK)
+		[dbo].[AE_CustomerAccounts] AS ACA WITH (NOLOCK)
+		INNER JOIN [dbo].AE_Customers AS CST WITH(NOLOCK)
 		ON
 			(ACA.CustomerId = CST.CustomerID)
 			AND (CST.IsDeleted = 0)
-		INNER JOIN [WISE_CRM].[dbo].MC_Addresses AS CAD WITH (NOLOCK)
+		INNER JOIN [dbo].MC_Addresses AS CAD WITH (NOLOCK)
 		ON
 			(CST.AddressId = CAD.AddressID)
-		INNER JOIN [WISE_CRM].[dbo].MS_Accounts AS ACT WITH(NOLOCK)
+		INNER JOIN [dbo].MS_Accounts AS ACT WITH(NOLOCK)
 		ON
 			(ACA.AccountId = ACT.AccountID)
 			AND (ACT.IsDeleted = 0)
-		INNER JOIN [WISE_CRM].[dbo].vwMS_IndustryAccountNumbers AS IAN
+		INNER JOIN [dbo].vwMS_IndustryAccountNumbers AS IAN
 		ON
 			(ACT.IndustryAccountId = IAN.IndustryAccountID)
 GO
