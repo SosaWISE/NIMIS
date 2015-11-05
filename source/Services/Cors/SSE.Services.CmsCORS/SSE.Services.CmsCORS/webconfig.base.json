@@ -33,7 +33,7 @@
   "ADUser": "sosawise",
   "ADPassword": "NEOvHYvqBJ+VJ1ZK+Q/RIw==",
   "ADUsersPath": "OU=CORPNEXSENSE,",
-  "MockADGroups": "false",
+  "MockADGroups": "true",
   
   /* Address Validation */
   "AddressVerification_Vendor": "STRIKEIRON", /* STRIKEIRON, INTELSEARCH, SMARTYSTREET */
