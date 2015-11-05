@@ -1,12 +1,5 @@
-﻿using NXS.Data;
-using NXS.Data.AuthenticationControl;
-using NXS.DataServices.AuthenticationControl.Models;
-using SOS.Lib.Core;
-using System;
+﻿using NXS.Data.AuthenticationControl;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NXS.DataServices.AuthenticationControl
 {
