@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
 using System.Runtime.Caching;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NXS.Lib.Web.Caching
 {
@@ -12,7 +7,7 @@ namespace NXS.Lib.Web.Caching
 
 	public class UserStore : IDisposable
 	{
-		static int _count = 0;
+		private static int _count;// = 0;
 
 		LockBy<string> _idlocker;
 
@@ -35,7 +30,7 @@ namespace NXS.Lib.Web.Caching
 			_cache = new MemoryCache("UserStore" + (++_count), cacheSettings);
 		}
 
-		bool _disposed = false;
+		private bool _disposed; // = false;
 		public void Dispose()
 		{
 			if (_disposed)
@@ -69,7 +64,7 @@ namespace NXS.Lib.Web.Caching
 						{
 							AbsoluteExpiration = DateTimeOffset.UtcNow.Add(_hardExpirationLength),
 							Priority = CacheItemPriority.Default,
-							RemovedCallback = this.OnRemoved,
+							RemovedCallback = OnRemoved,
 						};
 						_cache.Set(username, user, p);
 					}
